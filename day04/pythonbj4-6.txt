@@ -1,0 +1,1023 @@
+
+python.usyiyi.cn 中文文档
+
+>>> alstr.
+alstr.capitalize(    alstr.isidentifier(  alstr.rindex(
+alstr.casefold(      alstr.islower(       alstr.rjust(
+alstr.center(        alstr.isnumeric(     alstr.rpartition(
+alstr.count(         alstr.isprintable(   alstr.rsplit(
+alstr.encode(        alstr.isspace(       alstr.rstrip(
+alstr.endswith(      alstr.istitle(       alstr.split(
+alstr.expandtabs(    alstr.isupper(       alstr.splitlines(
+alstr.find(          alstr.join(          alstr.startswith(
+alstr.format(        alstr.ljust(         alstr.strip(
+alstr.format_map(    alstr.lower(         alstr.swapcase(
+alstr.index(         alstr.lstrip(        alstr.title(
+alstr.isalnum(       alstr.maketrans(     alstr.translate(
+alstr.isalpha(       alstr.partition(     alstr.upper(
+alstr.isdecimal(     alstr.replace(       alstr.zfill(
+alstr.isdigit(       alstr.rfind(         
+>>> alstr
+'Aabc123'
+>>> alstr.lower()
+'aabc123'
+>>>
+
+基本数字类型
+•  int:有符号整数
+•  bool:布尔值
+–  True:1
+–  False:0
+•  float:浮点数
+•  complex:复数
+
+complex
+*[kәm'pleks]
+n. 综合体, 情结, 络合物
+a. 复杂的, 组合的
+【化】 络合物
+【医】 复(合)体; 
+
+数据类型比较
+•  按存储模型分类
+–  标量类型:数值、字符串
+–  容器类型:列表、元组、字典
+•  按更新模型分类:
+–  可变类型:列表、字典
+–  不可变类型:数字、字符串、元组
+•  按访问模型分类
+–  直接访问:数字
+–  顺序访问:字符串、列表、元组
+–  映射访问:字典
+
+数字,标量,不可变,直接访问
+
+字符串,标量,不可变,顺序访问
+
+列表,容器,可变,顺序访问
+
+元组,容器,不可变,顺序
+
+字典,容器,可变,映射访问
+ 
+
+•  列表是有序、可变的数据类型
+•  列表中可以包含不同类型的对象
+•  列表可以由[]或工厂函数创建
+•  支持下标及切片操作
+
+通过下标只能更新值,不能使用下标添加新值
+
+>>> alist = [10, 35, 20, 80]
+>>> alist[-1]
+80
+>>> alist[-1] = 100
+>>> alist
+[10, 35, 20, 100]
+>>> alist[1:2]
+[35]
+>>> alist[1:3]
+[35, 20]
+>>> alist[1:4]
+[35, 20, 100]
+>>> 
+
+[root@V2 ~]# python3
+Python 3.6.7 (default, Mar 31 2019, 15:58:09) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-28)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> alist = [10,20,'bob','alice', [1, 2, 3]]
+>>> 
+>>> print(len(alist),end='--------------len(alist)\n')
+5--------------len(alist)
+>>> 
+>>> alist[-1] = 100
+>>> print(alist)
+[10, 20, 'bob', 'alice', 100]
+>>> 
+>>> alist[2:4] = ['tom','jerry']
+>>> print(alist)
+[10, 20, 'tom', 'jerry', 100]
+>>> 
+>>> alist = [10, 20, 'bob', 'alice', 100]
+>>> alist
+[10, 20, 'bob', 'alice', 100]
+
+>>> type(alist[1:1])
+<class 'list'>
+>>> print(alist[1:1])
+[]
+>>> 
+>>> alist[1:1]  #注意是空列表
+[]
+>>> alist[1:2]
+[20]
+>>> alist[1:1] = [12,14,16,18] #在元素下标是" [ 1 ] "的位置左边,插入列表,添加新值
+>>> alist
+[10, 12, 14, 16, 18, 20, 'bob', 'alice', 100]
+>>> 
+>>> alist[2:3]
+[14]
+>>> alist[2:2]
+[]
+>>> alist[2:2] = [True] # #在元素下标是" [ 2 ] "的位置左边,插入列表,添加新值
+>>> alist
+[10, 12, True, 14, 16, 18, 20, 'bob', 'alice', 100]
+>>> 
+>>> alist.
+alist.append(   alist.count(    alist.insert(   alist.reverse(
+alist.clear(    alist.extend(   alist.pop(      alist.sort(
+alist.copy(     alist.index(    alist.remove(   
+>>> 
+>>> id(alist)
+139622839117768
+>>> alist = [10,'Aa',False,'alice']
+>>> id(alist)
+139622713909192
+>>> alist.append(30) #默认在末尾添加新值
+>>> alist
+[10, 'Aa', False, 'alice', 30]
+>>> 
+>>> alist.insert(1,15)   #在元素下标是" [ 1 ] "的位置左边,插入新值 15
+>>> alist
+[10, 15, 'Aa', False, 'alice', 30]
+>>> 
+
+>>> alist.count(10) #返回 元素数值是10的 一个对象 在列表中出现的次数是 1 次
+1
+>>> alist.count('a') #返回 元素字符是'a' 的 一个对象 在列表中出现的次数是 0 次
+0
+>>>
+>>> alist.index('Aa') #返回obj对象的下标
+2
+>>> alist[2]
+'Aa'
+>>> alist.index(30)  #返回obj对象的下标
+5
+>>> alist[5]
+30
+>>> alist.index(False) 返回obj对象的下标
+3
+>>> alist[3]
+False
+>>> 
+>>> alist
+[10, 15, 'Aa', False, 'alice', 30]
+>>> alist.pop()   # 移除 最后一个列表元素的值 并且返回此值
+30
+>>> 
+>>> alist
+[10, 15, 'Aa', False, 'alice']
+>>> 
+>>> len(alist)
+5
+>>> id(alist)
+139622713909192
+>>> alist.pop(2)  # 移除 一个指定下标是 2 的 列表元素, 并且返回此值
+'Aa'
+>>> id(alist)
+139622713909192
+>>> alist
+[10, 15, False, 'alice']
+>>> len(alist)
+4
+>>> 
+>>> alist
+[10, 15, False, 'alice']
+
+>>> alist.remove(False) # 移除 一个指定元素值是 False 的 列表元素
+>>> len(alist)
+3
+>>> alist
+[10, 15, 'alice']
+>>> 
+>>> blist = [10, 111, 22, 300, 40]
+
+>>> blist.sort()  #默认升序排序
+>>> blist
+[10, 22, 40, 111, 300]
+>>> 
+>>> blist.reverse() #原地翻转列表
+>>> blist
+[300, 111, 40, 22, 10]
+>>> 
+>>> blist
+[300, 111, 40, 22, 10]
+
+>>> alist = blist
+>>> alist
+[300, 111, 40, 22, 10]
+>>> id(alist)
+139622839117768
+>>> id(blist)
+139622839117768
+
+>>> alist.append(1000) #在列表alist尾部追加新值 1000,
+                                 列表blist 也会同步改变添加新元素 1000
+>>> alist
+[300, 111, 40, 22, 10, 1000]
+>>> blist
+[300, 111, 40, 22, 10, 1000]
+
+>>> blist.insert(1,True)  #在元素下标是" [ 1 ] "的位置左边,插入新值 True
+                        列表alist 也会在同样的下标位置,同步改变添加新元素True
+>>> blist
+[300, True, 111, 40, 22, 10, 1000]
+>>> alist
+[300, True, 111, 40, 22, 10, 1000]
+>>> 
+>>> id(alist)
+139622839117768
+>>> id(blist)
+139622839117768
+
+
+>>> blist = alist.copy() #复制列表alist中的所有元素,并且返回给新列表 blist
+
+
+>>> id(blist)
+139622713909192
+
+>>> blist
+[300, True, 111, 40, 22, 10, 1000]
+
+>>> blist.pop(6) # 移除 一个指定下标是 6 的 列表元素, 并且返回此值
+1000
+>>> blist
+[300, True, 111, 40, 22, 10]
+>>> alist
+[300, True, 111, 40, 22, 10, 1000]
+>>> blist.pop(3) # 移除 一个指定下标是 3 的 列表元素, 并且返回此值
+40
+>>> blist
+[300, True, 111, 22, 10]
+>>> alist
+[300, True, 111, 40, 22, 10, 1000]
+>>> 
+>>> alist.clear()  # 清空列表alist中的所有元素,返回空列表
+>>> alist
+[]
+
+>>> blist
+[300, True, 111, 22, 10]
+
+>>> blist.append('abc')  #注意是整体追加,没有拆分,区别 extend(序列seq)方法
+>>> blist
+[300, True, 111, 22, 10, 'abc']
+>>> 
+
+>>> blist.extend('ab') #把序列seq的内容'a','b' 添加到列表中
+>>> blist
+[300, True, 111, 22, 10, 'abc', 'a', 'b']
+>>> 
+>>> blist.extend(100)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'int' object is not iterable
+
+>>> blist.extend('123') #把序列seq的内容'1','2','3' 添加到列表中
+>>> blist
+[300, True, 111, 22, 10, 'abc', 'a', 'b', '1', '2', '3']
+
+
+>>> ----#  移除 一个指定元素值是 '3' (注意是'字符串' 类型)的 列表元素
+>>> blist.remove('3')
+>>> blist
+[300, True, 111, 22, 10, 'abc', 'a', 'b', '1', '2']
+
+
+>>> blist.remove(10) # 移除 一个指定元素值是 10 (注意是数值类型)的 列表元素
+>>> blist
+[300, True, 111, 22, 'abc', 'a', 'b', '1', '2']
+>>> 
+>>> blist.extend(('bob','jack')) # 追加 多个 元素新值 到列表末尾中
+>>> blist
+[300, True, 111, 22, 'abc', 'a', 'b', '1', '2', 'bob', 'jack']
+>>> 
+------------------- # 移除 一个指定下标是 6 的 列表元素, 并且返回此值
+>>> blist[6]
+'b'
+>>> blist.pop(6)
+'b'
+>>> blist
+[300, True, 111, 22, 'abc', 'a', '1', '2', 'bob', 'jack']
+>>> blist.pop(7)
+'2'
+>>> blist
+[300, True, 111, 22, 'abc', 'a', '1', 'bob', 'jack']
+>>> blist[6]
+'1'
+>>> blist.pop(6) # 移除 一个指定下标是 6 的 列表元素, 并且返回此值
+'1'
+>>> blist
+[300, True, 111, 22, 'abc', 'a', 'bob', 'jack']
+>>> 
+
+
+列表内建函数           列表方法
+
+list.append(obj)  向列表中添加一个对象obj
+list.count(obj)   返回一个对象obj 在列表中出现的次数
+list.extend(seq)  把序列seq的内容添加到列表中
+list.index(obj)   返回obj对象的下标
+list.insert(index, obj)  在索引量为index 的位置插入对象obj
+list.reverse()    原地翻转列表
+list.sort()       排序
+
+slice
+*[slais]
+n. 薄的切片, 一部分, 菜刀
+vt. 切成薄片, 切下
+vi. 切
+
+
+>>> atuple = ( 10, 20, 30, 20)
+>>> len(atuple)
+4
+>>> atuple.count(20) #返回一个对象obj 在列表中出现的次数
+2
+>>> atuple.count(30)
+1
+>>> atuple.count(4)
+0
+>>> 
+>>> atuple.index(30)  #返回obj对象的下标
+2
+>>> atuple.index(20)  #返回obj对象从左到右第一次出现的下标
+1
+>>> atuple[1]
+20
+>>> atuple[3]
+20
+>>> atuple
+(10, 20, 30, 20)
+>>> 
+
+>>> ax = (100)
+>>> type(ax)
+<class 'int'>
+>>> print(ax)
+100
+>>> id(ax)
+9363616
+>>> ax = (100,)  #单元素元组
+>>> id(ax)
+139622839122128
+>>> type(ax)
+<class 'tuple'>
+
+>>> print(ax)
+(100,)
+>>> 
+>>> len(ax)
+1
+>>> 
+
+
+通过()或工厂函数tuple()创建元组
+元组,    容器,不可变,顺序
+•  元组是有序的、不可变类型
+•  与列表类似,作用于列表的操作,
+绝大数也可以作用于元组
+
+
+单元素元组
+•  如果一个元组中只有一个元素,
+那么创建该元组的时候,需要加上一个逗号
+
+
+“更新”元组
+•  虽然元组本身是不可变的,
+但是因为它同时属于容器类型,
+也就意味着元组的某一个元素是可变的容器类型,
+那么这个元素中的项目仍然可变
+
+>>> atuple
+(10, 20, 30, 20)
+
+>>> atuple =  (10,[100,200],22)
+
+>>> atuple
+(10, [100, 200], 22)
+
+>>> atuple[1]
+[100, 200]
+
+>>> atuple[0] = 1010
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'tuple' object does not support item assignment
+
+>>> atuple[1] = [101,202]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'tuple' object does not support item assignment
+>>> 
+元组的某一个元素是可变的容器类型,
+那么这个元素中的项目仍然可变
+
+>>> atuple[1].append(202)
+>>> atuple
+(10, [100, 200, 202], 22)
+>>> 
+>>> type(atuple)
+<class 'tuple'>
+>>> 
+>>> atuple[1][0]
+100
+>>> type(atuple[1])
+<class 'list'>
+>>> type(atuple[1][0])
+<class 'int'>
+
+>>> atuple[1][0] = False
+>>> type(atuple[1][0])
+<class 'bool'>
+
+>>> atuple
+(10, [False, 200, 202], 22)
+>>> 
+
+-------------------------------------
+
+>>> choice = input('-------')
+-------haha  123  xixi\n hehe
+>>> type(choice)
+<class 'str'>
+>>> choice
+'haha  123  xixi\\n hehe'
+>>> 
+>>> choice = input('-------')
+-------  abc  123  efg    #注意开头和结尾输入了许多空格
+>>> type(choice)
+<class 'str'>
+>>> choice    #注意开头和结尾输入了许多空格
+'  abc  123  efg   '
+>>> choice = choice.strip()
+>>> choice
+'abc  123  efg'
+>>> type(choice)
+<class 'str'>
+>>> choice = choice[0]
+>>> type(choice)
+<class 'str'>
+>>> choice
+'a'
+>>> 
+
+
+
+stack
+*[stæk]
+n. 堆叠, 堆, 大量, 书库, 枪架, 烟囱, 堆积, 存贮栈
+vt. 堆积, 堆满, 暗中对...做手脚
+vi. 堆起
+【计】 堆积, 堆栈
+
+stack = []
+item = input('item to push:')
+
+stack.append(item)
+print('\033[32;47;1mstact is %s\033[0m' %  stack )
+
+print('\033[32;47;1mstact is %-s\033[0m' %  stack )
+
+
+>>> strx1 ='abc123'
+>>> strx2 = 'AABB'
+>>> print('\033[31;47;1m%10s*****%10s\033[0m' % (strx1,strx2))
+    abc123*****      AABB #字符串默认右边对齐, %10s中的数字10表示总宽度是10个字符
+>>> 
+>>> print('\033[32;47;1m%s*****%s\033[0m' % (strx1,strx2))
+abc123*****AABB
+>>> 
+ ----- #短横杆 "-" 表示 字符串 左边对齐, %-8s中的数字8表示总宽度是8个字符
+
+>>> print('\033[31;47;1m%-8s*****%8s\033[0m' % (strx1,strx2))
+abc123  *****    AABB
+>>> 
+
+用列表构建栈结构
+
+创建 stacklist.py 脚本，要求如下：
+栈是一个后进先出的结构
+编写一个程序，用列表实现栈结构
+需要支持压栈、出栈、查询功能
+
+
+[root@V1 day04]# vim  stacklist.py
+[root@V1 day04]# python3  stacklist.py
+__name__  is __main__  sys.argv is  ['stacklist.py']
+ sys.argv[0]  is stacklist.py 
+把函数push_it, pop_it, view_it 都存在字典cmds里面了{'0': <function push_it at 0x7f7e6b2341e0>, '1': <function pop_it at 0x7f7e6b2349d8>, '2': <function view_it at 0x7f7e6b234a60>}
+  (0) push_it
+  (1)pop_it
+  (2)view_it
+  (3)quit
+Please input your choice(0|1|2|3):  qq
+choice  is----q         
+Invalid input,try again
+  (0) push_it
+  (1)pop_it
+  (2)view_it
+  (3)quit
+Please input your choice(0|1|2|3):  0
+choice  is----0         
+item to push:aaaAAA
+stact is                     ['aaaAAA']
+  (0) push_it
+  (1)pop_it
+  (2)view_it
+  (3)quit
+Please input your choice(0|1|2|3):0
+choice  is----0         
+item to push:BBB
+stact is              ['aaaAAA', 'BBB']
+  (0) push_it
+  (1)pop_it
+  (2)view_it
+  (3)quit
+Please input your choice(0|1|2|3):  22VV
+choice  is----2         
+ ['aaaAAA', 'BBB']
+  (0) push_it
+  (1)pop_it
+  (2)view_it
+  (3)quit
+Please input your choice(0|1|2|3):  1 DD 
+choice  is----1         
+ Popped BBB 
+stact is ['aaaAAA']                    
+  (0) push_it
+  (1)pop_it
+  (2)view_it
+  (3)quit
+Please input your choice(0|1|2|3):2
+choice  is----2         
+ ['aaaAAA']
+  (0) push_it
+  (1)pop_it
+  (2)view_it
+  (3)quit
+Please input your choice(0|1|2|3): 333W
+choice  is----3         
+[root@V1 day04]# cat   stacklist.py
+#!/usr/bin/env  python3
+import	 sys, subprocess, random, string
+
+print('\033[31;40;1m__name__  is %s  sys.argv is  %s\033[0m' \
+% (__name__,sys.argv))
+
+stack = []
+
+def  testpy():
+  pass  
+
+
+def push_it():
+  item = input('item to push:')
+  stack.append(item)
+  print('\033[31;47;1mstact is %30s\033[0m' %  stack )
+
+def pop_it():
+  if stack:
+    print('\033[32;1m Popped %s \033[0m' % stack.pop())
+  else:
+    print('\033[31;40;1m Empty stack\033[0m')
+  print('\033[30;43;1mstact is %-30s\033[0m' %  stack )
+
+def view_it():
+  print('\033[32;1m %s\033[0m' % stack)
+
+def  show_menu():
+  prompt = '''  (0) push_it
+  (1)pop_it
+  (2)view_it
+  (3)quit
+Please input your choice(0|1|2|3):'''
+
+  cmds = {'0':push_it,'1':pop_it, '2':view_it}
+  print('把函数push_it, pop_it, view_it 都存在字典cmds里面了%s' % cmds)
+  while True:
+    choice = input(prompt).strip()[0]
+    print('\033[30;33;1mchoice  is----%-10s\033[0m' %  choice)
+    if choice not in '0123':
+      print('Invalid input,try again')
+      continue #结束本次循环,进入下一次循环
+    if choice == '3':
+      break
+
+    cmds[choice]()
+  #    if choice == '0':
+  #      push_it()
+  #    elif  choice == '1':
+  #      pop_it()
+  #    elif  choice == '2':
+  #      view_it()
+
+
+
+if __name__ == '__main__':
+
+  print('\033[30;43;1m sys.argv[0]  is %s \033[0m' % sys.argv[0])
+  show_menu()
+
+[root@V1 day04]# scp   stacklist.py  student@192.168.2.254:'/home/student/桌面/python1_2' 
+student@192.168.2.254's password: tedu
+stacklist.py                     100% 1356     2.3MB/s   00:00    
+[root@V1 day04]# 
+
+
+>>> linewords = '\thello world.  \n'
+>>> stripstr = linewords.rstrip('\n')
+>>> linewords
+'\thello world.  \n'
+>>> stripstr
+'\thello world.  '
+>>> print(stripstr)
+	hello world.  
+>>> 
+
+>>> linewords = '\thello world.  \r\n'
+>>> linewords
+'\thello world.  \r\n'
+>>> print('----%s-----' % linewords)
+----	hello world.  
+-----
+>>> stripstr = linewords.rstrip('\n')
+>>> stripstr
+'\thello world.  \r'
+>>> stripstr
+'\thello world.  \r'
+>>> print('----%s-----' % stripstr+'===')
+-----===hello world.  
+>>> print('----%s-----' % stripstr+'==')
+-----==	hello world.  
+>>> print('----%s-----' % stripstr+'=')
+-----=	hello world.  
+>>> print('----%s-----' % stripstr+'')
+-----	hello world.  
+>>> print('----%s-----' % stripstr)
+-----	hello world.  
+>>> print('----%s-----\n' % stripstr)
+-----	hello world.  
+
+>>> print('----%s\n-----' % stripstr)
+----	hello world.  
+-----
+>>> 
+>>> linewords = '\thello world.  \r\n\n\n\r'
+>>> stripstr = linewords.rstrip('\n\r')
+>>> linewords
+'\thello world.  \r\n\n\n\r'
+>>> stripstr
+'\thello world.  '
+>>> print('----%s-----' % stripstr)
+----	hello world.  -----
+>>> print('----%s-----' % linewords)
+----	hello world.  
+
+
+-----
+>>>
+
+Windows 文本文件的行结束标识 是 "\r\n"
+类unix 文本文件的行结束标志 是 "\n"
+编写程序,将 Unix 文本文件的格式转换为 windows文本文件格式
+
+
+[root@V1 day04]# vim   unixwindows.py
+[root@V1 day04]# python3   unixwindows.py  stacklist.py 
+__name__  is __main__  sys.argv is  ['unixwindows.py', 'stacklist.py']
+ sys.argv[0]  is unixwindows.py 
+[root@V1 day04]# echo  $?
+0
+
+[root@V1 day04]# cat  unixwindows.py 
+
+#!/usr/bin/env  python3
+import	 sys, subprocess, random, string
+
+print('\033[31;40;1m__name__  is %s  sys.argv is  %s\033[0m' \
+% (__name__,sys.argv))
+
+
+def  unixtowindows(xingcan):
+  pass
+
+
+if __name__ == '__main__':
+
+  print('\033[30;43;1m sys.argv[0]  is %s \033[0m' % sys.argv[0])
+  unixtowindows(sys.argv[1])
+[root@V1 day04]# 
+
+Windows 文本文件的行结束标识 是 "\r\n"
+类unix 文本文件的行结束标志 是 "\n"
+编写程序,将 Unix 文本文件的格式转换为 windows文本文件格式
+linux中用\n来作为换行符，
+而windows中使用\r\n作为换行符
+
+>>> ord('a')
+97
+>>> chr(97)
+'a'
+>>> ord('b')
+98
+>>> chr(98)
+'b'
+>>> 
+>>> oct(97)
+'0o141'
+>>> oct(98)
+'0o142'
+>>> int(0o141)
+97
+>>> int(0o142)
+98
+>>> 
+>>> hex(97)
+'0x61'
+>>> hex(98)
+'0x62'
+>>> int('0x61',16)
+97
+>>> int('0x62',16)
+98
+>>> chr(97)
+'a'
+>>> chr(98)
+'b'
+>>> 
+0x61是我们写入的’a’，
+0x62是我们写入的’b’，
+之间有一个回车换行，
+实际上是0x0d 0x0a，
+也就是\r \n
+
+>>> hex(13)
+'0xd'
+>>> hex(10)
+'0xa'
+>>> 
+
+>>> int('0x0d',16)
+13
+>>> int('0x0a',16)
+10
+>>> chr(13)
+'\r'
+>>> chr(10)
+'\n'
+>>> 
+>>> ord('\r')
+13
+>>> ord('\n')
+10
+>>> hex(13)
+'0xd'
+>>> hex(10)
+'0xa'
+>>> 
+>>> 
+在linux下按一下回车，是产生了一个0x0a字符 '\n'，
+而文件在windows中显示的时候，
+是见到一对0x0d 0x0a  ('\r' '\n')才显示一个换行
+
+回车换行( '\r\n' )，
+
+实际上是0x0d 0x0a，
+也就是\r   \n
+
+>>> ord('\r')
+13
+>>> hex(13)
+'0xd'
+>>> chr(13)
+'\r'
+>>>
+>>> ord('\n')
+10
+>>> hex(10)
+'0xa'
+>>> chr(10)
+'\n'
+>>> 
+>>> int('0x0d',16)
+13
+>>> int('0x0a',16)
+10
+>>>
+----------- 回车换行( '\r\n' ) ------------
+
+回车”（Carriage Return）和“换行”（Line Feed）这两个概念的来历和区别。
+
+符号               ASCII码        意义          十六进制
+\n             10           换行符号        '0xa'
+
+\r             13           回车CR符号     '0xd'
+
+电传打字机（Teletype Model 33，Linux/Unix下的tty概念也来自于此），
+每秒钟可以打10个字符。
+但是打完一行换行的时候，要用去0.2秒，
+正好可以打两个字符。
+要是在这0.2秒里面，
+又有新的字符传过来，
+那么这个字符将丢失。
+
+于是，研制人员想了个办法解决这个问题，
+就是在每行后面
+加两个
+表示结束的字符。
+
+一个叫做“回车”( '\r', '0xd', 13)，
+告诉打字机把打印头 定位在 " 左边界"；
+'\r' 回车，回到当前行的行首，而不会换到下一行，
+如果接着输出的话，
+本行以前的内容会被逐一覆盖；
+
+>>> str_r = 'abc\r'
+>>> str_r
+'abc\r'
+>>>
+
+'\r' 回车，回到当前行的行首，而不会换到下一行，
+如果接着输出的话，
+本行以前的内容会被逐一覆盖；
+
+>>> print(str_r+'----')
+----
+>>> print(str_r)
+abc
+>>> print('----%s' % str_r)
+----abc
+>>> str_r+'**'
+'abc\r**'
+>>> print(str_r+'**')
+**c
+>>> 'abc\r'
+'abc\r'
+>>> 'abc\r**'
+'abc\r**'
+>>>
+接着输出字符，本行以前的内容会被后面的字符逐一覆盖
+>>> print('abc\r**')
+**c
+>>> 
+>>> 
+>>> print('abc\r\n**')
+abc
+**
+>>> 
+
+另一个叫做“换行”('\n', '0xa', 10)，
+告诉打字机把纸向下移一行。
+'\n' 换行，换到当前位置的下一行，
+而不会回到行首；
+
+
+这就是“换行”和“回车”的来历，
+从它们的英语名字上也可以看出一二。
+
+后来，计算机发明了，这两个概念也就被般到了计算机上。
+那时，存储器很贵，
+一些科学家认为在每行结尾加两个字符太浪费了，
+加一个就可以。
+
+于是，就出现了分歧。
+
+Unix系统里，每行结尾只有“<换行>”，即"\n",('\n', '0xa', 10)；
+
+Windows系统里面，每行结尾是“<回车><换行>”，即“\r\n”；
+
+Mac系统里，每行结尾是“<回车>”，即"\r", ('\r', '0xd', 13)；
+
+
+一个直接后果是，
+Unix/Mac系统下的文件在Windows里打开的话，
+所有文字会变成一行；
+
+而Windows里的文件在Unix/Mac下打开的话，
+在每行的结尾可能会多出一个^M符号,即"\r", ('\r', '0xd', 13)。
+
+[root@V1 day04]# cat  -A  test
+haha^IAA11^M$
+^M$
+XiXI22^M$
+^M$
+333^M$
+[root@V1 day04]#
+
+分别在Windws和Linux中查看此文件可知:
+Linux中遇到换行符("\n")会进行回车+换行的操作，
+回车符反而只会作为控制字符("^M")显示，
+不发生回车的操作。
+
+而windows中要回车符+换行符("\r\n")才会回车+换行，
+缺少一个控制符或者顺序不对
+都不能正确的另起一行。
+
+[root@V1 day04]# echo  -ne  "haha\tAA11\r\n\r\nXiXI22\r\n\r\n333\r\n" > test
+            
+[root@V1 day04]# cat    test 
+haha	AA11
+
+XiXI22
+
+333
+[root@V1 day04]# cat  -A  test
+haha^IAA11^M$
+^M$
+XiXI22^M$
+^M$
+333^M$
+[root@V1 day04]# ll  test.txt
+ls: 无法访问test.txt: 没有那个文件或目录
+[root@V1 day04]# vim  unixwindows.py 
+
+[root@V1 day04]# python3   unixwindows.py   test 
+__name__  is __main__  sys.argv is  ['unixwindows.py', 'test']
+ sys.argv[0]  is unixwindows.py 
+old line---haha	AA11
+---
+NEW LINE----haha	AA11
+----
+old line---
+---
+NEW LINE----
+----
+old line---XiXI22
+---
+NEW LINE----XiXI22
+----
+old line---
+---
+NEW LINE----
+----
+old line---333
+---
+NEW LINE----333
+----
+[root@V1 day04]# cat   -A  test.txt 
+haha^IAA11^M$
+^M$
+XiXI22^M$
+^M$
+333^M$
+[root@V1 day04]# cat  unixwindows.py 
+#!/usr/bin/env  python3
+import	 sys, subprocess, random, string
+
+print('\033[31;40;1m__name__  is %s  sys.argv is  %s\033[0m' \
+% (__name__,sys.argv))
+
+
+def  unixtowindows(fname):
+  dst_fname = fname + '.txt'
+#  src_fobj = open(fname)
+#  dst_fobj = open(dst_fname, 'w')
+#  for  line in src_fobj:
+#    line = line.rstrip('\r\n')
+#    dst_fobj.write(line)
+#  src_fobj.close()
+#  dst_fobj.close()
+
+  with open(fname) as src_fobj: #src和dst文件打开的先后顺序没有区别
+    with open(dst_fname,'w') as dst_fobj:
+      for  line in  src_fobj:
+        print('old line---%s---' % line)
+        line = line.rstrip('\r\n') + '\r\n'
+  #先把旧的字符串靠右边的所有'\r\n'符号删除,再添加'\r\n'符号
+        print('NEW LINE----%s----' % line)
+        dst_fobj.write(line)
+  
+
+if __name__ == '__main__':
+
+  print('\033[30;43;1m sys.argv[0]  is %s \033[0m' % sys.argv[0])
+  unixtowindows(sys.argv[1])
+
+
+[root@V1 day04]# 
+[root@V1 day04]# scp    unixwindows.py   student@192.168.2.254:'/home/student/桌面/python1_2'
+student@192.168.2.254's password: 
+unixwindows.py                       100%  918     2.9MB/s   00:00    
+[root@V1 day04]# 
+
+[root@V1 day04]# history  -c
+[root@V1 day04]# history 
+    1  history 
+[root@V1 day04]
+
+
+
+
+
+
+
+
+
+
+
+
+
