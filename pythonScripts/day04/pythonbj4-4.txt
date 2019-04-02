@@ -541,6 +541,32 @@ ssl.ALERT_DESCRIPTION_ACCESS_DENIED
 
 
 
+回车换行，
+实际上是0x0d 0x0a，
+也就是\r   \n
+
+>>> ord('\r')
+13
+>>> hex(13)
+'0xd'
+>>> chr(13)
+'\r'
+>>>
+>>> ord('\n')
+10
+>>> hex(10)
+'0xa'
+>>> chr(10)
+'\n'
+>>> 
+>>> int('0x0d',16)
+13
+>>> int('0x0a',16)
+10
+>>>
+
+
+
 
 
 

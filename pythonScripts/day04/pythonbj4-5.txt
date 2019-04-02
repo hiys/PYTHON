@@ -1,0 +1,700 @@
+
+python.usyiyi.cn 中文文档
+
+[student@room9pc01 ~]$ pwd
+/home/student
+[student@room9pc01 ~]$ mkdir  day04
+[student@room9pc01 ~]$ cd  day04/
+
+[student@room9pc01 day04]$ ll  /usr/bin/env
+-rwxr-xr-x. 1 root root 28992 4月  11 2018 /usr/bin/env
+
+[student@room9pc01 day04]$ file  /usr/bin/env
+/usr/bin/env: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=3ad3b112c9cd9ef2e9cfa228c7996aa8ee1eb9c6, stripped
+[student@room9pc01 day04]$ 
+
+[student@room9pc01 day04]$ pwd
+/home/student/day04
+[student@room9pc01 day04]$ ls
+[student@room9pc01 day04]$ python3  --version
+Python 3.6.7
+[student@room9pc01 day04]$ python  --version
+Python 2.7.5
+[student@room9pc01 day04]$ python3
+Python 3.6.7 (default, Feb 20 2019, 15:08:07) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-36)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import  ssl
+>>> ssl.s
+ssl.socket(        ssl.socket_error(  ssl.sys            
+>>> import  subprocess
+>>> subprocess.call('ls  /home', shell = True)
+student  weekend
+0
+>>> 
+>>> a = subprocess.call('ls /home/',shell = True)
+student  weekend
+>>> print(type(a))
+<class 'int'>
+>>> print(a)
+0
+>>> 
+>>> a = subprocess.call('ls /root/',shell = True)
+ls: 无法打开目录/root/: 权限不够
+>>> print(a)
+2
+>>> from   random  import  randint
+>>> print(type(randint)
+... )
+<class 'method'>
+>>> print(type(randint(1,100))
+... )
+<class 'int'>
+>>> print(randint(1,100))
+18
+>>> 
+
+
+
+
+
+
+
+
+
+[student@room9pc01 day04]$ vim  subprocess.py  #不能和内置模块同名
+
+[student@room9pc01 day04]$ cat   subprocess.py
+#!/usr/bin/env  python3
+
+print('__name__  is %s' % __name__)
+
+
+if __name__ == '__main__':
+  print(__name__)
+
+
+[student@room9pc01 day04]$ python3   subprocess.py
+__name__  is __main__
+__main__
+[student@room9pc01 day04]$ ----------------------------
+
+[student@room9pc01 day04]$ vim   subprocess.py
+
+[student@room9pc01 day04]$ cat   subprocess.py
+#!/usr/bin/env  python3
+import	 sys
+
+print('__name__  is %s  sys.argv is  %s' % (__name__,sys.argv))
+
+
+if __name__ == '__main__':
+
+  print('sys.argv[0]  is %s ' % sys.argv[0])
+
+
+
+[student@room9pc01 day04]$ python3   subprocess.py
+
+__name__  is __main__  sys.argv is  ['subprocess.py']
+sys.argv[0]  is subprocess.py 
+
+[student@room9pc01 day04]$ 
+
+[student@room9pc01 day04]$ ========================
+
+--------------------------------------------    #不能和内置模块 subprocess 同名-----------------
+
+[student@room9pc01 day04]$ mv   subprocess.py   subpass.py
+
+[student@room9pc01 day04]$ vim   subpass.py
+
+[student@room9pc01 day04]$ python3  subpass.py
+
+__name__  is __main__  sys.argv is  ['subpass.py']
+ sys.argv[0]  is subpass.py 
+
+[student@room9pc01 day04]$ cat   subpass.py
+#!/usr/bin/env  python3
+import	 sys, subprocess
+
+print('\033[31;40;1m__name__  is %s  sys.argv is  %s\033[0m' % (__name__,sys.argv))
+
+
+if __name__ == '__main__':
+
+  print('\033[30;43;1m sys.argv[0]  is %s \033[0m' % sys.argv[0])
+
+
+
+[student@room9pc01 day04]$ 
+[student@room9pc01 day04]$ ls  /tmp/users.txt
+ls: 无法访问/tmp/users.txt: 没有那个文件或目录
+[student@room9pc01 day04]$ cat  subpass.py 
+#!/usr/bin/env  python3
+import	 sys, subprocess, random, string
+
+print('\033[31;40;1m__name__  is %s  sys.argv is  %s\033[0m' % (__name__,sys.argv))
+
+all_chs =string.digits + string.ascii_letters
+
+def  gen_pass(n = 8):
+  result = ''
+  
+  for i in range(n):
+    ch = random.choice(all_chs)
+    result += ch
+  return  result
+
+def   add_user(username,password,fname):
+
+
+if __name__ == '__main__':
+
+  print('\033[30;43;1m sys.argv[0]  is %s \033[0m' % sys.argv[0])
+  username = sys.argv[1]
+  password = gen_pass()
+  print('username is  %s  password  is %s' % (username,password))
+  fname = '/tmp/users.txt'
+
+  add_user(username,password,fname)
+
+
+[student@room9pc01 day04]$ 
+
+[student@room9pc01 ~]$ ssh  -X root@192.168.2.1
+Last login: Sun Mar 31 15:05:12 2019 from 192.168.2.254
+                    .-"""-.
+                   / .===. \
+                   \/ 6 6 \/
+                   ( \___/ )
+      _________ooo__\_____/_____________
+     /                                  \
+     |     I  am  Virtual Host ! ! !     |
+     \_______________________ooo________/ 
+                    |  |  |
+                    |_ | _|
+                    |  |  |
+                    |__|__|
+                    /-'Y'-\
+                   (__/ \__)
+
+[root@V1 ~]#
+[root@V1 ~]# mkdir  day04
+[root@V1 ~]# cd  day04/
+[root@V1 day04]# vim    subpass.py
+[root@V1 day04]# ls  /tmp/users.txt
+ls: 无法访问/tmp/users.txt: 没有那个文件或目录
+--------------------------------------------------------------
+[root@V2 day04]# vim  test.py
+[root@V2 day04]# python3  test.py
+__name__  is __main__  sys.argv is  ['test.py']
+------------=-=-=-=-=-=-=-=-----
+[root@V2 day04]# cat   test.py
+#!/usr/bin/env  python3
+import   sys, subprocess, random, string
+
+print('\033[31;40;1m__name__  is %s  sys.argv is  %s\033[0m' % (__name__,sys.argv))
+
+print('-----------' \
+'-=-=-=-=-=-=-=-=-----')
+
+[root@V2 day04]# ==== 注意 续航符 "\" 的 格式 对齐当前的语句 ===========
+
+[root@V2 day04]# vim  test.py
+[root@V2 day04]# cat  test.py
+#!/usr/bin/env  python3
+import   sys, subprocess, random, string
+
+print('\033[31;40;1m__name__  is %s  sys.argv is  %s\033[0m' % (__name__,sys.argv))
+
+print('-----------' +\
+'-=-=-=-=-=-=-=-=----===========-')
+
+[root@V2 day04]# python3  test.py
+__name__  is __main__  sys.argv is  ['test.py']
+------------=-=-=-=-=-=-=-=----===========-
+[root@V2 day04]# 
+============= 注意 续航符 "\" 的 格式 对齐当前的语句 ================
+
+[root@V2 day04]# vim  test.py
+[root@V2 day04]# python3  test.py
+__name__  is __main__  sys.argv is  ['test.py']
+------------=-=-=-=-=-=-=-=----
+[root@V2 day04]# cat  test.py
+#!/usr/bin/env  python3
+import   sys, subprocess, random, string
+
+print('\033[31;40;1m__name__  is %s  sys.argv is  %s\033[0m' \
+% (__name__,sys.argv))
+
+print('-----------' +\
+'-=-=-=-=-=-=-=-=----' \
+)
+
+[root@V2 day04]# 
+
+-------------------------------------------------------------
+>>> info = '''user's information ------
+...    username: %s
+...    password: %s'''
+>>> print(info % ('usernamexx','password123'))
+user's information ------
+   username: usernamexx
+   password: password123
+>>> 
+
+[root@V1 day04]# vim    subpass.py
+[root@V1 day04]# cat    subpass.py
+#!/usr/bin/env  python3
+import	 sys, subprocess, random, string
+
+print('\033[31;40;1m__name__  is %s  sys.argv is  %s\033[0m' \
+% (__name__,sys.argv))
+
+all_chs =string.digits + string.ascii_letters
+
+def  gen_pass(n = 8):
+  result = ''
+  
+  for i in range(n):
+    ch = random.choice(all_chs)
+    result += ch
+  return  result
+
+def   add_user(username,password,fname):
+  info = '''user's information ------
+   username: %s
+   password: %s\n'''
+
+  subprocess.call('useradd %s' % username,shell=True)
+  subprocess.call(\
+    'echo  %s |passwd  --stdin  %s' % \
+    (password,username),shell = True  \
+  )
+  
+  with open(fname, 'a') as  fobj:
+    fobj.write(info % (username,password))
+
+if __name__ == '__main__':
+
+  print('\033[30;43;1m sys.argv[0]  is %s \033[0m' % sys.argv[0])
+  username = sys.argv[1]
+  password = gen_pass()
+  print('username is  %s  password  is %s' % (username,password))
+  fname = '/tmp/users.txt'
+
+  add_user(username,password,fname)
+
+
+[root@V1 day04]# rm  -f  /tmp/users.txt 
+
+[root@V1 day04]# python3  subpass.py   peri
+
+__name__  is __main__  sys.argv is  ['subpass.py', 'peri']
+ sys.argv[0]  is subpass.py 
+username is  peri  password  is 2iDx7gEC
+useradd：用户“peri”已存在
+更改用户 peri 的密码 。
+passwd：所有的身份验证令牌已经成功更新。
+[root@V1 day04]# cat  /tmp/users.txt
+user's information ------
+   username: peri
+   password: 2iDx7gEC
+[root@V1 day04]# id  peri
+uid=1000(peri) gid=1000(peri) 组=1000(peri)
+[root@V1 day04]# tail  -1  /etc/passwd
+peri:x:1000:1000::/home/peri:/bin/bash
+[root@V1 day04]# 
+
+[root@V1 day04]# python3  subpass.py   peri2
+__name__  is __main__  sys.argv is  ['subpass.py', 'peri2']
+ sys.argv[0]  is subpass.py 
+username is  peri2  password  is K0h0qkp4
+更改用户 peri2 的密码 。
+passwd：所有的身份验证令牌已经成功更新。
+[root@V1 day04]# tail  -2  /etc/passwd
+peri:x:1000:1000::/home/peri:/bin/bash
+peri2:x:1001:1001::/home/peri2:/bin/bash
+[root@V1 day04]# cat   /tmp/users.txt 
+user's information ------
+   username: peri
+   password: 2iDx7gEC
+user's information ------
+   username: peri2
+   password: K0h0qkp4
+[root@V1 day04]# 
+
+>>> windows_path = 'C:\temp\newdir' #注意window系统反斜杠"\"需要添加转义符"\"
+>>> print(windows_path)
+C:	emp
+ewdir
+>>> windows_path = 'C:\\temp\\newdir' #注意window系统反斜杠"\"需要添加转义符"\"
+>>> print(windows_path)
+C:\temp\newdir
+>>> 
+>>> windows_path = r'C:\temp\newdir' #注意window系统反斜杠"\"需要添加转义字母"r"
+>>> print(windows_path)
+C:\temp\newdir
+>>> 
+原始字符串操作符
+是为了对付那些在字符串中出现的特殊字符
+•  在原始字符串里,
+所有的字符都是直接按照字面的意思来使用,
+没有 转义 特殊或不能打印的 字符
+
+>>> windows_path
+'C:\\temp\\newdir'  ##注意window系统反斜杠"\"需要添加转义符"\"
+>>> 
+
+[root@V1 day04]# vim  formatstring.py
+[root@V1 day04]# python3  formatstring.py
+__name__  is __main__  sys.argv is  ['formatstring.py']
+ sys.argv[0]  is formatstring.py 
+input contents end with end: 
+input> 1111aaa
+input> bbbb222
+input> ccc3333
+input> end
+ contents  is  ['1111aaa', 'bbbb222', 'ccc3333']
++****************************+
++----------1111aaa-----------+
++----------bbbb222-----------+
++----------ccc3333-----------+
++****************************+
+[root@V1 day04]# cat   formatstring.py
+#!/usr/bin/env  python3
+import	 sys, subprocess, random, string
+
+print('\033[31;40;1m__name__  is %s  sys.argv is  %s\033[0m' \
+% (__name__,sys.argv))
+
+all_chs =string.digits + string.ascii_letters
+
+def  get_contents():
+  contents = []
+  print('input contents end with end: ')
+  while True:
+    line = input('input> ')
+    if  line == 'end':
+      break
+    contents.append(line)
+  print(' contents  is  %s' % contents)
+ # contents = ['%s\n' % line for line in contents]
+ # print('last printed contents\n  %s' % contents)
+  return  contents
+
+
+if __name__ == '__main__':
+
+  print('\033[30;43;1m sys.argv[0]  is %s \033[0m' % sys.argv[0])
+  
+  contents = get_contents()
+  print('+%s+' % ('*' * 28))
+  for  line in  contents:
+    print('+{0:-^28}+'.format(line))
+  print('+%s+' % ('*' * 28))
+
+
+
+[root@V1 day04]# 
+
+string.center(width):返回一个原字符串居中,
+并使用空格填充至长度width 的新字符串
+
+>>> py_str = 'pythone3.6.7'
+>>> py_str.center(28)
+'        pythone3.6.7        '
+>>> print(py_str.center(18))
+   pythone3.6.7   
+>>> print(py_str.center(18,'#')) #填充字符'#'
+###pythone3.6.7###
+>>> 
+
+[root@V1 day04]# python3
+Python 3.6.7 (default, Mar 31 2019, 15:58:05) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-28)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> ps_str = 'python goog'
+>>> import  string
+>>> ps_str.ljust(38,'*')  #左 对齐,#填充字符'*'
+'python goog***************************'
+>>> ps_str.rjust(38,'*')  #靠右边 对齐,#填充字符'*'
+'***************************python goog'
+>>> 
+>>> ps_str.capitalize()  #把字符串的第一个字符大写
+'Python goog'
+>>> ------------ 字符串,标量,不可变,顺序访问
+
+>>> copya = ps_str.capitalize()  #返回新字符串
+
+>>> print(copya)
+Python goog
+
+>>> print(ps_str)
+python goog
+
+
+基本数字类型
+•  int:有符号整数
+•  bool:布尔值
+–  True:1
+–  False:0
+•  float:浮点数
+•  complex:复数
+
+complex
+*[kәm'pleks]
+n. 综合体, 情结, 络合物
+a. 复杂的, 组合的
+【化】 络合物
+【医】 复(合)体; 
+
+数据类型比较
+•  按存储模型分类
+–  标量类型:数值、字符串
+–  容器类型:列表、元组、字典
+•  按更新模型分类:
+–  可变类型:列表、字典
+–  不可变类型:数字、字符串、元组
+•  按访问模型分类
+–  直接访问:数字
+–  顺序访问:字符串、列表、元组
+–  映射访问:字典
+
+数字,标量,不可变,直接访问
+
+字符串,标量,不可变,顺序访问
+
+列表,容器,可变,顺序访问
+
+元组,容器,不可变,顺序
+
+字典,容器,可变,映射访问
+
+
+>>> ps_str.title()  #返回每个单词的首字母大写
+'Python Goog'
+>>> 
+>>> ps_str.count('o')
+3
+>>> ps_str.count('g')
+2
+>>> ps_str.count('oog')
+1
+>>> ps_str.count('oo')
+1
+>>> ps_str.count('P')
+0
+>>> 
+>>> begstr = 'aA2cde6abcdef'
+>>> begstr
+'aA2cde6abcdef'
+>>> begstr.count('cde')
+2
+
+
+内建函数
+•  string.capitalize():把字符串的第一个字符大写
+•  string.center(width):返回一个原字符串居中,
+并使用空格填充至长度width 的新字符串
+•  string.count(str, beg=0,end=len(string)):
+返回str在string里面出现的次数,
+如果beg或者end指定
+则返回指定范围内str出现的次数
+
+string.endswith(obj, beg=0,end=len(string)):
+检查字符串是否以obj结束,
+如果beg或者end指定
+则检查指定的范围内是否以obj结束,
+如果是,返回True,
+否则返回False
+
+•  string.islower():
+如果string中包含至少一个区分大小写的字符,
+并且所有这些字符都是小写,
+则返回True,
+否则返回False
+
+•  string.strip():
+删除string 字符串两端的空白
+•  string.upper():
+转换string 中的小写字母为大写
+•  string.split(str="", num=string.count(str)):
+以str为分隔符切片string,
+如果num有指定值,
+则仅分隔num个子字符串
+
+
+>>> begstr
+'aA2cde6abcdef'
+>>> begstr.endswith('ef') #检查字符串是否以 'ef' 结束
+True
+>>> begstr.endswith('e') #检查字符串是否以 'e' 结束
+False
+>>> 
+>>> begstr.startswith('aA') #检查字符串是否以 'aA' 开头
+True
+>>> begstr.startswith('A')  #检查字符串是否以 'A' 开头
+False
+>>> 
+>>> begstr.islower()  ##检查字符串是否 全部 小写
+False
+>>> ps_str
+'python goog'
+>>> ps_str.islower()
+True
+>>> begstr
+'aA2cde6abcdef'
+>>> begstr.isupper()  #检查字符串是否 全部 大写
+False
+>>> ps_str.isupper()
+False
+>>> ps_str.upper()  #转换string中 全部的 小写字母 为大写
+'PYTHON GOOG'
+>>> ps_str
+'python goog'
+>>> upstrpy = ps_str.upper()
+>>> upstrpy
+'PYTHON GOOG'
+>>> upstrpy.isupper()  #检查字符串是否 全部 大写
+True
+>>> 
+>>> begstr
+'aA2cde6abcdef'
+>>> begstr.isdigit()  ##检查字符串是否 全部是数字
+False
+>>> strdigit = '1234.5'
+>>> strdigit
+'1234.5'
+>>> strdigit.isdigit()
+False
+>>> strdigit = '12345'  #检查字符串是否全部是数字
+>>> strdigit.isdigit()
+True
+>>> 
+>>> pystrdig = 'haha 12 python3'
+>>> pystrdig
+'haha 12 python3'   #只检查字母是否全部是 大小写,不检查数字和空格
+>>> pystrdig.islower()
+True
+>>> 
+
+>>> begstr
+'aA2cde6abcdef'
+>>> begstr.isalpha() #只检查字符串 是否全部是 字母
+False
+>>> 'aAbcdefaBcdeEf'.isalpha()
+True
+>>> alstr = 'aAbcdefaBcdeEf'
+>>> alstr
+'aAbcdefaBcdeEf'
+>>> alstr.isalpha()  #检查字符串 是否全部是 字母
+True
+>>> 
+>>> id(alstr)
+140345897801072
+>>> alstr = 'abc ab cEF'
+>>> id(alstr)
+140345897801392
+>>> alstr.isalpha() #检查字符串 是否全部是 字母,如果有空格数字,则返回 False
+False
+>>> 
+>>> alstr.isalnum() #检查字符串 是否全部是 字母 和 数字,如果有空格,则返回 False
+False
+>>> alstr = 'Aabc123'
+>>> alstr.isalnum() #检查字符串 是否全部是 字母 和 数字
+True
+>>> 
+------------------  python.usyiyi.cn 中文文档
+>>> alstr.
+alstr.capitalize(    alstr.isidentifier(  alstr.rindex(
+alstr.casefold(      alstr.islower(       alstr.rjust(
+alstr.center(        alstr.isnumeric(     alstr.rpartition(
+alstr.count(         alstr.isprintable(   alstr.rsplit(
+alstr.encode(        alstr.isspace(       alstr.rstrip(
+alstr.endswith(      alstr.istitle(       alstr.split(
+alstr.expandtabs(    alstr.isupper(       alstr.splitlines(
+alstr.find(          alstr.join(          alstr.startswith(
+alstr.format(        alstr.ljust(         alstr.strip(
+alstr.format_map(    alstr.lower(         alstr.swapcase(
+alstr.index(         alstr.lstrip(        alstr.title(
+alstr.isalnum(       alstr.maketrans(     alstr.translate(
+alstr.isalpha(       alstr.partition(     alstr.upper(
+alstr.isdecimal(     alstr.replace(       alstr.zfill(
+alstr.isdigit(       alstr.rfind(         
+>>> alstr
+'Aabc123'
+>>> alstr.lower()  #转小写
+'aabc123'
+>>> 
+>>> kongstr = 'a\tBb CD\n1234bbb\n'
+>>> kongstr
+'a\tBb CD\n1234bbb\n'
+>>> print(kongstr+'ccc333')
+a	Bb CD
+1234bbb
+ccc333
+>>> kongstr.strip() #删除string 字符串两端的空白,删除尾部的换行符"\n"
+'a\tBb CD\n1234bbb'
+>>> streturn = kongstr.strip()
+>>> streturn
+'a\tBb CD\n1234bbb'
+>>> print(streturn+'ccc333')
+a	Bb CD
+1234bbbccc333
+>>> 
+>>> kongstr = '\tAA BB\nCC  '
+>>> kongstr
+'\tAA BB\nCC  '
+>>> returnstr = kongstr.strip() #删除string 字符串两端的空白,包括空格,制表符\t
+>>> returnstr
+'AA BB\nCC'
+>>> kongstr
+'\tAA BB\nCC  '
+>>> print(kongstr+'---------')
+	AA BB
+CC  ---------
+>>> 
+>>> print(kongstr.rstrip()+'---------') #删除string 字符串右边的空白
+	AA BB
+CC--------- 
+>>> print(kongstr.lstrip()+'---------') #删除string 字符串左侧left 的空白
+AA BB
+CC  ---------
+>>> 
+>>> pystrdig
+'haha 12 python3'
+>>> pystrdig.strip('ht') ## #删除string 字符串两端指定的字符'h'或't'
+'aha 12 python3'
+>>> pystrdig.strip('han3')
+' 12 pytho'
+>>> pystrdig
+'haha 12 python3'
+>>> 
+
+•  string.strip():
+删除string 字符串两端的空白
+•  string.upper():
+转换string 中的小写字母为大写
+•  string.split(str="", num=string.count(str)):
+以str为分隔符切片string,
+如果num有指定值,
+则仅分隔num个子字符串
+
+>>> pystrdig
+'haha 12 python3'
+>>> pystrdig.split
+pystrdig.split(       pystrdig.splitlines(  
+
+>>> pystrdig.split() # 默认以空格 为分隔符 切片string,
+['haha', '12', 'python3']
+>>> 
+>>> pystrdig
+'haha 12 python3'
+>>> pystrdig.split('h') #以'h'为分隔符切片pystrdig
+['', 'a', 'a 12 pyt', 'on3']
+>>> 
+
+
+
