@@ -1,0 +1,1086 @@
+
+
+基本数字类型
+•  int:有符号整数
+•  bool:布尔值
+–  True:1
+–  False:0
+•  float:浮点数
+•  complex:复数
+
+complex
+*[kәm'pleks]
+n. 综合体, 情结, 络合物
+a. 复杂的, 组合的
+【化】 络合物
+【医】 复(合)体; 
+
+数据类型比较
+•  按存储模型分类
+–  标量类型:数值、字符串
+–  容器类型:列表、元组、字典，集合
+•  按更新模型分类:
+–  可变类型:列表、字典
+–  不可变类型:数字、字符串、元组
+•  按访问模型分类
+–  直接访问:数字, 集合
+–  顺序访问:字符串、列表、元组
+–  映射访问:字典
+
+数字,标量,不可变,直接访问
+
+字符串,标量,不可变,顺序访问
+
+列表,容器,可变,顺序访问
+
+元组,容器,不可变,顺序
+
+字典,容器,可变,映射访问
+ 
+可变类型、不可hash  不可变类型，可hash
+列表                   字符串
+字典                   数字
+集合                   元组
+                       不可变的集合
+
+只有不可变类型的对象 可以作为字典的键
+只有不可变类型的对象 才可以作为集合的元素
+
+内置的list不能作为字典的key.
+
+但tuple是不可变，
+所以tuple可以作为字典的key。
+
+
+•  列表是有序、可变的数据类型
+•  列表中可以包含不同类型的对象
+•  列表可以由[]或工厂函数创建
+•  支持下标及切片操作
+
+通过下标只能更新值,不能使用下标添加新值
+
+
+通过()或工厂函数tuple()创建元组
+元组,    容器,不可变,顺序
+•  元组是有序的、不可变类型
+•  与列表类似,作用于列表的操作,
+绝大数也可以作用于元组
+
+
+单元素元组
+•  如果一个元组中只有一个元素,
+那么创建该元组的时候,需要加上一个逗号
+
+
+“更新”元组
+•  虽然元组本身是不可变的,
+但是因为它同时属于容器类型,
+也就意味着元组的某一个元素是可变的容器类型,
+那么这个元素中的项目仍然可变
+
+
+[root@V0 ~]# cd  pyscripts/
+[root@V0 pyscripts]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> adict = {}
+>>> bdict = dict()
+
+>>> print(type(adict),type(bdict),sep='---')
+<class 'dict'>---<class 'dict'>
+>>> print(adict,bdict,sep='--== --')
+{}--== --{}
+>>> 
+>>> cdict =  {'username': 'bob', 'password':'123'}
+
+>>> ddict = dict(['ab'])
+
+----- #注意区别 dict( [[k,v], [k2,v2]] ) 和  dict( [(k1,v1), (k2,v2)] ) ---
+
+>>> edict = dict([['username', 'bob'], ['password','abc']])  #注意区别
+
+>>> print(cdict, ddict, edict,sep='--== --')
+{'username': 'bob', 'password': '123'}--== --{'a': 'b'}--== --{'username': 'bob', 'password': 'abc'}
+>>> 
+
+----- #注意区别 dict( [[k,v], [k2,v2]] ) 和  dict( [(k1,v1), (k2,v2)] ) ---
+
+>>> adict = dict([('aaa','bbb'),('ccc','ddd')])
+>>> adict
+{'aaa': 'bbb', 'ccc': 'ddd'}
+>>> 
+>>> ddict = edict
+>>> ddict
+{'username': 'bob', 'password': 'abc'}
+
+--------根据序列，创建字典，并指定统一一个value作为key的值
+  {}.fromkeys(keyobj , v ) 必须传2个参数，
+第一个参数是用来创建字典的key的，
+必须是可迭代对象，列表、元组，字符串都可以，
+第二个参数是这些key的统一的值
+
+>>> edict = {}.fromkeys(['bob','alice'],7)
+>>> edict
+{'bob': 7, 'alice': 7}
+>>> 
+
+
+创建字典
+•  通过{ }操作符创建字典
+•  通过dict()工厂方法创建字典
+•  通过fromkeys()创建具有相同值的默认字典
+
+>>> 'username' in  ddict
+True
+>>> 'bob'  in  ddict
+False
+>>> for  key  in  ddict:
+...   print('%s:%s' %  (key, ddict[key]))
+... 
+username:bob
+password:abc
+>>> 
+>>> ddict
+{'username': 'bob', 'password': 'abc'}
+
+--------- 字典的特殊用法   " %(key)s  " %  directory -------------
+
+>>> "%(username)s : %(password)s"  %  ddict
+'bob : abc'
+>>> 
+>>> '%(key1)s,  %(key2)s, %(key3)s' % {'key1':100,'key2':'bbb','key3':False}
+'100,  bbb, False'
+>>> 
+>>> '%(key1)s,  %(k2)s, %(k3)s' % {'key1':100,'k2':'bb','k3':True}
+'100,  bb, True'
+>>> 
+
+
+通过键更新字典
+–  如果字典中有该键,则更新相关值
+–  如果字典中没有该键,则向字典中添加新值
+>>> adict
+{'aaa': 'bbb', 'ccc': 'ddd'}
+
+>>> adict['aaa'] = 111
+>>> adict
+{'aaa': 111, 'ccc': 'ddd'}
+
+>>> adict['email'] = 'peri@163.com'
+>>> adict
+{'aaa': 111, 'ccc': 'ddd', 'email': 'peri@163.com'}
+>>> 
+
+
+>>> alist
+[10, 15, 'Aa', False, 'alice', 30]
+>>> alist.pop()   # 移除 最后一个列表元素的值 并且返回此值
+30
+>>> 
+>>> alist
+[10, 15, 'Aa', False, 'alice']
+>>> 
+>>> id(alist)
+139622713909192
+>>> alist.pop(2)  # 移除 一个指定下标是 2 的 列表元素, 并且返回此值
+'Aa'
+>>>
+>>> alist
+[10, 15, False, 'alice']
+>>> 
+
+
+删除字典
+•  通过del可以删除字典中的元素或整个字典
+•  使用内部方法clear()可以清空字典
+•  使用pop()方法可以“弹出”字典中的元素
+
+>>> adict['ccc']
+'ddd'
+>>> adict
+{'aaa': 111, 'ccc': 'ddd', 'email': 'peri@163.com'}
+
+>>> del  adict['ccc']  #删除字典中的元素
+>>> adict
+{'aaa': 111, 'email': 'peri@163.com'}
+>>> 
+
+>>> ddict
+{'username': 'bob', 'password': 'abc'}
+>>> ddict.pop('username')
+'bob'
+>>> ddict
+{'password': 'abc'}
+>>> ddict.clear()
+>>> ddict
+{}
+>>> 
+>>> del  ddict   #删除字典中的元素或整个字典
+>>> ddict
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'ddict' is not defined
+>>> 
+
+
+字典操作符
+•  使用字典键查找操作符[ ],查找键所对应的值
+•  使用in和not in判断键是否存在于字典中
+
+>>> adict
+{'key1': 'value1', 100: 'strx1', 'keyb': 'valueB'}
+>>> for  key in  adict:
+...   print(key,adict[key])
+... 
+key1 value1
+100 strx1
+keyb valueB
+>>> 
+
+作用于字典的函数
+•  len():返回字典中元素的数目
+•  hash():本身不是为字典设计的,
+但是可以判断某个对象是否可以作为字典的键
+
+内置的list不能作为字典的key.
+
+但tuple是不可变，
+所以tuple可以作为字典的key。
+
+Python使用了hash（哈希）的方法来实现，
+要求每一个存放到字典中的对象都要实现hash函数，
+这个函数可以产生一个int值，
+叫做hash value（哈希值），
+通过这个int值，
+就可以快速确定对象在字典中的位置。
+
+
+hash() 函数可以应用于数字、字符串和对象，
+不能直接应用于 list、set、dictionary。
+
+在 hash() 对对象使用时，
+所得的结果不仅和对象的内容有关，
+还和对象的 id()，
+也就是内存地址有关。
+
+hash() 函数的用途
+hash() 函数的对象字符不管有多长，
+返回的 hash 值都是固定长度的，
+也用于校验程序在传输过程中是否被第三方（木马）修改，
+如果程序（字符）在传输过程中被修改hash值即发生变化，
+如果没有被修改，则 hash 值和原始的 hash 值吻合，
+只要验证 hash 值是否匹配即可验证程序是否带木马（病毒）。
+
+可变 与
+不可变类型对象
+本质上就是改变了里面的数据后，
+内存地址是否有改变
+
+可变类型、不可hash  不可变类型，可hash
+列表                   字符串
+字典                   数字
+集合                   元组
+                       不可变的集合
+ 
+不可变对象，
+该对象所指向的内存中的值不能被改变。
+
+>>> adict
+{'aaa': 111, 'email': 'peri@163.com'}
+>>> len(adict)
+2
+>>> 
+>>> adict = {'key1' :'value1'}
+>>> adict[100] = 'strx1'
+>>> adict
+{'key1': 'value1', 100: 'strx1'}
+>>> hash('A')
+8400798972592998862
+>>> hash('13')
+9088025674009805099
+>>> adict[(10,20)] = 'shanghai'
+>>> adict
+{'key1': 'value1', 100: 'strx1', (10, 20): 'shanghai'}
+>>> hash((100,108))
+3712980956779240531
+>>> 
+
+
+字典内建方法
+•  dict.copy():返回字典(深复制)的一个副本
+
+>>> adict
+{'key1': 'value1', 100: 'strx1', (10, 20): 'shanghai'}
+>>> bdict
+{}
+>>> bdict = adict
+
+>>> bdict
+{'key1': 'value1', 100: 'strx1', (10, 20): 'shanghai'}
+
+>>> bdict.pop((10,20))
+'shanghai'
+
+>>> bdict
+{'key1': 'value1', 100: 'strx1'}
+
+>>> adict
+{'key1': 'value1', 100: 'strx1'}
+>>> 
+
+>>> id(adict) == id(bdict)  #都使用了 同一个内存空间
+True
+
+
+>>> cdict = adict.copy()  #返回字典(深复制)的一个副本
+
+>>> id(adict) == id(cdict) #各自使用了不同的内存空间
+False
+
+>>> adict
+{'key1': 'value1', 100: 'strx1'}
+
+>>> cdict['email'] = 'bob@163.com'
+
+>>> cdict
+{'key1': 'value1', 100: 'strx1', 'email': 'bob@163.com'}
+
+>>> adict
+{'key1': 'value1', 100: 'strx1'}
+>>> 
+
+
+•  dict.get(key, default=None):
+对字典dict中的键key,
+返回它对应的值value,
+如果字典中不存在此键,
+则返回default的值
+
+>>> cdict
+{'key1': 'value1', 100: 'strx1', 'email': 'bob@163.com'}
+
+>>> cdict['email']
+'bob@163.com'
+
+>>> cdict.get('email')
+'bob@163.com'
+
+>>> print(cdict.get('strx1'))
+None
+
+>>> print(cdict.get('key1'))
+value1
+>>> 
+>>> print(cdict.get('key1','not found'))
+value1
+
+>>> print(cdict.get('strx1','not found'))
+not found
+>>> 
+
+•  dict.setdefault(key, default=None):
+如果字典中不存在key键,
+由dict[key]=default为它赋值
+
+>>> cdict
+{'key1': 'value1', 100: 'strx1', 'email': 'bob@163.com'}
+
+---------- 如果字典中存在该key键，则返回对应的值 ----------------
+
+>>> cdict.setdefault('key1', True)
+'value1'
+>>> cdict
+{'key1': 'value1', 100: 'strx1', 'email': 'bob@163.com'}
+
+>>> cdict.setdefault(100, False)
+'strx1'
+
+--- 如果字典中不存在key键, 由dict['k2'] = False 为它赋值 -----
+
+>>> cdict.setdefault('k2', False)
+False
+>>> cdict
+{'key1': 'value1', 100: 'strx1', 'email': 'bob@163.com', 'k2': False}
+>>> 
+
+---- #注意区别 dict( [[k,v], [k2,v2]] ) 和  dict( [(k1,v1), (k2,v2)] ) ---
+
+•  dict.items():返回一个包含字典中(键,值)对元组的
+
+>>> adict
+{'key1': 'value1', 100: 'strx1'}
+
+>>> adict.items()
+dict_items([('key1', 'value1'), (100, 'strx1')])
+>>> 
+
+•  dict.keys():返回一个包含字典中键的列表
+•  dict.values():返回一个包含字典中所有值的列表
+
+>>> adict.keys()
+dict_keys(['key1', 100])
+
+>>> adict.values()
+dict_values(['value1', 'strx1'])
+>>> 
+
+
+•  dict.update(dict2):
+将字典dict2的 键-值对 添加到字典dict
+
+>>> adict
+{'key1': 'value1', 100: 'strx1'}
+
+>>> bdict = {'keyb':'valueB'}
+
+>>> bdict
+{'keyb': 'valueB'}
+
+---------- 将字典 bdict 的 键-值对 添加到字典 adict ---
+
+>>> adict.update(bdict)
+
+>>> adict
+{'key1': 'value1', 100: 'strx1', 'keyb': 'valueB'}
+
+>>> bdict
+{'keyb': 'valueB'}
+>>> 
+>>> 
+---------- 将字典 adict 的所有的 键-值对 添加到字典 bdict 
+  注意重复的键值 对 'keyb': 'valueB' 不 再 添加 ---------------
+
+>>> bdict.update(adict)
+
+>>> bdict
+{'keyb': 'valueB', 'key1': 'value1', 100: 'strx1'}
+
+>>> id(adict)
+140089247914816
+>>> id(bdict)
+140089248437448
+
+>>> id(adict) == id(bdict)
+False
+>>> 
+
+案例1:模拟用户登陆信息系统
+1.  支持新用户注册,新用户名和密码注册到字典中
+2.  支持老用户登陆,用户名和密码正确提示登陆成功
+3.  主程序通过循环询问进行何种操作,根据用户的选
+择,执行注册或是登陆操作
+
+>>> userdb = {'bob':'123'}
+
+>>> username = input('user: ')
+user: bob
+>>> password = input('pass: ')
+pass: 123
+>>> userdb.get(username)
+'123'
+>>> print(userdb.get(username))
+123
+
+>>> username = input('user: ')
+user: xx
+>>> print(userdb.get(username))
+None
+>>> print(userdb.get(username,'not'))
+not
+>>> 
+>>> '' == None
+False
+>>> '' == ''
+True
+>>> 
+[root@V0 pyscripts]# vim   logindict.py
+
+[root@V0 pyscripts]# python3  logindict.py
+
+__name__  is __main__  sys.argv is  ['logindict.py']
+ sys.argv[0]  is logindict.py 
+把函数register, login 都存在字典cmds里面了{'0': <function register at 0x7f3dc019e158>, '1': <function login at 0x7f3db8184950>}
+  (0) register
+  (1) login
+  (2) quit
+Please input your choice(0/1/2):  qq
+Invalid choice. Try again.
+  (0) register
+  (1) login
+  (2) quit
+Please input your choice(0/1/2):   0qq      
+username: peri
+password: 111
+  (0) register
+  (1) login
+  (2) quit
+Please input your choice(0/1/2):   1aa
+username: perix
+password: 
+Real password is not found
+Login incorrect
+  (0) register
+  (1) login
+  (2) quit
+Please input your choice(0/1/2): 1
+username: peri
+password: 
+Real password is 111
+Login successful
+  (0) register
+  (1) login
+  (2) quit
+Please input your choice(0/1/2): 0
+username: peri
+peri already exists.
+  (0) register
+  (1) login
+  (2) quit
+Please input your choice(0/1/2): 2
+Look forward to seeing you next time !
+[root@V0 pyscripts]# cat   logindict.py
+#!/usr/bin/env  python3
+import	 sys, subprocess, random, string, getpass
+
+print('\033[31;40;1m__name__  is %s  sys.argv is  %s\033[0m' \
+% (__name__,sys.argv))
+
+
+userdb = {}
+def register():
+  username = input('username: ')
+# 使用in和not in判断 "键username" 是否存在于字典userdb中
+  if username in userdb:
+    print('\033[31;1m%s already exists.\033[0m' % username)
+  else:
+    password = input('password: ')
+    userdb[username] = password
+
+def login():
+  username = input('username: ')
+  password = getpass.getpass('password: ')
+  # if username not in userdb or userdb['username'] != password:
+#对字典userdb 中的键username , 返回它对应的值password,
+#如果字典中不存在此键username , 则返回默认设置的值'not found'
+  print('\033[30;43;1mReal password is %s\033[0m' \
+         % userdb.get(username,'not found'))
+
+  if userdb.get(username,'not found') != password:
+    print('\033[31;1mLogin incorrect\033[0m')
+  else:
+    print('\033[32;1mLogin successful\033[0m')
+
+def show_menu():
+  prompt = """  (0) register
+  (1) login
+  (2) quit
+Please input your choice(0/1/2): """
+
+  cmds = {'0': register, '1': login}
+  print('把函数register, login 都存在字典cmds里面了%s' % cmds)
+  while True:
+    choice = input(prompt).strip()[0]
+    if choice not in '012':
+      print('Invalid choice. Try again.')
+      continue
+    if choice == '2':
+      print('Look forward to seeing you next time !')
+      break
+    cmds[choice]()
+
+
+if __name__ == '__main__':
+
+  print('\033[30;43;1m sys.argv[0]  is %s \033[0m' % sys.argv[0])
+  show_menu()
+
+
+[root@V0 pyscripts]# scp   logindict.py  root@192.168.1.254:'/root/桌面/python1_2/python2/day05' 
+...........................
+root@192.168.1.254's password: 
+logindict.py                                      100% 1583     1.9MB/s   00:00    
+[root@V0 pyscripts]# 
+
+======================================
+
+
+可变类型、不可hash  不可变类型，可hash
+列表                   字符串
+字典                   数字
+集合                   元组
+                       不可变的集合
+
+只有不可变类型的对象 可以作为字典的键
+只有不可变类型的对象 才可以作为集合的元素
+
+创建集合
+•  数学上,把set称做由不同的元素组成的集合,
+集合(set)的成员通常被称做集合元素
+•  集合对象是一组 无序排列 的可哈希的值
+•  集合有两种类型
+–  可变集合set
+–  不可变集合frozenset
+
+frozen    英 [ˈfrəʊzn]   美 [ˈfroʊzn]  
+      adj.冷冻的;冰封的;冻硬的;呆若木鸡的
+      v.冻结;
+
+集合
+
+通过哈希(hash)算法
+在一个容器中存放多个
+没有顺序的
+不可以重复的数据。【无序、不重复】
+
+List特点：元素 有 放入顺序，元素可重复。
+Set特点：元素 无 放入顺序，直接访问，
+元素不可重复（注意：
+元素虽然 无 放入 顺序，
+但是元素在set中的位置是
+由该元素的HashCode决定的，
+其位置其实是固定的。
+
+>>> hash('A')
+8400798972592998862
+>>> hash('13')
+9088025674009805099
+
+>>> adict[(10,20)] = 'shanghai'
+
+>>> adict
+{'key1': 'value1', 100: 'strx1', (10, 20): 'shanghai'}
+
+>>> hash((100,108))
+3712980956779240531
+>>> 
+
+>>> aset = set('hello')
+>>> aset
+{'h', 'l', 'o', 'e'}
+
+>>> print(type(aset))
+<class 'set'>
+
+>>> bset =  frozenset('hhaa')
+
+>>> print(type(bset))
+<class 'frozenset'>
+
+>>> bset
+frozenset({'h', 'a'})
+
+>>> print(bset)
+frozenset({'h', 'a'})
+>>> 
+
+
+去重原理
+
+set的去重是通过两个函数__hash__和__eq__结合实现的。
+
+1、当两个变量的哈希值不相同时，
+就认为这两个变量是不同的；
+
+2、当两个变量哈希值一样时，
+调用__eq__方法，
+当返回值为True时，
+认为这两个变量是同一个，应该去除一个。
+
+当返回值为False 时，不去重。
+
+
+声明
+set()方式
+{}方式
+
+>>> aset = set('hello')
+>>> aset
+{'h', 'l', 'o', 'e'}
+>>> adict = {'k1':10,'k2':22}
+>>> adict
+{'k1': 10, 'k2': 22}
+>>> print(aset)
+{'h', 'l', 'o', 'e'}
+>>> 
+>>> bset =  frozenset('hhaa')
+
+>>> print(type(bset))
+<class 'frozenset'>
+
+>>> bset
+frozenset({'h', 'a'})
+
+>>> print(bset)
+frozenset({'h', 'a'})
+>>> 
+>>> aset
+{'h', 'l', 'o', 'e'}
+>>> 
+>>> type(aset)
+<class 'set'>
+>>> 
+>>> for  ch  in  aset:
+...   print(ch,end = '  ')
+... 
+h  l  o  e  >>> 
+>>>
+
+--------------------------  #sep间隔符号,用end来自定义结束符号
+>>> print('Hello', 'world', sep='***')
+Hello***world   # print语句各项之间也可以自定义分隔符(例如 '***' )
+
+print("num is ",type(num),sep="-----&",end='End\n')
+
+>>> aset
+{'h', 'l', 'o', 'e'}
+>>> len(aset)
+4
+>>> type(aset)
+<class 'set'>
+
+>>> bset = set(['hello','haha'])
+
+>>> type(bset)
+<class 'set'>
+>>> bset
+{'hello', 'haha'}
+
+>>> cset = {'haha','xixi'}
+
+>>> type(cset)
+<class 'set'>
+
+>>> cset
+{'xixi', 'haha'}
+>>> 
+
+>>> cset = frozenset(('hehe',1122))
+
+>>> type(cset)
+<class 'frozenset'>
+
+>>> cset
+frozenset({'hehe', 1122})
+>>> 
+
+
+集合类型操作符
+•  集合支持用in和not in操作符检查成员
+•  能够通过len()检查集合大小
+•  能够使用for迭代集合成员
+•  不能取切片,没有键
+•  |:联合,取并集
+•  &:交集
+•  -:差补
+
+>>> aset
+{'h', 'l', 'o', 'e'}
+
+>>> bset
+{'hello', 'haha'}
+
+>>> type(aset)
+<class 'set'>  # 可变类型的集合
+
+>>> type(bset)  # 可变类型的集合
+<class 'set'>
+
+>>> aset & bset  # & 交集
+set()
+
+>>> bset.add('h')  #给可变类型的集合 添加不可变类型的对象 作为成员元素
+
+>>> bset
+{'h', 'hello', 'haha'}
+
+>>> aset & bset  # & 交集
+{'h'}
+>>> 
+
+>>> aset | bset   # 联合,取并集
+{'h', 'l', 'haha', 'hello', 'o', 'e'}
+>>> 
+>>> aset - bset   # 取出集合 aset 中 和 集合 bset中不相同的 元素所组成的差集
+{'l', 'o', 'e'}
+
+>>> bset - aset  ## 取出集合 bset 中 和 集合 aset中不相同的 元素所组成的差集
+{'hello', 'haha'}
+>>> 
+
+
+集合内建方法
+•  set.add():添加成员
+•  set.update():批量添加成员
+•  set.remove():移除成员
+
+>>> aset
+{'h', 'l', 'o', 'e'}
+>>> bset
+{'h', 'hello', 'haha'}
+
+>>> aset.add('new')   #给可变类型的集合 添加不可变类型的对象 作为成员元素
+>>> aset
+{'l', 'o', 'new', 'e', 'h'}
+
+>>> aset.update(['hello','xixi']) #添加多项元素
+>>> aset
+{'l', 'o', 'new', 'hello', 'e', 'h', 'xixi'}
+>>> 
+
+>>> bset.update('hello') ##添加多项元素
+>>> bset
+{'l', 'hello', 'o', 'e', 'haha', 'h'}
+>>> 
+
+>>> aset & bset        # & 交集
+{'l', 'hello', 'o', 'e', 'h'}
+
+>>> aset - bset  # 取出集合 aset 中 和 集合 bset中不相同的 元素所组成的差集
+{'new', 'xixi'}
+
+>>> bset - aset
+{'haha'}
+>>> 
+>>> bset
+{'l', 'hello', 'o', 'e', 'haha', 'h'}
+
+>>> bset.update(('mimi')) ##批量 添加多项元素
+
+单元素元组
+•  如果一个元组中只有一个元素,
+那么创建该元组的时候,需要加上一个逗号“，”
+>>> ax = (100)
+>>> type(ax)
+<class 'int'>
+>>> print(ax)
+100
+>>> id(ax)
+9363616
+>>> ax = (100,)  #单元素元组
+>>> id(ax)
+139622839122128
+>>> type(ax)
+<class 'tuple'>
+
+>>> print(ax)
+(100,)
+>>> 
+>>> len(ax)
+1
+>>> 
+
+>>> bset
+{'m', 'l', 'hello', 'o', 'e', 'haha', 'i', 'h'}
+
+>>> bset.update(('mimi',))  #单元素元组中的元素作为整体添加进入集合 bset 中
+
+>>> bset
+{'m', 'l', 'mimi', 'hello', 'o', 'e', 'haha', 'i', 'h'}
+
+>>> bset.update(['dan'])
+>>> bset
+{'m', 'l', 'mimi', 'hello', 'o', 'e', 'haha', 'i', 'h', 'dan'}
+>>>
+>>> bset - aset
+{'m', 'mimi', 'haha', 'i', 'dan'}
+>>> aset -bset
+{'new', 'xixi'}
+>>> aset & bset
+{'l', 'hello', 'o', 'e', 'h'}
+>>> 
+
+>>> aset.remove('l')    #有就删除，没有就报错
+>>> print(aset.remove('o'))
+None
+>>> print(aset.remove('e'))
+None
+>>> aset
+{'new', 'hello', 'h', 'xixi'}
+>>> bset.remove('l')
+>>> bset.remove('o')
+>>> bset.remove('h')  #有就删除，没有就报错
+
+>>> bset.remove('h')  #有就删除，没有就报错
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyError: 'h'
+>>> 
+>>> print(bset.remove('m'))
+None
+>>> bset
+{'mimi', 'hello', 'e', 'haha', 'i', 'dan'}
+>>> aset
+{'new', 'hello', 'h', 'xixi'}
+>>> 
+>>> aset & bset
+{'hello'}
+>>> 
+
+>>> aset = {'Aa','Bb',22,True}
+
+>>> type(aset)
+<class 'set'>
+
+>>> bset = {True, 22}
+>>> aset
+{'Bb', 'Aa', 22, True}
+>>> bset
+{True, 22}
+>>> aset  & bset
+{True, 22}
+>>> bset.issubset(aset)  #如果bset 是 aset 的子集,则返回True
+True
+>>> 
+
+•  s.issubset(t):
+如果s是t的子集,则返回True,
+否则返回False
+
+>>> bset.issubset(bset) #bset 是 bset 的子集,则返回True
+True
+>>> 
+>>> aset.issuperset(aset) #aset 是 aset 的超集,则返回True
+True
+>>>
+
+•  s.issuperset(t):如果s 是t 的超集,则返回True,
+否则返回False
+
+>>> bset.issuperset(aset) #如果bset不是 aset 的超集,返回False
+False
+>>> aset.issuperset(bset) #如果aset 是 bset 的超集,则返回True
+True
+>>> 
+
+•  s.union(t):返回一个新集合,
+该集合是s和t的并集
+
+>>> aset.union(bset)  #返回一个（aset和 bset的并集）新集合
+
+{'Bb', True, 22, 'Aa'}
+
+>>> cset
+frozenset({'hehe', 1122})
+
+>>> bset.union(cset) #返回一个（cset和 bset的并集）新集合,
+{'hehe', True, 1122, 22}
+>>> 
+
+•  s.intersection(t):返回一个新集合,
+该集合是s和t的交集
+>>> aset
+{'Bb', 'Aa', 22, True}
+>>> bset
+{True, 22}
+>>> aset.intersection
+aset.intersection(         aset.intersection_update(
+
+>>> aset.intersection(bset)  #交集
+{True, 22}
+>>> 
+
+•  s.difference(t):返回一个新集合,
+该集合是s的成员,
+但不是t的成员, 两个集合的差补集
+
+>>> aset.difference(bset) # 返回是aset的元素成员，但不是bset集合的元素
+{'Bb', 'Aa'}
+>>> 
+>>> bset
+{True, 22}
+>>> 
+
+[root@V0 pyscripts]# \cp  /etc/passwd  mima
+
+[root@V0 pyscripts]# \cp  /etc/passwd  .
+
+[root@V0 pyscripts]# ll  passwd   mima
+-rw-r--r-- 1 root root 2059 4月   2 20:35 mima
+-rw-r--r-- 1 root root 2059 4月   2 20:37 passwd
+
+[root@V0 pyscripts]# vim   mima
+[root@V0 pyscripts]# vim   passwd 
+[root@V0 pyscripts]# ll  passwd   mima
+-rw-r--r-- 1 root root 1681 4月   2 20:42 mima
+-rw-r--r-- 1 root root 1728 4月   2 20:43 passwd
+[root@V0 pyscripts]# 
+
+contrast
+英 [ˈkɒntrɑ:st]   美 [ˈkɑ:ntræst]  
+n.
+对比，对照;差异;对照物，对立面;[摄]反差
+vi.
+对比;形成对照
+
+[root@V0 pyscripts]# vim  differset.py
+
+[root@V0 pyscripts]# python3  differset.py
+
+__name__  is __main__  sys.argv is  ['differset.py']
+ sys.argv[0]  is differset.py 
+yesterdayset - todayset -- ./passwd  ----------------
+ {'systemd-network:x:192:192:systemd Network Management:/:/sbin/nologin\n'} 
+
+todayset - yesterdayset --./mima ===============
+{'xixixi  hehehe\n', 'hahaha\n'}
+
+['xixixi  hehehe\n', 'hahaha\n']
+
+[root@V0 pyscripts]# cat  /tmp/result.txt 
+xixixi  hehehe
+hahaha
+
+[root@V0 pyscripts]# cat   differset.py 
+
+#!/usr/bin/env  python3
+import  sys, subprocess, random, string, getpass
+
+print('\033[31;47;1m__name__  is %s  sys.argv is  %s\033[0m' \
+% (__name__,sys.argv))
+
+def   contrast():
+
+#  src_fobj = open(fname)
+#  dst_fobj = open(dst_fname, 'w')
+#  for  line in src_fobj:
+#    line = line.rstrip('\r\n')
+#    dst_fobj.write(line)
+#  src_fobj.close()
+#  dst_fobj.close()
+
+  with  open('./mima') as todaySrcObj:
+    todset = set(todaySrcObj)
+  with open('./passwd') as yesterdayObj:
+    yeset = set(yesterdayObj)
+  print('yesterdayset - todayset -- ./passwd  ----------------')
+  print('\033[32;47;1m %s \033[0m' % (yeset - todset))
+  print()
+  print('todayset - yesterdayset --./mima ===============')
+  print(todset - yeset)
+  
+  with open('/tmp/result.txt','w') as dstobj:
+    dstobj.writelines(todset - yeset)
+  
+  print()
+  with open('/tmp/result.txt','r') as  srcObj:
+    print(srcObj.readlines())
+
+
+if __name__ == '__main__':
+  print('\033[30;43;1m sys.argv[0]  is %s \033[0m' % sys.argv[0])
+  
+  contrast()
+
+[root@V0 pyscripts]# scp   differset.py  root@192.168.0.254:'/root/桌 面/python1_2/python2/day05' 
+root@192.168.0.254's password: 
+differset.py                        100% 1009     1.2MB/s   00:00    
+[root@V0 pyscripts]# 
+
+
+
+
+
+
+
+
