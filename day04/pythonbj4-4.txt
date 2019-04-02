@@ -1,0 +1,575 @@
+
+
+>>> print('%e'  %  40230000000000066)
+4.023000e+16
+>>> print('%E'  %  40230000000000066)
+4.023000E+16
+>>> 
+>>> print(ord('a'))  #将字符 a 转换为整数型 97
+97
+>>> print(type(ord('a')))
+<class 'int'>
+
+>>> print(type(chr(97)))
+<class 'str'>
+>>> print(chr(97)) #把数字 97 转换成ASCII码 字符 a
+a
+
+chr(i)   #返回整数i对应的ASCII字符。与ord()作用相反。
+            参数x：取值范围[0, 255]之间的正数
+
+>>> print('char a is number  %d' %  ord('a'))
+char a is number 97
+
+>>> print('char a is number  %i' %  ord('a'))
+char a is number  97
+
+>>> print('number  97  is   char  %c' % chr(97))
+number  97  is   char a
+
+>>> print('number  97  is   string  %s' % chr(97))
+number  97  is   string  a
+>>> 
+
+字符串可以使用格式化符号来表示特定含义
+格式化字符        转换方式
+%c           转换成字符
+%s           优先用str()函数进行字符串转换
+%d / %i      转成有符号十进制数
+%o           转成无符号八进制数
+%e / %E      转成科学计数法
+%f / %F      转成浮点数
+%%	输出% （格式化字符串里面包括百分号，那么必须使用%%）
+
+通过”%”可以进行字符串格式化，
+”%”经常会结合下面的辅助符一起使用
+
+辅助指令              作用
+*             定义宽度或者小数点精度
+-             左对齐
++            在正数前面显示加号
+<sp>        在正数前面显示空格
+             在八进制数前面显示零0,
+             在十六进制前面显示'0x'或者'0X'
+
+0       显示的数字前面填充0而不是默认的空格
+
+#	在八进制数前面显示零(0)，在十六进制前面显示”0x”
+        或者”0X”（取决于用的是”x”还是”X”）
+
+(var)	映射变量（通常用来处理字段类型的参数）
+m.n	m 是显示的最小总宽度，n 是小数点后的位数（如果可用的话）
+
+binary   英 [ˈbaɪnəri]   美 [ˈbaɪnəri]  
+         adj.二进制的;二元的;双重的，由两个东西组成的;二态的
+         n.一双;双体;二进制数;
+octal   英 ['ɒktl]   美 ['ɒktəl]  
+        adj.八进制的
+hexadecimal     英 [ˌheksəˈdesɪml]  美 [ˌhɛksəˈdɛsəməl]  
+              n.& adj.十六进制（的）
+convert   英 [kənˈvɜ:t]   美 [kənˈvɜ:rt]  
+          vt.（使）转变;使皈依;兑换，换算;
+integer     英 [ˈɪntɪdʒə(r)]   美 [ˈɪntɪdʒɚ]  
+            n.整数
+其他进制–》十进制 
+int(‘0b…’,2)–>10进制数据 
+int(‘0o…’,8)–>10进制数据 
+int(‘0x…’,16)–>10进制数据 
+第一个参数的标志0b、0o、0x要与第二个参数对应起来 
+
+>>> print('binary %s  convert to integer %d ' % ('0b1100011',int('0b1100011',2)))
+binary 0b1100011  convert to integer 99 
+
+>>> print(oct(99))
+0o143
+>>> print(type(oct(99)))
+<class 'str'>
+>>> print('integer 9 convert to  octal %o ' % 9)
+integer 9 convert to  octal 11 
+>>> print('integer 9 convert to  octal %#o ' % 9)
+integer 9 convert to  octal 0o11 
+
+>>> print(type(int(0o143)))
+<class 'int'>
+>>> print(int('0o143',8))
+99
+>>> print('octal 0o11 convert to integer  %d ' %  int('0o11',8))
+octal 0o11 convert to integer  9 
+
+>>> print(int(0o143))
+99
+>>> print('octal 0o11 convert to integer  %d ' %  int(0o11))
+octal 0o11 convert to integer  9
+
+
+>>> print(16*15)
+240
+>>> print(hex(240))
+0xf0
+>>> print(16*15+15)
+255
+>>> print(hex(255))
+0xff
+>>> print(type(hex(255)))
+<class 'str'>
+>>> print(int(0xff))
+255
+>>> print(int(0xf0))
+240
+>>> print(int(0xf))
+15
+>>> print(int('0xf',16))
+15
+
+>>> print(int(0x9))
+9
+>>> print(int(0xa))
+10
+>>> print('integer %d  convert to hexadecimal  %x' %  (15,15))
+integer 15  convert to hexadecimal  f
+>>> 
+>>> print('integer %d  convert to hexadecimal  %#x' %  (15,15))
+integer 15  convert to hexadecimal  0xf
+>>> 
+>>> print('integer %d  convert to hexadecimal  %#X' %  (15,15))
+integer 15  convert to hexadecimal  0XF
+>>> 
+--------------  %s           优先用str()函数进行字符串转换
+---------------------- %%	输出% （格式化字符串里面包括百分号，那么必须使用%%）
+
+>>> print('hexadecimal %s  convert to interger %d'  %  ('0xf',int('0xf',16)))
+hexadecimal 0xf  convert to interger 15
+>>> print('hexadecimal %s  convert to interger %d'  %  ('0xF',int('0xF',16)))
+hexadecimal 0xF  convert to interger 15
+>>> print('hexadecimal %s  convert to interger %d'  %  ('0xFF',int('0xFF',16)))
+hexadecimal 0xFF  convert to interger 255
+>>> print('hexadecimal %s  convert to interger %d'  %  ('0xf0',int('0xf0',16)))
+hexadecimal 0xf0  convert to interger 240
+>>> 
+
+>>> print('%f'  %  (4/9))    # %f / %F   转成浮点数
+0.444444
+>>> print('%f'  %  (4000/9))
+444.444444
+>>> print('%.f'  %  (4000/9))
+444
+>>> print('%3.f'  %  (4000/9))
+444
+-----------   m.n   # m  是显示的最小总宽度，n 是小数点后的位数（如果可用的话）
+
+>>> print('%6.2f'  %  (4000/9))  #总的宽度是 6位,小数占2位
+444.44
+>>> print('%6.2F'  %  (4000/9))
+444.44
+>>> print('%9.2F'  %  (4000/9))
+   444.44
+>>> print('%09.2F'  %  (4000/9))
+000444.44
+
+>>> print('%7.2f'  %  (4000/9))  #总的宽度是 7位,小数占2位(注意空格)
+ 444.44
+>>> print('%8.3f'  %  (4000/9)) #总的宽度是8位,小数占3位(注意空格)
+ 444.444
+>>> print('%8.2f'  %  (4000/9)) #总的宽度是8位,小数占2位(注意空格)
+  444.44
+
+-------------  0	显示的数字前面填充”0″而不是默认的空格
+
+>>> print('%07.2f'  %  (4000/9))
+0444.44
+>>> print('%09.2f'  %  (4000/9))
+000444.44
+
+>>> ------------------%%   输出%        (格式化字符串里面包括百分号，那么必须使用%% )
+-----------   m.n   # m  是显示的最小总宽度，n 是小数点后的位数（如果可用的话）
+
+>>> print('%09.2f%%'  %  (4000/9))
+000444.44%
+>>> print('%.2f%%'  %  (4000/9))
+444.44%
+>>> 
+>>> print('%9s---%0.3f'  %  ('ageorname', 4000/9))
+ageorname---444.444
+
+>>> print('%9s---%9.3f'  %  ('ageorname', 4000/9))
+ageorname---  444.444
+
+------ 字符串 'ageorname' 占 9 个宽度, 浮点数 4000/9 占 9 个宽度,保留 3位小数
+-------------  0	显示的数字前面填充”0″而不是默认的空格
+
+>>> print('%9s---%09.3f'  %  ('ageorname', 4000/9))
+ageorname---00444.444     #默认 是右对齐
+
+>>> print('%9s---%09.3f'  %  ('age', 4000/9))
+      age---00444.444
+
+------------------- % -  表示 左 对齐 %-9s 注意短横杠" - " ,#默认 是右对齐
+
+>>> print('%-9s---%9.3f'  %  ('age', 4000/9))
+age      ---  444.444
+>>> print('%-9s---%-9.3f'  %  ('age', 4000/9))
+age      ---444.444  
+
+------------ %+9.3f  ###  +  在正数前面显示加号 " + "
+
+>>> print('%-9s---%+9.3f'  %  ('age', 4000/9))
+age      --- +444.444
+>>> 
+
+
+chr(i)   #返回整数i对应的ASCII字符。与ord()作用相反。
+            参数x：取值范围[0, 255]之间的正数
+>>> chr(0)
+'\x00'
+>>> chr(255)
+'ÿ'
+>>> chr(99)
+'c'
+>>> chr(97)
+'a'
+>>> 
+
+% 辅助指令              作用
+*             定义宽度或者小数点精度
+-             左对齐
++            在正数前面显示加号
+
+--------------------------- 注意符号" * "用整数替代表示定义宽度的字符个数
+
+>>> print('%*s---%*s' % (10, 'strings', 5, 'age'))
+   strings---  age
+>>> print('%*s---%*s' % (-10, 'strings', -5, 'age'))
+strings   ---age 
+>>> print('%*s---%*s' % (15, 'strings', 10, 'age'))
+        strings---       age
+>>> print('%*s---%*s' % (-15, 'strings', -10, 'age'))
+strings        ---age       
+>>> 
+>>> '%*s---%*f' % (-15, 'strings', -9, 40/9)
+'strings        ---4.444444 '
+>>> '%*s---%*f' % (15, 'strings', 9, 40/9)
+'        strings--- 4.444444'
+>>> 
+>>> '%*s---%*f' % (15, 'strings', 11, 40/9)
+'        strings---   4.444444'
+
+>>> '%*s---%*f' % (-15, 'strings', 11, 40/9)
+'strings        ---   4.444444'
+>>> 
+>>> '%+d'  % 1002 #在 正数前面显示 加号" + "
+'+1002'
+>>> '%+d'  % -1002  #在 负数数前面显示无效,依然是 负号" - "
+'-1002'
+>>> '%d'  % -1002
+'-1002'
+>>> 
+>>> '%  d'  % 1002
+' 1002'
+
+-----  m.n   # m 是显示的最小总宽度，n 是小数点后的位数（如果可用的话）
+
+>>> '%05d'  % 1002  #总宽度是5位,设置数字零'0' 填充不足的位数
+'01002'
+>>> '%07d'  % 1002 #总宽度是7位,设置数字零'0' 填充不足的位数
+'0001002'
+>>> '%7d'  % 1002  #总宽度是7位,默认空格填充不足的位数
+'   1002'
+>>> 
+>>> '%09d'  % 1002
+'000001002'
+>>> 
+
+format函数
+•  使用位置参数
+–  'my name is {} ,age {}'.format('hoho',18)
+•  使用关键字参数
+–  'my name is {name},age is
+{age}'.format({'name':'bob', 'age':23})
+•  填充与格式化
+–  {:[填充字符][对齐方式 <^>][宽度]}
+•  使用索引
+–  'name is {0[0]} age is {0[1]}'.format(['bob', 23])
+
+>>> print('Myname is {}, age is {}'  .format('hiyes',38))
+Myname is hiyes, age is 38
+>>> alist = [ 1, 2]
+>>> alist.append(3)
+>>> print(alist)
+[1, 2, 3]
+>>> print(alist.append(30)) #调用方法没有返回值,默认值 是 None
+None
+>>> print(alist)
+[1, 2, 3, 30]
+>>> 
+>>> print('hello'.upper())
+HELLO
+>>> astr = 'xixi'
+>>> print(astr.upper())
+XIXI
+>>> ------------------ 使用位置参数 {}  {}  ('hiyes',38) --------------
+
+>>> print('Myname is {}, age is {}'  .format('hiyes',38))
+Myname is hiyes, age is 38
+
+>>> print('Myname is {}, age is {}'  .format(28,'hiyes'))
+Myname is 28, age is hiyes
+
+------------------- 使用索引 {1}  {0}   .format(28,'hiyes')  ------------
+
+>>> print('Myname is {1}, age is {0}'  .format(28,'hiyes'))
+Myname is hiyes, age is 28
+
+--- 使用 索引[ 列表的索引 ] {0[0]} {0[1]} .format( [28,'hiyes' ] )  -----------
+
+>>> print('Myname is {0[0]}, age is {0[1]}'  .format(['hiyes',38]))
+Myname is hiyes, age is 38
+>>> 
+
+humor     英 ['hju:mə]   美 [ˈhjumɚ]  
+          n.幽默，心情，诙谐
+           vt.迎合，牵就，顺应
+--使用 索引[ 列表的索引] {0[0]} {0[1]} {1[2]} .format(['hiyes',38], ['nice','happy','good']) ---
+
+>>> print('Myname is {0[0]}, age is {0[1]}, humor is {1[2]} '  .format( ['hiyes',38], ['nice','happy','good']))
+
+Myname is hiyes, age is 38, humor is good 
+>>> 
+--------------------使用 索引 注意{字典类型的使用key:value}
+
+>>> print('Myname is {0[name]}, age is {0[age]}, humor is {1[2]} '  .format( {'name':'hiyes','age':38}, ['nice','happy','good']))
+
+Myname is hiyes, age is 38, humor is good 
+>>> 
+
+------------------- " - " 表示 左 对齐  注意短横杠" - " , # 数字默认 是右对齐
+
+>>> print('Myname---{0[0]:15}||{0[1]:9}---age'  .format(['hiyes',28]))
+Myname---hiyes          ||       28---age
+>>> 
+--- #字符串默认 是左对齐"< " {0[0]:<10}, 数字默认是右对齐" >" {0[1]:>4}
+
+>>> print('Myname---{0[0]:10}||{0[1]:4}---age'  .format(['hiyes',28]))
+Myname---hiyes     ||  28---age
+
+>>> print('Myname---{0[0]:<10}||{0[1]:>4}---age'  .format(['hiyes',28]))
+Myname---hiyes     ||  28---age
+
+
+  format函数 填充与格式化
+–  {:[填充字符][对齐方式 <^>][宽度]}
+----------------  设置字符串右对齐 >  数字默认是右对齐" >" {0[1]:>4}
+
+>>> print('Myname---{0[0]:>10}||{0[1]:>4}---age'  .format(['hiyes',28]))
+Myname---     hiyes||  28---age
+
+>>> print('Myname---{0[0]:>10}||{0[1]:4}---age'  .format(['hiyes',28]))
+Myname---     hiyes||  28---age
+>>> 
+----------------  设置字符串   数字 居中对齐 符号 " ^ " -------------------
+
+>>> print('Myname---{0[0]:^10}||{0[1]:^4}---age'  .format(['hiyes',28]))
+Myname---  hiyes   || 28 ---age
+>>> print('Myname---{0[0]:^12}||{0[1]:^8}---age'  .format(['hiyes',28]))
+Myname---   hiyes    ||   28   ---age
+>>> 
+-----------------   {:[填充字符][对齐方式 <^>][宽度]} ---------------------
+-----------------------------  {0[0]:$^12}   -----------------------------
+
+>>> print('Myname---{0[0]:$^12}||{0[1]:*^8}---age'  .format(['hiyes',28]))
+Myname---$$$hiyes$$$$||***28***---age
+
+>>> print('Myname---{0[0]:#^12}||{0[1]:*^8}---age'  .format(['hiyes',28]))
+Myname---###hiyes####||***28***---age
+>>> 
+
+[root@V20 ~]# ls /home/peri
+ls: 无法访问/home/peri: 没有那个文件或目录
+[root@V20 ~]# ls /home/
+lisi
+[root@V20 ~]#
+
+>>> import  subprocess
+
+>>> print(subprocess.c
+subprocess.call(          subprocess.check_call(    subprocess.check_output(
+
+>>> print(subprocess.call('ls /home', shell=True))
+lisi
+0
+>>> print(subprocess.call('ls /home/peri', shell=True))
+ls: 无法访问/home/peri: 没有那个文件或目录
+2
+>>> 
+>>> from  random  import  randint
+>>> print(randint(1,100))
+20
+>>> 
+[root@V20 ~]# python3
+Python 3.6.4 (default, Mar 19 2019, 09:53:28) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import  random
+>>> random.rand
+random.randint(    random.random(     random.randrange(  
+>>> random.randint(1,100)
+93
+>>> 
+>>> import  randpass2
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'randpass2'
+>>> 
+========================
+
+---------------  python3虚拟环境中解决 ModuleNotFoundError: No module named
+
+[root@V22 Python-3.6.4]# ./configure  --prefix=/usr/local/  #Python-3.6.4文件夹中生成了makefile文件
+..............
+creating Modules/Setup
+creating Modules/Setup.local
+..........
+[root@V20 ~]# ls   /root/Python-3.6.4/Modules/S*
+/root/Python-3.6.4/Modules/Setup            /root/Python-3.6.4/Modules/Setup.dist
+/root/Python-3.6.4/Modules/Setup.config     /root/Python-3.6.4/Modules/Setup.local
+/root/Python-3.6.4/Modules/Setup.config.in
+[root@V20 ~]# ll   /root/Python-3.6.4/Modules/Setup
+-rw-r--r-- 1 root root 15322 3月  18 21:33 /root/Python-3.6.4/Modules/Setup
+
+解决办法如下：
+
+1.首先进入Python-3.6.3目录，就是你解压后安装python3.6的目录文件。
+
+2. cd 到  Modules 目录里,找到Setup和Setup.dist文件，将下面几行注释去掉。
+
+[root@V20 ~]# cat  -n   /root/Python-3.6.4/Modules/Setup
+
+201 # CSV file helper
+202 #_csv _csv.c
+203 
+204 # Socket module helper for socket(2)
+205 #_socket socketmodule.c
+206 
+207 # Socket module helper for SSL support; you must comment out the other
+208 # socket line above, and possibly edit the SSL variable:
+209 #SSL=/usr/local/ssl
+210 #_ssl _ssl.c \
+211 #       -DUSE_SSL -I$(SSL)/include -I$(SSL)/include/openssl \
+212 #       -L$(SSL)/lib -lssl -lcrypto
+213 
+214 # The crypt module is now disabled by default because it breaks builds
+
+
+
+[root@V20 ~]# vim    /root/Python-3.6.4/Modules/Setup
+178 #_random _randommodule.c        # Random number generator
+
+204 # Socket module helper for socket(2)
+205 _socket socketmodule.c
+206 
+207 # Socket module helper for SSL support; you must comment out the other
+208 # socket line above, and possibly edit the SSL variable:
+209 SSL=/usr/local/ssl
+210 _ssl _ssl.c \
+211         -DUSE_SSL -I$(SSL)/include -I$(SSL)/include/openssl \
+212         -L$(SSL)/lib -lssl -lcrypto
+213 
+214 # The crypt module is now disabled by default because it breaks builds
+
+[root@V20 ~]# cat  -n    /root/Python-3.6.4/Modules/Setup.dist 
+
+201 # CSV file helper
+202 #_csv _csv.c
+203 
+204 # Socket module helper for socket(2)
+205 #_socket socketmodule.c
+206 
+207 # Socket module helper for SSL support; you must comment out the other
+208 # socket line above, and possibly edit the SSL variable:
+209 #SSL=/usr/local/ssl
+210 #_ssl _ssl.c \
+211 #       -DUSE_SSL -I$(SSL)/include -I$(SSL)/include/openssl \
+212 #       -L$(SSL)/lib -lssl -lcrypto
+213 
+214 # The crypt module is now disabled by default because it breaks builds
+
+[root@V20 ~]# vim    /root/Python-3.6.4/Modules/Setup.dist 
+
+204 # Socket module helper for socket(2)
+205 _socket socketmodule.c
+206 
+207 # Socket module helper for SSL support; you must comment out the other
+208 # socket line above, and possibly edit the SSL variable:
+209 SSL=/usr/local/ssl
+210 _ssl _ssl.c \
+211         -DUSE_SSL -I$(SSL)/include -I$(SSL)/include/openssl \
+212         -L$(SSL)/lib -lssl -lcrypto
+213 
+214 # The crypt module is now disabled by default because it breaks builds
+
+3.编译安装
+[root@V20 ~]# cd  /root/Python-3.6.4/
+[root@V20 Python-3.6.4]# ./configure  --prefix=/usr/local/ 
+..........
+creating Modules/Setup
+creating Modules/Setup.local
+creating Makefile
+
+
+If you want a release build with all stable optimizations active (PGO, etc),
+please run ./configure --enable-optimizations
+
+
+[root@V20 Python-3.6.4]# make  && make  install  #编译源码#执行安装
+
+ -----------------------------------------------  #验证 python3 安装成功
+
+	 ./python -E -m ensurepip \
+		$ensurepip --root=/ ; \
+fi
+Requirement already up-to-date: setuptools in /usr/local/lib/python3.6/site-packages
+Requirement already up-to-date: pip in /usr/local/lib/python3.6/site-packages
+[root@V20 Python-3.6.4]# python3
+Python 3.6.4 (default, Mar 30 2019, 17:47:45) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import ssl
+>>> ssl.
+Display all 124 possibilities? (y or n)
+ssl.AF_INET
+ssl.ALERT_DESCRIPTION_ACCESS_DENIED
+.........
+
+
+
+回车换行，
+实际上是0x0d 0x0a，
+也就是\r   \n
+
+>>> ord('\r')
+13
+>>> hex(13)
+'0xd'
+>>> chr(13)
+'\r'
+>>>
+>>> ord('\n')
+10
+>>> hex(10)
+'0xa'
+>>> chr(10)
+'\n'
+>>> 
+>>> int('0x0d',16)
+13
+>>> int('0x0a',16)
+10
+>>>
+
+
+
+
+
+
+
+
+
