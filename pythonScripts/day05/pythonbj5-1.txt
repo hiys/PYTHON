@@ -1,0 +1,1376 @@
+
+http://python.usyiyi.cn/
+提示：该域名已过期，不能正常访问，续费后可恢复使用。 
+
+请您联系您的域名服务商尽快完成续费，以避免域名被删除或被他人注册的风险。 
+
+1.如果您是万网会员，请登录万网账户，进入会员中心->域名管理->急需续费域名，完成域名续费； 
+
+2.如果您的域名服务由万网代理商提供，请您联系您的代理商咨询续费事宜。
+
+
+时间戳timestamp:表示的是从1970年1月1日
+00:00:00开始按秒计算的偏移量
+>>> import  time
+>>> time.time()
+1554260829.503232
+>>> 
+
+•  UTC(Coordinated Universal Time,世界协调时)
+亦即格林威治天文时间,世界标准时间。
+在中国为UTC+8。
+
+DST(Daylight Saving Time)即夏令时
+ tm_isdst=0  表示非夏令时
+
+tm_isdst = 1 的时候表示时间是夏令时，
+
+　　　　值为0的时候表示非夏令时
+
+　　　　值为-1的时候表示时间不确定是否是夏令时 
+
+
+•  元组(struct_time):由9个元素组成
+元组（struct_time）方式：
+struct_time元组共有9个元素，
+返回struct_time的函数
+主要有gmtime()，localtime()，strptime()。
+
+
+
+struct
+英 [strʌkt]   美 [strʌkt]  
+[计][C]（数据类型）结构，结构体（定义关键字）
+
+struct_time元组
+
+索引      属性              值
+0      tm_year        2000
+1      tm_mon         1-12
+2      tm_mday        1-31
+3      tm_hour        0-23
+4      tm_min         0-59
+5    tm_sec   0-61(闰run年秒 是61秒,不是59，闰年秒占两秒)
+6      tm_wday        0-6 (0表示周一, 不 是 周日 )
+7  tm_yday(一年中的第几天)     1-366
+8  tm_isdst(是否为dst时间)    默认为 -1
+
+tm_isdst = 1 的时候表示时间是夏令时，
+
+　　　　值为0的时候表示非夏令时
+
+　　　　值为-1的时候表示时间不确定是否是夏令时 
+
+>>> import  time
+>>> time.time()
+1554260829.503232
+>>> time.localtime()
+time.struct_time(tm_year=2019, tm_mon=4, tm_mday=3, 
+ tm_hour=11, tm_min=34,
+ tm_sec=33, tm_wday=2, tm_yday=93, tm_isdst=0)
+>>> tm_wday=2表示周三
+tm_wday=6表示 周日
+tm_wday=0 表示周一
+>>> 
+
+•  time.localtime([secs]):
+将一个时间戳转换为
+  当前时区的struct_time。
+secs参数未提供,
+则以当前时间为准
+
+>>> type(time.localtime(0))
+<class 'time.struct_time'>
+>>> 
+>>> time.localtime(0) #计算机时间原点,注意整数类型 数字 "0"
+
+time.struct_time(tm_year=1970, tm_mon=1, tm_mday=1, 
+ tm_hour=8, 
+tm_min=0, tm_sec=0, tm_wday=3, tm_yday=1, tm_isdst=0)
+>>> 
+  tm_hour=8, 东八区的时间比零时区快八小时
+tm_isdst=0 表示非夏令时
+
+
+
+localt = time.localtime()
+print('Local time is   %s type is %s\n' % (localt,type(localt)))
+
+# Local time is     time.struct_time(tm_year=2019, tm_mon=4, tm_mday=3, tm_hour=9, tm_min=56, tm_sec=58, tm_wday=2, tm_yday=93, tm_isdst=0) 
+type is <class 'time.struct_time'>
+
+
+time模块方法
+•  time.localtime([secs]):
+将一个时间戳转换为  当前时区的struct_time。
+secs参数
+接收时间戳，
+返回指定时间戳的当地时间的时间元组，
+参数留空，
+返回当地时间的当前时间元组
+>>>
+时间戳timestamp:表示的是从1970年1月1日
+00:00:00开始按秒计算的偏移量
+>>> import  time
+>>> time.time()
+1554260829.503232
+>>> 
+
+>>> time.localtime(1554267066.0)
+time.struct_time(tm_year=2019, tm_mon=4, tm_mday=3,
+ tm_hour=12, tm_min=51, tm_sec=6, tm_wday=2, tm_yday=93, tm_isdst=0)
+
+>>> time.time()
+1554268005.3902729
+
+>>> time.localtime(1554268005.3902729)
+time.struct_time(tm_year=2019, tm_mon=4, tm_mday=3, 
+ tm_hour=13, tm_min=6, tm_sec=45, tm_wday=2, tm_yday=93, tm_isdst=0)
+>>> 
+
+
+•  元组(struct_time):由9个元素组成
+元组（struct_time）方式：
+
+struct_time元组共有9个元素，
+
+返回struct_time的函数
+主要有gmtime()，localtime()，strptime()。
+
+•  time.gmtime([secs]):
+和localtime()方法类似,
+gmtime()方法是
+将一个时间戳转换为UTC时区(0时区)的struct_time
+gmtime() 函数
+将一个时间戳转换为UTC时区（0时区）的struct_time，
+可选的
+参数sec 表示从1970-1-1以来的秒数。
+其默认值为time.time()，
+函数返回time.struct_time类型的对象。
+（struct_time是在time模块中定义的表示时间的对象）。
+
+
+时间戳timestamp:表示的是从1970年1月1日
+00:00:00开始按秒计算的偏移量
+>>> import  time
+>>> time.time()
+1554260829.503232
+>>> 
+
+>>> time.gmtime()
+time.struct_time(tm_year=2019, tm_mon=4, tm_mday=3, tm_hour=4, tm_min=30,
+ tm_sec=37, tm_wday=2, tm_yday=93, tm_isdst=0)
+
+>>> time.gmtime(0) #表示从1970-1-1以来的秒数是 0秒 tm_sec=0,
+
+time.struct_time(tm_year=1970, tm_mon=1, tm_mday=1, tm_hour=0, tm_min=0, 
+tm_sec=0, 
+tm_wday=3, tm_yday=1, tm_isdst=0)
+
+>>> time.gmtime(8)  ##表示从1970-1-1以来的秒数是 8 秒tm_sec= 8,
+time.struct_time(tm_year=1970, tm_mon=1, tm_mday=1, tm_hour=0, tm_min=0, 
+tm_sec=8, 
+tm_wday=3, tm_yday=1, tm_isdst=0)
+>>> 
+>>> time.gmtime(18)  #表示从1970-1-1以来的秒数是 18 秒 tm_sec=18,
+time.struct_time(tm_year=1970, tm_mon=1, tm_mday=1, tm_hour=0, tm_min=0, 
+tm_sec=18, 
+tm_wday=3, tm_yday=1, tm_isdst=0)
+>>> 
+
+
+•  time.time():返回当前时间的时间戳
+
+>>> time.time()
+1554266855.6661215
+
+>>> time.localtime()
+time.struct_time(tm_year=2019, tm_mon=4, tm_mday=3,
+ tm_hour=12, tm_min=51, 
+tm_sec=6, tm_wday=2, tm_yday=93, tm_isdst=0)
+
+struct_time元组
+
+索引      属性              值
+0      tm_year        2000
+1      tm_mon         1-12
+2      tm_mday        1-31
+3      tm_hour        0-23
+4      tm_min         0-59
+5    tm_sec   0-61(闰run年秒 是61秒,不是59，闰年秒占两秒)
+6      tm_wday        0-6 (0表示周一, 不 是 周日 )
+7  tm_yday(一年中的第几天)     1-366
+8  tm_isdst(是否为dst时间)    默认为 -1
+
+DST(Daylight Saving Time)即夏令时
+ tm_isdst=0  表示非夏令时
+tm_isdst = 1 的时候表示时间是夏令时，
+　　　 　值为 0 的时候表示非夏令时
+ 　　 　值为 -1 的时候表示时间 不确定 是否是夏令时 
+
+>>> t = (2019, 4, 3,   12, 51, 6,    2,   93,  0) #元组类型的变量 t
+
+含义是变量 t = ( 年份,月份,当月的日期(范围是1号至31号),
+小时( 范围0 -23 ),   分钟(0- 59),  秒(范围0-61秒),  
+ 星期几(范围是 0-6 , 0表示周一, 不 是 周日 ) ,
+ 一年中的第几天的排序(93表示一年中的第 93天), 
+ 是否是夏令时 (0  表示非夏令时) 
+ )
+
+>>> time.mktime(t)
+1554267066.0      #返回用秒数 1554267066.0 来表示时间的浮点数
+
+>>> time.localtime(1554267066.0)
+time.struct_time(tm_year=2019, tm_mon=4, tm_mday=3,
+ tm_hour=12, tm_min=51, 
+tm_sec=6, tm_wday=2, tm_yday=93, tm_isdst=0)
+
+>>> 
+>>> time.time()
+1554270985.7089648
+>>> 
+>>> time.mktime(time.localtime())
+1554270985.0
+>>> 
+>>> time.localtime()
+time.struct_time(tm_year=2019, tm_mon=4, tm_mday=3, tm_hour=13, tm_min=56, tm_sec=25, tm_wday=2, tm_yday=93, tm_isdst=0)
+>>> 
+>>> time.time()
+1554270985.710944
+>>> 
+>>> 
+
+
+time.time()
+
+time.mktime(time.localtime())
+
+time.localtime()
+
+time.time()
+
+•  time.mktime(t):
+将一个struct_time转化为时间戳
+t -- 结构化的时间或者完整的9位元组元素。
+
+struct_time元组共有9个元素
+
+mktime() 函数执行
+与gmtime(), localtime()相反的操作，
+它接收struct_time对象作为参数，
+返回用秒数
+来表示时间的浮点数。
+
+>>> t = (2019, 4, 3,   12, 51, 6,      2,   93,  0) #元组类型的变量 t
+
+含义是变量 t = ( 年份2019年 , 月份 四月, 当月的日期 3 号(范围是1号至31号),
+小时12点 ( 范围0 -23 ),   分钟 51分 (0- 59),  秒 6秒 (范围0-61秒),  
+ 星期三 (范围是 0-6 , 0表示周一, 不 是 周日 , 2 表示周三 ) ,
+ 一年中的第几天的排序(93表示一年中的第 93天), 
+ 是否是夏令时 (0  表示非夏令时) 
+ )
+
+--- 注意 t = ( 2019, 4, 3,   12, 51, 6,  这 6 个元素一定要正确,
+后面的3个元素写错了计算机 一般 也会自动纠正 --------
+
+>>> time.mktime(t)
+1554267066.0      #返回用秒数 1554267066.0 来表示时间的浮点数
+
+   ( 2019年 , 四月,  3 号, 12点,  51分, 6秒, 星期三, 2019 年中的第 93天, 非夏令时)
+
+>>> time.mktime((2019, 4, 3,   12, 51, 6,    2,   93,  0))
+1554267066.0       # 注意最后的三个参数元素  2,   93,  0 是正确的,
+             2 表示周三,93表示 2019 年中的第 93天, 0  表示非夏令时
+
+>>> time.mktime((2019, 4, 3,   12, 51, 6,    6,   100,  0))
+1554267066.0      # 注意最后的三个参数元素 6,   100,   0 是 错误的,
+             6 表示周日 , 100 表示 2019 年中的第 100 天, 0  表示 非 夏令时
+
+>>> time.mktime((2019, 4, 3,   12, 51, 6,    6,   100,  1))
+1554267066.0      # 注意最后的三个参数元素 6,   100,   1 是 错误的,
+             6 表示周日 , 100 表示 2019 年中的第 100 天, 1  表示 是 夏令时
+
+# ( 2019年 , 4月,  3 号, 12点,  51分, 6秒, 星期日, 2019 年中的第 100天, 不确定 是否是夏令时 )
+
+>>> time.mktime((2019, 4, 3,   12, 51, 6,    6,   100,  -1))
+1554267066.0      # 注意最后的三个参数元素 6,   100,   0 是 错误的,
+    #  6 表示周日 , 100 表示 2019 年中的第 100 天, -1 表示 不确定 是否是夏令时 
+>>> 
+>>> time.mktime(time.localtime())
+1554270756.0
+>>> 
+
+
+•  time.sleep(secs):线程推迟指定的时间运行。
+单位为秒
+
+•  time.asctime([t]):
+把一个 表示时间的 元组
+或者struct_time表示为这种形式:
+‘Sun Jun 2023:21:05 1993’。
+如果没有参数,
+会将time.localtime()作为参数传入
+
+>>> time.localtime()
+time.struct_time(tm_year=2019, tm_mon=4, tm_mday=3, tm_hour=14, tm_min=21, tm_sec=48, tm_wday=2, tm_yday=93, tm_isdst=0)
+>>> 
+struct_time元组共有9个元素
+
+>>> time.asctime(time.localtime()) #参数必须是 9个元素的 元组
+'Wed Apr  3 14:21:48 2019'
+>>> 
+>>> time.asctime()
+'Wed Apr  3 14:21:48 2019'
+>>> 
+
+
+
+time.localtime()
+
+time.asctime(time.localtime())
+
+time.asctime()
+
+
+•  time.ctime([secs]):
+把一个时间戳(按秒计算的浮点数)
+转化为time.asctime()的形式
+
+时间戳timestamp:表示的是从1970年1月1日
+00:00:00开始按秒计算的偏移量
+>>> import  time
+
+>>> type(time.time())
+<class 'float'>
+>>> type(1554260829.503232)
+<class 'float'>
+>>> 
+>>> type(time.localtime())
+<class 'time.struct_time'>
+>>> 
+
+>>> time.time()
+1554273530.578061
+>>> 
+>>> time.ctime(time.time())  # 参数是浮点 类型数据 float
+'Wed Apr  3 14:38:50 2019'
+>>> 
+>>> time.ctime()
+'Wed Apr  3 14:38:50 2019'
+>>> 
+>>> time.localtime()
+time.struct_time(tm_year=2019, tm_mon=4, tm_mday=3, tm_hour=14, tm_min=38, tm_sec=50, tm_wday=2, tm_yday=93, tm_isdst=0)
+>>> 
+>>> time.asctime(time.localtime())  # 参数是元组类型数据 tuple
+'Wed Apr  3 14:38:50 2019'
+>>> 
+>>> time.asctime()
+'Wed Apr  3 14:38:50 2019'
+>>> 
+>>> time.time()
+1554273530.579065
+>>> 
+>>> 
+
+tuple     英 [tʌpl]   美 [tʌpl]  
+         n.元组，数组
+
+time.time()
+
+time.ctime(time.time())
+
+time.ctime()
+
+time.localtime()
+
+time.asctime(time.localtime())
+
+time.asctime()
+
+time.time()
+
+
+•  time.strftime(format[, t]):
+把一个代表时间的元组
+或者struct_time
+(如由time.localtime() 和 time.gmtime() 返回)
+转化为格式化的时间字符串。
+如果t未指定,
+将传入time.localtime()
+
+•  time.strptime(string[, format]):
+把一个格式化时间字符串
+转化为struct_time。
+实际上它 和 strftime()是逆操作
+
+[root@V0 pyscripts]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import   time
+>>> 
+>>> time.asctime()
+'Wed Apr  3 14:17:27 2019'
+>>> 
+>>> time.localtime()
+time.struct_time(tm_year=2019, tm_mon=4, tm_mday=3, tm_hour=14, tm_min=17, tm_sec=27, tm_wday=2, tm_yday=93, tm_isdst=0)
+>>> 
+>>> time.ctime()
+'Wed Apr  3 14:17:27 2019'
+>>> 
+>>> time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())
+'2019-04-03 14:17:27'
+>>> 
+>>> time.strftime('%Y-%m-%d %X',time.localtime())
+'2019-04-03 14:17:27'
+>>> 
+>>> time.strptime('2019-04-03 14:05:36',"%Y-%m-%d %X")
+
+time.struct_time(tm_year=2019, tm_mon=4, tm_mday=3, tm_hour=14, tm_min=5, tm_sec=36, tm_wday=2, tm_yday=93, tm_isdst=-1)
+>>> 
+>>> time.strptime(time.strftime('%Y-%m-%d %X',time.localtime()) ,"%Y-%m-%d %X")
+
+time.struct_time(tm_year=2019, tm_mon=4, tm_mday=3, tm_hour=14, tm_min=17, tm_sec=28, tm_wday=2, tm_yday=93, tm_isdst=-1)
+>>> 
+>>> 
+
+time.time()
+
+time.ctime(time.time())
+
+time.ctime()
+
+time.localtime()
+
+time.asctime(time.localtime())
+
+time.asctime()
+
+time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())
+
+time.strftime('%Y-%m-%d %X',time.localtime())
+
+time.strptime('2019-04-03 14:05:36',"%Y-%m-%d %X")
+
+time.strptime(time.strftime('%Y-%m-%d %X',time.localtime()) ,"%Y-%m-%d %X")
+
+time.strftime('%Y-%m-%d %H:%M:%S',time.localtime())
+
+time.time()
+
+
+
+ 格式                     含义
+ %Y             完整的年份  
+ %m             月份(01 -12)  
+ %d  一个月中的第几天(01 - 31) 
+ %H  一天中的第几个小时(24小时制,00 - 23)
+ %M            分钟数(00-59)
+ %S            秒(01 - 61)
+ %X            本地相应时间
+
+
+meridiem   英 [mə'rɪdi:əm]   美 [mə'rɪdi:əm]  
+              正午,子午线
+
+ante meridiem
+      英 [ˈæntimeˈridiem]  美 [ˌæntiməˈrɪdiəm]  
+   adv.午前,上午，午前（源自拉丁语ante meridiem） 
+
+a.m.    英 [ˌeɪ ˈem]  
+     abbr.（缩）上午，午前
+
+p.m.    英 [ˌpi: ˈem]   美 [ˈpiˈɛm]  
+    abbr.=<拉>post meridiem 下午
+
+post meridiem
+      n.下午，午后[缩写为p.m.]
+
+>>> 53*7
+371
+>>> 52*7
+364
+>>> 
+
+时间样式 
+格式            含义               格式                含义
+%a    本地简化星期名称           %m          月份(01 -12)  
+%A    本地完整星期名称           %M         分钟数(00-59)
+
+%b    本地简化月份名称           %p   本地am或者pm的相应符
+%B    本地完整月份名称           %S            秒(01 - 61)
+
+%c   本地相应的日期和时间         %U  一年中的星期数(00 - 53,星期日是一个星期的开始)
+%d   一个月中的第几天(01 - 31)     %w    一个星期中的第几天(0 - 6,0是星期天)
+%H   一天中的第几个小时(24小时制,00 - 23)
+ 
+%I  第几个小时(12小时制,01 - 12)   %x   本地相应日期
+                             %X   本地相应时间
+
+%j   一年中的第几天(001 - 366)     %y 去掉世纪的年份(00 - 99)
+%Z   时区的名字                    %Y            完整的年份  
+
+%S   十进制的秒数
+%t   水平制表符
+
+%H   一天中的第几个小时(24小时制,00 - 23)
+%M         分钟数(00-59)
+%S            秒(01 - 61)
+
+%T   显示时分秒：hh:mm:ss
+%R   显示小时和分钟：hh:mm
+%X   标准的时间串
+
+%F   年-月-日
+%Y          完整的年份 
+%m          月份(01 -12) 
+%d   一个月中的第几天(01 - 31)
+%x   标准的日期串
+
+>>> time.strftime("%X")
+'15:31:21'
+>>> 
+>>> time.strftime("%x")
+'04/03/19'  #%x 标准的日期串
+>>> 
+
+>>> 
+>>> import  time
+>>> 
+>>> time.strftime("%Y-%m-%d")
+'2019-04-03'
+>>> 
+>>> time.strftime("%Y|%m|%d")
+'2019|04|03'
+>>> 
+>>> time.strftime("%X")
+'15:31:21'
+>>> 
+>>> time.strftime("%x")
+'04/03/19'
+>>> 
+>>> time.strftime("%Y-%m-%d %x")
+'2019-04-03 04/03/19'
+>>> 
+>>> time.strftime("%Y-%m-%d %a")
+'2019-04-03 Wed'
+>>> 
+>>> time.strftime("%Y-%m-%d %A")
+'2019-04-03 Wednesday'
+>>> 
+>>> time.strftime("%Y-%m-%d %b")
+'2019-04-03 Apr'
+>>> 
+>>> time.strftime("%Y-%m-%d %B")
+'2019-04-03 April'
+>>> 
+>>> time.strftime("%Y-%m-%d %c")
+'2019-04-03 Wed Apr  3 15:31:21 2019'
+>>> 
+>>> print(time.strftime("%c"))
+Wed Apr  3 15:31:21 2019
+>>> 
+>>> print(time.strftime("%Y-%m-%d %I"))
+2019-04-03 03
+>>> 
+>>> print(time.strftime("%Y-%m-%d %H"))
+2019-04-03 15
+>>> 
+>>> print(time.strftime("%Y-%m-%d %S"))
+2019-04-03 21
+>>> 
+>>> print(time.strftime("%Y-%m-%d%t%S"))
+2019-04-03	21
+>>> 
+>>> print(time.strftime("%Y-%m-%d%t%S"))
+2019-04-03	21
+>>> 
+>>> print(time.strftime("%Y-%m-%d%t%S"))
+2019-04-03	21
+>>> 
+%T   显示时分秒：hh:mm:ss
+%F    年-月-日
+%R 显示小时和分钟：hh:mm
+
+>>> print(time.strftime("%Y-%m-%d %F"))
+2019-04-03 2019-04-03    #%F    年-月-日
+>>> 
+>>> print(time.strftime("%Y-%m-%d %T"))
+2019-04-03 15:31:21  #%T   显示时分秒：hh:mm:ss
+>>> 
+>>> print(time.strftime("%Y-%m-%d %R"))
+2019-04-03 15:31    #%R 显示小时和分钟：hh:mm
+>>> 
+>>> 
+import  time
+
+time.strftime("%Y-%m-%d")
+
+time.strftime("%Y|%m|%d")
+
+time.strftime("%X")
+
+time.strftime("%x")
+
+time.strftime("%Y-%m-%d %x")
+
+time.strftime("%Y-%m-%d %a")
+
+time.strftime("%Y-%m-%d %A")
+
+time.strftime("%Y-%m-%d %b")
+
+time.strftime("%Y-%m-%d %B")
+
+time.strftime("%Y-%m-%d %c")
+
+print(time.strftime("%c"))
+
+print(time.strftime("%Y-%m-%d %I"))
+
+print(time.strftime("%Y-%m-%d %H"))
+
+print(time.strftime("%Y-%m-%d %S"))
+
+print(time.strftime("%Y-%m-%d%t%S"))
+
+print(time.strftime("%Y-%m-%d%t%S"))
+
+print(time.strftime("%Y-%m-%d%t%S"))
+
+print(time.strftime("%Y-%m-%d %F"))
+
+print(time.strftime("%Y-%m-%d %T"))
+
+print(time.strftime("%Y-%m-%d %R"))
+
+
+>>> t = (2019, 4, 3,   12, 51, 6,      2,   93,  0) #元组类型的变量 t
+
+含义是变量 t = ( 年份2019年 , 月份 四月, 当月的日期 3 号(范围是1号至31号),
+小时12点 ( 范围0 -23 ),   分钟 51分 (0- 59),  秒 6秒 (范围0-61秒),  
+ 星期三 (范围是 0-6 , 0表示周一, 不 是 周日 , 2 表示周三 ) ,
+ 一年中的第几天的排序(93表示一年中的第 93天), 
+ 是否是夏令时 (0  表示非夏令时) 
+ )
+
+--- 注意 t = ( 2019, 4, 3,   12, 51, 6,  这 6 个元素一定要正确,
+后面的3个元素写错了计算机 一般 也会自动纠正 --------
+
+>>> time.mktime(t)
+1554267066.0      #返回用秒数 1554267066.0 来表示时间的浮点数
+
+   ( 2019年 , 四月,  3 号, 12点,  51分, 6秒, 星期三, 2019 年中的第 93天, 非夏令时)
+
+>>> time.mktime((2019, 4, 3,   12, 51, 6,    2,   93,  0))
+1554267066.0       # 注意最后的三个参数元素  2,   93,  0 是正确的,
+             2 表示周三,93表示 2019 年中的第 93天, 0  表示非夏令时
+
+>>> 
+
+
+datetime模块方法
+
+•  datetime.today():
+返回一个表示当前本地 "时间" 的datetime对象
+
+>>> import  datetime
+>>> time.localtime()
+time.struct_time(tm_year=2019, tm_mon=4, tm_mday=3, 
+tm_hour=15, tm_min=50, tm_sec=41, 
+tm_wday=2, tm_yday=93, tm_isdst=0)
+
+>>> datetime.date.today() #返回一个表示当前本地" 日期 "的date对象；
+datetime.date(2019, 4, 3)
+>>> 
+>>> datetime.datetime.today() #返回一个表示当前本地 "时间" 的datetime对象
+
+datetime.datetime(2019, 4, 3, 15, 58, 6, 683887)
+>>> 
+
+>>> datetime.datetime.now()
+datetime.datetime(2019, 4, 3, 15, 58, 6, 684117)
+>>> exit()
+>>> 
+
+>>> timezone.utc
+timezone.utc         timezone.utcoffset(  
+>>> timezone.utc
+datetime.timezone.utc
+>>> type(timezone.utc)
+<class 'datetime.timezone'>
+
+>>> print(timezone.utc)
+UTC
+>>> 
+>>> datetime.now(timezone.utc)
+datetime.datetime(2019, 4, 3, 8, 44, 56, 606378, 
+  tzinfo=datetime.timezone.utc)
+>>> 
+>>> datetime.utcnow()
+datetime.datetime(2019, 4, 3, 8, 44, 56, 607080)
+>>> 
+>>> datetime.now()
+datetime.datetime(2019, 4, 3, 16, 44, 56, 607532)
+>>> 
+
+datetime.now(timezone.utc)
+
+datetime.utcnow()
+
+datetime.now()
+
+
+
+datetime.datetime.today()
+
+datetime.datetime.now()
+
+[root@V0 pyscripts]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> from  datetime  import  *  # 从模板 datetime 中 导入 所有的类*
+
+>>> datetime.today()
+
+datetime.datetime(2019, 4, 3, 16, 1, 4, 848428)
+datetime.datetime(2019年, 4月, 3日, 16时, 1分, 4秒, 848428毫秒 )
+
+>>> type(datetime.today())
+<class 'datetime.datetime'>
+>>> 
+>>> datetime.today()
+datetime.datetime(2019, 4, 3, 16, 17, 20, 168057)
+datetime.datetime(2019年, 4月, 3日, 16时, 17分, 20秒, 168057毫秒 )
+>>> 
+
+
+•  datetime.now([tz]):
+返回一个表示当前本地时间的datetime对象,
+如果提供了参数tz(tz 表示时区timezone),
+则获取tz参数所指时区的本地时间
+
+>>> datetime.today()
+datetime.datetime(2019, 4, 3, 16, 20, 52, 662142)
+
+>>> datetime.now()
+datetime.datetime(2019, 4, 3, 16, 22, 54, 679361)
+
+>>> datetime.now()
+datetime.datetime(2019, 4, 3, 16, 22, 55, 775739)
+>>> 
+
+%H   一天中的第几个小时(24小时制,00 - 23)
+%M         分钟数(00-59)
+%S            秒(01 - 61)
+
+%T   显示时分秒：hh:mm:ss
+%R   显示小时和分钟：hh:mm
+%X   标准的时间串
+
+%F   年-月-日
+%Y          完整的年份 
+%m          月份(01 -12) 
+%d   一个月中的第几天(01 - 31)
+%x   标准的日期串
+
+•  datetime.strptime(date_string, format):
+将格式字符串转换为datetime对象
+
+>>> datetime.strptime('2019/03/31', '%Y/%m/%d')
+datetime.datetime(2019, 3, 31, 0, 0)
+
+>>> datetime.strptime('2019-03-31', '%Y-%m-%d')
+datetime.datetime(2019, 3, 31, 0, 0)
+
+datetime.datetime(2019年, 3月, 31日, 0时, 0分)
+
+>>> datetime.strptime('2019|03|31', '%Y|%m|%d')
+datetime.datetime(2019, 3, 31, 0, 0)
+
+datetime.datetime(2019年, 3月, 31日, 0时, 0分)
+
+>>> datetime.strptime('2019*03*31', '%Y*%m*%d')
+datetime.datetime(2019, 3, 31, 0, 0)
+>>> 
+
+
+•  datetime.ctime(datetime对象):
+返回时间格式字符串
+
+>>> timex = datetime.strptime('2019-03-31', '%Y-%m-%d')
+    # 注意变量timex 是datetime对象
+
+>>> datetime.ctime(timex)
+'Sun Mar 31 00:00:00 2019'
+>>> 
+  # 注意变量timex 是datetime对象
+
+>>> timex.strftime('%Y-%m-%d %T')
+'2019-03-31 00:00:00'
+>>> 
+
+•  datetime.strptime(date_string, format): #注意单词中的字母" p "
+将格式字符串转换为datetime对象
+
+•  datetime对象.strftime(format): #注意单词中的字母" f "
+返回指定格式字符串
+
+       # 注意变量timex 是datetime对象
+
+>>> timex = datetime.strptime('2019-03-31 11:55:59', '%Y-%m-%d %H:%M:%S')
+
+>>> timex
+datetime.datetime(2019, 3, 31, 11, 55, 59)
+
+  # 注意变量timex 是datetime对象
+
+>>> datetime.ctime(timex)
+'Sun Mar 31 11:55:59 2019'
+
+  # 注意变量timex 是datetime对象
+
+>>> timex.strftime('%Y-%m-%d %T')
+'2019-03-31 11:55:59'
+>>> 
+ # 注意变量timeobjx 是datetime对象
+
+>>> timeobjx = datetime.today()
+
+>>> print(timeobjx)
+2019-04-03 17:24:47.104796
+
+>>> datetime.today()
+datetime.datetime(2019, 4, 3, 17, 25, 38, 302220)
+
+•  datetime对象.strftime(format): #注意单词中的字母" f "
+返回指定格式字符串
+
+ # 注意变量timeobjx 是datetime对象
+
+>>> timeobjx.strftime('%Y-%m-%d %T')
+'2019-04-03 17:24:47'
+>>> timeobjx.strftime('%Y-%m-%d %X')
+'2019-04-03 17:24:47'
+
+>>> timeobjx.strftime('%Y-%m-%d %R')
+'2019-04-03 17:24'
+
+>>> timeobjx.strftime('%Y-%m-%d %x')
+'2019-04-03 04/03/19'
+>>> 
+
+•  datetime对象.strftime(format): #注意单词中的字母" f "
+返回指定格式字符串
+
+>>> datetime.now().strftime('%Y-%m-%d %R')
+'2019-04-03 17:31'
+>>> datetime.now().strftime('%Y-%m-%d %X')
+'2019-04-03 17:32:12'
+>>> datetime.now().strftime('%Y-%m-%d %T')
+'2019-04-03 17:32:18'
+>>> datetime.today().strftime('%Y-%m-%d %T')
+'2019-04-03 17:32:39'
+>>> datetime.today().strftime('%T')
+'17:32:47'
+>>> 
+>>> datetime.strptime('2019-03-31 11:55:59', '%Y-%m-%d %H:%M:%S')
+datetime.datetime(2019, 3, 31, 11, 55, 59)
+
+>>> datetime.strptime('2009-06-16 10:33:44', '%Y-%m-%d %H:%M:%S')
+datetime.datetime(2009, 6, 16, 10, 33, 44)
+
+>>> print(datetime.strptime('2009-06-16 10:33:44', '%Y-%m-%d %H:%M:%S'))
+2009-06-16 10:33:44
+
+>>> datetime.strptime('2009-06-16 10:33:44', '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d %R')
+
+'2009-06-16 10:33'
+
+>>> datetime.strptime('2009-06-16 10:33:44', '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d %X')
+
+'2009-06-16 10:33:44'
+
+>>> datetime.strptime('2009-06-16 10:33:44', '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d %T')
+
+'2009-06-16 10:33:44'
+>>> 
+>>> 
+
+datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+datetime.today().strftime('%Y-%m-%d %T')
+
+datetime.strptime('2009-06-16 10:33:44', '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d %X')
+
+datetime.strptime('2009-06-16 10:33:44', '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d %T')
+
+[root@V0 pyscripts]# vim  timedatenow.py 
+[root@V0 pyscripts]# cat  timedatenow.py
+#!/usr/bin/env  python3
+import  sys, subprocess, time, datetime
+
+print('\033[31;47;1m__name__ is %s \
+sys.argv is %s\033[0m' % (__name__,sys.argv))
+
+#  time.localtime([secs]):
+将一个时间戳转换为当前时区的struct_time。
+secs参数未提供,
+则以当前时间为准
+
+localt = time.localtime()
+print('Local time is   %s type is %s\n' % (localt,type(localt)))
+
+# Local time is     time.struct_time(tm_year=2019, tm_mon=4, tm_mday=3, tm_hour=9, tm_min=56, tm_sec=58, tm_wday=2, tm_yday=93, tm_isdst=0) type is <class 'time.struct_time'>
+
+struct_time元组
+
+索引      属性              值
+0      tm_year        2000
+1      tm_mon         1-12
+2      tm_mday        1-31
+3      tm_hour        0-23
+4      tm_min         0-59
+5      tm_sec         0-61 (闰run秒是61秒)
+6      tm_wday        0-6 ( 0 表示周一,不是周日 )
+7  tm_yday(一年中的第几天)     1-366
+8  tm_isdst(是否为dst时间)    默认为 -1
+
+
+
+#将元组的时间格式转换成字符串格式的时间
+
+•  time.strftime(format[, t]):
+把一个代表时间的元组
+或者struct_time
+(如由time.localtime() 和 time.gmtime() 返回)
+转化为格式化的时间字符串。
+如果t未指定,
+将传入time.localtime()
+
+print('\033[32;46;1mLocalTime is %s \033[0m' \
+% time.strftime('%Y-%m-%d %H:%M:%S', localt))
+
+LocalTime is 2019-04-03 09:56:58 
+
+ 格式                     含义
+ %Y             完整的年份  
+ %m             月份(01 -12)  
+ %d  一个月中的第几天(01 - 31) 
+ %H  一天中的第几个小时(24小时制,00 - 23)
+ %M            分钟数(00-59)
+ %S            秒(01 - 61)
+ %X            本地相应时间
+
+time.time():返回当前时间的时间戳
+
+>>> import  time
+>>> time.time()
+1554260829.503232
+>>> 
+
+start = time.time()
+
+time.sleep(0.1)
+
+end = time.time()
+print(end - start,end=' --end-start\n')
+
+#0.10023164749145508 --end-start
+
+
+•  datetime.now([tz]):
+返回一个表示当前本地时间的datetime对象,
+如果提供了参数tz,
+则获取tz参数所指时区的本地时间
+
+print('\033[33;40;1m datetime now is %s\033[0m' \
+% datetime.datetime.now())
+
+# datetime now is 2019-04-03 09:56:59.101164
+
+
+if __name__ == '__main__':
+  print('\033[30;43;1m sys.argv[0]is %s\033[0m' % sys.argv[0])
+
+
+[root@V0 pyscripts]# 
+
+[root@V0 pyscripts]# 
+
+>>> from  datetime  import  *  # 从模板 datetime 中 导入 所有的类*
+
+>>> datetime.today()
+
+datetime.datetime(2019, 4, 3, 16, 1, 4, 848428)
+datetime.datetime(2019年, 4月, 3日, 16时, 1分, 4秒, 848428毫秒 )
+
+
+>>> print(timezone.utc)
+UTC
+>>> 
+>>> datetime.now(timezone.utc)
+datetime.datetime(2019, 4, 3, 8, 44, 56, 606378, 
+  tzinfo=datetime.timezone.utc)
+>>> 
+>>> datetime.utcnow()
+datetime.datetime(2019, 4, 3, 8, 44, 56, 607080)
+>>> 
+类方法/属性名称	    描述
+datetime.today()	    返回一个表示当前本期日期时间的datetime对象
+datetime.now([tz])    返回指定时区日期时间的  datetime对象，
+                             如果不指定tz参数则结果同上
+
+datetime.utcnow()	   返回当前utc日期时间的datetime对象
+
+
+datetime.timedelta
+表示两个date、time、datetime 实例 
+之间的
+时间间隔，
+分辨率（最小单位）可达到微秒
+
+datetime.timedelta()
+ 返回一个时间间隔对象，
+ 可以直接与datetime.datetime对象
+做加减操作
+
+
+datetime模块提供的
+timedelta类
+可以让我们很方面的
+对datetime.date, 
+datetime.time
+和datetime.datetime对象
+做算术运算，
+且两个时间之间的差值单位
+也更加容易控制。
+ 这个差值的单位可以是：
+天、秒、微秒、毫秒、分钟、小时、周
+
+
+使用timedelta可以很方便地
+在日期上做天days,
+小时hour,分钟,秒,
+毫秒,微秒
+的时间计算
+
+datetime.timedelta类的定义
+
+class datetime.timedelta(days=0, seconds=0, 
+microseconds=0, 
+milliseconds=0, 
+hours=0, weeks=0)
+
+所有参数都是默认参数，
+因此都是可选参数。
+
+参数的值可以是
+整数或浮点数，
+也可以是正数或负数。
+
+内部值存储days、seconds 和 microseconds，
+其他所有参数都将
+被转换成这3个单位：
+
+1毫秒转换为1000微秒
+1分钟转换为60秒
+1小时转换为3600秒
+1周转换为7天
+
+然后对这3个值进行标准化，
+使得它们的表示是唯一的：
+microseconds : [0, 999999]
+seconds : [0, 86399]
+days : [-999999999, 999999999]
+
+
+实例方法/属性名称	描述
+td.days            天 [-999999999, 999999999]
+td.seconds         秒 [0, 86399]
+td.microseconds    微秒 [0, 999999]
+
+[root@V0 pyscripts]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> from  datetime  import  *
+
+>>> dat = datetime.now()
+>>> dat
+datetime.datetime(2019, 4, 3, 18, 15, 45, 172450)
+>>> print(dat)
+2019-04-03 18:15:45.172450
+>>> 
+>>> days = timedelta(days= 100,hours= 5)
+>>> 
+>>> dat + days
+datetime.datetime(2019, 7, 12, 23, 15, 45, 172450)
+>>> print(dat + days)
+2019-07-12 23:15:45.172450
+>>> 
+>>> print(dat - days)
+2018-12-24 13:15:45.172450
+>>> exit()
+
+
+import datetime
+
+datetime.timedelta(365).total_seconds() # 一年包含的总秒数
+
+dt = datetime.datetime.now()
+
+dt + datetime.timedelta(3) # 3天后
+
+dt + datetime.timedelta(-3) # 3天前
+
+dt + datetime.timedelta(hours=3) # 3小时后
+
+dt + datetime.timedelta(hours=-3) # 3小时前
+
+dt + datetime.timedelta(hours=3, seconds=30) # 3小时30秒后 
+
+>>> 
+[root@V0 pyscripts]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+>>> import datetime
+>>> 
+>>> datetime.timedelta(365).total_seconds() # 一年包含的总秒数
+31536000.0
+>>> 
+>>> dt = datetime.datetime.now()
+>>> 
+>>> dt + datetime.timedelta(3) # 3天后
+datetime.datetime(2019, 4, 6, 18, 32, 56, 249348)
+>>> 
+>>> dt + datetime.timedelta(-3) # 3天前
+datetime.datetime(2019, 3, 31, 18, 32, 56, 249348)
+>>> 
+>>> dt + datetime.timedelta(hours=3) # 3小时后
+datetime.datetime(2019, 4, 3, 21, 32, 56, 249348)
+>>> 
+>>> dt + datetime.timedelta(hours=-3) # 3小时前
+datetime.datetime(2019, 4, 3, 15, 32, 56, 249348)
+>>> 
+>>> dt + datetime.timedelta(hours=3, seconds=30) # 3小时30秒后 
+datetime.datetime(2019, 4, 3, 21, 33, 26, 249348)
+>>> 
+>>> 
+[root@V0 pyscripts]# scp  timedatenow.py  root@192.168.0.254:'/root/桌面/python1_2/python2/day05' 
+
+============================================
+============================================
+
+
+异常是因为程序出现了错误
+而在正常控制流以外采取的行为
+
+•  这个行为又分为两个阶段:
+–  首先是引起异常发生的错误
+–  然后是检测(和采取可能的措施)阶段
+
+traceback消息---异常信息
+
+异常                描述
+NameError       未声明/初始化对象
+IndexError      序列中没有没有此索引
+SyntaxError     语法错误
+KeyboardInterrupt   用户中断执行 ##敲快捷键ctrl+ c 中断^CTraceback
+EOFError         没有内建输入,到达EOF标记 #敲快捷键ctrl+d 中断输入,会报异常
+IOError          输入/输出操作失败
+ZeroDivisionError:  #零分割误差:除数不能是零
+ValueError:     #数据类型错误
+
+
+
+>>> name = 'bianliang'
+>>> namm
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'namm' is not defined
+>>> 
+[root@V0 pyscripts]# python3   clocktime.py
+__name__ is __main__ sys.argv  is ['clocktime.py']
+ sys.argv[0] is clocktime.py
+*1*2*3*4*5*6
+"13回车回到行首不换行，"
+"10回车直接进入下一行
+*6
+#########@#^CTraceback (most recent call last):
+  File "clocktime.py", line 43, in <module>
+    rail()
+  File "clocktime.py", line 34, in rail
+    time.sleep(1.1)
+KeyboardInterrupt   #用户中断执行^CTraceback
+[root@V0 pyscripts]# 
+
+>>> a = input('input-ctrl+d:')
+input-ctrl+d:Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+EOFError  
+  #敲快捷键ctrl+d 中断输入,会报异常:没有内建输入,到达EOF标记
+>>> 
+>>> print(int())
+0
+>>> print(int(''))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ValueError: invalid literal for int() with base 10: ''
+      #数据类型错误
+>>> 
+基本数字类型
+•  int:有符号整数
+•  bool:布尔值
+–  True:1
+–  False:0
+•  float:浮点数
+•  complex:复数
+
+
+[root@V0 pyscripts]# python3  diverror.py
+__name__  is __main__  sys.argv is  ['diverror.py']
+please enter an integer:0
+Traceback (most recent call last):
+  File "diverror.py", line 8, in <module>
+    result = 100 / num
+ZeroDivisionError: division by zero  #零分割误差:除数不能是零
+
+[root@V0 pyscripts]# 
+division   英 [dɪˈvɪʒn]   美 [dɪˈvɪʒən]  
+          n.部门;分开，分隔;[数]除法;
+
+
+try-except语句
+•  定义了进行异常监控的一段代码,
+并且提供了处理异常的机制
+
+try:
+  try_suite    #监控这里的异常
+except  Exception[as  reason]:
+  except_suite #异常处理代码
+
+exception   英 [ɪkˈsepʃn]   美 [ɪkˈsɛpʃən]  
+          n.例外，除外;反对，批评;
+
+可以把多个except语句连接在一起,
+处理一个try块中可能发生的
+多种异常
+
+>>>try:
+... data = int(input('input a number: '))
+...   except  KeyboardInterrupt:
+...   print('user  cancelled')
+...   except  ValueError:
+...     print('you must input a number!’)
+
+
+当异常被引发后参数是作为附加帮助信息传递给异常
+处理器的
+>>>try:
+...  10/0	
+...except  ZeroDivisionError as e:
+...  print('error', e)
+...	
+error division  by zero
+
+
+[root@V0 pyscripts]# python3  diverror.py
+__name__  is __main__  sys.argv is  ['diverror.py']
+please enter an integer:
+数据类型错误,或者是空输入,请输入整数
+ sys.argv[0]  is diverror.py 
+
+
+[root@V0 pyscripts]# python3  diverror.py
+__name__  is __main__  sys.argv is  ['diverror.py']
+please enter an integer:0
+数字0 不能使用,除数不能是零!
+
+
+ sys.argv[0]  is diverror.py 
+[root@V0 pyscripts]# python3  diverror.py
+__name__  is __main__  sys.argv is  ['diverror.py']
+please enter an integer:^C#用户ctrl+ c 中断执行^CTraceback 报错
+ sys.argv[0]  is diverror.py 
+
+
+[root@V0 pyscripts]# python3  diverror.py
+__name__  is __main__  sys.argv is  ['diverror.py']
+please enter an integer:#敲快捷键ctrl+d 中断输入,会报异常
+ sys.argv[0]  is diverror.py 
+
+
+[root@V0 pyscripts]# python3  diverror.py
+__name__  is __main__  sys.argv is  ['diverror.py']
+please enter an integer:qqq
+数据类型错误,或者是空输入,请输入整数
+ sys.argv[0]  is diverror.py 
+
+
+[root@V0 pyscripts]# python3  diverror.py
+__name__  is __main__  sys.argv is  ['diverror.py']
+please enter an integer:33
+ 100/num is 3.030303 this is result
+ sys.argv[0]  is diverror.py 
+
+
+[root@V0 pyscripts]# cat   diverror.py
+#!/usr/bin/env  python3
+import	 sys, subprocess, random, string, getpass
+
+print('\033[31;47;1m__name__  is %s  sys.argv is  %s\033[0m' \
+% (__name__,sys.argv))
+
+try:
+  num = int(input("please enter an integer:"))
+  result = 100 / num
+  
+  print('\033[32;46;1m 100/num is %f\033[0m' % result, \
+  end= ' this is result\n')
+except  ValueError:
+  print('数据类型错误,或者是空输入,请输入整数')
+except  ZeroDivisionError:
+  print('数字0 不能使用,除数不能是零!')
+except  KeyboardInterrupt:
+  print('#用户ctrl+ c 中断执行^CTraceback 报错')
+except  EOFError:
+  print('#敲快捷键ctrl+d 中断输入,会报异常')
+
+
+
+if __name__ == '__main__':
+
+  print('\033[30;43;1m sys.argv[0]  is %s \033[0m' % sys.argv[0])
+
+[root@V0 pyscripts]# 
+
+solution  英 [səˈlu:ʃn]   美 [səˈluʃən]  
+          n.溶液;解决;溶解;答案
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
