@@ -1,0 +1,1175 @@
+
+===========================
+
+traceback消息---异常信息
+
+异常                描述
+NameError       未声明/初始化对象
+IndexError      序列中没有此索引
+SyntaxError     语法错误
+KeyboardInterrupt   用户中断执行 ##敲快捷键ctrl+ c 中断^CTraceback
+EOFError         没有内建输入,到达EOF标记 #敲快捷键ctrl+d 中断输入,会报异常
+IOError          输入/输出操作失败
+ZeroDivisionError:  #零分割误差:除数不能是零
+ValueError:     #输入的数据类型错误
+TypeError:     #变量类型错误
+FileExistsError:
+AssertionError: 
+AttributeError: module 'stat' has no attribute 'SIROTH'
+>>> 
+
+
+
+基本数字类型
+•  int:有符号整数
+•  bool:布尔值
+–  True:1
+–  False:0
+•  float:浮点数
+•  complex:复数
+
+complex
+*[kәm'pleks]
+n. 综合体, 情结, 络合物
+a. 复杂的, 组合的
+【化】 络合物
+【医】 复(合)体; 
+
+数据类型比较
+•  按存储模型分类
+–  标量类型:数值、字符串
+–  容器类型:列表、元组、字典，集合
+•  按更新模型分类:
+–  可变类型:列表、字典
+–  不可变类型:数字、字符串、元组
+•  按访问模型分类
+–  直接访问:数字, 集合
+–  顺序访问:字符串、列表、元组
+–  映射访问:字典
+
+数字,标量,不可变,直接访问
+
+字符串,标量,不可变,顺序访问
+
+列表,容器,可变,顺序访问
+
+元组,容器,不可变,顺序
+
+字典,容器,可变,映射访问
+ 
+可变类型、不可hash  不可变类型，可hash
+列表                   字符串
+字典                   数字
+集合                   元组
+                       不可变的集合
+
+只有不可变类型的对象 可以作为字典的键
+只有不可变类型的对象 才可以作为集合的元素
+
+内置的list不能作为字典的key.
+
+但tuple是不可变，
+所以tuple可以作为字典的key。
+
+
+•  列表是有序、可变的数据类型
+•  列表中可以包含不同类型的对象
+•  列表可以由[]或工厂函数创建
+•  支持下标及切片操作
+
+通过下标只能更新值,不能使用下标添加新值
+
+
+通过()或工厂函数tuple()创建元组
+元组,    容器,不可变,顺序
+•  元组是有序的、不可变类型
+•  与列表类似,作用于列表的操作,
+绝大数也可以作用于元组
+
+
+单元素元组
+•  如果一个元组中只有一个元素,
+那么创建该元组的时候,需要加上一个逗号
+
+
+“更新”元组
+•  虽然元组本身是不可变的,
+但是因为它同时属于容器类型,
+也就意味着元组的某一个元素是可变的容器类型,
+那么这个元素中的项目仍然可变
+
+
+os模块简介
+•  对文件系统的访问大多通过python的os模块实现
+•  该模块是python访问操作系统功能的主要接口
+•  有些方法,如copy等,并没有提供,
+可以使用shutil模块作为补充
+
+os模块方法
+函数                 作用
+os.symlink(src, dst)       创建符号链接,即软链接
+
+os.link(src, dst)	创建硬链接，名为参数 dst，指向参数 src
+
+os.remove(path)  删除路径为path的文件。
+        如果path 是一个文件夹，将抛出OSError; 
+
+listdir()        列出指定目录的文件
+getcwd()         返回当前工作目录
+mkdir()          创建目录
+os.mkdir(path[, mode])	以数字mode的mode创建一个名为path的文件夹.
+       默认的 mode 是 0777 (八进制)。
+
+makedirs(path)  #递归创建新的目录,如果存在的话，抛异常
+os.makedirs('E:\\ONE\\TWO')
+os.makedirs('E:\\ONE\\THREE')
+#这样我们就在E盘中得到一个ONE目录，
+其中含有两个目录，TWO，THREE
+
+os.removedirs(path)	# 递归删除没有文件的空目录
+
+os.rmdir(path)  删除path指定的空目录，
+        如果目录非空，则抛出一个OSError异常。
+
+chmod()          改变权限模式
+getatime()       返回最近访问时间
+chdir()          改变工作目录
+
+
+=============== 可以跨平台的一些操作：
+
+os.curdir:表示当前目录，和 '.'  表示同一个意思
+os.pardir:表示上一级目录，和 ‘..’表示同一个意思
+
+>>> os.curdir   #表示当前目录
+'.'
+>>> print(os.curdir)
+.
+>>> os.pardir  #表示上一级目录
+'..'
+>>> os.se
+os.sendfile(         os.setgid(           os.setresgid(
+os.sep               os.setgroups(        os.setresuid(
+os.set_blocking(     os.setpgid(          os.setreuid(
+os.set_inheritable(  os.setpgrp(          os.setsid(
+os.setegid(          os.setpriority(      os.setuid(
+os.seteuid(          os.setregid(         os.setxattr(
+
+>>> os.sep  #表示当前系统下的路径分割符,Linux的路径分割符 表示 '/'
+'/'
+>>> os.linesep  #Linux中表示  ‘\n’
+'\n'
+>>> os.name
+os.name
+>>> os.name  #Linux中显示  'posix',代表当前使用的操作系统
+'posix'
+>>> 
+os.sep:表示当前系统下的路径分割符，
+在不同的操作平台上，他所代表的东西也不同，
+win表示  ‘\\’,
+Linux表示 '/'
+
+os.linesep:当前平台使用的行终止符
+（Win 中表示  ‘\r\n’,Linux中表示  ‘\n’）
+
+os.name:代表自己当前使用的操作系统，
+（Win中会显示  ‘nt’,Linux中显示  'posix'
+
+
+[root@V0 pyscripts]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  os,  shutil  #导入多个模板
+
+>>> os.mkdir('/osdir')
+>>> os.listdir('/osdir')
+[]
+>>> os.symlink('/etc/hosts', '/osdir')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+FileExistsError: [Errno 17] File exists: '/etc/hosts' -> '/osdir'
+
+>>> os.symlink('/etc/hosts', '/osdir/copyhosts')  #注意是添加 软链接
+
+>>> os.listdir('/osdir')
+['copyhosts']
+>>> os.chdir('/osdir')
+>>> os.getcwd
+os.getcwd(   os.getcwdb(  
+>>> os.getcwd()
+'/osdir'
+>>> 
+>>> os.listdir('.') #查看当前路径下的所有文件或文件夹
+['copyhosts']
+
+>>> shutil.copy('/etc/passwd', '.')  #注意是复制文件,不是加软链接
+'./passwd'
+>>> os.listdir('.')
+['copyhosts', 'passwd']
+>>> 
+
+>>> print(os.listdir('/osdir'))
+['copyhosts']
+>>> print(os.getcwd())
+/osdir
+>>> 
+>>> os.removedirs('/osdir')  
+            # 工作路径在将要删除的目录下,操作删除此目录逻辑不对
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/local/lib/python3.6/os.py", line 238, in removedirs
+    rmdir(name)
+OSError: [Errno 39] Directory not empty: '/osdir'
+>>> 
+>>> os.remove('copyhosts') #删除当前目录下的文件copyhosts
+>>> os.listdir()  #查看文件已经删除
+[]
+>>> os.chdir('/root')  #切换到root 目录下
+>>> print(os.getcwd())  #查看当前的工作路径
+/root
+>>> os.removedirs('/osdir') # 递归删除没有文件的空目录
+>>> 
+>>> os.path.exists('ip.sh') #查看当前工作目录下的相对路径下是否有文件存在
+True
+>>> os.path.exists('ipxx.sh') ##查看当前工作目录下的相对路径下是否有文件存在
+False
+>>> os.path.exists('/root/pyscripts/') #查看在 绝对路径下是否有文件夹存在
+True
+>>> os.path.exists('/root/pyscriptsxxx/')
+False
+>>> 
+
+
+[root@V0 pyscripts]# stat  /etc/hosts
+  文件："/etc/hosts"
+  大小：158       	块：8          IO 块：4096   普通文件
+设备：fd00h/64768d	Inode：16778291    硬链接：1
+权限：(0644/-rw-r--r--)  Uid：(    0/    root)   Gid：(    0/    root)
+最近访问：2019-04-04 12:18:31.295361503 +0800
+最近更改：2013-06-07 22:31:32.000000000 +0800
+最近改动：2018-01-30 11:57:25.763000000 +0800
+创建时间：-
+[root@V0 pyscripts]# stat  /osdir/copyhosts 
+  文件："/osdir/copyhosts" -> "/etc/hosts"
+  大小：10        	块：0          IO 块：4096   符号链接
+设备：fd00h/64768d	Inode：43712       硬链接：1
+权限：(0777/lrwxrwxrwx)  Uid：(    0/    root)   Gid：(    0/    root)
+最近访问：2019-04-04 15:10:59.302361503 +0800
+最近更改：2019-04-04 14:59:06.095361503 +0800
+最近改动：2019-04-04 14:59:06.095361503 +0800
+创建时间：-
+[root@V0 pyscripts]# 
+[root@V0 pyscripts]# ll  /osdir/copyhosts   /etc/hosts
+-rw-r--r--. 1 root root 158 6月   7 2013 /etc/hosts
+lrwxrwxrwx  1 root root  10 4月   4 14:59 /osdir/copyhosts -> /etc/hosts
+[root@V0 pyscripts]#
+[root@V0 pyscripts]# ll  mima
+-rw-r--r-- 1 root root 1681 4月   2 20:42 mima
+[root@V0 pyscripts]# 
+
+
+[root@V0 pyscripts]# vim  ospickle.py
+[root@V0 pyscripts]# python3  ospickle.py
+__name__ is __main__
+sys.argv is ['ospickle.py']
+[]
+['copyhosts']
+/osdir
+[root@V0 pyscripts]# ll  /osdir/
+总用量 0
+lrwxrwxrwx 1 root root 10 4月   4 16:27 copyhosts -> /etc/hosts
+
+[root@V0 pyscripts]# python3  ospickle.py
+__name__ is __main__
+sys.argv is ['ospickle.py']
+[]
+['copyhosts']
+/osdir
+[root@V0 pyscripts]# ll  /osdir/
+总用量 0
+lrwxrwxrwx 1 root root 10 4月   4 16:28 copyhosts -> /etc/hosts
+
+[root@V0 pyscripts]# cat   ospickle.py
+#!/usr/bin/env  python3
+import  sys, os, pickle
+print('\033[31;47;1m__name__ is %s\033[0m' % __name__)
+
+def  ostest():
+
+  if  os.path.exists('/osdir'):
+    if os.path.exists('/osdir/copyhosts'):
+      os.remove('/osdir/copyhosts') #删除绝对路径下的文件copyhosts
+    os.removedirs('/osdir')   ## 递归删除没有文件的空目录
+  os.mkdir('/osdir')  #创建目录
+
+  print(os.listdir('/osdir')) #查看目录,列出指定目录的文件
+
+  os.symlink('/etc/hosts', '/osdir/copyhosts') 
+#创建符号链接(即软链接),并且改写文件链接名
+
+  print(os.listdir('/osdir')) #查看目录,列出指定目录的文件
+
+  os.chdir('/osdir')   #切换改变工作目录,等同shell中的 cd 命令
+
+  print(os.getcwd())  #查看当前工作目录的路径
+
+
+
+if __name__ == '__main__':
+  print('\033[30;43;1msys.argv is %s\033[0m' % sys.argv)
+  ostest()
+
+
+[root@V0 pyscripts]# 
+
+>>> import  os,  shutil
+>>> os.getcwd()
+'/root'
+>>> os.chdir('/osdir') #切换工作路径到指定的目录'/osdir'
+
+>>> os.getcwd()
+'/osdir'
+>>> os.listdir()
+['copyhosts']
+
+>>> os.listdir('.') #查看当前路径下的所有文件或文件夹
+['copyhosts']
+
+>>> shutil.copy('/etc/passwd', '.')  #注意是复制文件,不是加软链接
+'./passwd'
+>>> os.listdir('.')
+['copyhosts', 'passwd']
+>>> 
+>>> os.mkdir('dir2')   #创建目录
+>>> os.listdir('.')
+['copyhosts', 'passwd', 'dir2']
+>>> 
+>>> os.curdir
+'.'
+>>> print(os.curdir)
+.
+>>> 
+>>> print(os.curdir)
+.
+>>> os.pardir
+'..'
+>>> 
+>>> os.sep
+'/'
+>>> os.linesep
+'\n'
+>>> os.name
+os.name
+>>> os.name
+'posix'
+>>> os.listdir('.')
+['copyhosts', 'passwd', 'dir2']
+
+>>> os.stat('passwd') #将文件的相关属性读出来，然后用stat模块来处理
+
+os.stat_result(st_mode=33188, 
+ st_ino=51679021, 
+ st_dev=64768, st_nlink=1, 
+ st_uid=0, st_gid=0, st_size=2059, 
+ st_atime=1554366918, st_mtime=1554366918, st_ctime=1554366918)
+>>> 
+[root@V0 pyscripts]# ll   passwd 
+-rw-r--r-- 1 root root 1728 4月   2 20:43 passwd
+[root@V0 pyscripts]#
+
+返回值
+stat 结构:
+    st_mode: inode 保护模式
+            (可以对st_mode做相关的判断，
+            如是否是目录，
+              是否是文件，
+              是否是管道等)
+    st_ino: inode 节点号。
+    st_dev: inode 驻留的设备。
+    st_nlink: inode 的链接数。
+    st_uid: 所有者的用户ID。
+    st_gid: 所有者的组ID。
+    st_size: 普通文件以字节为单位的大小；包含等待某些特殊文件的数据。
+    st_atime: 上次访问的时间。
+    st_mtime: 最后一次修改的时间。
+    st_ctime: 由操作系统报告的"ctime"。
+在某些系统上（如Unix）是最新的元数据更改的时间，
+在其它系统上（如Windows）
+是创建时间（详细信息参见平台的文档）。
+
+>>> os.stat('passwd').st_size  #查看文件大小
+2059
+>>> 
+>>> oct(8)
+'0o10'
+>>> 
+>>> oct(7)
+'0o7'
+>>> 
+>>> int('0o10',8)
+8
+>>> int(0o10)
+8
+>>> int(0o11)
+9
+>>> oct(9)
+'0o11'
+>>> 
+>>> os.stat('passwd').st_mode
+33188
+>>> type(os.stat('passwd').st_mode)
+<class 'int'>
+
+------------------------ /osdir/工作目录下的文件 #注意权限变化
+
+
+>>> import  os,  shutil
+>>> os.getcwd()
+'/root'
+>>> os.chdir('/osdir')   #切换工作路径到指定的目录'/osdir'
+>>> os.getcwd()
+'/osdir'
+>>> os.listdir('.')
+['copyhosts', 'passwd', 'dir2']
+>>> 
+>>> os.getcwd()
+'/osdir'
+>>> os.stat('passwd')
+os.stat_result(st_mode=35280, st_ino=51679021, st_dev=64768, st_nlink=1, st_uid=0, st_gid=0, st_size=2059, st_atime=1554366918, st_mtime=1554366918, st_ctime=1554370968)
+>>> os.stat('passwd').st_mode
+35280
+>>> 
+>>> import  stat   #注意导入模版
+>>> stat.S
+stat.SF_APPEND     stat.ST_UID        stat.S_IMODE(      stat.S_ISLNK(
+stat.SF_ARCHIVED   stat.S_ENFMT       stat.S_IREAD       stat.S_ISPORT(
+stat.SF_IMMUTABLE  stat.S_IEXEC       stat.S_IRGRP       stat.S_ISREG(
+stat.SF_NOUNLINK   stat.S_IFBLK       stat.S_IROTH       stat.S_ISSOCK(
+stat.SF_SNAPSHOT   stat.S_IFCHR       stat.S_IRUSR       stat.S_ISUID
+stat.ST_ATIME      stat.S_IFDIR       stat.S_IRWXG       stat.S_ISVTX
+stat.ST_CTIME      stat.S_IFDOOR      stat.S_IRWXO       stat.S_ISWHT(
+stat.ST_DEV        stat.S_IFIFO       stat.S_IRWXU       stat.S_IWGRP
+stat.ST_GID        stat.S_IFLNK       stat.S_ISBLK(      stat.S_IWOTH
+stat.ST_INO        stat.S_IFMT(       stat.S_ISCHR(      stat.S_IWRITE
+stat.ST_MODE       stat.S_IFPORT      stat.S_ISDIR(      stat.S_IWUSR
+stat.ST_MTIME      stat.S_IFREG       stat.S_ISDOOR(     stat.S_IXGRP
+stat.ST_NLINK      stat.S_IFSOCK      stat.S_ISFIFO(     stat.S_IXOTH
+stat.ST_SIZE       stat.S_IFWHT       stat.S_ISGID       stat.S_IXUSR
+
+>>> stat.S_ISREG(35280)
+True
+>>> stat.S_ISREG(os.stat('passwd').st_mode)  #判断是否一般文件
+True
+>>> os.stat('passwd').st_mode
+35280
+>>> 
+
+
+stat.S_IRWXU: Read, write, and execute by owner. 对于拥有者读写执行的权限
+
+stat.S_IRUSR: Read by owner. 对于拥有者读的权限
+
+stat.S_IWUSR: Write by owner. 对于拥有者写的权限
+
+stat.S_IXUSR: Execute by owner. 对于拥有者执行的权限
+
+stat.S_IRWXG: Read, write, and execute by group. 对于同组的人读写执行的权限
+
+stat.S_IRGRP: Read by group. 对于同组读的权限
+
+stat.S_IWGRP: Write by group. 对于同组写的权限
+
+stat.S_IXGRP: Execute by group. 对于同组执行的权限
+
+stat.S_IRWXO: Read, write, and execute by others. 对于其他组读写执行的权限
+
+stat.S_IROTH: Read by others. 对于其他组读的权限
+
+stat.S_IWOTH: Write by others. 对于其他组写的权限
+
+stat.S_IXOTH: Execute by others. 对于其他组执行的权限 
+
+----------------------------  #改变权限的操作 --------------------------
+
+======================================================================
+
+======================================================================
+
+
+[root@room9pc01 ~]# cd  /root/桌面/pytest/
+[root@room9pc01 pytest]# python3  --version
+Python 3.6.1
+
+[root@room9pc01 pytest]# pwd
+/root/桌面/pytest
+[root@room9pc01 pytest]# python3
+Python 3.6.1 (default, Mar 20 2018, 00:12:35) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import   os, shutil, stat    #导入多个模板
+>>>
+>>> os.curdir       ## 表示当前目录
+'.'
+>>> os.pardir       # 表示上一级目录
+'..'
+>>> os.sep          ## 表示当前系统下的路径分割符,Linux的路径分割符 表示 '/'
+'/'
+>>> os.linesep      ## 当前平台使用的行终止符, Linux中表示  ‘\n’
+'\n'
+---------------------------- （Win 中表示  ‘\r\n’,Linux中表示  ‘\n’)
+
+>>> os.name         ## Linux中显示  'posix',代表当前使用的操作系统
+'posix'
+>>> os.listdir('.')              #查看目录,列出当前目录下./ 的文件
+['Screenshot.txt', 'pythonbj5-4.txt']
+
+>>> os.getcwd()                  #查看当前工作目录的路径
+'/root/桌面/pytest'
+
+
+>>> os.mkdir('/root/桌面/Test')   ## 创建目录
+
+
+>>> os.chdir('/root/桌面/Test')   ## 切换改变工作目录,等同shell中的 cd 命令
+
+>>> os.getcwd()                  #查看当前工作目录的路径
+'/root/桌面/Test'
+
+>>> os.listdir('../pytest')      #查看目录,列出上级目录../ 下的指定目录pytest/下 的文件
+['Screenshot.txt', 'pythonbj5-4.txt']
+
+>>> os.listdir('.')             #查看目录,列出当前目录下./ 的文件
+[]
+>>> 
+>>> os.stat('/etc/hosts')
+os.stat_result(st_mode=33188, 
+ st_ino=4325421, st_dev=2050, st_nlink=1, 
+ st_uid=0, st_gid=0, st_size=477, 
+ st_atime=1554430839, st_mtime=1521455976, st_ctime=1521455976)
+
+>>> os.stat('/etc/hosts').st_size    ##查看文件大小
+477
+
+>>> os.stat('/etc/hosts').st_mode
+33188
+
+>>> oct(os.stat('/etc/hosts').st_mode)   #注意权限变化
+'0o100644'
+
+>>> oct(os.stat('/etc/passwd').st_mode)  #注意权限变化
+'0o100644'
+
+>>> os.stat('/etc/passwd').st_size    #查看文件大小
+2180
+>>> 
+>>> shutil.copy('/etc/passwd', '.')   #注意是复制文件, 不是加软链接
+'./passwd'
+
+
+创建软连接： ln -s 命令创建软链接
+# ln  -s  现有文件文件名      新文件名
+# ln  -s  /现有文件夹/       /新文件夹
+
+symbolic     英 [sɪmˈbɒlɪk]   美 [sɪmˈbɑ:lɪk]  
+            adj.象征的，象征性的
+软链接：（
+   又称符号链接，即 soft link 或 symbolic link） 
+
+------------------  ## 创建符号链接(即软链接),  并且改写文件链接名symbolic_hosts
+
+>>> os.symlink('/etc/hosts','./symbolic_hosts')
+
+>>> os.listdir()           ##查看当前目录下的 所有 文件 及 文件夹
+['passwd', 'symbolic_hosts']
+
+>>> os.getcwd()            #查看当前工作目录的路径
+'/root/桌面/Test'
+>>> 
+>>> os.stat('symbolic_hosts')
+os.stat_result(st_mode=33188, 
+ st_ino=4325421, st_dev=2050, st_nlink=1, 
+ st_uid=0, st_gid=0, st_size=477, 
+ st_atime=1554430839, st_mtime=1521455976, st_ctime=1521455976)
+
+>>> os.stat('passwd')
+os.stat_result(st_mode=33188, 
+ st_ino=5772088, st_dev=2050, st_nlink=1, 
+ st_uid=0, st_gid=0, st_size=2180, 
+ st_atime=1554439738, st_mtime=1554439738, st_ctime=1554439738)
+>>> 
+
+>>> os.mkdir('dir2')      ## 创建目录
+
+>>> os.listdir()          ##查看当前目录下的 所有 文件 及 文件夹
+['passwd', 'symbolic_hosts', 'dir2']
+
+>>> os.stat('./dir2/')     ##将文件的相关属性读出来，然后 可以使用 stat 模块 来处理
+os.stat_result(st_mode=16877, 
+ st_ino=5772098, st_dev=2050, st_nlink=2, 
+ st_uid=0, st_gid=0, st_size=4096, 
+ st_atime=1554440867, st_mtime=1554440867, st_ctime=1554440867)
+>>> 
+
+判断文件是否可做读写操作
+使用os.access()方法判断文件是否可进行读写操作。
+语法：
+os.access(path, mode)
+path为文件路径，mode为操作模式，有这么几种:
+
+os.F_OK: 检查文件或文件夹 是否存在;
+
+os.R_OK: 检查文件或文件夹 是否可读;
+
+os.W_OK: 检查文件或文件夹 是否可以写入;
+
+os.X_OK: 检查文件或文件夹 是否可以执行
+
+>>> oct(os.stat('./passwd').st_mode)    #注意权限变化
+'0o100644'
+>>>
+>>> os.access('passwd',os.F_OK)  #检查文件或文件夹 是否存在
+True
+>>> 
+##查看当前工作目录下的相对路径下是否有文件存在
+
+>>> os.path.exists('dir2/')        #返回 True 表示文件夹 dir2 存在
+True
+
+>>> os.path.exists('passwd')
+True
+>>> 
+>>> os.path.exists('passwd2')   #返回 False 表示文件 不存在
+False
+>>> 
+
+>>> os.access('passwd',os.R_OK)
+True
+>>> os.access('passwd',os.W_OK)
+True
+>>> os.access('passwd',os.X_OK)  #检查文件或文件夹 是否可以执行
+False
+>>> os.access('./dir2',os.F_OK)  #检查文件或文件夹 是否存在
+True
+
+>>> oct(os.stat('./dir2').st_mode)   #注意权限变化
+'0o40755'
+
+
+>>> os.access('./dir2/',os.X_OK)  #检查文件或文件夹 是否可以执行
+True
+>>> 
+>>> os.access('./dir2/',os.W_OK)
+True
+>>> os.access('./dir2/',os.R_OK)
+True
+>>> 
+>>> stat.S_ISREG(os.stat('passwd').st_mode)    #判断是否一般文件
+True
+
+>>> stat.S_ISLNK(os.stat('passwd').st_mode)     ##判断是否链接文件
+False
+>>>
+>>> stat.S_ISLNK(os.stat('symbolic_hosts').st_mode)  ##判断是否链接文件 ? ? ?
+False
+
+>>> stat.S_ISDIR(os.stat('symbolic_hosts').st_mode)   #判断是否目录
+False
+
+>>> stat.S_ISDIR(os.stat('./dir2').st_mode)     #判断是否目录
+True
+>>> 
+
+[root@room9pc01 Test]# ls
+dir2  passwd  symbolic_hosts
+[root@room9pc01 Test]# ll
+总用量 8
+drwxr-xr-x 2 root root 4096 4月   5 13:07 dir2
+-rw-r--r-- 1 root root 2180 4月   5 12:48 passwd
+lrwxrwxrwx 1 root root   10 4月   5 12:51 symbolic_hosts -> /etc/hosts
+
+[root@room9pc01 Test]# ls  -ld   dir2/
+drwxr-xr-x 2 root root 4096 4月   5 13:07 dir2/
+
+>>> oct(os.stat('./dir2').st_mode)   #注意权限变化
+'0o40755'
+
+-----------------   #改变权限的操作  -------------------
+
+[root@room9pc01 Test]# chmod  4000  dir2/
+
+                        #注意添加了附加root继承权限s(不含x权限会是大写的S )
+
+[root@room9pc01 Test]# ls  -ld   dir2/
+d--S------ 2 root root 4096 4月   5 13:07 dir2/
+
+>>> oct(os.stat('dir2').st_mode)    #注意权限变化
+'0o44000'
+>>> 
+
+-----------------   #改变权限的操作  -------------------
+
+>>> os.chmod('./dir2/', stat.S_IRWXU + stat.S_IRGRP + stat.S_IROTH)
+
+>>> oct(os.stat('dir2').st_mode)    #注意权限变化
+'0o40744'
+>>> 
+[root@room9pc01 Test]# ls  -ld   dir2/
+drwxr--r-- 2 root root 4096 4月   5 13:07 dir2/
+
+[root@room9pc01 Test]# ll  passwd 
+-rw-r--r-- 1 root root 2180 4月   5 12:48 passwd
+
+>>>
+>>> oct(os.stat('./passwd').st_mode)    #注意权限变化
+'0o100644'
+>>>
+>>> os.chmod('passwd', 0o4720)    ##改变权限的操作
+
+>>> os.chmod('./dir2', 0o777)    #改变权限模式
+
+>>> oct(os.stat('./passwd').st_mode)  #注意权限变化
+'0o104720'
+
+>>> oct(os.stat('dir2').st_mode)      #注意权限变化
+'0o40777'
+>>> 
+[root@room9pc01 Test]# ls   passwd   dir2/   -ld
+drwxrwxrwx 2 root root 4096 4月   5 13:07 dir2/
+-rws-w---- 1 root root 2180 4月   5 12:48 passwd
+         #注意添加了附加root继承权限s(不含x权限会是大写的S )
+
+>>> os.stat('passwd').st_size      #文件大小
+2180
+>>> 
+>>> os.getcwd()
+'/root/桌面/Test'
+
+>>> os.listdir()
+['passwd', 'symbolic_hosts', 'dir2']
+
+>>> os.mknod('abc.txt')     # 创建 空 文件
+
+>>> os.listdir()
+['abc.txt', 'passwd', 'symbolic_hosts', 'dir2']
+>>> 
+
+>>> os.stat('abc.txt').st_mode   #查看文件权限，返回 有符号整数类型的数据
+33152
+>>> os.stat('abc.txt').st_size
+0
+
+
+>>> type(os.stat('abc.txt').st_mode)
+<class 'int'>
+>>> type(oct(os.stat('abc.txt').st_mode))
+<class 'str'>
+>>> 
+>>> oct(33152)  ## 转化成 八进制的字符串数据类型的形式，查看文件权限
+'0o100600'
+>>> 
+[root@room9pc01 Test]# ll  abc.txt 
+-rw------- 1 root root 0 4月   5 14:24 abc.txt
+
+>>> os.listdir()
+['abc.txt', 'passwd', 'symbolic_hosts', 'dir2']
+
+>>> os.remove('symbolic_hosts')  #只能 删除路径为path的文件，
+                   #  如果path 是一个文件夹，将抛出 IsADirectoryError: 
+
+>>> os.listdir()
+['abc.txt', 'passwd', 'dir2']
+
+>>> os.remove('dir2')
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IsADirectoryError: [Errno 21] Is a directory: 'dir2'
+
+>>> os.rmdir('dir2')    #只能 删除路径为path的 空 文件夹
+
+>>> os.listdir()
+['abc.txt', 'passwd']
+>>> 
+[root@room9pc01 Test]# ls
+abc.txt  passwd
+
+os.removedirs(path)	# 递归删除没有文件的 空 目录
+
+>>> 
+>>> os.path.abspath('abc.txt')   #查看 文件的 绝对路径，返回完整的文件名
+
+'/root/桌面/Test/abc.txt'
+
+>>> os.path.basename('/root/桌面/Test/abc.txt')   #只查看文件名，不需要目录名
+'abc.txt'
+
+>>> os.path.dirname('/root/桌面/Test/abc.txt')    #只要目录名
+'/root/桌面/Test'
+
+>>> 
+>>> os.path.split('/root/桌面/Test/abc.txt')   #返回目录 和 文件 2 元素的元组
+('/root/桌面/Test', 'abc.txt')
+>>> 
+
+>>> os.path.join('/root/桌面/Test','abc.txt')  #把目录和文件名 拼接 ，返回完整的文件名
+'/root/桌面/Test/abc.txt'
+>>> 
+
+>>> os.access('passwd',os.F_OK)  #检查文件或文件夹 是否存在
+True
+>>> 
+##查看当前工作目录下的相对路径下是否有文件 或者文件夹 存在
+                              #返回 True 表示文件  存在
+>>> os.path.exists('passwd')
+True
+>>> 
+>>> stat.S_ISREG(os.stat('passwd').st_mode)    #判断是否一般文件
+True
+>>> 
+>>> stat.S_ISDIR(os.stat('passwd').st_mode)   #判断是否目录
+False
+
+>>> os.path.isfile('passwd')    #判断是否 文件
+True
+>>> os.path.isfile('abc.txt')
+True
+>>> 
+>>> os.path.isdir('abc.txt')   #判断是否 文件夹 
+False
+>>> os.path.isdir('/root')
+True
+>>> os.path.exists('/root')   #文件 或者文件夹 是否 存在
+True
+>>> 
+
+
+
+
+pickle     英 [ˈpɪkl]  美 [ˈpɪkəl]  
+     vt.腌渍（泡菜等）
+     n.腌菜，泡菜;腌制食品;
+
+pickle模块简介
+•  把数据写入文件时,常规的文件方法只能把字符串对象写入。
+其他数据需先转换成字符串再写入文件 。
+
+•  python提供了一个标准的模块,
+称为pickle。
+使用它可以在一个文件中储存任何python对象,
+之后又可以把它完整无缺地取出来
+
+
+
+pickle模块方法
+•  分别调用dump()和load()可以存储、写入
+
+
+>>> os.mknod('abc.txt')     # 创建 空 文件
+
+>>> os.stat('abc.txt').st_mode   #查看文件权限，返回 有符号整数类型的数据
+33152
+>>> os.stat('abc.txt').st_size
+0
+>>> oct(33152)  ## 转化成 八进制的字符串数据类型的形式，查看文件权限
+'0o100600'
+>>> 
+[root@room9pc01 Test]# ll  abc.txt 
+-rw------- 1 root root 0 4月   5 14:24 abc.txt
+
+>>> os.getcwd()
+'/root/桌面/Test'
+>>> os.listdir()
+['abc.txt', 'passwd']
+>>> 
+>>> f = open("./newfile", 'wb')  #创建空文件
+>>> f.close()          #关闭输入（写） 流
+
+  注意 os.mknod('abc.txt')  # 创建 空 文件
+      open("./newfile", 'wb')  #创建空文件
+
+  这 2 种 创建空文件的方式产生的文件权限 是不一样的
+
+>>> os.listdir()
+['abc.txt', 'newfile', 'passwd']
+
+>>> os.path.isfile('newfile')
+True
+>>> os.stat('newfile').st_size
+0
+>>> os.stat('newfile').st_mode
+33188
+>>> oct(os.stat('newfile').st_mode)
+'0o100644'
+>>> 
+[root@room9pc01 Test]# ll
+总用量 4
+-rw------- 1 root root    0 4月   5 14:24 abc.txt
+-rw-r--r-- 1 root root    0 4月   5 15:16 newfile
+-rws-w---- 1 root root 2180 4月   5 12:48 passwd
+
+  注意 os.mknod('abc.txt')  # 创建 空 文件
+      open("./newfile", 'wb')  #创建空文件
+
+  这 2 种 创建空文件的方式产生的文件权限 是不一样的
+
+[root@room9pc01 Test]# 
+
+>>> import  pickle  as  pk    #导入模块 pickle 并且给他设置别名 pk
+>>> 
+
+carrot    英 [ˈkærət]  美 [ˈkærət]  
+     n.胡萝卜;〈非正式〉好处，回报;不能兑现的报酬
+mango      英 [ˈmæŋgəʊ]  美 [ˈmæŋgoʊ]  
+     n.芒果;芒果树;泡菜
+
+---------------------------------------------------------
+ open() 方法用于打开一个文件，
+  并返回文件对象，
+  在对文件进行处理过程都需要使用到这个函数
+完整的语法格式为：
+open(file, mode='r', 
+  buffering=-1,  encoding=None, errors=None,
+  newline=None,  closefd=True,  opener=None)
+
+参数说明:
+file: 必需，文件路径（相对或者绝对路径）。
+mode: 可选，文件打开模式
+buffering: 设置缓冲
+encoding: 一般使用utf8
+errors: 报错级别
+newline: 区分换行符
+closefd: 传入的file参数类型
+
+------------------------------------
+
+dump()方法
+
+pickle.dump(obj, file, [,protocol])
+
+ 注释：序列化对象，
+       将对象obj保存到文件file中去。
+
+   参数protocol是序列化模式，
+   默认是0（ASCII协议，表示以文本的形式进行序列化），
+
+   protocol的值还可以是 1 和 2 
+     （1和2表示以二进制的形式进行序列化。
+   其中，1 是老式的二进制协议；
+         2 是新二进制协议）。
+
+  file表示保存到的类文件对象，file必须有write()接口，
+
+  file可以是一个以'w'打开的文件
+   或者是一个StringIO对象，
+   也可以是
+   任何可以实现write()接口的对象。
+
+>>> fwbobj = open('newzidyi.data','wb')  #新建 以 'wb'方式 打开的文件，返回 类文件对象
+
+>>> type(fwbobj)
+<class '_io.BufferedWriter'>
+
+>>> os.stat('newzidyi.data').st_size
+0
+/**************
+     pickle.dump(obj, file, [,protocol])
+  这里的obj 可以是 一个列表['apple', 'mango','carrot']，
+ file 是fwbobj
+ file 表示保存到的类文件对象
+
+  dump() 方法的作用是 
+      序列化对象 ['apple', 'mango','carrot'] ，
+
+       将对象 ['apple', 'mango','carrot']  保存
+
+       到 文件 'newzidyi.data' 中去。
+
+****/
+
+>>> pk.dump(['apple', 'mango','carrot'],  fwbobj)
+
+>>> fwbobj.close()      #关闭写入流
+
+
+>>> os.stat('newzidyi.data').st_size
+45
+>>> 
+>>> os.listdir()
+['abc.txt', 'newfile', 'passwd', 'newzidyi.data', 'shoplist.data']
+
+>>> os.remove('shoplist.data')       #删除文件
+
+>>> os.listdir()
+['abc.txt', 'newfile', 'passwd', 'newzidyi.data']
+>>> 
+[root@room9pc01 Test]# cat   newzidyi.data 
+
+�]q(XappleqXmangoqXcarrotqe.[root@room9pc01 Test]# 
+
+[root@room9pc01 Test]# cat  -A   newzidyi.data
+
+M-^@^C]q^@(X^E^@^@^@appleq^AX^E^@^@^@mangoq^BX^F^@^@^@carrotq^Ce.[root@room9pc01 Test]#
+ 
+[root@room9pc01 Test]# ll   newzidyi.data
+-rw-r--r-- 1 root root 45 4月   5 16:17 newzidyi.data
+
+[root@room9pc01 Test]# 
+
+
+>>> type(fwbobj)
+<class '_io.BufferedWriter'>
+
+>>> frbobj = open('newzidyi.data', 'rb') 
+                  ## 以 'rb'方式 打开已经存在的文件，返回 类文件对象
+
+>>> type(frbobj)
+<class '_io.BufferedReader'>
+
+>>> p      #注意pk 是自定义的模版 pickle  的 别名
+pass       pk         pow(       print(     property(  
+>>>
+
+load()方法
+   pickle.load(file)
+   注释：
+    反序列化对象，将文件中的数据解析为一个python对象。
+   file中有read()接口和 readline() 接口
+
+
+>>> pk.load(frbobj)    # 反序列化对象
+['apple', 'mango', 'carrot']
+
+>>>
+>>> type(pk.load(frbobj))      # load方法 只能执行一次
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+EOFError: Ran out of input
+>>> 
+>>> os.listdir()
+['abc.txt', 'newfile', 'passwd', 'newzidyi.data']
+>>> os.path.exists('newzidyi.data')
+True
+>>> os.getcwd
+os.getcwd(   os.getcwdb(  
+>>> os.getcwd()
+'/root/桌面/Test'
+>>> 
+
+[root@room9pc01 pytest]# vim  ospickle2.py
+[root@room9pc01 pytest]# ll   /root/桌面/Test/newzidyi.data
+-rw-r--r-- 1 root root 45 4月   5 16:17 /root/桌面/Test/newzidyi.data
+
+[root@room9pc01 pytest]# python3   ospickle2.py  /root/桌面/Test/newzidyi.data
+__name__ is __main__
+ sys.argv is ['ospickle2.py', '/root/桌面/Test/newzidyi.data'] 
+ sys.argv[1]  is /root/桌面/Test/newzidyi.data 
+
+[root@room9pc01 pytest]# ll   /root/桌面/Test/newzidyi.data
+ls: 无法访问/root/桌面/Test/newzidyi.data: 没有那个文件或目录
+
+[root@room9pc01 pytest]# 
+
+>>> fpathname = '/root/桌面/Test/abc.txt'
+>>> print('当前目录 %s 下的所有文件是 ----\n%s' \
+... %  ( os.path.dirname(fpathname),os.listdir(os.path.dirname(fpathname))))
+当前目录 /root/桌面/Test 下的所有文件是 ----
+['abc.txt', 'newfile', 'passwd']
+>>> 
+
+
+
+[root@room9pc01 pytest]# python3   ospickle2.py  /root/桌面/Test/newzidyi.data
+__name__ is __main__
+ sys.argv is ['ospickle2.py', '/root/桌面/Test/newzidyi.data'] 
+ sys.argv[1]  is /root/桌面/Test/newzidyi.data 
+新建以"wb"方式打开的文件，返回 类文件对象 <class '_io.BufferedWriter'>
+
+文件/root/桌面/Test/newzidyi.data 刚开始的大小是 0 
+
+当前目录 /root/桌面/Test 下的所有文件是 ----
+['abc.txt', 'newfile', 'passwd', 'newzidyi.data']
+
+正在序列化对象----dump(shoplist,fwObj),  
+将列表对象shoplist保存到文件/root/桌面/Test/newzidyi.data 中-----
+
+文件/root/桌面/Test/newzidyi.data 存储了
+列表对象 ['apple', 'mango', 'carrot', 'eggs'] 后的大小是  56 
+
+正在打开文件---
+/root/桌面/Test/newzidyi.data-----
+
+以"rb"方式打开已经存在的文件，返回 类文件对象 <class '_io.BufferedReader'>
+正在反序列化对象----load(frbObj),  
+从文件/root/桌面/Test/newzidyi.data 中
+将数据解析为一个python对象（比如是列表对象)-----
+
+解析出来的python对象是
+['apple', 'mango', 'carrot', 'eggs']
+对象类型是<class 'list'>
+第一个数据是 apple  最后一个数据是 eggs
+[root@room9pc01 pytest]# ll   /root/桌面/Test/newzidyi.data
+-rw-r--r-- 1 root root 56 4月   5 18:32 /root/桌面/Test/newzidyi.data
+[root@room9pc01 pytest]# 
+[root@room9pc01 pytest]# cat  ospickle2.py 
+#!/usr/bin/env   python3
+import  sys, os, pickle
+print('\033[31;47;1m__name__ is %s\033[0m' % __name__)
+
+#sys.argv[1] = '/root/桌面/Test/newzidyi.data'
+# fpathname = sys.argv[1]
+def  ospickletest(fpathname):
+  if os.path.exists(fpathname):
+    os.remove(fpathname)
+  
+  fwObj = open(fpathname, 'wb')
+  print('新建以"wb"方式打开的文件，返回 类文件对象 %s' % type(fwObj))
+  print('\n文件%s 刚开始的大小是 %d \n' %  (fpathname, os.stat(fpathname).st_size))
+  print('当前目录 %s 下的所有文件是 ----\n%s'\
+   %  ( os.path.dirname(fpathname),os.listdir(os.path.dirname(fpathname))))
+
+  shoplist = ['apple','mango','carrot','eggs']
+  print('\n正在序列化对象----dump(shoplist,fwObj),\
+  \n将列表对象shoplist保存到文件%s 中-----' % fpathname)
+
+  pickle.dump(shoplist,fwObj)
+  fwObj.close()   #关闭写入流
+
+  print('\n文件%s 存储了\n列表对象 %s 后的大小是  %d \n' \
+  %  (fpathname,shoplist,os.stat(fpathname).st_size))
+
+  print('正在打开文件---\n%s-----' %  fpathname)
+  frbObj = open(fpathname, 'rb')
+  print('\n以"rb"方式打开已经存在的文件，返回 类文件对象 %s' % type(frbObj))
+
+  print('正在反序列化对象----load(frbObj),\
+  \n从文件%s 中\n将数据解析为一个python对象（比如是列表对象)-----' % fpathname)
+
+  readobj = pickle.load(frbObj)
+
+  print("\n解析出来的python对象是\n%s\n对象类型是%s" % (readobj,type(readobj)))
+  frbObj.close()  
+  print('第一个数据是 %s  最后一个数据是 %s' % (readobj[0],readobj[-1]))
+
+
+if __name__ == '__main__':
+  print('\033[30;43;1m sys.argv is %s \033[0m' % sys.argv)
+  print('\033[32;46;1m sys.argv[1]  is %s \033[0m' % sys.argv[1])
+  ospickletest(sys.argv[1])
+
+[root@room9pc01 pytest]# 
+
+
+
+
+
+
+
+
+
+
+
+
+
