@@ -25,13 +25,18 @@ def  accountest():
 
 ## 日期date　　开销amount　　收入income　　余额balance　　备注comment
 
-income = 10000
+date = time.strftime('%Y年*%m月*%d日  %H时:%M分:%S秒',time.localtime())
+amount = 0      #开销费用
+revenue = 0     #后面新增加的收入
+income = 10000   #原始收入
+balance = 10000  #总余额
+comment = ''     #备注
 
 def  spend_money(record,wallet):
   date = time.strftime('%Y年*%m月*%d日  %H时:%M分:%S秒',time.localtime())
   amount = int(input('消费额: '))
   comment = input('备注: ')
-
+  revenue = 0
   with  open(wallet,'rb') as frobj:
     balance = pickle.load(frobj) - amount
 
@@ -41,15 +46,38 @@ def  spend_money(record,wallet):
   with open(record, 'a') as  fobj:
 #('日 期', '开 销', '收 入', '余 额', '备 注')
     fobj.write('%-28s#%-8s#%8s#%-8s#%20s\n' % \
-    (date, amount, income, balance, comment))
+    (date, amount, revenue, balance, comment))
 
-
+  
 def  save_money(record,wallet):
-  pass
+  date = time.strftime('%Y年*%m月*%d日  %H时:%M分:%S秒',time.localtime())
+  revenue = int(input('新增加的收入额: '))
+  comment = input('备注: ')
+  amount = 0
+
+  with  open(wallet,'rb') as frobj:
+    balance = pickle.load(frobj) + revenue
+
+  with  open(wallet,'wb') as fwobj:
+    pickle.dump(balance, fwobj)
+
+  with open(record, 'a') as  fobj:
+#('日 期', '开 销', '收 入', '余 额', '备 注')
+    fobj.write('%-28s#%-8s#%8s#%-8s#%20s\n' % \
+    (date, amount, revenue, balance, comment))
+
+
 
 
 def   query(record, wallet):
-  pass
+  with  open(record)  as frobj:
+    for  line  in  frobj:
+      print(line,end='\t')
+
+  with open(wallet,'rb') as frbobj:
+     balance = pickle.load(frbobj)
+  print('当前余额: %s \n' % balance)
+
 
 
 def  show_menu(sysarg1,sysarg2):
@@ -68,11 +96,19 @@ def  show_menu(sysarg1,sysarg2):
     os.remove(wallet)
 
   with open(wallet, 'wb') as fwobj:
-    pickle.dump(income, fwobj)
+    pickle.dump(income, fwobj)  #原始收入income = 10000
 
   with  open(record,'w') as fwobj:
     fwobj.write('%-28s#%-8s#%8s#%-8s#%20s\n' % \
-    ('日 期', '开 销', '收 入', '余 额', '备 注'))
+      ('日 期', '开 销', '收 入', '余 额', '备 注')
+    )
+
+  with open(record, 'a') as  fobj:
+#('日 期', '开 销', '收 入', '余 额', '备 注')
+    fobj.write('%-28s#%-8s#%8s#%-8s#%20s\n' % \
+      (date, amount, income, balance, comment)
+    )
+
 
   while  True:
     try:
