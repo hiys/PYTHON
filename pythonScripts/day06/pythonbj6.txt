@@ -104,6 +104,12 @@ inside    英 [ˌɪnˈsaɪd]  美 [ɪnˈsaɪd, ˈɪnˌsaɪd]
     adj.里面的，内部的;内幕的;内侧的
     n.里面，内侧;
 
+subtraction
+英 [səb'trækʃn]   美 [səbˈtrækʃən]  
+n.
+减去;减，减法;减除法
+
+
 
 [root@room9pc01 pytest]# vim   testdef.py
 
@@ -317,7 +323,135 @@ Python3.6 字典的内置方法
 
 
 
+subtraction
+英 [səb'trækʃn]   美 [səbˈtrækʃən]  
+n.
+减去;减，减法;减除法
 
+
+additive
+英 [ˈædətɪv]   美 [ˈædɪtɪv]  
+n.
+添加剂;添加物;[数]加法
+adj.
+附加的;[化]加成的，加和的;[数]加法的
+
+
+multiplicative
+英 ['mʌltɪplɪkeɪtɪv]  美 ['mʌltəplɪˌkeɪtɪv]  
+n.
+乘法
+adj.
+增加的，乘法的
+
+division
+英 [dɪˈvɪʒn]   美 [dɪˈvɪʒən]  
+n.
+部门;分开，分隔;[数]除法;[军]师
+
+
+remainder
+英 [rɪˈmeɪndə(r)]   美 [rɪˈmendɚ]  
+n.
+剩余物;其他人员;差数;廉价出售的图书
+vt.
+廉价出售（书）;廉价出售
+adj.
+剩余的;留存下的
+
+[root@room9pc01 pytest]# java  -version
+openjdk version "1.8.0_131"
+OpenJDK Runtime Environment (build 1.8.0_131-b12)
+OpenJDK 64-Bit Server VM (build 25.131-b12, mixed mode)
+[root@room9pc01 pytest]# 
+
+
+
+[root@room9pc01 pytest]# find  / -type f  -iname  "*java*"  |grep  rpm
+/etc/rpm/macros.fjava
+/var/ftp/rhel7/Packages/abrt-java-connector-1.0.6-12.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.6.0-openjdk-1.6.0.41-1.13.13.1.el7_3.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.6.0-openjdk-devel-1.6.0.41-1.13.13.1.el7_3.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.7.0-openjdk-1.7.0.141-2.6.10.5.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.7.0-openjdk-devel-1.7.0.141-2.6.10.5.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.7.0-openjdk-headless-1.7.0.141-2.6.10.5.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.i686.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-devel-1.8.0.131-11.b12.el7.i686.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-headless-1.8.0.131-11.b12.el7.i686.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-devel-1.8.0.131-11.b12.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-headless-1.8.0.131-11.b12.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-atk-wrapper-0.30.4-5.el7.i686.rpm
+/var/ftp/rhel7/Packages/java-atk-wrapper-0.30.4-5.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/javamail-1.4.6-8.el7.noarch.rpm
+/var/ftp/rhel7/Packages/javapackages-tools-3.4.1-11.el7.noarch.rpm
+/var/ftp/rhel7/Packages/javassist-3.16.1-10.el7.noarch.rpm
+/var/ftp/rhel7/Packages/libguestfs-java-1.36.3-6.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/libvirt-java-0.4.9-4.el7.noarch.rpm
+/var/ftp/rhel7/Packages/libvirt-java-devel-0.4.9-4.el7.noarch.rpm
+/var/ftp/rhel7/Packages/mysql-connector-java-5.1.25-3.el7.noarch.rpm
+/var/ftp/rhel7/Packages/nuxwdog-client-java-1.0.3-5.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/pki-base-java-10.4.1-10.el7.noarch.rpm
+/var/ftp/rhel7/Packages/python-javapackages-3.4.1-11.el7.noarch.rpm
+/var/ftp/rhel7/Packages/system-switch-java-1.1.7.1-0.el7.noarch.rpm
+/var/ftp/rhel7/Packages/tzdata-java-2017b-1.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/javamail-1.4.6-8.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/abrt-java-connector-1.0.6-6.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/tzdata-java-2014b-1.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/system-switch-java-1.1.5-11.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-devel-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.i686.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-devel-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-devel-0.4.9-4.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/libguestfs-java-1.22.6-22.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/python-javapackages-3.4.1-5.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/mysql-connector-java-5.1.25-3.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/javapackages-tools-3.4.1-5.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-headless-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/javassist-3.16.1-10.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-0.4.9-4.el7.noarch.rpm
+/usr/lib/rpm/javadoc.req
+/usr/lib/rpm/fileattrs/javadoc.attr
+/content/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-devel-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/abrt-java-connector-1.0.6-6.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/javassist-3.16.1-10.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.i686.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/mysql-connector-java-5.1.25-3.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/system-switch-java-1.1.5-11.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/libguestfs-java-1.22.6-22.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/tzdata-java-2014b-1.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-0.4.9-4.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-devel-0.4.9-4.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-devel-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/javapackages-tools-3.4.1-5.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/javamail-1.4.6-8.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/python-javapackages-3.4.1-5.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-headless-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-devel-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/abrt-java-connector-1.0.6-6.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/javassist-3.16.1-10.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.i686.rpm
+/content/rhel7.0/x86_64/dvd/Packages/mysql-connector-java-5.1.25-3.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/system-switch-java-1.1.5-11.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/libguestfs-java-1.22.6-22.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/tzdata-java-2014b-1.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-0.4.9-4.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-devel-0.4.9-4.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-devel-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/javapackages-tools-3.4.1-5.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/javamail-1.4.6-8.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/python-javapackages-3.4.1-5.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-headless-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+[root@room9pc01 pytest]# 
 
 
 
