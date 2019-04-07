@@ -7,12 +7,6 @@ print('\033[31;47;1m__name__  is %s\033[0m' %  __name__)
 # sys.argv[1] = 'record.txt'   # 记帐文件
 # sys.argv[2] = 'wallet.data'  # 记录余额
 
-try:
-  record = '/root/桌面/Test/' + sys.argv[1]
-  wallet = '/root/桌面/Test/' + sys.argv[2]
-except  IndexError as  FirstEr:
-  print('\n序列中没有没有此索引,可能位置参数缺失FirstEr--\t',FirstEr)
-
 
 def  accountest():
   pass  # pass语句在函数中的作用
@@ -25,12 +19,6 @@ def  accountest():
 
 ## 日期date　　开销amount　　收入income　　余额balance　　备注comment
 
-date = time.strftime('%Y年*%m月*%d日 %H时:%M分:%S秒',time.localtime())
-amount = 0      #开销费用
-revenue = 0     #后面新增加的收入
-income = 10000   #原始收入
-balance = 10000  #总余额
-comment = ''     #备注
 
 def  spend_money(record,wallet):
   date = time.strftime('%Y年*%m月*%d日 %H时:%M分:%S秒',time.localtime())
@@ -48,7 +36,8 @@ def  spend_money(record,wallet):
     fobj.write('%-28s#%-8s#%8s#%-8s#%20s\n' % \
     (date, amount, revenue, balance, comment))
 
-  
+## 日期date　　开销amount　　收入revenue　　余额balance　　备注comment 
+ 
 def  save_money(record,wallet):
   date = time.strftime('%Y年*%m月*%d日 %H时:%M分:%S秒',time.localtime())
   revenue = int(input('新增加的收入额: '))
@@ -67,7 +56,7 @@ def  save_money(record,wallet):
     (date, amount, revenue, balance, comment))
 
 
-
+## 日期date　　开销amount　　收入income　　余额balance　　备注comment
 
 def   query(record, wallet):
   with  open(record)  as frobj:
@@ -79,8 +68,24 @@ def   query(record, wallet):
   print('当前余额: %s \n' % balance)
 
 
+# 日期　　开销　　收入　　余额　　备注
+# sys.argv[1] = 'record.txt'   # 记帐文件
+# sys.argv[2] = 'wallet.data'  # 记录余额
 
-def  show_menu(sysarg1,sysarg2):
+def  show_menu(sysargv1,sysargv2):
+
+  record = '/root/桌面/Test/' + sysargv1
+  wallet = '/root/桌面/Test/' + sysargv2
+
+## 日期date　　开销amount　　收入income　　余额balance　　备注comment
+
+  date = time.strftime('%Y年*%m月*%d日 %H时:%M分:%S秒',time.localtime())
+
+  amount = 0      #开销费用
+  income = 10000   #原始收入
+  balance = 10000  #总余额
+  comment = ''     #备注
+
   prompt = """(0) 记录开销
 (1) 记录收入
 (2) 查询收支记录
@@ -124,6 +129,7 @@ def  show_menu(sysarg1,sysarg2):
         continue
       if choice == 3:
         break
+      #cmds[choice](record,wallet)
       cmds.get(choice,'如果不存在对应的键名(比如0123之外的数字),\
 会返回此信息')(record,wallet)
 
@@ -132,9 +138,9 @@ if __name__ == '__main__':
   print('\033[30;43;1m sys.argv  is %s\033[0m\n' % sys.argv)
   try:
     print('\033[32;46;1m sys.argv[1] is %s\033[0m' % sys.argv[1])
-    accountest()
+
     show_menu(sys.argv[1],sys.argv[2])
-  except  IndexError as  secondEr:
-    print('\n序列中没有没有此索引,位置参数缺失---secondEr:\t',secondEr)
+  except  IndexError as  firstEr:
+    print('\n序列中没有没有此索引,位置参数缺失---firstEr:\t',firstEr)
 
 
