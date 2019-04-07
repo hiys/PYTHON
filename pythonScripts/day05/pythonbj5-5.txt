@@ -821,6 +821,7 @@ __name__  is accountospick
 accountospick.accountest(   accountospick.query(        accountospick.spend_money(
 accountospick.os            accountospick.save_money(   accountospick.sys
 accountospick.pickle        accountospick.show_menu(    accountospick.time
+
 >>> accountospick.show_menu('aaaargv1','argv2wallet')
 (0) 记录开销
 (1) 记录收入
