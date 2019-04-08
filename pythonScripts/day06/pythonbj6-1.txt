@@ -1,0 +1,1043 @@
+
+
+
+[root@room9pc01 pytest]# java  -version
+openjdk version "1.8.0_131"
+OpenJDK Runtime Environment (build 1.8.0_131-b12)
+OpenJDK 64-Bit Server VM (build 25.131-b12, mixed mode)
+[root@room9pc01 pytest]# 
+
+
+
+[root@room9pc01 pytest]# find  / -type f  -iname  "*java*"  |grep  rpm
+/etc/rpm/macros.fjava
+/var/ftp/rhel7/Packages/abrt-java-connector-1.0.6-12.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.6.0-openjdk-1.6.0.41-1.13.13.1.el7_3.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.6.0-openjdk-devel-1.6.0.41-1.13.13.1.el7_3.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.7.0-openjdk-1.7.0.141-2.6.10.5.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.7.0-openjdk-devel-1.7.0.141-2.6.10.5.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.7.0-openjdk-headless-1.7.0.141-2.6.10.5.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.i686.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-devel-1.8.0.131-11.b12.el7.i686.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-headless-1.8.0.131-11.b12.el7.i686.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-devel-1.8.0.131-11.b12.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-headless-1.8.0.131-11.b12.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-atk-wrapper-0.30.4-5.el7.i686.rpm
+/var/ftp/rhel7/Packages/java-atk-wrapper-0.30.4-5.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/javamail-1.4.6-8.el7.noarch.rpm
+/var/ftp/rhel7/Packages/javapackages-tools-3.4.1-11.el7.noarch.rpm
+/var/ftp/rhel7/Packages/javassist-3.16.1-10.el7.noarch.rpm
+/var/ftp/rhel7/Packages/libguestfs-java-1.36.3-6.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/libvirt-java-0.4.9-4.el7.noarch.rpm
+/var/ftp/rhel7/Packages/libvirt-java-devel-0.4.9-4.el7.noarch.rpm
+/var/ftp/rhel7/Packages/mysql-connector-java-5.1.25-3.el7.noarch.rpm
+/var/ftp/rhel7/Packages/nuxwdog-client-java-1.0.3-5.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/pki-base-java-10.4.1-10.el7.noarch.rpm
+/var/ftp/rhel7/Packages/python-javapackages-3.4.1-11.el7.noarch.rpm
+/var/ftp/rhel7/Packages/system-switch-java-1.1.7.1-0.el7.noarch.rpm
+/var/ftp/rhel7/Packages/tzdata-java-2017b-1.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/javamail-1.4.6-8.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/abrt-java-connector-1.0.6-6.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/tzdata-java-2014b-1.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/system-switch-java-1.1.5-11.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-devel-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.i686.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-devel-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-devel-0.4.9-4.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/libguestfs-java-1.22.6-22.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/python-javapackages-3.4.1-5.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/mysql-connector-java-5.1.25-3.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/javapackages-tools-3.4.1-5.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-headless-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/javassist-3.16.1-10.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-0.4.9-4.el7.noarch.rpm
+/usr/lib/rpm/javadoc.req
+/usr/lib/rpm/fileattrs/javadoc.attr
+/content/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-devel-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/abrt-java-connector-1.0.6-6.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/javassist-3.16.1-10.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.i686.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/mysql-connector-java-5.1.25-3.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/system-switch-java-1.1.5-11.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/libguestfs-java-1.22.6-22.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/tzdata-java-2014b-1.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-0.4.9-4.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-devel-0.4.9-4.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-devel-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/javapackages-tools-3.4.1-5.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/javamail-1.4.6-8.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/python-javapackages-3.4.1-5.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-headless-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-devel-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/abrt-java-connector-1.0.6-6.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/javassist-3.16.1-10.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.i686.rpm
+/content/rhel7.0/x86_64/dvd/Packages/mysql-connector-java-5.1.25-3.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/system-switch-java-1.1.5-11.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/libguestfs-java-1.22.6-22.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/tzdata-java-2014b-1.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-0.4.9-4.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-devel-0.4.9-4.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-devel-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/javapackages-tools-3.4.1-5.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/javamail-1.4.6-8.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/python-javapackages-3.4.1-5.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-headless-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+[root@room9pc01 pytest]# 
+============================================
+
+>>> 
+>>> zifus = [ '列表解析 %d'  %  i  for i in range(1,5) ]
+>>> zifus
+['列表解析 1', '列表解析 2', '列表解析 3', '列表解析 4']
+
+>>> zifus = [ '列表解析 %d'  %  i ** 2  for i in range(1,5) ] # i 的2 次方
+>>> zifus
+['列表解析 1', '列表解析 4', '列表解析 9', '列表解析 16']
+
+>>> zifus = [ '列表解析 %d'  %  i**3  for i in range(1,5) ]   # i 的3 次方
+>>> zifus
+['列表解析 1', '列表解析 8', '列表解析 27', '列表解析 64']
+
+>>> zifus = [ '列表解析 %d'  %  i**2  for i in range(1,8) if  i >= 5 ] ## i 的2 次方
+>>> zifus
+['列表解析 25', '列表解析 36', '列表解析 49']
+
+>>> zifus = [ '列表解析 %d'  %  i  for i in range(1,8) if  i >= 5 ]
+>>> zifus
+['列表解析 5', '列表解析 6', '列表解析 7']
+>>> 
+[root@V0 day06]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  random
+
+>>> nums = [ random.randint(1,100) for i in range(10) if  i >=5 ]
+>>> nums
+[15, 98, 1, 47, 47]
+>>> nums = [ random.randint(1,100) for i in range(10) if  i >=9 ]
+>>> nums
+[85]
+>>> nums = [ random.randint(1,100) for i in range(10) if  i >=10 ]
+>>> nums
+[]
+>>> 
+>>> nums = [ random.randint(1,100) for i in range(10) ]
+>>> nums
+[82, 62, 42, 4, 3, 81, 91, 99, 76, 59]
+
+>>> nums.sort()  #升序排序 (从小 到大)
+>>> nums
+[3, 4, 42, 59, 62, 76, 81, 82, 91, 99]
+>>> 
+>>> nums.reverse()   #反转
+>>> nums
+[99, 91, 82, 81, 76, 62, 59, 42, 4, 3]
+>>> 
+>>> nums = [ random.randint(1,100) for i in range(7) ]
+>>> nums
+[40, 49, 73, 100, 85, 69, 97]
+
+>>> nums.sort(reverse = True)  #直接降序排序(从大 到小)
+>>> nums
+[100, 97, 85, 73, 69, 49, 40]
+>>> 
+try     英 [traɪ]   美 [traɪ]  
+    vt.& vi.试图，努力;实验;审判;考验
+
+
+[root@V0 day06]# vim    mathgame.py
+
+[root@V0 day06]# python3  mathgame.py
+
+__name__  is __main__
+ sys.argv  is ['mathgame.py']
+
+68 - 59 = 9
+
+exam()方法的 异常捕获程序结束之后
+     当前面出现 "except 语句" 所 没有捕获到的异常后,本语句也不会执行---
+你真棒，答对了！
+Continue(y/n)? n
+
+main() 方法的 异常捕获程序结束之后
+     当前面出现 "except 语句" 所 没有捕获到的异常后,本语句也不会执行---
+
+Bye-bye.
+[root@V0 day06]# python3  mathgame.py
+__name__  is __main__
+ sys.argv  is ['mathgame.py']
+
+55 + 10 = #这里是直接回车,空输入
+55 + 10 = 
+55 + 10 = 
+55 + 10 = 
+55 + 10 = 99
+
+exam()方法的 异常捕获程序结束之后
+     当前面出现 "except 语句" 所 没有捕获到的异常后,本语句也不会执行---
+答错了
+55 + 10 = 35
+
+exam()方法的 异常捕获程序结束之后
+     当前面出现 "except 语句" 所 没有捕获到的异常后,本语句也不会执行---
+答错了
+-------- 最后一次机会了------------
+55 + 10 = 55
+
+exam()方法的 异常捕获程序结束之后
+     当前面出现 "except 语句" 所 没有捕获到的异常后,本语句也不会执行---
+答错了
+正确的解答是 55 + 10 = 65
+Continue(y/n)?   #这里可以直接 ctrl +d 或 ctrl +c 退出
+main() 方法的 异常捕获程序结束之后
+     当前面出现 "except 语句" 所 没有捕获到的异常后,本语句也不会执行---
+
+Bye-bye.
+
+[root@V0 day06]# cat   mathgame.py
+
+#!/usr/bin/env  python3
+import  sys, os, pickle, time, random
+"MoBan ------------ instruction"
+print('\033[31;47;1m__name__  is %s\033[0m' %  __name__)
+
+def  additive(x, y):  #[数]加法
+  return  x + y
+
+def  subtraction(x, y):  #减法
+  return  x - y
+
+def  exam():
+  cmds = { '+': additive, '-': subtraction }  # 将函数存入字典
+  nums = [ random.randint(1,100) for i in range(2) ] # 生成两个数
+  nums.sort(reverse=True)  # 降序排列(从大 到小)
+  op = random.choice('+-')
+  result = cmds[op](*nums)  # 调用存入字典的函数，把nums列表拆开，作为参数传入
+  prompt = "%s %s %s = " % (nums[0], op, nums[1])
+  trynums = 0 #尝试次数
+  while trynums < 3:
+    try:
+      answer = int(input(prompt))
+    except:  #不论任何异常,均跳过异常,不推荐使用
+      continue
+    print('\nexam()方法的 异常捕获程序结束之后\n \
+    当前面出现 "except 语句" 所 没有捕获到的异常后,本语句也不会执行---')
+    if answer == result:
+      print('你真棒，答对了！')
+      break  # 答对了就不要再回答了，结束循环
+    else:
+      print('答错了')
+      trynums += 1
+      if trynums == 2:
+        print('-------- 最后一次机会了------------')
+  else:  
+    print("正确的解答是 %s%s" % (prompt, result))   # 这里当循环不被break时才执行
+
+
+def main():
+  while True:
+    exam()
+    try:
+      go_on = input('Continue(y/n)? ').strip()[0]
+    except IndexError:  #序列中没有没有此索引,空输入
+      continue
+    except (KeyboardInterrupt, EOFError):
+      go_on = 'n'
+    print('\nmain() 方法的 异常捕获程序结束之后\n \
+    当前面出现 "except 语句" 所 没有捕获到的异常后,本语句也不会执行---')
+    if go_on in 'nN':
+      print('\nBye-bye.')
+      break
+
+
+
+
+if __name__ == '__main__':
+  print('\033[30;43;1m sys.argv  is %s\033[0m\n' % sys.argv)  
+  main()
+
+
+[root@V0 day06]# 
+[root@V0 day06]# scp  mathgame.py  root@192.168.0.254:'/var/git/PYTHON/pythonScripts/day06' 
+.............
+
+匿名函数
+
+lambda
+•  python允许用lambda关键字创造匿名函数
+•  匿名是因为不需要以标准的def方式来声明
+•  一个完整的lambda“语句”代表了一个表达式,这
+个表达式的定义体必须和声明放在同一行
+lambda  [arg1[,  arg2, ... argN]]: expression	
+
+>>>a = lambda x, y: x + y
+>>> print(a(3, 4))
+7
+[root@V0 day06]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+>>> def  add(x, y):
+...   return x + y
+... 
+>>> add(10,22)
+32
+>>> lambda  x, y: x + y   #匿名函数
+<function <lambda> at 0x7f78d61e9598>
+
+>>> abc = lambda x, y : x + y
+>>> type(abc)
+<class 'function'>
+>>> print(abc)
+<function <lambda> at 0x7f78d61e96a8>
+>>> print(abc(33,55))
+88
+>>> 
+
+
+filter()函数
+
+•  filter(func, seq):
+调用一个布尔函数func来迭代遍历
+每个序列中的元素;
+返回一个使func返回值为true的
+元素的序列
+•  如果布尔函数比较简单,直接使用lambda匿名函数
+就显得非常方便了
+>>> data = filter(lambda	x: x % 2, [num for num in range(10)])
+>>> print(data)     #过滤出10以内的奇数
+[1, 3, 5, 7, 9]
+
+>>> data = filter(lambda x: x % 2, [num for num in range(10)])
+>>>
+>>> data
+<filter object at 0x7f78d6201128>
+>>> type(data)
+<class 'filter'>
+>>> list(data)
+[1, 3, 5, 7, 9]
+>>> 
+
+>>> nums = [ random.randint(1,100) for i in range(10) ]
+>>> nums
+[82, 62, 42, 4, 3, 81, 91, 99, 76, 59]
+
+>>> 
+>>> False == 0
+True
+>>> False == 1
+False
+>>> True == 1
+True
+>>> True == 0
+False
+>>> 
+
+>>> def  functionx1(x):
+...   return x % 2    #返回值 是 1 (True)  或 零 0 (False)
+... 
+>>> functionx1(2)
+0
+>>> functionx1(21)
+1
+>>> filter(functionx1,[10,11,22,30,7])
+<filter object at 0x7f78d6201198>
+
+>>> print(filter(functionx1,[10,11,22,30,7]))
+<filter object at 0x7f78d6201160>
+>>> 
+---------------------  #过滤出 列表 [10,11,22,30,7]  内部 的 所有 奇数 ----------
+ list( filter( 函数名functionx1 作为参数,  列表[10,11,22,30,7]中的每一个元素 作为参数传入函数functionx1 中) )
+
+>>> print(list(filter(functionx1,[10,11,22,30,7])))
+[11, 7]
+
+>>> print(type(filter(functionx1,[10,11,22,30,7])))
+<class 'filter'>
+
+>>> xf = filter(functionx1,[10,11,22,30,7,79])
+
+>>> print(xf)
+<filter object at 0x7f78d62011d0>
+
+>>> print(type(xf))
+<class 'filter'>
+
+>>> print(list(xf))
+[11, 7, 79]
+>>> 
+
+>>> for i in filter(lambda n: n %2, [num*3 for num  in range(9)]):
+...   print(i)
+... 
+3
+9
+15
+21
+>>> 
+
+map() 会根据提供的函数对指定序列做映射。
+第一个参数 function 以参数序列中的每一个元素调用 function 函数，
+返回包含每次 function 函数返回值的新列表。
+
+map() 函数语法：
+map(function, iterable, ...)
+
+参数
+function -- 函数
+iterable -- 一个或多个序列
+返回值
+Python 2.x 返回列表。
+Python 3.x 返回迭代器。
+
+
+>>> def  square(x):
+...   return x ** 2   # 计算平方数
+... 
+>>> map(square, [ 1,2,3,4 ])
+<map object at 0x7f62df94e9b0>
+
+>>> list(map(square, [ 1,2,3,4 ])) # 计算列表各个元素的平方
+[1, 4, 9, 16]     # 计算平方数的结果
+
+>>> type(map(square, [ 1,2,3,4 ]))
+<class 'map'>
+
+                      # 使用 lambda 匿名函数 x * y 乘法
+        # 提供了两个列表，对相同位置的列表元素 进行 乘法运算
+ 
+>>> xx = map(lambda x, y: x * y, [1, 2, 3, 4], [10, 20, 30, 40])
+
+>>> print(type(xx))
+<class 'map'>
+
+>>> print(list((xx))
+... )
+[10, 40, 90, 160]  # 计算两个列表的每个对应相同索引位置 的 元素间相乘的 结果
+
+>>> print(list((xx)))
+[]
+>>> print(xx)
+<map object at 0x7f62df958160>
+>>> 
+
+===========================
+
+reduce(func, seq[ ,init])
+
+reduce() 函数在 python 2 是内置函数， 
+从python 3 开始移到了 functools 模块。
+ 
+reduce 有 三个参数
+function 有两个参数的函数， 必需参数
+sequence tuple ，list ，dictionary， string等可迭代物，必需参数
+initial 初始值， 可选参数
+reduce的工作过程是 ：
+在迭代sequence(tuple ，list ，dictionary， string等可迭代物)的过程中，
+首先把 前两个元素传给 函数参数，
+函数加工后，
+然后把得到的结果
+和第三个元素作为两个参数
+传给函数参数，
+ 函数加工后得到的结果
+又和第四个元素
+作为两个参数
+传给函数参数，依次类推。
+ 如果传入了 initial 值， 
+那么首先传的就不是 sequence 的第一个和第二个元素，
+而是 initial值和 第一个元素。
+
+经过这样的累计计算之后
+合并序列到一个单一返回值
+
+>>> from functools import reduce
+>>> 
+>>> def add(x, y):
+...   return x+y
+... 
+>>> print(type(reduce(add, [1,2,3,4])))
+<class 'int'>
+>>> 
+>>> print(reduce(add, [1,2,3,4]))
+10
+>>> 
+>>> x = reduce(lambda x, y: x * 10 + y, [1 , 2, 3, 4, 5])
+>>> print(x)
+12345
+>>> print(type(x))
+<class 'int'>
+>>> 
+
+
+
+from functools import reduce
+
+def add(x, y):
+  return x+y
+
+print(type(reduce(add, [1,2,3,4])))
+
+print(reduce(add, [1,2,3,4]))
+
+x = reduce(lambda x, y: x * 10 + y, [1 , 2, 3, 4, 5])
+
+print(x)
+
+print(type(x))
+
+
+
+UnboundLocalError:分配前引用了局部变量“count”
+NameError: name 'count' is not defined
+
+>>> print(type([1,2,3,4]))
+<class 'list'>
+>>> print('%s ---' % [1,2,3,4])
+[1, 2, 3, 4] ---
+>>> print('%d ---' % [1,2,3,4])
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: %d format: a number is required, not list
+>>> 
+
+
+
+如果局部与全局有相同名称的变量,
+那么函数运行时,
+局部变量的名称将会
+把全局变量名称遮盖住
+
+
+global语句
+
+•  因为全局变量的名字能被局部变量给遮盖掉,
+所以为了明确地引用一个已命名的全局变量,
+必须使用 global 语句
+>>> 
+>>> xg = 10
+>>> def  foo():
+...   print(xg)
+... 
+>>> 
+>>> foo()
+10
+>>> 
+>>> def bar():
+...   xg = 'bar--in local'
+...   print(xg)
+... 
+>>> bar()
+bar--in local
+>>> 
+    在函数内部 明确地引用一个已命名的全局变量,
+必须使用 global 语句
+
+>>> def  foo_bar():
+...   global  xg   #引用全局变量
+...   xg = 1000    #改写全局变量
+...   print(xg) 
+... 
+>>> 
+>>> print(xg)
+10
+>>> foo_bar()
+1000
+>>> print(xg)
+1000
+>>> foo()
+1000
+>>>   标识符的搜索顺序依次是局部、全局和内建
+>>> len()   #必须有一个参数
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: len() takes exactly one argument (0 given)
+>>> 
+
+>>> len('123456')
+6
+>>> len('abcde')   #len()就是内建函数
+5
+>>> len(1234)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: object of type 'int' has no len()
+
+>>> type(len)
+<class 'builtin_function_or_method'>
+>>> 
+
+>>> 标识符的搜索顺序依次优先第一个是局部 
+>>> def  functionx(x):
+...   y = x + 100
+...   def  len(y):   # 标识符的搜索顺序依次优先第一个是局部 
+...     return  y*10
+...   z = len(y)
+...   return z
+... 
+>>> print(functionx(1234))
+13340
+>>> 
+>>> x = functionx(220)
+>>> print(type(x))
+<class 'int'>
+>>> print(x)
+3200
+>>> 
+
+def  functionx(x):
+  y = x + 100
+  def  len(y):
+    return  y*10
+  z = len(y)
+  return z
+
+print(functionx(1234))
+
+
+名字空间
+•  任何时候,总有一个到三个活动的作用域
+(内建、全局和局部)
+
+•  标识符的搜索顺序依次是局部、全局和内建
+
+
+偏函数
+•  偏函数的概念是将函数式编程的概念和默认参数以及
+可变参数结合在一起
+
+•  一个带有多个参数的函数,如果其中某些参数基本上
+固定的,那么就可以通过偏函数为这些参数赋默认值
+
+# yum install -y sqlite-devel
+       tk-devel    tcl-devel         readline-devel 
+     zlib-devel    gcc     gcc-c++    openssl-devel
+   libffi-devel
+
+# tar xzf Python-3.6.7.tgz
+# cd Python-3.6.7
+# ./configure --prefix=/usr/local/
+# make && make install
+
+模版  tkinter   sqlite3 都是python 自带的功能,但是可能因为环境问题无法导入
+ tk-devel    tcl-devel   是模版 tkinter  依赖的软件包
+
+[root@V0 day06]# rpm  -qa  |grep  tk-devel
+tk-devel-8.5.13-6.el7.x86_64
+[root@V0 day06]# rpm  -qa  |grep  tcl-devel
+tcl-devel-8.5.13-8.el7.x86_64
+
+[root@V0 day06]# rpm   -qa |grep  sqlite
+sqlite-devel-3.7.17-8.el7.x86_64   #模版 sqlite3  依赖的软件包
+sqlite-3.7.17-8.el7.x86_64        #模版 sqlite3  依赖的软件包
+[root@V0 day06]# 
+
+
+
+[root@V0 day06]# python3 --version
+Python 3.6.7
+[root@V0 day06]# 
+[root@V0 day06]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> from  functools  import  partial
+>>> import  tkinter    # tk-devel  tcl-devel 是模版tkinter依赖的软件包
+>>> import  sqlite3    # sqlite-devel sqlite #模版 sqlite3  依赖的软件包
+>>> 
+
+>>> 
+[root@V0 day06]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  tkinter  # tk-devel  tcl-devel 是模版tkinter依赖的软件包
+
+>>> from  functools  import  partial   # 偏函数
+>>> 
+>>> xyz = tkinter.
+Display all 136 possibilities? (y or n)
+tkinter.ACTIVE          tkinter.NoDefaultRoot(
+tkinter.ALL             tkinter.OFF
+tkinter.ANCHOR          tkinter.ON
+>>> xyz = tkinter.Tk
+tkinter.Tk(        tkinter.TkVersion  
+>>> xyz = tkinter.Tk()
+>>> 
+
+root = tkinter.Tk()
+
+labl = tkinter.Label(root, text='hello world!', font = 'Helvetica 26 bold italic')
+
+#在root下实例化一个Label标签，标签上的文本是 Hello World
+
+b1 = tkinter.Button(root, bg ='blue',  fg = 'white',text= 'Button 1')
+
+mybutton = partial(tkinter.Button, root, bg ='blue',  fg = 'white' )
+
+b2 = mybutton(text = 'Button 2')
+b3 = mybutton(text = 'QUIT', command = root.quit)
+
+ # pack方法很重要 主要作用：
+# 自适应所给的text里面文字的大小，并且将在在window上呈现出来，没写就没有
+
+labl.pack()
+b1.pack()
+b2.pack()
+b3.pack()
+root.mainloop()
+ #相当于一个循环，while 的样子 ，如果没写窗口就不会弹出来
+
+#tkinter模块是Python的标准Tk GUI工具包的接口。
+
+#python3   tkinter 教程 label
+========================================
+#!/usr/bin/env  python3
+
+from  functools  import  partial
+import  tkinter    # tk-devel  tcl-devel 是模版tkinter依赖的软件包
+
+def  tkintertest():
+  root = tkinter.Tk()
+
+#  labl = tkinter.Label(root, text='hello world!', font = 'Aria 36 bold')
+  labl = tkinter.Label(root, text='hello world!', font = 'Helvetica 26 bold italic')
+
+  b1 = tkinter.Button(root, bg ='pink', fg = 'green',text= 'Button 1')
+
+     ##偏函数partial(函数名,参数1,参数2,参数3)
+  mybutton = partial(tkinter.Button, root, bg ='blue', fg = 'white')
+
+  b2 = mybutton(text = 'Button 2')
+  b3 = mybutton(text = 'QUIT', command = root.quit)
+  labl.pack()
+  b1.pack()
+  b2.pack()
+  b3.pack()
+  root.mainloop()
+
+
+if __name__ == '__main__':
+
+  tkintertest()
+====================================
+
+
+helvetica
+n.
+出版业常用字体;线条均匀流畅;没有笔触。拥有悠久的历史;经典字体款
+
+italic
+英 [ɪˈtælɪk]   美 [ɪˈtælɪk, aɪˈtæl-]  
+    adj.（印刷字体）斜体的;（书写）整齐尖细的;(I-)古意大利的
+    n.斜体字
+
+
+[root@V0 day06]# scp   functoolspartial.py  root@192.168.0.254:'/var/git/PYTHON/pythonScripts/day06' 
+
+
+
+[root@V0 day06]# scp   functoolspartial.py  root@192.168.0.254:'/var/git/PYTHON/pythonScripts/day06' 
+
+
+recursion    英 [rɪˈkɜ:ʃn]   美 [rɪˈkɜ:rʃn]  
+    n.递推;递归，递归式
+
+递归函数
+•  如果函数包含了对其自身的调用,该函数就是递归的
+
+•  在操作系统中,查看某一目录内所有文件、
+修改权限等 都是递归的应用
+
+>>> 5*4*3*2*1
+120
+>>> 4*3*2*1
+24
+>>> 3*2*1
+6
+>>> def  func1(n):
+...  if n == 1:
+...    return n
+...  return  n * func1(n -1)
+... 
+>>> func1(5)
+120
+>>> func1(4)
+24
+>>> func1(3)
+6
+>>> func1(1)
+1
+>>> 
+>>> import  random
+>>> nums = [random.randint(1,100) for i in range(10)]
+>>> print(nums)
+[43, 49, 79, 4, 58, 95, 40, 52, 27, 41]
+>>> nums.sort()  #升序排序 (从小 到大)
+>>> print(nums)
+[4, 27, 40, 41, 43, 49, 52, 58, 79, 95]
+>>> nums.reverse()    #反转
+>>> print(nums)
+[95, 79, 58, 52, 49, 43, 41, 40, 27, 4]
+>>> nums.reverse()     #反转
+>>> print(nums)
+[4, 27, 40, 41, 43, 49, 52, 58, 79, 95]
+>>> nums.sort(reverse = True)  #直接降序排序(从大 到小)
+>>> print(nums)
+[95, 79, 58, 52, 49, 43, 41, 40, 27, 4]
+>>> 
+>>> print(type(len('qq')))
+<class 'int'>
+>>> print(type(len))
+<class 'builtin_function_or_method'>
+>>> 
+>>> print(type(len([1,2,3,4])))
+<class 'int'>
+>>> print(len([1,2,3,4]))
+4
+>>> 
+
+>>> middle = nums.pop()  #返回列表最后一个元素,假设是中间值
+>>> print(middle)
+4
+>>> print(nums)
+[95, 79, 58, 52, 49, 43, 41, 40, 27]
+>>> larger = [ 95, 79 ]
+>>> smaller = [ 58, 52, 49, 43, 41, 40, 27]
+>>> smaller + [middle] + larger
+[58, 52, 49, 43, 41, 40, 27, 4, 95, 79]
+>>> 
+>>> len('')
+0
+>>> len([])
+0
+>>> len({})
+0
+>>> len(())
+0
+>>> 
+>>> import  random
+>>> nums = [random.randint(1,100) for i in range(10)]
+>>> print(nums)
+[9, 79, 79, 89, 26, 15, 57, 81, 95, 70]
+>>> def  randomsort(data):
+...   if len(data) == 0 or len(data) == 1:
+...     return  nums     #这里写错了应该是 data
+...   middle = data.pop()  
+...   smaller = []
+...   larger = []
+...   for item in  data: 
+...     if item > middle:
+...       larger.append(item)
+...     else:
+...       smaller.append(item)
+...   return  randomsort(smaller) + [middle] + randomsort(larger)
+... 
+>>> print(randomsort(nums))
+[9, 79, 79, 89, 26, 15, 57, 81, 95, 15, 9, 79, 79, 89, 26, 15, 57, 81, 95, 57, 9, 79, 79, 89, 26, 15, 57, 81, 95, 70, 9, 79, 79, 89, 26, 15, 57, 81, 95, 79, 9, 79, 79, 89, 26, 15, 57, 81, 95, 81, 9, 79, 79, 89, 26, 15, 57, 81, 95, 95, 9, 79, 79, 89, 26, 15, 57, 81, 95]
+>>> print(nums)
+[9, 79, 79, 89, 26, 15, 57, 81, 95]
+>>> 
+
+count     英 [kaʊnt]   美 [kaʊnt]  
+    n.总数;数数;罪状;论点
+    v.数数;计算总数;把…算入;
+
+
+
+
+
+=========================================
+
+def   recursionsort():
+
+  def  func1(n):
+    if n == 1:
+      return n
+    return  n * func1(n -1)
+
+  print(func1(5))
+  print('\n============================ \n')
+
+# [11]  [22]  33  44  [55]  66  [77]  88  [99]
+#  nums = [random.randint(1,100) for i in range(10)]
+  nums = [77, 11, 77, 99, 55, 22, 55]
+  print('nums ---------------',nums)
+
+  def  randomsort(data):
+    count = 0
+    itemcount = 0
+    if len(data) == 0 or len(data) == 1:
+      print('---@len(data) -- %d ---data = %s ---' % (len(data), data))
+      return  data
+    middle = data.pop()
+    print('middle  is ----------- %d' % middle)
+    smaller = []
+    larger = []
+    for item in  data:
+      if item > middle:
+        print('--- item > middle --item is %d ' % item )
+        larger.append(item)
+      else:
+        print('--- item <= middle --item is %d ' % item )
+        smaller.append(item)
+      itemcount += 1
+    count += 1
+    print('\t--- count = %d ---\n--- itemcount = %d\n' % (count, itemcount))
+    return  randomsort(smaller) + [middle] + randomsort(larger)
+
+  print('randomsort(nums) --------',randomsort(nums))
+  print('end -------nums-------',nums)
+
+
+if __name__ == '__main__':
+  print('\033[30;43;1m sys.argv  is %s\033[0m\n' % sys.argv)
+
+  recursionsort()
+
+
+[root@V0 day06]# python3  recursionsort.py
+__name__  is __main__
+ sys.argv  is ['recursionsort.py']
+
+120
+
+============================ 
+
+[root@V0 day06]# python3  recursionsort.py
+__name__  is __main__
+ sys.argv  is ['recursionsort.py']
+
+120
+
+============================ 
+
+nums --------------- [77, 11, 77, 99, 55, 22, 55]
+middle  is ----------- 55
+--- item > middle --item is 77 
+--- item <= middle --item is 11 
+--- item > middle --item is 77 
+--- item > middle --item is 99 
+--- item <= middle --item is 55 
+--- item <= middle --item is 22 
+	--- count = 1 ---
+--- itemcount = 6
+
+
+--- smallerlist is [11, 55, 22]---- middle is 55 ---larger list is [77, 77, 99] --
+
+middle  is ----------- 22
+--- item <= middle --item is 11 
+--- item > middle --item is 55 
+	--- count = 1 ---
+--- itemcount = 2
+
+
+--- smallerlist is [11]---- middle is 22 ---larger list is [55] --
+
+---@len(data) -- 1 ---data = [11] ---
+---@len(data) -- 1 ---data = [55] ---
+middle  is ----------- 99
+--- item <= middle --item is 77 
+--- item <= middle --item is 77 
+	--- count = 1 ---
+--- itemcount = 2
+
+
+--- smallerlist is [77, 77]---- middle is 99 ---larger list is [] --
+
+middle  is ----------- 77
+--- item <= middle --item is 77 
+	--- count = 1 ---
+--- itemcount = 1
+
+
+--- smallerlist is [77]---- middle is 77 ---larger list is [] --
+
+---@len(data) -- 1 ---data = [77] ---
+---@len(data) -- 0 ---data = [] ---
+---@len(data) -- 0 ---data = [] ---
+randomsort(nums) -------- [11, 22, 55, 55, 77, 77, 99]
+end -------nums------- [77, 11, 77, 99, 55, 22]
+[root@V0 day06]# 
+
+
+
+[root@V0 day06]# scp   recursionsort.py  root@192.168.0.254:'/var/git/PYTHON/pythonScripts/day06'
+
+
+
+
+
+
+
+
+生成器
+•  从句法上讲,生成器是一个带yield语句的函数
+•  一个函数或者子程序只返回一次,
+但一个生成器能暂停执行
+并返回一个中间的结果
+•  yield 语句返回一个值给调用者并暂停执行
+•  当生成器的next()方法被调用的时候,
+它会准确地从离开地方继续
+
+
+•  与迭代器相似,生成器以另外的方式来运作
+
+•  当到达一个真正的返回或者函数结束没有更多的值返回,
+StopIteration异常就会被抛出
+
+
+
+
+
+内部函数
+闭包
+•  闭包将内部函数自己的代码和作用域
+以及外部函数的作用结合起来
+
+•  闭包的词法变量不属于全局名字空间域
+或者局部的--
+而属于其他的名字空间,
+带着“流浪"的作用域
+•  闭包对于安装计算,隐藏状态,以及在函数对象和作用域中
+随意地切换是很有用的
+•  闭包也是函数,但是他们能携带一些额外的作用域
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

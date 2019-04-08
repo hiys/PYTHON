@@ -3,14 +3,15 @@ import  sys, os, pickle, time, random
 "MoBan ------------ instruction"
 print('\033[31;47;1m__name__  is %s\033[0m' %  __name__)
 
-def  additive(x, y):  #[数]加法
-  return  x + y
+#def  additive(x, y):  #[数]加法
+#  return  x + y
 
-def  subtraction(x, y):  #减法
-  return  x - y
+#def  subtraction(x, y):  #减法
+#  return  x - y
 
 def  exam():
-  cmds = { '+': additive, '-': subtraction }  # 将函数存入字典
+#  cmds = { '+': additive, '-': subtraction }  # 将函数存入字典
+  cmds = { '+': lambda  x, y: x + y , '-': lambda  x, y: x - y }  #将#匿名函数存入字典
   nums = [ random.randint(1,100) for i in range(2) ] # 生成两个数
   nums.sort(reverse=True)  # 降序排列(从大 到小)
   op = random.choice('+-')
@@ -50,7 +51,6 @@ def main():
     if go_on in 'nN':
       print('\nBye-bye.')
       break
-
 
 
 
