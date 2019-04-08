@@ -585,6 +585,194 @@ COMMIT_EDITMSG  description  hooks  info   objects
 .git/index: Git index, version 2, 1 entries
 
 [root@room9pc01 PyScript]# 
+========================================
+
+一、新建代码库
+
+  # 在当前目录新建一个Git代码库
+
+  $ git init
+
+  # 新建一个目录，将其初始化为Git代码库
+
+  $ git init  [project-name]
+
+  # 下载一个项目和它的整个代码历史
+
+  $ git clone [url]
+
+下载代码
+命令：$ git clone <版本库的网址> <本地目录名>
+
+版本库的网址：若有用户名、密码，则：http//:用户名@版本库的网址
+
+本地目录名：若不填写此属性则用远程代码仓库名为目录名称；如果填写则用填写名称为本地目录名称。
+
+pull        英 [pʊl]   美 [ pʊl]  
+     vt.& vi.拉;扯;拉过来;划（船）
+     vt.赢得;吸引异性;取消;（耍手腕）得逞
+     n.拖;爬;影响力
+
+
+更新远程代码
+命令: git pull -u origin master:master。
+
+这里的master是我的分支的名称，在使用的时候要换成你自己分支的名称；
+也可直接 git pull 更新默认分支
+
+
+
+[root@room9pc01 PYTHON]# pwd
+/var/git/PYTHON
+[root@room9pc01 PYTHON]# ls .git/  -a
+.   branches  description  hooks  info  objects      refs
+..  config    HEAD         index  logs  packed-refs
+
+[root@room9pc01 PYTHON]# git  status   #查看本地代码状态
+# 位于分支 master
+无文件要提交，干净的工作区
+
+[root@room9pc01 PYTHON]# git  branch     ## 列出所有本地分支
+* master
+[root@room9pc01 PYTHON]# git  branch  -r     # 列出所有远程分支
+  origin/HEAD -> origin/master
+  origin/master
+
+
+[root@room9pc01 PYTHON]# git  show   #  # 查看tag信息
+
+commit 02c4c3903e58a1a15d2bd3308f785185a2d8797a
+Author: hiys <43769085+hiys@users.noreply.github.com>
+Date:   Mon Apr 1 08:45:04 2019 -0500
+
+    Add files via upload
+
+diff --git a/day04/README b/day04/README
+new file mode 100644
+index 0000000..7dffb58
+--- /dev/null
++++ b/day04/README
+@@ -0,0 +1,5 @@
++# yum install -y sqlite-devel tk-devel tcl-devel readline-devel zlib-devel gcc 
++# tar xzf Python-3.6.7.tgz
++# cd Python-3.6.7
++# ./configure --prefix=/usr/local/
++# make && make install
+diff --git a/day04/environmentpython.txt b/day04/environmentpython.txt
+new file mode 100644
+index 0000000..bfdd8ef
+--- /dev/null
++++ b/day04/environmentpython.txt
+@@ -0,0 +1,397 @@
++
+[root@room9pc01 PYTHON]# 
+
+# 取回远程仓库的变化，并与本地分支合并
+
+  $ git pull[remote] [branch]
+
+git pull的作用是，从远程库中获取某个分支的更新，再与本地指定的分支进行自动merge。
+完整格式是：
+
+$ git pull <远程库名> <远程分支名>:<本地分支名>  
+
+
+如果是要与本地当前分支merge，则冒号后面的<本地分支名>可以不写。
+
+git pull origin develop  
+
+
+更新远程代码
+命令: git pull -u origin master:master。
+
+这里的master是我的分支的名称，在使用的时候要换成你自己分支的名称；
+也可直接 git pull 更新默认分支
+
+
+
+pull        英 [pʊl]   美 [ pʊl]  
+     vt.& vi.拉;扯;拉过来;划（船）
+     vt.赢得;吸引异性;取消;（耍手腕）得逞
+     n.拖;爬;影响力
+
+merge    英 [mɜ:dʒ]   美 [mɜ:rdʒ]  
+     vt.& vi.融入;（使）混合;相融;渐渐消失在某物中
+
+
+origin    英 [ˈɒrɪdʒɪn]   美 [ˈɔ:rɪdʒɪn]  
+   n.出身;起源，根源;[数]原点，起点;[解]（筋，神经的）起端
+
+
+[root@room9pc01 PYTHON]#  pwd
+/var/git/PYTHON
+[root@room9pc01 PYTHON]# git  pull   #更新默认分支
+
+remote: Enumerating objects: 29, done.
+remote: Counting objects: 100% (29/29), done.
+remote: Total 79 (delta 29), reused 29 (delta 29), pack-reused 50
+Unpacking objects: 100% (79/79), done.
+
+来自 https://github.com/hiys/PYTHON      ---------- #注意这是远程仓库网址
+   02c4c39..adeb1ee  master     -> origin/master
+更新 02c4c39..adeb1ee
+Fast-forward
+ day04/clocktime.py                               |   43 +
+................................
+ pythonScripts/day04/environmentpython.txt        |  397 +++++++
+ pythonScripts/day04/formatstring.py              |   34 +
+ pythonScripts/day04/python352.png                |  Bin 0 -> 163167 bytes
+ pythonScripts/day04/python_usyiyi_cn.png         |  Bin 0 -> 131273 bytes
+ pythonScripts/day04/pythonbj4-4.txt              |   26 +
+..............................
+ pythonScripts/day05/ospickleAccount.py           |  140 +++
+ pythonScripts/day05/pythonbj5-1.txt              | 1361 ++++++++++++++++++++++
+.............................
+ pythonScripts/day06/mathgame.py                  |   60 +
+ pythonScripts/day06/pythonbj6.txt                |  591 ++++++++++
+ pythonScripts/day06/testdef.py                   |  123 ++
+ 37 files changed, 11215 insertions(+)
+ create mode 100644 day04/clocktime.py
+ create mode 100644 day04/pythonbj4-4.txt
+ create mode 100644 pythonScripts/day04/README
+ create mode 100644 pythonScripts/day04/clocktime.py
+............................................
+ create mode 100644 pythonScripts/day06/testdef.py
+[root@room9pc01 PYTHON]# git  status 
+# 位于分支 master
+无文件要提交，干净的工作区
+[root@room9pc01 PYTHON]# git  status   -s
+[root@room9pc01 PYTHON]# 
+[root@room9pc01 PYTHON]# git  show    ## 查看tag信息
+
+commit adeb1eea400a28a3d76033945cb64981c80f02ac
+Author: hiys <43769085+hiys@users.noreply.github.com>
+Date:   Sun Apr 7 06:41:31 2019 -0500
+
+    Add files via upload
+
+diff --git a/pythonScripts/day06/mathgame.py b/pythonScripts/day06/mathgame.py
+new file mode 100644
+index 0000000..b125e12
+--- /dev/null
++++ b/pythonScripts/day06/mathgame.py
+@@ -0,0 +1,60 @@
++#!/usr/bin/env  python3
++import  sys, os, pickle, time, random
++"MoBan ------------ instruction"
++print('\033[31;47;1m__name__  is %s\033[0m' %  __name__)
++
++def  additive(x, y):  #[数]加法
++  return  x + y
++
++def  subtraction(x, y):  #减法
++  return  x - y
++
++def  exam():
+[root@room9pc01 PYTHON]# 
+
+
+
+
 
 
 
@@ -1031,8 +1219,74 @@ Swap:          2047           0        2047
 
 
 
+=========================
+--------------------------------------------------------------------------------
+  815  cd   /var/git/pythonScripts/
+  816  ls
+  817  git  --version
+
+下载单个文件时，
+
+找到所需下载的文件，鼠标放到选项Raw上，右键，选择链接另存为即可下载
+                也可以 鼠标放到选项Raw上，右键，选择 复制链接地址后
+            命令行 # wget  +  链接地址
+  818  wget  https://github.com/hiys/PYTHON/raw/master/nsd1807/python1/pythonbj-1.txt
 
 
+https://github.com/hiys/PYTHON/blob/master/nsd1807/python1/pythonbj-git.txt
+
+[root@room9pc01 pythonScripts]# ls
+pythonbj-1.txt
+[root@room9pc01 pythonScripts]# pwd
+/var/git/pythonScripts
+[root@room9pc01 pythonScripts]# wget  https://github.com/hiys/PYTHON/raw/master/nsd1807/python1/pythonbj-git.txt
+
+--2019-03-23 09:02:16--  https://github.com/hiys/PYTHON/raw/master/nsd1807/python1/pythonbj-git.txt
+.....................
+
+100%[======================================>] 37,307      36.5KB/s 用时 1.0s   
+
+2019-03-23 09:02:18 (36.5 KB/s) - 已保存 “pythonbj-git.txt” [37307/37307])
+
+[root@room9pc01 pythonScripts]# ls
+pythonbj-1.txt  pythonbj-git.txt
+
+[root@room9pc01 pythonScripts]# wget  https://github.com/hiys/PYTHON/raw/master/nsd1807/python1/pythonbj.txt  
+..........
+
+（1）clear
+ 
+这个命令将会刷新屏幕，本质上只是让终端显示页向后翻了一页，
+如果向上滚动屏幕还可以看到之前的操作信息。一般都会用这个命令。
+ 
+（2）reset
+ 
+这个命令将完全刷新终端屏幕，之前的终端输入操作信息将都会被清空，
+这样虽然比较清爽，但整个命令过程速度有点慢，使用较少。
+
+
+vim编辑器-多行加注释与去注释
+
+在使用vim编辑器时，有时候需要对多行代码进行加注释或去注释
+方法一：块选择模式
+1. 插入注释
+（1）首先按键盘上的ESC进入命令行模式
+（2）再按Ctrl+V进入VISUAL BLOCK模式
+（3）利用上下左右键调整需要注释多少行以及行的宽度
+（4）再按Shift+i或s进入插入模式
+（5）输入代表注释的符号，比如#
+（6）再次按ESC键，这时就可完成多行注释（可能需要等上一会）
+2. 去注释
+前三步与加注释相同。
+（1）首先按键盘上的ESC进入命令行模式
+（2）再按Ctrl+V进入VISUAL BLOCK模式
+（3）利用上下左右键调整需要去注释多少行以及行的宽度
+（4）再按d即可完成去注释
+方法二：替换命令
+1.插入注释
+（1）首先按键盘上的ESC进入命令行模式
+（2）再在底行输入以下命令
+         :起始行号,结束行号s/^/注释符/g
 
 
 
