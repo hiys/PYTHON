@@ -168,33 +168,76 @@ def   recursionsort():
 #  nums = [random.randint(1,100) for i in range(10)]
   nums = [77, 11, 77, 99, 55, 22, 55]
   print('nums ---------------',nums)
+  #nums --------------- [77, 11, 77, 99, 55, 22, 55]
 
   def  randomsort(data):
     count = 0
     itemcount = 0
     if len(data) == 0 or len(data) == 1:
-      print('---@len(data) -- %d ---data = %s ---' % (len(data), data))
+      print('---@len(data) -- %d ---data = %s ---\n' % (len(data), data))
+      #---@len(data) -- 1 ---data = [11] --- #第2 轮循环递归
+      #---@len(data) -- 1 ---data = [55] --- #第2 轮循环递归
+    #---@len(data) -- 1 ---data = [77] --- #第4 轮循环递归
+    #---@len(data) -- 0 ---data = [] ---   #第4 轮循环递归
+    #---@len(data) -- 0 ---data = [] ---   #第4 轮循环递归
+
       return  data
     middle = data.pop()  
     print('middle  is ----------- %d' % middle)
+    #middle  is ----------- 55  #第一轮循环递归
+   #middle  is ----------- 22  #第2 轮循环递归
+  #middle  is ----------- 99  #第3 轮循环递归
+ #middle  is ----------- 77  #第4 轮循环递归
+
     smaller = []
     larger = []
     for item in  data: 
       if item > middle:
         print('--- item > middle --item is %d ' % item )
+        #--- item > middle --item is 77   #第一轮循环递归
+        #--- item > middle --item is 77 
+        #--- item > middle --item is 99
+       #--- item > middle --item is 55   #第2 轮循环递归
+
         larger.append(item)
       else:
         print('--- item <= middle --item is %d ' % item )
+        #--- item <= middle --item is 11  #第一轮循环递归
+        #--- item <= middle --item is 55 
+        #--- item <= middle --item is 22
+       #--- item <= middle --item is 11  #第2 轮循环递归
+      #--- item <= middle --item is 77  #第3 轮循环递归
+      #--- item <= middle --item is 77  #第3 轮循环递归
+     #--- item <= middle --item is 77  #第4 轮循环递归
+
         smaller.append(item)
       itemcount += 1
     count += 1
     print('\t--- count = %d ---\n--- itemcount = %d\n' % (count, itemcount))
+    #	--- count = 1 ---     #第一轮循环递归
+    #--- itemcount = 6
+   #	--- count = 1 ---    #第2 轮循环递归
+   #--- itemcount = 2        #第2 轮循环递归
+  #	--- count = 1 ---   #第3 轮循环递归
+  #--- itemcount = 2        #第3 轮循环递归
+ #	--- count = 1 --- #第4 轮循环递归
+ #--- itemcount = 1       #第4 轮循环递归
+
     print('\n--- smallerlist is %s---- middle is %d ---larger list is %s --\n' \
       % (smaller, middle, larger))
+    #--- smallerlist is [11, 55, 22]---- middle is 55 ---larger list is [77, 77, 99] --#第一轮循环递归
+   #--- smallerlist is [11]---- middle is 22 ---larger list is [55] --   #第2 轮循环递归
+  #--- smallerlist is [77, 77]---- middle is 99 ---larger list is [] --#第3 轮循环递归
+  #--- smallerlist is [77]---- middle is 77 ---larger list is [] --  #第4 轮循环递归
+
+
     return  randomsort(smaller) + [middle] + randomsort(larger)
   
   print('randomsort(nums) --------',randomsort(nums))
+  #randomsort(nums) -------- [11, 22, 55, 55, 77, 77, 99]
+
   print('end -------nums-------',nums)
+  #end -------nums------- [77, 11, 77, 99, 55, 22]
 
 
 
