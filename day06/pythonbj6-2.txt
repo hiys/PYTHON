@@ -1,0 +1,603 @@
+
+
+
+[root@V0 day06]# vim   recursiontest.py
+[root@V0 day06]# scp  recursiontest.py  root@192.168.0.254:'/var/git/PYTHON/pythonScripts/day06'
+root@192.168.0.254's password: 
+recursiontest.py                                                 100% 6208     5.2MB/s   00:00    
+[root@V0 day06]# vim  recursiontest2.py
+[root@V0 day06]# cat  recursiontest2.py
+#!/usr/bin/env  python3
+import  sys, random
+"MoBan ------------ instruction"
+
+# nums = [99, 55, 22, 55]
+# randomsort(nums)
+
+def  randomsort(data):
+  count = 0
+  itemcount = 0
+  if len(data) == 0 or len(data) == 1:
+    print('---@len(data) -- %d ---data = %s --' % (len(data), data))
+
+    return  data
+  middle = data.pop()  
+  print('middle  is ----------- %d' % middle)
+
+  smaller = []
+  larger = []
+  for item in  data: 
+    if item > middle:
+      print('--- item > middle --item is %d ' % item )
+
+      larger.append(item)
+    else:
+      print('--- item <= middle --item is %d ' % item )
+  
+      smaller.append(item)
+    itemcount += 1
+  count += 1
+  print('--- count = %d ---\n--- itemcount = %d\n' % (count, itemcount))
+
+
+  print('\n---smallerlist is %s----middle is %d ---largerlist is %s--\n' \
+    % (smaller, middle, larger))
+
+  return  randomsort(smaller) + [middle] + randomsort(larger)
+
+
+
+
+#  nlist2 = [77, 99, 55, 22, 55]
+#  randomsort_2(nlist2)
+
+def  randomsort_2(data):
+  count = 0
+  itemcount = 0
+  if len(data) == 0 or len(data) == 1:
+    print('---@len(data) -- %d ---data = %s --' % (len(data), data))
+
+
+    return  data
+  middle = data.pop()  
+  print('middle  is ----------- %d' % middle)
+
+
+  smaller = []
+  larger = []
+  for item in  data: 
+    if item > middle:
+      print('--- item > middle --item is %d ' % item )
+
+      larger.append(item)
+    else:
+      print('--- item <= middle --item is %d ' % item )
+
+  
+      smaller.append(item)
+    itemcount += 1
+  count += 1
+  print('--- count = %d ---\n--- itemcount = %d\n' % (count, itemcount))
+
+
+  print('\n---smallerlist is %s----middle is %d ---largerlist is %s--\n' \
+    % (smaller, middle, larger))
+
+  return  randomsort_2(smaller) + [middle] + randomsort_2(larger)
+
+
+
+#  nlist3 = [11, 77, 99, 55, 22, 55]
+#  randomsort_3(nlist3)
+
+def  randomsort_3(data):
+  count = 0
+  itemcount = 0
+  if len(data) == 0 or len(data) == 1:
+    print('---@len(data) -- %d ---data = %s --' % (len(data), data))
+
+
+    return  data
+  middle = data.pop()  
+  print('middle  is ----------- %d' % middle)
+
+
+  smaller = []
+  larger = []
+  for item in  data: 
+    if item > middle:
+      print('--- item > middle --item is %d ' % item )
+
+      larger.append(item)
+    else:
+      print('--- item <= middle --item is %d ' % item )
+
+  
+      smaller.append(item)
+    itemcount += 1
+  count += 1
+  print('--- count = %d ---\n--- itemcount = %d\n' % (count, itemcount))
+
+
+  print('\n---smallerlist is %s----middle is %d ---largerlist is %s--\n' \
+    % (smaller, middle, larger))
+
+  return  randomsort_3(smaller) + [middle] + randomsort_3(larger)
+
+
+
+
+if __name__ == '__main__':
+  print('\033[30;43;1m sys.argv  is %s\033[0m\n' % sys.argv) 
+
+  nums = [99, 55, 22, 55]
+  print('nums ---------------',nums)
+
+  print('\nrandomsort(nums) --- %s\n' % randomsort(nums))
+
+  print('end -------nums-------',nums)
+
+  print('\n ================= nums ~~~~~~~~~~~~~~~\n')
+
+
+
+  nlist2 = [77, 99, 55, 22, 55]
+  print('nlist2 ---------------',nlist2)
+
+  print('\nrandomsort_2(nlist2) --- %s\n' % randomsort_2(nlist2))
+
+  print('end -------nlist2----- %s' % nlist2)
+
+  print('\n~~~~~~~~~~~~~~~~~~ nlist2 ==============\n')
+
+
+
+  nlist3 = [11, 77, 99, 55, 22, 55]
+  print('nlist3 ---------------',nlist3)
+
+  print('\nrandomsort_3(nlist3) --- %s\n' % randomsort_3(nlist3))
+
+  print('end -------nlist3-------',nlist3)
+
+  print('\n~~~~~~~~~~======  nlist3 =======~~~~~~~~\n')
+
+
+
+
+[root@V0 day06]# scp  recursiontest2.py   root@192.168.0.254:'/var/git/PYTHON/pythonScripts/day06'
+root@192.168.0.254's password: 
+recursiontest2.py                                                100% 3411     2.8MB/s   00:00    
+[root@V0 day06]# 
+
+[root@V0 day06]# python3   recursiontest2.py
+ sys.argv  is ['recursiontest2.py']
+
+nums --------------- [99, 55, 22, 55]
+middle  is ----------- 55
+--- item > middle --item is 99 
+--- item <= middle --item is 55 
+--- item <= middle --item is 22 
+--- count = 1 ---
+--- itemcount = 3
+
+
+---smallerlist is [55, 22]----middle is 55 ---largerlist is [99]--
+
+middle  is ----------- 22
+--- item > middle --item is 55 
+--- count = 1 ---
+--- itemcount = 1
+
+
+---smallerlist is []----middle is 22 ---largerlist is [55]--
+
+---@len(data) -- 0 ---data = [] --
+---@len(data) -- 1 ---data = [55] --
+---@len(data) -- 1 ---data = [99] --
+
+randomsort(nums) --- [22, 55, 55, 99]
+
+end -------nums------- [99, 55, 22]
+
+ ================= nums ~~~~~~~~~~~~~~~
+
+nlist2 --------------- [77, 99, 55, 22, 55]
+middle  is ----------- 55
+--- item > middle --item is 77 
+--- item > middle --item is 99 
+--- item <= middle --item is 55 
+--- item <= middle --item is 22 
+--- count = 1 ---
+--- itemcount = 4
+
+
+---smallerlist is [55, 22]----middle is 55 ---largerlist is [77, 99]--
+
+middle  is ----------- 22
+--- item > middle --item is 55 
+--- count = 1 ---
+--- itemcount = 1
+
+
+---smallerlist is []----middle is 22 ---largerlist is [55]--
+
+---@len(data) -- 0 ---data = [] --
+---@len(data) -- 1 ---data = [55] --
+middle  is ----------- 99
+--- item <= middle --item is 77 
+--- count = 1 ---
+--- itemcount = 1
+
+
+---smallerlist is [77]----middle is 99 ---largerlist is []--
+
+---@len(data) -- 1 ---data = [77] --
+---@len(data) -- 0 ---data = [] --
+
+randomsort_2(nlist2) --- [22, 55, 55, 77, 99]
+
+end -------nlist2----- [77, 99, 55, 22]
+
+~~~~~~~~~~~~~~~~~~ nlist2 ==============
+
+nlist3 --------------- [11, 77, 99, 55, 22, 55]
+middle  is ----------- 55
+--- item <= middle --item is 11 
+--- item > middle --item is 77 
+--- item > middle --item is 99 
+--- item <= middle --item is 55 
+--- item <= middle --item is 22 
+--- count = 1 ---
+--- itemcount = 5
+
+
+---smallerlist is [11, 55, 22]----middle is 55 ---largerlist is [77, 99]--
+
+middle  is ----------- 22
+--- item <= middle --item is 11 
+--- item > middle --item is 55 
+--- count = 1 ---
+--- itemcount = 2
+
+
+---smallerlist is [11]----middle is 22 ---largerlist is [55]--
+
+---@len(data) -- 1 ---data = [11] --
+---@len(data) -- 1 ---data = [55] --
+middle  is ----------- 99
+--- item <= middle --item is 77 
+--- count = 1 ---
+--- itemcount = 1
+
+
+---smallerlist is [77]----middle is 99 ---largerlist is []--
+
+---@len(data) -- 1 ---data = [77] --
+---@len(data) -- 0 ---data = [] --
+
+randomsort_3(nlist3) --- [11, 22, 55, 55, 77, 99]
+
+end -------nlist3------- [11, 77, 99, 55, 22]
+
+~~~~~~~~~~======  nlist3 =======~~~~~~~~
+
+[root@V0 day06]# 
+
+recursion    英 [rɪˈkɜ:ʃn]   美 [rɪˈkɜ:rʃn]  
+    n.递推;递归，递归式
+
+递归函数
+•  如果函数包含了对其自身的调用,该函数就是递归的
+
+•  在操作系统中,查看某一目录内所有文件、
+修改权限等 都是递归的应用
+
+count     英 [kaʊnt]   美 [kaʊnt]  
+    n.总数;数数;罪状;论点
+    v.数数;计算总数;把…算入;
+
+
+[root@V0 day06]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> ''.join(['a','a'])
+'aa'
+>>> '*'.join(['a','a','b','c'])
+'a*a*b*c'
+>>> tuple(['a','a','b','c'])  #列表转 元组类型
+('a', 'a', 'b', 'c')
+>>> type(tuple(['a','a','b','c']))
+<class 'tuple'>
+>>> 
+
+>>> ('a',True,220)
+('a', True, 220)
+
+>>> type(('a',True,220))
+<class 'tuple'>
+
+>>> list(('a',True,220))  #元组转列表类型
+['a', True, 220]
+
+>>> type(list(('a',True,220)))
+<class 'list'>
+
+>>> print(list(('a',True,220)))
+['a', True, 220]
+
+
+>>> {'a':10, 11:True}
+{'a': 10, 11: True}
+
+>>> type({'a':10, 11:True})
+<class 'dict'>
+
+>>> type(list({'a':10, 11:True}))
+<class 'list'>
+
+>>> list({'a':10, 11:True})
+['a', 11]    #注意是把字典的 键 集合成一个新列表,不包含值
+>>> 
+
+>>> list([10,True])
+[10, True]
+
+>>> type(list([10,True]))
+<class 'list'>
+
+>>> type( [10,True])
+<class 'list'>
+
+>>> [10,True]
+[10, True]
+>>> 
+
+[root@V0 day06]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> ''.join(['a','a'])
+'aa'
+>>> '*'.join(['a','a','b','c'])
+'a*a*b*c'
+>>> 
+
+[root@V0 day06]# scp   Recursion.py  root@192.168.0.254:'/var/git/PYTHON/pythonScripts/day06' 
+
+
+变量作用域之lengb
+
+L = Local     局部作用域
+E = Enclosing 嵌套作用域
+N = nonlocal  只作用于嵌套作用域，而且只是作用在函数里面
+G = global    全局作用域
+B = Built-in  内置作用域
+python引用变量的顺序： 
+当前作用域局部变量 -> 外层作用域变量-> 当前模块中的全局变量-> python内置变量.
+
+
+
+
+global语句
+
+•  因为全局变量的名字能被局部变量给遮盖掉,
+所以为了明确地引用一个已命名的全局变量,
+必须使用 global 语句
+>>> 
+>>> xg = 10
+>>> def  foo():
+...   print(xg)
+... 
+>>> 
+>>> foo()
+10
+>>> 
+>>> def bar():
+...   xg = 'bar--in local'
+...   print(xg)
+... 
+>>> bar()
+bar--in local
+>>> 
+    在函数内部 明确地引用一个已命名的全局变量,
+必须使用 global 语句
+
+>>> def  foo_bar():
+...   global  xg   #引用全局变量
+...   xg = 1000    #改写全局变量
+...   print(xg) 
+... 
+>>> 
+>>> print(xg)
+10
+>>> foo_bar()
+1000
+>>> print(xg)
+1000
+>>> foo()
+1000
+>>> 
+
+>>> 
+>>> def  countinside(start = 0):
+...   count = start
+...   def  incount():
+...     nonlocal count  #nonlocal只作用于嵌套作用域，而且只是作用在函数里面
+...     count += 1
+...     return count
+...   return  incount  #返回内部的函数
+... 
+>>> 
+>>> a = countinside()
+>>> b = countinside(10)
+>>> 
+>>> print('a  is --- ', a)
+a  is ---  <function countinside.<locals>.incount at 0x7f632489c598>
+>>> print('a()  is --- ', a())
+a()  is ---  1
+>>> 
+>>> print('b() is --- ', b())
+b() is ---  11
+>>> 
+
+
+
+def  countinside(start = 0):
+  count = start
+  def  incount():
+    nonlocal count
+    count += 1
+    return count
+  return  incount
+
+
+a = countinside()
+b = countinside(10)
+
+print('a  is --- ', a)
+print('a()  is --- ', a())
+
+print('b() is --- ', b())
+
+[root@V0 day06]# scp   countinside.py   root@192.168.0.254:'/var/git/PYTHON/pythonScripts/day06'
+
+decorate    英 [ˈdekəreɪt]   美 [ˈdɛkəˌret]  
+    vt.装饰;点缀;粉刷;授予（某人）勋章
+    vi.装饰;布置
+
+yield     英 [ji:ld]   美 [jild]  
+    vt.屈服，投降;生产;获利;不再反对
+    vi.放弃，屈服;生利;退让，退位
+    n.产量，产额;投资的收益;屈服，击穿;产品
+
+
+[root@V0 day06]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+>>> 
+>>> def  simple_generator():
+...   yield  100
+...   yield  'hello world'
+...   yield  [ 1, 2, 3]
+... 
+>>> 
+>>> a = simple_generator()
+>>> 
+>>> print(type(a),a, sep= ' ---type(a) -- a --')
+<class 'generator'> ---type(a) -- a --<generator object simple_generator at 0x7f45f0a68360>
+>>> 
+>>> print(a.__next__())   #python 3.4.3要使用c.__next__()不能使用c.next()
+100
+>>> 
+>>> print(a.__next__()) 
+hello world
+>>> 
+>>> print(a.__next__())
+[1, 2, 3]
+>>> 
+>>> print(a.__next__())
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+>>> 
+>>> 
+>>> 
+>>> 
+>>> def  count(n):
+...   while n > 0:
+...     yield  n
+...     print(type(n),sep = ' -- ',end ='\t')
+...     n -= 1
+... 
+>>> x = 3
+>>> a = count(x)
+>>> 
+>>> print(type(a),a,sep = ' --- ')
+<class 'generator'> --- <generator object count at 0x7f45f0a68410>
+>>> 
+>>> print(a.__next__())   #python 3.4.3要使用c.__next__()不能使用c.next()
+3
+>>> 
+>>> print(a.__next__()) 
+<class 'int'>	2
+>>> 
+>>> print(a.__next__())
+<class 'int'>	1
+>>> 
+>>> print(a.__next__())
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+<class 'int'>	>>> 
+>>> 
+
+>>> 
+>>> def  simple_generator():
+...   yield  100
+...   yield  'hello world'
+...   yield  [ 1, 2, 3]
+... 
+>>> 
+>>> a = simple_generator()
+>>> 
+>>> print(type(a),a, sep= ' ---type(a) -- a --')
+<class 'generator'> ---type(a) -- a --<generator object simple_generator at 0x7f6604b4b360>
+>>> 
+>>> for item  in  a:
+...   print(type(item), item)
+... 
+<class 'int'> 100
+<class 'str'> hello world
+<class 'list'> [1, 2, 3]
+>>> 
+>>> for item  in  a:   #只能执行一次循环,不可重新回头开始
+...   print(type(item), item)
+... 
+>>> 
+
+
+生成器
+•  从句法上讲,生成器是一个带yield语句的函数
+•  一个函数或者子程序只返回一次,
+但一个生成器能暂停执行
+并返回一个中间的结果
+•  yield 语句返回一个值给调用者并暂停执行
+•  当生成器的next()方法被调用的时候,
+它会准确地从离开地方继续
+
+
+•  与迭代器相似,生成器以另外的方式来运作
+
+•  当到达一个真正的返回或者函数结束没有更多的值返回,
+StopIteration异常就会被抛出
+
+
+
+
+
+内部函数
+闭包
+•  闭包将内部函数自己的代码和作用域
+以及外部函数的作用结合起来
+
+•  闭包的词法变量不属于全局名字空间域
+或者局部的--
+而属于其他的名字空间,
+带着“流浪"的作用域
+•  闭包对于安装计算,隐藏状态,以及在函数对象和作用域中
+随意地切换是很有用的
+•  闭包也是函数,但是他们能携带一些额外的作用域
+
+
+
+
+
+
+
+
+
+

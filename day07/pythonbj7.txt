@@ -1,0 +1,1017 @@
+
+site      英 [saɪt]   美 [saɪt]  
+      n.遗址;地点，位置，场所;[计算机]网站;地皮
+      vt.使坐落在;安放，设置;
+
+类型错误：get_dictionary（）关键字必须是字符串
+    get_dictionary(**info_dict)   # ** 两个星号表示参数info_dict 是个字典 
+TypeError: get_dictionary() keywords must be strings
+
+
+>>> 
+--------------------------------------在运行时出现SyntaxError: Non-ASCII character '\xe8' in file 
+----------------- 是因为源文件中有中文出现：
+原因：
+Python 默认的是ASCII  编码方式，
+如果出现中文会出现问题，
+必须在代码的第二行或第一行 显示的声明编码方式（以注释的方式，即"#"开始）
+#! /usr/bin/env python3
+#coding=UTF-8        #####coding:UTF-8    #也可以用 冒号 ":" 代替 等于号"="
+
+
+[root@V0 day07]# head  -3   mobantest.py
+#! /usr/bin/env python3
+#coding:UTF-8    #也可以用 冒号 ":" 代替 等于号"="
+"""这是测试模版说明--------
+[root@V0 day07]# 
+
+
+------ ##注意 "自定义模块 day07.get_dictionary_tuple导入报错ImportError" 解决办法 ----
+
+[root@V0 pyscripts]# ls  day07/
+get_dictionary_tuple.py  __pycache__
+
+[root@V0 pyscripts]# ls  day07/__pycache__/
+get_dictionary_tuple.cpython-36.pyc
+
+-----  #最关键的文件__init__.py 专门为 python2 版本支持自定义模块的导入功能 ---------
+
+[root@V0 pyscripts]# touch  day07/__init__.py    #最关键的文件__init__.py 
+
+[root@V0 pyscripts]# ll  day07/__init__.py
+
+-rw-r--r-- 1 root root 0 4月  10 18:34 day07/__init__.py
+
+[root@V0 pyscripts]# ls  -R   day07/
+day07/:
+get_dictionary_tuple.py  __init__.pyc  mobantest.pyc
+__init__.py              mobantest.py  __pycache__
+
+day07/__pycache__:
+get_dictionary_tuple.cpython-36.pyc
+[root@V0 pyscripts]# 
+
+-------------------------------------------------------------------------------
+
+[root@V0 day06]# pwd
+/root/pyscripts/day06
+
+[root@V0 day06]# ls  ../day07/
+get_dictionary_tuple.py  __init__.pyc  mobantest.pyc  zidir
+__init__.py              mobantest.py  __pycache__
+
+[root@V0 day06]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> from  ..  import  day07.mobantest   #调用上级目录下的文件
+  File "<stdin>", line 1
+    from  ..  import  day07.mobantest
+                           ^
+SyntaxError: invalid syntax
+
+>>> import  sys
+>>> sys.path.append('..')   #调用上级目录下的文件
+
+>>> import  sys
+>>> sys.path.append('..')  #相对路径的上级目录 '..'
+
+>>> sys.path
+['', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/site-packages', '..']
+
+>>> print(sys.path)
+['', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/site-packages', '..']
+
+>>> print(sys.path[0])
+
+>>> print(sys.path[1])
+/usr/local/lib/python36.zip
+
+>>> print(sys.path[-1])   #相对路径的上级目录 '..'
+..
+>>> 
+
+>>> import  day07.mobantest
+
+__name__  is day07.mobantest
+>>> day07.mobantest.date
+'2019年*04月*10日 20时:02分:55秒'
+>>> 
+[root@V0 day06]# 
+
+-------------------------------------------------
+===================================
+
+
+[root@room9pc01 ~]# find  '/var/git/PYTHON/pythonScripts' |xargs  grep  -lri  '(**' |grep '.py'
+
+
+[root@V0 day06]# scp   simple_generator.py    root@192.168.0.254:/var/git/PYTHON/pythonScripts/day07
+
+[root@V0 day07]# scp  get_dictionary_tuple.py    root@192.168.0.254:/var/git/PYTHON/pythonScripts/day07
+
+
+通过 以元组(非关键字参数)
+或字典(关键字参数)
+作为参数组
+传递给函数
+通过以 元组(非关键字参数) 作为参数组传递给函数
+通过以 字典(关键字参数) 作为参数组传递给函数
+
+#!/usr/bin/env  python3
+import  sys, os, pickle, time
+"MoBan ------------ instruction"
+
+
+def  get_argxx(*xx):   #*表示xx 是个元组
+  print(xx, end=" -----('xx-tuple',)\n")
+
+
+def  get_abc(a,b,c):
+  print('a is %s\tb is %s\tc is %s' % (a,b,c))
+
+
+#形参名前加 2 个*表示，
+#参数在函数内部将被存放在以形参名
+#为标识符的dictionary中，
+#这时调用函数的方法则需要采用arg1=value1,arg2=value2这样的形式
+
+def   get_dictionary(**xxx):     # ** 两个星号表示参数 xxx 是个字典
+  print(xxx,end= ' -----dictionary\n')
+
+
+def   get_dictionary2(**xxy):
+  print(xxy)
+  for k,v in xxy.items():  #返回可遍历的(键, 值) 元组数组
+    print('k is %s ---- v is %s' % (k,v))
+  return  xxy.values()  #以列表返回字典中的所有值
+
+
+if __name__ == '__main__':
+
+  info = [ 'peri', 36, False ]   #列表
+  get_argxx(info)             #结果是个元组中有一个列表元素
+       #(['peri', 36, False],) -----('xx-tuple',)
+
+
+  get_abc(*info)  # *表示把序列对象（列表，字符串，元组等） 拆开，得到个体
+     # a is peri	b is 36	c is False
+
+
+#这时调用函数的方法则需要采用arg1=value1,arg2=value2这样的形式
+  get_dictionary(name='bob',gender= 1 ,hobby = True)
+    # {'name': 'bob', 'gender': 1, 'hobby': True} -----dictionary
+
+  info3 = {'xx1' : 'valuex1', 'girl' : False, 'name' : 'beauty' }
+
+  get_dictionary(**info3)
+   #{'xx1': 'valuex1', 'girl': False, 'name': 'beauty'} -----dictionary
+
+  get_abc(*info3)    # * 表示把字典中的 键 分解出来
+     #a is xx1	b is girl	c is name
+
+
+  get_dictionary2(**info3) # ** 表示把字典中的 键值 分解出来
+     #{'xx1': 'valuex1', 'girl': False, 'name': 'beauty'}
+     #k is xx1 ---- v is valuex1
+     #k is girl ---- v is False
+     #k is name ---- v is beauty
+
+
+
+名称空间就是一个从名称到对象的关系映射集合
+•  给定一个模块名之后,
+只可能有一个模块被导入到python解释器中,
+所以在不同模块间不会出现名称交叉现象
+
+•  每个模块都定义了它自己的唯一的名称空间
+
+搜索路径在sys.path中定义
+
+•  可以在一行导入多个模块,但是可读性会下降
+•  可以只导入模块的某些属性
+•  导入模块时,可以为模块取别名
+>>>	import  Dme,  os,  sys
+>>>	from  random  import  choice
+>>>	import  pickle  as  p
+当导入模块时,模块的顶层代码会被执行
+•  一个模块不管被导入(import)多少次,只会被加载(load)一次
+
+
+从zip文件中导入
+•  在2.3版中,python加入了从ZIP归档文件导入模块的功能
+•  如果搜索路径中存在一个包含python模块(.py、.pyc、
+或.pyo文件)的.zip文件,导入时会把ZIP文件当作目录处理
+
+#导入sys模块,在搜索路径中加入相应的zip文件	
+>>> import   sys
+>>> sys.path.append('/root/pymodule.zip')	
+>>> import  foo  #导入pymodule.zip压缩文件中的foo模块
+
+所有的导入现在都被认为是绝对的,也就是说
+这些名字必须通过python路径(sys.path或
+PYTHONPATH)来访问
+
+因为import语句总是绝对导入的,
+所以相对导入只应用于from  import  语句
+
+
+[root@V0 day07]# ls   /usr/local/lib/p
+pkgconfig/ python3.6/ 
+
+[root@V0 day07]# wc  -l  /usr/local/lib/python3.6/keyword.py
+94 /usr/local/lib/python3.6/keyword.py
+
+[root@V0 day07]# wc  -l  /usr/local/lib/python3.6/timeit.py 
+362 /usr/local/lib/python3.6/timeit.py
+[root@V0 day07]# wc  -l  /usr/local/lib/python3.6/shutil.py 
+1153 /usr/local/lib/python3.6/shutil.py
+
+[root@V0 day07]# wc  -l  /usr/local/lib/python3.6/getpass.py 
+185 /usr/local/lib/python3.6/getpass.py
+
+[root@V0 day07]# ls   /usr/local/lib/python3.6/tkinter/
+
+colorchooser.py  dialog.py      font.py      messagebox.py    simpledialog.py  ttk.py
+commondialog.py  dnd.py         __init__.py  __pycache__      test
+constants.py     filedialog.py  __main__.py  scrolledtext.py  tix.py
+
+[root@V0 day07]# ls   /usr/local/lib/python3.6/ |wc  -l
+204
+[root@V0 day07]# 
+[root@V0 day07]# ls  /usr/local/lib/python3.6/test/ |wc  -l
+548
+[root@V0 day07]# 
+[root@V0 day07]# find  /usr/local/lib/python3.6/ -type f -iname  "sys.py"
+[root@V0 day07]# find  /usr/local/lib/python3.6/ -type f -iname  "keyword.py"
+
+/usr/local/lib/python3.6/keyword.py
+
+[root@V0 day07]# ll   /usr/local/lib/python36.zip
+ls: 无法访问/usr/local/lib/python36.zip: 没有那个文件或目录
+[root@V0 day07]# 
+[root@V0 day07]# ls   /usr/local/lib/python3.6/lib-dynload/ |grep  sys
+syslog.cpython-36m-x86_64-linux-gnu.so
+
+[root@V0 day07]# ls   /usr/local/lib/python3.6/site |grep  sys
+site-packages/ site.py        
+[root@V0 day07]# ls   /usr/local/lib/python3.6/site-packages/  |grep  sys
+
+[root@V0 day07]# ls   /usr/local/lib/python3.6/site-packages/
+easy_install.py       pkg_resources  setuptools
+pip                   __pycache__    setuptools-39.0.1.dist-info
+pip-10.0.1.dist-info  README.txt
+
+site      英 [saɪt]   美 [saɪt]  
+      n.遗址;地点，位置，场所;[计算机]网站;地皮
+      vt.使坐落在;安放，设置;
+
+[root@V0 day07]# cat  /usr/local/lib/python3.6/site-packages/README.txt 
+
+此目录存在，因此可以在此处安装  第三方软件包  。
+有关详细信息，请阅读site.py的源文件。
+This directory exists so that 3rd party packages can be installed here. 
+ Read the source for site.py for more details.
+
+[root@V0 day07]# 
+[root@V0 day07]# cat   /usr/local/lib/python3.6/site-packages/easy_install.py
+"""Run the EasyInstall command"""
+
+if __name__ == '__main__':
+    from setuptools.command.easy_install import main
+    main()
+[root@V0 day07]# 
+
+
+[root@V0 day07]# wc  -l  /usr/local/lib/python3.6/site.py 
+607 /usr/local/lib/python3.6/site.py
+[root@V0 day07]# 
+
+[root@V0 day07]# scp   /usr/local/lib/python3.6/keyword.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/day07
+root@192.168.0.254's password: 
+keyword.py                             100% 2211     1.5MB/s   00:00    
+[root@V0 day07]# 
+[root@V0 day07]# scp   /usr/local/lib/python3.6/site.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/day07
+
+
+[root@V0 day07]# ls   /usr/local/lib/python3.6/site-packages/
+easy_install.py       pkg_resources  setuptools
+pip                   __pycache__    setuptools-39.0.1.dist-info
+pip-10.0.1.dist-info  README.txt
+
+site      英 [saɪt]   美 [saɪt]  
+      n.遗址;地点，位置，场所;[计算机]网站;地皮
+      vt.使坐落在;安放，设置;
+
+[root@V0 day07]# cat  /usr/local/lib/python3.6/site-packages/README.txt 
+
+此目录存在，因此可以在此处安装  第三方软件包  。
+有关详细信息，请阅读site.py的源文件。
+
+[root@V0 day07]# ll  get_dictionary_tuple.py 
+-rw-r--r-- 1 root root 3270 4月  10 15:40 get_dictionary_tuple.py
+
+[root@V0 day07]# cp  get_dictionary_tuple.py   /usr/local/lib/python3.6/site-packages/
+
+[root@V0 day07]# ll  /usr/local/lib/python3.6/site-packages/get_dictionary_tuple.py 
+-rw-r--r-- 1 root root 3270 4月  10 15:59 /usr/local/lib/python3.6/site-packages/get_dictionary_tuple.py
+
+[root@V0 day07]# ls  /usr/local/lib/python3.6/site-packages/
+
+easy_install.py          pip-10.0.1.dist-info  README.txt
+get_dictionary_tuple.py  pkg_resources         setuptools
+pip                      __pycache__           setuptools-39.0.1.dist-info
+
+[root@V0 day07]# 
+
+[root@V0 day07]#
+
+[root@V0 day07]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   sys
+>>> sys.path
+['', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/site-packages']
+>>> 
+>>> import  get_dictionary_tuple
+__name__  is get_dictionary_tuple
+
+>>> get_dictionary_tuple.path
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: module 'get_dictionary_tuple' has no attribute 'path'
+>>> 
+>>> get_dictionary_tuple.
+get_dictionary_tuple.date                get_dictionary_tuple.get_tuple(
+get_dictionary_tuple.get_abc(            get_dictionary_tuple.sys
+get_dictionary_tuple.get_dictionary(     get_dictionary_tuple.time
+get_dictionary_tuple.get_dictionary_kv(  
+>>> get_dictionary_tuple.date
+'2019年*04月*10日 16时:01分:42秒'
+>>> 
+>>> 
+[root@V0 day07]# ls
+get_dictionary_tuple.py  __pycache__
+[root@V0 day07]# cd ../day06/
+
+[root@V0 day06]# ls   #注意这里 没有自定义模块文件 get_dictionary_tuple.py 
+
+countinside.py       mathgame2.py  recursionsort.py   simple_generator.py
+functoolspartial.py  mathgame.py   recursiontest2.py
+lambdafilter.py      mima          recursiontest.py
+looptime.py          Recursion.py  set_color.py
+
+[root@V0 day06]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  get_dictionary_tuple  #自定义模块文件 get_dictionary_tuple.py导入成功
+__name__  is get_dictionary_tuple
+
+>>> get_dictionary_tuple.date
+'2019年*04月*10日 16时:12分:34秒'
+>>> 
+[root@V0 day06]# 
+[root@V0 day07]# cd
+[root@V0 ~]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  get_dictionary_tuple
+__name__  is get_dictionary_tuple
+>>> help(get_dictionary_tuple)
+
+Help on module get_dictionary_tuple:
+
+NAME
+    get_dictionary_tuple
+
+DESCRIPTION
+    这是测试模版说明--------
+    形参名前加 2 个*表示，
+    参数在函数内部将被存放在以形参名
+    为标识符的dictionary中，
+    这时调用函数的方法则需要采用arg1=value1,arg2=value2这样的形式
+     * 表示把序列对象（列表，字符串，元组等） 拆开，得到个体
+
+FUNCTIONS
+    get_abc(A, B, C)
+        函数方法说明: 传入 3 个参数
+    
+    get_dictionary(**dict)
+        通过以字典(关键字参数)作为参数组传递给函数
+    
+    get_dictionary_kv(**dict2)
+    
+    get_tuple(*tuple_args)
+        argument  n.论据;[数]幅角;主题，情节
+        通过以 元组(非关键字参数) 作为参数组传递给函数
+        参数tuple_args 的元素个数不限制
+
+DATA
+    date = '2019年*04月*10日 16时:16分:47秒'
+
+FILE
+    /usr/local/lib/python3.6/site-packages/get_dictionary_tuple.py
+
+(END)
+
+>>> help(get_dictionary_tuple.get_abc)
+Help on function get_abc in module get_dictionary_tuple:
+
+get_abc(A, B, C)
+    函数方法说明: 传入 3 个参数
+(END)
+>>> get_dictionary_tuple.__file__  #注意 自定义模版 路径变化, site-packages可能有优先级规则
+
+'/usr/local/lib/python3.6/site-packages/get_dictionary_tuple.py'
+>>> 
+[root@V0 ~]# cd  -
+/root/pyscripts/day07
+
+[root@V0 day07]# pwd
+/root/pyscripts/day07
+
+[root@V0 day07]# python3
+
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  get_dictionary_tuple
+__name__  is get_dictionary_tuple
+
+>>> get_dictionary_tuple.__file__   #注意 自定义模版 路径变化,可能有优先级规则
+
+'/root/pyscripts/day07/get_dictionary_tuple.py'
+>>> 
+[root@V0 day07]# 
+[root@room9pc01 ~]# python3
+
+Python 3.6.1 (default, Mar 20 2018, 00:12:35) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  sys
+
+>>> sys.__file__
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: module 'sys' has no attribute '__file__'
+
+>>> sys.path
+['', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/site-packages']
+>>> 
+
+[root@room9pc01 ~]# ll   /usr/local/lib/python36.zip
+ls: 无法访问/usr/local/lib/python36.zip: 没有那个文件或目录
+
+[root@room9pc01 ~]# ls  /usr/local/lib/python3.6/site-packages/ |wc  -l
+8
+[root@room9pc01 ~]# 
+
+[root@V0 day07]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> from  random  import  randint, choice  #导入模块中的某些功能
+
+>>> print(randint(22,99))
+62
+
+>>> print(choice('+-*/%'))
++
+>>> print(choice('+-*/%'))
+/
+>>> print(choice('+-*/%'))
+%
+>>> print(choice('+-*/%'))
+-
+>>> print(choice('+-*/%'))
+*
+>>> #注意 "自定义模块 get_dictionary_tuple 的某些功能方法get_abc,  get_tuple"
+
+>>> from   get_dictionary_tuple  import  get_abc,  get_tuple  #注意 "自定义模块
+
+__name__  is get_dictionary_tuple
+
+>>> infolist = [ 'peri', 33, False ]
+>>> info_dict = {'keyx':'valuex', 'mustbestring':True, 'zifuchuan':['liebiao', 220]}
+>>> 
+>>> get_abc(*infolist)
+ A is peri	B is 33	 C is False
+>>> 
+>>> get_abc(*info_dict)
+ A is keyx	B is mustbestring	 C is zifuchuan
+>>> 
+[root@V0 day07]# ls
+get_dictionary_tuple.py  __pycache__
+
+[root@V0 day07]# ls  __pycache__/
+
+get_dictionary_tuple.cpython-36.pyc
+
+[root@V0 day07]# ls ../day06/
+countinside.py       mathgame2.py  recursionsort.py   simple_generator.py
+functoolspartial.py  mathgame.py   recursiontest2.py
+lambdafilter.py      mima          recursiontest.py
+looptime.py          Recursion.py  set_color.py
+[root@V0 day07]# 
+[root@V0 day07]# cd  ../
+
+[root@V0 pyscripts]# ls
+clocktime.py  differset.py  mima         timedatenow.py
+day06         diverror.py   ospickle.py  tryExceptElseFinallyRaise.py
+day07         logindict.py  passwd       unixwindows.py
+
+[root@V0 pyscripts]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import   day06.set_color    #实际的 相对路径 './day06/set_color.py'
+
+__name__  is day06.set_color
+
+>>> day06.set_color.
+day06.set_color.date           day06.set_color.os
+day06.set_color.new_function(  day06.set_color.sys
+day06.set_color.old_func2(     day06.set_color.time
+day06.set_color.old_function(  
+
+>>> day06.set_color.date
+'2019年*04月*10日 17时:27分:13秒'
+
+>>> day06.set_color.__file__     #实际的绝对路径
+'/root/pyscripts/day06/set_color.py'
+>>> 
+
+[root@V0 pyscripts]# ls  day07/
+get_dictionary_tuple.py  __pycache__
+
+[root@V0 pyscripts]# python3             # 注意是python 版本3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  day07.get_dictionary_tuple
+
+__name__  is day07.get_dictionary_tuple
+
+>>>
+>>> day07.get_dictionary_tuple.__file__   # 注意 相对路径目录名day07 不可少
+'/root/pyscripts/day07/get_dictionary_tuple.py'
+
+>>> day07.get_dictionary_tuple.date
+'2019年*04月*10日 17时:37分:16秒'
+>>> 
+[root@V0 pyscripts]# 
+[root@V0 pyscripts]# python    #注意是python 版本2 ,不是3
+
+Python 2.7.5 (default, May  3 2017, 07:55:04) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-14)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  day07.get_dictionary_tuple
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ImportError: No module named day07.get_dictionary_tuple
+>>>    ##注意 "自定义模块 day07.get_dictionary_tuple导入报错ImportError"
+
+[root@V0 pyscripts]# ls  day07/
+get_dictionary_tuple.py  __pycache__
+
+[root@V0 pyscripts]# ls  day07/__pycache__/
+get_dictionary_tuple.cpython-36.pyc
+
+------ ##注意 "自定义模块 day07.get_dictionary_tuple导入报错ImportError" 解决办法 ----
+
+[root@V0 pyscripts]# ls  day07/
+get_dictionary_tuple.py  __pycache__
+
+[root@V0 pyscripts]# ls  day07/__pycache__/
+get_dictionary_tuple.cpython-36.pyc
+
+-----  #最关键的文件__init__.py 专门为 python2 版本支持自定义模块的导入功能 ---------
+
+[root@V0 pyscripts]# touch  day07/__init__.py    #最关键的文件__init__.py 
+
+[root@V0 pyscripts]# ll  day07/__init__.py
+
+-rw-r--r-- 1 root root 0 4月  10 18:34 day07/__init__.py
+
+[root@V0 pyscripts]# ls  day07/
+get_dictionary_tuple.py  __init__.py  __pycache__
+
+[root@V0 pyscripts]# python        #注意是python 版本2 ,不是3
+
+Python 2.7.5 (default, May  3 2017, 07:55:04) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-14)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  day07.get_dictionary_tuple
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "day07/get_dictionary_tuple.py", line 3
+SyntaxError: Non-ASCII character '\xe8' in file day07/get_dictionary_tuple.py on line 3, but no encoding declared; see http://www.python.org/peps/pep-0263.html for details
+>>> 
+--------------------------------------在运行时出现SyntaxError: Non-ASCII character '\xe8' in file 
+----------------- 是因为源文件中有中文出现：
+原因：
+Python 默认的是ASCII  编码方式，
+如果出现中文会出现问题，
+必须在代码的第二行或第一行 显示的声明编码方式（以注释的方式，即"#"开始）
+#! /usr/bin/env python3
+#coding=UTF-8        #####coding:UTF-8    #也可以用 冒号 ":" 代替 等于号"="
+
+
+[root@V0 day07]# head  -3   mobantest.py
+#! /usr/bin/env python3
+#coding:UTF-8    #也可以用 冒号 ":" 代替 等于号"="
+"""这是测试模版说明--------
+[root@V0 day07]# 
+
+
+[root@V0 day07]# vim  /usr/local/lib/python3.6/site-packages/get_dictionary_tuple.py 
+[root@V0 day07]# head  -3  /usr/local/lib/python3.6/site-packages/get_dictionary_tuple.py
+#! /usr/bin/env python3
+#coding = UTF-8
+"""这是测试模版说明--------
+[root@V0 day07]# 
+[root@V0 day07]# python3   /usr/local/lib/python3.6/site-packages/get_dictionary_tuple.py
+__name__  is __main__
+ sys.argv  is ['/usr/local/lib/python3.6/site-packages/get_dictionary_tuple.py']
+
+('zifuchuan', 12, True, ['lieblist', 'element'])  --('tuple_element',)
+注意字典中的关键字keyword必须是字符串类型,
+    否则不能 通过以字典(关键字参数)作为参数组传递给函数
+................................................
+
+[root@V0 day07]# vim   get_dictionary_tuple.py 
+[root@V0 day07]# head  -3  get_dictionary_tuple.py
+#! /usr/bin/env python3
+#coding=UTF-8
+"""这是测试模版说明--------
+[root@V0 day07]# python3   get_dictionary_tuple.py
+__name__  is __main__
+ sys.argv  is ['get_dictionary_tuple.py']
+
+
+[root@V0 pyscripts]# vim   day07/mobantest.py
+[root@V0 pyscripts]# python3  day07/mobantest.py
+__name__  is __main__
+ sys.argv  is ['day07/mobantest.py']
+
+注意字典中的关键字keyword必须是字符串类型,
+    否则不能 通过以字典(关键字参数)作为参数组传递给函数
+ A is peri	B is 33	 C is False
+ A is keyx	B is mustbestring	 C is zifuchuan
+[root@V0 pyscripts]# python  day07/mobantest.py
+__name__  is __main__
+ sys.argv  is ['day07/mobantest.py']
+
+注意字典中的关键字keyword必须是字符串类型,
+    否则不能 通过以字典(关键字参数)作为参数组传递给函数
+ A is peri	B is 33	 C is False
+ A is mustbestring	B is zifuchuan	 C is keyx
+[root@V0 pyscripts]# cat  day07/mobantest.py
+#! /usr/bin/env python3
+#coding=UTF-8
+"""这是测试模版说明--------
+形参名前加 2 个*表示，
+参数在函数内部将被存放在以形参名
+为标识符的dictionary中，
+这时调用函数的方法则需要采用arg1=value1,arg2=value2这样的形式
+ * 表示把序列对象（列表，字符串，元组等） 拆开，得到个体"""
+
+import  sys, time
+
+
+print('\033[31;47;1m__name__  is %s\033[0m' %  __name__)
+
+date = time.strftime('%Y年*%m月*%d日 %H时:%M分:%S秒',time.localtime())
+
+
+def  get_abc(A, B, C):
+  """函数方法说明: 传入 3 个参数"""
+  print('\033[32;46;1m A is %s\tB is %s\t C is %s\033[0m' % (A, B, C))
+
+
+if __name__ == '__main__':
+  print('\033[30;43;1m sys.argv  is %s\033[0m\n' % sys.argv) 
+
+
+  infolist = [ 'peri', 33, False ]
+
+  print("注意字典中的关键字keyword必须是字符串类型,\n \
+   否则不能 通过以字典(关键字参数)作为参数组传递给函数")
+
+  info_dict = {'keyx':'valuex', 'mustbestring':True, 'zifuchuan':['liebiao', 220]}
+
+
+  get_abc(*infolist)  # *表示把序列对象(列表，字符串，元组等)拆开，得到个体元素
+  # A is peri	B is 33	 C is False
+
+  get_abc(*info_dict)  ## * 表示把字典中的 键 分解出来
+  # A is keyx	B is mustbestring	 C is zifuchuan
+
+
+[root@V0 pyscripts]# 
+
+[root@V0 pyscripts]# python    #注意是python 版本2 ,不是3
+
+Python 2.7.5 (default, May  3 2017, 07:55:04) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-14)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+
+/*********************  #这次成功导入了自定义模版 前提条件 ----------
+
+-----  #最关键的文件__init__.py 专门为 python2 版本支持自定义模块的导入功能 ---------
+
+[root@V0 pyscripts]# touch  day07/__init__.py    #最关键的文件__init__.py 
+[root@V0 pyscripts]# vim   day07/mobantest.py
+#! /usr/bin/env python3
+#coding=UTF-8
+"""这是测试模版说明--------
+
+Python 默认的是ASCII  编码方式，
+如果出现中文会出现问题，
+必须在代码的第二行或第一行 显示的声明编码方式（以注释的方式，即"#"开始）
+#! /usr/bin/env python3
+#coding=UTF-8
+
+*********************/
+
+>>> import  day07.mobantest     #这次成功导入了自定义模版,条件
+__name__  is day07.mobantest
+>>> day07.mobantest.date
+'2019\xe5\xb9\xb4*04\xe6\x9c\x88*10\xe6\x97\xa5 19\xe6\x97\xb6:01\xe5\x88\x86:58\xe7\xa7\x92'
+>>> day07.mobantest.__file__
+'day07/mobantest.py'
+>>> 
+[root@V0 pyscripts]# 
+
+[root@V0 pyscripts]# python      #注意是python 版本2 ,不是3
+Python 2.7.5 (default, May  3 2017, 07:55:04) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-14)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  day07.mobantest
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "day07/mobantest.py", line 3
+SyntaxError: Non-ASCII character '\xe8' in file day07/mobantest.py on line 3, but no encoding declared; see http://www.python.org/peps/pep-0263.html for details
+
+>>>   原因是在代码的第二行 编码不能有空格  "#coding=UTF-8"
+
+>>> import  day07.mobantest
+__name__  is day07.mobantest
+>>> 
+>>> infolist = [ 'peri', 33, False ]
+
+>>> day07.mobantest.get_abc(*infolist)
+ A is peri	B is 33	 C is False
+>>> 
+
+>>> 
+>>> print(day07.mobantest.date)
+2019年*04月*10日 19时:10分:26秒
+>>> day07.mobantest.date
+'2019\xe5\xb9\xb4*04\xe6\x9c\x88*10\xe6\x97\xa5 19\xe6\x97\xb6:10\xe5\x88\x86:26\xe7\xa7\x92'
+>>> 
+[root@V0 day07]# 
+[root@V0 day07]# ls
+get_dictionary_tuple.py  __init__.py  __init__.pyc  mobantest.py  mobantest.pyc  __pycache__
+[root@V0 day07]# ll  mobantest.pyc
+-rw-r--r-- 1 root root 1326 4月  10 19:10 mobantest.pyc
+
+[root@V0 day07]# ll  __init__.pyc
+-rw-r--r-- 1 root root 104 4月  10 18:34 __init__.pyc
+
+[root@V0 day07]# 
+[root@V0 day07]# ll  __init__.py      #注意  __init__.py  还是空文件,没有内容
+-rw-r--r-- 1 root root 0 4月  10 18:34 __init__.py
+[root@V0 day07]# 
+[root@V0 day07]# cat   __init__.py
+[root@V0 day07]# 
+
+
+[root@V0 day06]# pwd
+/root/pyscripts/day06
+
+[root@V0 day06]# ls  ../day07/
+get_dictionary_tuple.py  __init__.pyc  mobantest.pyc  zidir
+__init__.py              mobantest.py  __pycache__
+
+[root@V0 day06]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> from  ..  import  day07.mobantest   #调用上级目录下的文件
+  File "<stdin>", line 1
+    from  ..  import  day07.mobantest
+                           ^
+SyntaxError: invalid syntax
+
+>>> import  sys
+>>> sys.path.append('..')   #调用上级目录下的文件
+
+>>> import  day07.mobantest
+
+__name__  is day07.mobantest
+>>> day07.mobantest.date
+'2019年*04月*10日 20时:02分:55秒'
+>>> 
+[root@V0 day06]# 
+
+
+
+从zip文件中导入
+•  在2.3版中,python加入了从ZIP归档文件导入模块的功能
+•  如果搜索路径中存在一个包含python模块(.py、.pyc、
+或.pyo文件)的.zip文件,导入时会把ZIP文件当作目录处理
+
+#导入sys模块,在搜索路径中加入相应的zip文件	
+>>> import   sys
+>>> sys.path.append('/root/pymodule.zip')	
+>>> import  foo  #导入pymodule.zip压缩文件中的foo模块
+
+所有的导入现在都被认为是绝对的,也就是说
+这些名字必须通过python路径(sys.path或
+PYTHONPATH)来访问
+
+因为import语句总是绝对导入的,
+所以相对导入只应用于from  import  语句
+
+
+
+-------------------------------------------------
+[root@V0 pyscripts]# pwd
+/root/pyscripts
+[root@V0 pyscripts]# ls
+clocktime.py  differset.py  mima         timedatenow.py
+day06         diverror.py   ospickle.py  tryExceptElseFinallyRaise.py
+day07         logindict.py  passwd       unixwindows.py
+[root@V0 pyscripts]# 
+[root@V0 pyscripts]# ls  day07/
+get_dictionary_tuple.py  __init__.pyc  mobantest.pyc  zidir
+__init__.py              mobantest.py  __pycache__
+[root@V0 pyscripts]# 
+-------------------------------------------
+
+[root@V0 day06]#  ls  /usr/local/lib/python3.6/site-packages/
+easy_install.py          __pycache__
+get_dictionary_tuple.py  README.txt
+pip                      setuptools
+pip-10.0.1.dist-info     setuptools-39.0.1.dist-info
+pkg_resources
+
+[root@V0 day06]# pwd
+/root/pyscripts/day06
+[root@V0 day06]# 
+
+source
+英 [sɔ:s]   美 [sɔ:rs]  
+n.
+根源，本源;源头，水源;原因;
+
+destination
+英 [ˌdestɪˈneɪʃn]  美 [ˌdɛstəˈneʃən]  
+n.
+目的，目标;目的地，终点;[罕用语]预定，指定
+
+[root@V0 day06]# python3
+
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  sys          #绝对路径导入
+
+>>> sys.path.insert(0, '/root/pyscripts/day07')
+
+>>> print(sys.path)
+['/root/pyscripts/day07', '', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/site-packages']
+
+>>> import   mobantest
+
+__name__  is mobantest
+
+>>> mobantest.date
+'2019年*04月*10日 20时:19分:23秒'
+
+>>> mobantest.
+mobantest.date      mobantest.sys       
+mobantest.get_abc(  mobantest.time      
+>>> 
+root@V0 day06]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  sys
+>>> sys.path.append('..')  #相对路径的上级目录 '..'
+>>> sys.path
+['', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/site-packages', '..']
+>>> print(sys.path)
+['', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/site-packages', '..']
+>>> print(sys.path[0])
+
+>>> print(sys.path[1])
+/usr/local/lib/python36.zip
+>>> print(sys.path[-1])
+..
+>>>
+>>> sys.path.insert(0,'/root/pyscripts/')  #作用效果和sys.path.append('..') 相同
+
+>>> import   day07.mobantest
+
+__name__  is day07.mobantest
+>>> 
+[root@V0 day06]# 
+
+[root@V0 day06]# pwd
+/root/pyscripts/day06
+[root@V0 day06]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  os, sys
+
+>>> source_dir = os.path.dirname('/root/pyscripts/day07')  #取出上一级目录dirname
+
+>>> sys.path.insert(0, source_dir)
+>>> 
+>>> sys.path
+['/root/pyscripts', '', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/site-packages']
+
+>>> import   mobantest
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'mobantest'
+
+>>> import   day07.mobantest
+__name__  is day07.mobantest
+
+>>> day07.mobantest.date
+'2019年*04月*10日 20时:55分:25秒'
+>>> 
+>>> os.path.abspath(day07.mobantest.__file__)  #绝对路径
+'/root/pyscripts/day07/mobantest.py'
+>>> 
+>>> os.path.dirname(os.path.abspath(day07.mobantest.__file__)) #取出上一级目录
+'/root/pyscripts/day07'
+
+>>> day07.mobantest.__file__     #绝对路径
+'/root/pyscripts/day07/mobantest.py'
+
+>>> source_dir = os.path.abspath('/root/pyscripts/day07')   #绝对路径
+
+>>> print(source_dir)
+/root/pyscripts/day07
+>>> 
+
+[root@V0 day06]# pwd
+/root/pyscripts/day06
+
+[root@V0 day06]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  os, sys
+
+>>> source_dir = os.path.abspath('/root/pyscripts/day07')  #绝对路径abspath
+
+>>> print(source_dir)
+/root/pyscripts/day07
+
+>>> sys.path.insert(0, source_dir)
+
+>>> sys.path
+['/root/pyscripts/day07', '', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/site-packages']
+
+>>> import   mobantest
+
+__name__  is mobantest
+
+>>> 
+[root@V0 day06]# 
+
+[root@V0 day07]# scp   mobantest.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/day07
+
+
+
+
+
+
+
+

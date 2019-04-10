@@ -1,0 +1,594 @@
+
+
+
+
+======================
+[root@room9pc01 pytest]# vim   testdef.py
+
+[root@room9pc01 pytest]# cat    testdef.py
+
+#!/usr/bin/env  python3
+import  sys, os, pickle, time
+"MoBan ------------ instruction"
+print('\033[31;47;1m__name__  is %s\033[0m' %  __name__)
+
+def  foo():
+  "----- 函数\文档\字符串------"
+  bar()
+  print('in-foo')
+  date = time.strftime('%Y年*%m月*%d日 %H时:%M分:%S秒',time.localtime())
+  return  date
+
+def  bar():
+  print('in-bar')
+  
+
+if __name__ == '__main__':
+  print('\033[30;43;1m sys.argv  is %s\033[0m\n' % sys.argv)  
+  foo()
+
+[root@room9pc01 pytest]# python3  testdef.py
+
+__name__  is __main__
+ sys.argv  is ['testdef.py']
+
+in-bar
+in-foo
+
+[root@room9pc01 pytest]# python3
+
+Python 3.6.1 (default, Mar 20 2018, 00:12:35) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import  testdef
+__name__  is testdef
+>>> testdef.
+testdef.bar(    testdef.os      testdef.sys     
+testdef.foo(    testdef.pickle  testdef.time    
+>>> testdef.__name__
+'testdef'
+>>> testdef.foo.__name__
+'foo'
+>>> 
+>>> help(testdef)
+Help on module testdef:
+
+NAME
+    testdef
+
+FUNCTIONS
+    bar()
+    
+    foo()
+        ----- 函数\文档\字符串------
+
+FILE
+    /root/桌面/pytest/testdef.py
+
+(END)
+
+>>> help(testdef.foo)
+Help on function foo in module testdef:
+
+foo()
+    ----- 函数\文档\字符串------
+(END)
+
+>>> testdef.foo()
+in-bar
+in-foo
+'2019年*04月*07日 14时:15分:50秒'
+>>> variablex = testdef.foo()
+in-bar
+in-foo
+>>> variablex
+'2019年*04月*07日 14时:16分:24秒'
+>>> 
+>>>
+instruction      英 [ɪnˈstrʌkʃn]   美 [ɪnˈstrʌkʃən]  
+        n.授课;教诲;传授的或获得的知识，课程;[计算机科学]指令
+
+branch       英 [brɑ:ntʃ]   美 [bræntʃ]  
+     n.分支;树枝;部门，分科;支流
+    vi.分支形成;分支扩张;扩大某人的兴趣，业务或活动范围;[计]下分支的指令
+    vt.使分支;使分叉;
+
+parameter     英 [pəˈræmɪtə(r)]  美 [pəˈræmɪtɚ]  
+        n.[数]参数;<物><数>参量;限制因素;
+
+形式参数
+Formal parameter
+形式参数
+
+inside    英 [ˌɪnˈsaɪd]  美 [ɪnˈsaɪd, ˈɪnˌsaɪd]  
+    adj.里面的，内部的;内幕的;内侧的
+    n.里面，内侧;
+
+subtraction
+英 [səb'trækʃn]   美 [səbˈtrækʃən]  
+n.
+减去;减，减法;减除法
+
+
+
+[root@room9pc01 pytest]# vim   testdef.py
+
+[root@room9pc01 pytest]# python3  testdef.py
+
+__name__  is __main__
+ sys.argv  is ['testdef.py']
+
+in-bar
+in-foo
+
+getagename --- first parameter is first  second is 18  third is True
+inside --- first par is firstpar  second is 29  third is False
+
+
+[root@room9pc01 pytest]# python3
+
+Python 3.6.1 (default, Mar 20 2018, 00:12:35) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  testdef
+__name__  is testdef
+>>> testdef.
+testdef.bar(         testdef.getagename(  testdef.pickle       testdef.time
+testdef.foo(         testdef.os           testdef.sys  
+        
+>>> testdef.getagename()
+getagename --- first parameter is first  second is 18  third is True
+inside --- first par is firstpar  second is 29  third is False
+
+>>> print(help(testdef.getagename))
+
+None
+>>> testdef.getagename(fp2= 38,formal_parameter='aaa')
+getagename --- first parameter is aaa  second is 38  third is True
+inside --- first par is firstpar  second is 29  third is False
+>>> 
+
+
+
+
+
+
+
+
+
+
+
+>>>
+instruction      英 [ɪnˈstrʌkʃn]   美 [ɪnˈstrʌkʃən]  
+        n.授课;教诲;传授的或获得的知识，课程;[计算机科学]指令
+
+dictionary
+英 [ˈdɪkʃənri]   美 [ˈdɪkʃəneri]  
+n.
+词典，字典;[自]代码字典
+
+
+函数用def语句创建,语法如下:
+
+def function(arguments):
+  "function_documentation_string"
+  "函数\文档\字符串"
+  function_body_suite
+
+•  标题行由def关键字,函数的名字,
+以及参数的集合(如果有的话)组成
+
+•  def子句的剩余部分包括了一个虽然可选
+但是强烈推荐的文档字串,
+和必需的函数体
+
+
+内部函数
+•  在函数体内创建另外一个函数是完全合法的,
+这种函数叫做内部/内嵌函数
+
+使用一对圆括号()调用函数,
+如果没有圆括号,
+只是对函数的引用
+
+
+参数组
+•  python允许程序员执行一个
+没有显式定义参数的函数
+•  相应的方法是通过一个
+把元组(非关键字参数)
+或字典(关键字参数)作为参数组
+传递给函数
+func(*tuple_grp_nonkw_args, **dict_grp_kw_args)
+
+
+[root@room9pc01 pytest]# python3
+Python 3.6.1 (default, Mar 20 2018, 00:12:35) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> def  get_abc(a,b,c):
+...   print('a is %s\tb is %s\tc is %s' % (a,b,c))
+... 
+>>> info3 = {'xx1' : 'valuex1', 'girl' : False, 'name' : 'beauty' }
+>>> get_abc(*info3)
+a is xx1	b is girl	c is name
+
+>>> get_abc(**info3)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: get_abc() got an unexpected keyword argument 'xx1'
+>>> 
+
+>>> def   get_dictionary(name=None,**xxx):
+...   print(xxx)
+...   for k,v in xxx.items():
+...     print('k is %s ---- v is %s' % (k,v))
+... 
+>>> info3 = {'xx1' : 'valuex1', 'girl' : False, 'name' : 'beauty' }
+>>> get_dictionary(**info3)
+{'xx1': 'valuex1', 'girl': False}
+k is xx1 ---- v is valuex1
+k is girl ---- v is False
+>>> 
+
+
+[root@room9pc01 pytest]# python3
+Python 3.6.1 (default, Mar 20 2018, 00:12:35) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> def   get_dictionary(**xxx):
+...   print(xxx)
+...   for k,v in xxx.items():
+...     print('k is %s ---- v is %s' % (k,v))
+... 
+>>> info3 = {'xx1' : 'valuex1', 'girl' : False, 'name' : 'beauty' }
+>>> get_dictionary(**info3)
+{'xx1': 'valuex1', 'girl': False, 'name': 'beauty'}
+k is xx1 ---- v is valuex1
+k is girl ---- v is False
+k is name ---- v is beauty
+>>> 
+>>> 
+[root@room9pc01 pytest]# 
+>>> def   get_dictionary2(**xxy):
+...   print(xxy)
+...   for k,v in xxy.items():
+...     print('k is %s ---- v is %s' % (k,v))
+...   return  xxy.values()
+... 
+>>> info3 = {'xx1' : 'valuex1', 'girl' : False, 'name' : 'beauty' }
+>>> 
+>>> get_dictionary2(**info3)
+{'xx1': 'valuex1', 'girl': False, 'name': 'beauty'}
+k is xx1 ---- v is valuex1
+k is girl ---- v is False
+k is name ---- v is beauty
+dict_values(['valuex1', False, 'beauty'])
+>>> x = get_dictionary2(**info3)
+{'xx1': 'valuex1', 'girl': False, 'name': 'beauty'}
+k is xx1 ---- v is valuex1
+k is girl ---- v is False
+k is name ---- v is beauty
+>>> print(x)
+dict_values(['valuex1', False, 'beauty'])
+
+>>> print(type(x))
+<class 'dict_values'>
+>>> 
+
+
+
+def   get_dictionary2(**xxy):
+  print(xxy)
+  for k,v in xxy.items():
+    print('k is %s ---- v is %s' % (k,v))
+  return  xxy.values()
+
+
+info3 = {'xx1' : 'valuex1', 'girl' : False, 'name' : 'beauty' }
+
+get_dictionary2(**info3)
+
+
+Python3.6 字典的内置方法
+
+1、dict.clear(self)
+
+　　　　删除字典内所有元素
+
+2、dict.copy(self)
+
+　　　　返回一个字典的浅复制，拷贝父对象，不会拷贝对象的内部的子对象
+
+4、dict.get(self, k, d=None)
+
+　　　　返回指定键k的值，如果值不在字典中返回None值
+
+5、dict.items(self)
+
+　　　　返回可遍历的(键, 值) 元组数组
+
+6、dict.keys(self)
+
+　　　　以列表返回一个字典所有的键
+
+7、dict.pop(self, k, d=None)
+
+　　　　删除字典给定键 key 所对应的值，返回值为被删除的值。key值必须给出。 否则，返回default值
+
+11、dict.values(self)
+
+　　　　以列表返回字典中的所有值
+
+
+
+subtraction
+英 [səb'trækʃn]   美 [səbˈtrækʃən]  
+n.
+减去;减，减法;减除法
+
+
+additive
+英 [ˈædətɪv]   美 [ˈædɪtɪv]  
+n.
+添加剂;添加物;[数]加法
+adj.
+附加的;[化]加成的，加和的;[数]加法的
+
+
+multiplicative
+英 ['mʌltɪplɪkeɪtɪv]  美 ['mʌltəplɪˌkeɪtɪv]  
+n.
+乘法
+adj.
+增加的，乘法的
+
+division
+英 [dɪˈvɪʒn]   美 [dɪˈvɪʒən]  
+n.
+部门;分开，分隔;[数]除法;[军]师
+
+
+remainder
+英 [rɪˈmeɪndə(r)]   美 [rɪˈmendɚ]  
+n.
+剩余物;其他人员;差数;廉价出售的图书
+vt.
+廉价出售（书）;廉价出售
+adj.
+剩余的;留存下的
+
+[root@room9pc01 pytest]# java  -version
+openjdk version "1.8.0_131"
+OpenJDK Runtime Environment (build 1.8.0_131-b12)
+OpenJDK 64-Bit Server VM (build 25.131-b12, mixed mode)
+[root@room9pc01 pytest]# 
+
+
+
+[root@room9pc01 pytest]# find  / -type f  -iname  "*java*"  |grep  rpm
+/etc/rpm/macros.fjava
+/var/ftp/rhel7/Packages/abrt-java-connector-1.0.6-12.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.6.0-openjdk-1.6.0.41-1.13.13.1.el7_3.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.6.0-openjdk-devel-1.6.0.41-1.13.13.1.el7_3.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.7.0-openjdk-1.7.0.141-2.6.10.5.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.7.0-openjdk-devel-1.7.0.141-2.6.10.5.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.7.0-openjdk-headless-1.7.0.141-2.6.10.5.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.i686.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-devel-1.8.0.131-11.b12.el7.i686.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-headless-1.8.0.131-11.b12.el7.i686.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-devel-1.8.0.131-11.b12.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-1.8.0-openjdk-headless-1.8.0.131-11.b12.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/java-atk-wrapper-0.30.4-5.el7.i686.rpm
+/var/ftp/rhel7/Packages/java-atk-wrapper-0.30.4-5.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/javamail-1.4.6-8.el7.noarch.rpm
+/var/ftp/rhel7/Packages/javapackages-tools-3.4.1-11.el7.noarch.rpm
+/var/ftp/rhel7/Packages/javassist-3.16.1-10.el7.noarch.rpm
+/var/ftp/rhel7/Packages/libguestfs-java-1.36.3-6.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/libvirt-java-0.4.9-4.el7.noarch.rpm
+/var/ftp/rhel7/Packages/libvirt-java-devel-0.4.9-4.el7.noarch.rpm
+/var/ftp/rhel7/Packages/mysql-connector-java-5.1.25-3.el7.noarch.rpm
+/var/ftp/rhel7/Packages/nuxwdog-client-java-1.0.3-5.el7.x86_64.rpm
+/var/ftp/rhel7/Packages/pki-base-java-10.4.1-10.el7.noarch.rpm
+/var/ftp/rhel7/Packages/python-javapackages-3.4.1-11.el7.noarch.rpm
+/var/ftp/rhel7/Packages/system-switch-java-1.1.7.1-0.el7.noarch.rpm
+/var/ftp/rhel7/Packages/tzdata-java-2017b-1.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/javamail-1.4.6-8.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/abrt-java-connector-1.0.6-6.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/tzdata-java-2014b-1.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/system-switch-java-1.1.5-11.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-devel-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.i686.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-devel-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-devel-0.4.9-4.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/libguestfs-java-1.22.6-22.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/python-javapackages-3.4.1-5.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/mysql-connector-java-5.1.25-3.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/javapackages-tools-3.4.1-5.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-headless-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/javassist-3.16.1-10.el7.noarch.rpm
+/var/lib/libvirt/images/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-0.4.9-4.el7.noarch.rpm
+/usr/lib/rpm/javadoc.req
+/usr/lib/rpm/fileattrs/javadoc.attr
+/content/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-devel-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/abrt-java-connector-1.0.6-6.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/javassist-3.16.1-10.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.i686.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/mysql-connector-java-5.1.25-3.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/system-switch-java-1.1.5-11.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/libguestfs-java-1.22.6-22.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/tzdata-java-2014b-1.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-0.4.9-4.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-devel-0.4.9-4.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-devel-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/javapackages-tools-3.4.1-5.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/javamail-1.4.6-8.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/python-javapackages-3.4.1-5.el7.noarch.rpm
+/content/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-headless-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-devel-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/abrt-java-connector-1.0.6-6.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/javassist-3.16.1-10.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.i686.rpm
+/content/rhel7.0/x86_64/dvd/Packages/mysql-connector-java-5.1.25-3.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/system-switch-java-1.1.5-11.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/libguestfs-java-1.22.6-22.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/tzdata-java-2014b-1.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-0.4.9-4.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/libvirt-java-devel-0.4.9-4.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-atk-wrapper-0.30.4-5.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-devel-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/javapackages-tools-3.4.1-5.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/javamail-1.4.6-8.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-1.6.0-openjdk-1.6.0.0-6.1.13.1.el7.x86_64.rpm
+/content/rhel7.0/x86_64/dvd/Packages/python-javapackages-3.4.1-5.el7.noarch.rpm
+/content/rhel7.0/x86_64/dvd/Packages/java-1.7.0-openjdk-headless-1.7.0.51-2.4.5.5.el7.x86_64.rpm
+[root@room9pc01 pytest]# 
+
+
+
+lambda    英 [ˈlæmdə]   美 ['læmdə]  
+    n.希腊字母的第 11个字
+
+
+匿名函数
+
+lambda
+•  python允许用lambda关键字创造匿名函数
+•  匿名是因为不需要以标准的def方式来声明
+•  一个完整的lambda“语句”代表了一个表达式,这
+个表达式的定义体必须和声明放在同一行
+lambda  [arg1[,  arg2, ... argN]]: expression	
+
+>>>a = lambda x, y: x + y
+>>> print(a(3, 4))
+7
+
+
+
+filter()函数
+
+•  filter(func, seq):
+调用一个布尔函数func来迭代遍历
+每个序列中的元素;
+返回一个使func返回值为true的
+元素的序列
+•  如果布尔函数比较简单,直接使用lambda匿名函数
+就显得非常方便了
+>>> data = filter(lambda	x: x % 2, [num for num in range(10)])
+>>> print(data)     #过滤出10以内的奇数
+[1, 3, 5, 7, 9]
+
+
+
+如果局部与全局有相同名称的变量,
+那么函数运行时,
+局部变量的名称将会
+把全局变量名称遮盖住
+
+
+global语句
+
+•  因为全局变量的名字能被局部变量给遮盖掉,
+所以为了明确地引用一个已命名的全局变量,
+必须使用 global 语句
+
+
+
+
+名字空间
+•  任何时候,总有一个到三个活动的作用域
+(内建、全局和局部)
+
+•  标识符的搜索顺序依次是局部、全局和内建
+
+
+
+
+偏函数
+•  偏函数的概念是将函数式编程的概念和默认参数以及
+可变参数结合在一起
+
+•  一个带有多个参数的函数,如果其中某些参数基本上
+固定的,那么就可以通过偏函数为这些参数赋默认值
+
+
+
+
+递归函数
+•  如果函数包含了对其自身的调用,该函数就是递归的
+
+•  在操作系统中,查看某一目录内所有文件、
+修改权限等 都是递归的应用
+
+
+
+
+
+生成器
+•  从句法上讲,生成器是一个带yield语句的函数
+•  一个函数或者子程序只返回一次,
+但一个生成器能暂停执行
+并返回一个中间的结果
+•  yield 语句返回一个值给调用者并暂停执行
+•  当生成器的next()方法被调用的时候,
+它会准确地从离开地方继续
+
+
+•  与迭代器相似,生成器以另外的方式来运作
+
+•  当到达一个真正的返回或者函数结束没有更多的值返回,
+StopIteration异常就会被抛出
+
+
+
+内部函数
+闭包
+•  闭包将内部函数自己的代码和作用域
+以及外部函数的作用结合起来
+
+•  闭包的词法变量不属于全局名字空间域
+或者局部的--
+而属于其他的名字空间,
+带着“流浪"的作用域
+•  闭包对于安装计算,隐藏状态,以及在函数对象和作用域中
+随意地切换是很有用的
+•  闭包也是函数,但是他们能携带一些额外的作用域
+
+
+
+
+
+
+装饰器
+•  装饰器是在函数调用之上的修饰
+•  这些修饰仅是当声明一个函数或者方法的时候,
+才会应用的额外调用
+•  使用装饰器的情形有:
+–  引入日志
+–  增加计时逻辑来检测性能
+–  给函数加入事务的能力
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
