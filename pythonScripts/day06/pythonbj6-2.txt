@@ -472,57 +472,92 @@ yield     英 [ji:ld]   美 [jild]
     vi.放弃，屈服;生利;退让，退位
     n.产量，产额;投资的收益;屈服，击穿;产品
 
+
 [root@V0 day06]# python3
 Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
 [GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
 Type "help", "copyright", "credits" or "license" for more information.
->>> def  count(n):
-...   while n :
-...     yield  n
-...     print(type(n),sep = ' -- ',end ='\t')
-...     n -= 1
-... 
->>> count(3)
-<generator object count at 0x7f9d9820b518>
->>> def  count(n):
-...     yield  n
-...     print(type(n), n, sep = ' -- ',end ='\t')
-...     n -= 1
-... 
->>> count(3)
-<generator object count at 0x7f9d9820b5c8>
->>> c = count(4)
->>> c.__next__()   #python 3.4.3要使用c.__next__()不能使用c.next()
-4
->>> print(type(c))
-<class 'generator'>
 >>> 
-
+>>> 
+>>> def  simple_generator():
+...   yield  100
+...   yield  'hello world'
+...   yield  [ 1, 2, 3]
+... 
+>>> 
+>>> a = simple_generator()
+>>> 
+>>> print(type(a),a, sep= ' ---type(a) -- a --')
+<class 'generator'> ---type(a) -- a --<generator object simple_generator at 0x7f45f0a68360>
+>>> 
+>>> print(a.__next__())   #python 3.4.3要使用c.__next__()不能使用c.next()
+100
+>>> 
+>>> print(a.__next__()) 
+hello world
+>>> 
+>>> print(a.__next__())
+[1, 2, 3]
+>>> 
+>>> print(a.__next__())
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+>>> 
+>>> 
+>>> 
+>>> 
 >>> def  count(n):
 ...   while n > 0:
 ...     yield  n
 ...     print(type(n),sep = ' -- ',end ='\t')
 ...     n -= 1
 ... 
->>> count(5)
-<generator object count at 0x7f9d9820b5c8>
+>>> x = 3
+>>> a = count(x)
+>>> 
+>>> print(type(a),a,sep = ' --- ')
+<class 'generator'> --- <generator object count at 0x7f45f0a68410>
+>>> 
+>>> print(a.__next__())   #python 3.4.3要使用c.__next__()不能使用c.next()
+3
+>>> 
+>>> print(a.__next__()) 
+<class 'int'>	2
+>>> 
+>>> print(a.__next__())
+<class 'int'>	1
+>>> 
+>>> print(a.__next__())
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+<class 'int'>	>>> 
 >>> 
 
-
-def  count(n):
-  while n > 0:
-    yield  n
-    print(type(n),sep = ' -- ',end ='\t')
-    n -= 1
-
-def  simple_generator():
-  yield  100
-  yield  'hello world'
-  yield  [ 1, 2, 3]
-
-a = simple_generator()
-
-
+>>> 
+>>> def  simple_generator():
+...   yield  100
+...   yield  'hello world'
+...   yield  [ 1, 2, 3]
+... 
+>>> 
+>>> a = simple_generator()
+>>> 
+>>> print(type(a),a, sep= ' ---type(a) -- a --')
+<class 'generator'> ---type(a) -- a --<generator object simple_generator at 0x7f6604b4b360>
+>>> 
+>>> for item  in  a:
+...   print(type(item), item)
+... 
+<class 'int'> 100
+<class 'str'> hello world
+<class 'list'> [1, 2, 3]
+>>> 
+>>> for item  in  a:   #只能执行一次循环,不可重新回头开始
+...   print(type(item), item)
+... 
+>>> 
 
 
 生成器
@@ -556,30 +591,6 @@ StopIteration异常就会被抛出
 •  闭包对于安装计算,隐藏状态,以及在函数对象和作用域中
 随意地切换是很有用的
 •  闭包也是函数,但是他们能携带一些额外的作用域
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

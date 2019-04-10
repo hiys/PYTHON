@@ -1,0 +1,421 @@
+
+
+
+[root@V0 day06]# scp   countinside.py   root@192.168.0.254:'/var/git/PYTHON/pythonScripts/day06'
+
+decorate    英 [ˈdekəreɪt]   美 [ˈdɛkəˌret]  
+    vt.装饰;点缀;粉刷;授予（某人）勋章
+    vi.装饰;布置
+
+yield     英 [ji:ld]   美 [jild]  
+    vt.屈服，投降;生产;获利;不再反对
+    vi.放弃，屈服;生利;退让，退位
+    n.产量，产额;投资的收益;屈服，击穿;产品
+
+>>> print(a.__next__())
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+<class 'int'>	>>> 
+>>> 
+
+iteration
+          英 [ˌɪtəˈreɪʃn]   美 [ˌɪtəˈreʃən]  
+n.
+反复;重述;重述的事;[计算机]循环
+
+
+
+def  simple_generator():
+  yield  100
+  yield  'hello world'
+  yield  [ 1, 2, 3]
+
+
+a = simple_generator()
+
+print(type(a),a, sep= ' ---type(a) -- a --')
+
+for item  in  a:
+  print(type(item), item)
+
+
+print(a.__next__())   #python 3.4.3要使用c.__next__()不能使用c.next()
+
+print(a.__next__()) 
+
+print(a.__next__())
+
+print(a.__next__())
+
+
+
+
+def  count(n):
+  while n > 0:
+    yield  n
+    print(type(n),sep = ' -- ',end ='\t')
+    n -= 1
+
+x = 3
+a = count(x)
+
+print(type(a),a,sep = ' --- ')
+
+print(a.__next__())   #python 3.4.3要使用c.__next__()不能使用c.next()
+
+print(a.__next__()) 
+
+print(a.__next__())
+
+print(a.__next__())
+
+[root@V0 day06]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+>>> 
+>>> def  simple_generator():
+...   yield  100
+...   yield  'hello world'
+...   yield  [ 1, 2, 3]
+... 
+>>> 
+>>> a = simple_generator()
+>>> 
+>>> print(type(a),a, sep= ' ---type(a) -- a --')
+<class 'generator'> ---type(a) -- a --<generator object simple_generator at 0x7f45f0a68360>
+>>> 
+>>> print(a.__next__())   #python 3.4.3要使用c.__next__()不能使用c.next()
+100
+>>> 
+>>> print(a.__next__()) 
+hello world
+>>> 
+>>> print(a.__next__())
+[1, 2, 3]
+>>> 
+>>> print(a.__next__())
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+>>> 
+>>> 
+>>> 
+>>> 
+>>> def  count(n):
+...   while n > 0:
+...     yield  n
+...     print(type(n),sep = ' -- ',end ='\t')
+...     n -= 1
+... 
+>>> x = 3
+>>> a = count(x)
+>>> 
+>>> print(type(a),a,sep = ' --- ')
+<class 'generator'> --- <generator object count at 0x7f45f0a68410>
+>>> 
+>>> print(a.__next__())   #python 3.4.3要使用c.__next__()不能使用c.next()
+3
+>>> 
+>>> print(a.__next__()) 
+<class 'int'>	2
+>>> 
+>>> print(a.__next__())
+<class 'int'>	1
+>>> 
+>>> print(a.__next__())
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+StopIteration
+<class 'int'>	>>> 
+>>> 
+
+iteration
+          英 [ˌɪtəˈreɪʃn]   美 [ˌɪtəˈreʃən]  
+n.
+反复;重述;重述的事;[计算机]循环
+
+
+>>> 
+>>> def  simple_generator():
+...   yield  100
+...   yield  'hello world'
+...   yield  [ 1, 2, 3]
+... 
+>>> 
+>>> a = simple_generator()
+>>> 
+>>> print(type(a),a, sep= ' ---type(a) -- a --')
+<class 'generator'> ---type(a) -- a --<generator object simple_generator at 0x7f6604b4b360>
+>>> 
+>>> for item  in  a:
+...   print(type(item), item)
+... 
+<class 'int'> 100
+<class 'str'> hello world
+<class 'list'> [1, 2, 3]
+>>> 
+>>> for item  in  a:   #只能执行一次循环,不可重新回头开始
+...   print(type(item), item)
+... 
+>>> 
+
+
+生成器
+•  从句法上讲,生成器是一个带yield语句的函数
+•  一个函数或者子程序只返回一次,
+但一个生成器能暂停执行
+并返回一个中间的结果
+•  yield 语句返回一个值给调用者并暂停执行
+•  当生成器的next()方法被调用的时候,
+它会准确地从离开地方继续
+
+
+•  与迭代器相似,生成器以另外的方式来运作
+
+•  当到达一个真正的返回或者函数结束没有更多的值返回,
+StopIteration异常就会被抛出
+
+
+
+
+
+内部函数
+闭包
+•  闭包将内部函数自己的代码和作用域
+以及外部函数的作用结合起来
+
+•  闭包的词法变量不属于全局名字空间域
+或者局部的--
+而属于其他的名字空间,
+带着“流浪"的作用域
+•  闭包对于安装计算,隐藏状态,以及在函数对象和作用域中
+随意地切换是很有用的
+•  闭包也是函数,但是他们能携带一些额外的作用域
+
+
+[root@V0 pyscripts]# pwd
+/root/pyscripts
+[root@V0 pyscripts]# 
+[root@V0 pyscripts]# cd  -   #回到上次的路径
+/root/pyscripts/day06
+[root@V0 day06]# pwd
+/root/pyscripts/day06
+
+[root@V0 day06]# wc  -l  /root/pyscripts/day06/mima 
+8 /root/pyscripts/day06/mima
+[root@V0 day06]# cat  -n  /root/pyscripts/day06/mima
+     1	root:x:0:0:root:/root:/bin/bash
+     2	bin:x:1:1:bin:/bin:/sbin/nologin
+     3	daemon:x:2:2:daemon:/sbin:/sbin/nologin
+     4	hahaha
+     5	xixixi  hehehe
+     6	sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
+     7	tcpdump:x:72:72::/:/sbin/nologin
+     8	lisi:x:1000:1000:lisi:/home/lisi:/bin/bash
+[root@V0 day06]# 
+
+
+[root@V0 day06]# python3   simple_generator.py 
+__name__  is __main__
+ sys.argv  is ['simple_generator.py']
+
+<class 'str'> ###  2019年*04月*10日 10时:36分:29秒 inside_string --new_function(old_function)()
+ old_func2 	 inside_string
+<class 'generator'> ---type(a) -- a --<generator object simple_generator at 0x7f2982e793b8>
+100
+hello world
+-----------------
+[1, 2, 3]
+['root:x:0:0:root:/root:/bin/bash\n', 'bin:x:1:1:bin:/bin:/sbin/nologin\n', 'daemon:x:2:2:daemon:/sbin:/sbin/nologin\n']
+---for line in  fobj ---
+
+['hahaha\n', 'xixixi  hehehe\n', 'sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin\n']
+---for line in  fobj ---
+
+['tcpdump:x:72:72::/:/sbin/nologin\n', 'lisi:x:1000:1000:lisi:/home/lisi:/bin/bash\n']
+
+--------- with as 方式 ---------
+
+['root:x:0:0:root:/root:/bin/bash\n', 'bin:x:1:1:bin:/bin:/sbin/nologin\n', 'daemon:x:2:2:daemon:/sbin:/sbin/nologin\n']
+---for line in  fobj ---
+
+['hahaha\n', 'xixixi  hehehe\n', 'sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin\n']
+---for line in  fobj ---
+
+['tcpdump:x:72:72::/:/sbin/nologin\n', 'lisi:x:1000:1000:lisi:/home/lisi:/bin/bash\n']
+[root@V0 day06]# 
+
+
+    42	
+    43	def  outfile():  
+    44	  def  fileblock(fobj):
+    45	    block = []
+    46	    lines = 0
+    47	    for  line  in  fobj:
+    48	      block.append(line)
+    49	      lines += 1
+    50	      if lines == 3:
+    51	        yield  block
+    52	        lines = 0
+    53	        block = []
+    54	        print('---for line in  fobj ---\n')
+    55	    if block:  #若有3的整数倍的行剩余,yield 语句返回一个值给调用者
+    56	      yield  block
+    57	  
+    60	  
+    61	  fname = '/root/pyscripts/day06/mima'
+    62	  
+    63	  fobj = open(fname)
+    64	  blocks = fileblock(fobj)
+    65	  for block  in blocks:
+    66	    print(block)
+    67	  fobj.close()
+    68	  
+    69	  print( '\n--------- with as 方式 ---------\n')
+    70	  
+    71	  with open(fname)  as  fobj:
+    72	    for block in  fileblock(fobj):
+    73	      print(block)
+    74	
+    75	
+    79	if __name__ == '__main__':
+   114	
+   115	  outfile()
+
+
+
+
+
+[root@V0 day06]# cat  -n  simple_generator.py 
+     1	#!/usr/bin/env  python3
+     2	import  sys, os, time
+     3	
+     4	"MoBan ------------ instruction"
+     5	print('\033[31;47;1m__name__  is %s\033[0m' %  __name__)
+     6	
+     7	date = time.strftime('%Y年*%m月*%d日 %H时:%M分:%S秒',time.localtime())
+     8	
+     9	# decorate  装饰器
+    10	
+    11	def  new_function(formal_old):
+    12	  def  inside():   #内部函数inside() 和 inside(formal_old) 的作用是一样的
+    13	    result = formal_old()  #result = 一个日期字符串数据(若参数formal_old = old_function)
+    14	    return  result + ' inside_string'  #返回" 日期+ ' inside_string'" 字符串数据类型
+    15	  return  inside
+    16	
+    17	
+    18	@new_function   #@new_function 装饰器的作用等同于old_function = new_function(old_function)
+    19	def  old_function():
+    20	  return   date      #返回的是一个日期
+    21	
+    22	@new_function
+    23	def  old_func2():
+    24	  return '\033[32;46;1m old_func2 \t\033[0m'
+    25	
+    26	
+    27	
+    28	#生成器
+    29	#•  从句法上讲,生成器是一个带yield语句的函数
+    30	#•  一个函数或者子程序只返回一次,
+    31	#但一个生成器能暂停执行
+    32	#并返回一个中间的结果
+    33	#•  yield 语句返回一个值给调用者并暂停执行
+    34	#•  当生成器的next()方法被调用的时候,
+    35	#它会准确地从离开地方继续
+    36	def  simple_generator():
+    37	  yield  100
+    38	  yield  'hello world'
+    39	  yield  [ 1, 2, 3]
+    40	
+    41	
+    42	
+    43	def  outfile():  
+    44	  def  fileblock(fobj):
+    45	    block = []
+    46	    lines = 0
+    47	    for  line  in  fobj:
+    48	      block.append(line)
+    49	      lines += 1
+    50	      if lines == 3:
+    51	        yield  block
+    52	        lines = 0
+    53	        block = []
+    54	        print('---for line in  fobj ---\n')
+    55	    if block:  #若有3的整数倍的行剩余,yield 语句返回一个值给调用者
+    56	      yield  block
+    57	  
+    58	  #[root@V0 day06]# wc  -l  /root/pyscripts/day06/mima 
+    59	  #8 /root/pyscripts/day06/mima
+    60	  
+    61	  fname = '/root/pyscripts/day06/mima'
+    62	  
+    63	  fobj = open(fname)
+    64	  blocks = fileblock(fobj)
+    65	  for block  in blocks:
+    66	    print(block)
+    67	  fobj.close()
+    68	  
+    69	  print( '\n--------- with as 方式 ---------\n')
+    70	  
+    71	  with open(fname)  as  fobj:
+    72	    for block in  fileblock(fobj):
+    73	      print(block)
+    74	
+    75	
+    76	
+    77	
+    78	
+    79	if __name__ == '__main__':
+    80	  print('\033[30;43;1m sys.argv  is %s\033[0m\n' % sys.argv)
+    81	   
+    82	  #不修改原有的旧函数,但是改变了函数的功能,别人可以把此函数按照习惯用法来使用
+    83	  received = old_function()   #不修改原有的旧函数
+    84	  
+    85	  print(type(received),received,sep= ' ###  ',end = ' --new_function(old_function)()\n')
+    86	  #<class 'str'> ###  2019年*04月*09日 20时:55分:17秒 inside_string --new_function(old_function)()
+    87	  
+    88	
+    89	  print(old_func2())
+    90	  # old_func2 	 inside_string
+    91	
+    92	  a = simple_generator()
+    93	  print(type(a),a, sep= ' ---type(a) -- a --')
+    94	  #<class 'generator'> ---type(a) -- a --<generator object simple_generator at 0x7f5004df4200>
+    95	
+    96	  print(a.__next__())   #python 3.4.3要使用c.__next__()不能使用c.next()
+    97	  # 100
+    98	  print(a.__next__())   #python 3.4.3要使用c.__next__()不能使用c.next()
+    99	  #hello world
+   100	
+   101	  print('-----------------') 
+   102	  #-----------------
+   103	  print(a.__next__()) 
+   104	  #[1, 2, 3]
+   105	
+   106	#当到达一个真正的返回或者函数结束没有更多的值返回,
+   107	#StopIteration异常就会被抛出
+   108	#  print(a.__next__())   
+   109	  #Traceback (most recent call last):
+   110	  # File "simple_generator.py", line 61, in <module>
+   111	  #    print(a.__next__())   
+   112	  #StopIteration
+   113	
+   114	
+   115	  outfile()
+   116	
+   117	
+[root@V0 day06]# 
+[root@V0 day06]# scp   simple_generator.py    root@192.168.0.254:'/var/git/PYTHON/pythonScripts/day06'
+root@192.168.0.254's password: 
+simple_generator.py                  100% 3253     2.6MB/s   00:00    
+[root@V0 day06]# 
+
+
+
+
+
+
+
