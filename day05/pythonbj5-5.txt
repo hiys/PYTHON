@@ -1,0 +1,1043 @@
+
+　电脑死机键盘鼠标没反应的解决方法一：
+　　第一招:当使用资源管理器打开新文件夹或用浏览器打开新页面不响应时，
+用“Win+D”或单击快速启动栏的显示桌面按钮，
+再在桌面上按F5或右键刷新即可。
+一般刷新3-5次后再把资源管理器或浏览器窗口还原就会恢复正常了。
+
+　　第二招:这一招很灵，能对付大多数假死的情况。
+当任务管理器都打不开时，
+先把光驱弹出之后再弹入(千万不要在光驱里放光盘)，
+鼠标指针旁会出现一个小光盘标志，
+这时就会唤起系统的知觉，这招可是屡试不爽!
+
+　　第三招:最后的杀手锏，
+用组合键“Ctrl+Alt+Del”启动任务管理器，
+然后在“进程”选项卡中结束explorer.exe，
+整个桌面只剩一张壁纸，桌面图标和任务栏都没影了，
+然后在任务管理器的“文件→新建任务”中输入explorer.exe，
+即可恢复正常。这一招还可释放内存资源，一举两得
+
+traceback消息---异常信息
+
+异常                描述
+NameError       未声明/初始化对象
+IndexError      序列中没有此索引
+SyntaxError     语法错误
+KeyboardInterrupt   用户中断执行 ##敲快捷键ctrl+ c 中断^CTraceback
+EOFError         没有内建输入,到达EOF标记 #敲快捷键ctrl+d 中断输入,会报异常
+IOError          输入/输出操作失败
+ZeroDivisionError:  #零分割误差:除数不能是零
+ValueError:     #输入的数据类型错误
+TypeError:     #变量类型错误
+FileExistsError:
+AssertionError: 
+AttributeError: module 'stat' has no attribute 'SIROTH'
+
+    cmds[choice](record,wallet)
+KeyError: '9'
+keyerror一般是你使用字典里不存在的key产生的错误
+
+
+[root@room9pc01 pytest]# cd  ../Test/
+[root@room9pc01 Test]# pwd
+/root/桌面/Test
+[root@room9pc01 Test]# ls
+abc.txt  newfile  newzidyi.data  passwd
+
+[root@room9pc01 Test]# cd  ../pytest/
+[root@room9pc01 pytest]# pwd
+/root/桌面/pytest
+[root@room9pc01 pytest]# ls
+ospickle2.py  pythonbj5-4.txt  Screenshot.txt
+
+[root@room9pc01 pytest]# ll  /root/桌面/Test/newzidyi.data 
+-rw-r--r-- 1 root root 56 4月   5 18:32 /root/桌面/Test/newzidyi.data
+
+[root@room9pc01 pytest]# cat  /root/桌面/Test/newzidyi.data  &&  echo
+�]q(XappleqXmangoqXcarrotqXeggsqe.
+
+
+
+[root@room9pc01 pytest]# python3   ospickle2.py  /root/桌面/Test/newzidyi.data
+
+__name__ is __main__
+ sys.argv is ['ospickle2.py', '/root/桌面/Test/newzidyi.data'] 
+ sys.argv[1]  is /root/桌面/Test/newzidyi.data 
+新建以"wb"方式打开的文件，返回 类文件对象 <class '_io.BufferedWriter'>
+
+文件/root/桌面/Test/newzidyi.data 刚开始的大小是 0 
+
+当前目录 /root/桌面/Test 下的所有文件是 ----
+['abc.txt', 'newfile', 'passwd', 'newzidyi.data']
+
+正在序列化对象----dump(shoplist,fwObj),  
+将列表对象shoplist保存到文件/root/桌面/Test/newzidyi.data 中-----
+
+文件/root/桌面/Test/newzidyi.data 存储了
+列表对象 ['apple', 'mango', 'carrot', 'eggs'] 后的大小是  56 
+
+正在打开文件---
+/root/桌面/Test/newzidyi.data-----
+
+以"rb"方式打开已经存在的文件，返回 类文件对象 <class '_io.BufferedReader'>
+正在反序列化对象----load(frbObj),  
+从文件/root/桌面/Test/newzidyi.data 中
+将数据解析为一个python对象（比如是列表对象)-----
+
+解析出来的python对象是
+['apple', 'mango', 'carrot', 'eggs']
+对象类型是<class 'list'>
+第一个数据是 apple  最后一个数据是 eggs
+
+
+[root@room9pc01 pytest]# ll  /root/桌面/Test/newzidyi.data 
+-rw-r--r-- 1 root root 56 4月   6 10:20 /root/桌面/Test/newzidyi.data
+
+
+[root@room9pc01 pytest]# cat  /root/桌面/Test/newzidyi.data  &&  echo
+�]q(XappleqXmangoqXcarrotqXeggsqe.
+
+[root@room9pc01 pytest]# 
+
+
+[root@room9pc01 pytest]# cat  ospickle2.py 
+
+#!/usr/bin/env   python3
+import  sys, os, pickle
+print('\033[31;47;1m__name__ is %s\033[0m' % __name__)
+
+#sys.argv[1] = '/root/桌面/Test/newzidyi.data'
+# fpathname = sys.argv[1]
+def  ospickletest(fpathname):
+  if os.path.exists(fpathname):
+    os.remove(fpathname)
+  
+  fwObj = open(fpathname, 'wb')
+  print('新建以"wb"方式打开的文件，返回 类文件对象 %s' % type(fwObj))
+  print('\n文件%s 刚开始的大小是 %d \n' %  (fpathname, os.stat(fpathname).st_size))
+  print('当前目录 %s 下的所有文件是 ----\n%s'\
+   %  ( os.path.dirname(fpathname),os.listdir(os.path.dirname(fpathname))))
+
+  shoplist = ['apple','mango','carrot','eggs']
+  print('\n正在序列化对象----dump(shoplist,fwObj),\
+  \n将列表对象shoplist保存到文件%s 中-----' % fpathname)
+
+  pickle.dump(shoplist,fwObj)
+  fwObj.close()   #关闭写入流
+
+  print('\n文件%s 存储了\n列表对象 %s 后的大小是  %d \n' \
+  %  (fpathname,shoplist,os.stat(fpathname).st_size))
+
+  print('正在打开文件---\n%s-----' %  fpathname)
+  frbObj = open(fpathname, 'rb')
+  print('\n以"rb"方式打开已经存在的文件，返回 类文件对象 %s' % type(frbObj))
+
+  print('正在反序列化对象----load(frbObj),\
+  \n从文件%s 中\n将数据解析为一个python对象（比如是列表对象)-----' % fpathname)
+
+  readobj = pickle.load(frbObj)
+
+  print("\n解析出来的python对象是\n%s\n对象类型是%s" % (readobj,type(readobj)))
+  frbObj.close()  
+  print('第一个数据是 %s  最后一个数据是 %s' % (readobj[0],readobj[-1]))
+
+
+if __name__ == '__main__':
+  print('\033[30;43;1m sys.argv is %s \033[0m' % sys.argv)
+  print('\033[32;46;1m sys.argv[1]  is %s \033[0m' % sys.argv[1])
+  ospickletest(sys.argv[1])
+
+[root@room9pc01 pytest]# 
+
+[root@room9pc01 pytest]# python3
+Python 3.6.1 (default, Mar 20 2018, 00:12:35) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>>  
+... import  time
+>>> 
+>>> time.strftime('%Y*%m*%d  %H:%M:%S',time.localtime())
+'2019*04*06  11:14:04'
+>>> 
+>>> time.strftime('%Y年*%m月*%d日  %H时:%M分:%S秒',time.localtime())
+'2019年*04月*06日  11时:14分:04秒'
+>>> 
+>>> print(time.strftime('%Y年*%m月*%d日  %H时:%M分:%S秒',time.localtime()))
+2019年*04月*06日  11时:14分:04秒
+>>> 
+>>> print(time.localtime())
+time.struct_time(tm_year=2019, tm_mon=4, tm_mday=6, tm_hour=11, tm_min=14, tm_sec=4, tm_wday=5, tm_yday=96, tm_isdst=0)
+>>> 
+>>> print(time.time())
+1554520486.369231
+>>> 
+[root@room9pc01 pytest]# ll  AAa/BBb/Ccc
+ls: 无法访问AAa/BBb/Ccc: 没有那个文件或目录
+[root@room9pc01 pytest]# python3
+Python 3.6.1 (default, Mar 20 2018, 00:12:35) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  os
+
+>>> os.makedirs('AAa/BBb/Ccc') ##递归创建新的目录,如果存在的话，抛异常
+
+>>> os.listdir('.')
+['Screenshot.txt', 'AAa', 'ospickle2.py', 'pythonbj5-5.txt', 'ospickleAccount.py', 'pythonbj5-4.txt', '.ospickleAccount.py.swp']
+>>> os.listdir('./AAa')
+['BBb']
+>>> os.listdir('./AAa/BBb/')
+['Ccc']
+>>> 
+[root@room9pc01 pytest]# ll  AAa/BBb/Ccc
+总用量 0
+[root@room9pc01 pytest]# ll  AAa/BBb/
+总用量 4
+drwxr-xr-x 2 root root 4096 4月   6 13:02 Ccc
+[root@room9pc01 pytest]# 
+
+os.removedirs(path)	# 递归删除没有文件的空目录
+
+os.rmdir(path)  删除path指定的空目录，
+        如果目录非空，则抛出一个OSError异常。
+
+os.remove(path)  删除路径为path的文件。
+        如果path 是一个文件夹，将抛出OSError; 
+
+  if  os.path.exists('/osdir'):
+    if os.path.exists('/osdir/copyhosts'):
+      os.remove('/osdir/copyhosts') #删除绝对路径下的文件copyhosts
+    os.removedirs('/osdir')   ## 递归删除没有文件的空目录
+  os.mkdir('/osdir')  #创建目录
+
+
+======================  案例  --- 记账程序 =================
+
+amount      英 [əˈmaʊnt]   美 [əˈmaʊnt]  
+    n.量，数量;总额;本利之和;全部效果，全部含义
+    vi.（在意义、价值、效果、程度等方面）等于;等同，接近;合计，总共;
+
+income    英 [ˈɪnkʌm]   美 [ˈɪnˌkʌm]  
+    n.收入，进款;进来的动作;进入
+
+revenue      英 [ˈrevənju:]   美 [ˈrevənu:]  
+       n.收益;财政收入;税收收入
+
+account    英 [əˈkaʊnt]   美 [əˈkaʊnt]  
+       n.账，账目;存款;记述，报告;理由
+       vi.解释;导致;报账
+       vt.认为;把…视作
+
+balance       英 [ˈbæləns]   美 [ˈbæləns]  
+      n.平衡;天平;平衡力;（酿酒配料的）均衡
+      vt.& vi.权衡;（使）平衡;（使）均衡;（使）相抵
+      vt.结平（账目）;使（在某物上）保持平衡;使（各部分）协调;用天平称
+
+wallet     英 [ˈwɒlɪt]   美 [ˈwɑ:lɪt]  
+       n.钱包，皮夹子
+
+spend      英 [spend]   美 [spɛnd]  
+    vt.& vi.用钱，花钱
+    vt.花费;度过;消耗;花（时间）
+
+创建account.py脚本，要求如下：
+假设在记账时，有一万元钱
+无论是开销还是收入都要进行记账
+记账内容包括时间、金额和说明等
+记账数据要求永久存储
+
+[root@room9pc01 pytest]# pwd
+/root/桌面/pytest
+[root@room9pc01 pytest]# ls
+ospickle2.py  pythonbj5-4.txt  pythonbj5-5.txt  Screenshot.txt
+
+[root@room9pc01 pytest]# vim  ospickleAccount.py
+
+[root@room9pc01 pytest]# python3  ospickleAccount.py
+__name__  is __main__
+ sys.argv  is ['ospickleAccount.py']
+
+ sys.argv[0] is ospickleAccount.py
+
+[root@room9pc01 pytest]# cat    ospickleAccount.py
+#!/usr/bin/env  python3
+import  sys, os, pickle, time
+
+print('\033[31;47;1m__name__  is %s\033[0m' %  __name__)
+
+def  account():
+  pass  # pass语句在函数中的作用
+#空语句 do nothing
+#保证格式完整
+#保证语义完整
+#定义一个函数account，
+#但函数体部分暂时还没有完成，又不能空着不写内容，
+#因此可以用pass来替代占个位置。
+
+def  spend_money(record,wallet):
+  pass
+
+
+def  save_money(record,wallet):
+  pass
+
+
+def   query(record, wallet):
+  pass
+
+
+def  show_menu():
+  pass
+
+
+if __name__ == '__main__':
+  print('\033[30;43;1m sys.argv  is %s\033[0m\n' % sys.argv)
+  print('\033[32;46;1m sys.argv[0] is %s\033[0m' % sys.argv[0])
+  account()
+  show_menu()
+
+[root@room9pc01 pytest]# 
+
+[root@room9pc01 pytest]# python3  ospickleAccount.py   record.txt  wallet.data
+__name__  is __main__
+2019年*04月*06日  14时:33分:34秒
+1554532414.949888
+.......
+  File "ospickleAccount.py", line 75, in show_menu
+    cmds[choice](record,wallet)
+KeyError: '4'
+    等同于
+     cmds['4']报错,不存在键的名称是'4' 的键,所以也不会有对应的值了
+
+[root@room9pc01 pytest]# 
+keyerror一般是你使用字典里不存在的key产生的错误，
+避免产生错误的方法很简单，
+使用字典的get方法，
+它接受一个key和一个默认值，
+
+这个默认值只有key不存在的使用返回，
+存在则只接访问key的值
+
+
+record=10000
+wallet='walletxxxxxxx'
+
+def  spend_money(record,wallet):
+ print(record,wallet,'--spend_---')
+
+
+def  save_money(record,wallet):
+ print(record,wallet,'---save_money---')
+
+
+def   query(record, wallet):
+ print(record,wallet,'--query--------')
+
+cmds = { '0':spend_money, '1':save_money, '2':query }
+
+cmds.get('0','如果不存在对应的键名(比如"0123"之外的字符),\
+会返回此信息')
+
+cmds.get('0','如果不存在对应的键名(比如"0123"之外的字符),\
+会返回此信息')(record,wallet)
+
+cmds.get('2','如果不存在对应的键名(比如"0123"之外的字符),\
+会返回此信息')(record,wallet)
+
+
+cmds.get('4','如果不存在对应的键名(比如"0123"之外的字符),\
+会返回此信息')
+
+cmds.get('4','如果不存在对应的键名(比如"0123"之外的字符),\
+会返回此信息')(record,wallet)
+
+
+[root@room9pc01 pytest]# python3
+Python 3.6.1 (default, Mar 20 2018, 00:12:35) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> record=10000
+>>> wallet='walletxxxxxxx'
+>>> 
+>>> def  spend_money(record,wallet):
+...  print(record,wallet,'--spend_---')
+... 
+>>> 
+>>> def  save_money(record,wallet):
+...  print(record,wallet,'---save_money---')
+... 
+>>> 
+>>> def   query(record, wallet):
+...  print(record,wallet,'--query--------')
+... 
+>>> cmds = { '0':spend_money, '1':save_money, '2':query }
+>>> 
+>>> cmds.get('0','如果不存在对应的键名(比如"0123"之外的字符),\
+... 会返回此信息')
+<function spend_money at 0x7f43a5f9bea0>
+>>> 
+>>> cmds.get('0','如果不存在对应的键名(比如"0123"之外的字符),\
+... 会返回此信息')(record,wallet)
+10000 walletxxxxxxx --spend_---
+>>> 
+>>> cmds.get('2','如果不存在对应的键名(比如"0123"之外的字符),\
+... 会返回此信息')(record,wallet)
+10000 walletxxxxxxx --query--------
+>>> 
+>>> 
+>>> cmds.get('4','如果不存在对应的键名(比如"0123"之外的字符),\
+... 会返回此信息')
+'如果不存在对应的键名(比如"0123"之外的字符),会返回此信息'
+>>> 
+>>> cmds.get('4','如果不存在对应的键名(比如"0123"之外的字符),\
+... 会返回此信息')(record,wallet)
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+TypeError: 'str' object is not callable
+>>> 
+>>> 
+>>> 
+  File "ospickleAccount.py", line 12, in <module>
+    wallet = '/root/桌面/Test/'+ sys.argv[2]   #余额文件
+IndexError: list index out of range
+[root@room9pc01 pytest]# 
+
+==========================================================
+
+
+[root@room9pc01 pytest]# cat  ospickleAccount.py 
+#!/usr/bin/env  python3
+import  sys, os, pickle, time
+
+print('\033[31;47;1m__name__  is %s\033[0m' %  __name__)
+
+# 日期　　开销　　收入　　余额　　备注
+# sys.argv[1] = 'record.txt'   # 记帐文件
+# sys.argv[2] = 'wallet.data'  # 记录余额
+
+try:
+  record = '/root/桌面/Test/' + sys.argv[1]
+  wallet = '/root/桌面/Test/' + sys.argv[2]
+except  IndexError as  FirstEr:
+  print('\n序列中没有没有此索引,可能位置参数缺失FirstEr--\t',FirstEr)
+
+
+def  accountest():
+  pass  # pass语句在函数中的作用
+#空语句 do nothing
+#保证格式完整
+#保证语义完整
+#定义一个函数account，
+#但函数体部分暂时还没有完成，又不能空着不写内容，
+#因此可以用pass来替代占个位置。
+
+## 日期date　　开销amount　　收入income　　余额balance　　备注comment
+
+income = 10000
+
+def  spend_money(record,wallet):
+  date = time.strftime('%Y年*%m月*%d日  %H时:%M分:%S秒',time.localtime())
+  amount = int(input('消费额: '))
+  comment = input('备注: ')
+
+  with  open(wallet,'rb') as frobj:
+    balance = pickle.load(frobj) - amount
+
+  with  open(wallet,'wb') as fwobj:
+    pickle.dump(balance, fwobj)
+
+  with open(record, 'a') as  fobj:
+#('日 期', '开 销', '收 入', '余 额', '备 注')
+    fobj.write('%-28s#%-8s#%8s#%-8s#%20s\n' % \
+    (date, amount, income, balance, comment))
+
+
+def  save_money(record,wallet):
+  pass
+
+
+def   query(record, wallet):
+  pass
+
+
+def  show_menu(sysarg1,sysarg2):
+  prompt = """(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): """
+
+  cmds = { 0 :spend_money, 1 :save_money, 2 : query }
+  if not os.path.exists('/root/桌面/Test'):
+    os.makedirs('/root/桌面/Test')
+  if os.path.exists(record):
+    os.remove(record)
+  if os.path.exists(wallet):
+    os.remove(wallet)
+
+  with open(wallet, 'wb') as fwobj:
+    pickle.dump(income, fwobj)
+
+  with  open(record,'w') as fwobj:
+    fwobj.write('%-28s#%-8s#%8s#%-8s#%20s\n' % \
+    ('日 期', '开 销', '收 入', '余 额', '备 注'))
+
+  while  True:
+    try:
+      choice = int(input(prompt).strip()[0])
+    except IndexError as thirdEr:
+      print('\n序列中没有没有此索引,空输入\t', thirdEr)
+    except (KeyboardInterrupt, EOFError):
+      print('\n用户ctrl+ d 中断退出^D,用户ctrl+ c 中断执行^C\n')
+      break
+    else:
+      if not 0 <= choice <4 :
+        print('无效输入，请重试')
+        continue
+      if choice == 3:
+        break
+      cmds.get(choice,'如果不存在对应的键名(比如0123之外的数字),\
+会返回此信息')(record,wallet)
+
+
+if __name__ == '__main__':
+  print('\033[30;43;1m sys.argv  is %s\033[0m\n' % sys.argv)
+  try:
+    print('\033[32;46;1m sys.argv[1] is %s\033[0m' % sys.argv[1])
+    accountest()
+    show_menu(sys.argv[1],sys.argv[2])
+  except  IndexError as  secondEr:
+    print('\n序列中没有没有此索引,位置参数缺失---secondEr:\t',secondEr)
+
+
+======================================================
+
+
+[root@room9pc01 pytest]#  python3  ospickleAccount.py  record.txt
+__name__  is __main__
+
+序列中没有没有此索引,可能位置参数缺失FirstEr--	 list index out of range
+ sys.argv  is ['ospickleAccount.py', 'record.txt']
+
+ sys.argv[1] is record.txt
+
+序列中没有没有此索引,位置参数缺失---secondEr:	 list index out of range
+[root@room9pc01 pytest]#  python3  ospickleAccount.py  record.txt  wallet.data
+__name__  is __main__
+ sys.argv  is ['ospickleAccount.py', 'record.txt', 'wallet.data']
+
+ sys.argv[1] is record.txt
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 0
+消费额: 300
+备注: hhaaaa
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 1
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 2
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 4
+无效输入，请重试
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 5
+无效输入，请重试
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 
+
+序列中没有没有此索引,空输入	 string index out of range
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 3
+[root@room9pc01 pytest]# cat  ../Test/record.txt 
+日 期                         #开 销     #     收 入#余 额     #                 备 注
+2019年*04月*06日  19时:10分:27秒  #300     #   10000#9700    #              hhaaaa
+[root@room9pc01 pytest]# cat  ../Test/wallet.data 
+�M�%.[root@room9pc01 pytest]# 
+
+
+
+
+[root@room9pc01 pytest]# vim  ospickleAccount.py 
+[root@room9pc01 pytest]# cat   ospickleAccount.py
+#!/usr/bin/env  python3
+import  sys, os, pickle, time
+
+print('\033[31;47;1m__name__  is %s\033[0m' %  __name__)
+
+# 日期　　开销　　收入　　余额　　备注
+# sys.argv[1] = 'record.txt'   # 记帐文件
+# sys.argv[2] = 'wallet.data'  # 记录余额
+
+try:
+  record = '/root/桌面/Test/' + sys.argv[1]
+  wallet = '/root/桌面/Test/' + sys.argv[2]
+except  IndexError as  FirstEr:
+  print('\n序列中没有没有此索引,可能位置参数缺失FirstEr--\t',FirstEr)
+
+
+def  accountest():
+  pass  # pass语句在函数中的作用
+#空语句 do nothing
+#保证格式完整
+#保证语义完整
+#定义一个函数account，
+#但函数体部分暂时还没有完成，又不能空着不写内容，
+#因此可以用pass来替代占个位置。
+
+## 日期date　　开销amount　　收入income　　余额balance　　备注comment
+
+date = time.strftime('%Y年*%m月*%d日  %H时:%M分:%S秒',time.localtime())
+amount = 0      #开销费用
+revenue = 0     #后面新增加的收入
+income = 10000   #原始收入
+balance = 10000  #总余额
+comment = ''     #备注
+
+def  spend_money(record,wallet):
+  date = time.strftime('%Y年*%m月*%d日  %H时:%M分:%S秒',time.localtime())
+  amount = int(input('消费额: '))
+  comment = input('备注: ')
+  revenue = 0
+  with  open(wallet,'rb') as frobj:
+    balance = pickle.load(frobj) - amount
+
+  with  open(wallet,'wb') as fwobj:
+    pickle.dump(balance, fwobj)
+
+  with open(record, 'a') as  fobj:
+#('日 期', '开 销', '收 入', '余 额', '备 注')
+    fobj.write('%-28s#%-8s#%8s#%-8s#%20s\n' % \
+    (date, amount, revenue, balance, comment))
+
+  
+def  save_money(record,wallet):
+  date = time.strftime('%Y年*%m月*%d日  %H时:%M分:%S秒',time.localtime())
+  revenue = int(input('新增加的收入额: '))
+  comment = input('备注: ')
+  amount = 0
+
+  with  open(wallet,'rb') as frobj:
+    balance = pickle.load(frobj) + revenue
+
+  with  open(wallet,'wb') as fwobj:
+    pickle.dump(balance, fwobj)
+
+  with open(record, 'a') as  fobj:
+#('日 期', '开 销', '收 入', '余 额', '备 注')
+    fobj.write('%-28s#%-8s#%8s#%-8s#%20s\n' % \
+    (date, amount, revenue, balance, comment))
+
+
+
+
+def   query(record, wallet):
+  with  open(record)  as frobj:
+    for  line  in  frobj:
+      print(line,end='\t')
+
+  with open(wallet,'rb') as frbobj:
+     balance = pickle.load(frbobj)
+  print('当前余额: %s \n' % balance)
+
+
+
+def  show_menu(sysarg1,sysarg2):
+  prompt = """(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): """
+
+  cmds = { 0 :spend_money, 1 :save_money, 2 : query }
+  if not os.path.exists('/root/桌面/Test'):
+    os.makedirs('/root/桌面/Test')
+  if os.path.exists(record):
+    os.remove(record)
+  if os.path.exists(wallet):
+    os.remove(wallet)
+
+  with open(wallet, 'wb') as fwobj:
+    pickle.dump(income, fwobj)  #原始收入income = 10000
+
+  with  open(record,'w') as fwobj:
+    fwobj.write('%-28s#%-8s#%8s#%-8s#%20s\n' % \
+      ('日 期', '开 销', '收 入', '余 额', '备 注')
+    )
+
+  with open(record, 'a') as  fobj:
+#('日 期', '开 销', '收 入', '余 额', '备 注')
+    fobj.write('%-28s#%-8s#%8s#%-8s#%20s\n' % \
+      (date, amount, income, balance, comment)
+    )
+
+
+  while  True:
+    try:
+      choice = int(input(prompt).strip()[0])
+    except IndexError as thirdEr:
+      print('\n序列中没有没有此索引,空输入\t', thirdEr)
+    except (KeyboardInterrupt, EOFError):
+      print('\n用户ctrl+ d 中断退出^D,用户ctrl+ c 中断执行^C\n')
+      break
+    else:
+      if not 0 <= choice <4 :
+        print('无效输入，请重试')
+        continue
+      if choice == 3:
+        break
+      cmds.get(choice,'如果不存在对应的键名(比如0123之外的数字),\
+会返回此信息')(record,wallet)
+
+
+if __name__ == '__main__':
+  print('\033[30;43;1m sys.argv  is %s\033[0m\n' % sys.argv)
+  try:
+    print('\033[32;46;1m sys.argv[1] is %s\033[0m' % sys.argv[1])
+    accountest()
+    show_menu(sys.argv[1],sys.argv[2])
+  except  IndexError as  secondEr:
+    print('\n序列中没有没有此索引,位置参数缺失---secondEr:\t',secondEr)
+
+
+[root@room9pc01 pytest]# 
+
+
+=================================================
+
+[root@room9pc01 pytest]# python3  accountospick.py   recordx2  walletx2
+__name__  is __main__
+ sys.argv  is ['accountospick.py', 'recordx2', 'walletx2']
+
+ sys.argv[1] is recordx2
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 
+
+序列中没有没有此索引,空输入	 string index out of range
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 
+
+序列中没有没有此索引,空输入	 string index out of range
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 4
+无效输入，请重试
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 56
+无效输入，请重试
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 0999
+消费额: 8888
+备注: aaaaaaaaa
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 1
+新增加的收入额: 3330000
+备注: bbbb
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 1
+新增加的收入额: 555555
+备注: ccccccc
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 0
+消费额: 2000
+备注: dddd
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 2
+日 期                            #开 销    #    收 入#余 额   #                 备 注
+2019年*04月*07日 11时:24分:26秒   #0       #   10000#10000   #                    
+2019年*04月*07日 11时:24分:35秒   #8888    #       0#1112    #           aaaaaaaaa
+2019年*04月*07日 11时:24分:45秒   #0       # 3330000#3331112 #                bbbb
+2019年*04月*07日 11时:24分:55秒   #0       #  555555#3886667 #             ccccccc
+2019年*04月*07日 11时:25分:06秒   #2000    #       0#3884667 #                dddd
+当前余额: 3884667 
+
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): ^C
+用户ctrl+ d 中断退出^D,用户ctrl+ c 中断执行^C
+
+[root@room9pc01 pytest]# cat   ../Test/recordx2 
+日 期                            #开 销    #    收 入#余 额   #                 备 注
+2019年*04月*07日 11时:24分:26秒   #0       #   10000#10000   #                    
+2019年*04月*07日 11时:24分:35秒   #8888    #       0#1112    #           aaaaaaaaa
+2019年*04月*07日 11时:24分:45秒   #0       # 3330000#3331112 #                bbbb
+2019年*04月*07日 11时:24分:55秒   #0       #  555555#3886667 #             ccccccc
+2019年*04月*07日 11时:25分:06秒   #2000    #       0#3884667 #                dddd
+[root@room9pc01 pytest]# python3
+Python 3.6.1 (default, Mar 20 2018, 00:12:35) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import  accountospick
+__name__  is accountospick
+>>> accountospick.
+accountospick.accountest(   accountospick.query(        accountospick.spend_money(
+accountospick.os            accountospick.save_money(   accountospick.sys
+accountospick.pickle        accountospick.show_menu(    accountospick.time
+
+>>> accountospick.show_menu('aaaargv1','argv2wallet')
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 0
+消费额: 2000
+备注: aaaa111
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 1
+新增加的收入额: 20000
+备注: bb2222
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 2
+日 期                            #开 销    #    收 入#余 额   #                 备 注
+2019年*04月*07日 11时:28分:47秒   #0       #   10000#10000   #                    
+2019年*04月*07日 11时:28分:56秒   #2000    #       0#8000    #             aaaa111
+2019年*04月*07日 11时:29分:06秒   #0       #   20000#28000   #              bb2222
+当前余额: 28000 
+
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 4
+无效输入，请重试
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 5
+无效输入，请重试
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 1
+新增加的收入额: 8888
+备注: ccccccccc
+(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): 
+用户ctrl+ d 中断退出^D,用户ctrl+ c 中断执行^C
+
+>>> 
+[root@room9pc01 pytest]# ls  ../Test/
+aaaargv1  argv2wallet  newzidyi.data  record.txt  wallet.data
+abc.txt   newfile      passwd         recordx2    walletx2
+[root@room9pc01 pytest]# cat  ../Test/aaaargv1 
+日 期                            #开 销    #    收 入#余 额   #                 备 注
+2019年*04月*07日 11时:28分:47秒   #0       #   10000#10000   #                    
+2019年*04月*07日 11时:28分:56秒   #2000    #       0#8000    #             aaaa111
+2019年*04月*07日 11时:29分:06秒   #0       #   20000#28000   #              bb2222
+2019年*04月*07日 11时:29分:37秒   #0       #    8888#36888   #           ccccccccc
+[root@room9pc01 pytest]# 
+[root@room9pc01 pytest]# cat  accountospick.py 
+#!/usr/bin/env  python3
+import  sys, os, pickle, time
+
+print('\033[31;47;1m__name__  is %s\033[0m' %  __name__)
+
+# 日期　　开销　　收入　　余额　　备注
+# sys.argv[1] = 'record.txt'   # 记帐文件
+# sys.argv[2] = 'wallet.data'  # 记录余额
+
+
+def  accountest():
+  pass  # pass语句在函数中的作用
+#空语句 do nothing
+#保证格式完整
+#保证语义完整
+#定义一个函数account，
+#但函数体部分暂时还没有完成，又不能空着不写内容，
+#因此可以用pass来替代占个位置。
+
+## 日期date　　开销amount　　收入income　　余额balance　　备注comment
+
+
+def  spend_money(record,wallet):
+  date = time.strftime('%Y年*%m月*%d日 %H时:%M分:%S秒',time.localtime())
+  amount = int(input('消费额: '))
+  comment = input('备注: ')
+  revenue = 0
+  with  open(wallet,'rb') as frobj:
+    balance = pickle.load(frobj) - amount
+
+  with  open(wallet,'wb') as fwobj:
+    pickle.dump(balance, fwobj)
+
+  with open(record, 'a') as  fobj:
+#('日 期', '开 销', '收 入', '余 额', '备 注')
+    fobj.write('%-28s#%-8s#%8s#%-8s#%20s\n' % \
+    (date, amount, revenue, balance, comment))
+
+## 日期date　　开销amount　　收入revenue　　余额balance　　备注comment 
+ 
+def  save_money(record,wallet):
+  date = time.strftime('%Y年*%m月*%d日 %H时:%M分:%S秒',time.localtime())
+  revenue = int(input('新增加的收入额: '))
+  comment = input('备注: ')
+  amount = 0
+
+  with  open(wallet,'rb') as frobj:
+    balance = pickle.load(frobj) + revenue
+
+  with  open(wallet,'wb') as fwobj:
+    pickle.dump(balance, fwobj)
+
+  with open(record, 'a') as  fobj:
+#('日 期', '开 销', '收 入', '余 额', '备 注')
+    fobj.write('%-28s#%-8s#%8s#%-8s#%20s\n' % \
+    (date, amount, revenue, balance, comment))
+
+
+## 日期date　　开销amount　　收入income　　余额balance　　备注comment
+
+def   query(record, wallet):
+  with  open(record)  as frobj:
+    for  line  in  frobj:
+      print(line,end='')
+
+  with open(wallet,'rb') as frbobj:
+     balance = pickle.load(frbobj)
+  print('当前余额: %s \n' % balance)
+
+
+# 日期　　开销　　收入　　余额　　备注
+# sys.argv[1] = 'record.txt'   # 记帐文件
+# sys.argv[2] = 'wallet.data'  # 记录余额
+
+def  show_menu(sysargv1,sysargv2):
+
+  record = '/root/桌面/Test/' + sysargv1
+  wallet = '/root/桌面/Test/' + sysargv2
+
+## 日期date　　开销amount　　收入income　　余额balance　　备注comment
+
+  date = time.strftime('%Y年*%m月*%d日 %H时:%M分:%S秒',time.localtime())
+
+  amount = 0      #开销费用
+  income = 10000   #原始收入
+  balance = 10000  #总余额
+  comment = ''     #备注
+
+  prompt = """(0) 记录开销
+(1) 记录收入
+(2) 查询收支记录
+(3) 退出
+请选择(0/1/2/3): """
+
+  cmds = { 0 :spend_money, 1 :save_money, 2 : query }
+  if not os.path.exists('/root/桌面/Test'):
+    os.makedirs('/root/桌面/Test')
+  if os.path.exists(record):
+    os.remove(record)
+  if os.path.exists(wallet):
+    os.remove(wallet)
+
+  with open(wallet, 'wb') as fwobj:
+    pickle.dump(income, fwobj)  #原始收入income = 10000
+
+  with  open(record,'w') as fwobj:
+    fwobj.write('%-31s#%-7s#%7s#%-6s#%20s\n' % \
+      ('日 期', '开 销', '收 入', '余 额', '备 注')
+    )
+
+  with open(record, 'a') as  fobj:
+#('日 期', '开 销', '收 入', '余 额', '备 注')
+    fobj.write('%-28s#%-8s#%8s#%-8s#%20s\n' % \
+      (date, amount, income, balance, comment)
+    )
+
+
+  while  True:
+    try:
+      choice = int(input(prompt).strip()[0])
+    except IndexError as thirdEr:
+      print('\n序列中没有没有此索引,空输入\t', thirdEr)
+    except (KeyboardInterrupt, EOFError):
+      print('\n用户ctrl+ d 中断退出^D,用户ctrl+ c 中断执行^C\n')
+      break
+    else:
+      if not 0 <= choice <4 :
+        print('无效输入，请重试')
+        continue
+      if choice == 3:
+        break
+      #cmds[choice](record,wallet)
+      cmds.get(choice,'如果不存在对应的键名(比如0123之外的数字),\
+会返回此信息')(record,wallet)
+
+
+if __name__ == '__main__':
+  print('\033[30;43;1m sys.argv  is %s\033[0m\n' % sys.argv)
+  try:
+    print('\033[32;46;1m sys.argv[1] is %s\033[0m' % sys.argv[1])
+
+    show_menu(sys.argv[1],sys.argv[2])
+  except  IndexError as  firstEr:
+    print('\n序列中没有没有此索引,位置参数缺失---firstEr:\t',firstEr)
+
+
+[root@room9pc01 pytest]# 
+
+
+
+
+
+
+
+

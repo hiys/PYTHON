@@ -1,0 +1,223 @@
+
+
+========================
+
+VNC-View    Xshell 软件
+
+https://www.netsarang.com/zh/all-downloads/#pll_switcher
+
+https://www.netsarang.com/zh/xshell-download/
+
+Xshell6   官网下载 netsarang.com 免费
+
+https://www.netsarang.com/zh/xshell/
+
+家庭和学校用户的免费许可证
+
+免费授权页面
+相关下载
+
+EULA
+用户手册
+数据表
+
+https://www.netsarang.com/zh/all-downloads/
+
+--------------------------------------------
+https://blog.csdn.net/downing114/article/details/51433862/
+------------------
+SysRq编辑
+这是一组“魔术组合键”，
+只要内核没有被完全锁住，不管内核在做什么事情，
+使用这些组合键能即时打印出内核的信息。
+
+使用sysrq组合键是了解系统目前运行情况的最佳方式。
+如果系统出现挂起的情况或在诊断一些和内核相关，
+比较怪异，比较难重现的问题的时候，使用sysrq键是个比较好的方式。
+
+怎么打开和关闭SysRq组合键?
+为了安全起见，在红帽企业版Linux里面，默认SysRq组合键是关闭的。
+
+[root@room9pc01 ~]# ll  /proc/sys/kernel/sysrq 
+-rw-r--r-- 1 root root 0 3月  25 10:43 /proc/sys/kernel/sysrq
+[root@room9pc01 ~]# cat   /proc/sys/kernel/sysrq
+16
+[root@room9pc01 ~]# file  /proc/sys/kernel/sysrq
+/proc/sys/kernel/sysrq: empty
+
+
+打开这个功能，运行：
+# echo 1 > /proc/sys/kernel/sysrq
+关闭这个功能：
+# echo 0 > /proc/sys/kernel/sysrq
+
+[root@room9pc01 ~]# tail  -3  /etc/sysctl.conf 
+# name in /etc/sysctl.d/ and put new settings there.
+#
+# For more information, see sysctl.conf(5) and sysctl.d(5).
+[root@room9pc01 ~]# 
+
+如果想让此功能一直生效，
+在/etc/sysctl.conf里面设置kernel.sysrq的值为1. 重新启动以后，此功能将会自动
+打开。
+kernel.sysrq = 1
+因为打开sysrq键的功能以后，有终端访问权限的用户将会拥有一些特别的功能。
+因此，除非是要调试，解决问题，
+一般情况下，不要打开此功能。
+如果一定要打开，请确保你的终端访问的安全性。
+
+怎么触发一个sysrq事件?
+有几种方式能触发sysrq事件。
+在带有AT键盘的一般系统上，
+在终端上输入一下组合键:
+Alt+PrintScreen+[CommandKey]
+例如，要让内核导出内存信息(CommandKey "m")，
+你应该同时按下Alt 和 Print Screen 键，然后按下 m 键.
+
+提示: 此组合键在Windows上是无法使用的。
+所以，你先要转换到文本虚拟终端下。
+如果你当前是在图像界面，
+能按Ctrl+Alt+F1转换到虚拟终端。
+在串口终端上,要想获得同样的效果，
+需要先在终端上发送Break信号，然后在5秒内输入sysrq组合键。
+如果你在机器上有root权限，
+你能把commandkey字符写入到/proc/sysrq-trigger文件。
+这能帮助你通过脚本或你不在系统终端上的时候触发sysrq事件。
+# echo 'm' > /proc/sysrq-trigger
+
+当我触发一个sysrq事件的时候，结果保存在什么地方?
+当一个sysrq命令被触发，
+内核将会打印信息到内核的环形缓冲并输出到系统控制台。
+此信息一般也会通过syslog输出到/var/log/messages.
+有时候，可能系统已无法响应，syslogd可能无法记录此信息。
+在这种情况下，建议你设置一个串口终端来收集这个信息。
+
+哪些类型的sysrq事件能被触发?
+sysrq功能被打开后，有几种sysrq事件能被触发。
+不同的内核版本可能会有些不同。
+但有一些是共用的:
+* m - 导出关于内存分配的信息，
+* t - 导出线程状态信息，
+* p - 导出当前CPU寄存器信息和标志位的信息，
+* c - 故意让系统崩溃(在使用netdump或diskdump的时候有用)，
+* s - 即时同步所有挂载的文件系统，
+* u - 即时重新挂载所有的文件系统为只读，
+* b - 即时重新启动系统，
+* o - 即时关机(如果机器设置并支持此项功能)。
+============================
+
+CentOS7 设置截图的快捷键
+
+1、截图工具所在位置：应用(Applications)-工具(Utilities)-截图(Screenshot)
+
+2、快捷键设置的位置：
+应用程序(Applications)-系统工具(System Tools)-设置(Settings)-键盘(Keyboard)
+2、快捷键设置的位置：
+应用程序(Applications)-系统工具(System Tools)-设置(Settings)-键盘(Keyboard) 
+
+3、切换到快捷键选项卡：
+快捷键(Shortcuts)，找到截图(Screenshots)，单击右侧想要设置的项，
+按下要设置的快捷键即可（不用输入）
+
+比如：我常用的是选定区域的截图(Save a screenshot of an area to Pictures)，
+并且我使用的比较多的快捷键是QQ的截图快捷键(Ctrl+Alt+A)
+
+截图
+复制 截图 到剪贴板         Ctrl + Print
+复制 窗口 截图 到剪贴板    Ctrl + Alt + Print
+复制 选区 截图 到剪贴板    Shift + Ctrl + Print
+将屏幕 截图 保存到图片目录  Print
+将窗口 截图 保存到图片目录  Alt + Print
+
+将选区 截图 保存到图片目录  Shift + Print
+
+记录一小段 屏幕录像        Shift + Ctrl + Alt + R
+
+
+4、截图默认会自动存放到当前用户的图片文件夹（Pictures）下
+
+
+[root@room9pc01 ~]# ls /root/图片/
+
+linux   centos7  截图 PrintScreenSysRq
+
+ PrintScreenSysRq 是Print Screen（屏幕截图键）与SysRq的组合键，通过Shift选择它的功能
+
+用法
+键盘右上方的“Print Screen Sys Rq”键的作用是屏幕截图
+
+用法一，
+按“Print Screen SysRq”一下，
+对当前屏幕进行截图，
+就是整个显示屏的内容。
+
+用法二，
+先按住“Alt”键，
+再按住“Print Screen SysRq”键，
+则是对当前窗口进行截图。
+
+如你打开“我的电脑”后，用此法就截取“我的电脑”窗口的内容。
+
+用上述两种方法截图后，
+再打开“开始”——“程序”——“附件”——“画图”程序，
+点“编辑”、“粘贴”就把截取的图片粘贴出来。
+
+
+
+===============================
+ PrintScreenSysRq 是Print Screen（屏幕截图键）与SysRq的组合键，
+ 通过Shift选择它的功能
+
+键盘右上方的“PrintScreenSysRq”键的作用是屏幕截图
+用法二，
+先按住“Alt”键，
+再按住“Print Screen SysRq”键，
+则是对当前窗口进行截图。
+
+[root@room9pc01 ~]# ls  /root/图片/
+2019-03-25 12-23-16 的屏幕截图.png  2019-03-25 12-24-09 的屏幕截图.png
+--------------------------------------------
+
+截图
+
+将选区 截图 保存到图片目录  Shift + Print
+
+记录一小段 屏幕录像        Shift + Ctrl + Alt + R
+
+[root@room9pc01 ~]# ls  /root/图片/
+2019-03-25 12-23-16 的屏幕截图.png  2019-03-25 12-38-01 的屏幕截图.png
+2019-03-25 12-24-09 的屏幕截图.png
+
+[root@room9pc01 ~]# ls  /root/视频/
+2019年03月25日 屏幕视频 12时29分22秒.webm
+
+4、截图默认会自动存放到当前用户的图片文件夹（Pictures）下
+
+
+[root@room9pc01 ~]# echo  "scale = 4;(0.02+0.0504)*24" |bc
+1.6896
+[root@room9pc01 ~]# echo  "scale = 4;(0.02+0.0504)*24 * 30" |bc
+50.6880
+
+------------------------------- 11 台 虚拟机 带宽 按需计算费用 
+
+[root@room9pc01 ~]# echo  "scale = 4;(0.02+0.0504)*24 * 30 * 11" |bc
+557.5680
+
+------------------------------- 11 台 虚拟机 带宽 包月 计算费用
+[root@room9pc01 ~]# echo  "scale = 4; 18.40 * 11 " |bc
+202.40
+
+https://activity.huaweicloud.com/promotion/
+
+
+
+
+
+
+
+
+
+
+
+
