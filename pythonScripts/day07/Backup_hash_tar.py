@@ -61,33 +61,8 @@ def  full_backup(src_dir, dst_dir, md5file):
  
   print(os.listdir(src_dir),end = '\n\n')
 
-#>>> fname
-#'/root/pyscripts/day07/srctest'
-#>>> os.listdir(fname)
-#['filetest.py', 'zifile.py', 'zisrcdir']
-#>>> os.listdir(fname)[0]
-#'filetest.py'
-#>>> os.listdir(fname)[1]
-#'zifile.py'
-#>>> os.listdir(fname)[-1]
-#'zisrcdir'
-#>>> 
-#>>> zidir = os.path.join( fname,  os.listdir(fname)[-1])
-#>>> zidir
-#'/root/pyscripts/day07/srctest/zisrcdir'
-#>>> os.listdir(zidir)
-#['zisrcfile.py']
-#>>> 
-
-#  src_file = os.path.join(src_dir,  os.listdir(src_dir)[0])
-#  src_file2 = os.path.join(src_dir, os.listdir(src_dir)[1])
-#  print('src_file  is %s  exists %s \n src_file2 is %s  exists  %s\n' %  \
-#  (src_file, os.path.exists(src_file), src_file2, os.path.exists(src_file2)))
-
 
   tar = tarfile.open(tarfname, 'w:gz') #以gzip的压缩格式,打开新建的压缩包tarfname
-#  tar.add(src_file)   #将要被压缩的文件
-#  tar.add(src_file2)  #将要被压缩的文件
   tar.add(src_dir)   #直接把目录下的所有文件压缩成一个压缩包(名为tarfname)
   tar.close()
 
@@ -99,26 +74,6 @@ def  full_backup(src_dir, dst_dir, md5file):
 #/root/pyscripts/day07/srctest/zifile.py
 #/root/pyscripts/day07/srctest/zisrcdir/zisrcfile.py
 #>>> 
-#
-#>>> import   hashlib
-#>>> with  open('/root/pyscripts/day07/filetest.py', 'rb') as fobj:
-#...   data = fobj.read()
-#... 
-#>>> mdata = hashlib.md5( data )
-#
-#>>> print(type(mdata))
-#<class '_hashlib.HASH'>
-#
-#>>> print(type(mdata.hexdigest()))
-#<class 'str'>
-#
-#>>> print(mdata.hexdigest())
-#7a358b09af7c8553e8295ca271d0529b
-#
-#>>> print(mdata)
-#<md5 HASH object @ 0x7fb28998fa08>
-#>>> 
-
 
   md5dict = {}  #设置文件全称名是键key : value值 是md5 计算出来的字符串值
 
@@ -191,21 +146,6 @@ def  increase_backup(src_dir, dst_dir, md5file):
     print('\n=========== tarfile.open(tarfname, "w:gz") ================\n')
     tar = tarfile.open(tarfname, 'w:gz') 
     #以gzip的压缩格式,打开新建的压缩包tarfname
-
-#>>> type(len(listx))
-#<class 'int'>
-#>>> listx = ['11',22]
-#>>> listx.append('222')
-#>>> listx
-#['11', 22, '222']
-#>>> 
-#>>> for i in  listx:
-#...   print(listx.index(i), i, sep = ' --- ')
-#... 
-#0 --- 11
-#1 --- 22
-#2 --- 222
-#>>>
     ##把新字典new_md5dict的key中对应的新添加的文件 和 有过改动的旧文件 压缩保存在压>缩包tarfname中
     for  file  in  increase_fileslist:
       tar.add(file)
@@ -252,10 +192,6 @@ if __name__ == '__main__':
 
 #[root@V0 day07]# ls   dstBackupDir/
 #md5.data  srctest_full_04月12日11时03分57秒.tar.gz
-#[root@V0 day07]# du  -sh   dstBackupDir/srctest_full_04月12日11时03分57秒.tar.gz 
-#4.0K	dstBackupDir/srctest_full_04月12日11时03分57秒.tar.gz
-
-
 
 
   if  int(time.strftime('%S',time.localtime())) % 3 == 0 :
