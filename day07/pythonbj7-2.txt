@@ -1,0 +1,882 @@
+
+
+
+
+
+[root@V0 day07]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  os, shutil
+>>> rootdir = '/root/pyscripts/day07/'
+>>> src_dir = rootdir + 'srctest/'
+
+>>> src_file = os.path.join(src_dir,  os.listdir(src_dir)[0])
+
+>>> print('src_file  is %s  exists %s \n' %  \
+...   (src_file, os.path.exists(src_file)))
+src_file  is /root/pyscripts/day07/srctest/filetest.py  exists True 
+
+>>> import  time
+>>> dst_newcopy_file = '%s_newcopy_%s.py' % (src_file.rstrip('.py'), time.strftime('%m月%d日%H时%M分%S秒'))
+
+>>> print('dst_newcopy_file is  %s -----------------' %  dst_newcopy_file)
+dst_newcopy_file is  /root/pyscripts/day07/srctest/filetest_newcopy_04月12日10时25分45秒.py -----------------
+
+>>> with open(src_file) as  src_fobj:
+...  with open(dst_newcopy_file, 'w') as  dst_fobj:
+...   shutil.copyfileobj(src_fobj, dst_fobj)
+... 
+>>> print('dst_newcopy_file  is %s  exists %s \n' %  \
+...  (dst_newcopy_file,  os.path.exists(dst_newcopy_file)))
+dst_newcopy_file  is /root/pyscripts/day07/srctest/filetest_newcopy_04月12日10时25分45秒.py  exists True 
+
+>>> 
+[root@V0 day07]# scp   Backup_hash_tar.py  backup_hash_tar.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/day07
+
+[root@V0 day07]# tar  -ztPf   dstBackupDir/srctest__increase__04月12日12时29分01秒.tar.gz 
+root/pyscripts/day07/srctest/filetest_newcopy_04月12日12时28分47秒.py
+[root@V0 day07]# ls  dstBackupDir/
+md5.data
+srctest_full_04月12日11时54分45秒.tar.gz
+srctest_full_04月12日12时26分30秒.tar.gz
+srctest_full_04月12日12时27分18秒.tar.gz
+srctest_full_04月12日12时27分45秒.tar.gz
+srctest__increase__04月12日11时56分04秒.tar.gz
+srctest__increase__04月12日12时11分19秒.tar.gz
+srctest__increase__04月12日12时29分01秒.tar.gz
+[root@V0 day07]# ls  srctest/
+filetest_newcopy_04月12日11时55分38秒.py  filetest.py
+filetest_newcopy_04月12日12时11分17秒.py  zifile.py
+filetest_newcopy_04月12日12时27分26秒.py  zisrcdir
+filetest_newcopy_04月12日12时28分47秒.py
+[root@V0 day07]# 
+
+[root@V0 day07]# python3  Backup_hash_tar.py 
+ sys.argv  is ['Backup_hash_tar.py']
+
+The root directory  already  exists -----
+The src_dir directory  already  exists -----
+/root/pyscripts/day07/srctest
+
+/root/pyscripts/day07/dstBackupDir
+--- dst_dir ---
+/root/pyscripts/day07/dstBackupDir
+
+------- 11111111 -------
+tarfname is  srctest ---- 1 -----
+tarfname is  srctest__increase__04月12日12时29分01秒.tar.gz ---------- 2 --------
+tarfname is  /root/pyscripts/day07/dstBackupDir/srctest__increase__04月12日12时29分01秒.tar.gz ---------- 3 --------
+/root/pyscripts/day07/srctest/filetest.py
+<class '_hashlib.HASH'>
+m  is ---  <md5 HASH object @ 0x7f4284c94a08>
+一共循环读取了 2 次
+/root/pyscripts/day07/srctest/zifile.py
+<class '_hashlib.HASH'>
+m  is ---  <md5 HASH object @ 0x7f4284c94a08>
+一共循环读取了 2 次
+/root/pyscripts/day07/srctest/filetest_newcopy_04月12日11时55分38秒.py
+<class '_hashlib.HASH'>
+m  is ---  <md5 HASH object @ 0x7f4284c94a08>
+一共循环读取了 2 次
+/root/pyscripts/day07/srctest/filetest_newcopy_04月12日12时11分17秒.py
+<class '_hashlib.HASH'>
+m  is ---  <md5 HASH object @ 0x7f4284c94a08>
+一共循环读取了 2 次
+/root/pyscripts/day07/srctest/filetest_newcopy_04月12日12时27分26秒.py
+<class '_hashlib.HASH'>
+m  is ---  <md5 HASH object @ 0x7f4284c94a08>
+一共循环读取了 2 次
+/root/pyscripts/day07/srctest/filetest_newcopy_04月12日12时28分47秒.py
+<class '_hashlib.HASH'>
+m  is ---  <md5 HASH object @ 0x7f4284c94a08>
+一共循环读取了 2 次
+/root/pyscripts/day07/srctest/zisrcdir/zisrcfile.py
+<class '_hashlib.HASH'>
+m  is ---  <md5 HASH object @ 0x7f4284c94918>
+一共循环读取了 2 次
+{'/root/pyscripts/day07/srctest/filetest.py': '7a358b09af7c8553e8295ca271d0529b', '/root/pyscripts/day07/srctest/zifile.py': '7a358b09af7c8553e8295ca271d0529b', '/root/pyscripts/day07/srctest/filetest_newcopy_04月12日11时55分38秒.py': '7a358b09af7c8553e8295ca271d0529b', '/root/pyscripts/day07/srctest/filetest_newcopy_04月12日12时11分17秒.py': '7a358b09af7c8553e8295ca271d0529b', '/root/pyscripts/day07/srctest/filetest_newcopy_04月12日12时27分26秒.py': '7a358b09af7c8553e8295ca271d0529b', '/root/pyscripts/day07/srctest/filetest_newcopy_04月12日12时28分47秒.py': '7a358b09af7c8553e8295ca271d0529b', '/root/pyscripts/day07/srctest/zisrcdir/zisrcfile.py': '7a358b09af7c8553e8295ca271d0529b'}
+ ----- new_md5dict ------
+
+ 没有任何变化!
+
+
+ 没有任何变化!
+
+
+ 没有任何变化!
+
+
+ 没有任何变化!
+
+
+ 没有任何变化!
+
+新加入压缩列表increase_fileslist[]的文件是 /root/pyscripts/day07/srctest/filetest_newcopy_04月12日12时28分47秒.py ---
+
+
+ 没有任何变化!
+
+
+=========== tarfile.open(tarfname, "w:gz") ================
+
+新加的将要压缩的文件是 /root/pyscripts/day07/srctest/filetest_newcopy_04月12日12时28分47秒.py ---
+
+
+------------tar.close() -----------------
+
+[root@V0 day07]# 
+[root@V0 day07]# cat  -n  Backup_hash_tar.py
+     1	#! /usr/bin/env python3
+     2	#coding:UTF-8
+     3	"""这是模版说明--------
+     4	•  hashlib用来替换md5和sha模块,并使他们的API一致,
+     5	专门提供hash算法
+     6	•  包括md5、sha1、sha224、sha256、sha384、sha512
+     7	•  tarfile模块允许创建、访问tar文件
+     8	•  同时支持gzip、bzip2格式
+     9	>>> import   os
+    10	>>> os.path.basename('/root/pyscripts/day07/filetest.py')
+    11	'filetest.py'
+    12	>>> 
+    13	>>> os.path.dirname('/root/pyscripts/day07/filetest.py')
+    14	'/root/pyscripts/day07'
+    15	>>>
+    16	>>> os.path.abspath('/root/pyscripts/day07/filetest.py')
+    17	'/root/pyscripts/day07/filetest.py'
+    18	>>> import  time
+    19	>>> time.strftime('%m月%d日%H时%M分%S秒')
+    20	'04月11日17时13分19秒'
+    21	>>> """
+    22	
+    23	import  sys, os, hashlib,  tarfile, time
+    24	import  pickle, shutil
+    25	
+    26	def  check_md5(fname):
+    27	  m = hashlib.md5()  #生成md5值类型的对象
+    28	  print(type(m))
+    29	  #<class '_hashlib.HASH'>
+    30	
+    31	  print('m  is ---  %s' % m)
+    32	  #m  is ---  <md5 HASH object @ 0x7f4007b5d918>
+    33	
+    34	  count = 0
+    35	  with open(fname, 'rb') as  fobj:
+    36	    while True:
+    37	      data2 = fobj.read(1024) #默认内存以Byte 字节为单位(1byte = 8bit)
+    38	      if not data2:
+    39	        break
+    40	      m.update(data2)  #更新md5值数据    
+    41	      count += 1
+    42	  print('一共循环读取了 %d 次' % count)
+    43	  #一共循环读取了 2 次
+    44	  return  m.hexdigest()
+    45	
+    46	
+    47	
+    48	
+    49	def  full_backup(src_dir, dst_dir, md5file):
+    50	  """tarfname 将要备份的新产生的压缩包 """
+    51	
+    52	  print('------- 00000000 -------')
+    53	  tarfname = os.path.basename(src_dir.rstrip('/'))
+    54	  print('tarfname is  %s ---- 1 -----' %  tarfname)
+    55	
+    56	  tarfname = '%s_full_%s.tar.gz' % (tarfname, time.strftime('%m月%d日%H时%M分%S秒'))
+    57	  print('tarfname is  %s ---------- 2 --------' %  tarfname)
+    58	
+    59	  tarfname = os.path.join(dst_dir, tarfname)  #拼接文件名全称
+    60	  print('tarfname is  %s ---------- 3 --------' %  tarfname)
+    61	 
+    62	  print(os.listdir(src_dir),end = '\n\n')
+    63	
+    64	
+    65	  tar = tarfile.open(tarfname, 'w:gz') #以gzip的压缩格式,打开新建的压缩包tarfname
+    66	  tar.add(src_dir)   #直接把目录下的所有文件压缩成一个压缩包(名为tarfname)
+    67	  tar.close()
+    68	
+    69	
+    70	  md5dict = {}  #设置文件全称名是键key : value值 是md5 计算出来的字符串值
+    71	
+    72	  for  rootpath,  folders, files in  os.walk(src_dir):
+    73	    for  each_file  in  files:
+    74	      print(os.path.join(rootpath, each_file))
+    75	      key = os.path.join(rootpath, each_file)
+    76	      md5dict[key] = check_md5(key)
+    77	  print(md5dict,end = '\n ----- md5dict ------\n')
+    78	
+    79	
+    80	  #新建文件md5file = dst_dir + 'md5.data'保存字典{文件名:md5值16进制字符串}
+    81	
+    82	  with  open(md5file, 'wb') as  fobj: #新建一个文件保存字典md5dict{}
+    83	    pickle.dump(md5dict, fobj)
+    84	
+    85	
+    86	
+    87	def  increase_backup(src_dir, dst_dir, md5file):
+    88	  "increase  增加，增大，增多"
+    89	  print('------- 11111111 -------')
+    90	
+    91	  tarfname = os.path.basename(src_dir.rstrip('/'))
+    92	  print('tarfname is  %s ---- 1 -----' %  tarfname)
+    93	
+    94	  tarfname = '%s__increase__%s.tar.gz' % (tarfname, time.strftime('%m月%d日%H时%M分%S秒'))
+    95	  print('tarfname is  %s ---------- 2 --------' %  tarfname)
+    96	
+    97	  tarfname = os.path.join(dst_dir, tarfname)  #拼接文件名全称
+    98	  print('tarfname is  %s ---------- 3 --------' %  tarfname)
+    99	
+   100	  new_md5dict = {} #设置文件全称名是键key : value值 是md5 计算出来的字符串>值
+   101	
+   102	  with open(md5file, 'rb')  as  fobj: #打开旧文件md5file读取旧字典oldmd5dict{}
+   103	    oldmd5dict = pickle.load(fobj)  #旧字典暂时保存在内存中
+   104	
+   105	  for  rootpath,  folders, files in  os.walk(src_dir):
+   106	    for  each_file  in  files:
+   107	      print(os.path.join(rootpath, each_file))
+   108	      key = os.path.join(rootpath, each_file)
+   109	      new_md5dict[key] = check_md5(key)
+   110	
+   111	  print(new_md5dict,end = '\n ----- new_md5dict ------\n')
+   112	
+   113	  #新建文件md5file = dst_dir + 'md5.data'保存字典{文件名:md5值16进制字符串}
+   114	
+   115	  with  open(md5file, 'wb') as  fobj: #重新新建文件保存新字典new_md5dict{}
+   116	    pickle.dump(new_md5dict, fobj)  #新字典直接保存在硬盘文件md5file 中
+   117	
+   118	
+   119	  increase_fileslist = []
+   120	
+   121	  for  key  in  new_md5dict:
+   122	#    if key  not in oldmd5dict:
+   123	#      tar.add(key)   #把新字典new_md5dict的key中对应的新增文件压缩保存在压缩包tarfname中
+   124	#    elif new_md5dict[key] != oldmd5dict[key]:
+   125	#      tar.add(key) #把新字典new_md5dict中有过改动的旧文件保存在压缩包tarfname中
+   126	   ##把新字典new_md5dict的key中对应的新添加的文件 和 有过改动的旧文件 压缩保存在压缩包tarfname中
+   127	    if oldmd5dict.get(key) != new_md5dict[key]:
+   128	   #   tar.add(key)
+   129	      increase_fileslist.append(key)
+   130	      print('新加入压缩列表increase_fileslist[]的文件是 %s ---\n' %  key)
+   131	    else:
+   132	      print('\n 没有任何变化!\n')
+   133	
+   134	
+   135	  if  len(increase_fileslist) == 0:
+   136	    print('\n没有任何变化,不进行increase_backup(src_dir, dst_dir, md5file)压缩!\n')
+   137	  else:   
+   138	    print('\n=========== tarfile.open(tarfname, "w:gz") ================\n')
+   139	    tar = tarfile.open(tarfname, 'w:gz') 
+   140	    #以gzip的压缩格式,打开新建的压缩包tarfname
+   141	    ##把新字典new_md5dict的key中对应的新添加的文件 和 有过改动的旧文件 压缩保存在压>缩包tarfname中
+   142	    for  file  in  increase_fileslist:
+   143	      tar.add(file)
+   144	      print('新加的将要压缩的文件是 %s ---\n' %  file)
+   145	    tar.close()
+   146	    print('\n------------tar.close() -----------------\n')
+   147	
+   148	
+   149	
+   150	if __name__ == '__main__':
+   151	  print('\033[30;43;1m sys.argv  is %s\033[0m\n' % sys.argv) 
+   152	  
+   153	  rootdir = '/root/pyscripts/day07/'
+   154	  if os.path.exists(rootdir):
+   155	    print('The root directory  already  exists -----')
+   156	
+   157	  src_dir = rootdir + 'srctest/'
+   158	  if  os.path.exists(src_dir):
+   159	    print('The src_dir directory  already  exists -----')
+   160	    print(os.path.abspath(src_dir),end = '\n\n')
+   161	
+   162	  dst_dir = rootdir + 'dstBackupDir/'
+   163	  md5file = dst_dir + 'md5.data'
+   164	
+   165	
+   166	#[root@V0 day07]# ls  srctest/
+   167	#filetest.py  zifile.py  zisrcdir
+   168	#[root@V0 day07]# ls  srctest/zisrcdir/
+   169	#zisrcfile.py
+   170	#[root@V0 day07]# rm  -f  srctest/*秒.py
+   171	#[root@V0 day07]# rm  -rf    dstBackupDir/
+   172	#[root@V0 day07]# ls  dstBackupDir/
+   173	#ls: 无法访问dstBackupDir/: 没有那个文件或目录
+   174	
+   175	  if not os.path.exists(dst_dir):
+   176	    os.mkdir(dst_dir)
+   177	  else:
+   178	    print(os.path.abspath(dst_dir), end = '\n--- dst_dir ---\n')
+   179	    #/root/pyscripts/day07/dstBackupDir
+   180	    #--- dst_dir ---
+   181	
+   182	    print(os.path.dirname(md5file), end = '\n\n')
+   183	    #/root/pyscripts/day07/dstBackupDir
+   184	
+   185	#[root@V0 day07]# ls   dstBackupDir/
+   186	#md5.data  srctest_full_04月12日11时03分57秒.tar.gz
+   187	
+   188	
+   189	  if  int(time.strftime('%S',time.localtime())) % 3 == 0 :
+   190	    full_backup(src_dir, dst_dir, md5file)
+   191	
+   192	  elif int(time.strftime('%S',time.localtime())) % 3 == 1:
+   193	    increase_backup(src_dir, dst_dir, md5file)
+   194	
+   195	  else:
+   196	    src_file = os.path.join(src_dir,  os.listdir(src_dir)[0])
+   197	    print('src_file  is %s  exists %s \n' %  \
+   198	        (src_file, os.path.exists(src_file)))
+   199	    dst_newcopy_file = '%s_newcopy_%s.py' % (src_file.rstrip('.py'), time.strftime('%m月%d日%H时%M分%S秒'))
+   200	    print('dst_newcopy_file is  %s -----------------' %  dst_newcopy_file)
+   201	
+   202	    with open(src_file) as  src_fobj:
+   203	      with open(dst_newcopy_file, 'w') as  dst_fobj:
+   204	        shutil.copyfileobj(src_fobj, dst_fobj)
+   205	    print('dst_newcopy_file  is %s  exists %s \n' %  \
+   206	     (dst_newcopy_file,  os.path.exists(dst_newcopy_file)))
+   207	
+   208	    print('This time is 222222222 ---%S---')
+   209	    
+   210	
+   211	
+   212	
+[root@V0 day07]# 
+
+1.md5加密
+1 import hashlib 
+2 p=hashlib.md5() 
+3 p.update('123456'.encode('utf-8')) 
+4 print(p.hexdigest())
+输出结果是：e10adc3949ba59abbe56e057f20f883e
+
+2.sha1加密
+1 import hashlib 
+2 p=hashlib.sha1() 
+3 p.update('123456'.encode('utf-8')) 
+4 print(p.hexdigest())
+输出结果是：7c4a8d09ca3762af61e59520943dc26494f8941b
+
+
+[root@V0 day07]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  hashlib
+
+>>> hello = bytes('hello boy',encoding='utf8')
+
+>>> type(hello)
+<class 'bytes'>
+
+>>> m = hashlib.md5(hello)
+
+>>> type(m)
+<class '_hashlib.HASH'>
+
+>>> m.hexdigest()
+'03f80b5b465c40e0591830c1d3c970e5'
+
+>>> type(m.hexdigest())
+<class 'str'>
+
+>>> with  open('/root/pyscripts/day07/filetest.py', 'rb') as fobj:
+...   data = fobj.read()
+... 
+>>> type(data)
+<class 'bytes'>
+
+>>> mdata = hashlib.md5( data ) #
+>>> type(mdata)
+<class '_hashlib.HASH'>
+>>> 
+
+>>> type(mdata.hexdigest())
+<class 'str'>
+
+>>> mdata.hexdigest()
+'7a358b09af7c8553e8295ca271d0529b'
+>>> 
+
+>>> print(mdata)
+<md5 HASH object @ 0x7fb56d215b70>
+>>> 
+>>> print(m)
+<md5 HASH object @ 0x7fb56d273918>
+
+
+>>> x = mdata.update(hello)   #更新md5值数据
+
+>>> print(type(x))
+<class 'NoneType'>
+
+>>> print(mdata)
+<md5 HASH object @ 0x7fb56d215b70>
+
+>>> mdata.hexdigest()
+'ebada1139746cfb532d69823725a8a95'  #md5值发生改变
+>>> 
+>>> type(mdata)
+<class '_hashlib.HASH'>
+>>> 
+>>> mdata.update('12345'.encode('utf-8')) #更新md5值数据
+>>> mdata.hexdigest()
+'ae2ec3ddb91601c77c35f6321655f019'   #md5值发生改变
+>>> 
+>>> 
+KeyboardInterrupt
+>>> 
+KeyboardInterrupt   #Ctrl + C
+>>> 
+[root@V0 day07]# 
+
+基本概念
+•  类(Class):用来描述具有相同的属性和方法的对象的集合。
+它定义了该集合中每个对象所共有的属性和方法。
+对象是类的实例。
+•  实例化:创建一个类的实例,类的具体对象。
+•  方法:类中定义的函数。
+•  对象:通过类定义的数据结构实例。
+对象包括两个数据成员
+(类变量和实例变量)和方法。
+
+orient      英 [ˈɔ:rient]   美 [ˈɔriənt, -ˌɛnt, ˈor-]  
+     vt.标定方向;使…向东方;以…为参照;使熟悉或适应
+     adj.东方的;
+
+oriented      英 ['ɔ:rɪəntɪd]   美 ['ɔ:rɪrntɪd]  
+    adj.导向的;定向的;以…为方向的;定方向
+
+analysis       英 [əˈnæləsɪs]   美 [əˈnælɪsɪs]  
+     n.分析，分解;梗概，要略;[数]解析;验定
+
+program     英 [ˈprəʊgræm]   美 [ˈproʊgræm]  
+    n.程序;节目，节目单;计划，安排
+    v.[计]给…编写程序;为…制定计划;设计安排活动;编排
+
+design     英 [dɪˈzaɪn]   美 [dɪˈzaɪn]  
+      vt.& vi.设计;绘制
+      vt.设计;计划;企图;决意（做）
+      n.设计;图案;结构;计划
+
+
+面向对象分析
+ooa(object-oriented analysis)
+
+
+面向对象设计
+ood(object-oriented design)
+
+
+OOP
+Object Oriented Programming 面向对象的程序设计
+
+toy    英 [tɔɪ]   美 [tɔɪ]  
+   n.玩具，玩物;小装饰品;无实用价值的东西
+   vi.玩弄;不认真地考虑
+
+
+[root@V0 day07]# ll  filetest.py 
+-rw-r--r-- 1 root root 1505 4月  11 11:42 filetest.py
+[root@V0 day07]# ll zidir/md5.data 
+-rw-r--r-- 1 root root 277 4月  11 20:36 zidir/md5.data
+[root@V0 day07]# ls   /root/pyscripts/day07/zidir/md5.data
+/root/pyscripts/day07/zidir/md5.data
+
+[root@V0 day07]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import   os
+>>> file = os.path.abspath('zidir/md5.data')
+>>> 
+>>> print(file)
+/root/pyscripts/day07/zidir/md5.data
+
+>>> print('file is %s   exists  %s' % (file, os.path.exists(file)))
+file is /root/pyscripts/day07/zidir/md5.data   exists  True
+
+>>> file = os.path.basename('zidir/md5.data')
+>>> print('file is %s   exists  %s' % (file, os.path.exists(file)))
+file is md5.data   exists  False
+>>> 
+>>> fileobj = open('zidir/md5.data','rb')
+>>> type(fileobj)
+<class '_io.BufferedReader'>
+>>> count = 0
+>>> while True:
+...   data = fileobj.read(128)  #默认内存以Byte 字节为单位(1byte = 8bit)
+...   print(data, type(data), sep=' ---- ')
+...   if not data:
+...     break
+...   count += 1
+... 
+b"\x80\x03}q\x00(X)\x00\x00\x00/root/pyscripts/day07/srctest/filetest.pyq\x01X \x00\x00\x007a358b09af7c8553e8295ca271d0529bq\x02X'\x00\x00\x00/root/pyscripts/day07/srctest/" ---- <class 'bytes'>
+b'zifile.pyq\x03X \x00\x00\x007a358b09af7c8553e8295ca271d0529bq\x04X3\x00\x00\x00/root/pyscripts/day07/srctest/zisrcdir/zisrcfile.pyq\x05X \x00\x00\x007a358b09af7c855' ---- <class 'bytes'>
+b'3e8295ca271d0529bq\x06u.' ---- <class 'bytes'>
+b'' ---- <class 'bytes'>
+>>> fileobj.close()
+>>> print('一共循环读取了 %d 次' % count)
+一共循环读取了 3 次
+>>> 
+>>> 
+>>> str = '年月日'
+>>> print(type(str))
+<class 'str'>   #注意类型是str
+>>> 
+>>> str
+'年月日'
+-------------------------------- 注意关键词, encode 编码，编制成计算机语言
+
+>>> str = str.encode('unicode_escape') # 把字符串str 编码成unicode
+
+>>> print(type(str))
+<class 'bytes'>    #注意类型是 'bytes'
+>>>
+>>> str
+b'\\u5e74\\u6708\\u65e5'
+>>>
+
+------------------------ 注意关键词 decode，解 码
+
+>>> str = str.decode('utf-8') # 把字符串解码成utf-8,得到unicode的字符串
+>>> str
+'\\u5e74\\u6708\\u65e5'
+
+>>> type(str)
+<class 'str'>   #注意类型是 str
+>>> 
+
+------------- # 把字符串中的\u替换掉,得到十六进制unicode字符串
+>>> str
+'\\u5e74\\u6708\\u65e5'
+
+>>> str = str.replace('\\u', '')
+>>> str
+'5e74670865e5'
+>>> 
+------------ # 获取字符串前4位,代表字符串中的第一个字
+>>> str
+'5e74670865e5'
+>>> str_a = str[:4]
+>>> str_b = str[4:8]
+>>> str_c = str[8:]
+>>> str_a
+'5e74'
+>>> str_b
+'6708'
+>>> str_c
+'65e5'
+>>> 
+hexadecimal     英 [ˌheksəˈdesɪml]  美 [ˌhɛksəˈdɛsəməl]  
+    n.& adj.十六进制（的）
+
+-------------- # 把十六进制字符串转为int类型数字
+
+>>> inta =  int(str_a,16)
+>>> inta
+24180
+>>> type(inta)
+<class 'int'>
+>>> 
+>>> chr(24180)  # int 型 数字 转换成 字符
+'年'
+>>> 
+>>> type(chr(24180))
+<class 'str'>
+>>> 
+
+>>> 
+>>> hex(24180)  # 把int转成十六进制
+'0x5e74'
+>>> 
+
+
+
+=======================================
+================== ('utf-8') ======================
+>>> 
+>>> str = '年月日'
+>>> str
+'年月日'
+>>> type(str)
+<class 'str'>
+-----------------------------------------------注意关键词, encode 编码，编制成计算机语言
+
+>>> str = str.encode('utf-8')   # 把字符串编码成utf-8 编码，编制成计算机语言
+>>> str
+b'\xe5\xb9\xb4\xe6\x9c\x88\xe6\x97\xa5'
+>>> type(str)
+<class 'bytes'>
+>>> 
+----------------------------------------------注意关键词 decode，解 码
+
+>>> str = str.decode('utf-8')  # 把utf-8 转换成 字符串( 解 码 )
+>>> type(str)
+<class 'str'>
+>>> str
+'年月日'
+>>> 
+================== ('utf-8') ======================
+
+>>> a = '月'
+>>> a
+'月'
+>>> type(a)
+<class 'str'>
+--------------------------------------注意关键词, encode 编码，编制成计算机语言
+
+>>> a = a.encode(encoding = 'utf-8')
+>>> type(a)
+<class 'bytes'>
+>>> a
+b'\xe6\x9c\x88'
+>>> 
+-------------- ------------    注意关键词 decode，解 码
+
+>>> a = a.decode(encoding = 'utf-8')
+>>> a
+'月'
+>>> type(a)
+<class 'str'>
+>>> 
+
+>>> a = '日'
+>>>    
+>>> a = bytes(a,encoding= 'utf8')
+>>> a
+b'\xe6\x97\xa5'
+>>>
+>>> type(a)
+<class 'bytes'>
+>>> 
+----------------注意关键词 decode，解 码
+
+>>> a = a.decode('utf-8')
+>>> a
+'日'
+>>> type(a)
+<class 'str'>
+>>> 
+
+
+========================================
+
+---------------------------------------------------------------------------------
+>>> 
+>>> a = 'hello'
+>>> a
+'hello'
+>>> type(a)
+<class 'str'>
+>>> a = bytes(a, 'ascii')
+>>> a
+b'hello'
+>>> type(a)
+<class 'bytes'>
+
+----------------注意关键词 decode，解 码
+
+>>> a = a.decode('ascii')
+>>> a
+'hello'
+>>> type(a)
+<class 'str'>
+>>> 
+--------------------------------------------------------------------
+
+===============================================
+=================== ('unicode_escape') ========================
+
+encode       英 [ɪnˈkəʊd] 
+      vt.（将文字材料）译成密码;编码，编制成计算机语言
+
+escape     英 [ɪˈskeɪp] 
+      v.逃脱;逃离;躲过;泄露
+
+decode      英 [ˌdi:ˈkəʊd] 
+      vt.译（码），解（码）;分析及译解电子信号
+>>> 
+>>> str = '年月日'
+>>> type(str)
+<class 'str'>
+>>> str
+'年月日'
+>>> -------------------------------------------------------------
+----- ## 把字符串str 编码成unicode,注意关键词, encode, 编码，编制成计算机语言
+
+>>> str = str.encode('unicode_escape') # 把字符串str 编码成unicode,注意关键词
+>>> type(str)
+<class 'bytes'>
+>>> str
+b'\\u5e74\\u6708\\u65e5'
+>>> 
+----------------------------------------------------------注意关键词 decode，解 码
+
+----- # 用unicode解码，得到对应的汉字,注意关键词 decode，解 码
+
+>>> str = str.decode('unicode_escape')
+>>> type(str)
+<class 'str'>
+>>> str
+'年月日'
+>>> 
+============== ('unicode_escape') =================
+========================================
+
+
+b'\x80\x03}q\x00(X)\x00\x00\x00'
+
+
+>>> hello = bytes('hello boy',encoding='utf8')
+>>> print(hello)
+b'hello boy'
+>>> type(hello)
+<class 'bytes'>
+>>> 
+
+>>> 
+>>> a = bytes([1, 2, 3])
+>>> a
+b'\x01\x02\x03'
+>>> type(a)
+<class 'bytes'>
+>>> 
+>>> a = bytes('hello', 'ascii')
+>>> a
+b'hello'
+>>> 
+>>> type(a)
+<class 'bytes'>
+>>> 
+=====================================
+
+python中的字符数字之间的转换函数
+
+str(x )                 将对象 x 转换为字符串    
+repr(x )                将对象 x 转换为表达式字符串    
+chr(x )                 将一个整数转换为一个字符 
+unichr(x )              将一个整数转换为Unicode字符
+ord(x )                 将一个字符转换为它的整数值    
+hex(x )                 将一个整数转换为一个十六进制字符串    
+oct(x )                 将一个整数转换为一个八进制字符串   
+
+attribute        英 [əˈtrɪbju:t]
+         vt.认为…是;把…归于;把…品质归于某人;认为某事[物]属于某人[物]
+         n.属性;（人或物的）特征;
+
+[root@V0 day07]# scp  ooptoy.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/day07
+
+
+[root@V0 day07]# cd  zidir/
+[root@V0 zidir]# ls
+md5.data
+[root@V0 zidir]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import  os
+>>> os.linesep
+'\n'
+>>> os.listdir()  #默认 只能 显示当前目录下的所有文件和文件夹,不会递归显示下一级目录下的文件
+['md5.data']
+>>> 
+>>> class  MyClass1 :
+...  pass
+... 
+>>> 
+>>> a = MyClass1()
+>>> a.size = 'first  attribute'  #不推荐使用这样的用法
+>>> a.xx = 'second  attribute'
+
+>>> a.size
+'first  attribute'
+
+>>> type(a.size)
+<class 'str'>
+
+>>> print(a.xx)
+second  attribute
+
+>>> type(a)
+<class '__main__.MyClass1'>
+>>> 
+
+material     英 [məˈtɪəriəl]   美 [məˈtɪriəl]  
+    n.素材;材料，原料;布，织物;适当人选
+    adj.物质的;肉体的;重要的，决定性的;辩证的，推论的
+
+#!/usr/bin/env  python3
+#coding:UTF-8
+"""#coding=UTF-8 专门为版本2 解决默认编码问题,可以识别中文"""
+
+import  sys
+
+sys.stdout.write('\033[32;46;1m__name__ is %s\n\033[0m' % __name__)
+
+
+class   BearToy:
+
+  #实例化类 产生的一个实例 默认会调用的方法__init__函数
+  def  __init__(self, size, color):
+    self.size = size
+    self.color = color
+
+  def   sing(self,song):    #self必不可少
+    print('lalala...', song)
+
+  def update_color(self, newcolor):
+    self.color = newcolor
+  def get_color(self):
+    return  self.color
+
+class NewBearToy(BearToy):  #在圆括号中写明从哪个父类继承
+  def  __init__(self,size,color,material):
+    self.size = size
+    self.color = color
+    self.material = material
+
+
+  def run(self):
+    print('running ----------')
+
+
+
+if  __name__ == '__main__':
+  sys.stdout.write('\033[31;47;1msys.argv is %s\n\033[0m' % sys.argv)
+
+  b1 = NewBearToy('larger','brown',True)
+
+  b1.run()
+  #running ----------
+
+  b1.sing('song ------b1 --------')
+  #lalala... song ------b1 --------
+
+  tidy2 = BearToy('bigger', 'orange')
+
+  print(BearToy.sing(tidy2,'sssssss---tidy2---')) #很少使用,借用身份运行方法
+  #lalala... sssssss---tidy2---
+  #None
+
+  print(BearToy('larger','brown'))
+  #<__main__.BearToy object at 0x7fb96ee9b7f0>
+
+  print(BearToy('larger','brown').sing('newbeartoySing'))
+  #lalala... newbeartoySing
+  #None
+
+
+
+
+
+
+
+
+
+
+
+
+
+

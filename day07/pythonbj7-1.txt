@@ -1,0 +1,1070 @@
+
+
+
+site      英 [saɪt]   美 [saɪt]  
+      n.遗址;地点，位置，场所;[计算机]网站;地皮
+      vt.使坐落在;安放，设置;
+
+类型错误：get_dictionary（）关键字必须是字符串
+    get_dictionary(**info_dict)   # ** 两个星号表示参数info_dict 是个字典 
+TypeError: get_dictionary() keywords must be strings
+
+
+#! /usr/bin/env python3
+#coding:UTF-8
+"""这是测试模版说明--------
+
+#! /usr/bin/env python3
+#coding=UTF-8
+"""这是测试模版说明--------
+
+
+-----  #最关键的文件__init__.py 专门为 python2 版本支持自定义模块的导入功能 ---------
+
+[root@V0 pyscripts]# touch  day07/__init__.py    #最关键的文件__init__.py 
+
+
+[root@V0 pyscripts]# python    #注意是python 版本2 ,不是3
+
+Python 2.7.5 (default, May  3 2017, 07:55:04) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-14)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> 
+>>> import  day07.mobantest     #这次成功导入了自定义模版,条件
+__name__  is day07.mobantest
+
+>>> print(day07.mobantest.date)
+2019年*04月*10日 19时:10分:26秒
+>>> day07.mobantest.date
+'2019\xe5\xb9\xb4*04\xe6\x9c\x88*10\xe6\x97\xa5 19\xe6\x97\xb6:10\xe5\x88\x86:26\xe7\xa7\x92'
+>>> 
+>>> day07.mobantest.__file__
+'day07/mobantest.py'
+>>> 
+[root@V0 day07]# ls
+get_dictionary_tuple.py  __init__.py  __init__.pyc  mobantest.py  mobantest.pyc  __pycache__
+[root@V0 day07]# ll  mobantest.pyc
+-rw-r--r-- 1 root root 1326 4月  10 19:10 mobantest.pyc
+
+[root@V0 day07]# ll  __init__.pyc
+-rw-r--r-- 1 root root 104 4月  10 18:34 __init__.pyc
+
+[root@V0 day07]# 
+[root@V0 day07]# ll  __init__.py      #注意  __init__.py  还是空文件,没有内容
+-rw-r--r-- 1 root root 0 4月  10 18:34 __init__.py
+[root@V0 day07]# 
+[root@V0 day07]# cat   __init__.py
+[root@V0 day07]# 
+
+
+
+
+从zip文件中导入
+•  在2.3版中,python加入了从ZIP归档文件导入模块的功能
+•  如果搜索路径中存在一个包含python模块(.py、.pyc、
+或.pyo文件)的.zip文件,导入时会把ZIP文件当作目录处理
+
+#导入sys模块,在搜索路径中加入相应的zip文件	
+>>> import   sys
+>>> sys.path.append('/root/pymodule.zip')	
+>>> import  foo  #导入pymodule.zip压缩文件中的foo模块
+
+所有的导入现在都被认为是绝对的,也就是说
+这些名字必须通过python路径(sys.path或
+PYTHONPATH)来访问
+
+因为import语句总是绝对导入的,
+所以相对导入只应用于from  import  语句
+
+[root@V0 day06]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> from  ..  import  day07.mobantest   #调用上级目录下的文件
+  File "<stdin>", line 1
+    from  ..  import  day07.mobantest
+                           ^
+SyntaxError: invalid syntax
+
+>>> import  sys
+>>> sys.path.append('..')   #调用上级目录下的文件
+
+>>> import  day07.mobantest
+
+__name__  is day07.mobantest
+>>> day07.mobantest.date
+'2019年*04月*10日 20时:02分:55秒'
+>>> 
+[root@V0 day06]# 
+
+[root@V0 day07]# ls   /usr/local/lib/python3.6/site-packages/
+easy_install.py       pkg_resources  setuptools
+pip                   __pycache__    setuptools-39.0.1.dist-info
+pip-10.0.1.dist-info  README.txt
+
+site      英 [saɪt]   美 [saɪt]  
+      n.遗址;地点，位置，场所;[计算机]网站;地皮
+      vt.使坐落在;安放，设置;
+
+[root@V0 day07]# cat  /usr/local/lib/python3.6/site-packages/README.txt 
+
+此目录存在，因此可以在此处安装  第三方软件包  。
+有关详细信息，请阅读site.py的源文件。
+
+[root@V0 day07]# cat   /usr/local/lib/python3.6/site-packages/easy_install.py
+"""Run the EasyInstall command"""
+
+if __name__ == '__main__':
+    from setuptools.command.easy_install import main
+    main()
+[root@V0 day07]# wc  -l  /usr/local/lib/python3.6/site.py 
+607 /usr/local/lib/python3.6/site.py
+
+[root@V0 day07]# cp  get_dictionary_tuple.py   /usr/local/lib/python3.6/site-packages/
+
+[root@V0 day07]# ls  /usr/local/lib/python3.6/site-packages/
+
+easy_install.py          pip-10.0.1.dist-info  README.txt
+get_dictionary_tuple.py  pkg_resources         setuptools
+pip                      __pycache__           setuptools-39.0.1.dist-info
+
+[root@V0 day07]# cd
+
+[root@V0 ~]# python3
+
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  get_dictionary_tuple
+__name__  is get_dictionary_tuple
+
+>>> help(get_dictionary_tuple)
+.............
+DATA
+    date = '2019年*04月*10日 16时:16分:47秒'
+
+FILE
+    /usr/local/lib/python3.6/site-packages/get_dictionary_tuple.py
+
+(END)
+
+>>> help(get_dictionary_tuple.get_abc)
+Help on function get_abc in module get_dictionary_tuple:
+
+get_abc(A, B, C)
+    函数方法说明: 传入 3 个参数
+(END)
+>>> get_dictionary_tuple.__file__  #注意 自定义模版 路径变化, site-packages可能有优先级规则
+
+'/usr/local/lib/python3.6/site-packages/get_dictionary_tuple.py'
+>>> 
+[root@V0 ~]# cd  -
+/root/pyscripts/day07
+
+[root@V0 day07]# pwd
+/root/pyscripts/day07
+
+[root@V0 day07]# python3
+
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  get_dictionary_tuple
+__name__  is get_dictionary_tuple
+
+>>> get_dictionary_tuple.__file__   #注意 自定义模版 路径变化,可能有优先级规则
+
+'/root/pyscripts/day07/get_dictionary_tuple.py'
+>>> 
+
+
+[root@room9pc01 ~]# python3
+
+Python 3.6.1 (default, Mar 20 2018, 00:12:35) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  sys
+
+>>> sys.__file__
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: module 'sys' has no attribute '__file__'
+
+>>> sys.path
+['', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/site-packages']
+>>> 
+
+[root@room9pc01 ~]# ll   /usr/local/lib/python36.zip
+ls: 无法访问/usr/local/lib/python36.zip: 没有那个文件或目录
+
+[root@room9pc01 ~]# ls  /usr/local/lib/python3.6/site-packages/ |wc  -l
+8
+[root@room9pc01 ~]# 
+
+[root@V0 day07]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> from  random  import  randint, choice  #导入模块中的某些功能
+
+>>> #注意 "自定义模块 get_dictionary_tuple 的某些功能方法get_abc,  get_tuple"
+
+>>> from   get_dictionary_tuple  import  get_abc,  get_tuple  #注意 "自定义模块
+
+__name__  is get_dictionary_tuple
+
+>>> 
+
+
+[root@V0 pyscripts]# python3             # 注意是python 版本3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  day07.get_dictionary_tuple
+
+__name__  is day07.get_dictionary_tuple
+
+>>>
+>>> day07.get_dictionary_tuple.__file__   # 注意 相对路径目录名day07 不可少
+'/root/pyscripts/day07/get_dictionary_tuple.py'
+
+>>>
+
+[root@V0 day06]# python3
+
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  sys          #绝对路径导入
+
+>>> sys.path.insert(0, '/root/pyscripts/day07')
+
+>>> print(sys.path)
+['/root/pyscripts/day07', '', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/site-packages']
+
+>>> import   mobantest
+
+__name__  is mobantest
+
+>>> mobantest.date
+'2019年*04月*10日 20时:19分:23秒'
+
+>>> 
+
+root@V0 day06]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  sys
+>>> sys.path.append('..')  #相对路径的上级目录 '..'
+>>> sys.path
+['', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/site-packages', '..']
+>>> print(sys.path)
+['', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/site-packages', '..']
+>>> print(sys.path[0])
+
+>>> print(sys.path[1])
+/usr/local/lib/python36.zip
+>>> print(sys.path[-1])
+..
+>>>
+>>> sys.path.insert(0,'/root/pyscripts/')  #作用效果和sys.path.append('..') 相同
+
+>>> import   day07.mobantest
+
+__name__  is day07.mobantest
+>>> 
+----------------------------------------
+>>> import  os, sys
+
+>>> source_dir = os.path.dirname('/root/pyscripts/day07')  #取出上一级目录dirname
+
+>>> sys.path.insert(0, source_dir)
+>>> 
+>>> sys.path
+['/root/pyscripts', '', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/site-packages']
+
+>>>
+>>> import   day07.mobantest
+__name__  is day07.mobantest
+
+>>> day07.mobantest.date
+'2019年*04月*10日 20时:55分:25秒'
+>>> 
+>>> os.path.abspath(day07.mobantest.__file__)  #绝对路径
+'/root/pyscripts/day07/mobantest.py'
+>>> 
+>>> os.path.dirname(os.path.abspath(day07.mobantest.__file__)) #取出上一级目录
+'/root/pyscripts/day07'
+
+>>> 
+
+[root@V0 day06]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  os, sys
+
+>>> source_dir = os.path.abspath('/root/pyscripts/day07')  #绝对路径abspath
+
+>>> print(source_dir)
+/root/pyscripts/day07
+
+>>> sys.path.insert(0, source_dir)
+
+>>> sys.path
+['/root/pyscripts/day07', '', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/site-packages']
+
+>>> import   mobantest
+
+__name__  is mobantest
+
+>>> 
+[root@V0 day06]# 
+[root@V0 day07]# scp   mobantest.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/day07
+
+[root@V0 ~]# ls  pyscripts/day07/
+get_dictionary_tuple.py  __init__.pyc  mobantest.pyc  zidir
+__init__.py              mobantest.py  __pycache__
+
+[root@V0 ~]# ls  pyscripts/day07/zidir/
+
+[root@V0 ~]# cd  pyscripts/day07/zidir/
+
+[root@V0 zidir]# ls   /usr/local/lib/python3.6/site-packages/
+easy_install.py          pip-10.0.1.dist-info  README.txt
+get_dictionary_tuple.py  pkg_resources         setuptools
+pip                      __pycache__           setuptools-39.0.1.dist-info
+[root@V0 zidir]# 
+[root@V0 zidir]# vim  zifile.py
+
+[root@V0 day07]# cat  zidir/zifile.py 
+#! /usr/bin/env python3
+#coding:UTF-8
+"""这是测试模版说明--------
+ * 表示把序列对象（列表，字符串，元组等） 拆开，得到个体"""
+import  sys, os
+
+print(sys.path)
+#['/root/pyscripts/day07/zidir', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/site-packages']
+
+print('os.path.dirname(os.path.abspath(__file__)) is  %s' % os.path.dirname(os.path.abspath(__file__) ))
+#os.path.dirname(os.path.abspath(__file__)) is  /root/pyscripts/day07/zidir
+
+print('__file__  is  %s' % __file__)
+#__file__  is  zifile.py
+
+print('os.path.abspath(__file__) is   %s' % os.path.abspath(__file__)) #绝对路径abspath
+#os.path.abspath(__file__) is   /root/pyscripts/day07/zidir/zifile.py
+
+sys.path.append('..')
+print(sys.path)
+#['/root/pyscripts/day07/zidir', '/usr/local/lib/python36.zip', '/usr/local/lib/python3.6', '/usr/local/lib/python3.6/lib-dynload', '/usr/local/lib/python3.6/site-packages', '..']
+
+import  mobantest
+#__name__  is mobantest
+
+print('mobantest.__file__  is %s' % mobantest.__file__)
+#mobantest.__file__  is ../mobantest.py
+
+
+print('\033[31;47;1m zifile --- __name__  is %s\033[0m' %  __name__)
+# zifile --- __name__  is __main__
+
+
+if __name__ == '__main__':
+  print('\033[30;43;1m sys.argv  is %s\033[0m\n' % sys.argv) 
+
+  print(mobantest.date)
+  #2019年*04月*11日 11时:09分:35秒
+
+  infolist = [ 2233, True ,'zifile']
+  mobantest.get_abc(*infolist)
+  # A is 2233	B is True	 C is zifile
+
+
+[root@V0 day07]# 
+[root@V0 day07]# cp  zidir/zifile.py   .
+
+[root@V0 day07]# md5sum  zidir/zifile.py   zifile.py 
+
+7a358b09af7c8553e8295ca271d0529b  zidir/zifile.py
+7a358b09af7c8553e8295ca271d0529b  zifile.py
+
+[root@V0 day07]# mv  zifile.py   filetest.py
+
+[root@V0 day07]# md5sum  zidir/zifile.py   filetest.py 
+
+7a358b09af7c8553e8295ca271d0529b  zidir/zifile.py
+7a358b09af7c8553e8295ca271d0529b  filetest.py
+[root@V0 day07]# 
+
+-----------------------
+
+hello = bytes('hello boy',encoding='utf8')
+m = hashlib.md5(hello)
+print(m.hexdigest)  #输出函数对象名信息
+#<built-in method hexdigest of _hashlib.HASH object at 0x7f03315607d8>
+
+print(m.hexdigest())  #输出16进制数字
+#03f80b5b465c40e0591830c1d3c970e5
+
+-----------------------------------------------------------------------------------
+>>> import  get_dictionary_tuple
+__name__  is get_dictionary_tuple
+>>> help(get_dictionary_tuple)
+
+Help on module get_dictionary_tuple:
+
+NAME
+    get_dictionary_tuple
+
+DESCRIPTION
+    这是测试模版说明--------
+FUNCTIONS
+    get_abc(A, B, C)
+        函数方法说明: 传入 3 个参数
+DATA
+    date = '2019年*04月*10日 16时:16分:47秒'
+
+FILE
+    /usr/local/lib/python3.6/site-packages/get_dictionary_tuple.py
+
+(END)
+
+>>> help(get_dictionary_tuple.get_abc)
+Help on function get_abc in module get_dictionary_tuple:
+
+get_abc(A, B, C)
+    函数方法说明: 传入 3 个参数
+(END)
+>>> 
+----------------------------
+>>> data = b''
+>>> data
+b''
+>>> print(type(data))
+<class 'bytes'>
+>>> if not data:
+...   print('data  is  null')
+... 
+data  is  null
+>>> 
+>>> import   hashlib
+>>> m = hashlib.md5()
+>>> print('m  is ---  %s' % m)
+m  is ---  <md5 HASH object @ 0x7fd8bc5b0940>
+>>> print(type(m))
+<class '_hashlib.HASH'>
+>>> 
+>>> None == None
+True
+>>> if  not None:
+...   print('not None')
+... 
+not None
+>>> 
+>>> None == 0
+False
+>>> 0 == 0
+True
+>>> [] == 0
+False
+>>> [] == []
+True
+>>> 
+>>> print(type(None))
+<class 'NoneType'>
+>>> x = 120
+>>> print(type(x))
+<class 'int'>
+>>> 
+
+>>> import   hashlib
+>>> with  open('/root/pyscripts/day07/filetest.py', 'rb') as fobj:
+...   data = fobj.read()
+... 
+>>> mdata = hashlib.md5( data )
+
+>>> print(type(mdata))
+<class '_hashlib.HASH'>
+
+>>> print(type(mdata.hexdigest()))
+<class 'str'>
+
+>>> print(mdata.hexdigest())
+7a358b09af7c8553e8295ca271d0529b
+
+>>> print(mdata)
+<md5 HASH object @ 0x7fb28998fa08>
+>>> 
+
+[root@V0 day07]# md5sum   /root/pyscripts/day07/srctest/*
+7a358b09af7c8553e8295ca271d0529b  /root/pyscripts/day07/srctest/filetest.py
+7a358b09af7c8553e8295ca271d0529b  /root/pyscripts/day07/srctest/zifile.py
+
+>>> import   os
+>>> os.listdir('/root/pyscripts/day07/srctest/')
+['filetest.py', 'zifile.py']
+>>> os.listdir('/root/pyscripts/day07/srctest/')[0]
+'filetest.py'
+>>> os.listdir('/root/pyscripts/day07/srctest/')[1]
+'zifile.py'
+>>> 
+
+>>> import   os
+>>> rootdir = '/root/pyscripts/day07/'
+
+>>> src_dir = rootdir + 'srctest/'
+
+>>> src_dir
+'/root/pyscripts/day07/srctest/'
+
+>>> os.path.exists(src_dir)
+True
+
+>>> os.listdir(src_dir)
+['filetest.py', 'zifile.py']
+
+>>> os.listdir(src_dir)[0]
+'filetest.py'
+
+>>> import  time
+
+>>> fname = os.listdir(src_dir)[0]
+
+>>> print(fname)
+filetest.py
+
+>>> print(type(fname))
+<class 'str'>
+>>> 
+
+>>>>>> 
+>>> src_dir
+'/root/pyscripts/day07/srctest/'
+
+>>> fname = os.path.basename(src_dir.rstrip('/'))
+
+>>> fname
+'srctest'
+
+>>> fname = '%s_full_%s.tar.gz' % (fname, time.strftime('%m月%d日%H时%M分%S秒'))
+
+>>> fname
+'srctest_full_04月11日17时54分16秒.tar.gz'
+
+>>> rootdir
+'/root/pyscripts/day07/'
+
+>>> dst_dir = rootdir + 'dstBackupDir/'
+
+>>> dst_dir
+'/root/pyscripts/day07/dstBackupDir/'
+
+
+>>> fname = dst_dir + fname      #拼接文件名全称
+>>> fname
+'/root/pyscripts/day07/dstBackupDir/srctest_full_04月11日17时54分16秒.tar.gz'
+
+
+>>> fname2 = os.path.basename(src_dir.rstrip('/'))
+>>> fname2
+'srctest'
+>>> fname2 = '%s_full_%s.tar.gz' % (fname2, time.strftime('%m月%d日%H时%M分%S秒'))
+>>> fname2
+'srctest_full_04月11日18时01分15秒.tar.gz'
+
+>>> fname2 = os.path.join(dst_dir, fname2)  #拼接文件名全称
+
+>>> fname2
+'/root/pyscripts/day07/dstBackupDir/srctest_full_04月11日18时01分15秒.tar.gz'
+>>> 
+
+
+hashlib模块
+•  hashlib用来替换md5和sha模块,并使他们的API一致,
+专门提供hash算法
+•  包括md5、sha1、sha224、sha256、sha384、sha512
+
+•  tarfile模块允许创建、访问tar文件
+•  同时支持gzip、bzip2格式
+
+[root@V0 day07]# vim  hashlib_tarfile.py 
+[root@V0 day07]# python3  hashlib_tarfile.py
+Traceback (most recent call last):
+  File "hashlib_tarfile.py", line 22, in <module>
+    m = hashlib.md5('hello boy')
+TypeError: Unicode-objects must be encoded before hashing
+[root@V0 day07]# 
+
+[root@V0 day07]# scp   hashlib_tarfile.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/day07
+
+[root@V0 day07]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+
+时间样式 
+格式            含义               格式                含义
+%a    本地简化星期名称           %m          月份(01 -12)  
+%A    本地完整星期名称           %M         分钟数(00-59)
+
+%b    本地简化月份名称           %p   本地am或者pm的相应符
+%B    本地完整月份名称           %S            秒(01 - 61)
+
+%c   本地相应的日期和时间         %U  一年中的星期数(00 - 53,星期日是一个星期的开始)
+%d   一个月中的第几天(01 - 31)     %w    一个星期中的第几天(0 - 6,0是星期天)
+%H   一天中的第几个小时(24小时制,00 - 23)
+ 
+%I  第几个小时(12小时制,01 - 12)   %x   本地相应日期
+                             %X   本地相应时间
+
+%j   一年中的第几天(001 - 366)     %y 去掉世纪的年份(00 - 99)
+%Z   时区的名字                    %Y            完整的年份  
+
+%S   十进制的秒数
+%t   水平制表符
+
+%H   一天中的第几个小时(24小时制,00 - 23)
+%M         分钟数(00-59)
+%S            秒(01 - 61)
+
+%T   显示时分秒：hh:mm:ss
+%R   显示小时和分钟：hh:mm
+%X   标准的时间串
+
+%F   年-月-日
+%Y          完整的年份 
+%m          月份(01 -12) 
+%d   一个月中的第几天(01 - 31)
+%x   标准的日期串
+
+>>> time.strftime("%X")
+'15:31:21'
+>>> 
+>>> time.strftime("%x")
+'04/03/19'  #%x 标准的日期串
+
+
+>>> import  time
+
+>>> type(time.localtime())
+<class 'time.struct_time'>
+
+>>> time.localtime()
+time.struct_time(tm_year=2019, tm_mon=4, tm_mday=11, tm_hour=14, tm_min=21, tm_sec=4, tm_wday=3, tm_yday=101, tm_isdst=0)
+
+>>> time.strftime('%Y年*%m月*%d日 %H时:%M分:%S秒',time.localtime())
+'2019年*04月*11日 14时:22分:02秒'
+
+>>> time.strftime('%a',time.localtime()) # %a 本地简化星期名称
+'Thu'
+>>> time.strftime('%A',time.localtime())
+'Thursday'                   #%A 本地完整星期名称
+
+>>> time.strftime('%b',time.localtime())
+'Apr'                        #%b 本地简化的月份名称
+>>> time.strftime('%B',time.localtime())
+'April'                      #%B 本地完整的月份名称
+
+>>> time.strftime('%c',time.localtime())
+'Thu Apr 11 14:23:50 2019'     #%c 本地相应的日期表示和时间表示
+
+>>> time.strftime('%w',time.localtime()) #星期四 =  '4'
+'4'                   #%w 星期（0-6），星期一 为 1 , 星期日是 零 0
+
+>>> time.strftime('%x',time.localtime())
+'04/11/19'                     #%x 本地相应的日期表示
+>>> time.strftime('%X',time.localtime())
+'14:26:18'                     #%X 本地相应的时间表示
+>>> 
+>>> time.strftime('%Z',time.localtime())
+'CST'                            #当前时区的名称
+>>> time.strftime('%%',time.localtime())
+'%'                                #%% %号本身
+>>> 
+>>> time.strftime('%M',time.localtime())
+'39'
+>>> time.strftime('%S',time.localtime())
+'56'                             #%S   秒(01 - 61)
+>>> time.strftime('%S',time.localtime())
+'07'
+>>> time.strftime('%M',time.localtime())
+'40'                           #%M     分钟数(00-59)
+>>> 
+>>> int(time.strftime('%M',time.localtime()))
+46
+>>> int(time.strftime('%M',time.localtime()))%2
+0
+>>> int(time.strftime('%M',time.localtime()))%2
+1
+>>> 
+>>> int(time.strftime('%S',time.localtime())) % 3
+0
+>>> int(time.strftime('%S',time.localtime())) % 3
+1
+>>> int(time.strftime('%S',time.localtime())) % 3
+2
+>>> 
+
+source
+英 [sɔ:s]   美 [sɔ:rs]  
+n.
+根源，本源;源头，水源;原因;
+
+destination
+英 [ˌdestɪˈneɪʃn]  美 [ˌdɛstəˈneʃən]  
+n.
+目的，目标;目的地，终点;
+
+increase   英 [ɪnˈkri:s]   美 [ɪnˈkris]  
+    vt.& vi.增加，增大，增多
+
+def  test():
+  if  int(time.strftime('%S',time.localtime()))%3 == 0 :
+    print('0')
+  elif int(time.strftime('%S',time.localtime()))%3 == 1:
+    print('1')
+  else:
+    print('2')
+
+test()
+
+>>> def  test():
+...   if  int(time.strftime('%S',time.localtime()))%3 == 0 :
+...     print('0')
+...   elif int(time.strftime('%S',time.localtime()))%3 == 1:
+...     print('1')
+...   else:
+...     print('2')
+... 
+>>> test()
+0
+>>> test()
+2
+>>> test()
+0
+>>> test()
+1
+>>> test()
+2
+>>>
+[root@V0 day07]# ls    srctest/
+filetest2.py  filetest.py  zifile.py
+
+[root@V0 day07]# ls    dstBackupDir/
+[root@V0 day07]# ls    zidir/
+根目录
+[计]root directory
+[root@V0 day07]# pwd
+/root/pyscripts/day07
+
+
+os模块简介
+•  对文件系统的访问大多通过python的os模块实现
+•  该模块是python访问操作系统功能的主要接口
+•  有些方法,如copy等,并没有提供,
+可以使用shutil模块作为补充
+
+os模块方法
+函数                 作用
+os.symlink(src, dst)       创建符号链接,即软链接
+
+os.link(src, dst)	创建硬链接，名为参数 dst，指向参数 src
+
+os.remove(path)  删除路径为path的文件。
+        如果path 是一个文件夹，将抛出OSError; 
+
+listdir()        列出指定目录的文件
+getcwd()         返回当前工作目录
+mkdir()          创建目录
+os.mkdir(path[, mode])	以数字mode的mode创建一个名为path的文件夹.
+       默认的 mode 是 0777 (八进制)。
+
+makedirs(path)  #递归创建新的目录,如果存在的话，抛异常
+os.makedirs('E:\\ONE\\TWO')
+os.makedirs('E:\\ONE\\THREE')
+#这样我们就在E盘中得到一个ONE目录，
+其中含有两个目录，TWO，THREE
+
+os.removedirs(path)	# 递归删除没有文件的空目录
+
+os.rmdir(path)  删除path指定的空目录，
+        如果目录非空，则抛出一个OSError异常。
+
+>>> os.mkdir('/osdir')
+>>> os.listdir('/osdir')
+[]
+>>>
+>>> import   os
+>>> os.path.basename('/root/pyscripts/day07/filetest.py')
+'filetest.py'
+>>> 
+>>> os.path.dirname('/root/pyscripts/day07/filetest.py')
+'/root/pyscripts/day07'
+>>>
+>>> os.path.abspath('/root/pyscripts/day07/filetest.py')
+'/root/pyscripts/day07/filetest.py'
+>>> 
+>>> os.path.basename('/root/pyscripts/day07/filetest.py/')
+''
+>>> os.path.basename('/root/pyscripts/day07/filetest.py/'.rstrip('/'))
+'filetest.py'                   #去除字符串右边的斜杠'/',不管右边 是否有斜杠'/'
+>>> 
+>>> os.path.basename('/root/pyscripts/day07/filetest.py'.rstrip('/'))
+'filetest.py'
+>>> 
+
+walk()方法
+语法格式如下：
+
+os.walk(top[, topdown=True[, onerror=None[, followlinks=False]]])
+参数
+top -- 根目录下的每一个文件夹(包含它自己), 
+产生3-元组 (dirpath, dirnames, filenames)【文件夹路径, 文件夹名字, 文件名】。
+
+topdown --可选，为True或者没有指定, 
+一个目录的的3-元组将比它的任何子文件夹的3-元组先产生 (目录自上而下)。
+如果topdown为 False, 
+一个目录的3-元组将比它的任何子文件夹的3-元组后产生 (目录自下而上)。
+
+onerror -- 可选，是一个函数; 
+它调用时有一个参数, 一个OSError实例。
+报告这错误后，继续walk,或者抛出exception终止walk。
+
+followlinks -- 设置为 true，则通过软链接访问目录。
+返回值
+该方法没有返回值。
+
+
+实例演示了 walk() 方法的使用：
+#!/usr/bin/python3
+
+import os
+for root, dirs, files in os.walk(".", topdown=False):
+    for name in files:
+        print(os.path.join(root, name))
+    for name in dirs:
+        print(os.path.join(root, name))
+
+
+[root@V0 day07]# ls  -R  /root/pyscripts/day07/srctest/
+
+/root/pyscripts/day07/srctest/:
+filetest.py  zifile.py  zisrcdir
+
+/root/pyscripts/day07/srctest/zisrcdir:
+zisrcfile.py
+
+[root@V0 day07]# python3
+
+>>> import  os
+>>> fname = '/root/pyscripts/day07/srctest'
+
+>>> for  path,  dirs, files  in  os.walk(fname):
+...   for  each_file  in  files:
+...     os.path.join(path, each_file)
+...   for  zi_dir  in dirs:
+...      os.path.join(path, zi_dir)
+... 
+'/root/pyscripts/day07/srctest/filetest.py'
+'/root/pyscripts/day07/srctest/zifile.py'
+'/root/pyscripts/day07/srctest/zisrcdir'
+'/root/pyscripts/day07/srctest/zisrcdir/zisrcfile.py'
+>>> 
+>>> 
+>>> for  path,  dirs, files  in  os.walk(fname):
+...   for  each_file  in  files:
+...     print(os.path.join(path, each_file))
+... 
+/root/pyscripts/day07/srctest/filetest.py
+/root/pyscripts/day07/srctest/zifile.py
+/root/pyscripts/day07/srctest/zisrcdir/zisrcfile.py
+>>> 
+
+
+[root@V0 day07]# ls  /root/pyscripts/day07/srctest/
+filetest.py  zifile.py  zisrcdir
+
+[root@V0 day07]# ls  -R  /root/pyscripts/day07/srctest/
+
+/root/pyscripts/day07/srctest/:
+filetest.py  zifile.py  zisrcdir
+
+/root/pyscripts/day07/srctest/zisrcdir:
+zisrcfile.py
+
+[root@V0 day07]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  os
+>>> fname = '/root/pyscripts/day07/srctest'
+
+>>> list(os.walk(fname))
+[ (  '/root/pyscripts/day07/srctest' , #父目录,文件夹路径path
+    [ 'zisrcdir' ] ,     # 文件夹名字---- 只有一个子目录, 此列表元素个数是 一 dirs
+    [ 'filetest.py',  'zifile.py' ]  #文件名---- 当前 父 目录的 子文件files  )  ,
+
+    ( '/root/pyscripts/day07/srctest/zisrcdir', #子目录, 文件夹路径path
+        [   ]  ,    # 文件夹名字 ----没有子文件夹,则是空列表 dirs
+      [ 'zisrcfile.py' ]   #文件----名子 目录的 子文件files ) 
+  ]
+
+>>>  一共 是 父 列表 中 包含 两个 子 元组 ,
+>>> 第一个子元组中 的第一个列表 包含的是 子 文件夹名,
+                        第 2 个列表 包含的是 子 文件名
+
+    第 2 个子元组中 的第一个列表 包含的是 子 文件夹名,
+                        第 2 个列表 包含的是 子 文件名
+>>>
+>>>
+[ (  ' fudir '  , #父目录,文件夹路径
+    [  ' fu-zidir '  ] ,     # 文件夹名字----只有一个子目录, 此列表元素个数是 一 
+    [ ' zifile',  'zifile2' ]  #文件名----当前 父 目录的 子文件 )  ,
+
+    ( 'fu-zidir', #子目录, 文件夹路径
+        [   ]  ,       # 文件夹名字-----没有子文件夹,则是空列表 
+      [ 'zidir-zifile' ]   #文件名-----子 目录的 子文件  ) 
+  ]
+>>>
+>>> os.walk(fname)
+<generator object walk at 0x7fb5b5f9fd58>
+
+>>> type(os.walk(fname))
+<class 'generator'>
+
+>>> type(list(os.walk(fname)))
+<class 'list'>
+>>> 
+>>> files = list(os.walk(fname))
+>>> len(files)
+2
+>>> len(list(os.walk(fname)))
+2
+>>> 
+>>> 
+
+#[root@V0 day07]# rm  -rf  zidir/   dstBackupDir/
+#[root@V0 day07]# ls    dstBackupDir/   zidir/
+#ls: 无法访问dstBackupDir/: 没有那个文件或目录
+#ls: 无法访问zidir/: 没有那个文件或目录
+
+[root@V0 day07]# ls dstBackupDir/
+srctest_full_04月11日20时36分12秒.tar.gz
+[root@V0 day07]# ls  zidir/
+md5.data
+[root@V0 day07]# ll  zidir/md5.data 
+-rw-r--r-- 1 root root 277 4月  11 20:36 zidir/md5.data
+
+[root@V0 day07]# tar  -tzPf  dstBackupDir/srctest_full_04月11日20时36分12秒.tar.gz 
+root/pyscripts/day07/srctest/
+root/pyscripts/day07/srctest/filetest.py
+root/pyscripts/day07/srctest/zifile.py
+root/pyscripts/day07/srctest/zisrcdir/
+root/pyscripts/day07/srctest/zisrcdir/zisrcfile.py
+
+[root@V0 day07]# ls  srctest/
+filetest.py  zifile.py  zisrcdir
+[root@V0 day07]# ls  srctest/zisrcdir/
+zisrcfile.py
+[root@V0 day07]# 
+
+[root@V0 day07]# scp   backup_hash_tar.py    root@192.168.0.254:/var/git/PYTHON/pythonScripts/day07
+root@192.168.0.254's password: 
+backup_hash_tar.py                                 100% 6172     5.2MB/s   00:00    
+[root@V0 day07]# 
+
+
+基本概念
+•  类(Class):用来描述具有相同的属性和方法的对象的集合。
+它定义了该集合中每个对象所共有的属性和方法。
+对象是类的实例。
+•  实例化:创建一个类的实例,类的具体对象。
+•  方法:类中定义的函数。
+•  对象:通过类定义的数据结构实例。
+对象包括两个数据成员
+(类变量和实例变量)和方法。
+
+orient      英 [ˈɔ:rient]   美 [ˈɔriənt, -ˌɛnt, ˈor-]  
+     vt.标定方向;使…向东方;以…为参照;使熟悉或适应
+     adj.东方的;
+
+oriented      英 ['ɔ:rɪəntɪd]   美 ['ɔ:rɪrntɪd]  
+    adj.导向的;定向的;以…为方向的;定方向
+
+analysis       英 [əˈnæləsɪs]   美 [əˈnælɪsɪs]  
+     n.分析，分解;梗概，要略;[数]解析;验定
+
+program     英 [ˈprəʊgræm]   美 [ˈproʊgræm]  
+    n.程序;节目，节目单;计划，安排
+    v.[计]给…编写程序;为…制定计划;设计安排活动;编排
+
+design     英 [dɪˈzaɪn]   美 [dɪˈzaɪn]  
+      vt.& vi.设计;绘制
+      vt.设计;计划;企图;决意（做）
+      n.设计;图案;结构;计划
+
+
+oo(object-oriented):
+基于对象概念,
+以对象为中心,以类和继承为构造机制,
+来认识,理解,刻画客观世界和设计,
+构建相应的软件系统的一门方法;
+本意----模拟人类的思维方式,使开发,维护,修改更加容易
+
+
+analysis       英 [əˈnæləsɪs]   美 [əˈnælɪsɪs]  
+     n.分析，分解;梗概，要略;[数]解析;验定
+
+面向对象分析
+
+ooa(object-oriented analysis):
+强调的是在系统调查资料的基础上，
+针对OO方法所需要的素材进行的归类分析和整理，
+而不是对管理业务现状和方法的分析
+-------其实就是进一步对oo进行细化,
+初步得出该oo的属性与方法
+(或者简单的理解:在得出的文档中对接口的粗略定义) ­ 
+
+OOD
+abbr.
+面向对象设计
+  
+ood(object-oriented design):
+OO方法中一个中间过渡环节,
+其主要作用是对ooa分析的结果作进一步的规范化整理，
+以便能够被OOP直接接受
+------整理和定义oo的属性和方法 ­ 
+
+OOP
+Object Oriented Programming 面向对象的程序设计
+
+oop(object-oriented programming):
+把组件的实现和接口分开，
+并且让组件具有多态性----(抽象,继承,封装,多态)面向接口编程
+
+
+
+
+
+
+
+
+
+
+
+
