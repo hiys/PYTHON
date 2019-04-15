@@ -134,6 +134,35 @@ b'\xe5\xb9\xb4\xe6\x9c\x88\xe6\x97\xa5'
 >>> 
 ================== ('utf-8') ======================
 
+>>> '%s' % 'abc年月日'
+'abc年月日'
+>>> bytes('%s' % 'abc年月日', encoding= 'utf8')
+b'abc\xe5\xb9\xb4\xe6\x9c\x88\xe6\x97\xa5'
+
+>>> x = bytes('%s' % 'abc年月日', encoding= 'utf8')
+>>> type(x)
+<class 'bytes'>
+>>> x
+b'abc\xe5\xb9\xb4\xe6\x9c\x88\xe6\x97\xa5'
+
+>>> y = x.decode('utf8')
+>>> y
+'abc年月日'
+>>> type(y)
+<class 'str'>
+
+>>> x
+b'abc\xe5\xb9\xb4\xe6\x9c\x88\xe6\x97\xa5'
+>>> z = str(x, encoding= 'utf8')
+>>> z
+'abc年月日'
+>>> type(z)
+<class 'str'>
+>>> 
+
+
+-----------------------------------------------------------------------
+
 >>> a = '月'
 >>> a
 '月'
@@ -2221,11 +2250,44 @@ https://www.cnblogs.com/rusking/p/5413209.html
 
 [root@V0 day08]# ls
 tcp_server.py
-[root@V0 day08]# scp  tcp_server.py   root@192.168.0.254:'/var/git/PYTHON/pythonScripts/day08' 
+[root@V0 day08]# scp  tcp_server.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/day08 
 root@192.168.0.254's password: 
 
 
 
+[root@V0 ~]# cat  -n   /etc/xinetd.d/telnet
+     1	service telnet         #设置telnet服务
+     2	{
+     3	  flags = REUSE
+     4	  socket_type = stream   #说明Socket连接类型是stream，也就是TCP
+     5	  wait = no              #不等待 到启动完成
+     6	  user = lisi                     #以lisi 用户启动服务进程
+     7	  server = /usr/sbin/in.telnetd   #服务进程是/usr/sbin/in.telnetd
+     8	  log_on_failure  += USERID       #用于做一些出错日志
+     9	  #disable = yes  # 【或者把yes改为no】 允许远程telnet
+    10	  access_times = 08:00-12:00 12:30-17:00  #规定允许连接的时间段8~12点,12:30~17点
+    11	  instances =  2   #这里设置只允许最多 2个连接数，第3 个就无法连接了
+    12	  only_from = 192.168.1.11  #只允许 192.168.1.11 连接
+    13	}
+[root@V0 ~]# ll  /etc/secur
+securetty  security/  
+[root@V0 ~]# ll  /etc/securetty 
+-rw-------. 1 root root 221 5月   4 2016 /etc/securetty
+[root@V0 ~]# vim   /etc/securetty
+[root@V0 ~]# head  -2  /etc/securetty
+console
+vc/1
+[root@V0 ~]# tail  -2  /etc/securetty
+hvsi2
+xvc0
+[root@V0 ~]# file  /etc/security/
+/etc/security/: directory
+[root@V0 ~]# ls   /etc/security/
+access.conf       console.perms    limits.d        opasswd         time.conf
+chroot.conf       console.perms.d  namespace.conf  pam_env.conf
+console.apps      group.conf       namespace.d     pwquality.conf
+console.handlers  limits.conf      namespace.init  sepermit.conf
+[root@V0 ~]# 
 
 
 

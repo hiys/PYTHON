@@ -1,0 +1,1211 @@
+
+http://www.ip138.com/
+手机上网查询 : m.ip138.com
+
+>>> import   os
+>>> file = os.path.abspath('zidir/md5.data')
+>>> 
+>>> print(file)
+/root/pyscripts/day07/zidir/md5.data
+
+>>> print('file is %s   exists  %s' % (file, os.path.exists(file)))
+file is /root/pyscripts/day07/zidir/md5.data   exists  True
+
+>>> file = os.path.basename('zidir/md5.data')
+>>> print('file is %s   exists  %s' % (file, os.path.exists(file)))
+file is md5.data   exists  False
+>>> 
+>>> fileobj = open('zidir/md5.data','rb')
+>>> type(fileobj)
+<class '_io.BufferedReader'>
+>>> count = 0
+>>> while True:
+...   data = fileobj.read(128)  #默认内存以Byte 字节为单位(1byte = 8bit)
+...   print(data, type(data), sep=' ---- ')
+...   if not data:
+...     break
+...   count += 1
+... 
+b"\x80\x03}q\x00(X)\x00\x00\x00/root/pyscripts/day07/srctest/filetest.pyq\x01X \x00\x00\x007a358b09af7c8553e8295ca271d0529bq\x02X'\x00\x00\x00/root/pyscripts/day07/srctest/" ---- <class 'bytes'>
+b'zifile.pyq\x03X \x00\x00\x007a358b09af7c8553e8295ca271d0529bq\x04X3\x00\x00\x00/root/pyscripts/day07/srctest/zisrcdir/zisrcfile.pyq\x05X \x00\x00\x007a358b09af7c855' ---- <class 'bytes'>
+b'3e8295ca271d0529bq\x06u.' ---- <class 'bytes'>
+b'' ---- <class 'bytes'>
+>>> fileobj.close()
+>>> print('一共循环读取了 %d 次' % count)
+一共循环读取了 3 次
+>>> 
+>>> 
+>>> str = '年月日'
+>>> print(type(str))
+<class 'str'>   #注意类型是str
+>>> 
+>>> str
+'年月日'
+-------------------------------- 注意关键词, encode 编码，编制成计算机语言
+
+>>> str = str.encode('unicode_escape') # 把字符串str 编码成unicode
+
+>>> print(type(str))
+<class 'bytes'>    #注意类型是 'bytes'
+>>>
+>>> str
+b'\\u5e74\\u6708\\u65e5'
+>>>
+
+------------------------ 注意关键词 decode，解 码
+
+>>> str = str.decode('utf-8') # 把字符串解码成utf-8,得到unicode的字符串
+>>> str
+'\\u5e74\\u6708\\u65e5'
+
+>>> type(str)
+<class 'str'>   #注意类型是 str
+>>> 
+
+------------- # 把字符串中的\u替换掉,得到十六进制unicode字符串
+>>> str
+'\\u5e74\\u6708\\u65e5'
+
+>>> str = str.replace('\\u', '')
+>>> str
+'5e74670865e5'
+>>> 
+------------ # 获取字符串前4位,代表字符串中的第一个字
+>>> str
+'5e74670865e5'
+>>> str_a = str[:4]
+>>> str_b = str[4:8]
+>>> str_c = str[8:]
+>>> str_a
+'5e74'
+>>> str_b
+'6708'
+>>> str_c
+'65e5'
+>>> 
+hexadecimal     英 [ˌheksəˈdesɪml]  美 [ˌhɛksəˈdɛsəməl]  
+    n.& adj.十六进制（的）
+
+-------------- # 把十六进制字符串转为int类型数字
+
+>>> inta =  int(str_a,16)
+>>> inta
+24180
+>>> type(inta)
+<class 'int'>
+>>> 
+>>> chr(24180)  # int 型 数字 转换成 字符
+'年'
+>>> 
+>>> type(chr(24180))
+<class 'str'>
+>>> 
+
+>>> 
+>>> hex(24180)  # 把int转成十六进制
+'0x5e74'
+>>> 
+
+
+
+=======================================
+================== ('utf-8') ======================
+>>> 
+>>> str = '年月日'
+>>> str
+'年月日'
+>>> type(str)
+<class 'str'>
+-----------------------------------------------注意关键词, encode 编码，编制成计算机语言
+
+>>> str = str.encode('utf-8')   # 把字符串编码成utf-8 编码，编制成计算机语言
+>>> str
+b'\xe5\xb9\xb4\xe6\x9c\x88\xe6\x97\xa5'
+>>> type(str)
+<class 'bytes'>
+>>> 
+----------------------------------------------注意关键词 decode，解 码
+
+>>> str = str.decode('utf-8')  # 把utf-8 转换成 字符串( 解 码 )
+>>> type(str)
+<class 'str'>
+>>> str
+'年月日'
+>>> 
+================== ('utf-8') ======================
+
+>>> '%s' % 'abc年月日'
+'abc年月日'
+>>> bytes('%s' % 'abc年月日', encoding= 'utf8')
+b'abc\xe5\xb9\xb4\xe6\x9c\x88\xe6\x97\xa5'
+
+>>> x = bytes('%s' % 'abc年月日', encoding= 'utf8')
+>>> type(x)
+<class 'bytes'>
+>>> x
+b'abc\xe5\xb9\xb4\xe6\x9c\x88\xe6\x97\xa5'
+
+>>> y = x.decode('utf8')
+>>> y
+'abc年月日'
+>>> type(y)
+<class 'str'>
+
+>>> x
+b'abc\xe5\xb9\xb4\xe6\x9c\x88\xe6\x97\xa5'
+>>> z = str(x, encoding= 'utf8')
+>>> z
+'abc年月日'
+>>> type(z)
+<class 'str'>
+>>> 
+
+
+-----------------------------------------------------------------------
+
+>>> a = '月'
+>>> a
+'月'
+>>> type(a)
+<class 'str'>
+--------------------------------------注意关键词, encode 编码，编制成计算机语言
+
+>>> a = a.encode(encoding = 'utf-8')
+>>> type(a)
+<class 'bytes'>
+>>> a
+b'\xe6\x9c\x88'
+>>> 
+-------------- ------------    注意关键词 decode，解 码
+
+>>> a = a.decode(encoding = 'utf-8')
+>>> a
+'月'
+>>> type(a)
+<class 'str'>
+>>> 
+
+>>> a = '日'
+>>>    
+>>> a = bytes(a,encoding= 'utf8')
+>>> a
+b'\xe6\x97\xa5'
+>>>
+>>> type(a)
+<class 'bytes'>
+>>> 
+----------------注意关键词 decode，解 码
+
+>>> a = a.decode('utf-8')
+>>> a
+'日'
+>>> type(a)
+<class 'str'>
+>>> 
+
+
+========================================
+
+---------------------------------------------------------------------------------
+>>> 
+>>> a = 'hello'
+>>> a
+'hello'
+>>> type(a)
+<class 'str'>
+>>> a = bytes(a, 'ascii')
+>>> a
+b'hello'
+>>> type(a)
+<class 'bytes'>
+
+----------------注意关键词 decode，解 码
+
+>>> a = a.decode('ascii')
+>>> a
+'hello'
+>>> type(a)
+<class 'str'>
+>>> 
+--------------------------------------------------------------------
+
+===============================================
+=================== ('unicode_escape') ========================
+
+encode       英 [ɪnˈkəʊd] 
+      vt.（将文字材料）译成密码;编码，编制成计算机语言
+
+escape     英 [ɪˈskeɪp] 
+      v.逃脱;逃离;躲过;泄露
+
+decode      英 [ˌdi:ˈkəʊd] 
+      vt.译（码），解（码）;分析及译解电子信号
+>>> 
+>>> str = '年月日'
+>>> type(str)
+<class 'str'>
+>>> str
+'年月日'
+>>> -------------------------------------------------------------
+----- ## 把字符串str 编码成unicode,注意关键词, encode, 编码，编制成计算机语言
+
+>>> str = str.encode('unicode_escape') # 把字符串str 编码成unicode,注意关键词
+>>> type(str)
+<class 'bytes'>
+>>> str
+b'\\u5e74\\u6708\\u65e5'
+>>> 
+----------------------------------------------------------注意关键词 decode，解 码
+
+----- # 用unicode解码，得到对应的汉字,注意关键词 decode，解 码
+
+>>> str = str.decode('unicode_escape')
+>>> type(str)
+<class 'str'>
+>>> str
+'年月日'
+>>> 
+============== ('unicode_escape') =================
+========================================
+
+
+b'\x80\x03}q\x00(X)\x00\x00\x00'
+
+
+>>> hello = bytes('hello boy',encoding='utf8')
+>>> print(hello)
+b'hello boy'
+>>> type(hello)
+<class 'bytes'>
+>>> 
+
+>>> 
+>>> a = bytes([1, 2, 3])
+>>> a
+b'\x01\x02\x03'
+>>> type(a)
+<class 'bytes'>
+>>> 
+>>> a = bytes('hello', 'ascii')
+>>> a
+b'hello'
+>>> 
+>>> type(a)
+<class 'bytes'>
+>>> 
+=====================================
+
+python中的字符数字之间的转换函数
+
+str(x )                 将对象 x 转换为字符串    
+repr(x )                将对象 x 转换为表达式字符串    
+chr(x )                 将一个整数转换为一个字符 
+unichr(x )              将一个整数转换为Unicode字符
+ord(x )                 将一个字符转换为它的整数值  
+chr(x )                 将一个整数转换为一个字符   
+hex(x )                 将一个整数转换为一个十六进制字符串    
+oct(x )                 将一个整数转换为一个八进制字符串   
+
+
+==========================================
+
+
+[root@server0 ~]#
+[root@server0 ~]# cat  /etc/sysconfig/network-scripts/ifcfg-eth0 
+DEVICE=eth0
+BOOTPROTO=none
+ONBOOT=yes     ##开启自动启用网络连接（默认值为no）
+TYPE=Ethernet
+USERCTL=yes    # 允许普通用户控制此接口
+IPV6INIT=no
+PERSISTENT_DHCLIENT=1
+IPADDR0=172.25.0.11   #设置IP地址 只有在BOOTPROTO=(none | static)时设置才有效
+PREFIX0=24
+GATEWAY0=172.25.0.254
+DNS1=172.25.254.254     #主要的DNS设备
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+NAME="System eth0"
+UUID=5fb06bd0-0bb0-7ffb-45f1-d6edd65f3e03  #设备标识号
+
+[root@server0 ~]# 
+
+/********************
+
+BOOTPROTO="static｜none" #启动静态IP地址（BOOTPROTO=dhcp启用动态获取IP）
+USERCTL="yes|no"        #是否允许普通用户控制此接口
+PEERDNS＝"yes|no"         #是不是接受DHCP服务器指派的DNS服务器地址
+PERSISTENT_DHCLIENT=1   #可始终保持DHCP地址(在DHCP服务器/路由器授予IP租约之前连续请求IP租约)
+                             # 默认情况下，此选项处于关闭状态。
+************/
+
+[root@desktop0 ~]# cat  /etc/sysconfig/network-scripts/ifcfg-eth0 
+DEVICE=eth0
+BOOTPROTO=dhcp   #启用动态获取IP
+ONBOOT=yes
+TYPE=Ethernet
+USERCTL=yes   # 允许普通用户控制此接口
+PEERDNS=yes   # 接受DHCP服务器指派的DNS服务器地址
+IPV6INIT=no
+PERSISTENT_DHCLIENT=1   #可始终保持DHCP  ip地址
+
+[root@desktop0 ~]#
+
+-----------------------------------------------------------------------------
+
+[root@room9pc01 ~]# yum  -y install  bind-chroot  bind bind-utils
+..........
+已安装:
+  bind.x86_64 32:9.9.4-50.el7         bind-chroot.x86_64 32:9.9.4-50.el7        
+
+完毕！
+[root@room9pc01 ~]# rpm  -q  bind-chroot  bind  bind-utils
+bind-chroot-9.9.4-50.el7.x86_64
+bind-9.9.4-50.el7.x86_64
+bind-utils-9.9.4-50.el7.x86_64
+
+ ============== 配置DNS（真机操作）==================
+
+[root@room9pc01 ~]# vim  /etc/named.conf 
+
+ 12 options {             #只监听本地的53号端口 ,  此处可以根据需要设置需要监听的多个IP
+ 13         listen-on port 53 { 127.0.0.1; 192.168.0.254; 192.168.1.254; };
+
+ 14 //      listen-on-v6 port 53 { ::1; };
+
+ 20         forwarders   { 114.114.114.114; };  # /转发dns,真机的服务器地址
+
+ 33         dnssec-enable no;       ## 关闭dnssec 服务 , 不支持DNSSEC开关
+ 34         dnssec-validation no;         ## 是否进行DNSSEC确认开关 ,no
+
+[root@room9pc01 ~]# systemctl start  named  && systemctl  enable  named
+
+Created symlink from /etc/systemd/system/multi-user.target.wants/named.service to /usr/lib/systemd/system/named.service.
+
+[root@room9pc01 ~]# systemctl  status   named
+
+● named.service - Berkeley Internet Name Domain (DNS)
+   Loaded: loaded (/usr/lib/systemd/system/named.service; enabled; vendor preset: disabled)
+   Active: active (running) since 日 2019-04-14 11:45:04 CST; 11s ago
+ Main PID: 7565 (named)
+   CGroup: /system.slice/named.service
+           └─7565 /usr/sbin/named -u named -c /etc/named.conf
+...........................
+[root@room9pc01 ~]# cat  /etc/resolv.conf 
+nameserver 176.121.0.100
+
+[root@room9pc01 ~]# type  dig
+dig 是 /usr/bin/dig
+[root@room9pc01 ~]# rpm  -qf  /usr/bin/dig 
+bind-utils-9.9.4-50.el7.x86_64
+
+[root@room9pc01 ~]# ll  /usr/bin/dig
+-rwxr-xr-x. 1 root root 129472 8月   4 2017 /usr/bin/dig
+
+[root@room9pc01 ~]# dig  |grep  SERVER
+;; SERVER: 176.121.0.100#53(176.121.0.100)
+
+[root@room9pc01 ~]# dig   +trace  ntp.aliyun.com
+
+; <<>> DiG 9.9.4-RedHat-9.9.4-50.el7 <<>> +trace ntp.aliyun.com
+;; global options: +cmd
+.			441931	IN	NS	k.root-servers.net.
+............
+;; Received 1097 bytes from 176.121.0.100#53(176.121.0.100) in 9 ms
+......................
+;; Received 1174 bytes from 199.7.91.13#53(d.root-servers.net) in 797 ms
+
+aliyun.com.		172800	IN	NS	ns3.aliyun.com.
+aliyun.com.		172800	IN	NS	ns4.aliyun.com.
+aliyun.com.		172800	IN	NS	ns5.aliyun.com.
+.....................
+;; Received 678 bytes from 192.12.94.30#53(e.gtld-servers.net) in 259 ms
+
+ntp.aliyun.com.		300	IN	A	203.107.6.88
+;; Received 59 bytes from 106.11.35.30#53(ns3.aliyun.com) in 44 ms
+
+[root@room9pc01 ~]# 
+
+
+[root@room9pc01 ~]# nslookup   ntp.aliyun.com
+
+Server:		176.121.0.100
+Address:	176.121.0.100#53
+
+Non-authoritative answer:
+Name:	ntp.aliyun.com
+Address: 203.107.6.88
+
+[root@room9pc01 ~]# netstat  -npult |grep   named |column  -t
+tcp   0  0  127.0.0.1:53      0.0.0.0:*  LISTEN      7565/named
+tcp   0  0  127.0.0.1:953     0.0.0.0:*  LISTEN      7565/named
+tcp6  0  0  ::1:953           :::*       LISTEN      7565/named
+udp   0  0  192.168.0.254:53  0.0.0.0:*              7565/named
+udp   0  0  192.168.1.254:53  0.0.0.0:*              7565/named
+udp   0  0  127.0.0.1:53      0.0.0.0:*              7565/named
+[root@room9pc01 ~]# 
+
+
+[root@room9pc01 ~]# ssh -X 192.168.0.10
+root@192.168.0.10's password: 
+Last login: Mon Apr 15 08:43:53 2019 from 192.168.0.254
+
+[root@V0 ~]# cat  /etc/resolv.conf 
+nameserver  192.168.0.254
+
+[root@V0 ~]#  dig  |grep  SERVER
+;; SERVER: 192.168.0.254#53(192.168.0.254)
+
+[root@V0 ~]# ip route  show  |grep def
+default via 192.168.0.254 dev eth0 
+
+-----------------------------------------------------------------------------
+
+[root@room9pc01 ~]# ssh -X 192.168.1.11
+root@192.168.1.11's password: 
+Last login: Mon Apr 15 08:44:02 2019 from 192.168.1.254
+
+[root@V1 ~]# ip route  show  |grep def
+default via 192.168.0.254 dev eth0 
+
+[root@V1 ~]# type   dig
+dig 是 /usr/bin/dig
+
+[root@V1 ~]# rpm  -qf  /usr/bin/dig
+bind-utils-9.9.4-50.el7.x86_64
+
+
+[root@V1 ~]# dig
+
+; <<>> DiG 9.9.4-RedHat-9.9.4-50.el7 <<>>
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 11813
+;; flags: qr rd ra; QUERY: 1, ANSWER: 13, AUTHORITY: 0, ADDITIONAL: 27
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;.				IN	NS
+
+;; ANSWER SECTION:
+.			442914	IN	NS	a.root-servers.net.
+.............................
+;; ADDITIONAL SECTION:
+h.root-servers.net.	357129	IN	A	198.97.190.53
+h.root-servers.net.	462359	IN	AAAA	2001:500:1::53
+.........................
+l.root-servers.net.	357860	IN	A	199.7.83.42
+l.root-servers.net.	462136	IN	AAAA	2001:500:9f::42
+
+;; Query time: 33 msec
+;; SERVER: 192.168.1.254#53(192.168.1.254)
+;; WHEN: 一 4月 15 08:55:22 CST 2019
+;; MSG SIZE  rcvd: 811
+
+[root@V1 ~]# dig  |grep  SERVER
+;; SERVER: 192.168.1.254#53(192.168.1.254)
+
+[root@V1 ~]# cat  /etc/resolv.conf 
+nameserver  192.168.1.254
+
+
+telnet与ssh相比，安全性能并不高，
+
+一般不建议直接用root用户远程通过telnet登陆系统，
+
+因为telnet在数据传输过程采用明文方式，
+
+建议以普通用户通过telnet远程登陆，
+
+然后su到root，这样相对比较安全。
+
+但是在SSH版本升级或者其他的情况下还是需要开启这一服务。 
+
+linux提供服务是由运行在后台的守护程序（daemon）来执行的，
+
+telnet服务是由xinetd守护的
+
+
+[root@V0 day08]# ls  /home/
+lisi
+[root@V0 day08]# id lisi
+uid=1000(lisi) gid=1000(lisi) 组=1000(lisi)
+
+[root@V0 day08]# echo  1 |passwd  --stdin  lisi 
+更改用户 lisi 的密码 。
+passwd：所有的身份验证令牌已经成功更新。
+
+[root@V0 day08]# grep  lisi  /etc/passwd
+lisi:x:1000:1000:lisi:/home/lisi:/bin/bash
+
+语法
+telnet [-8acdEfFKLrx]  [-b<主机别名>]   [-e<脱离字符>]   [-k<域名>]
+       [-l<用户名称>]   [-n<记录文件>]   [-S<服务类型>]   [-X<认证形态>]
+         [主机名称  或  IP地址   <通信端口>  ]
+
+参数说明：
+-8 允许使用8位字符资料，包括输入与输出。
+-a 尝试自动登入远端系统。
+-b<主机别名> 使用别名指定远端主机名称。
+-c 不读取用户专属目录里的.telnetrc文件。
+-d 启动排错模式。
+-e<脱离字符> 设置脱离字符。
+-E 滤除脱离字符。
+-f 此参数的效果和指定"-F"参数相同。
+-F 使用Kerberos V5认证时，加上此参数可把本地主机的认证数据上传到远端主机。
+-k<域名> 使用Kerberos认证时，加上此参数让远端主机采用指定的领域名，而非该主机的域名。
+-K 不自动登入远端主机。
+-l<用户名称> 指定要登入远端主机的用户名称。
+-L 允许输出8位字符资料。
+-n<记录文件> 指定文件记录相关信息。
+-r 使用类似rlogin指令的用户界面。
+-S<服务类型> 设置telnet连线所需的IP TOS信息。
+-x 假设主机有支持数据加密的功能，就使用它。
+-X<认证形态> 关闭指定的认证形态。
+
+
+--------------------------------  开启telnet服务 -----------------------------
+
+通常telnet包是系统默认安装的，做为客户端；
+
+telnet-server包需要自行安装，做为服务端。
+
+[root@V0 day08]# yum  -y  install  telnet  telnet-server
+........
+已安装:
+  telnet-server.x86_64 1:0.17-64.el7                                                      
+
+完毕！
+[root@V0 day08]# rpm  -q  telnet   telnet-server 
+telnet-0.17-64.el7.x86_64
+telnet-server-0.17-64.el7.x86_64
+
+二、安装xinetd服务
+
+由于telnet服务也是由xinetd守护的，
+所以安装完telnet-server，要启动telnet服务就必须重新启动xinetd 。
+
+xinetd即extended internet daemon，
+
+xinetd是新一代的网络守护进程服务程序，
+
+又叫超级Internet服务器。
+
+经常用来管理多种轻量级Internet服务。
+
+telnet服务就是通过xinetd服务来管理的，
+所以在安装telnet服务之前需要先安装xinetd服务。
+
+[root@V0 day08]# yum  list  |grep   xinetd
+xinetd.x86_64                           2:2.3.15-13.el7            rhel7        
+[root@V0 day08]# yum  -y install  xinetd
+..........
+已安装:
+  xinetd.x86_64 2:2.3.15-13.el7                                                           
+
+完毕！
+[root@V0 day08]# rpm   -qa  |grep  xinetd
+xinetd-2.3.15-13.el7.x86_64
+
+[root@V0 ~]# systemctl  enable   xinetd
+[root@V0 ~]# echo  $?
+0
+[root@V0 ~]# systemctl is-enabled  xinetd.service 
+enabled
+[root@V0 ~]# systemctl is-active  xinetd.service 
+active
+
+[root@V0 ~]# rpm   -ql  xinetd
+/etc/sysconfig/xinetd
+/etc/xinetd.conf
+/etc/xinetd.d/chargen-dgram
+/etc/xinetd.d/chargen-stream
+/etc/xinetd.d/daytime-dgram
+/etc/xinetd.d/daytime-stream
+/etc/xinetd.d/discard-dgram
+/etc/xinetd.d/discard-stream
+/etc/xinetd.d/echo-dgram
+/etc/xinetd.d/echo-stream
+/etc/xinetd.d/tcpmux-server
+/etc/xinetd.d/time-dgram
+/etc/xinetd.d/time-stream
+/usr/lib/systemd/system/xinetd.service
+/usr/sbin/xinetd
+/usr/share/doc/xinetd-2.3.15
+/usr/share/doc/xinetd-2.3.15/CHANGELOG
+/usr/share/doc/xinetd-2.3.15/COPYRIGHT
+/usr/share/doc/xinetd-2.3.15/README
+/usr/share/doc/xinetd-2.3.15/empty.conf
+/usr/share/doc/xinetd-2.3.15/sample.conf
+/usr/share/man/man5/xinetd.conf.5.gz
+/usr/share/man/man5/xinetd.log.5.gz
+/usr/share/man/man8/xinetd.8.gz
+
+[root@V0 ~]# rpm   -ql  xinetd  |grep  sbin
+/usr/sbin/xinetd
+
+[root@V0 ~]# ll  /usr/sbin/xinetd 
+-rwxr-xr-x 1 root root 178976 3月   3 2016 /usr/sbin/xinetd
+
+[root@V0 ~]# file   /usr/sbin/xinetd
+/usr/sbin/xinetd: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=5ce79c8a6d80c8a9af315ca8153a917177eaff98, stripped
+
+[root@V0 ~]# grep  -n  include  /etc/xinetd.conf 
+49:includedir /etc/xinetd.d
+[root@V0 ~]# 
+
+一种套接字是基于网络的,“家族名”为 AF_INET
+
+•  面向连接的主要协议就是传输控制协议TCP,
+套接字类型为    SOCK_STREAM
+
+流式套接字（SOCK_STREAM）：
+
+流式套接字用于提供面向连接、可靠的数据传输服务。
+该服务将保证数据能够实现无差错、无重复发送，并按顺序接收。
+
+流式套接字之所以能够实现可靠的数据服务，
+原因在于其使用了传输控制协议，
+即TCP（The Transmission Control Protocol）协议。
+
+
+socket.socket(family=AF_INET,type=SOCK_STREAM,proto=0,fileno=None)
+创建socket对象的参数说明：
+ 
+family        地址系列应为AF_INET(默认值),
+        AF_INET6,AF_UNIX,AF_CAN或AF_RDS。
+  （AF_UNIX 域实际上是使用本地 socket 文件来通信）
+
+type为指定的套接字类型：
+
+　　socket.SOCK_STREAM ：面向连接的TCP，默认为这个
+
+　　socket.SOCK_DGRAM ：面向非连接的UDP
+
+
+failure       英 [ˈfeɪljə(r)]   美 ['feɪljər]  
+     n.失败，不及格;缺乏，不足;破产，倒闭;
+instance      英 [ˈɪnstəns]   美 [ˈɪnstəns]  
+     n.情况;例子，实例;
+
+
+[root@V0 ~]# vim    /etc/xinetd.d/telnet 
+
+[root@V0 ~]# cat  -n   /etc/xinetd.d/telnet
+     1	service telnet         #设置telnet服务
+     2	{
+     3	  flags = REUSE
+     4	  socket_type = stream   #说明Socket连接类型是stream，也就是TCP
+     5	  wait = no              #不等待 到启动完成
+     6	  user = lisi                     #以lisi 用户启动服务进程
+     7	  server = /usr/sbin/in.telnetd   #服务进程是/usr/sbin/in.telnetd
+     8	  log_on_failure  += USERID       #用于做一些出错日志
+     9	  #disable = yes  # 【或者把yes改为no】 允许远程telnet
+    10	  access_times = 08:00-12:00 12:30-17:00  #规定允许连接的时间段8~12点,12:30~17点
+    11	  instances =  2   #这里设置只允许最多 2个连接数，第3 个就无法连接了
+    12	  only_from = 192.168.1.11  #只允许 192.168.1.11 连接
+    13	}
+[root@V0 ~]# ll  /etc/secur
+securetty  security/  
+[root@V0 ~]# ll  /etc/securetty 
+-rw-------. 1 root root 221 5月   4 2016 /etc/securetty
+
+允许root连接,root登录，修改securetty文件
+增加pts/1…pts/11。
+# below is added
+pts/1 
+pts/2 
+pts/3 
+pts/4 
+pts/5 
+pts/6 
+pts/7 
+pts/8 
+pts/9 
+pts/10 
+pts/11 
+[root@V0 ~]# tty
+/dev/pts/0
+[root@V0 ~]# vim   /etc/securetty
+
+[root@V0 ~]# head  -2  /etc/securetty
+console
+vc/1
+[root@V0 ~]# vim  /etc/hosts.deny 
+
+[root@V0 ~]# tail  -1   /etc/hosts.deny
+##ALL:ALL
+
+[root@V0 ~]# grep  -n  telnet  /etc/services  |wc -l
+18
+[root@V0 ~]# grep  -n  telnet  /etc/services  |head  -4
+48:telnet          23/tcp
+49:telnet          23/udp
+107:rtelnet         107/tcp                         # Remote Telnet
+108:rtelnet         107/udp
+[root@V0 ~]# 
+
+[root@V0 ~]# type  service
+service 是 /usr/sbin/service
+[root@V0 ~]# ll  /usr/sbin/service 
+-rwxr-xr-x. 1 root root 3245 5月   3 2017 /usr/sbin/service
+
+[root@V0 ~]# service  xinetd  restart    #重启动telnet服务的守护进程
+Redirecting to /bin/systemctl restart xinetd.service
+
+[root@V0 ~]# systemctl  restart   xinetd   #重启动telnet服务的守护进程
+[root@V0 ~]# echo  $?
+0
+
+[root@V0 ~]# systemctl  is-enabled  xinetd
+enabled
+
+[root@V0 ~]# chkconfig  telnet   off    # 禁止 开机启动telnet服务
+注意：正在将请求转发到“systemctl disable telnet.socket”。
+[root@V0 ~]# 
+
+[root@V0 ~]# chkconfig  telnet   on    # 开机启动telnet服务
+注意：正在将请求转发到“systemctl enable telnet.socket”。
+Created symlink from /etc/systemd/system/sockets.target.wants/telnet.socket to /usr/lib/systemd/system/telnet.socket.
+
+[root@V0 ~]# chkconfig  --list  telnet
+
+注：该输出结果只显示 SysV 服务，并不包含
+原生 systemd 服务。SysV 配置数据
+可能被原生 systemd 配置覆盖。 
+
+      要列出 systemd 服务，请执行 'systemctl list-unit-files'。
+      查看在具体 target 启用的服务请执行
+      'systemctl list-dependencies [target]'。
+
+telnet         	开
+[root@V0 ~]# systemctl  is-enabled   telnet.socket 
+enabled
+
+[root@V0 ~]# systemctl  status   telnet.socket 
+● telnet.socket - Telnet Server Activation Socket
+   Loaded: loaded (/usr/lib/systemd/system/telnet.socket; enabled; vendor preset: disabled)
+   Active: inactive (dead)
+     Docs: man:telnetd(8)
+   Listen: [::]:23 (Stream)
+ Accepted: 0; Connected: 0
+[root@V0 ~]# 
+
+[root@V0 ~]# systemctl  is-active   telnet.socket 
+inactive
+
+[root@V0 ~]# systemctl  start   telnet.socket    #启动telnet服务
+[root@V0 ~]# systemctl  start   telnet.socket    #启动telnet服务
+
+
+[root@V0 ~]# systemctl  is-active   telnet.socket 
+active
+      
+[root@V0 ~]# netstat   -npult |grep  :23
+tcp6       0      0 :::23      :::*        LISTEN      1/systemd  
+[root@V0 ~]# 
+
+[root@V0 ~]# id lisi
+uid=1000(lisi) gid=1000(lisi) 组=1000(lisi)
+
+[root@V1 ~]# type  telnet
+telnet 是 /usr/bin/telnet
+[root@V1 ~]# rpm  -qf  /usr/bin/telnet 
+telnet-0.17-64.el7.x86_64
+[root@V1 ~]# rpm  -q  telnet
+telnet-0.17-64.el7.x86_64
+[root@V1 ~]# telnet   192.168.1.10
+Trying 192.168.1.10...
+Connected to 192.168.1.10.
+Escape character is '^]'.
+
+Kernel 3.10.0-693.el7.x86_64 on an x86_64
+V0 login: lisi
+Password: 1
+[lisi@V0 ~]$ ls
+[lisi@V0 ~]$ pwd
+/home/lisi
+[lisi@V0 ~]$ echo 'lisi first login----ha ha ha ha' > lisi.txt
+[lisi@V0 ~]$ exit
+登出
+Connection closed by foreign host.
+[root@V1 ~]# 
+-----------------------------------------------------------------
+
+[root@V0 ~]# grep  -n  user  /etc/xinetd.d/telnet 
+6:  user = lisi                     #只能 以lisi 用户启动服务进程
+[root@V0 ~]# ls   /etc/xinetd.d/
+chargen-dgram   daytime-dgram   discard-dgram   echo-dgram   tcpmux-server  time-dgram
+chargen-stream  daytime-stream  discard-stream  echo-stream  telnet         time-stream
+[root@V0 ~]# 
+
+------------------------------------------------------
+
+[root@V1 ~]# telnet   192.168.1.10
+Trying 192.168.1.10...
+Connected to 192.168.1.10.
+Escape character is '^]'.
+
+Kernel 3.10.0-693.el7.x86_64 on an x86_64
+V0 login: root   ##只能 以lisi 用户启动服务进程
+Password: 
+Login incorrect
+
+V0 login: lisi
+Password: 
+Last login: Mon Apr 15 10:37:58 from ::ffff:192.168.1.11
+[lisi@V0 ~]$ pwd
+/home/lisi
+[lisi@V0 ~]$ ls
+lisi.txt
+[lisi@V0 ~]$ cat  lisi.txt 
+lisi first login----ha ha ha ha
+[lisi@V0 ~]$ ll  lisi.txt
+-rw-rw-r-- 1 lisi lisi 32 4月  15 10:38 lisi.txt
+[lisi@V0 ~]$ 
+[lisi@V0 ~]$ exit
+登出
+Connection closed by foreign host.
+
+----------------------------------------------------------------------
+
+[root@room9pc01 ~]# ifconfig  vbr |head  -2
+vbr: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.0.254  netmask 255.255.255.0  broadcast 192.168.0.255
+[root@room9pc01 ~]# ifconfig  vbr1 |head  -2
+vbr1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.254  netmask 255.255.255.0  broadcast 192.168.1.255
+
+[root@room9pc01 ~]# rpm  -q  telnet
+未安装软件包 telnet 
+[root@room9pc01 ~]# yum  -y install  telnet |tail -3
+  telnet.x86_64 1:0.17-64.el7                                                   
+
+完毕！
+[root@room9pc01 ~]# telnet   192.168.1.10
+Trying 192.168.1.10...
+Connected to 192.168.1.10.
+Escape character is '^]'.
+
+Kernel 3.10.0-693.el7.x86_64 on an x86_64
+V0 login: lisi
+Password: 1
+Last login: Mon Apr 15 10:39:37 from ::ffff:192.168.1.11
+[lisi@V0 ~]$ ls
+lisi.txt
+[lisi@V0 ~]$ su - root
+密码：1
+上一次登录：一 4月 15 08:45:25 CST 2019从 192.168.0.254pts/2 上
+最后一次失败的登录：一 4月 15 10:39:30 CST 2019从 ::ffff:192.168.1.11pts/3 上
+最有一次成功登录后有 1 次失败的登录尝试。
+[root@V0 ~]# pwd
+/root
+[root@V0 ~]# exit
+登出
+[lisi@V0 ~]$ exit
+登出
+Connection closed by foreign host.
+[root@room9pc01 ~]# 
+[root@V0 ~]# netstat  -nuplt |grep  :23
+tcp6       0      0 :::23   :::*        LISTEN      1/systemd 
+
+[root@V0 ~]# cat  /etc/xinetd.d/telnet 
+service telnet         #设置telnet服务
+{
+  flags = REUSE
+  socket_type = stream   #说明Socket连接类型是stream，也就是TCP
+  wait = no              #不等待 到启动完成
+  user = lisi                     #以lisi 用户启动服务进程
+  server = /usr/sbin/in.telnetd   #服务进程是/usr/sbin/in.telnetd
+  log_on_failure  += USERID       #用于做一些出错日志
+  #disable = yes  # 【或者把yes改为no】 允许远程telnet
+  access_times = 08:00-12:00 12:30-17:00  #规定允许连接的时间段8~12点,12:30~17点
+  instances =  2   #这里设置只允许最多 2个连接数，第3 个就无法连接了
+  only_from = 192.168.1.11  #只允许 192.168.1.11 连接
+}
+[root@V0 ~]# 
+
+[root@V0 day08]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> str
+<class 'str'>
+>>> bytes
+<class 'bytes'>
+
+>>> f = open('/root/pyscripts/day07/zidir/md5.data','rb')
+
+>>> f.read
+f.read(       f.readable(   f.readinto1(  f.readlines(  
+f.read1(      f.readinto(   f.readline(   
+>>> f.read()
+b"\x80\x03}q\x00(X)\x00\x00\x00/root/pyscripts/day07/srctest/filetest.pyq\x01X \x00\x00\x007a358b09af7c8553e8295ca271d0529bq\x02X'\x00\x00\x00/root/pyscripts/day07/srctest/zifile.pyq\x03X \x00\x00\x007a358b09af7c8553e8295ca271d0529bq\x04X3\x00\x00\x00/root/pyscripts/day07/srctest/zisrcdir/zisrcfile.pyq\x05X \x00\x00\x007a358b09af7c8553e8295ca271d0529bq\x06u."
+>>> f.close()
+
+>>> f = open('/root/pyscripts/day07/filetest.py')
+>>> f.readline()
+'#! /usr/bin/env python3\n'
+>>> f.readline()
+'#coding:UTF-8\n'
+>>> f.readline()
+'"""这是测试模版说明--------\n'
+>>> f.close()
+
+>>> f = open('/root/pyscripts/day07/zidir/md5.data','rb')
+>>> f.read(8)
+b'\x80\x03}q\x00(X)'
+>>> f.close()
+>>> 
+
+[root@V0 day08]# python3  tcp_server2.py 
+
+__name__ is __main__
+服务器socket对象 is ---- <socket.socket fd=3, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 0)> 
+---type(s) is <class 'socket.socket'>
+socket套接字对象cli_sock是   <socket.socket fd=4, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('192.168.1.10', 11200), raddr=('192.168.1.11', 35016)>
+Client address is cli_addr connect from :
+  ('192.168.1.11', 35016)
+接受的客户端信息是
+ [b'haha I am  V1  telnet   192.168.1.10   11200---------\r\n']
+cli_sock.sendall()--serverV0 返回信息---
+<class 'NoneType'>----None
+sys.argv is ['tcp_server2.py']
+[root@V0 day08]# 
+
+[root@V1 ~]# telnet   192.168.1.10  11200
+Trying 192.168.1.10...
+Connected to 192.168.1.10.
+Escape character is '^]'.
+haha I am  V1  telnet   192.168.1.10   11200---------
+ServerV0 send all messages to 192.168.1.11 V1 eth1
+Connection closed by foreign host.
+[root@V1 ~]# 
+[root@V0 day08]# scp  tcp_server2.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/day08/
+root@192.168.0.254's password: 
+tcp_server2.py                              100% 3769     2.6MB/s   00:00    
+[root@V0 day08]# 
+
+[root@V0 day08]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> '%s' % 'abc年月日'
+'abc年月日'
+>>> bytes('%s' % 'abc年月日', encoding= 'utf8')
+b'abc\xe5\xb9\xb4\xe6\x9c\x88\xe6\x97\xa5'
+
+>>> x = bytes('%s' % 'abc年月日', encoding= 'utf8')
+>>> type(x)
+<class 'bytes'>
+>>> x
+b'abc\xe5\xb9\xb4\xe6\x9c\x88\xe6\x97\xa5'
+
+>>> y = x.decode('utf8')
+>>> y
+'abc年月日'
+>>> type(y)
+<class 'str'>
+
+>>> x
+b'abc\xe5\xb9\xb4\xe6\x9c\x88\xe6\x97\xa5'
+>>> z = str(x, encoding= 'utf8')
+>>> z
+'abc年月日'
+>>> type(z)
+<class 'str'>
+>>> 
+
+\n 表示新行
+
+\r 表示回车
+
+\t 表示水平的制表符
+
+\v 表示垂直的制表符
+
+\b 表示后退符
+
+\a 表示“警告”（蜂鸣或是闪动）
+
+ord(x )                 将一个字符转换为它的整数值  
+chr(x )                 将一个整数转换为一个字符  
+
+>>> chr(32)
+' '
+>>> ord(' ')
+32
+>>> 
+>>> ord('a')
+97
+>>> chr(97)
+'a'
+>>> 
+>>> ord('\t')
+9
+>>> chr(9)
+'\t'
+>>> ord('\v')
+11
+>>> chr(11)
+'\x0b'
+>>> ord('\r')
+13
+>>> ord('\n')
+10
+>>> ord('\b')
+8
+>>> ord('\a')
+7
+>>> 
+>>> int('0xff',16)
+255
+>>> chr(255)
+'ÿ'
+>>> 
+
+[root@V1 ~]# echo  -ne  'A\tB\vC\tD\vE\nA2\vB2\tC2'  && echo
+A	B
+         C	D
+                 E
+A2
+  B2	C2
+[root@V1 ~]# echo  -ne  'A\tB\vC\tD\vE\nA2\vB2\tC2\r\n' 
+A	B
+         C	D
+                 E
+A2
+  B2	C2
+[root@V1 ~]# echo  -ne  'A\tB\vC\tD\vE\nA2\vB2\tC2\r\n'  > zifu.txt
+[root@V1 ~]# cat  -A  zifu.txt
+A^IB^KC^ID^KE$
+A2^KB2^IC2^M$
+[root@V1 ~]# cat  -E  zifu.txt
+A	B
+         C	D
+                 E$
+A2
+$ B2	C2
+[root@V1 ~]# 
+
+[root@V0 day08]# 
+  File "tcp_time_server_oop.py", line 93
+    server_SocketObj = TcpTimeServer()
+    ^
+IndentationError: unexpected indent
+缩进错误：意外缩进
+[root@V0 day08]#
+
+indent
+英 [ɪnˈdent]   美 [ɪnˈdent]  
+vt.
+切割…使呈锯齿状;缩进排版
+
+^CConnection closed by foreign host.
+[root@V0 day08]# 
+
+
+  File "tcp_time_server_oop.py", line 62, in handle_child
+    datastr = str(databytes, encoding='utf8')  #将客户端发送的二进制文字转utf8字符串格式
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+
+  File "tcp_time_server_oop.py", line 51, in handle_child
+    databytes = cli_sock.recv(1024) #接收客户端信息，一次接收数据的大小最多是1024字节
+KeyboardInterrupt
+[root@V0 day08]# 
+
+
+None---<class 'NoneType'>
+^C--- 在接收客户端信息的时候服务端Ctrl + C 将会退出客户端与服务端的对话程序!
+
+本次服务端与客户端的对话结束,可以开启下一个新的对话连接
+
+^C---在服务端阻塞等待客户端的链接请求时Ctrl + C 将会退出客户端与服务端的对话程序!
+[root@V0 day08]# 
+----------------------------------------------------
+
+[root@V0 day08]# python3  tcp_time_server_oop.py
+
+__name__ is __main__
+sys.argv is ['tcp_time_server_oop.py']
+服务器socket对象是
+<socket.socket fd=3, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('0.0.0.0', 0)>
+---type(s) is <class 'socket.socket'>
+socket套接字对象cli_sock是   <socket.socket fd=4, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('192.168.1.10', 11200), raddr=('192.168.1.10', 59142)>
+Client address is cli_addr connect from :
+  ('192.168.1.10', 59142)
+接受的客户端信息是
+ [b'AAAAAAAAAAA\r\n']
+cli_sock.sendall()--serverV0返回信息
+None---<class 'NoneType'>
+接受的客户端信息是
+ [b'\xff\xf4\xff\xfd\x06']
+
+客户端执行 Ctrl + C会发生错误UnicodeDecodeError
+ 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte
+
+本次服务端与客户端的对话结束,可以开启下一个新的对话连接
+
+socket套接字对象cli_sock是   <socket.socket fd=4, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('192.168.0.10', 11200), raddr=('192.168.0.11', 40518)>
+Client address is cli_addr connect from :
+  ('192.168.0.11', 40518)
+接受的客户端信息是
+ [b'BBBBBBBBBBBBBBBBB\r\n']
+cli_sock.sendall()--serverV0返回信息
+None---<class 'NoneType'>
+^C--- 在接收客户端信息的时候服务端Ctrl + C 将会退出客户端与服务端的对话程序!
+
+本次服务端与客户端的对话结束,可以开启下一个新的对话连接
+
+^C---在服务端阻塞等待客户端的链接请求时Ctrl + C 将会退出客户端与服务端的对话程序!
+[root@V0 day08]# 
+
+[root@V0 day08]# telnet   192.168.1.10   11200
+Trying 192.168.1.10...
+Connected to 192.168.1.10.
+Escape character is '^]'.
+AAAAAAAAAAA
+[2019年*04月*15日 19时:26分:09秒] AAAAAAAAAAA
+^CConnection closed by foreign host.
+[root@V0 day08]# 
+
+
+[root@V1 ~]# telnet   192.168.0.10  11200
+Trying 192.168.0.10...
+Connected to 192.168.0.10.
+Escape character is '^]'.
+BBBBBBBBBBBBBBBBB
+[2019年*04月*15日 19时:26分:09秒] BBBBBBBBBBBBBBBBB
+Connection closed by foreign host.
+[root@V1 ~]# 
+
+[root@V0 day08]# scp   tcp_time_server_oop.py    root@192.168.0.254:/var/git/PYTHON/pythonScripts/day08/
+
+  File "tcp_client.py", line 39, in <module>
+    client_sock.connect(addr)
+ConnectionRefusedError: [Errno 111] Connection refused
+[root@V0 day08]# 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
