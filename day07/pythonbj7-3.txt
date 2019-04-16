@@ -1,0 +1,1070 @@
+
+
+
+>>> import   os
+>>> file = os.path.abspath('zidir/md5.data')
+>>> 
+>>> print(file)
+/root/pyscripts/day07/zidir/md5.data
+
+>>> print('file is %s   exists  %s' % (file, os.path.exists(file)))
+file is /root/pyscripts/day07/zidir/md5.data   exists  True
+
+>>> file = os.path.basename('zidir/md5.data')
+>>> print('file is %s   exists  %s' % (file, os.path.exists(file)))
+file is md5.data   exists  False
+>>> 
+>>> fileobj = open('zidir/md5.data','rb')
+>>> type(fileobj)
+<class '_io.BufferedReader'>
+>>> count = 0
+>>> while True:
+...   data = fileobj.read(128)  #默认内存以Byte 字节为单位(1byte = 8bit)
+...   print(data, type(data), sep=' ---- ')
+...   if not data:
+...     break
+...   count += 1
+... 
+b"\x80\x03}q\x00(X)\x00\x00\x00/root/pyscripts/day07/srctest/filetest.pyq\x01X \x00\x00\x007a358b09af7c8553e8295ca271d0529bq\x02X'\x00\x00\x00/root/pyscripts/day07/srctest/" ---- <class 'bytes'>
+b'zifile.pyq\x03X \x00\x00\x007a358b09af7c8553e8295ca271d0529bq\x04X3\x00\x00\x00/root/pyscripts/day07/srctest/zisrcdir/zisrcfile.pyq\x05X \x00\x00\x007a358b09af7c855' ---- <class 'bytes'>
+b'3e8295ca271d0529bq\x06u.' ---- <class 'bytes'>
+b'' ---- <class 'bytes'>
+>>> fileobj.close()
+>>> print('一共循环读取了 %d 次' % count)
+一共循环读取了 3 次
+>>> 
+>>> 
+>>> str = '年月日'
+>>> print(type(str))
+<class 'str'>   #注意类型是str
+>>> 
+>>> str
+'年月日'
+-------------------------------- 注意关键词, encode 编码，编制成计算机语言
+
+>>> str = str.encode('unicode_escape') # 把字符串str 编码成unicode
+
+>>> print(type(str))
+<class 'bytes'>    #注意类型是 'bytes'
+>>>
+>>> str
+b'\\u5e74\\u6708\\u65e5'
+>>>
+
+------------------------ 注意关键词 decode，解 码
+
+>>> str = str.decode('utf-8') # 把字符串解码成utf-8,得到unicode的字符串
+>>> str
+'\\u5e74\\u6708\\u65e5'
+
+>>> type(str)
+<class 'str'>   #注意类型是 str
+>>> 
+
+------------- # 把字符串中的\u替换掉,得到十六进制unicode字符串
+>>> str
+'\\u5e74\\u6708\\u65e5'
+
+>>> str = str.replace('\\u', '')
+>>> str
+'5e74670865e5'
+>>> 
+------------ # 获取字符串前4位,代表字符串中的第一个字
+>>> str
+'5e74670865e5'
+>>> str_a = str[:4]
+>>> str_b = str[4:8]
+>>> str_c = str[8:]
+>>> str_a
+'5e74'
+>>> str_b
+'6708'
+>>> str_c
+'65e5'
+>>> 
+hexadecimal     英 [ˌheksəˈdesɪml]  美 [ˌhɛksəˈdɛsəməl]  
+    n.& adj.十六进制（的）
+
+-------------- # 把十六进制字符串转为int类型数字
+
+>>> inta =  int(str_a,16)
+>>> inta
+24180
+>>> type(inta)
+<class 'int'>
+>>> 
+>>> chr(24180)  # int 型 数字 转换成 字符
+'年'
+>>> 
+>>> type(chr(24180))
+<class 'str'>
+>>> 
+
+>>> 
+>>> hex(24180)  # 把int转成十六进制
+'0x5e74'
+>>> 
+
+
+
+=======================================
+================== ('utf-8') ======================
+>>> 
+>>> str = '年月日'
+>>> str
+'年月日'
+>>> type(str)
+<class 'str'>
+-----------------------------------------------注意关键词, encode 编码，编制成计算机语言
+
+>>> str = str.encode('utf-8')   # 把字符串编码成utf-8 编码，编制成计算机语言
+>>> str
+b'\xe5\xb9\xb4\xe6\x9c\x88\xe6\x97\xa5'
+>>> type(str)
+<class 'bytes'>
+>>> 
+----------------------------------------------注意关键词 decode，解 码
+
+>>> str = str.decode('utf-8')  # 把utf-8 转换成 字符串( 解 码 )
+>>> type(str)
+<class 'str'>
+>>> str
+'年月日'
+>>> 
+================== ('utf-8') ======================
+
+>>> a = '月'
+>>> a
+'月'
+>>> type(a)
+<class 'str'>
+--------------------------------------注意关键词, encode 编码，编制成计算机语言
+
+>>> a = a.encode(encoding = 'utf-8')
+>>> type(a)
+<class 'bytes'>
+>>> a
+b'\xe6\x9c\x88'
+>>> 
+-------------- ------------    注意关键词 decode，解 码
+
+>>> a = a.decode(encoding = 'utf-8')
+>>> a
+'月'
+>>> type(a)
+<class 'str'>
+>>> 
+
+>>> a = '日'
+>>>    
+>>> a = bytes(a,encoding= 'utf8')
+>>> a
+b'\xe6\x97\xa5'
+>>>
+>>> type(a)
+<class 'bytes'>
+>>> 
+----------------注意关键词 decode，解 码
+
+>>> a = a.decode('utf-8')
+>>> a
+'日'
+>>> type(a)
+<class 'str'>
+>>> 
+
+
+========================================
+
+---------------------------------------------------------------------------------
+>>> 
+>>> a = 'hello'
+>>> a
+'hello'
+>>> type(a)
+<class 'str'>
+>>> a = bytes(a, 'ascii')
+>>> a
+b'hello'
+>>> type(a)
+<class 'bytes'>
+
+----------------注意关键词 decode，解 码
+
+>>> a = a.decode('ascii')
+>>> a
+'hello'
+>>> type(a)
+<class 'str'>
+>>> 
+--------------------------------------------------------------------
+
+===============================================
+=================== ('unicode_escape') ========================
+
+encode       英 [ɪnˈkəʊd] 
+      vt.（将文字材料）译成密码;编码，编制成计算机语言
+
+escape     英 [ɪˈskeɪp] 
+      v.逃脱;逃离;躲过;泄露
+
+decode      英 [ˌdi:ˈkəʊd] 
+      vt.译（码），解（码）;分析及译解电子信号
+>>> 
+>>> str = '年月日'
+>>> type(str)
+<class 'str'>
+>>> str
+'年月日'
+>>> -------------------------------------------------------------
+----- ## 把字符串str 编码成unicode,注意关键词, encode, 编码，编制成计算机语言
+
+>>> str = str.encode('unicode_escape') # 把字符串str 编码成unicode,注意关键词
+>>> type(str)
+<class 'bytes'>
+>>> str
+b'\\u5e74\\u6708\\u65e5'
+>>> 
+----------------------------------------------------------注意关键词 decode，解 码
+
+----- # 用unicode解码，得到对应的汉字,注意关键词 decode，解 码
+
+>>> str = str.decode('unicode_escape')
+>>> type(str)
+<class 'str'>
+>>> str
+'年月日'
+>>> 
+============== ('unicode_escape') =================
+========================================
+
+
+b'\x80\x03}q\x00(X)\x00\x00\x00'
+
+
+>>> hello = bytes('hello boy',encoding='utf8')
+>>> print(hello)
+b'hello boy'
+>>> type(hello)
+<class 'bytes'>
+>>> 
+
+>>> 
+>>> a = bytes([1, 2, 3])
+>>> a
+b'\x01\x02\x03'
+>>> type(a)
+<class 'bytes'>
+>>> 
+>>> a = bytes('hello', 'ascii')
+>>> a
+b'hello'
+>>> 
+>>> type(a)
+<class 'bytes'>
+>>> 
+=====================================
+
+python中的字符数字之间的转换函数
+
+str(x )                 将对象 x 转换为字符串    
+repr(x )                将对象 x 转换为表达式字符串    
+chr(x )                 将一个整数转换为一个字符 
+unichr(x )              将一个整数转换为Unicode字符
+ord(x )                 将一个字符转换为它的整数值    
+hex(x )                 将一个整数转换为一个十六进制字符串    
+oct(x )                 将一个整数转换为一个八进制字符串   
+
+
+==========================================
+
+KeyboardInterrupt   #Ctrl + C
+>>> 
+[root@V0 day07]# 
+
+基本概念
+•  类(Class):用来描述具有相同的属性和方法的对象的集合。
+它定义了该集合中每个对象所共有的属性和方法。
+对象是类的实例。
+•  实例化:创建一个类的实例,类的具体对象。
+•  方法:类中定义的函数。
+•  对象:通过类定义的数据结构实例。
+对象包括两个数据成员
+(类变量和实例变量)和方法。
+
+orient      英 [ˈɔ:rient]   美 [ˈɔriənt, -ˌɛnt, ˈor-]  
+     vt.标定方向;使…向东方;以…为参照;使熟悉或适应
+     adj.东方的;
+
+oriented      英 ['ɔ:rɪəntɪd]   美 ['ɔ:rɪrntɪd]  
+    adj.导向的;定向的;以…为方向的;定方向
+
+analysis       英 [əˈnæləsɪs]   美 [əˈnælɪsɪs]  
+     n.分析，分解;梗概，要略;[数]解析;验定
+
+program     英 [ˈprəʊgræm]   美 [ˈproʊgræm]  
+    n.程序;节目，节目单;计划，安排
+    v.[计]给…编写程序;为…制定计划;设计安排活动;编排
+
+design     英 [dɪˈzaɪn]   美 [dɪˈzaɪn]  
+      vt.& vi.设计;绘制
+      vt.设计;计划;企图;决意（做）
+      n.设计;图案;结构;计划
+
+
+面向对象分析
+ooa(object-oriented analysis)
+
+
+面向对象设计
+ood(object-oriented design)
+
+
+OOP
+Object Oriented Programming 面向对象的程序设计
+
+[root@V0 ~]# cd pyscripts/day07/
+[root@V0 day07]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> class A:
+...   pass
+... 
+>>> A.__dict__  #类的 属性 都保存在字典里
+mappingproxy(
+  {  '__module__': '__main__', 
+       '__dict__': <attribute '__dict__' of 'A' objects>, 
+    '__weakref__': <attribute '__weakref__' of 'A' objects>,
+        '__doc__': None
+   }
+)
+>>> 
+>>> 
+>>> class  A:  pass
+... 
+>>> 
+>>> adict = { "name" : 'peri', 'woman' : True, 'age' : 28 }
+>>> a = A()
+>>> a.__dict__  # 实例 的 属性 都保存在字典里,没有定义为空{}
+{}
+>>> a.__dict__.
+a.__dict__.clear(       a.__dict__.items(       a.__dict__.setdefault(
+a.__dict__.copy(        a.__dict__.keys(        a.__dict__.update(
+a.__dict__.fromkeys(    a.__dict__.pop(         a.__dict__.values(
+a.__dict__.get(         a.__dict__.popitem( 
+    
+>>> a.__dict__.update(adict)
+
+>>> a.__dict__
+{'name': 'peri', 'woman': True, 'age': 28}
+>>> a.age
+28
+>>> 
+[root@V0 day07]# scp  ooptoy2.py  root@192.168.0.254:/var/git/PYTHON/pythonScripts/day07
+
+>>> class  Date:
+...   def __init__(self, year, month, date):
+...     self.year = year
+...     self.month = month
+...     self.date = date
+... 
+>>> 
+>>> x = Date(2019, 4, 1)
+>>> x.__dict__
+{'year': 2019, 'month': 4, 'date': 1}
+>>> x.__dict__.
+x.__dict__.clear(       x.__dict__.pop(
+x.__dict__.copy(        x.__dict__.popitem(
+x.__dict__.fromkeys(    x.__dict__.setdefault(
+x.__dict__.get(         x.__dict__.update(
+x.__dict__.items(       x.__dict__.values(
+x.__dict__.keys(        
+>>> x.
+x.date   x.month  x.year   
+>>> x.__
+x.__class__(          x.__gt__(             x.__reduce__(
+x.__delattr__(        x.__hash__(           x.__reduce_ex__(
+x.__dict__            x.__init__(           x.__repr__(
+x.__dir__(            x.__init_subclass__(  x.__setattr__(
+x.__doc__             x.__le__(             x.__sizeof__(
+x.__eq__(             x.__lt__(             x.__str__(
+x.__format__(         x.__module__          x.__subclasshook__(
+x.__ge__(             x.__ne__(             x.__weakref__
+x.__getattribute__(   x.__new__(            
+>>> 
+>>> x.year
+2019
+>>> newstr = x.year, x.month, x.date
+>>> newstr
+(2019, 4, 1)
+>>> 
+>>> type(newstr)
+<class 'tuple'>
+>>> 
+>>> strdate = '2019, 4, 1'
+>>> x.year, x.month, x.date = strdate.split(',')
+>>> x.year
+'2019'
+>>> strdate = '2018, 05, 22'
+>>> x.year, x.month, x.date = strdate.split(',')
+>>> x.year
+'2018'
+>>> x.month
+' 05'
+>>> x.date
+' 22'
+>>>
+>>> type(x.date)
+<class 'str'>
+>>> 
+>>> strdate
+'2018, 05, 22'
+>>> strdate.split
+strdate.split(       strdate.splitlines(  
+
+>>> strdate.split(' ')
+['2018,', '05,', '22']
+
+>>> strdate.split(',')
+['2018', ' 05', ' 22']
+>>> 
+>>> strdate = '2017*05*22'
+>>> x.year, x.month, x.date = map(int, strdate.split('*'))
+>>> x.year, x.month, x.date
+(2017, 5, 22)
+>>> x.year
+2017
+>>> 
+
+[root@V0 day07]# scp   oopcallstr.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/day07
+
+>>> 
+>>> type(100)
+<class 'int'>
+>>> isinstance(234, int)
+True
+
+>>> type(True)
+<class 'bool'>
+>>> isinstance(False, bool)
+True
+
+>>> type({'key':'value', True : 1})
+<class 'dict'>
+>>> True == 1
+True
+>>> isinstance({'key':'value', True : 1}, dict)
+True
+
+>>> type(('abc',123,False))
+<class 'tuple'>
+>>> isinstance(('abc',), tuple)
+True
+
+>>> type([True])
+<class 'list'>
+>>> isinstance([False], list)
+True
+>>> 
+
+类的专有方法：
+__init__ : 构造函数，在生成对象时调用
+__del__ : 析构函数，释放对象时使用
+__repr__ : 打印，转换
+__setitem__ : 按照索引赋值
+__getitem__: 按照索引获取值
+__len__: 获得长度
+__cmp__: 比较运算
+__call__: 函数调用
+__add__: 加运算
+__sub__: 减运算
+__mul__: 乘运算
+__truediv__: 除运算
+__mod__: 求余运算
+__pow__: 乘方
+
+
+反向运算符的重载
+
+当运算符的左侧为内建类型时，
+右侧为自定义类型进行算数运算符运算时会出现TypeError错误，
+因无法修改内建类型的代码实现运算符操作，
+此时需要使用反序运算符操作。
+
+方法名(__双下划线__)      运算符和表达式     说明
+radd(self, lhs)        lhs + self      加法
+rsub(self, lhs)        lhs - self      减法
+rmul(self, lhs)        lhs * self      乘法
+rtruediv(self, lhs)    lhs / self      除法
+rfloordiv(self, lhs)   lhs // self      地板除
+rmod(self, lhs)        lhs % self      求余
+rpow(self, lhs)        lhs ** self     求幂运算
+
+
+算数运算符的重载
+
+方法名(__双下划线__)      运算符和表达式     说明
+add(self, rhs)         self + rhs      加法
+sub(self, rhs)         self - rhs      减法
+mul(self, rhs)         self * rhs      乘法
+truediv(self, rhs)     self / rhs      除法
+floordiv(self, rhs)    self // rhs    地板除
+mod(self, rhs)         self % rhs     求余
+pow(self, rhs)         self ** rhs    求幂运算
+
+
+>>> a= 100
+>>> b = 2
+>>> b *= 10
+>>> b
+20
+>>> a += 33
+>>> a
+133
+>>> a -= 103
+>>> a
+30
+>>> a /= 3    #truediv(self, rhs)   self / rhs    除法
+>>> a
+10.0
+>>> a += 2.5
+>>> a
+12.5
+>>> a //= 4   #floordiv(self, rhs)   self // rhs   地板除
+>>> a
+3.0
+>>> b
+20
+>>> b //= 3
+>>> b
+6
+>>> a
+3.0
+>>> a **= 3    #pow(self, rhs)   self ** rhs  求幂运算
+>>> a
+27.0
+>>> b
+6
+>>> b %=  4   #mod(self, rhs)  self % rhs   求余
+>>> b
+2
+>>> 
+    class PY3__cmp__:   
+        def __eq__(self, other):
+            return self.__cmp__(other) == 0
+
+        def __ne__(self, other):
+            return self.__cmp__(other) != 0
+
+        def __gt__(self, other):
+            return self.__cmp__(other) > 0
+
+        def __lt__(self, other):
+            return self.__cmp__(other) < 0
+
+        def __ge__(self, other):
+            return self.__cmp__(other) >= 0
+
+        def __le__(self, other):
+            return self.__cmp__(other) <= 0
+
+比较符号运算符重载
+__ne__不等于
+
+__gt__ 大于 
+
+__ge__ 大于等于 
+
+__lt__ 小于 
+
+__le__ 小于等于
+
+__eq__等于
+
+------------------------------
+
+  def  __gt__(self, other):  #gt大于号比较
+    return  self.num > other
+
+  def __ge__(self, other):
+    return  self.num >= other
+
+  def  __eq__(self, other):
+    return self.num == other
+
+  def __le__(self, other):
+    return self.num <= other
+
+  def __lt__(self, other):
+    return  self.num < other
+
+  def __ne__(self, other):
+    return  self.num  !=  other
+------------------------------------------------------------------
+
+class  Book:
+  def  __init__(self, title, author):
+    "author [ˈɔ:θə(r)] n. 作者;著作家;创造者;发起人"
+    self.title = title
+
+    self.__author =  author + '隐藏属性__author'
+
+    self.__private = '隐藏的属性__private'
+
+    print('正在初始化 Book类实例--------\n')
+
+
+  def  __str__(self):   #打印/显示实例时调用内建方法str
+    return '<Book: %s>' % self.title
+
+
+  def  __call__(self): #调用call内建方法可把此类型对象当作函数来使用
+    print('<< %s >> is written by %s !' % (self.title, self.__author))
+
+
+
+
+
+if  __name__ == '__main__':
+  sys.stdout.write('\033[31;47;1msys.argv is %s\n\033[0m' % sys.argv)
+  bk = Book('Core Python', 'Wesley Chun')
+  #正在初始化 Book类实例--------
+
+  print(bk)    #自动调用方法 __str__
+  #<Book: Core Python>
+  bk()         #自动调用方法 __call__
+  #<< Core Python >> is written by Wesley Chun隐藏属性__author !
+
+  print("没有下划线的属性 是对外公开的属性 %s" % bk.title)
+  #没有下划线的属性 是对外公开的属性 Core Python
+
+ #访问私有属性的方式,注意是
+ #"实例对象名" + "点 ." + "一个下划线 _" + 类名+ "2个下划线__" + 私有属性
+
+  print("查看私有属性, 需要在实例对象bk的类名Book前加一个下划线, \n\
+  类的后面紧接着带2个下划线的仅仅对内部共享的私有属性__private is\n\
+  '%s'"  %  bk._Book__private )
+
+  #查看私有属性, 需要在实例对象bk的类名Book前加一个下划线, 
+  #  类的后面紧接着带2个下划线的仅仅对内部共享的私有属性__private is
+  #  '隐藏的属性__private'
+
+
+
+[root@V0 day07]# scp  private_attr.py  root@192.168.0.254:/var/git/PYTHON/pythonScripts/day07
+
+
+ --------------------- 匹配单个字符 --------------------------------
+ .                       匹配任意字符(换行符除外)
+[...x-y...]         匹配字符组里的任意字符
+[^...x-y...]        匹配不在字符组里的任意字符
+\d                  匹配任意数字,与[0-9]同义
+\w                  匹配任意数字字母字符,与[0-9a-zA-Z_]同义
+\s                  匹配空白字符,与[ \r\v\f\t\n]同义
+
+
+--------------------  匹配一组字符 ------------------------- 
+记号                     说 明
+literal             匹配字符串的值
+re1|re2             匹配正则表达式re1或re2
+*                        匹配前面出现的正则表达式零次或多次
++                        匹配前面出现的正则表达式一次或多次
+?                         匹配前面出现的正则表达式零次或一次
+{M, N}              匹配前面出现的正则表达式至少M次最多N次
+
+  *、 + 和 ? 都是  贪婪匹配操作符,
+ 在其后 加上 ? 可以 取消 其 贪婪匹配行为
+
+其他元字符
+记号                 说 明
+^                     匹配字符串的开始
+$                     匹配字符串的结尾
+\b               匹配单词的边界
+()                    对正则表达式分组
+\nn              匹配已保存的子组
+
+
+stream     英 [stri:m]   美 [strim]  
+      n.河流，小河，川，溪;
+          潮流，趋势，倾向;
+    （事件等的）连续，（财富等的）滚滚而来;
+     流出，流注，一连串
+vt.& vi.流，流动
+
+TCP
+(Transmission Control Protocol)，传输控制协议
+
+TCP---传输控制协议,提供的是面向连接、可靠的字节流服务。
+
+当客户和服务器彼此交换数据前，
+必须先在双方之间建立一个TCP连接，之后才能传输数据。
+TCP提供超时重发，
+丢弃重复数据，检验数据，流量控制等功能，
+保证数据能从一端传到另一端。
+
+
+UDP
+(User Datagram Protocol)，用户数据报协议
+
+UDP---用户数据报协议，是一个简单的面向数据报的运输层协议。
+
+UDP不提供可靠性，
+它只是把应用程序传给IP层的数据报发送出去，
+但是并不能保证它们能到达目的地。
+
+由于UDP在传输数据报前不用在客户和服务器之间建立一个连接，
+且没有超时重发等机制，
+故而传输速度很快。
+
+======================================================
+
+
+			             OSI参考模型(七层框架)
+
+          [5] 应用层        |<----------协议--------->|	        应用层     (计算机) APDU [是应用层协议数据单元]
+                HTTP  FTP  TFTP  SMTP  SNMP  DNS
+                    上层数据
+6  接口      
+             表示层         |-----------协议-----------|         表示层              PPDU [是表示层协议数据单元]
+5  接口
+ 	     会话层         |-----------协议-----------|         会话层              SPDU [是会话层协议数据单元]
+4  接口      
+      	  [4] 传输层        <----------协议--------->         传输层     (防火墙) TPDU [是传输层协议数据单元,即 segment "数据段"]
+                TCP      UDP
+                TCP头部     上层数据
+3  接口
+       	  [3] 网络层        <----------协议--------->         网络层     (路由器)  package 数据包
+                ICMP  IGMP    IP   ARP   RARP
+                IP头部   TCP头部     上层数据
+2  接口
+          [2] 数据链路层    <----------协议--------->         数据链路层 (交换机)  frame  数据帧
+                MAC头部  IP头部   TCP头部   上层数据
+1  接口   
+          [1] 物理层	    <----------协议--------->	        物理层     (网卡)    bit   比特流
+
+          层            主机A                              主机B          数据单元
+------------------------------------------------------------------------------------------------------
+
+TCP的优点： 可靠，稳定 
+TCP的可靠体现在TCP在传递数据之前，
+会有三次握手来建立连接，
+而且在数据传递时，
+有确认、窗口、重传、拥塞控制机制，
+在数据传完后，
+还会断开连接用来节约系统资源。 
+
+TCP的缺点： 慢，效率低，占用系统资源高，易被攻击 
+TCP在传递数据之前，要先建连接，这会消耗时间，
+而且在数据传递时，
+确认机制、重传机制、拥塞控制机制等都会消耗大量的时间，
+而且要在每台设备上维护所有的传输连接，
+事实上，每个连接都会占用系统的CPU、内存等硬件资源。
+因为TCP有确认机制、三次握手机制，
+这些也导致TCP容易被人利用，实现DOS、DDOS、CC等攻击。
+
+UDP的优点： 快，比TCP稍安全 
+UDP没有TCP的握手、确认、窗口、重传、拥塞控制等机制，
+UDP是一个无状态的传输协议，
+所以它在传递数据时非常快。
+没有TCP的这些机制，
+UDP较TCP被攻击者利用的漏洞就要少一些。
+
+但UDP也是无法避免攻击的，
+比如：UDP Flood攻击…… 
+
+UDP的缺点： 不可靠，不稳定 
+因为UDP没有TCP那些可靠的机制，
+在数据传递时，如果网络质量不好，就会很容易丢包。 
+
+ 什么时候应该使用TCP： 
+当对网络通讯质量有要求的时候，
+比如：整个数据要准确无误的传递给对方，
+这往往用于一些要求可靠的应用，比如HTTP、HTTPS、FTP等传输文件的协议，POP、SMTP等邮件传输的协议。 
+在日常生活中，常见使用TCP协议的应用如下： 
+  浏览器，用的HTTP FlashFXP，
+  FTP Outlook，
+  POP、SMTP Putty，
+  Telnet、SSH QQ文件传输 ………… 
+
+什么时候应该使用UDP： 
+当对网络通讯质量要求不高的时候，要求网络通讯速度能尽量的快，这时就可以使用UDP。
+
+ 比如，日常生活中，常见使用UDP协议的应用如下： 
+QQ语音 QQ视频 TFTP ……
+有些应用场景对可靠性要求不高会用到UPD，比如长视频，要求速率
+
+
+小结TCP与UDP的区别：
+1.基于连接与无连接；
+2.对系统资源的要求（TCP较多，UDP少）；
+3.UDP程序结构较简单；
+4.流模式与数据报模式 ；
+
+5.TCP保证数据正确性，UDP可能丢包，TCP保证数据顺序，UDP不保证。
+
+tcp协议和udp协议的差别 
+TCP UDP 
+是否连接 面向连接 面向非连接 
+传输可靠性 可靠 不可靠 
+应用场合 传输大量数据 少量数据 
+速度 慢 快
+
+TCP与UDP区别总结：
+
+1、TCP面向连接（如打电话要先拨号建立连接）;UDP是无连接的，即发送数据之前不需要建立连接
+
+2、TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达;UDP尽最大努力交付，即不保证可靠交付
+
+3、TCP面向字节流，实际上是TCP把数据看成一连串无结构的字节流;UDP是面向报文的
+
+UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低（对实时应用很有用，如IP电话，实时视频会议等）
+
+4、每一条TCP连接只能是点到点的;UDP支持一对一，一对多，多对一和多对多的交互通信
+
+5、TCP首部开销20字节;UDP的首部开销小，只有8个字节
+6、TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+APDU 是应用层协议数据单元
+报文，message，一般指完整的信息，传输层实现报文交付。我们将位于应用层的信息分组称为报文。
+frame，Datagram，segment是基于所在协议层不同而取了不同的名字
+
+PPDU 是表示层协议数据单元
+SPDU 是会话层协议数据单元
+TPDU 是传输层协议数据单元，即 "数据段”
+传输层 segment（报文段）
+报文段，segment，组成报文的每个分组。我们将传输层分组称为报文段。
+抓包抓到的是传输层的包，所以packet，frame，Datagram，segment是存在于同条记录中的
+
+网络层的协议数据单元，即 "数据包”
+网络层 packet （数据包）
+
+数据链路层的协议数据单元，即 "数据帧”
+数据链路层 frame（数据帧）
+帧，frame，数据链路层的协议数据单元。我们将链路层分组称为帧。
+
+物理层的协议数据单元，即 数据“比特”
+物理层 bit （比特）
+
+1.报文(message)
+报文是网络中交换与传输的数据单元，也是网络传输的单元。
+报文包含了将要发送的完整的数据信息，其长短不需一致。
+报文在传输过程中会不断地封装成分组、包、帧来传输，
+封装的方式就是添加一些控制信息组成的首部，那些就是报文头。
+ 
+2.分组(packet)
+分组是在网络中传输的二进制格式的单元，
+为了提供通信性能和可靠性，每个用户发送的数据会被分成多个更小的部分。
+在每个部分的前面加上一些必要的控制信息组成的首部，
+有时也会加上尾部，就构成了一个分组。
+ 
+3.数据包(data packet)
+数据包是TCP/IP协议通信传输中的数据单元，也称为“包”。
+是指自包含的，带有足够寻址信息，可独立地从源主机传输到目的主机，
+而不需要依赖早期的源主机和目的主机之间交换信息以及传输网络的数据包。
+ 
+4.数据报(datagram)
+面向无连接的数据传输，其工作过程类似于报文交换。
+采用数据报方式传输时，被传输的分组称为数据报。
+ 
+5.帧(frame)
+帧是数据链路层的传输单元。它将上层传入的数据添加一个头部和尾部，组成了帧。
+ 
+应用层——消息
+传输层——数据段(segment)
+网络层——分组、数据包（packet）
+链路层——帧（frame）
+
+ICMP是“Internet Control Message Ptotocol”（Internet控制消息协议）的缩写。
+它是TCP/IP协议族的一个子协议，用于在IP主机、路由器之间传递控制消息
+
+ping命令通常用来作为网络可用性的检查。
+ping命令可以对一个网络地址发送测试数据包，看该网络地址是否有响应并统计响应时间，以此测试网络。
+
+ping和ICMP的关系
+ping命令发送数据使用的是ICMP协议。
+
+ping的原理
+向指定的网络地址发送一定长度的数据包，按照约定，若指定网络地址存在的话，会返回同样大小的数据包，
+若在特定时间内没有返回，就是“超时”，会被认为指定的网络地址不存在。
+---------------------------------------------------------------------------------------------------------------------------
+A (126) 1  -126.0.0.0  [0000  0001] -[0111 1111]  私有地址A 10.0.0.1    ~ 10.255.255.254
+B (64 ) 128-191.0.0.0  [1000  0000] -[1011 1111]  私有地址B 172.16.0.1  ~ 172.31.255.254
+C (32 ) 192-223.0.0.0  [1100  0000] -[1101 1111]  私有地址C 192.168.0.1 ~ 192.168.255.254
+D (16 ) 224-239.0.0.0  [1110  0000] -[1110 1111]
+E (15 ) 240-254.0.0.0  [1111  0000] -[1111 1110]
+        1 	 1 	 1 	 1 	 1 	 1 	 1 	 1 
+	0	0	0	0	0	0	0	0
+ 	128	64	32	16	8	4	2	1
+
+====================================
+
+python3之socket&socketserver网络编程
+
+https://www.cnblogs.com/zhangxinqi/p/8243919.html
+
+
+•  一种套接字是Unix套接字,其“家族名”为AF_UNIX
+•  另一种套接字是基于网络的,“家族名”为 AF_INET
+
+•  面向连接的主要协议就是传输控制协议TCP,
+套接字类型为    SOCK_STREAM
+
+•  无连接的主要协议是用户数据报协议UDP,
+套接字类型为    SOCK_DGRAM
+
+
+stream     英 [stri:m]   美 [strim]  
+      n.河流，小河，川，溪;
+      vt.& vi.流，流动
+
+
+•  创建 TCP 服 务 器  的主要步骤如下:
+
+1.  创建服务器套接字:s = socket.socket()
+
+1)创建socket对象：
+ socket.socket(family=AF_INET, type=SOCK_STREAM, proto=0, fileno=None)
+
+socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+使用给定的地址族，套接字类型和协议号来创建一个新套接字.
+
+>>> import socket
+#创建TCP socket：     基于网络的套接字       socket.AF_INET
+                          面向连接的 套接字类型为    SOCK_STREAM
+
+>>> sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+
+
+2.  绑定地址到套接字:s.bind()
+3.  启动监听:s.listen()
+4.  接受客户连接:s.accept()
+5.  与客户端通信:recv()/send()
+6.  关闭套接字:s.close()
+
+
+•  创建 UDP 服 务 器 的主要步骤如下:
+
+1.  创建服务器套接字:s = socket.socket()
+#创建UDP socket：    基于网络的套接字       socket.AF_INET
+                            无连接的套接字 类型为    SOCK_DGRAM
+
+>>> sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+
+
+2.  绑定服务器套接字:s.bind()
+3.  接收、发送数据:s.recvfrom()/ss.sendto()
+4.  关闭套接字:s.close()
+
+----------------------------------------------------------
+
+•  创建 TCP  客 户 端  的步骤主要如下:
+
+1.  创建客户端套接字:cs = socket.socket()
+
+2.  尝试连接服务器:cs.connect()
+3.  与服务器通信:cs.send()/cs.recv()
+4.  关闭客户端套接字:cs.close()
+
+
+•  创建 UDP 客 户 端 的步骤主要如下:
+
+1.  创建客户端套接字:cs = socket.socket()
+2.  与服务器通信:cs.sendto()/cs.recvfrom()
+3.  关闭客户端套接字:cs.close()
+
+•  另一种套接字是基于网络的,“家族名”为 AF_INET
+
+套接字为BSD UNIX系统核心的一部分，
+而且他们也被许多其他类似UNIX的操作系统包括Linux所采纳。
+许多非BSD UNIX系统（如ms-dos，windows，os/2，mac os及大部分主机环境）
+都以库形式提供对套接字的支持。
+
+三种最流行的套接字类型是:
+
+stream,
+datagram
+和raw。
+
+stream和datagram套接字
+可以直接与TCP协议进行接口，
+
+而raw套接字则接口到IP协议。
+但套接字并不限于TCP/IP。
+
+套接字模块是一个非常简单的基于对象的接口，
+它提供对低层BSD套接字样式网络的访问。
+使用该模块可以实现客户机和服务器套接字。
+要在python 中建立具有TCP和流套接字的简单服务器，需要使用socket模块。
+利用该模块包含的函数和类定义，
+可生成通过网络通信的程序。
+
+socket模块方法
+
+socket.socket（family = AF_INET，type = SOCK_STREAM，proto = 0，fileno = None ）:
+使用给定的地址系列，套接字类型和协议号创建一个新套接字
+
+socket.socketpair（[ family [，type [，proto ] ] ] ）:
+使用给定的地址系列，套接字类型和协议编号构建一对连接的套接字对象
+
+socket.create_connection（address [，timeout [，source_address ] ] ）:
+连接到侦听Internet 地址（2元组 ）的TCP服务，然后返回套接字对象
+
+socket.fromfd（fd，family，type，proto = 0 ）:
+复制文件描述符fd（由文件对象的fileno()方法返回的整数 ），并从结果中构建一个套接字对象
+
+socket.fromshare（data）:
+从该socket.share() 方法获得的数据实例化一个套接字。
+假设套接字处于阻塞模式。
+
+socket.SocketType:
+这是表示套接字对象类型的Python类型对象。
+这是一样的type(socket(...))
+
+socket.getaddrinfo（host，port，family = 0，type = 0，proto = 0，flags = 0 ）:
+将主机 / 端口参数转换为5元组序列，
+其中包含创建连接到该服务的套接字的所有必要参数
+
+
+
+
+#!/usr/bin/env  python3
+#coding:UTF-8
+"""#coding=UTF-8 专门为版本2 解决默认编码问题,可以识别中文"""
+
+import  sys, socket
+
+sys.stdout.write('\033[32;46;1m__name__ is %s\n\033[0m' % __name__)
+
+hostip = ''    #空字符串''代表本机的所有ip 地址
+port = 12345  #使用大于 1024的值作为端口号
+addr = (host, port)  #作为一个元组类型的数据
+#        基于网络的 套接字       socket.AF_INET
+#        面向连接的 套接字类型为    SOCK_STREAM
+S = socket.socket( socket.AF_INET, socket.SOCK_STREAM )
+
+
+
+
+if  __name__ == '__main__':
+  sys.stdout.write('\033[31;47;1msys.argv is %s\n\033[0m' % sys.argv)
+
+
+               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

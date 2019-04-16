@@ -1,0 +1,2299 @@
+
+http://www.ip138.com/
+手机上网查询 : m.ip138.com
+
+>>> import   os
+>>> file = os.path.abspath('zidir/md5.data')
+>>> 
+>>> print(file)
+/root/pyscripts/day07/zidir/md5.data
+
+>>> print('file is %s   exists  %s' % (file, os.path.exists(file)))
+file is /root/pyscripts/day07/zidir/md5.data   exists  True
+
+>>> file = os.path.basename('zidir/md5.data')
+>>> print('file is %s   exists  %s' % (file, os.path.exists(file)))
+file is md5.data   exists  False
+>>> 
+>>> fileobj = open('zidir/md5.data','rb')
+>>> type(fileobj)
+<class '_io.BufferedReader'>
+>>> count = 0
+>>> while True:
+...   data = fileobj.read(128)  #默认内存以Byte 字节为单位(1byte = 8bit)
+...   print(data, type(data), sep=' ---- ')
+...   if not data:
+...     break
+...   count += 1
+... 
+b"\x80\x03}q\x00(X)\x00\x00\x00/root/pyscripts/day07/srctest/filetest.pyq\x01X \x00\x00\x007a358b09af7c8553e8295ca271d0529bq\x02X'\x00\x00\x00/root/pyscripts/day07/srctest/" ---- <class 'bytes'>
+b'zifile.pyq\x03X \x00\x00\x007a358b09af7c8553e8295ca271d0529bq\x04X3\x00\x00\x00/root/pyscripts/day07/srctest/zisrcdir/zisrcfile.pyq\x05X \x00\x00\x007a358b09af7c855' ---- <class 'bytes'>
+b'3e8295ca271d0529bq\x06u.' ---- <class 'bytes'>
+b'' ---- <class 'bytes'>
+>>> fileobj.close()
+>>> print('一共循环读取了 %d 次' % count)
+一共循环读取了 3 次
+>>> 
+>>> 
+>>> str = '年月日'
+>>> print(type(str))
+<class 'str'>   #注意类型是str
+>>> 
+>>> str
+'年月日'
+-------------------------------- 注意关键词, encode 编码，编制成计算机语言
+
+>>> str = str.encode('unicode_escape') # 把字符串str 编码成unicode
+
+>>> print(type(str))
+<class 'bytes'>    #注意类型是 'bytes'
+>>>
+>>> str
+b'\\u5e74\\u6708\\u65e5'
+>>>
+
+------------------------ 注意关键词 decode，解 码
+
+>>> str = str.decode('utf-8') # 把字符串解码成utf-8,得到unicode的字符串
+>>> str
+'\\u5e74\\u6708\\u65e5'
+
+>>> type(str)
+<class 'str'>   #注意类型是 str
+>>> 
+
+------------- # 把字符串中的\u替换掉,得到十六进制unicode字符串
+>>> str
+'\\u5e74\\u6708\\u65e5'
+
+>>> str = str.replace('\\u', '')
+>>> str
+'5e74670865e5'
+>>> 
+------------ # 获取字符串前4位,代表字符串中的第一个字
+>>> str
+'5e74670865e5'
+>>> str_a = str[:4]
+>>> str_b = str[4:8]
+>>> str_c = str[8:]
+>>> str_a
+'5e74'
+>>> str_b
+'6708'
+>>> str_c
+'65e5'
+>>> 
+hexadecimal     英 [ˌheksəˈdesɪml]  美 [ˌhɛksəˈdɛsəməl]  
+    n.& adj.十六进制（的）
+
+-------------- # 把十六进制字符串转为int类型数字
+
+>>> inta =  int(str_a,16)
+>>> inta
+24180
+>>> type(inta)
+<class 'int'>
+>>> 
+>>> chr(24180)  # int 型 数字 转换成 字符
+'年'
+>>> 
+>>> type(chr(24180))
+<class 'str'>
+>>> 
+
+>>> 
+>>> hex(24180)  # 把int转成十六进制
+'0x5e74'
+>>> 
+
+
+
+=======================================
+================== ('utf-8') ======================
+>>> 
+>>> str = '年月日'
+>>> str
+'年月日'
+>>> type(str)
+<class 'str'>
+-----------------------------------------------注意关键词, encode 编码，编制成计算机语言
+
+>>> str = str.encode('utf-8')   # 把字符串编码成utf-8 编码，编制成计算机语言
+>>> str
+b'\xe5\xb9\xb4\xe6\x9c\x88\xe6\x97\xa5'
+>>> type(str)
+<class 'bytes'>
+>>> 
+----------------------------------------------注意关键词 decode，解 码
+
+>>> str = str.decode('utf-8')  # 把utf-8 转换成 字符串( 解 码 )
+>>> type(str)
+<class 'str'>
+>>> str
+'年月日'
+>>> 
+================== ('utf-8') ======================
+
+>>> '%s' % 'abc年月日'
+'abc年月日'
+>>> bytes('%s' % 'abc年月日', encoding= 'utf8')
+b'abc\xe5\xb9\xb4\xe6\x9c\x88\xe6\x97\xa5'
+
+>>> x = bytes('%s' % 'abc年月日', encoding= 'utf8')
+>>> type(x)
+<class 'bytes'>
+>>> x
+b'abc\xe5\xb9\xb4\xe6\x9c\x88\xe6\x97\xa5'
+
+>>> y = x.decode('utf8')
+>>> y
+'abc年月日'
+>>> type(y)
+<class 'str'>
+
+>>> x
+b'abc\xe5\xb9\xb4\xe6\x9c\x88\xe6\x97\xa5'
+>>> z = str(x, encoding= 'utf8')
+>>> z
+'abc年月日'
+>>> type(z)
+<class 'str'>
+>>> 
+
+
+-----------------------------------------------------------------------
+
+>>> a = '月'
+>>> a
+'月'
+>>> type(a)
+<class 'str'>
+--------------------------------------注意关键词, encode 编码，编制成计算机语言
+
+>>> a = a.encode(encoding = 'utf-8')
+>>> type(a)
+<class 'bytes'>
+>>> a
+b'\xe6\x9c\x88'
+>>> 
+-------------- ------------    注意关键词 decode，解 码
+
+>>> a = a.decode(encoding = 'utf-8')
+>>> a
+'月'
+>>> type(a)
+<class 'str'>
+>>> 
+
+>>> a = '日'
+>>>    
+>>> a = bytes(a,encoding= 'utf8')
+>>> a
+b'\xe6\x97\xa5'
+>>>
+>>> type(a)
+<class 'bytes'>
+>>> 
+----------------注意关键词 decode，解 码
+
+>>> a = a.decode('utf-8')
+>>> a
+'日'
+>>> type(a)
+<class 'str'>
+>>> 
+
+
+========================================
+
+---------------------------------------------------------------------------------
+>>> 
+>>> a = 'hello'
+>>> a
+'hello'
+>>> type(a)
+<class 'str'>
+>>> a = bytes(a, 'ascii')
+>>> a
+b'hello'
+>>> type(a)
+<class 'bytes'>
+
+----------------注意关键词 decode，解 码
+
+>>> a = a.decode('ascii')
+>>> a
+'hello'
+>>> type(a)
+<class 'str'>
+>>> 
+--------------------------------------------------------------------
+
+===============================================
+=================== ('unicode_escape') ========================
+
+encode       英 [ɪnˈkəʊd] 
+      vt.（将文字材料）译成密码;编码，编制成计算机语言
+
+escape     英 [ɪˈskeɪp] 
+      v.逃脱;逃离;躲过;泄露
+
+decode      英 [ˌdi:ˈkəʊd] 
+      vt.译（码），解（码）;分析及译解电子信号
+>>> 
+>>> str = '年月日'
+>>> type(str)
+<class 'str'>
+>>> str
+'年月日'
+>>> -------------------------------------------------------------
+----- ## 把字符串str 编码成unicode,注意关键词, encode, 编码，编制成计算机语言
+
+>>> str = str.encode('unicode_escape') # 把字符串str 编码成unicode,注意关键词
+>>> type(str)
+<class 'bytes'>
+>>> str
+b'\\u5e74\\u6708\\u65e5'
+>>> 
+----------------------------------------------------------注意关键词 decode，解 码
+
+----- # 用unicode解码，得到对应的汉字,注意关键词 decode，解 码
+
+>>> str = str.decode('unicode_escape')
+>>> type(str)
+<class 'str'>
+>>> str
+'年月日'
+>>> 
+============== ('unicode_escape') =================
+========================================
+
+
+b'\x80\x03}q\x00(X)\x00\x00\x00'
+
+
+>>> hello = bytes('hello boy',encoding='utf8')
+>>> print(hello)
+b'hello boy'
+>>> type(hello)
+<class 'bytes'>
+>>> 
+
+>>> 
+>>> a = bytes([1, 2, 3])
+>>> a
+b'\x01\x02\x03'
+>>> type(a)
+<class 'bytes'>
+>>> 
+>>> a = bytes('hello', 'ascii')
+>>> a
+b'hello'
+>>> 
+>>> type(a)
+<class 'bytes'>
+>>> 
+=====================================
+
+python中的字符数字之间的转换函数
+
+str(x )                 将对象 x 转换为字符串    
+repr(x )                将对象 x 转换为表达式字符串    
+chr(x )                 将一个整数转换为一个字符 
+unichr(x )              将一个整数转换为Unicode字符
+ord(x )                 将一个字符转换为它的整数值    
+hex(x )                 将一个整数转换为一个十六进制字符串    
+oct(x )                 将一个整数转换为一个八进制字符串   
+
+
+==========================================
+
+KeyboardInterrupt   #Ctrl + C
+>>> 
+[root@V0 day07]# 
+
+基本概念
+•  类(Class):用来描述具有相同的属性和方法的对象的集合。
+它定义了该集合中每个对象所共有的属性和方法。
+对象是类的实例。
+•  实例化:创建一个类的实例,类的具体对象。
+•  方法:类中定义的函数。
+•  对象:通过类定义的数据结构实例。
+对象包括两个数据成员
+(类变量和实例变量)和方法。
+
+orient      英 [ˈɔ:rient]   美 [ˈɔriənt, -ˌɛnt, ˈor-]  
+     vt.标定方向;使…向东方;以…为参照;使熟悉或适应
+     adj.东方的;
+
+oriented      英 ['ɔ:rɪəntɪd]   美 ['ɔ:rɪrntɪd]  
+    adj.导向的;定向的;以…为方向的;定方向
+
+analysis       英 [əˈnæləsɪs]   美 [əˈnælɪsɪs]  
+     n.分析，分解;梗概，要略;[数]解析;验定
+
+program     英 [ˈprəʊgræm]   美 [ˈproʊgræm]  
+    n.程序;节目，节目单;计划，安排
+    v.[计]给…编写程序;为…制定计划;设计安排活动;编排
+
+design     英 [dɪˈzaɪn]   美 [dɪˈzaɪn]  
+      vt.& vi.设计;绘制
+      vt.设计;计划;企图;决意（做）
+      n.设计;图案;结构;计划
+
+
+面向对象分析
+ooa(object-oriented analysis)
+
+
+面向对象设计
+ood(object-oriented design)
+
+
+OOP
+Object Oriented Programming 面向对象的程序设计
+
+[root@V0 ~]# cd pyscripts/day07/
+[root@V0 day07]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> class A:
+...   pass
+... 
+>>> A.__dict__  #类的 属性 都保存在字典里
+mappingproxy(
+  {  '__module__': '__main__', 
+       '__dict__': <attribute '__dict__' of 'A' objects>, 
+    '__weakref__': <attribute '__weakref__' of 'A' objects>,
+        '__doc__': None
+   }
+)
+>>> 
+>>> 
+>>> class  A:  pass
+... 
+>>> 
+>>> adict = { "name" : 'peri', 'woman' : True, 'age' : 28 }
+>>> a = A()
+>>> a.__dict__  # 实例 的 属性 都保存在字典里,没有定义为空{}
+{}
+>>> a.__dict__.
+a.__dict__.clear(       a.__dict__.items(       a.__dict__.setdefault(
+a.__dict__.copy(        a.__dict__.keys(        a.__dict__.update(
+a.__dict__.fromkeys(    a.__dict__.pop(         a.__dict__.values(
+a.__dict__.get(         a.__dict__.popitem( 
+    
+>>> a.__dict__.update(adict)
+
+>>> a.__dict__
+{'name': 'peri', 'woman': True, 'age': 28}
+>>> a.age
+28
+>>> 
+[root@V0 day07]# scp  ooptoy2.py  root@192.168.0.254:/var/git/PYTHON/pythonScripts/day07
+
+>>> class  Date:
+...   def __init__(self, year, month, date):
+...     self.year = year
+...     self.month = month
+...     self.date = date
+... 
+>>> 
+>>> x = Date(2019, 4, 1)
+>>> x.__dict__
+{'year': 2019, 'month': 4, 'date': 1}
+>>> x.__dict__.
+x.__dict__.clear(       x.__dict__.pop(
+x.__dict__.copy(        x.__dict__.popitem(
+x.__dict__.fromkeys(    x.__dict__.setdefault(
+x.__dict__.get(         x.__dict__.update(
+x.__dict__.items(       x.__dict__.values(
+x.__dict__.keys(        
+>>> x.
+x.date   x.month  x.year   
+>>> x.__
+x.__class__(          x.__gt__(             x.__reduce__(
+x.__delattr__(        x.__hash__(           x.__reduce_ex__(
+x.__dict__            x.__init__(           x.__repr__(
+x.__dir__(            x.__init_subclass__(  x.__setattr__(
+x.__doc__             x.__le__(             x.__sizeof__(
+x.__eq__(             x.__lt__(             x.__str__(
+x.__format__(         x.__module__          x.__subclasshook__(
+x.__ge__(             x.__ne__(             x.__weakref__
+x.__getattribute__(   x.__new__(            
+>>> 
+>>> x.year
+2019
+>>> newstr = x.year, x.month, x.date
+>>> newstr
+(2019, 4, 1)
+>>> 
+>>> type(newstr)
+<class 'tuple'>
+>>> 
+>>> strdate = '2019, 4, 1'
+>>> x.year, x.month, x.date = strdate.split(',')
+>>> x.year
+'2019'
+>>> strdate = '2018, 05, 22'
+>>> x.year, x.month, x.date = strdate.split(',')
+>>> x.year
+'2018'
+>>> x.month
+' 05'
+>>> x.date
+' 22'
+>>>
+>>> type(x.date)
+<class 'str'>
+>>> 
+>>> strdate
+'2018, 05, 22'
+>>> strdate.split
+strdate.split(       strdate.splitlines(  
+
+>>> strdate.split(' ')
+['2018,', '05,', '22']
+
+>>> strdate.split(',')
+['2018', ' 05', ' 22']
+>>> 
+>>> strdate = '2017*05*22'
+>>> x.year, x.month, x.date = map(int, strdate.split('*'))
+>>> x.year, x.month, x.date
+(2017, 5, 22)
+>>> x.year
+2017
+>>> 
+
+[root@V0 day07]# scp   oopcallstr.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/day07
+
+>>> 
+>>> type(100)
+<class 'int'>
+>>> isinstance(234, int)
+True
+
+>>> type(True)
+<class 'bool'>
+>>> isinstance(False, bool)
+True
+
+>>> type({'key':'value', True : 1})
+<class 'dict'>
+>>> True == 1
+True
+>>> isinstance({'key':'value', True : 1}, dict)
+True
+
+>>> type(('abc',123,False))
+<class 'tuple'>
+>>> isinstance(('abc',), tuple)
+True
+
+>>> type([True])
+<class 'list'>
+>>> isinstance([False], list)
+True
+>>> 
+
+类的专有方法：
+__init__ : 构造函数，在生成对象时调用
+__del__ : 析构函数，释放对象时使用
+__repr__ : 打印，转换
+__setitem__ : 按照索引赋值
+__getitem__: 按照索引获取值
+__len__: 获得长度
+__cmp__: 比较运算
+__call__: 函数调用
+__add__: 加运算
+__sub__: 减运算
+__mul__: 乘运算
+__truediv__: 除运算
+__mod__: 求余运算
+__pow__: 乘方
+
+
+反向运算符的重载
+
+当运算符的左侧为内建类型时，
+右侧为自定义类型进行算数运算符运算时会出现TypeError错误，
+因无法修改内建类型的代码实现运算符操作，
+此时需要使用反序运算符操作。
+
+方法名(__双下划线__)      运算符和表达式     说明
+radd(self, lhs)        lhs + self      加法
+rsub(self, lhs)        lhs - self      减法
+rmul(self, lhs)        lhs * self      乘法
+rtruediv(self, lhs)    lhs / self      除法
+rfloordiv(self, lhs)   lhs // self      地板除
+rmod(self, lhs)        lhs % self      求余
+rpow(self, lhs)        lhs ** self     求幂运算
+
+
+算数运算符的重载
+
+方法名(__双下划线__)      运算符和表达式     说明
+add(self, rhs)         self + rhs      加法
+sub(self, rhs)         self - rhs      减法
+mul(self, rhs)         self * rhs      乘法
+truediv(self, rhs)     self / rhs      除法
+floordiv(self, rhs)    self // rhs    地板除
+mod(self, rhs)         self % rhs     求余
+pow(self, rhs)         self ** rhs    求幂运算
+
+
+>>> a= 100
+>>> b = 2
+>>> b *= 10
+>>> b
+20
+>>> a += 33
+>>> a
+133
+>>> a -= 103
+>>> a
+30
+>>> a /= 3    #truediv(self, rhs)   self / rhs    除法
+>>> a
+10.0
+>>> a += 2.5
+>>> a
+12.5
+>>> a //= 4   #floordiv(self, rhs)   self // rhs   地板除
+>>> a
+3.0
+>>> b
+20
+>>> b //= 3
+>>> b
+6
+>>> a
+3.0
+>>> a **= 3    #pow(self, rhs)   self ** rhs  求幂运算
+>>> a
+27.0
+>>> b
+6
+>>> b %=  4   #mod(self, rhs)  self % rhs   求余
+>>> b
+2
+>>> 
+    class PY3__cmp__:   
+        def __eq__(self, other):
+            return self.__cmp__(other) == 0
+
+        def __ne__(self, other):
+            return self.__cmp__(other) != 0
+
+        def __gt__(self, other):
+            return self.__cmp__(other) > 0
+
+        def __lt__(self, other):
+            return self.__cmp__(other) < 0
+
+        def __ge__(self, other):
+            return self.__cmp__(other) >= 0
+
+        def __le__(self, other):
+            return self.__cmp__(other) <= 0
+
+比较符号运算符重载
+__ne__不等于
+
+__gt__ 大于 
+
+__ge__ 大于等于 
+
+__lt__ 小于 
+
+__le__ 小于等于
+
+__eq__等于
+
+------------------------------
+
+  def  __gt__(self, other):  #gt大于号比较
+    return  self.num > other
+
+  def __ge__(self, other):
+    return  self.num >= other
+
+  def  __eq__(self, other):
+    return self.num == other
+
+  def __le__(self, other):
+    return self.num <= other
+
+  def __lt__(self, other):
+    return  self.num < other
+
+  def __ne__(self, other):
+    return  self.num  !=  other
+------------------------------------------------------------------
+
+class  Book:
+  def  __init__(self, title, author):
+    "author [ˈɔ:θə(r)] n. 作者;著作家;创造者;发起人"
+    self.title = title
+
+    self.__author =  author + '隐藏属性__author'
+
+    self.__private = '隐藏的属性__private'
+
+    print('正在初始化 Book类实例--------\n')
+
+
+  def  __str__(self):   #打印/显示实例时调用内建方法str
+    return '<Book: %s>' % self.title
+
+
+  def  __call__(self): #调用call内建方法可把此类型对象当作函数来使用
+    print('<< %s >> is written by %s !' % (self.title, self.__author))
+
+
+
+
+
+if  __name__ == '__main__':
+  sys.stdout.write('\033[31;47;1msys.argv is %s\n\033[0m' % sys.argv)
+  bk = Book('Core Python', 'Wesley Chun')
+  #正在初始化 Book类实例--------
+
+  print(bk)    #自动调用方法 __str__
+  #<Book: Core Python>
+  bk()         #自动调用方法 __call__
+  #<< Core Python >> is written by Wesley Chun隐藏属性__author !
+
+  print("没有下划线的属性 是对外公开的属性 %s" % bk.title)
+  #没有下划线的属性 是对外公开的属性 Core Python
+
+ #访问私有属性的方式,注意是
+ #"实例对象名" + "点 ." + "一个下划线 _" + 类名+ "2个下划线__" + 私有属性
+
+  print("查看私有属性, 需要在实例对象bk的类名Book前加一个下划线, \n\
+  类的后面紧接着带2个下划线的仅仅对内部共享的私有属性__private is\n\
+  '%s'"  %  bk._Book__private )
+
+  #查看私有属性, 需要在实例对象bk的类名Book前加一个下划线, 
+  #  类的后面紧接着带2个下划线的仅仅对内部共享的私有属性__private is
+  #  '隐藏的属性__private'
+
+
+
+[root@V0 day07]# scp  private_attr.py  root@192.168.0.254:/var/git/PYTHON/pythonScripts/day07
+
+
+ --------------------- 匹配单个字符 --------------------------------
+ .                       匹配任意字符(换行符除外)
+[...x-y...]         匹配字符组里的任意字符
+[^...x-y...]        匹配不在字符组里的任意字符
+\d                  匹配任意数字,与[0-9]同义
+\w                  匹配任意数字字母字符,与[0-9a-zA-Z_]同义
+\s                  匹配空白字符,与[ \r\v\f\t\n]同义
+
+
+--------------------  匹配一组字符 ------------------------- 
+记号                     说 明
+literal             匹配字符串的值
+re1|re2             匹配正则表达式re1或re2
+*                        匹配前面出现的正则表达式零次或多次
++                        匹配前面出现的正则表达式一次或多次
+?                         匹配前面出现的正则表达式零次或一次
+{M, N}              匹配前面出现的正则表达式至少M次最多N次
+
+  *、 + 和 ? 都是  贪婪匹配操作符,
+ 在其后 加上 ? 可以 取消 其 贪婪匹配行为
+
+其他元字符
+记号                 说 明
+^                     匹配字符串的开始
+$                     匹配字符串的结尾
+\b               匹配单词的边界
+()                    对正则表达式分组
+\nn              匹配已保存的子组
+
+
+stream     英 [stri:m]   美 [strim]  
+      n.河流，小河，川，溪;
+          潮流，趋势，倾向;
+    （事件等的）连续，（财富等的）滚滚而来;
+     流出，流注，一连串
+vt.& vi.流，流动
+
+TCP
+(Transmission Control Protocol)，传输控制协议
+
+TCP---传输控制协议,提供的是面向连接、可靠的字节流服务。
+
+当客户和服务器彼此交换数据前，
+必须先在双方之间建立一个TCP连接，之后才能传输数据。
+TCP提供超时重发，
+丢弃重复数据，检验数据，流量控制等功能，
+保证数据能从一端传到另一端。
+
+
+UDP
+(User Datagram Protocol)，用户数据报协议
+
+UDP---用户数据报协议，是一个简单的面向数据报的运输层协议。
+
+UDP不提供可靠性，
+它只是把应用程序传给IP层的数据报发送出去，
+但是并不能保证它们能到达目的地。
+
+由于UDP在传输数据报前不用在客户和服务器之间建立一个连接，
+且没有超时重发等机制，
+故而传输速度很快。
+
+======================================================
+
+
+			             OSI参考模型(七层框架)
+
+          [5] 应用层        |<----------协议--------->|	        应用层     (计算机) APDU [是应用层协议数据单元]
+                HTTP  FTP  TFTP  SMTP  SNMP  DNS
+                    上层数据
+6  接口      
+             表示层         |-----------协议-----------|         表示层              PPDU [是表示层协议数据单元]
+5  接口
+ 	     会话层         |-----------协议-----------|         会话层              SPDU [是会话层协议数据单元]
+4  接口      
+      	  [4] 传输层        <----------协议--------->         传输层     (防火墙) TPDU [是传输层协议数据单元,即 segment "数据段"]
+                TCP      UDP
+                TCP头部     上层数据
+3  接口
+       	  [3] 网络层        <----------协议--------->         网络层     (路由器)  package 数据包
+                ICMP  IGMP    IP   ARP   RARP
+                IP头部   TCP头部     上层数据
+2  接口
+          [2] 数据链路层    <----------协议--------->         数据链路层 (交换机)  frame  数据帧
+                MAC头部  IP头部   TCP头部   上层数据
+1  接口   
+          [1] 物理层	    <----------协议--------->	        物理层     (网卡)    bit   比特流
+
+          层            主机A                              主机B          数据单元
+------------------------------------------------------------------------------------------------------
+
+TCP的优点： 可靠，稳定 
+TCP的可靠体现在TCP在传递数据之前，
+会有三次握手来建立连接，
+而且在数据传递时，
+有确认、窗口、重传、拥塞控制机制，
+在数据传完后，
+还会断开连接用来节约系统资源。 
+
+TCP的缺点： 慢，效率低，占用系统资源高，易被攻击 
+TCP在传递数据之前，要先建连接，这会消耗时间，
+而且在数据传递时，
+确认机制、重传机制、拥塞控制机制等都会消耗大量的时间，
+而且要在每台设备上维护所有的传输连接，
+事实上，每个连接都会占用系统的CPU、内存等硬件资源。
+因为TCP有确认机制、三次握手机制，
+这些也导致TCP容易被人利用，实现DOS、DDOS、CC等攻击。
+
+UDP的优点： 快，比TCP稍安全 
+UDP没有TCP的握手、确认、窗口、重传、拥塞控制等机制，
+UDP是一个无状态的传输协议，
+所以它在传递数据时非常快。
+没有TCP的这些机制，
+UDP较TCP被攻击者利用的漏洞就要少一些。
+
+但UDP也是无法避免攻击的，
+比如：UDP Flood攻击…… 
+
+UDP的缺点： 不可靠，不稳定 
+因为UDP没有TCP那些可靠的机制，
+在数据传递时，如果网络质量不好，就会很容易丢包。 
+
+ 什么时候应该使用TCP： 
+当对网络通讯质量有要求的时候，
+比如：整个数据要准确无误的传递给对方，
+这往往用于一些要求可靠的应用，比如HTTP、HTTPS、FTP等传输文件的协议，POP、SMTP等邮件传输的协议。 
+在日常生活中，常见使用TCP协议的应用如下： 
+  浏览器，用的HTTP FlashFXP，
+  FTP Outlook，
+  POP、SMTP Putty，
+  Telnet、SSH QQ文件传输 ………… 
+
+什么时候应该使用UDP： 
+当对网络通讯质量要求不高的时候，要求网络通讯速度能尽量的快，这时就可以使用UDP。
+
+ 比如，日常生活中，常见使用UDP协议的应用如下： 
+QQ语音 QQ视频 TFTP ……
+有些应用场景对可靠性要求不高会用到UPD，比如长视频，要求速率
+
+
+小结TCP与UDP的区别：
+1.基于连接与无连接；
+2.对系统资源的要求（TCP较多，UDP少）；
+3.UDP程序结构较简单；
+4.流模式与数据报模式 ；
+
+5.TCP保证数据正确性，UDP可能丢包，TCP保证数据顺序，UDP不保证。
+
+tcp协议和udp协议的差别 
+TCP UDP 
+是否连接 面向连接 面向非连接 
+传输可靠性 可靠 不可靠 
+应用场合 传输大量数据 少量数据 
+速度 慢 快
+
+TCP与UDP区别总结：
+
+1、TCP面向连接（如打电话要先拨号建立连接）;UDP是无连接的，即发送数据之前不需要建立连接
+
+2、TCP提供可靠的服务。也就是说，通过TCP连接传送的数据，无差错，不丢失，不重复，且按序到达;UDP尽最大努力交付，即不保证可靠交付
+
+3、TCP面向字节流，实际上是TCP把数据看成一连串无结构的字节流;UDP是面向报文的
+
+UDP没有拥塞控制，因此网络出现拥塞不会使源主机的发送速率降低（对实时应用很有用，如IP电话，实时视频会议等）
+
+4、每一条TCP连接只能是点到点的;UDP支持一对一，一对多，多对一和多对多的交互通信
+
+5、TCP首部开销20字节;UDP的首部开销小，只有8个字节
+6、TCP的逻辑通信信道是全双工的可靠信道，UDP则是不可靠信道
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+APDU 是应用层协议数据单元
+报文，message，一般指完整的信息，传输层实现报文交付。我们将位于应用层的信息分组称为报文。
+frame，Datagram，segment是基于所在协议层不同而取了不同的名字
+
+PPDU 是表示层协议数据单元
+SPDU 是会话层协议数据单元
+TPDU 是传输层协议数据单元，即 "数据段”
+传输层 segment（报文段）
+报文段，segment，组成报文的每个分组。我们将传输层分组称为报文段。
+抓包抓到的是传输层的包，所以packet，frame，Datagram，segment是存在于同条记录中的
+
+网络层的协议数据单元，即 "数据包”
+网络层 packet （数据包）
+
+数据链路层的协议数据单元，即 "数据帧”
+数据链路层 frame（数据帧）
+帧，frame，数据链路层的协议数据单元。我们将链路层分组称为帧。
+
+物理层的协议数据单元，即 数据“比特”
+物理层 bit （比特）
+
+1.报文(message)
+报文是网络中交换与传输的数据单元，也是网络传输的单元。
+报文包含了将要发送的完整的数据信息，其长短不需一致。
+报文在传输过程中会不断地封装成分组、包、帧来传输，
+封装的方式就是添加一些控制信息组成的首部，那些就是报文头。
+ 
+2.分组(packet)
+分组是在网络中传输的二进制格式的单元，
+为了提供通信性能和可靠性，每个用户发送的数据会被分成多个更小的部分。
+在每个部分的前面加上一些必要的控制信息组成的首部，
+有时也会加上尾部，就构成了一个分组。
+ 
+3.数据包(data packet)
+数据包是TCP/IP协议通信传输中的数据单元，也称为“包”。
+是指自包含的，带有足够寻址信息，可独立地从源主机传输到目的主机，
+而不需要依赖早期的源主机和目的主机之间交换信息以及传输网络的数据包。
+ 
+4.数据报(datagram)
+面向无连接的数据传输，其工作过程类似于报文交换。
+采用数据报方式传输时，被传输的分组称为数据报。
+ 
+5.帧(frame)
+帧是数据链路层的传输单元。它将上层传入的数据添加一个头部和尾部，组成了帧。
+ 
+应用层——消息
+传输层——数据段(segment)
+网络层——分组、数据包（packet）
+链路层——帧（frame）
+
+ICMP是“Internet Control Message Ptotocol”（Internet控制消息协议）的缩写。
+它是TCP/IP协议族的一个子协议，用于在IP主机、路由器之间传递控制消息
+
+ping命令通常用来作为网络可用性的检查。
+ping命令可以对一个网络地址发送测试数据包，看该网络地址是否有响应并统计响应时间，以此测试网络。
+
+ping和ICMP的关系
+ping命令发送数据使用的是ICMP协议。
+
+ping的原理
+向指定的网络地址发送一定长度的数据包，按照约定，若指定网络地址存在的话，会返回同样大小的数据包，
+若在特定时间内没有返回，就是“超时”，会被认为指定的网络地址不存在。
+---------------------------------------------------------------------------------------------------------------------------
+A (126) 1  -126.0.0.0  [0000  0001] -[0111 1111]  私有地址A 10.0.0.1    ~ 10.255.255.254
+B (64 ) 128-191.0.0.0  [1000  0000] -[1011 1111]  私有地址B 172.16.0.1  ~ 172.31.255.254
+C (32 ) 192-223.0.0.0  [1100  0000] -[1101 1111]  私有地址C 192.168.0.1 ~ 192.168.255.254
+D (16 ) 224-239.0.0.0  [1110  0000] -[1110 1111]
+E (15 ) 240-254.0.0.0  [1111  0000] -[1111 1110]
+        1 	 1 	 1 	 1 	 1 	 1 	 1 	 1 
+	0	0	0	0	0	0	0	0
+ 	128	64	32	16	8	4	2	1
+
+====================================
+
+python3之socket&socketserver网络编程
+
+https://www.cnblogs.com/zhangxinqi/p/8243919.html
+
+
+•  一种套接字是Unix套接字,其“家族名”为AF_UNIX
+•  另一种套接字是基于网络的,“家族名”为 AF_INET
+
+•  面向连接的主要协议就是传输控制协议TCP,
+套接字类型为    SOCK_STREAM
+
+•  无连接的主要协议是用户数据报协议UDP,
+套接字类型为    SOCK_DGRAM
+
+
+stream     英 [stri:m]   美 [strim]  
+      n.河流，小河，川，溪;
+      vt.& vi.流，流动
+
+
+socket.socket(family=AF_INET,type=SOCK_STREAM,proto=0,fileno=None)
+创建socket对象的参数说明：
+ 
+family        地址系列应为AF_INET(默认值),
+        AF_INET6,AF_UNIX,AF_CAN或AF_RDS。
+  （AF_UNIX 域实际上是使用本地 socket 文件来通信）
+
+type	        套接字类型应为
+           SOCK_STREAM(默认值),
+           SOCK_DGRAM,
+            SOCK_RAW 或 其他 SOCK_常量之一。
+
+SOCK_STREAM   是基于TCP的，
+      有保障的（即能保证数据正确传送到对方）面向连接的SOCKET，多用于资料传送。
+ 
+SOCK_DGRAM    是基于UDP的，无保障的面向消息的socket，
+                多用于在网络上发广播信息。
+
+proto	  协议号通常为零,
+          可以省略,
+          或者在地址族为 AF_CAN的情况下,
+               协议应为 CAN_RAW 或 CAN_BCM 之一。
+
+fileno	如果指定了fileno,
+          则其他参数将被忽略,
+          导致带有指定文件描述符的套接字返回。
+
+与socket.fromfd()不同,
+
+fileno将返回相同的套接字,而不是重复的。
+
+这可能有助于使用socket.close()关闭一个独立的插座。
+
+
+
+•  创建 TCP 服 务 器  的主要步骤如下:
+
+1.  创建服务器套接字:s = socket.socket()
+
+1)创建socket对象：
+ socket.socket(family=AF_INET, type=SOCK_STREAM, proto=0, fileno=None)
+
+socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+使用给定的地址族，套接字类型和协议号来创建一个新套接字.
+
+>>> import socket
+#创建TCP socket：     基于网络的套接字       socket.AF_INET
+                          面向连接的 套接字类型为    SOCK_STREAM
+
+>>> sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+
+
+2.  绑定地址到套接字:s.bind()
+3.  启动监听:s.listen()
+4.  接受客户连接:s.accept()
+5.  与客户端通信:recv()/send()
+6.  关闭套接字:s.close()
+
+
+•  创建 UDP 服 务 器 的主要步骤如下:
+
+1.  创建服务器套接字:s = socket.socket()
+#创建UDP socket：    基于网络的套接字       socket.AF_INET
+                            无连接的套接字 类型为    SOCK_DGRAM
+
+>>> sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+
+
+2.  绑定服务器套接字:s.bind()
+3.  接收、发送数据:s.recvfrom()/ss.sendto()
+4.  关闭套接字:s.close()
+
+----------------------------------------------------------
+
+•  创建 TCP  客 户 端  的步骤主要如下:
+
+1.  创建客户端套接字:cs = socket.socket()
+
+2.  尝试连接服务器:cs.connect()
+3.  与服务器通信:cs.send()/cs.recv()
+4.  关闭客户端套接字:cs.close()
+
+
+•  创建 UDP 客 户 端 的步骤主要如下:
+
+1.  创建客户端套接字:cs = socket.socket()
+2.  与服务器通信:cs.sendto()/cs.recvfrom()
+3.  关闭客户端套接字:cs.close()
+
+•  另一种套接字是基于网络的,“家族名”为 AF_INET
+
+套接字为BSD UNIX系统核心的一部分，
+而且他们也被许多其他类似UNIX的操作系统包括Linux所采纳。
+许多非BSD UNIX系统（如ms-dos，windows，os/2，mac os及大部分主机环境）
+都以库形式提供对套接字的支持。
+
+三种最流行的套接字类型是:
+
+stream,
+datagram
+和raw。
+
+stream和datagram套接字
+可以直接与TCP协议进行接口，
+
+而raw套接字则接口到IP协议。
+但套接字并不限于TCP/IP。
+
+套接字模块是一个非常简单的基于对象的接口，
+它提供对低层BSD套接字样式网络的访问。
+使用该模块可以实现客户机和服务器套接字。
+要在python 中建立具有TCP和流套接字的简单服务器，需要使用socket模块。
+利用该模块包含的函数和类定义，
+可生成通过网络通信的程序。
+
+socket模块方法
+
+socket.socket（family = AF_INET，type = SOCK_STREAM，proto = 0，fileno = None ）:
+使用给定的地址系列，套接字类型和协议号创建一个新套接字
+family为指定的地址族：
+
+　　socket.AF_UNIX ：只能够用于单一的Unix系统进程间通信
+
+　　socket.AF_INET ：服务器之间的网络通信（ipv4协议的TCP和UDP）ipv4,默认为这个
+
+　　socket.AF_INET6 ：服务器之间的网络通信ipv6
+
+type为指定的套接字类型：
+
+　　socket.SOCK_STREAM ：面向连接的TCP，默认为这个
+
+　　socket.SOCK_DGRAM ：面向非连接的UDP
+
+family和type参数是指定了一个协议，
+我们也可以使用proto第三个参数来直接指定使用的协议。
+我们也可以使用socket下的函数getprotobyname('tcp')，
+来代替IPPROTO_XX变量.
+
+>>> socket.IPP
+socket.IPPORT_RESERVED      socket.IPPROTO_IP
+socket.IPPORT_USERRESERVED  socket.IPPROTO_IPIP
+socket.IPPROTO_AH           socket.IPPROTO_IPV6
+socket.IPPROTO_DSTOPTS      socket.IPPROTO_NONE
+socket.IPPROTO_EGP          socket.IPPROTO_PIM
+socket.IPPROTO_ESP          socket.IPPROTO_PUP
+socket.IPPROTO_FRAGMENT     socket.IPPROTO_RAW
+socket.IPPROTO_GRE          socket.IPPROTO_ROUTING
+socket.IPPROTO_HOPOPTS      socket.IPPROTO_RSVP
+socket.IPPROTO_ICMP         socket.IPPROTO_SCTP
+socket.IPPROTO_ICMPV6       socket.IPPROTO_TCP
+socket.IPPROTO_IDP          socket.IPPROTO_TP
+socket.IPPROTO_IGMP         socket.IPPROTO_UDP
+>>> 
+>>> socket.getprotobyname('tcp')
+6
+>>> socket.getprotobyname('udp')
+17
+>>> 
+>>> socket.getprotobyname('ip')
+0
+>>> socket.getprotobyname('icmp')
+1
+>>> 
+
+
+>>> socket.IPPROTO_
+socket.IPPROTO_AH        socket.IPPROTO_ICMPV6    socket.IPPROTO_PUP
+socket.IPPROTO_DSTOPTS   socket.IPPROTO_IDP       socket.IPPROTO_RAW
+socket.IPPROTO_EGP       socket.IPPROTO_IGMP      socket.IPPROTO_ROUTING
+socket.IPPROTO_ESP       socket.IPPROTO_IP        socket.IPPROTO_RSVP
+socket.IPPROTO_FRAGMENT  socket.IPPROTO_IPIP      socket.IPPROTO_SCTP
+socket.IPPROTO_GRE       socket.IPPROTO_IPV6      socket.IPPROTO_TCP
+socket.IPPROTO_HOPOPTS   socket.IPPROTO_NONE      socket.IPPROTO_TP
+socket.IPPROTO_ICMP      socket.IPPROTO_PIM       socket.IPPROTO_UDP
+
+>>> socket.IPPROTO_TCP
+6
+>>> socket.IPPROTO_UDP
+17
+>>> socket.IPPROTO_RAW
+255
+>>> socket.IPPROTO_IP
+0
+>>> socket.IPPROTO_ICMP
+1
+>>> socket.IPPROTO_TCP
+6
+>>> socket.IPPROTO_UDP
+17  
+>>> 
+proto为指定的协议号，一般为0：
+
+　　socket.IPPROTO_TCP  ：TCP传输协议
+
+　　socket.IPPROTO_UDP   ：UDP传输协议
+
+　　socket.IPPROTO_ICMP  ：ICMP链接
+
+　　socket.IPPROTO_IP        ：IP链接
+
+　　socket.IPPROTO_RAW    ：要构建IP头部和要发送的各种协议的头部和数据，包括ip头和协议和数据。
+
+2)socket对象绑定地址及端口
+
+地址必须是一个双元素的元组，包括（host，port）主机名或IP地址+端口号。
+
+import socket
+
+s = socket.socket(socket.AF_INET,socket.SOCK_STREAM,socket.IPPROTO_TCP)
+
+HostPort = ('127.0.0.1',8898)
+s.bind(HostPort)  #绑定地址端口
+
+
+------------------------------------------------------------------------------------------------
+
+s.setsockopt(level,optname,value)  :设置给定套接字选项的值。
+
+s.setsockopt(socket.SOL_SOCKET ,socket.SO_REUSEADDR, 1)
+
+ #这里value设置为 1 ，
+表示将SO_REUSEADDR标记为TRUE，
+操作系统会在服务器socket被关闭或服务器进程终止后
+马上释放该服务器的端口，
+否则操作系统会保留几分钟该端口。
+
+
+level定义了哪个选项将被使用。
+通常情况下是SOL_SOCKET，意思是正在使用的socket选项。
+
+s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)。
+
+setsockopt()函数
+  用于任意类型、任意状态套接口的设置选项值。
+
+尽管在不同协议层上存在选项，
+
+但本函数仅定义了最高的“套接口”层次上的选项。
+
+选项影响套接口的操作，
+诸如加急数据是否在普通数据流中接收，广播数据是否可以从套接口发送等等。
+
+ 这个函数中，第一个参数level 为 协议层 参数，
+
+指明了希望访问一个选项所在的协议栈。
+
+通常我们需要使用下面中的一个：
+
+socket.SOL_SOCKET  来访问套接口层选项
+socket.SOL_TCP     来访问TCP层   选项
+
+s.setsockopt(socket.SOL_SOCKET ,socket.SO_REUSEADDR, 1)
+
+第二个参数optname 是与第一个参数 level 相对应的。
+
+第一个参数决定了协议层level，
+
+第二个参数optname 决定了 该协议层下 选项组合。
+
+SOL_SOCKET的选项组合如下：
+
+协议层 选项名字
+SOL_SOCKET SO_REUSEADDR
+
+如果level选定了SOL_SOCKET，那么一些常用的选项见下表：
+
+1   选项                    2 意义              3 期望值
+
+1  SO_BINDTODEVICE
+
+2   可以使socket只在某个特殊的网络接口（网卡）有效。
+    也许不能是移动便携设备
+
+3  一个字符串给出设备的名称或者一个空字符串返回默认值
+--------------------------------------
+
+1  SO_BROADCAST
+2   允许广播地址发送和接收信息包。
+只对UDP有效。如何发送和接收广播信息包
+
+3   布尔型整数
+
+----------------------------
+1  SO_DONTROUTE
+2   禁止通过路由器和网关往外发送信息包。
+这主要是为了安全而用在以太网上UDP通信的一种方法。
+不管目的地址使用什么IP地址，都可以防止数据离开本地网络
+
+3   布尔型整数
+----------------------------
+
+1  SO_KEEPALIVE
+2   可以使TCP通信的信息包保持连续性。
+ 这些信息包可以在没有信息传输的时候，使通信的双方确定连接是保持的
+
+3   布尔型整数
+-----------------------------------
+
+1    SO_OOBINLINE
+2     可以把收到的不正常数据看成是正常的数据，
+也就是说会通过一个标准的对recv()的调用来接收这些数据
+
+3     布尔型整数
+---------------------
+
+1   SO_REUSEADDR
+2    当socket关闭后，本地端用于该socket的端口号立刻就可以被重用。
+通常来说，只有经过系统定义一段时间后，才能被重用。
+
+3   布尔型整数
+
+--------------------------------------------------------------
+
+s.getsockopt(level,optname[.buflen])  :返回套接字选项的值。
+
+
+socket.socketpair（[ family [，type [，proto ] ] ] ）:
+使用给定的地址系列，套接字类型和协议编号构建一对连接的套接字对象
+
+socket.create_connection（address [，timeout [，source_address ] ] ）:
+连接到侦听Internet 地址（2元组 ）的TCP服务，然后返回套接字对象
+
+socket.fromfd（fd，family，type，proto = 0 ）:
+复制文件描述符fd（由文件对象的fileno()方法返回的整数 ），并从结果中构建一个套接字对象
+
+socket.fromshare（data）:
+从该socket.share() 方法获得的数据实例化一个套接字。
+假设套接字处于阻塞模式。
+
+socket.SocketType:
+这是表示套接字对象类型的Python类型对象。
+这是一样的type(socket(...))
+
+socket.getaddrinfo（host，port，family = 0，type = 0，proto = 0，flags = 0 ）:
+将主机 / 端口参数转换为5元组序列，
+其中包含创建连接到该服务的套接字的所有必要参数
+
+>>> import  socket
+>>> socket.
+Display all 334 possibilities? (y or n)
+socket.AF_ALG                     socket.IPPROTO_IGMP               socket.SOL_TCP   #访问TCP层 的选项
+socket.AF_APPLETALK               socket.IPPROTO_IP                 socket.SOL_TIPC
+socket.AF_ASH                     socket.IPPROTO_IPIP               socket.SOL_UDP
+socket.AF_ATMPVC                  socket.IPPROTO_IPV6               socket.SOMAXCONN
+socket.AF_ATMSVC                  socket.IPPROTO_NONE               socket.SO_ACCEPTCONN
+socket.AF_AX25                    socket.IPPROTO_PIM                socket.SO_BINDTODEVICE
+socket.AF_BRIDGE                  socket.IPPROTO_PUP                socket.SO_BROADCAST
+socket.AF_CAN                     socket.IPPROTO_RAW                socket.SO_DEBUG
+socket.AF_DECnet                  socket.IPPROTO_ROUTING            socket.SO_DOMAIN
+socket.AF_ECONET                  socket.IPPROTO_RSVP               socket.SO_DONTROUTE
+socket.AF_INET                    socket.IPPROTO_SCTP               socket.SO_ERROR
+socket.AF_INET6                   socket.IPPROTO_TCP                socket.SO_KEEPALIVE
+socket.AF_IPX                     socket.IPPROTO_TP                 socket.SO_LINGER
+socket.AF_IRDA                    socket.IPPROTO_UDP                socket.SO_MARK
+socket.AF_KEY                     socket.IPV6_CHECKSUM              socket.SO_OOBINLINE
+socket.AF_LLC                     socket.IPV6_DSTOPTS               socket.SO_PASSCRED
+socket.AF_NETBEUI                 socket.IPV6_HOPLIMIT              socket.SO_PASSSEC
+socket.AF_NETLINK                 socket.IPV6_HOPOPTS               socket.SO_PEERCRED
+socket.AF_NETROM                  socket.IPV6_JOIN_GROUP            socket.SO_PEERSEC
+socket.AF_PACKET                  socket.IPV6_LEAVE_GROUP           socket.SO_PRIORITY
+socket.AF_PPPOX                   socket.IPV6_MULTICAST_HOPS        socket.SO_PROTOCOL
+socket.AF_RDS                     socket.IPV6_MULTICAST_IF          socket.SO_RCVBUF
+socket.AF_ROSE                    socket.IPV6_MULTICAST_LOOP        socket.SO_RCVLOWAT
+socket.AF_ROUTE                   socket.IPV6_NEXTHOP               socket.SO_RCVTIMEO
+socket.AF_SECURITY                socket.IPV6_PKTINFO               socket.SO_REUSEADDR
+socket.AF_SNA                     socket.IPV6_RECVDSTOPTS           socket.SO_REUSEPORT
+socket.AF_TIPC                    socket.IPV6_RECVHOPLIMIT          socket.SO_SNDBUF
+socket.AF_UNIX                    socket.IPV6_RECVHOPOPTS           socket.SO_SNDLOWAT
+socket.AF_UNSPEC                  socket.IPV6_RECVPKTINFO           socket.SO_SNDTIMEO
+socket.AF_WANPIPE                 socket.IPV6_RECVRTHDR             socket.SO_TYPE
+socket.AF_X25                     socket.IPV6_RECVTCLASS            socket.SocketIO(
+socket.AI_ADDRCONFIG              socket.IPV6_RTHDR                 socket.SocketKind(
+socket.AI_ALL                     socket.IPV6_RTHDRDSTOPTS          socket.SocketType(
+socket.AI_CANONNAME               socket.IPV6_RTHDR_TYPE_0          socket.TCP_CONGESTION
+socket.AI_NUMERICHOST             socket.IPV6_TCLASS                socket.TCP_CORK
+socket.AI_NUMERICSERV             socket.IPV6_UNICAST_HOPS          socket.TCP_DEFER_ACCEPT
+socket.AI_PASSIVE                 socket.IPV6_V6ONLY                socket.TCP_FASTOPEN
+socket.AI_V4MAPPED                socket.IP_ADD_MEMBERSHIP          socket.TCP_INFO
+socket.ALG_OP_DECRYPT             socket.IP_DEFAULT_MULTICAST_LOOP  socket.TCP_KEEPCNT
+socket.ALG_OP_ENCRYPT             socket.IP_DEFAULT_MULTICAST_TTL   socket.TCP_KEEPIDLE
+socket.ALG_OP_SIGN                socket.IP_DROP_MEMBERSHIP         socket.TCP_KEEPINTVL
+socket.ALG_OP_VERIFY              socket.IP_HDRINCL                 socket.TCP_LINGER2
+socket.ALG_SET_AEAD_ASSOCLEN      socket.IP_MAX_MEMBERSHIPS         socket.TCP_MAXSEG
+socket.ALG_SET_AEAD_AUTHSIZE      socket.IP_MULTICAST_IF            socket.TCP_NODELAY
+socket.ALG_SET_IV                 socket.IP_MULTICAST_LOOP          socket.TCP_QUICKACK
+socket.ALG_SET_KEY                socket.IP_MULTICAST_TTL           socket.TCP_SYNCNT
+socket.ALG_SET_OP                 socket.IP_OPTIONS                 socket.TCP_USER_TIMEOUT
+socket.ALG_SET_PUBKEY             socket.IP_RECVOPTS                socket.TCP_WINDOW_CLAMP
+socket.AddressFamily(             socket.IP_RECVRETOPTS             socket.TIPC_ADDR_ID
+socket.AddressInfo(               socket.IP_RETOPTS                 socket.TIPC_ADDR_NAME
+socket.CAN_BCM                    socket.IP_TOS                     socket.TIPC_ADDR_NAMESEQ
+socket.CAN_BCM_RX_CHANGED         socket.IP_TRANSPARENT             socket.TIPC_CFG_SRV
+socket.CAN_BCM_RX_DELETE          socket.IP_TTL                     socket.TIPC_CLUSTER_SCOPE
+socket.CAN_BCM_RX_READ            socket.IntEnum(                   socket.TIPC_CONN_TIMEOUT
+socket.CAN_BCM_RX_SETUP           socket.IntFlag(                   socket.TIPC_CRITICAL_IMPORTANCE
+socket.CAN_BCM_RX_STATUS          socket.MSG_CMSG_CLOEXEC           socket.TIPC_DEST_DROPPABLE
+socket.CAN_BCM_RX_TIMEOUT         socket.MSG_CONFIRM                socket.TIPC_HIGH_IMPORTANCE
+socket.CAN_BCM_TX_DELETE          socket.MSG_CTRUNC                 socket.TIPC_IMPORTANCE
+socket.CAN_BCM_TX_EXPIRED         socket.MSG_DONTROUTE              socket.TIPC_LOW_IMPORTANCE
+socket.CAN_BCM_TX_READ            socket.MSG_DONTWAIT               socket.TIPC_MEDIUM_IMPORTANCE
+socket.CAN_BCM_TX_SEND            socket.MSG_EOR                    socket.TIPC_NODE_SCOPE
+socket.CAN_BCM_TX_SETUP           socket.MSG_ERRQUEUE               socket.TIPC_PUBLISHED
+socket.CAN_BCM_TX_STATUS          socket.MSG_FASTOPEN               socket.TIPC_SRC_DROPPABLE
+socket.CAN_EFF_FLAG               socket.MSG_MORE                   socket.TIPC_SUBSCR_TIMEOUT
+socket.CAN_EFF_MASK               socket.MSG_NOSIGNAL               socket.TIPC_SUB_CANCEL
+socket.CAN_ERR_FLAG               socket.MSG_OOB                    socket.TIPC_SUB_PORTS
+socket.CAN_ERR_MASK               socket.MSG_PEEK                   socket.TIPC_SUB_SERVICE
+socket.CAN_RAW                    socket.MSG_TRUNC                  socket.TIPC_TOP_SRV
+socket.CAN_RAW_ERR_FILTER         socket.MSG_WAITALL                socket.TIPC_WAIT_FOREVER
+socket.CAN_RAW_FD_FRAMES          socket.MsgFlag(                   socket.TIPC_WITHDRAWN
+socket.CAN_RAW_FILTER             socket.NETLINK_CRYPTO             socket.TIPC_ZONE_SCOPE
+socket.CAN_RAW_LOOPBACK           socket.NETLINK_DNRTMSG            socket.create_connection(
+socket.CAN_RAW_RECV_OWN_MSGS      socket.NETLINK_FIREWALL           socket.dup(
+socket.CAN_RTR_FLAG               socket.NETLINK_IP6_FW             socket.errno
+socket.CAN_SFF_MASK               socket.NETLINK_NFLOG              socket.error(
+socket.CAPI                       socket.NETLINK_ROUTE              socket.fromfd(
+socket.CMSG_LEN(                  socket.NETLINK_USERSOCK           socket.gaierror(
+socket.CMSG_SPACE(                socket.NETLINK_XFRM               socket.getaddrinfo(
+socket.EAGAIN                     socket.NI_DGRAM                   socket.getdefaulttimeout(
+socket.EAI_ADDRFAMILY             socket.NI_MAXHOST                 socket.getfqdn(
+socket.EAI_AGAIN                  socket.NI_MAXSERV                 socket.gethostbyaddr(
+socket.EAI_BADFLAGS               socket.NI_NAMEREQD                socket.gethostbyname(
+socket.EAI_FAIL                   socket.NI_NOFQDN                  socket.gethostbyname_ex(
+socket.EAI_FAMILY                 socket.NI_NUMERICHOST             socket.gethostname(
+socket.EAI_MEMORY                 socket.NI_NUMERICSERV             socket.getnameinfo(
+socket.EAI_NODATA                 socket.PACKET_BROADCAST           socket.getprotobyname(
+socket.EAI_NONAME                 socket.PACKET_FASTROUTE           socket.getservbyname(
+socket.EAI_OVERFLOW               socket.PACKET_HOST                socket.getservbyport(
+socket.EAI_SERVICE                socket.PACKET_LOOPBACK            socket.has_ipv6
+socket.EAI_SOCKTYPE               socket.PACKET_MULTICAST           socket.herror(
+socket.EAI_SYSTEM                 socket.PACKET_OTHERHOST           socket.htonl(
+socket.EBADF                      socket.PACKET_OUTGOING            socket.htons(
+socket.EWOULDBLOCK                socket.PF_CAN                     socket.if_indextoname(
+socket.INADDR_ALLHOSTS_GROUP      socket.PF_PACKET                  socket.if_nameindex(
+socket.INADDR_ANY                 socket.PF_RDS                     socket.if_nametoindex(
+socket.INADDR_BROADCAST           socket.SCM_CREDENTIALS            socket.inet_aton(
+socket.INADDR_LOOPBACK            socket.SCM_RIGHTS                 socket.inet_ntoa(
+socket.INADDR_MAX_LOCAL_GROUP     socket.SHUT_RD                    socket.inet_ntop(
+socket.INADDR_NONE                socket.SHUT_RDWR                  socket.inet_pton(
+socket.INADDR_UNSPEC_GROUP        socket.SHUT_WR                    socket.io
+socket.IPPORT_RESERVED            socket.SOCK_CLOEXEC               socket.ntohl(
+socket.IPPORT_USERRESERVED        socket.SOCK_DGRAM                 socket.ntohs(
+socket.IPPROTO_AH                 socket.SOCK_NONBLOCK              socket.os
+socket.IPPROTO_DSTOPTS            socket.SOCK_RAW                   socket.selectors
+socket.IPPROTO_EGP                socket.SOCK_RDM                   socket.setdefaulttimeout(
+socket.IPPROTO_ESP                socket.SOCK_SEQPACKET             socket.sethostname(
+socket.IPPROTO_FRAGMENT           socket.SOCK_STREAM                socket.socket(
+socket.IPPROTO_GRE                socket.SOL_ALG                    socket.socketpair(
+socket.IPPROTO_HOPOPTS            socket.SOL_CAN_BASE               socket.sys
+socket.IPPROTO_ICMP               socket.SOL_CAN_RAW                socket.timeout(
+socket.IPPROTO_ICMPV6             socket.SOL_IP                     
+socket.IPPROTO_IDP                socket.SOL_SOCKET  #访问套接口层选项             
+>>> 
+>>> socket.SO
+socket.SOCK_CLOEXEC     socket.SOL_UDP          socket.SO_PASSSEC
+socket.SOCK_DGRAM       socket.SOMAXCONN        socket.SO_PEERCRED
+socket.SOCK_NONBLOCK    socket.SO_ACCEPTCONN    socket.SO_PEERSEC
+socket.SOCK_RAW         socket.SO_BINDTODEVICE  socket.SO_PRIORITY
+socket.SOCK_RDM         socket.SO_BROADCAST     socket.SO_PROTOCOL
+socket.SOCK_SEQPACKET   socket.SO_DEBUG         socket.SO_RCVBUF
+socket.SOCK_STREAM      socket.SO_DOMAIN        socket.SO_RCVLOWAT
+socket.SOL_ALG          socket.SO_DONTROUTE     socket.SO_RCVTIMEO
+socket.SOL_CAN_BASE     socket.SO_ERROR         socket.SO_REUSEADDR
+socket.SOL_CAN_RAW      socket.SO_KEEPALIVE     socket.SO_REUSEPORT
+socket.SOL_IP           socket.SO_LINGER        socket.SO_SNDBUF
+socket.SOL_SOCKET       socket.SO_MARK          socket.SO_SNDLOWAT
+socket.SOL_TCP          socket.SO_OOBINLINE     socket.SO_SNDTIMEO
+socket.SOL_TIPC         socket.SO_PASSCRED      socket.SO_TYPE
+>>> 
+
+address     英 [əˈdres]   美 [ˈædres]  
+       n.地址;称呼;演说;通信处
+
+reuse       英 [ˌri:ˈju:z]   美 [riˈjuz]  
+     vt.再用，重新使用
+
+
+REUSEADDR 重复使用
+reuseaddr
+
+
+---------------------- 各种应用软件服务端口 -------------------------
+
+Hadoop：
+50070：HDFS WEB UI端口
+8020 ： 高可用的HDFS RPC端口
+9000 ： 非高可用的HDFS RPC端口
+8088 ： Yarn 的WEB UI 接口
+8485 ： JournalNode 的RPC端口
+8019 ： ZKFC端口
+Zookeeper:
+2181 ： 客户端连接zookeeper的端口
+2888 ： zookeeper集群内通讯使用，Leader监听此端口
+3888 ： zookeeper端口 用于选举leader
+Hbase:
+60010：Hbase的master的WEB UI端口
+60030：Hbase的regionServer的WEB UI 管理端口
+Hive:
+9083 : metastore服务默认监听端口
+10000：Hive 的JDBC端口
+Spark：
+7077 ： spark 的master与worker进行通讯的端口 standalone集群提交Application的端口
+8080 ： master的WEB UI端口 资源调度
+8081 ： worker的WEB UI 端口 资源调度
+4040 ： Driver的WEB UI 端口 任务调度
+18080：Spark History Server的WEB UI 端口
+Kafka：
+9092： Kafka集群节点之间通信的RPC端口
+Redis：
+6379： Redis服务端口
+CDH：
+7180： Cloudera Manager WebUI端口
+7182： Cloudera Manager Server 与 Agent 通讯端口
+HUE：
+8888： Hue WebUI 端口
+
+百度下吧采用HTTP 方式和 UDP方式通讯，并伴有UDP 通讯，其中UDP 常见端口有： 1 1 1 1 1 等
+
+POCO 采用TCP 方式和UDP 方式通讯，其中TCP 方式的默认端口为：8093。
+UDP 方式的默认端口为：5566 ，9110 和 8000-10000。
+
+电视蚂蚁采用TCP 方式和UDP 方式通讯，TCP 和UDP 默认端口都为16600 和16800，
+其中UDP 是用来寻找频道列表的。
+
+PPS网络电视(PPStream)默认采用TCP 方式和UDP 方式通讯，
+TCP 端口在通讯过程中协商而定，UDP默认端口：7201,8000,8400-8401,17788
+
+暴风影音采用P2P的方式进行通讯，
+播放过程中会占用大量的带宽资源。TCP和UDP的通讯同时存在，且没有固定端口。
+
+QQ 默认采用UDP 通讯方式，端口8000，8001。
+如果UDP 的两个端口不通，会自动转换到TCP 80端口或者TCP 443端口进行通讯。
+QQ 同时也支持HTTP 代理模式及SOCK5 代理模式。
+
+QQLive 采用TCP 方式通讯，TCP 和UDP 默认通讯端口为：8000，
+同时也支持HTTP 代理模式及SOCK5 代理模式。
+
+QQ 群共享里面的文件上下传、网络硬盘文件上下传均为TCP 方式，群共享默认端口9910，
+封堵后自动转换到80 端口。网盘默认端口443。
+
+>>> 2**4
+16
+>>> 2**8
+256
+>>> 2**10
+1024
+>>> 2**16
+65536
+>>> 
+[root@server0 ~]#
+[root@server0 ~]# cat  /etc/sysconfig/network-scripts/ifcfg-eth0 
+DEVICE=eth0
+BOOTPROTO=none
+ONBOOT=yes     ##开启自动启用网络连接（默认值为no）
+TYPE=Ethernet
+USERCTL=yes    # 允许普通用户控制此接口
+IPV6INIT=no
+PERSISTENT_DHCLIENT=1
+IPADDR0=172.25.0.11   #设置IP地址 只有在BOOTPROTO=(none | static)时设置才有效
+PREFIX0=24
+GATEWAY0=172.25.0.254
+DNS1=172.25.254.254     #主要的DNS设备
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+NAME="System eth0"
+UUID=5fb06bd0-0bb0-7ffb-45f1-d6edd65f3e03  #设备标识号
+
+[root@server0 ~]# 
+/********************
+
+BOOTPROTO="static｜none" #启动静态IP地址（BOOTPROTO=dhcp启用动态获取IP）
+USERCTL="yes|no"        #是否允许普通用户控制此接口
+PEERDNS＝"yes|no"         #是不是接受DHCP服务器指派的DNS服务器地址
+PERSISTENT_DHCLIENT=1   #可始终保持DHCP地址(在DHCP服务器/路由器授予IP租约之前连续请求IP租约)
+                             # 默认情况下，此选项处于关闭状态。
+************/
+[root@desktop0 ~]# cat  /etc/sysconfig/network-scripts/ifcfg-eth0 
+DEVICE=eth0
+BOOTPROTO=dhcp   #启用动态获取IP
+ONBOOT=yes
+TYPE=Ethernet
+USERCTL=yes   # 允许普通用户控制此接口
+PEERDNS=yes   # 接受DHCP服务器指派的DNS服务器地址
+IPV6INIT=no
+PERSISTENT_DHCLIENT=1   #可始终保持DHCP  ip地址
+
+[root@desktop0 ~]#
+
+
+[root@V0 day08]# ifconfig eth0 |head  -2
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.0.10  netmask 255.255.255.0  broadcast 192.168.0.255
+[root@V0 day08]# 
+[root@V0 day08]# ifconfig eth1 |head  -2
+eth1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.10  netmask 255.255.255.0  broadcast 192.168.1.255
+[root@V0 day08]# 
+
+[root@V0 day08]# cat /etc/sysconfig/network-scripts/ifcfg-eth0
+NAME="eth0"
+DEVICE="eth0"
+ONBOOT=yes
+NM_CONTROLLED="no"
+TYPE=Ethernet
+IPV6INIT=no
+IPV4_FAILURE_FATAL="no"
+BOOTPROTO="static"
+IPADDR="192.168.0.10"
+NETMASK="255.255.255.0"
+GATEWAY="192.168.0.254"
+
+[root@V0 day08]# route  -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         192.168.0.254   0.0.0.0         UG    0      0        0 eth0
+...................
+
+[root@V0 day08]# ip  route   show
+
+default via 192.168.0.254 dev eth0 
+
+169.254.0.0/16 dev eth0 scope link metric 1002 
+169.254.0.0/16 dev eth1 scope link metric 1003 
+192.168.0.0/24 dev eth0 proto kernel scope link src 192.168.0.10 
+192.168.1.0/24 dev eth1 proto kernel scope link src 192.168.1.10 
+..................
+
+[root@V0 day08]# cat  /etc/resolv.conf 
+
+search localdomain
+[root@V0 day08]# cat  /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+[root@V0 day08]# nslookup  localdomain
+^C
+[root@V0 day08]# type   nslookup 
+nslookup 已被哈希 (/usr/bin/nslookup)
+[root@V0 day08]# 
+
+
+[root@room9pc27 ~]# ifconfig  |head  -2
+enp1s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 176.121.210.31  netmask 255.255.255.0  broadcast 176.121.210.255
+
+#enp1s0 #en：代表enthernet（以太网）
+  #p1s0代表PCI接口的物理位置为(1, 0), 其中横座标代表bus，纵座标代表slot
+
+
+[root@room9pc01 ~]# cat  /etc/sysconfig/network-scripts/ifcfg-enp1s0 
+# Generated by dracut initrd
+NAME="enp1s0"
+DEVICE="enp1s0"
+ONBOOT=yes
+NETBOOT=yes
+UUID="5bbafc3d-d7cd-422a-99e0-c9ee4b0c259e"
+IPV6INIT=yes
+BOOTPROTO=dhcp
+TYPE=Ethernet
+
+[root@room9pc01 ~]# rpm  -qa |grep bind
+bind-libs-9.9.4-50.el7.x86_64
+bind-license-9.9.4-50.el7.noarch
+bind-utils-9.9.4-50.el7.x86_64
+rpcbind-0.2.0-42.el7.x86_64
+keybinder3-0.3.0-1.el7.x86_64
+bind-libs-lite-9.9.4-50.el7.x86_64
+
+[root@room9pc01 ~]# systemctl  status  named
+Unit named.service could not be found.
+
+[root@room9pc01 ~]# cat  /etc/resolv.conf 
+nameserver 176.121.0.100
+
+[root@room9pc01 ~]# rpm  -q  bind-chroot  bind  bind-utils
+未安装软件包 bind-chroot 
+未安装软件包 bind 
+bind-utils-9.9.4-50.el7.x86_64
+[root@room9pc01 ~]# yum  -y install  bind-chroot  bind bind-utils
+..........
+已安装:
+  bind.x86_64 32:9.9.4-50.el7         bind-chroot.x86_64 32:9.9.4-50.el7        
+
+完毕！
+[root@room9pc01 ~]# rpm  -q  bind-chroot  bind  bind-utils
+bind-chroot-9.9.4-50.el7.x86_64
+bind-9.9.4-50.el7.x86_64
+bind-utils-9.9.4-50.el7.x86_64
+
+/******** bind 使用和配置记录 ------- https://www.cnblogs.com/godjesse/p/3433265.html 
+option {  
+        listen-on port 53 {   
+               127.0.0.1;  
+               192.168.60.14; // 为局域网其它机器提供Named服务，必须监听向本机IP发出的请求  
+        };  
+        ...  
+        forwarders {          // 添加forwarders，指向其它DNS服务器  
+               202.106.196.115;  
+        };  
+        allow-query{ any; };  // 开放访问权限  
+        ...  
+};  
+----------------------------------------------------------
+
+options {
+#       listen-on port 53 { 127.0.0.1; };   // 只监听本地的53号端口
+        listen-on port 53 { any; };      // 监听所有的53号端口，此处可以根据需要设置需要监听的IP
+#listen-on port 5301 { 127.0.0.1; 192.168.5.108; };
+
+#       listen-on-v6 port 53 { ::1; };      // for IPv6
+        directory       "/var/named";
+        dump-file       "/var/named/data/cache_dump.db";
+        statistics-file "/var/named/data/named_stats.txt";
+        memstatistics-file "/var/named/data/named_mem_stats.txt";
+#       forwarders {202.38.64.1;202.39.64.7;};   // 设置转发（如果本DNS服务器无法解析，就转发其他DNS服务器）
+#       allow-query     { localhost; };　　　　// 只允许本地的查询　
+        allow-query     { any; };　　　　　　　 // 允许所有的查询
+        recursion yes;
+
+........................
+
+zone "." IN {
+        type hint;
+        file "named.ca";     // 根DNS服务器的列表 
+};
+
+include "/etc/named.rfc1912.zones";
+include "/etc/named.root.key";
+
+**************/
+ ============== 配置DNS（真机操作）==================
+
+[root@room9pc01 ~]# vim  /etc/named.conf 
+
+ 12 options {             #只监听本地的53号端口 ,  此处可以根据需要设置需要监听的多个IP
+ 13         listen-on port 53 { 127.0.0.1; 192.168.0.254; 192.168.1.254; };
+
+ 14 //      listen-on-v6 port 53 { ::1; };
+
+ 20         forwarders   { 114.114.114.114; };  # /转发dns,真机的服务器地址
+ 33         dnssec-enable no;       ## 关闭dnssec 服务 , 不支持DNSSEC开关
+ 34         dnssec-validation no;         ## 是否进行DNSSEC确认开关 ,no
+
+[root@room9pc01 ~]# systemctl start  named  && systemctl  enable  named
+Created symlink from /etc/systemd/system/multi-user.target.wants/named.service to /usr/lib/systemd/system/named.service.
+[root@room9pc01 ~]# systemctl  status   named
+● named.service - Berkeley Internet Name Domain (DNS)
+   Loaded: loaded (/usr/lib/systemd/system/named.service; enabled; vendor preset: disabled)
+   Active: active (running) since 日 2019-04-14 11:45:04 CST; 11s ago
+ Main PID: 7565 (named)
+   CGroup: /system.slice/named.service
+           └─7565 /usr/sbin/named -u named -c /etc/named.conf
+
+4月 14 11:45:04 room9pc01.tedu.cn named[7565]: managed-keys-zone: loaded se...0
+4月 14 11:45:04 room9pc01.tedu.cn named[7565]: zone 0.in-addr.arpa/IN: load...0
+4月 14 11:45:04 room9pc01.tedu.cn named[7565]: zone 1.0.0.0.0.0.0.0.0.0.0.0...0
+4月 14 11:45:04 room9pc01.tedu.cn named[7565]: zone localhost.localdomain/I...0
+4月 14 11:45:04 room9pc01.tedu.cn named[7565]: zone localhost/IN: loaded se...0
+4月 14 11:45:04 room9pc01.tedu.cn named[7565]: zone 1.0.0.127.in-addr.arpa/...0
+4月 14 11:45:04 room9pc01.tedu.cn named[7565]: all zones loaded
+4月 14 11:45:04 room9pc01.tedu.cn named[7565]: running
+4月 14 11:45:04 room9pc01.tedu.cn systemd[1]: Started Berkeley Internet Nam....
+4月 14 11:45:04 room9pc01.tedu.cn named[7565]: managed-keys-zone: No DNSKEY...s
+Hint: Some lines were ellipsized, use -l to show in full.
+[root@room9pc01 ~]# 
+[root@room9pc01 ~]# cat  /etc/resolv.conf 
+nameserver 176.121.0.100
+[root@room9pc01 ~]# dig  +trace  ntp.aliyun.com
+............
+[root@room9pc01 ~]# nslookup   ntp.aliyun.com
+Server:		176.121.0.100
+Address:	176.121.0.100#53
+
+Non-authoritative answer:
+Name:	ntp.aliyun.com
+Address: 203.107.6.88
+
+[root@room9pc01 ~]#
+[root@room9pc01 ~]# netstat  -npult |grep   named |column  -t
+tcp   0  0  127.0.0.1:53      0.0.0.0:*  LISTEN      7565/named
+tcp   0  0  127.0.0.1:953     0.0.0.0:*  LISTEN      7565/named
+tcp6  0  0  ::1:953           :::*       LISTEN      7565/named
+udp   0  0  192.168.0.254:53  0.0.0.0:*              7565/named
+udp   0  0  192.168.1.254:53  0.0.0.0:*              7565/named
+udp   0  0  127.0.0.1:53      0.0.0.0:*              7565/named
+[root@room9pc01 ~]# 
+[root@V0 day08]# cat  /etc/resolv.conf 
+
+search localdomain
+[root@V0 day08]# nslookup   www.baidu.com
+^C
+[root@V0 day08]# type   nslookup 
+nslookup 已被哈希 (/usr/bin/nslookup)
+
+[root@V0 day08]# echo   "nameserver  192.168.0.254" > /etc/resolv.conf 
+    
+[root@V0 day08]# systemctl  restart   network
+
+[root@V0 day08]# cat   /etc/resolv.conf
+nameserver  192.168.0.254
+
+
+canonical         英 [kəˈnɒnɪkl]   美 [kəˈnɑ:nɪkl]  
+        adj.权威的;
+authoritative     英 [ɔ:ˈθɒrətətɪv]  美 [əˈθɔ:rəteɪtɪv]  
+        adj.权威的;有权力的;当局的;命令式的
+
+
+[root@V0 day08]# nslookup   www.baidu.com
+Server:		192.168.0.254   #注意是 0.254, 不是 1.254
+Address:	192.168.0.254#53
+
+Non-authoritative answer:
+www.baidu.com	canonical name = www.a.shifen.com.
+Name:	www.a.shifen.com
+Address: 14.215.177.38
+Name:	www.a.shifen.com
+Address: 14.215.177.39
+
+[root@V0 day08]# 
+[root@V0 day08]# ping  -c2  www.baidu.com
+PING www.a.shifen.com (14.215.177.39) 56(84) bytes of data.
+64 bytes from 14.215.177.39 (14.215.177.39): icmp_seq=1 ttl=52 time=7.19 ms
+64 bytes from 14.215.177.39 (14.215.177.39): icmp_seq=2 ttl=52 time=7.28 ms
+............
+
+[root@room9pc01 ~]#  ssh  -X  192.168.1.11
+.......
+[root@V1 ~]# cat  /etc/resolv.conf 
+
+search localdomain
+[root@V1 ~]# nslookup  www.baidu.com
+^C
+[root@V1 ~]# echo  "nameserver  192.168.1.254"  > /etc/resolv.conf 
+[root@V1 ~]# nslookup  www.baidu.com
+Server:		192.168.1.254      #注意是 1.254, 不是 0.254
+Address:	192.168.1.254#53
+
+Non-authoritative answer:
+www.baidu.com	canonical name = www.a.shifen.com.
+Name:	www.a.shifen.com
+Address: 14.215.177.38
+Name:	www.a.shifen.com
+Address: 14.215.177.39
+
+[root@V1 ~]# cat  /etc/resolv.conf 
+nameserver  192.168.1.254
+[root@V1 ~]# 
+[root@V1 ~]# ping  -c2  ntp.aliyun.com
+PING ntp.aliyun.com (203.107.6.88) 56(84) bytes of data.
+64 bytes from 203.107.6.88 (203.107.6.88): icmp_seq=1 ttl=52 time=45.1 ms
+64 bytes from 203.107.6.88 (203.107.6.88): icmp_seq=2 ttl=52 time=45.2 ms
+......................
+
+[root@room9pc01 ~]# ssh -X 192.168.1.11
+root@192.168.1.11's password: 
+Last login: Sun Apr 14 12:08:03 2019 from 192.168.1.254
+[root@V1 ~]# 
+
+
+流式套接字（SOCK_STREAM）：
+
+流式套接字用于提供面向连接、可靠的数据传输服务。
+该服务将保证数据能够实现无差错、无重复发送，并按顺序接收。
+
+流式套接字之所以能够实现可靠的数据服务，
+原因在于其使用了传输控制协议，
+即TCP（The Transmission Control Protocol）协议。
+
+
+数据报套接字（SOCK_DGRAM）：
+
+数据报套接字提供了一种无连接的服务。
+该服务并不能保证数据传输的可靠性，数据有可能在传输过程中丢失或出现数据重复，
+且无法保证顺序地接收到数据。
+数据报套接字使用UDP（User Datagram Protocol）协议进行数据的传输。
+由于数据报套接字不能保证数据传输的可靠性，
+对于有可能出现的数据丢失情况，需要在程序中做相应的处理。
+
+
+原始套接字（SOCK_RAW）：
+
+原始套接字(SOCKET_RAW)允许对较低层次的协议直接访问，
+比如IP、 ICMP协议，它常用于检验新的协议实现，
+
+或者访问现有服务中配置的新设备，
+
+因为RAW SOCKET可以自如地控制Windows下的多种协议，
+能够对网络底层的传输机制进行控制，
+所以可以应用原始套接字来操纵网络层和传输层应用。
+
+比如，我们可以通过RAW SOCKET来接收发向本机的ICMP、IGMP协议包，
+或者接收TCP/IP栈不能够处理的IP包，
+也可以用来发送一些自定包头或自定协议的IP包。
+
+网络监听技术很大程度上依赖于SOCKET_RAW
+
+原始套接字与标准套接字
+（标准套接字指的是前面介绍的
+流式套接字和数据报套接字）的区别在于：
+
+原始套接字可以读写内核没有处理的IP数据包，
+而流式套接字只能读取TCP协议的数据，
+数据报套接字只能读取UDP协议的数据。
+
+因此，如果要访问其他协议发送数据必须使用原始套接字。
+
+
+##第一步：建立socket对象
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM )
+
+套接字的属性
+
+套接字的特性由3个属性确定，它们分别是：域、类型和协议。
+
+1、套接字的域
+它指定套接字通信中使用的网络介质，
+最常见的套接字域 
+是AF_INET，它指的是Internet网络。
+
+当客户使用套接字进行跨网络的连接时，
+它就需要用到服务器计算机的IP地址和端口
+来指定一台联网机器上的某个特定服务，
+所以在使用socket作为通信的终点，
+服务器应用程序必须在开始通信之前绑定一个端口，
+服务器在指定的端口等待客户的连接。
+
+另一个域
+AF_UNIX表示UNIX文件系统，
+它就是文件输入/输出，而它的地址就是文件名。
+
+2、套接字类型
+因特网提供了两种通信机制：
+流（stream）和数据报（datagram），
+因而套接字的类型也就分为流套接字和数据报套接字。
+
+流式套接字（SOCK_STREAM）
+数据报套接字（SOCK_DGRAM）
+原始套接字（SOCK_RAW）
+
+3、套接字协议
+只要底层的传输机制允许不止一个协议来提供要求的套接字类型，
+我们就可以为套接字选择一个特定的协议。通常只需要使用默认值。
+
+套接字地址
+
+每个套接字都有其自己的地址格式，对于AF_UNIX域套接字来说，
+它的地址由结构sockaddr_un来描述，
+该结构定义在头文件sys/un.h中，它的定义如下：
+
+struct sockaddr_un {  
+    sa_family_t sun_family; // AF_UNIX，它是一个短整型  
+    char        sum_path[]; // 路径名  
+};
+
+
+对于AF_INET域套接字来说，
+它的地址结构由sockaddr_in来描述，
+它至少包括以下几个成员：
+
+struct sockaddr_in {  
+    short int            sin_family;//AF_INET  
+    unsigned short int    sin_port;//端口号  
+    struct in_addr        sin_addr;//IP地址  
+}; 
+ 
+而in_addr被定义为：
+struct in_addr{  
+    unsigned long int s_addr;  
+};  
+
+
+
+struct      英 [strʌkt]   美 [strʌkt]  
+   [计][C]（数据类型）结构，结构体（定义关键字）
+
+
+步骤               TCP客户端                                   TCP服务器
+第一步        建立socket对象                            建立socket对象
+第二步  调用connect()建立一个和服务器的连接    设置socket选项（可选）
+第三步   无                                        绑定到一个端口（也可以是一个指定的网卡）
+第四步   无                                        侦听连接
+
+
+1、创建套接字——socket()系统调用
+该函数用来创建一个套接字，并返回一个描述符，
+该描述符可以用来访问该套接字，它的原型如下：
+
+4）socket.accept对象阻塞等待接受链接
+
+fd, addr = self._accept()  
+
+调用accept方法时，socket会进入‘waiting’阻塞状态，客户请求连接时，方法会建立连接并返回服务器。
+
+accept方法会返回一个含有两个元素的元组，（fd,addr）。
+第一个元素是新的socket对象，服务器通过它与客户端通信。
+第二个元素是客户端的地址及端口信息。
+
+
+http://www.ip138.com/
+手机上网查询 : m.ip138.com
+
+
+[root@V0 day08]# vim  tcp_server.py 
+[root@V0 day08]# yum -y install  telnet  
+已安装:
+  telnet.x86_64 1:0.17-64.el7                                                            
+
+完毕！
+[root@V0 day08]# rpm  -q telnet
+telnet-0.17-64.el7.x86_64
+
+
+[root@V1 ~]# yum  -y install  telnet
+已安装:
+  telnet.x86_64 1:0.17-64.el7                                                            
+
+完毕！
+[root@V1 ~]# rpm  -q  telnet 
+telnet-0.17-64.el7.x86_64
+
+[root@V0 day08]# netstat  -npult |grep 11200
+
+[root@V0 day08]# python3   tcp_server.py 
+__name__ is __main__
+
+[root@V0 day08]# netstat  -npult |grep 11200 |column  -t
+tcp  0  0  0.0.0.0:11200  0.0.0.0:*  LISTEN  6880/python3
+
+
+[root@V0 day08]# telnet   192.168.0.10   11200
+Trying 192.168.0.10...
+Connected to 192.168.0.10.
+Escape character is '^]'.
+
+
+[root@V0 day08]# python3   tcp_server.py 
+__name__ is __main__
+socket套接字对象cli_sock是   <socket.socket fd=4, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('192.168.0.10', 11200), raddr=('192.168.0.10', 55912)>
+Client address is cli_addr connect from :
+  ('192.168.0.10', 55912)
+
+[root@V0 day08]# telnet   192.168.0.10   11200
+Trying 192.168.0.10...
+Connected to 192.168.0.10.
+Escape character is '^]'.
+This is V0   192.168.0.10   11200----------   
+
+
+[root@V0 day08]# python3   tcp_server.py 
+__name__ is __main__
+socket套接字对象cli_sock是   <socket.socket fd=4, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('192.168.0.10', 11200), raddr=('192.168.0.10', 55912)>
+Client address is cli_addr connect from :
+  ('192.168.0.10', 55912)
+接受的客户端信息是
+ [b'This is V0   192.168.0.10   11200----------\r\n']
+sys.argv is ['tcp_server.py']
+[root@V0 day08]# 
+
+[root@V0 day08]# telnet   192.168.0.10   11200
+Trying 192.168.0.10...
+Connected to 192.168.0.10.
+Escape character is '^]'.
+This is V0   192.168.0.10   11200----------     
+Connection closed by foreign host.
+[root@V0 day08]# 
+----------------------------------------------------------------
+
+
+
+[root@V0 day08]# python3   tcp_server.py 
+__name__ is __main__
+socket套接字对象cli_sock是   <socket.socket fd=4, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('192.168.1.10', 11200), raddr=('192.168.1.11', 59656)>
+Client address is cli_addr connect from :
+  ('192.168.1.11', 59656)
+接受的客户端信息是
+ [b'haha I am  V1  telnet   192.168.1.10   11200----------\r\n']
+sys.argv is ['tcp_server.py']
+[root@V0 day08]# 
+
+[root@V1 ~]# ifconfig  eth1 |head -2
+eth1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.11  netmask 255.255.255.0  broadcast 192.168.1.255
+
+[root@V1 ~]# telnet   192.168.1.10   11200
+Trying 192.168.1.10...
+Connected to 192.168.1.10.
+Escape character is '^]'.
+haha I am  V1  telnet   192.168.1.10   11200----------
+Connection closed by foreign host.
+[root@V1 ~]# 
+
+
+telnet与ssh相比，安全性能并不高，
+但是在SSH版本升级或者其他的情况下还是需要开启这一服务。 
+linux提供服务是由运行在后台的守护程序（daemon）来执行的，
+telnet服务是由xinetd守护的
+
+telnet命令通常用来远程登录。
+telnet程序是基于TELNET协议的远程登录客户端程序。
+
+Telnet协议是TCP/IP协议族中的一员，
+是Internet远程登陆服务的标准协议和主要方式。
+
+它为用户提供了在本地计算机上完成远程主机工作的 能力。
+
+在终端使用者的电脑上使用telnet程序，用它连接到服务器。
+
+终端使用者可以在telnet程序中输入命令，这些命令会在服务器上运行，
+就像直接在服务器的控制台上输入一样。
+
+可以在本地就能控制服务器。
+
+要开始一个 telnet会话，必须输入用户名和密码来登录服务器。
+Telnet是常用的远程控制Web服务器的方法。
+
+
+语法
+telnet [-8acdEfFKLrx]  [-b<主机别名>]   [-e<脱离字符>]   [-k<域名>]
+       [-l<用户名称>]   [-n<记录文件>]   [-S<服务类型>]   [-X<认证形态>]
+         [主机名称  或  IP地址   <通信端口>  ]
+
+参数说明：
+-8 允许使用8位字符资料，包括输入与输出。
+-a 尝试自动登入远端系统。
+-b<主机别名> 使用别名指定远端主机名称。
+-c 不读取用户专属目录里的.telnetrc文件。
+-d 启动排错模式。
+-e<脱离字符> 设置脱离字符。
+-E 滤除脱离字符。
+-f 此参数的效果和指定"-F"参数相同。
+-F 使用Kerberos V5认证时，加上此参数可把本地主机的认证数据上传到远端主机。
+-k<域名> 使用Kerberos认证时，加上此参数让远端主机采用指定的领域名，而非该主机的域名。
+-K 不自动登入远端主机。
+-l<用户名称> 指定要登入远端主机的用户名称。
+-L 允许输出8位字符资料。
+-n<记录文件> 指定文件记录相关信息。
+-r 使用类似rlogin指令的用户界面。
+-S<服务类型> 设置telnet连线所需的IP TOS信息。
+-x 假设主机有支持数据加密的功能，就使用它。
+-X<认证形态> 关闭指定的认证形态。
+
+--------------------------------  开启telnet服务 -----------------------------
+
+通常telnet包是系统默认安装的，做为客户端；
+
+telnet-server包需要自行安装，做为服务端。
+
+[root@V0 day08]# yum  -y  install  telnet  telnet-server
+........
+已安装:
+  telnet-server.x86_64 1:0.17-64.el7                                                      
+
+完毕！
+[root@V0 day08]# rpm  -q  telnet   telnet-server 
+telnet-0.17-64.el7.x86_64
+telnet-server-0.17-64.el7.x86_64
+[root@V0 day08]# 
+[root@V0 day08]# netstat  -anpult |grep  xinetd
+
+[root@V0 day08]# ls  /etc/xinetd.d/
+[root@V0 day08]# 
+
+二、安装xinetd服务
+
+由于telnet服务也是由xinetd守护的，
+所以安装完telnet-server，要启动telnet服务就必须重新启动xinetd 。
+
+xinetd即extended internet daemon，
+
+xinetd是新一代的网络守护进程服务程序，
+
+又叫超级Internet服务器。
+
+经常用来管理多种轻量级Internet服务。
+
+telnet服务就是通过xinetd服务来管理的，
+所以在安装telnet服务之前需要先安装xinetd服务。
+
+[root@V0 day08]# rpm   -qa  |grep  xinetd
+[root@V0 day08]# yum  list  |grep   xinetd
+xinetd.x86_64                           2:2.3.15-13.el7            rhel7        
+[root@V0 day08]# yum  -y install  xinetd
+..........
+已安装:
+  xinetd.x86_64 2:2.3.15-13.el7                                                           
+
+完毕！
+[root@V0 day08]# rpm   -qa  |grep  xinetd
+xinetd-2.3.15-13.el7.x86_64
+[root@V0 day08]# ls  /etc/xinetd.d/
+chargen-dgram   daytime-dgram   discard-dgram   echo-dgram   tcpmux-server  time-stream
+chargen-stream  daytime-stream  discard-stream  echo-stream  time-dgram
+[root@V0 day08]# 
+
+一般不建议直接用root用户远程通过telnet登陆系统，
+因为telnet在数据传输过程采用明文方式，
+
+如果数据包被人截获，
+将会很容易获取root用户的登陆口令；
+
+还是建议以普通用户通过telnet远程登陆，
+然后su到root，这样相对比较安全。
+
+如果非要用root用户远程连接，建议采用SSH。
+
+[root@V0 day08]# ls  /home/
+lisi
+[root@V0 day08]# id lisi
+uid=1000(lisi) gid=1000(lisi) 组=1000(lisi)
+[root@V0 day08]# echo  1 |passwd  --stdin  lisi 
+更改用户 lisi 的密码 。
+passwd：所有的身份验证令牌已经成功更新。
+[root@V0 day08]# grep  lisi  /etc/passwd
+lisi:x:1000:1000:lisi:/home/lisi:/bin/bash
+[root@V0 day08]# 
+[root@V0 day08]# service   xinetd   start
+Redirecting to /bin/systemctl start xinetd.service
+
+[root@V0 day08]# systemctl  is-active   xinetd
+active
+[root@V0 day08]# systemctl  status    xinetd
+● xinetd.service - Xinetd A Powerful Replacement For Inetd
+   Loaded: loaded (/usr/lib/systemd/system/xinetd.service; enabled; vendor preset: enabled)
+   Active: active (running) since 日 2019-04-14 17:31:59 CST; 5min ago
+  Process: 7753 ExecStart=/usr/sbin/xinetd -stayalive -pidfile /var/run/xinetd.pid $EXTRAOPTIONS (code=exited, status=0/SUCCESS)
+ Main PID: 7754 (xinetd)
+   CGroup: /system.slice/xinetd.service
+           └─7754 /usr/sbin/xinetd -stayalive -pidfile /var/run/xinetd.pid
+...........................
+
+[root@V0 day08]# grep  -n  telnet /etc/services
+48:telnet          23/tcp
+49:telnet          23/udp
+107:rtelnet         107/tcp                         # Remote Telnet
+108:rtelnet         107/udp
+260:telnets         992/tcp
+261:telnets         992/udp
+2846:skytelnet       1618/tcp                # skytelnet
+2847:skytelnet       1618/udp                # skytelnet
+4637:hp-3000-telnet  2564/tcp                # HP 3000 NS/VT block mode telnet
+4638:hp-3000-telnet  2564/udp                # HP 3000 NS/VT block mode telnet
+5644:tl1-telnet      3083/tcp                # TL1-TELNET
+5645:tl1-telnet      3083/udp                # TL1-TELNET
+6813:telnetcpcd      3696/tcp                # Telnet Com Port Control
+6814:telnetcpcd      3696/udp                # Telnet Com Port Control
+8326:scpi-telnet     5024/tcp                # SCPI-TELNET
+8327:scpi-telnet     5024/udp                # SCPI-TELNET
+9271:ktelnet         6623/tcp                # Kerberos V5 Telnet
+9272:ktelnet         6623/udp                # Kerberos V5 Telnet
+[root@V0 day08]# 
+
+
+由于telnet服务也是由xinetd守护的，
+所以安装完telnet-server，要启动telnet服务就必须重新启动xinetd 。
+
+xinetd即extended internet daemon，
+
+xinetd是新一代的网络守护进程服务程序，
+
+又叫超级Internet服务器。
+
+经常用来管理多种轻量级Internet服务。
+
+telnet服务就是通过xinetd服务来管理的，
+
+[root@V0 day08]# grep  -n  includedir  /etc/xinetd.conf
+49:includedir /etc/xinetd.d
+[root@V0 day08]# 
+
+[root@V0 day08]# file   /usr/sbin/in.telnetd
+/usr/sbin/in.telnetd: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=cace9fc54e5ae2549531b79e39a5d92f7b35347c, stripped
+
+[root@V0 day08]# ll  /usr/sbin/in.telnetd
+-rwxr-xr-x 1 root root 50576 4月  19 2017 /usr/sbin/in.telnetd
+
+[root@V0 day08]# ls  /etc/xinetd.d/
+chargen-dgram   daytime-dgram   discard-dgram   echo-dgram   tcpmux-server  time-stream
+chargen-stream  daytime-stream  discard-stream  echo-stream  time-dgram
+
+[root@V0 day08]# vim  /etc/xinetd.d/telnet
+[root@V0 day08]# cat  /etc/xinetd.d/telnet
+service telnet
+{
+  flags = REUSE
+  socket_type = stream
+  wait = no
+  user = lisi
+  server = /usr/sbin/in.telnetd
+  log_on_failure  += USERID
+  #disable = yes  # 【将disable=yes行前加#注释掉，或者把yes改为no】
+}
+[root@V0 day08]# service   xinetd   restart
+Redirecting to /bin/systemctl restart xinetd.service
+
+
+https://www.cnblogs.com/rusking/p/5413209.html
+
+
+[root@V0 day08]# ls
+tcp_server.py
+[root@V0 day08]# scp  tcp_server.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/day08 
+root@192.168.0.254's password: 
+
+
+
+[root@V0 ~]# cat  -n   /etc/xinetd.d/telnet
+     1	service telnet         #设置telnet服务
+     2	{
+     3	  flags = REUSE
+     4	  socket_type = stream   #说明Socket连接类型是stream，也就是TCP
+     5	  wait = no              #不等待 到启动完成
+     6	  user = lisi                     #以lisi 用户启动服务进程
+     7	  server = /usr/sbin/in.telnetd   #服务进程是/usr/sbin/in.telnetd
+     8	  log_on_failure  += USERID       #用于做一些出错日志
+     9	  #disable = yes  # 【或者把yes改为no】 允许远程telnet
+    10	  access_times = 08:00-12:00 12:30-17:00  #规定允许连接的时间段8~12点,12:30~17点
+    11	  instances =  2   #这里设置只允许最多 2个连接数，第3 个就无法连接了
+    12	  only_from = 192.168.1.11  #只允许 192.168.1.11 连接
+    13	}
+[root@V0 ~]# ll  /etc/secur
+securetty  security/  
+[root@V0 ~]# ll  /etc/securetty 
+-rw-------. 1 root root 221 5月   4 2016 /etc/securetty
+[root@V0 ~]# vim   /etc/securetty
+[root@V0 ~]# head  -2  /etc/securetty
+console
+vc/1
+[root@V0 ~]# tail  -2  /etc/securetty
+hvsi2
+xvc0
+[root@V0 ~]# file  /etc/security/
+/etc/security/: directory
+[root@V0 ~]# ls   /etc/security/
+access.conf       console.perms    limits.d        opasswd         time.conf
+chroot.conf       console.perms.d  namespace.conf  pam_env.conf
+console.apps      group.conf       namespace.d     pwquality.conf
+console.handlers  limits.conf      namespace.init  sepermit.conf
+[root@V0 ~]# 
+
+
+
+
+
+
+
+
+
