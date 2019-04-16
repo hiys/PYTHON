@@ -1,0 +1,894 @@
+
+
+struct      英 [strʌkt]   美 [strʌkt]  
+   [计][C]（数据类型）结构，结构体（定义关键字）
+
+
+步骤               TCP客户端                                   TCP服务器
+第一步        建立socket对象                            建立socket对象
+第二步  调用connect()建立一个和服务器的连接    设置socket选项（可选）
+第三步   无                                        绑定到一个端口（也可以是一个指定的网卡）
+第四步   无                                        侦听连接
+
+--------------------------------------------
+•  创建 TCP 服 务 器  的主要步骤如下:
+
+1.  创建服务器套接字:s = socket.socket()
+
+1)创建socket对象：
+ socket.socket(family=AF_INET, type=SOCK_STREAM, proto=0, fileno=None)
+
+socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+使用给定的地址族，套接字类型和协议号来创建一个新套接字.
+
+>>> import socket
+#创建TCP socket：     基于网络的套接字       socket.AF_INET
+                          面向连接的 套接字类型为    SOCK_STREAM
+
+>>> sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+
+
+2.  绑定地址到套接字:s.bind()
+3.  启动监听:s.listen()
+4.  接受客户连接:s.accept()
+5.  与客户端通信:recv()/send()
+6.  关闭套接字:s.close()
+
+
+----------------------------------------------------------
+
+•  创建 TCP  客 户 端  的步骤主要如下:
+
+1.  创建客户端套接字:cs = socket.socket()
+
+2.  尝试连接服务器:cs.connect()
+3.  与服务器通信:cs.send()/cs.recv()
+4.  关闭客户端套接字:cs.close()
+
+==================================
+
+UDP服务器
+UDP服务器建立与TCP相类似，具体比较如下：
+步骤                UDP                 TCP
+第一步          建立socket对象             建立socket对象
+第二步          设置socket选项             设置socket选项
+第三步           绑定到一个端口              绑定到一个端口s.bind((host,port))绑定主机端口
+第四步           Recvfrom()             侦听连接listen
+
+
+
+
+•  创建 UDP 服 务 器 的主要步骤如下:
+
+1.  创建服务器套接字:s = socket.socket()
+#创建UDP socket：    基于网络的套接字       socket.AF_INET
+                            无连接的套接字 类型为    SOCK_DGRAM
+
+>>> sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+
+
+2.  绑定服务器套接字:s.bind()
+3.  接收、发送数据:s.recvfrom()/ss.sendto()
+4.  关闭套接字:s.close()
+
+
+•  创建 UDP 客 户 端 的步骤主要如下:
+
+1.  创建客户端套接字:cs = socket.socket()
+2.  与服务器通信:cs.sendto()/cs.recvfrom()
+3.  关闭客户端套接字:cs.close()
+
+
+
+------------------------------------------------------------------------------------------------
+
+
+socket模块方法
+
+socket.socket（family = AF_INET，type = SOCK_STREAM，proto = 0，fileno = None ）:
+使用给定的地址系列，套接字类型和协议号创建一个新套接字
+family为指定的地址族：
+
+　　socket.AF_UNIX ：只能够用于单一的Unix系统进程间通信
+
+　　socket.AF_INET ：服务器之间的网络通信（ipv4协议的TCP和UDP）ipv4,默认为这个
+
+　　socket.AF_INET6 ：服务器之间的网络通信ipv6
+
+type为指定的套接字类型：
+
+　　socket.SOCK_STREAM ：面向连接的TCP，默认为这个
+
+　　socket.SOCK_DGRAM ：面向非连接的UDP
+
+family和type参数是指定了一个协议，
+我们也可以使用proto第三个参数来直接指定使用的协议。
+我们也可以使用socket下的函数getprotobyname('tcp')，
+来代替IPPROTO_XX变量.
+
+
+##第二步：设置socket选项
+#最后一个参数value 数字1代表 True  或者数字0代表 False
+    self.servSocketObj.setsockopt(socket.SOL_SOCKET ,socket.SO_REUSEADDR, 1)
+
+
+s.setsockopt(level,optname,value)  :设置给定套接字选项的值。
+
+s.setsockopt(socket.SOL_SOCKET ,socket.SO_REUSEADDR, 1)
+
+ #这里value设置为 1 ，
+表示将SO_REUSEADDR标记为TRUE，
+操作系统会在服务器socket被关闭或服务器进程终止后
+马上释放该服务器的端口，
+否则操作系统会保留几分钟该端口。
+
+
+level定义了哪个选项将被使用。
+通常情况下是SOL_SOCKET，意思是正在使用的socket选项。
+
+s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)。
+
+setsockopt()函数
+  用于任意类型、任意状态套接口的设置选项值。
+
+尽管在不同协议层上存在选项，
+
+但本函数仅定义了最高的“套接口”层次上的选项。
+
+选项影响套接口的操作，
+诸如加急数据是否在普通数据流中接收，广播数据是否可以从套接口发送等等。
+
+ 这个函数中，第一个参数level 为 协议层 参数，
+
+指明了希望访问一个选项所在的协议栈。
+
+通常我们需要使用下面中的一个：
+
+socket.SOL_SOCKET  来访问套接口层选项
+socket.SOL_TCP     来访问TCP层   选项
+
+s.setsockopt(socket.SOL_SOCKET ,socket.SO_REUSEADDR, 1)
+
+第二个参数optname 是与第一个参数 level 相对应的。
+
+第一个参数决定了协议层level，
+
+第二个参数optname 决定了 该协议层下 选项组合。
+
+SOL_SOCKET的选项组合如下：
+
+协议层         选项名字
+SOL_SOCKET    SO_REUSEADDR
+
+s.setsockopt(level,optname,value)  :设置给定套接字选项的值。
+
+如果level选定了SOL_SOCKET，那么一些常用的选项见下表：
+
+1   选项                    2 意义              3 期望值
+
+1  SO_BINDTODEVICE
+
+2   可以使socket只在某个特殊的网络接口（网卡）有效。
+    也许不能是移动便携设备
+
+3  一个字符串给出设备的名称或者一个空字符串返回默认值
+--------------------------------------
+
+1  SO_BROADCAST
+2   允许广播地址发送和接收信息包。
+只对UDP有效。如何发送和接收广播信息包
+
+3   布尔型整数
+
+----------------------------
+1  SO_DONTROUTE
+2   禁止通过路由器和网关往外发送信息包。
+这主要是为了安全而用在以太网上UDP通信的一种方法。
+不管目的地址使用什么IP地址，都可以防止数据离开本地网络
+
+3   布尔型整数
+----------------------------
+
+1  SO_KEEPALIVE
+2   可以使TCP通信的信息包保持连续性。
+ 这些信息包可以在没有信息传输的时候，使通信的双方确定连接是保持的
+
+3   布尔型整数
+-----------------------------------
+
+1    SO_OOBINLINE
+2     可以把收到的不正常数据看成是正常的数据，
+也就是说会通过一个标准的对recv()的调用来接收这些数据
+
+3     布尔型整数
+---------------------
+
+1   SO_REUSEADDR
+2    当socket关闭后，本地端用于该socket的端口号立刻就可以被重用。
+通常来说，只有经过系统定义一段时间后，才能被重用。
+
+3   布尔型整数
+
+--------------------------------------------------------------
+
+s.getsockopt(level,optname[.buflen])  :返回套接字选项的值。
+
+[root@V0 day08]# scp   tcp_time_server_oop2.py    root@192.168.0.254:/var/git/PYTHON/pythonScripts/day08/
+[root@V1 pyscripts]# scp  tcp_client2.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/day08/
+
+
+communicate    英 [kəˈmjuːnɪkeɪt]  美 [kəˈmjuːnɪkeɪt]  
+           v.(与某人)交流(信息或消息、意见等);沟通;传达，传递(想法、感情、思想等)
+
+
+communicate (与某人)交流(信息或消息、意见等)
+
+
+##第一步：建立socket对象
+#使用给定的地址族，套接字类型 和 协议号来创建一个新套接字
+#socket.socket(family=AF_INET, type=SOCK_STREAM, proto=0, fileno=None)
+socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP) 创建UDP套接字
+
+fileno（）
+返回服务器正在侦听的套接字的整数文件描述符。
+这个功能通常被传递给selectors，允许在同一个进程中监视多个服务器。
+
+sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM) #创建UDP套接字
+
+proto为指定的协议号，一般为0：
+
+　　socket.IPPROTO_TCP  ：TCP传输协议
+
+　　socket.IPPROTO_UDP   ：UDP传输协议
+
+　　socket.IPPROTO_ICMP  ：ICMP链接
+
+　　socket.IPPROTO_IP        ：IP链接
+
+　　socket.IPPROTO_RAW    ：要构建IP头部和要发送的各种协议的头部和数据，包括ip头和协议和数据。
+
+
+s.setsockopt(level,optname,value)  :设置给定套接字选项的值。
+
+level:(级别)： 指定选项代码的类型。
+SOL_SOCKET:   基本 套接口
+IPPROTO_IP:   IPv4套接口
+IPPROTO_IPV6: IPv6套接口
+IPPROTO_TCP:  TCP 套接口
+
+
+level：选项定义的层次。
+支持SOL_SOCKET、   IPPROTO_TCP、
+  IPPROTO_IP  和   IPPROTO_IPV6。
+
+optname：需设置的选项。
+
+value：设置选项的值。
+
+
+
+基于UDP的套接字 udp是无链接的，先启动哪一端都不会报错
+
+socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP) 创建UDP套接字
+
+socket.IPPORT_USERRESERVED        socket.SOCK_DGRAM                 socket.ntohs(
+socket.IPPROTO_AH                 socket.SOCK_NONBLOCK              socket.os
+socket.IPPROTO_DSTOPTS            socket.SOCK_RAW                   socket.selectors
+socket.IPPROTO_FRAGMENT           socket.SOCK_STREAM                socket.socket(
+#>>> socket.IPPROTO_RAW
+#255
+#>>> socket.IPPROTO_IP
+#0
+#>>> socket.IPPROTO_ICMP
+#1
+#>>> socket.IPPROTO_TCP
+#6
+#>>> socket.IPPROTO_UDP
+#17  
+
+  File "udp_server.py", line 84, in <module>
+    serverV0 = server_sock.sendall(bytes(data, encoding='utf8'))
+OSError: [Errno 89] Destination address required
+                        需要目标地址
+[root@V0 day08]# 
+
+s.recv()            #接收TCP数据
+s.send()            #发送TCP数据(send在待发送数据量大于己端缓存区剩余空间时,数据丢失,不会发完)
+s.sendall()         #发送完整的TCP数据(本质就是循环调用send,sendall在待发送数据量大于己端缓存区剩余空间时,数据不丢失,循环调用send直到发完)
+s.recvfrom()        #接收UDP数据
+s.sendto()          #发送UDP数据
+
+
+面向文件的套接字方法
+s.fileno()          #套接字的文件描述符
+s.makefile()        #创建一个与该套接字相关的文件
+
+recv与recvfrom
+发消息，都是将数据发送到乙端的发送缓冲区，收消息都是从乙方 的缓冲区中收。
+
+tcp：send发消息，recv收消息
+udp：sendto发消息，recvfrom收消息
+
+  int  recvfrom( SOCKET s, char FAR* buf, int len, int flags,
+                        struct sockaddr FAR* from, int FAR* fromlen);
+
+  s：标识一个已连接套接口的描述字。
+  buf：接收数据缓冲区。
+  len：缓冲区长度。
+  flags：调用操作方式。
+  from：（可选）指针，指向装有源地址的缓冲区。
+  fromlen：（可选）指针，指向from缓冲区长度值。
+
+注释：
+  本函数由于从（已连接）套接口上接收数据，并捕获数据发送源的地址。
+
+  若from非零，且套接口为SOCK_DGRAM类型，
+则发送数据源的地址 被复制 到相应的 sockaddr结构中。
+-----------------------------------------
+
+
+socket.recv(bufsize[,flags])
+
+从socket接收数据。返回值是一个表示接收到的数据字节对象（ bytes objec）。一次接收的最大数据量由bufsize指定。默认为0,。 
+注意：bufsize值，为了与硬件和网络实现最佳匹配，应该是2的幂次，例如4096
+
+
+socket.recvfrom(bufsize [，flags ])
+
+从socket接收数据。
+返回值是一对，其中bytes是表示接收数据的字节对象，
+address是发送数据的套接字的地址。
+有关可选参数标志的含义，请参阅Unix手册页recv（2） ; 
+它默认为零（地址的格式取决于地址族）(bytes, address)
+
+socket.send(bytes[,flags])
+
+Send data to the socket，socket必须连接到远程socket。
+可选参数flags。
+返回发送的字节数。
+应用程序负责检查所有数据是否已发送；
+如果只传输了一些数据，则应用程序需要阐释传送剩余的数据（利用while）
+
+socket.sendall(bytes[,flags])
+
+sendall和send的区别：sendall方法继续从字节发送数据，直到发送所有数据或发生错误。
+None成功返回。
+
+
+  File "udp_server.py", line 90, in <module>
+    server_sock.sendto(date,  client_addr)
+TypeError: a bytes-like object is required, not 'str'
+[root@V0 day08]# 
+
+[root@V0 day08]# scp   udp_server.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/day08/
+
+[root@V0 day08]# python3  udp_server.py 
+__name__ is __main__
+服务器socket对象----
+<socket.socket fd=3, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=17, laddr=('0.0.0.0', 0)>
+---type(server_sock) is <class 'socket.socket'>
+b'\xe5\xae\xa2\xe6\x88\xb7\xe7\xab\xafabc -- 1'
+------注意二进制 ------
+('192.168.0.11', 36635)
+接收的客户端信息转utf8字符串是
+ ['客户端abc -- 1']
+type(client_addr) is  ('192.168.0.11', 36635)
+
+本次服务端与客户端的对话结束,可以开启下一个新的对话连接
+
+b'\xe5\xae\xa2\xe6\x88\xb7\xe7\xab\xafabc -- 2'
+------注意二进制 ------
+('192.168.0.11', 36635)
+接收的客户端信息转utf8字符串是
+ ['客户端abc -- 2']
+type(client_addr) is  ('192.168.0.11', 36635)
+
+本次服务端与客户端的对话结束,可以开启下一个新的对话连接
+
+b'\xe5\xae\xa2\xe6\x88\xb7\xe7\xab\xafabc -- 3'
+------注意二进制 ------
+('192.168.0.11', 36635)
+接收的客户端信息转utf8字符串是
+ ['客户端abc -- 3']
+type(client_addr) is  ('192.168.0.11', 36635)
+
+本次服务端与客户端的对话结束,可以开启下一个新的对话连接
+
+^C
+服务端执行 Ctrl + C 将会退出客户端与服务端的对话程序!
+sys.argv is ['udp_server.py']
+[root@V0 day08]# 
+
+
+[root@V1 pyscripts]# python3  udp_client.py 
+__name__ is __main__
+服务器socket对象----
+<socket.socket fd=3, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=17, laddr=('0.0.0.0', 0)>
+---type(Client_sock) is <class 'socket.socket'>
+bytes(datastr, encoding='utf8'客户端发送的二进制信息是
+b'\xe5\xae\xa2\xe6\x88\xb7\xe7\xab\xafabc -- 1'
+b'2019\xe5\xb9\xb4*04\xe6\x9c\x88*16\xe6\x97\xa5 16\xe6\x97\xb6:31\xe5\x88\x86:13\xe7\xa7\x92'
+------注意服务端二进制 ------
+('192.168.0.10', 11200)
+接收的服务端信息转utf8字符串是
+ ['2019年*04月*16日 16时:31分:13秒']
+bytes(datastr, encoding='utf8'客户端发送的二进制信息是
+b'\xe5\xae\xa2\xe6\x88\xb7\xe7\xab\xafabc -- 2'
+b'2019\xe5\xb9\xb4*04\xe6\x9c\x88*16\xe6\x97\xa5 16\xe6\x97\xb6:31\xe5\x88\x86:13\xe7\xa7\x92'
+------注意服务端二进制 ------
+('192.168.0.10', 11200)
+接收的服务端信息转utf8字符串是
+ ['2019年*04月*16日 16时:31分:13秒']
+bytes(datastr, encoding='utf8'客户端发送的二进制信息是
+b'\xe5\xae\xa2\xe6\x88\xb7\xe7\xab\xafabc -- 3'
+b'2019\xe5\xb9\xb4*04\xe6\x9c\x88*16\xe6\x97\xa5 16\xe6\x97\xb6:31\xe5\x88\x86:13\xe7\xa7\x92'
+------注意服务端二进制 ------
+('192.168.0.10', 11200)
+接收的服务端信息转utf8字符串是
+ ['2019年*04月*16日 16时:31分:13秒']
+sys.argv is ['udp_client.py']
+[root@V1 pyscripts]# 
+
+[root@V0 day08]# scp  udp_server2.py  root@192.168.0.254:/var/git/PYTHON/pythonScripts/day08/
+
+
+[root@V1 pyscripts]# scp  udp_client2.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/day08/
+
+
+----------------------------------------------------------------------------------------------------
+
+服务器段套接字：
+
+s.bind()  :绑定地址（host,port)到套接字，在AF_INET下,以元组（host,port）的形式表示地址。
+
+s.listen()  :开始TCP监听。backlog指定在拒绝连接之前，操作系统可以挂起的最大连接数量。该值至少为1，大部分应用程序设为5就可以了。
+
+s.accept()  :被动接受TCP客户端连接,(阻塞式)等待连接的到来
+
+----------------------------------------------------------------------------------------------------
+
+客户端套接字：
+
+s.connect() :主动初始化TCP服务器连接，。一般address的格式为元组（hostname,port），如果连接出错，返回socket.error错误
+
+s.connect_ex() :connect()函数的扩展版本,出错时返回出错码,而不是抛出异常
+
+--------------------------------------------------
+
+公共用途的套接字函数：
+
+s.recv()  :接收TCP数据，数据以字符串形式返回，bufsize指定要接收的最大数据量。flag提供有关消息的其他信息，通常可以忽略。
+
+s.send()  :发送TCP数据，将string中的数据发送到连接的套接字。返回值是要发送的字节数量，该数量可能小于string的字节大小。
+
+s.sendall()  :完整发送TCP数据，完整发送TCP数据。将string中的数据发送到连接的套接字，但在返回之前会尝试发送所有数据。成功返回None，失败则抛出异常。
+
+s.recvfrom()  :接收UDP数据，与recv()类似，但返回值是（data,address）。其中data是包含接收数据的字符串，address是发送数据的套接字地址。
+
+s.sendto()  :发送UDP数据，将数据发送到套接字，address是形式为（ipaddr，port）的元组，指定远程地址。返回值是发送的字节数。
+
+s.close()  :关闭套接字
+
+
+=======================
+s.getpeername()  :返回连接套接字的远程地址。返回值通常是元组（ipaddr,port）
+
+s.getsockname()  :返回套接字自己的地址。通常是一个元组(ipaddr,port)
+
+s.setsockopt(level,optname,value)  :设置给定套接字选项的值。
+
+s.getsockopt(level,optname[.buflen])  :返回套接字选项的值。
+
+s.settimeout(timeout)  :设置套接字操作的超时期，timeout是一个浮点数，单位是秒。值为None表示没有超时期。一般，超时期应该在刚创建套接字时设置，因为它们可能用于连接的操作（如connect()）
+
+s.gettimeout()  :返回当前超时期的值，单位是秒，如果没有设置超时期，则返回None
+
+s.fileno()  :返回套接字的文件描述符
+
+s.setblocking(flag)  :如果flag为0，则将套接字设为非阻塞模式，否则将套接字设为阻塞模式（默认值）。非阻塞模式下，如果调用recv()没有发现任何数据，或send()调用无法立即发送数据，那么将引起socket.error异常。
+
+s.makefile()  :创建一个与该套接字相关连的文件
+--------------------------------------
+https://www.cnblogs.com/zhangxinqi/p/8243919.html
+
+
+[root@V0 day08]# echo  -ne  "abc\t123\vABC\r\n456\n" > test.txt
+[root@V0 day08]# cat  -A  test.txt
+abc^I123^KABC^M$
+456$
+[root@V0 day08]# cat  -E   test.txt
+abc	123
+$          ABC
+456$
+[root@V0 day08]# cat   test.txt
+abc	123
+           ABC
+456
+[root@V0 day08]# type   wc
+wc 是 /usr/bin/wc
+[root@V0 day08]# rpm  -qf  /usr/bin/wc 
+coreutils-8.22-18.el7.x86_64
+[root@V0 day08]# wc   -l  test.txt 
+2 test.txt
+[root@V0 day08]# wc  -w   test.txt  #-w 统计单词字数(默认以空白符号作分割)
+4 test.txt
+[root@V0 day08]# wc  -c   test.txt  #-c 统计字节数
+17 test.txt
+[root@V0 day08]# ll  test.txt
+-rw-r--r-- 1 root root 17 4月  16 19:05 test.txt
+------------------------------------------
+wc [选项] 文件
+
+-c 统计字节数
+
+-l 统计行数
+
+-w 统计字数
+
+[root@V0 day08]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>>         
+>>> ord('\t')
+9
+>>> ord('\v')
+11
+>>> ord('\r')
+13
+>>> ord('\n')
+10
+>>> chr(11)
+'\x0b'
+>>> chr(13)
+'\r'
+>>> chr(9)
+'\t'
+>>> 
+>>> 
+>>> import   os
+>>> os.stat
+os.stat(              os.stat_result(       os.statvfs_result(
+os.stat_float_times(  os.statvfs(  
+
+>>> os.stat('test.txt')
+os.stat_result(   st_mode=33188,
+   st_ino=43710,  st_dev=64768,     st_nlink=1,
+   st_uid=0,      st_gid=0,
+   st_size=17,   # st_size 统计字节数
+   st_atime=1555412729,  st_mtime=1555412723,  st_ctime=1555412723)
+>>> 
+>>> os.stat('test.txt').st_size
+17
+>>> type(os.stat('test.txt').st_size)
+<class 'int'>
+>>> 
+>>> strx ='abc年月'
+>>> stry =''
+>>>
+>>> stry += strx
+>>> stry
+'abc年月'
+>>> stry += strx
+>>> stry
+'abc年月abc年月'
+>>> 
+>>> bytes('abc年月',encoding= 'utf8')
+b'abc\xe5\xb9\xb4\xe6\x9c\x88'
+>>> len(bytes('abc年月',encoding= 'utf8'))
+9
+>>> len(bytes('',encoding= 'utf8'))
+0
+>>> 
+>>> stry = 'abc年月abc年月'
+>>> strx = stry[:-2]
+>>> strx
+'abc年月abc'
+>>> stry ='ab'
+>>> strx = stry[:-2]
+>>> strx
+''
+>>> stry ='abc'
+>>> strx = stry[:-2]
+>>> strx
+'a'
+>>> bytes('end',encoding= 'utf8')
+b'end'
+>>> 
+>>> bytes('endover',encoding= 'utf8')
+b'endover'
+>>> 
+
+[root@V0 day08]# python3  udp_server3.py
+__name__ is __main__
+服务器socket对象----------
+<socket.socket fd=3, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=17, laddr=('0.0.0.0', 0)>
+---type(server_sock) is <class 'socket.socket'>
+
+b'I am \xe5\xae\xa2\xe6\x88\xb7\xe7\xab\xafabc -- '
+ --- <class 'bytes'>---bytes
+('192.168.0.11', 52623)
+ --- <class 'tuple'> ---tuple
+
+----接收的客户端信息client_data_bytes 转utf8字符串---------
+I am 客户端abc -- 
+
+abc年月
+
+abc年月abc年月
+
+abc年月abc年月abc年月
+
+sys.argv is ['udp_server3.py']
+[root@V0 day08]# 
+
+
+
+[root@V1 pyscripts]# python3   udp_client3.py 
+__name__ is __main__
+客户端socket对象----
+<socket.socket fd=3, family=AddressFamily.AF_INET, type=SocketKind.SOCK_DGRAM, proto=17, laddr=('0.0.0.0', 0)>
+---type(Client_sock) is <class 'socket.socket'>
+客户端未转换二进制的字符串信息-- I am 客户端abc -- 
+
+bytes(datastr, encoding='utf8'客户端发送的二进制信息是
+b'I am \xe5\xae\xa2\xe6\x88\xb7\xe7\xab\xafabc -- '
+
+--------已经发送信息给了服务器---------
+b'2019\xe5\xb9\xb4*04\xe6\x9c\x88*16\xe6\x97\xa5 20\xe6\x97\xb6:22\xe5\x88\x86:51\xe7\xa7\x92--\xe6\x9c\x8d\xe5\x8a\xa1\xe5\x99\xa8\xe4\xbf\xa1\xe6\x81\xafI am \xe5\xae\xa2\xe6\x88\xb7\xe7\xab\xafabc -- '
+--注意服务端二进制信息server_data_bytes --
+
+接收的服务端信息转utf8字符串是
+ ['2019年*04月*16日 20时:22分:51秒--服务器信息I am 客户端abc -- ']
+b'abc\xe5\xb9\xb4\xe6\x9c\x88'----bytes
+abc年月---while
+b'abc\xe5\xb9\xb4\xe6\x9c\x88a'----bytes
+abc年月a---while
+b'abc\xe5\xb9\xb4\xe6\x9c\x88a'----bytes
+abc年月a---while
+server_data_while_bytes--break--- b'endover'
+sys.argv is ['udp_client3.py']
+[root@V1 pyscripts]# 
+
+[root@V0 day08]# scp   udp_server3.py  root@192.168.0.254:/var/git/PYTHON/pythonScripts/day08/
+
+[root@V1 pyscripts]# scp   udp_client3.py    root@192.168.0.254:/var/git/PYTHON/pythonScripts/day08/
+==================================
+
+>>> 
+>>> import   urllib
+>>> import   urllib.request
+>>> 
+>>> urllib.request.
+urllib.request.AbstractBasicAuthHandler(
+urllib.request.AbstractDigestAuthHandler(
+urllib.request.AbstractHTTPHandler(
+urllib.request.BaseHandler(
+urllib.request.CacheFTPHandler(
+urllib.request.ContentTooShortError(
+urllib.request.DataHandler(
+urllib.request.FTPHandler(
+urllib.request.FancyURLopener(
+urllib.request.FileHandler(
+urllib.request.HTTPBasicAuthHandler(
+urllib.request.HTTPCookieProcessor(
+urllib.request.HTTPDefaultErrorHandler(
+urllib.request.HTTPDigestAuthHandler(
+urllib.request.HTTPError(
+urllib.request.HTTPErrorProcessor(
+urllib.request.HTTPHandler(
+urllib.request.HTTPPasswordMgr(
+urllib.request.HTTPPasswordMgrWithDefaultRealm(
+urllib.request.HTTPPasswordMgrWithPriorAuth(
+urllib.request.HTTPRedirectHandler(
+urllib.request.HTTPSHandler(
+urllib.request.MAXFTPCACHE
+urllib.request.OpenerDirector(
+urllib.request.ProxyBasicAuthHandler(
+urllib.request.ProxyDigestAuthHandler(
+urllib.request.ProxyHandler(
+urllib.request.Request(
+urllib.request.URLError(
+urllib.request.URLopener(
+urllib.request.UnknownHandler(
+urllib.request.addclosehook(
+urllib.request.addinfourl(
+urllib.request.base64
+urllib.request.bisect
+urllib.request.build_opener(
+urllib.request.collections
+urllib.request.contextlib
+urllib.request.email
+urllib.request.ftpcache
+urllib.request.ftperrors(
+urllib.request.ftpwrapper(
+urllib.request.getproxies(
+urllib.request.getproxies_environment(
+urllib.request.hashlib
+urllib.request.http
+urllib.request.install_opener(
+urllib.request.io
+urllib.request.localhost(
+urllib.request.noheaders(
+urllib.request.os
+urllib.request.parse_http_list(
+urllib.request.parse_keqv_list(
+urllib.request.pathname2url(
+urllib.request.posixpath
+urllib.request.proxy_bypass(
+urllib.request.proxy_bypass_environment(
+urllib.request.quote(
+urllib.request.re
+urllib.request.request_host(
+urllib.request.socket
+urllib.request.splitattr(
+urllib.request.splithost(
+urllib.request.splitpasswd(
+urllib.request.splitport(
+urllib.request.splitquery(
+urllib.request.splittag(
+urllib.request.splittype(
+urllib.request.splituser(
+urllib.request.splitvalue(
+urllib.request.ssl
+urllib.request.string
+urllib.request.sys
+urllib.request.tempfile
+urllib.request.thishost(
+urllib.request.time
+urllib.request.to_bytes(
+urllib.request.unquote(
+urllib.request.unquote_to_bytes(
+urllib.request.unwrap(
+urllib.request.url2pathname(
+urllib.request.urlcleanup(
+urllib.request.urljoin(
+urllib.request.urlopen(
+urllib.request.urlparse(
+urllib.request.urlretrieve(
+urllib.request.urlsplit(
+urllib.request.urlunparse(
+urllib.request.warnings
+>>> 
+urllib.request.urlopen(   url,   data=None,    [timeout, ]*,
+        cafile=None,    capath=None,    cadefault=False, 
+        context=None  )
+
+第一个参数 String 类型的地址或者
+
+data 是 bytes 类型的内容，可通过 bytes()函数转为化字节流。它也是可选参数。
+使用 data 参数，请求方式变成以 POST 方式提交表单。
+使用标准格式是application/x-www-form-urlencoded
+
+
+timeout 参数是用于设置请求超时时间。单位是秒。
+
+cafile和capath代表 CA 证书和 CA 证书的路径。如果使用HTTPS则需要用到。
+
+context参数必须是ssl.SSLContext类型，用来指定SSL设置
+
+cadefault参数已经被弃用，可以不用管了。
+该方法也可以单独传入urllib.request.Request对象
+该函数返回结果是一个http.client.HTTPResponse对象。
+
+
+简单抓取网页
+我们使用 urllib.request.urlopen() 去请求百度贴吧，并获取到它页面的源代码。
+import urllib.request
+
+url = "http://tieba.baidu.com"
+response = urllib.request.urlopen(url)
+html = response.read()         # 获取到页面的源代码
+print(html.decode('utf-8'))    # 转化为 utf-8 编码
+
+
+urllib.request.Request(    url,     data=None,       headers={},
+   origin_req_host=None,   unverifiable=False,     method=None )
+
+url 参数是请求链接，这个是必传参数，其他的都是可选参数。
+
+data 参数跟 urlopen() 中的 data 参数用法相同。
+
+headers 参数是指定发起的 HTTP 请求的头部信息。headers 是一个字典。
+它除了在 Request 中添加，
+还可以通过调用 Reques t实例的 add_header() 方法来添加请求头。
+
+origin_req_host 参数指的是请求方的 host 名称或者 IP 地址。
+
+unverifiable 参数表示这个请求是否是无法验证的，默认值是False。
+意思就是说用户没有足够权限来选择接收这个请求的结果。
+例如我们请求一个HTML文档中的图片，但是我们没有自动抓取图像的权限，
+我们就要将 unverifiable 的值设置成 True。
+
+method 参数指的是发起的 HTTP 请求的方式，有 GET、POST、DELETE、PUT等
+
+
+我使用的 User-Agent 是 Chrome 浏览器。
+import urllib.request
+
+url = "http://tieba.baidu.com/"
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
+}
+request = urllib.request.Request(url=url, headers=headers)
+response = urllib.request.urlopen(request)
+print(response.read().decode('utf-8'))
+
+-------------------- https://www.jianshu.com/p/2e190438bd9c -----------
+
+>>> import  urllib
+>>> import  urllib.request
+>>> file =  urllib.request.urlopen('https://www.baidu.com/')
+>>> data = file.read
+file.read(       file.readable(   file.readinto1(  file.readlines(
+file.read1(      file.readinto(   file.readline(   
+>>> data = file.read()
+>>> len(data)
+227
+>>> 
+>>> file =  urllib.request.urlopen('https://www.baidu.com/')
+
+>>> file.readline()
+b'<html>\r\n'
+
+>>> file.readline()
+b'<head>\r\n'
+
+>>> file.readline()
+b'\t<script>\r\n'
+
+>>> file.readline()
+b'\t\tlocation.replace(location.href.replace("https://","http://"));\r\n'
+
+>>> file.readline()
+b'\t</script>\r\n'
+
+>>> file.readline()
+b'</head>\r\n'
+
+>>> file.readline()
+b'<body>\r\n'
+
+>>> file.readline()
+b'\t<noscript><meta http-equiv="refresh" content="0;url=http://www.baidu.com/"></noscript>\r\n'
+
+>>> file.readline()
+b'</body>\r\n'
+
+>>> file.readline()
+b'</html>'
+
+>>> file.readline()
+b''
+
+[root@V0 day08]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   re
+>>> str = 'food'
+>>> re.findall('foo', str)
+['foo']
+>>> re.findall('oo', str)
+['oo']
+>>> re.findall('o', str)
+['o', 'o']
+
+findall函数
+•  在字符串中查找正则表达式模式的所有(非重复)出现;
+返回一个匹配对象的列表
+
+>>> str = 'food is food'
+>>> re.findall('foo', str)
+['foo', 'foo']
+>>> 
+
+
+
+
+
+
+
+
+
+
