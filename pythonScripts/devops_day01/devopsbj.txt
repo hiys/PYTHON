@@ -1,0 +1,110 @@
+
+
+>>> 
+urllib.request.urlopen(   url,   data=None,    [timeout, ]*,
+        cafile=None,    capath=None,    cadefault=False, 
+        context=None  )
+
+第一个参数 String 类型的地址或者
+
+data 是 bytes 类型的内容，可通过 bytes()函数转为化字节流。它也是可选参数。
+使用 data 参数，请求方式变成以 POST 方式提交表单。
+使用标准格式是application/x-www-form-urlencoded
+
+
+timeout 参数是用于设置请求超时时间。单位是秒。
+
+cafile和capath代表 CA 证书和 CA 证书的路径。如果使用HTTPS则需要用到。
+
+context参数必须是ssl.SSLContext类型，用来指定SSL设置
+
+cadefault参数已经被弃用，可以不用管了。
+该方法也可以单独传入urllib.request.Request对象
+该函数返回结果是一个http.client.HTTPResponse对象。
+
+
+简单抓取网页
+我们使用 urllib.request.urlopen() 去请求百度贴吧，并获取到它页面的源代码。
+import urllib.request
+...............................
+
+[root@V0 devops_day01]# scp   forkzombie.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day01
+
+
+[root@V0 devops_day01]# ps  aux |head  -3
+USER   PID %CPU  %MEM    VSZ   RSS  TTY     STAT START   TIME COMMAND
+root     1  0.0  0.2  125620   4072 ?       Ss   08:58   0:02 /usr/lib/systemd/systemd --switched-root --system --deserialize 21
+root     2  0.0  0.0       0     0  ?       S    08:58   0:00 [kthreadd]
+[root@V0 devops_day01]# ps  aux |tail  -2
+root  8934  0.0  0.1  151064   1820 pts/2   R+   20:47   0:00 ps aux
+root  8935  0.0  0.0  108156    680 pts/2   S+   20:47   0:00 tail -2
+[root@V0 devops_day01]# 
+
+
+
+
+
+
+•  fork(分岔)在Linux系统中使用非常广泛
+•  当某一命令执行时,父进程(当前进程)fork出一个子进程
+•  父进程将自身资源拷贝一份,命令在子进程中运行时,
+就具有和父进程完全一样的运行环境
+
+•  僵尸进程没有任何可执行代码,也不能被调度
+•  如果系统中存在过多的僵尸进程,
+将因为没有可用的进程号 而导致 系统不能产生新的进程
+
+
+•  需要使用os模块
+•  os.fork()函数实现forking功能
+•  python中,绝大多数的函数只返回一次,
+os.fork将 返回 两 次 
+
+•  对fork()的调用,针对父进程返回子进程的PID;
+对于子进程,   返回PID0
+
+fork        英 [fɔːk]   美 [fɔːrk]  
+    n.餐叉;叉(挖掘用的园艺工具);(道路、河流等的)分岔处，分流处，岔口，岔路
+    v.分岔;岔开两条分支;
+
+zombie       英 [ˈzɒmbi]   美 [ˈzɑːmbi]  
+    n.无生气的人;麻木迟钝的人; 僵尸
+
+invoke             英 [ɪnˈvəʊk]   美 [ɪnˈvoʊk]  
+        v.援引，援用(法律、规则等作为行动理由);
+         提及，援引(某人、某理论、实例等作为支持);
+         提出(某人的名字，以激发某种感觉或行动)
+
+
+使用轮询解决zombie问题
+•  父进程通过os.wait()来得到子进程是否终止的信息
+•  在子进程终止和父进程调用wait()之间的这段时间,
+子进程被称为zombie(僵尸)进程
+•  如果子进程还没有终止,  父进程先退出了,
+那么子进程会持续工作。
+系统自动将子进程的父进程设置为init进程,
+init将来负责清理僵尸进程
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
