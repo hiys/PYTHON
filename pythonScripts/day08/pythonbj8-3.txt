@@ -1,0 +1,1081 @@
+
+
+>>> 
+urllib.request.urlopen(   url,   data=None,    [timeout, ]*,
+        cafile=None,    capath=None,    cadefault=False, 
+        context=None  )
+
+第一个参数 String 类型的地址或者
+
+data 是 bytes 类型的内容，可通过 bytes()函数转为化字节流。它也是可选参数。
+使用 data 参数，请求方式变成以 POST 方式提交表单。
+使用标准格式是application/x-www-form-urlencoded
+
+
+timeout 参数是用于设置请求超时时间。单位是秒。
+
+cafile和capath代表 CA 证书和 CA 证书的路径。如果使用HTTPS则需要用到。
+
+context参数必须是ssl.SSLContext类型，用来指定SSL设置
+
+cadefault参数已经被弃用，可以不用管了。
+该方法也可以单独传入urllib.request.Request对象
+该函数返回结果是一个http.client.HTTPResponse对象。
+
+
+简单抓取网页
+我们使用 urllib.request.urlopen() 去请求百度贴吧，并获取到它页面的源代码。
+import urllib.request
+
+url = "http://tieba.baidu.com"
+response = urllib.request.urlopen(url)
+html = response.read()         # 获取到页面的源代码
+print(html.decode('utf-8'))    # 转化为 utf-8 编码
+
+
+urllib.request.Request(    url,     data=None,       headers={},
+   origin_req_host=None,   unverifiable=False,     method=None )
+
+url 参数是请求链接，这个是必传参数，其他的都是可选参数。
+
+data 参数跟 urlopen() 中的 data 参数用法相同。
+
+headers 参数是指定发起的 HTTP 请求的头部信息。headers 是一个字典。
+它除了在 Request 中添加，
+还可以通过调用 Reques t实例的 add_header() 方法来添加请求头。
+
+origin_req_host 参数指的是请求方的 host 名称或者 IP 地址。
+
+unverifiable 参数表示这个请求是否是无法验证的，默认值是False。
+意思就是说用户没有足够权限来选择接收这个请求的结果。
+例如我们请求一个HTML文档中的图片，但是我们没有自动抓取图像的权限，
+我们就要将 unverifiable 的值设置成 True。
+
+method 参数指的是发起的 HTTP 请求的方式，有 GET、POST、DELETE、PUT等
+
+
+我使用的 User-Agent 是 Chrome 浏览器。
+import urllib.request
+
+url = "http://tieba.baidu.com/"
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
+}
+request = urllib.request.Request(url=url, headers=headers)
+response = urllib.request.urlopen(request)
+print(response.read().decode('utf-8'))
+
+-------------------- https://www.jianshu.com/p/2e190438bd9c -----------
+
+>>> import  urllib
+>>> import  urllib.request
+>>> file =  urllib.request.urlopen('https://www.baidu.com/')
+>>> data = file.read
+file.read(       file.readable(   file.readinto1(  file.readlines(
+file.read1(      file.readinto(   file.readline(   
+>>> data = file.read()
+>>> len(data)
+227
+>>> 
+>>> file =  urllib.request.urlopen('https://www.baidu.com/')
+
+>>> file.readline()
+b'<html>\r\n'
+
+>>> file.readline()
+b'<head>\r\n'
+
+>>> file.readline()
+b'\t<script>\r\n'
+
+>>> file.readline()
+b'\t\tlocation.replace(location.href.replace("https://","http://"));\r\n'
+
+>>> file.readline()
+b'\t</script>\r\n'
+
+>>> file.readline()
+b'</head>\r\n'
+
+>>> file.readline()
+b'<body>\r\n'
+
+>>> file.readline()
+b'\t<noscript><meta http-equiv="refresh" content="0;url=http://www.baidu.com/"></noscript>\r\n'
+
+>>> file.readline()
+b'</body>\r\n'
+
+>>> file.readline()
+b'</html>'
+
+>>> file.readline()
+b''
+
+[root@V0 day08]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   re
+>>> str = 'food'
+>>> re.findall('foo', str)
+['foo']
+>>> re.findall('oo', str)
+['oo']
+>>> re.findall('o', str)
+['o', 'o']
+
+findall函数
+•  在字符串中查找正则表达式模式的所有(非重复)出现;
+返回一个匹配对象的列表
+
+>>> str = 'food is food'
+>>> re.findall('foo', str)
+['foo', 'foo']
+>>> 
+
+compile函数
+•  对正则表达式模式进行编译,返回一个正则表达式对象
+
+pattern          英 [ˈpætn]   美 [ˈpætərn]  
+    n.模式;方式;范例;典范;榜样;样板;图案;花样;式样
+    v.构成图案(或花样);
+
+compile        英 [kəmˈpaɪl]   美 [kəmˈpaɪl]  
+     v.编写(书、列表、报告等) ; 编译
+
+>>> import  re
+>>> str = 'food is food'
+
+>>> pattern = re.compile('foo')
+>>> pattern
+re.compile('foo')
+
+>>> type(pattern)
+<class '_sre.SRE_Pattern'>
+
+compile函数
+•  对正则表达式模式进行编译,返回一个正则表达式对象
+
+>>> pattern.findall(str)
+['foo', 'foo']
+>>> 
+>>> str = 'food is food'
+>>> re.findall('foo', str)
+['foo', 'foo']
+>>> 
+
+
+>>> str = 'food is food'
+
+>>> m = re.match('foo', str)
+>>> m
+<_sre.SRE_Match object; span=(0, 3), match='foo'>
+>>> type(m)
+<class '_sre.SRE_Match'>
+>>> 
+•  使用match或search匹配成功后,
+返回的匹配对象可以通过
+ group() 方法获得匹配内容
+
+只有正则表达式 匹配的内容是字符串的开头位置,
+才能找到, 匹配的内容在字符串的中间或结尾,无法匹配
+
+match() 函数
+ 用正则表达式模式从字符串的 开头匹配,
+如果匹配成功,则返回一个匹配对象;
+否则返回None
+
+>>> m.group()
+'foo'
+>>> type(m.group())
+<class 'str'>
+>>> 
+>>> str = 'food is food'
+
+
+search函数
+•  在字符串中查找正则表达式模式的第一次出现,
+如果匹配成功,则返回一个匹配对象;否则返回None
+#search() 只匹配模式的第一次出现
+
+>>> m = re.search('oo', str)
+>>> m
+<_sre.SRE_Match object; span=(1, 3), match='oo'>
+
+>>> type(m)
+<class '_sre.SRE_Match'>
+
+>>> m.group()
+'oo'
+>>> type(m.group())
+<class 'str'>
+>>> 
+finditer()函数
+•  和findall()函数有相同的功能,
+但返回的不是列表而是迭代器;
+对于每个匹配,该迭代器返回一个匹配对象
+
+>>> str = 'food is food'
+>>> re.finditer('oo', str)
+<callable_iterator object at 0x7f080f8bd5f8>
+
+>>> m = re.finditer('oo', str)
+>>> type(m)
+<class 'callable_iterator'>
+
+>>> m
+<callable_iterator object at 0x7f080f8bd5c0>
+>>> for  i  in  m:
+...   print(i.group)
+... 
+<built-in method group of _sre.SRE_Match object at 0x7f0817271b28>
+<built-in method group of _sre.SRE_Match object at 0x7f0817271ac0>
+>>> for  i  in  m:
+...   print(i.group())
+... 
+>>>
+finditer()函数
+•  和findall()函数有相同的功能,
+但返回的不是列表而是迭代器;
+对于每个匹配,该迭代器返回一个匹配对象
+
+>>> str = 'food is food ok food is good'
+
+>>> m = re.finditer('oo', str)
+
+>>> type(m)
+<class 'callable_iterator'>
+>>> m
+<callable_iterator object at 0x7f0817266940>
+>>> for  i  in  m:
+...   print(i.group())
+... 
+oo
+oo
+oo
+oo
+>>> group() 方法获得匹配内容
+>>> for i in re.finditer('is', str):
+...   print(i.group())
+... 
+is
+is
+>>> 
+split方法
+•  根据正则表达式中的 分隔符 把字符 分割为一个列表,
+并返回成功匹配的列表
+#使用 " . " 和 " - " 作为字符串的分隔符
+
+>>> str = 'hello-word.data'
+
+>>> mylist = re.split('\.|-', str)
+
+>>> type(mylist)
+<class 'list'>
+
+>>> mylist
+['hello', 'word', 'data']
+>>> mylist[0]
+'hello'
+>>> mylist[-1]
+'data'
+>>> 
+
+sub方法
+•  把字符串中所有匹配正则表达式的地方
+替换 成 新的字符串
+
+>>> str = 'hello-word.data'
+
+>>> m = re.sub('o','XX',str)
+>>> m
+'hellXX-wXXrd.data'
+>>> type(m)
+<class 'str'>
+>>> 
+>>> str = 'food is food ok food is good'
+
+>>> m = re.sub('oo', 'NEW', str)
+>>> m
+'fNEWd is fNEWd ok fNEWd is gNEWd'
+>>> 
+>>> str = 'food is food ok food is good'
+
+>>> re.findall('f.o', str)
+['foo', 'foo', 'foo']
+>>> 
+>>> re.findall('..o', str)
+['foo', ' fo', 'd o', ' fo', ' go']
+
+>>> re.findall('.oo.', str)
+['food', 'food', 'food', 'good']
+>>> 
+>>> re.findall('[is]', str)
+['i', 's', 'i', 's']
+>>> 
+
+>>> str = 'new123 abc 456-ABC'
+
+>>> re.findall('[0-9].[aA]', str)
+['3 a', '6-A']
+>>> 
+>>> re.findall('\d', str)
+['1', '2', '3', '4', '5', '6']
+>>> 
+>>> re.findall('[^a-zA-Z]', str)
+['1', '2', '3', ' ', ' ', '4', '5', '6', '-']
+>>> re.findall('[^a-z A-Z]', str)
+['1', '2', '3', '4', '5', '6', '-']
+>>> 
+>>> re.findall('\w', str)
+['n', 'e', 'w', '1', '2', '3', 'a', 'b', 'c', '4', '5', '6', 'A', 'B', 'C']
+
+>>>
+>>> re.findall('[^\w]', str)
+[' ', ' ', '-']
+>>> re.findall('\s', str)
+[' ', ' ']
+>>> 
+
+
+点"."-----元字符
+
+ --------------------- 匹配单个字符 --------------------------------
+ .                       匹配任意字符(换行符\n 除外)
+
+[...x-y...]         匹配字符组里的任意字符
+[^...x-y...]        匹配不在字符组里的任意字符
+\d                  匹配任意数字,与[0-9]同义
+\w                  匹配任意数字字母字符,与[0-9a-zA-Z_]同义
+\s                  匹配空白字符,与[ \r\v\f\t\n]同义
+
+
+>>> str
+'new123 abc 456-ABC'
+
+>>> re.findall('abc|456', str) #注意元字符或"|"
+['abc', '456']
+>>> 
+>>> re.findall('\d\d*',str)
+['123', '456']
+>>> re.findall('\s*.a',str)
+[' a']
+>>> re.findall('\d\s*.a',str)
+['3 a']
+>>> 
+>>> re.findall('\d\s*.',str)
+['12', '3 a', '45', '6-']
+
+>>> re.findall('\d\s*',str)
+['1', '2', '3 ', '4', '5', '6']
+>>> 
+>>> re.findall('\d*',str)
+['', '', '', '123', '', '', '', '', '', '456', '', '', '', '', '']
+>>> 
+>>> str
+'new123 abc 456-ABC'
+>>> re.findall('a*', str)
+['', '', '', '', '', '', '', 'a', '', '', '', '', '', '', '', '', '', '', '']
+>>> re.findall('a+', str)
+['a']
+>>> re.findall('\d+', str)
+['123', '456']
+>>> 
+>>> re.findall('ab*', str)
+['ab']
+>>> re.findall('abcd*', str)
+['abc']
+>>> re.findall('ad*', str)
+['a']
+>>> 
+>>> re.findall('a?', str)
+['', '', '', '', '', '', '', 'a', '', '', '', '', '', '', '', '', '', '', '']
+>>> re.findall('abc?', str)
+['abc']
+>>> re.findall('abcd?', str)
+['abc']
+>>> re.findall('ad?', str)
+['a']
+>>> 
+>>> re.findall('ab{2,4}', 'aabb-aabbbb-aaabbbbbb')
+['abb', 'abbbb', 'abbbb']
+>>> 
+
+
+
+
+--------------------  匹配一组字符 ------------------------- 
+记号                     说 明
+literal             匹配字符串的值
+re1|re2             匹配正则表达式re1 或 re2
+*                        匹配星号"*"的前面出现的正则表达式零次或多次
++                        匹配加号"+"的前面出现的正则表达式一次或多次
+?                         匹配问号"?"的前面出现的正则表达式零次或一次
+{M, N}              匹配前面出现的正则表达式至少M次最多N次
+
+ --------------------- 匹配单个字符 --------------------------------
+ .                       匹配任意字符(换行符\n 除外)
+
+
+  *、 + 和 ? 都是  贪婪匹配操作符,
+ 在其后 加上 ? 可以 取消 其 贪婪匹配行为
+
+其他元字符
+记号                 说 明
+^                     匹配字符串的开始
+$                     匹配字符串的结尾
+\b               匹配单词的边界
+()                    对正则表达式分组
+\nn              匹配已保存的子组
+
+
+>>> print('ab\t123\vABC\nefg')
+ab	123
+           ABC
+efg
+>>> print( r'ab\t123\vABC\nefg' )
+ab\t123\vABC\nefg
+>>> 
+
+raw原始字符对反斜杠"\" 不转义
+
+原始字符串'ab\t123\v\r\nefg'
+\b 是元字符
+
+>>> str = 'food is not good or noodles may be good'
+
+>>> re.findall(r'\boo\b', str)
+[]
+>>> re.findall(r'\bfood\b', str)
+['food']
+>>> re.findall(r'\b.oo.\b', str)
+['food', 'good', 'good']
+>>> re.findall(r'\bmay\b', str)
+['may']
+>>> 
+
+>>> data = 'My ph is : 13302381235'
+>>> re.findall('.+(\d+)', data)
+['5']
+>>> re.search('.+(\d+)', data).group()
+'My ph is : 13302381235'
+
+>>> re.search('.+(\d+)', data).group(0)
+'My ph is : 13302381235'
+
+>>> re.search('.+(\d+)', data).group(1)
+'5'
+
+>>> re.search('.+(\d+)', data).group(2)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: no such group
+>>> 
+
+>>> re.findall('.+?(\d+)', data)
+['13302381235']
+>>> re.findall('.+?(\d.)', data)
+['13', '02', '81', '35']
+>>> 
+>>> data
+'My ph is : 13302381235'
+>>> re.search('.+(\d+)', data)
+<_sre.SRE_Match object; span=(0, 22), match='My ph is : 13302381235'>
+
+>>> re.search('.+(\d+)', data).group()
+'My ph is : 13302381235'
+
+>>> 
+ group() 方法获得匹配内容
+  group(N) #N是整数,代表第几组
+  *、 + 和 ? 都是  贪婪匹配操作符,
+ 在其后 加上 ? 可以 取消 其 贪婪匹配行为
+
+*                        匹配星号"*"的前面出现的正则表达式零次或多次
++                        匹配加号"+"的前面出现的正则表达式一次或多次
+?                         匹配问号"?"的前面出现的正则表达式零次或一次
+当问号? 出现在 
+    表现 不定次数的正则表达式部分  之后时，
+就表示 非贪婪匹配
+
+
+>>> re.search('.+?(\d+)', data).group(2)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: no such group
+
+>>> re.search('.+?(\d+)', data).group(0)
+'My ph is : 13302381235'
+
+>>> re.search('.+?(\d+)', data).group(1)  #注意数字"1" group(1)
+'13302381235'
+>>> 
+•  正则表达式匹配对象通过groups() 函数获取 子组
+ groups()返回的是元组
+>>> m.groups()
+('5',)
+
+>>> str = 'My ph number is : 13302381235'
+>>> m =  re.search('.+', str)
+>>> m
+<_sre.SRE_Match object; span=(0, 29), match='My ph number is : 13302381235'>
+>>> m.group()
+'My ph number is : 13302381235'
+>>> m.group(0)
+'My ph number is : 13302381235'
+>>> m.group(1)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: no such group
+>>> 
+
+>>> str = 'My ph number is : 13302381235'
+
+>>> m =  re.search('.+?', str)
+>>> m.group(1)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: no such group
+
+>>> m.group(0)
+'M'
+>>> 
+>>> m =  re.search('.+?\d+?', str)
+>>> m
+<_sre.SRE_Match object; span=(0, 19), match='My ph number is : 1'>
+>>> m.group()
+'My ph number is : 1'
+>>> m.group(0)
+'My ph number is : 1'
+>>> 
+
+>>> m =  re.search('.+?(\d+)?', str)
+>>> m.group()
+'M'
+>>> m.group(0)
+'M'
+>>> m.group(1)
+>>> 
+
+>>> m =  re.search('.+(\d+)', strx)
+>>> m.group()
+'Mytest1234ABC56789'
+>>> m.group(0)
+'Mytest1234ABC56789'
+>>> m.group(1)
+'9'
+>>> 
+
+>>> str = 'My ph number is : 13302381235'
+>>> m =  re.search('.+(\d+)', str)
+>>> type(m)
+<class '_sre.SRE_Match'>
+>>> m
+<_sre.SRE_Match object; span=(0, 29), match='My ph number is : 13302381235'>
+>>> m.group()
+'My ph number is : 13302381235'
+>>> m.group(1)
+'5'
+>>> m.groups()
+('5',)
+>>> 
+
+>>> juzi = '''You said:"why?" and I said:"I no" okend'''
+
+>>> re.findall(r'"(.*)"', juzi)
+['why?" and I said:"I no']
+
+>>> re.findall(r'"(.*?)"', juzi)
+['why?', 'I no']
+>>> 
+
+
+
+--------------------  匹配一组字符 ------------------------- 
+记号                     说 明
+literal             匹配字符串的值
+re1|re2             匹配正则表达式re1 或 re2
+*                        匹配星号"*"的前面出现的正则表达式零次或多次
++                        匹配加号"+"的前面出现的正则表达式一次或多次
+?                         匹配问号"?"的前面出现的正则表达式零次或一次
+当问号? 出现在 
+    表现 不定次数的正则表达式部分  之后时，
+就表示 非贪婪匹配
+
+{M, N}              匹配前面出现的正则表达式至少M次最多N次
+
+ --------------------- 匹配单个字符 --------------------------------
+ .                       匹配任意字符(换行符\n 除外)
+ .                       匹配任意字符(换行符\n 除外)
+
+[...x-y...]         匹配字符组里的任意字符
+[^...x-y...]        匹配不在字符组里的任意字符
+\d                  匹配任意数字,与[0-9]同义
+\w                  匹配任意数字字母字符,与[0-9a-zA-Z_]同义
+\s                  匹配空白字符,与[ \r\v\f\t\n]同义
+
+ --------------------- 匹配单个字符 --------------------------------
+
+  *、 + 和 ? 都是  贪婪匹配操作符,
+ 在其后 加上 ? 可以 取消 其 贪婪匹配行为
+当问号出现在表现不定次数的正则表达式部分之后时，就表示非贪婪匹配
+
+其他元字符
+记号                 说 明
+^                     匹配字符串的开始
+$                     匹配字符串的结尾
+\b               匹配单词的边界
+()                    对正则表达式分组
+\nn              匹配已保存的子组
+
+
+>>> strx = "My123Abc456789"
+>>> m =  re.search('.+?(\d+)', strx)
+>>> m.group()
+'My123'
+>>> m.group(0)
+'My123'
+>>> m.group(1)
+'123'
+>>> m.groups()
+('123',)
+>>> 
+>>> 
+>>> strx = "Mytest1234ABC56789"
+>>> m =  re.search('.+', strx)
+>>> m.group()
+'Mytest1234ABC56789'
+
+>>> m =  re.search('.+?', strx)
+>>> m.group()
+'M'
+
+>>> m =  re.search('.+\d+', strx)
+>>> m.group()
+'Mytest1234ABC56789'
+
+>>> m =  re.search('.+?\d+', strx)
+>>> m.group()
+'Mytest1234'
+
+>>> m =  re.search('.+?\d+?', strx)
+>>> m.group()
+'Mytest1'
+>>> m.group(0)
+'Mytest1'
+>>> 
+>>> m.groups()
+()
+>>> 
+>>> m =  re.search('.+?(\d+)', strx)
+>>> m.group()
+'Mytest1234'
+>>> m.group(0)
+'Mytest1234'
+>>> m.group(1)
+'1234'
+>>>
+>>> m.groups()
+('1234',)
+>>> 
+>>> strx = "Mytest1234ABC56789"
+>>> strx
+'Mytest1234ABC56789'
+>>> m =  re.search('.+?(\d+?)', strx)
+>>> m.groups()
+('1',)
+>>> m.group()
+'Mytest1'
+>>> m.group(0)
+'Mytest1'
+>>> m.group(1)
+'1'
+>>> 
+
+ group() 方法获得匹配内容
+  group(N) #N是整数,代表第几组
+  *、 + 和 ? 都是  贪婪匹配操作符,
+ 在其后 加上 ? 可以 取消 其 贪婪匹配行为
+
+*                        匹配星号"*"的前面出现的正则表达式零次或多次
++                        匹配加号"+"的前面出现的正则表达式一次或多次
+?                         匹配问号"?"的前面出现的正则表达式零次或一次
+当问号? 出现在 
+    表现 不定次数的正则表达式部分  之后时，
+就表示 非贪婪匹配
+
+其他元字符
+记号                 说 明
+^                     匹配字符串的开始
+$                     匹配字符串的结尾
+\b               匹配单词的边界
+()                    对正则表达式分组
+\nn              匹配已保存的子组
+
+
+>>> str2 = '43052419880910483x'
+>>> str3 = '43052419880910483X'
+>>> str =  '123456789123456789'
+
+>>> sre_p = re.compile('\d{17}(\d|[xX])')
+
+>>> type(sre_p)
+<class '_sre.SRE_Pattern'>
+>>> sre_p
+re.compile('\\d{17}(\\d|[xX])')
+
+>>> sre_p.findall(str)
+['9']
+>>> m = sre_p.search(str)
+>>> m.group()
+'123456789123456789'
+>>> m.groups()
+('9',)
+>>> m.group(1)
+'9'
+>>> 
+>>> 
+
+>>> m = sre_p.search(str2)
+>>> m.group()
+'43052419880910483x'
+
+>>> m = sre_p.search(str3)
+>>> m.group()
+'43052419880910483X'
+>>> m.groups()
+('X',)
+>>> 
+
+\d                  匹配任意数字,与[0-9]同义
+\w     匹配任意数字字母字符,还有下划线"_" , 与[ 0-9a-zA-Z_ ]  同义
+\s                  匹配空白字符,与[ \r\v\f\t\n]同义
+
+其他元字符
+记号                 说 明
+^                     匹配字符串的开始
+$                     匹配字符串的结尾
+
+match() 函数
+ 用正则表达式模式从字符串的 开头位置 开始匹配,
+
+>>> str = 'food is food'
+
+>>> m = re.match('foo', str)
+>>> m
+<_sre.SRE_Match object; span=(0, 3), match='foo'>
+>>> type(m)
+<class '_sre.SRE_Match'>
+>>> 
+
+search函数
+•  在字符串中查找正则表达式模式的第一次出现,
+
+如果匹配成功,则返回一个匹配对象;否则返回None
+#search() 只匹配模式的第一次出现
+
+
+>>> test = re.compile('^[a-zA-Z][0-9a-zA-Z_]{7,9}')
+>>> test2 = re.compile('[a-zA-Z]\w{7,9}')
+
+>>> m = test.search('a1234B_567End89')
+>>> m2 = test2.search('a1234B_567End89')
+
+>>> m.group()
+'a1234B_567'
+>>>
+>>> m.group(0)
+'a1234B_567'
+>>> m.groups()
+()
+>>> 
+>>> m2.group()
+'a1234B_567'
+>>> m2.groups()
+()
+>>> 
+>>> m2 = test2.search('_567End89')
+>>> m2.groups()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'NoneType' object has no attribute 'groups'
+>>> 
+>>> m2
+>>> type(m2)
+<class 'NoneType'>
+>>> >> 
+>>> sre_p = re.compile('^-?\d+\.\d+$')
+>>> type(sre_p)
+<class '_sre.SRE_Pattern'>
+>>> sre_p
+re.compile('^-?\\d+\\.\\d+$')
+
+>>> sre_p.search('-12.314')
+<_sre.SRE_Match object; span=(0, 7), match='-12.314'>
+
+>>> sre_p.search('-12.314').group()
+'-12.314'
+>>> sre_p.search('-12.314').groups()
+()
+
+>>> sre_p.search('12.314')
+<_sre.SRE_Match object; span=(0, 6), match='12.314'>
+>>> sre_p.search('12.314').group(0)
+'12.314'
+>>> sre_p.search('12.314').groups()
+()
+
+>>> 
+>>> sre_p.search('12314')
+>>> sre_p.search('12314').group()
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'NoneType' object has no attribute 'group'
+
+>>> type(sre_p.search('12314'))
+<class 'NoneType'>
+>>> 
+
+[root@V0 day08]# yum  -y install  httpd |tail -3
+  httpd-tools.x86_64 0:2.4.6-67.el7        mailcap.noarch 0:2.1.41-2.el7       
+
+完毕！
+[root@V0 day08]# echo "V0 192.168.0.10 httpd" > /var/www/html/index.html
+
+[root@V0 day08]# systemctl  start httpd  && systemctl  enable httpd
+
+Created symlink from /etc/systemd/system/multi-user.target.wants/httpd.service to /usr/lib/systemd/system/httpd.service.
+
+[root@V0 day08]# yum  -y install  elinks |tail -2
+
+完毕！
+[root@V0 day08]# elinks  -dump  192.168.0.10
+   V0 192.168.0.10 httpd
+[root@V0 day08]# elinks  -dump  192.168.1.10
+   V0 192.168.0.10 httpd
+
+[root@V0 day08]# ls  /etc/httpd/conf
+conf/           conf.d/         conf.modules.d/ 
+[root@V0 day08]# ls  /etc/httpd/conf/
+httpd.conf  magic
+[root@V0 day08]# grep  -in servername  /etc/httpd/conf/httpd.conf 
+
+89:# ServerName gives the name and port that the server uses to identify itself.
+95:#ServerName www.example.com:80
+
+[root@V0 day08]# elinks  -dump  www.example.com:80
+                                 Example Domain
+.........................
+[root@V0 day08]# nslookup   www.example.com:80
+Server:		192.168.0.254
+Address:	192.168.0.254#53
+
+** server can't find www.example.com:80: NXDOMAIN
+
+[root@V0 day08]# 
+[root@V0 day08]# ls  /var/log/httpd/
+access_log     error_log
+
+[root@V0 day08]# head   -4  /var/log/httpd/access_log  > testapache.txt
+
+[root@V0 day08]# cat  -n   testapache.txt
+     1	192.168.0.10 - - [17/Apr/2019:16:02:10 +0800] "GET / HTTP/1.1" 200 22 "-" "ELinks/0.12pre6 (textmode; Linux; -)"
+     2	192.168.1.10 - - [17/Apr/2019:16:02:16 +0800] "GET / HTTP/1.1" 200 22 "-" "ELinks/0.12pre6 (textmode; Linux; -)"
+     3	192.168.0.254 - - [17/Apr/2019:16:10:31 +0800] "GET / HTTP/1.1" 200 22 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
+     4	192.168.0.254 - - [17/Apr/2019:16:10:31 +0800] "GET /favicon.ico HTTP/1.1" 404 209 "http://192.168.0.10/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
+[root@V0 day08]# 
+
+[root@V0 day08]# cat   testapache.txt
+192.168.0.10 - - [17/Apr/2019:16:02:10 +0800] "GET / HTTP/1.1" 200 22 "-" "ELinks/0.12pre6 (textmode; Linux; -)"
+
+
+192.168.1.10 - - [17/Apr/2019:16:02:16 +0800] "GET / HTTP/1.1" 200 22 "-" "ELinks/0.12pre6 (textmode; Linux; -)"
+
+
+192.168.0.254 - - [17/Apr/2019:16:10:31 +0800] "GET / HTTP/1.1" 200 22 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
+
+
+192.168.0.254 - - [17/Apr/2019:16:10:31 +0800] "GET /favicon.ico HTTP/1.1" 404 209 "http://192.168.0.10/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
+[root@V0 day08]# 
+
+
+[root@V0 day08]# -----------------------------
+http://192.168.0.10/
+http://192.168.0.10/
+
+collections 是python  内建的一个集合模块
+collections容器模块，可以用来代替Python的list、tuple、dict、set，
+而且还提供了更多有用的功能。
+在collections模块中分别有
+      6个常用的类/函数和3个包装类，
+
+这6个常用的类/函数分别是
+ namedtuple()，   deque，  ChainMap，
+ Counter，  OrderedDict，  defaultdict。
+
+一个 Counter 对象是一个 dict 的子类，
+用来统计可哈希对象的数量，
+创建 Counter 的元素可以是可迭代对象或者是一个映射
+
+Counter还支持几个数学运算，
+包括加法和减法，交集和并集。
+这里交集和并集返回的是对应计数的最小值和最大值。
+
+>>> import   collections
+
+
+>>> collections.C
+collections.Callable(    collections.Collection(  collections.Coroutine(
+collections.ChainMap(    collections.Container(   collections.Counter(
+>>> 
+>>> 
+>>> dict = {'Name': 'Runoob', 'Age': 7}
+>>> dict2 = {'Sex': 'female' }
+>>> dict.update(dict2) #dict2 -- 添加到指定字典dict里的字典
+>>> dict
+{'Name': 'Runoob', 'Age': 7, 'Sex': 'female'}
+
+>>> dict2 = {'Sex': 'woman' }
+>>> dict.update(dict2)
+>>> dict
+{'Name': 'Runoob', 'Age': 7, 'Sex': 'woman'}
+>>> 
+
+
+
+>>> countx = collections.Counter('abc23abAAbb')
+>>> countx
+Counter({'b': 4, 'a': 2, 'A': 2, 'c': 1, '2': 1, '3': 1})
+>>> type(countx)
+<class 'collections.Counter'>
+>>> countx['a']
+2
+>>> countx.update('Add')  #更新原来的字符串,相同的键的值 会 追加计算
+>>> countx
+Counter({'b': 4, 'A': 3, 'a': 2, 'd': 2, 'c': 1, '2': 1, '3': 1})
+>>> 
+pattern          英 [ˈpætn]   美 [ˈpætərn]  
+    n.模式;方式;范例;典范;榜样;样板;图案;花样;式样
+    v.构成图案(或花样);
+
+pattern  模式, 范例
+
+
+
+import  re,  collections
+
+fname = "/root/pyscripts/day08/testapache.txt"
+ip_patt = "^(\d+\.){3}\d+"
+
+def  count_patt(fname, ip_patt):
+  counter = collections.Counter()
+  cpatt = re.compile(ip_patt)
+  with  open(fname)  as  fobj:
+    for  line  in  fobj:
+      m = cpatt.search(line)
+      print(m)
+      if m :
+        print(m.group())
+        counter.update([m.group()])
+        print(counter)
+  return counter
+
+a = count_patt(fname, ip_patt)
+print(type(a),a, sep ='\n',end = '---END\n')
+
+
+
+>>> 
+>>> import  re,  collections
+>>> 
+>>> fname = "/root/pyscripts/day08/testapache.txt"
+>>> ip_patt = "^(\d+\.){3}\d+"
+>>> 
+>>> def  count_patt(fname, ip_patt):
+...   counter = collections.Counter()
+...   cpatt = re.compile(ip_patt)  ##正则表达式对象cpatt实例
+...   with  open(fname)  as  fobj:
+...     for  line  in  fobj:
+...       m = cpatt.search(line)
+...       print(m)
+...       if m :
+...         print(m.group())
+...         counter.update([m.group()])
+...         print(counter)
+...   return counter
+... 
+>>> a = count_patt(fname, ip_patt)
+<_sre.SRE_Match object; span=(0, 12), match='192.168.0.10'> #返回一个匹配对象SRE_Match object
+192.168.0.10               ## group() 方法获得匹配内容
+Counter({'192.168.0.10': 1})        ## 计数器对象counter实例
+
+<_sre.SRE_Match object; span=(0, 12), match='192.168.1.10'>
+192.168.1.10
+Counter({'192.168.0.10': 1, '192.168.1.10': 1})
+
+<_sre.SRE_Match object; span=(0, 13), match='192.168.0.254'>
+192.168.0.254
+Counter({'192.168.0.10': 1, '192.168.1.10': 1, '192.168.0.254': 1})
+
+<_sre.SRE_Match object; span=(0, 13), match='192.168.0.254'>
+192.168.0.254
+Counter({'192.168.0.254': 2, '192.168.0.10': 1, '192.168.1.10': 1})
+
+>>> print(type(a),a, sep ='\n',end = '---END\n')
+<class 'collections.Counter'>
+Counter({'192.168.0.254': 2, '192.168.0.10': 1, '192.168.1.10': 1})---END
+>>> 
+>>> 
+>>> countx = collections.Counter(['AAbb'])
+>>> countx
+Counter({'AAbb': 1})
+>>> type(countx)
+<class 'collections.Counter'>
+
+>>> addstr = 'AAbb'
+>>> 
+>>> countx.update([addstr])  #注意把变量存进列表里,就不会拆开字符串了
+
+>>> countx
+Counter({'AAbb': 2})
+
+>>> addstr = 1234
+>>> countx.update([addstr])
+
+>>> countx
+Counter({'AAbb': 2, 1234: 1})
+>>> 
+
+[root@room9pc01 ~]# grep  -in  port  /etc/ssh/sshd_config 
+13:# If you want to change the port on a SELinux system, you have to tell
+15:# semanage port -a -t ssh_port_t -p tcp #PORTNUMBER
+17:#Port 22
+
+[root@room9pc01 ~]# scp  root@192.168.0.10:/root/pyscripts/day08/count_apache.py   /var/git/PYTHON/pythonScripts/day08/
+root@192.168.0.10's password: 
+
+[root@V0 day08]# scp  /root/pyscripts/day08/count_apache.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/day08/
+
+
+# scp  /root/pyscripts/day08/count_apache.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/day08/
+
+
+[root@room9pc01 ~]# vim   /etc/ssh/sshd_config 
+
+ 38 PermitRootLogin yes
+ 65 PasswordAuthentication yes
+[root@room9pc01 ~]# systemctl  restart  sshd
+
+[root@V0 day08]# scp  counter_apache_oop.py  root@192.168.0.254:/var/git/PYTHON/pythonScripts/day08/
+
+
+
+
+
+
+
+
+
+
