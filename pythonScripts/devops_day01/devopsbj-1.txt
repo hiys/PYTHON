@@ -1,0 +1,199 @@
+
+
+>>> import  time
+>>> type(time.time())
+<class 'float'>
+>>> ' %s ' %  time.time()
+' 1555643181.3989527 '
+>>> 
+
+
+
+progress         英 [ˈprəʊɡres , prəˈɡres]  美 [ˈprɑːɡres , prəˈɡres]  
+   n.进步;进展;进程;前进;行进
+   v.进步;改进;进展;
+
+thread    英 [θred]   美 [θred]  
+    n.(棉、毛、丝等的)线;线索;脉络;思绪;思路;贯穿的主线;线状物;细细的一条
+    v.穿(针);纫(针);穿过;(使)穿过;通过;穿行;穿成串;串在一起
+
+loop     英 [luːp]   美 [luːp]  
+    n.环形;环状物;圆圈;(绳、电线等的)环，圈;循环电影胶片;循环音像磁带
+    v.使成环;使绕成圈;成环形运动
+
+bomb
+英 [bɒm]   美 [bɑːm]  
+n.
+炸弹;核武器;核弹;很多钱
+v.
+轰炸;对…投炸弹;
+
+
+线程模块同样提供了Thread类来处理线程，Thread类提供了以下方法:
+
+run(): 用以表示线程活动的方法。
+start():启动线程活动。
+join([time]): 等待至线程中止。
+这阻塞 调用线程 直至 线程的join() 方法 被 调用 中止- 正常退出 或者 抛出未处理的异常- 或者 是可选的超时发生。
+isAlive(): 返回线程是否活动的。
+getName(): 返回线程名。
+setName(): 设置线程名。
+setDaemon():设置为后台线程或前台线程（默认）如果是后台线程，主线程执行过程中，后台线程也在执行，主线程执行完毕后，后台线程不论成功与否，均停止；如果是前台线程，主线程执行过程中，前台线程也在执行，主线程执行完毕后，等待前台线程也执行完成后，程序停止。
+
+
+什么是线程
+•  线程(有时被称为轻量级进程)跟进程有些相似。
+不同的是,
+  所有的线程运行在同一个进程中,
+共享相同的运行环境
+
+一个进程就是一个应用程序的一次执行
+进程 是 cpu 资源分配 的最小单位，
+一个进程 至少 包括 一个线程
+一个进程 可以 包含 多个线程，
+进程：内存独立，
+进程之间不能直接互相访问，同一进程中的线程可以互相通信
+
+•  线程有 开始, 顺序执行 和 结束 三部分
+•  线程的运行 可能 被抢占 (中断),
+   或暂时的 被挂起 (也叫睡眠),
+  让其它的线程运行, 这叫做让步
+线程 是 cpu 调度     的最小单位
+线程共享同一进程的内存，
+线程是共享了 进程的 执行环境资源的 更为 细小的 CPU时间段
+线程的结束 不会影响 同个进程中的 其他线程的运行状态
+线程是轻量级的进程，
+它的创建和销毁所需要的时间比进程小很多，
+
+所有操作系统中的执行功能 都是 创建线程 去完成的
+
+[root@V0 devops_day01]# scp   threadsjoin.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day01
+root@192.168.0.254's password: 
+
+
+(单选题)如果定义函数的时候形参为*args，则实参将会以哪种方式传递给形参
+A.集合
+ B.元组
+ C.列表
+ D.字典
+【正确答案】B
+【答题时间】2019-04-18 02:44:15
+【答案解析】当实参个数不确定的时候，将函数定义成def fun(*args)的形式，传参时，实参以元组的形式进行传递，而非列表
+
+TypeError: not all arguments converted during string formatting
+类型错误：并非所有参数都在字符串格式化过程中转换
+
+AttributeError: 'ThreadFunc' object has no attribute 'fun_invoke'
+
+
+[root@V0 devops_day01]# scp    threadsclassjoin.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day01
+
+
+ping 命令每秒发送一个数据报并且为每个接收到的响应显示一行输出。
+ping 命令计算信号往返时间和(信息)包丢失情况的统计信息，并且在完成之后显示一个简要总结。
+ping 命令在程序超时或当接收到 SIGINT 信号时结束。Host 参数或者是一个有效的主机名或者是因特网地址。
+主要参数
+-c  Count 指定要被发送（或接收）的回送信号请求的数目，由 Count 变量指出。 
+-w  timeout 这个选项仅和 -c 选项一起才能起作用。
+  它使 ping 命令以最长的超时时间去等待应答（发送最后一个信息包后）
+
+-i  Wait 在每个信息包发送之间等待被 Wait 变量指定的时间（秒数）。
+   缺省值是在每个信息包发送之间等待 1 秒。
+
+[root@V0 devops_day01]# ping -c2  -w0.4  -i0.2  192.168.0.11
+
+PING 192.168.0.11 (192.168.0.11) 56(84) bytes of data.
+64 bytes from 192.168.0.11: icmp_seq=1 ttl=64 time=0.421 ms
+64 bytes from 192.168.0.11: icmp_seq=2 ttl=64 time=0.441 ms
+
+--- 192.168.0.11 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 200ms
+rtt min/avg/max/mdev = 0.421/0.431/0.441/0.010 ms
+
+[root@V0 devops_day01]# ping -c2  -w0.4  -i0.2  192.168.0.13
+
+PING 192.168.0.13 (192.168.0.13) 56(84) bytes of data.
+From 192.168.0.10 icmp_seq=1 Destination Host Unreachable
+From 192.168.0.10 icmp_seq=2 Destination Host Unreachable
+
+--- 192.168.0.13 ping statistics ---
+2 packets transmitted, 0 received, +2 errors, 100% packet loss, time 210ms
+pipe 2
+[root@V0 devops_day01]# 
+
+
+>>> import  subprocess
+>>>
+>>> subprocess.call('ping  -c2 192.168.0.10 |tail  -4', shell = True)
+
+--- 192.168.0.10 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 999ms
+rtt min/avg/max/mdev = 0.060/0.064/0.069/0.009 ms
+0
+>>> subprocess.call('ping  -c2 192.168.0.12 ', shell = True)
+PING 192.168.0.12 (192.168.0.12) 56(84) bytes of data.
+From 192.168.0.10 icmp_seq=1 Destination Host Unreachable
+From 192.168.0.10 icmp_seq=2 Destination Host Unreachable
+
+--- 192.168.0.12 ping statistics ---
+2 packets transmitted, 0 received, +2 errors, 100% packet loss, time 999ms
+pipe 2
+1
+>>> 
+
+import  os, time, sys
+def  hello():
+  time.sleep(1)
+  print('hello fork  bomb 炸弹')
+
+def  forkbomb(num):
+  for  i  in  range(num):
+    pid = os.fork()
+    print(pid)
+    if pid == 0:
+      hello()
+      sys.exit(0)  #如果没有此句,会有子进程循环,必须退出使用sys.exit(0)
+
+
+[root@V0 devops_day01]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+>>> import  os, time, sys
+>>> def  hello():
+...   time.sleep(1)
+...   print('hello fork  bomb 炸弹')
+... 
+>>> def  forkbomb(num):
+...   for  i  in  range(num):
+...     pid = os.fork()
+...     print(pid)
+...     if pid == 0:
+...       hello()
+...       sys.exit(0)  #如果没有此句,会有子进程循环,必须退出使用sys.exit(0)
+... 
+>>> forkbomb(3)
+7676
+0
+7677
+0
+7678
+>>> 0
+hello fork  bomb 炸弹
+hello fork  bomb 炸弹
+hello fork  bomb 炸弹
+
+>>> 
+>>> 
+[root@V0 devops_day01]# 
+
+
+
+
+
+
+
+
+
+

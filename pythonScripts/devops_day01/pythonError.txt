@@ -1,0 +1,219 @@
+
+
+solution        英 [səˈluːʃn]   美 [səˈluːʃn]  
+       n.解决办法;处理手段;答案;解;谜底;
+
+--------------------------------------------------
+#!/usr/bin/env  python3
+import	 sys, subprocess, random, string, getpass
+
+print('\033[31;47;1m__name__  is %s  sys.argv is  %s\033[0m' \
+% (__name__,sys.argv))
+
+def  solution_error():
+  try:
+    num = int(input("please enter an integer:"))
+    result = 100 / num
+    
+    print('\033[32;46;1m 100/num is %f\033[0m' % result, \
+    end= ' this is result\n')
+  except  ValueError:
+    print('输入的数据类型错误,或者是空输入,请输入整数')
+  except  ZeroDivisionError:
+    print('数字0 不能使用,除数不能是零!')
+  except  KeyboardInterrupt:
+    print('#用户ctrl+ c 中断执行^CTraceback 报错')
+  except  EOFError:
+    print('#敲快捷键ctrl+d 中断输入,会报异常')
+
+
+def  solution_error2():
+  try:
+    num = int(input("please enter an integer:"))
+    result = 100 / num
+    
+    print('\033[32;46;1m 100/num is %f\033[0m' % result, \
+    end= ' this is result\n')
+  except  Exception:
+    print('ValueError, ZeroDivisionError, EOFError')
+  except  KeyboardInterrupt:
+    print('#用户ctrl+ c 中断执行^CTraceback 报错')
+
+
+def  solution_error3():
+  try:
+    num = int(input("please enter an integer:"))
+    result = 100 / num
+    
+    print('\033[32;46;1m 100/num is %f\033[0m' % result, \
+    end= ' this is result\n')
+  except  (ValueError, ZeroDivisionError, EOFError):
+    print('\nValueError, ZeroDivisionError, EOFError')
+  except  KeyboardInterrupt:
+    print('\n#用户ctrl+ c 中断执行^CTraceback 报错')
+
+
+def  solution_error4():
+  
+  try:
+    num = int(input("please enter an integer:"))
+    result = 100 / num
+
+  except     Exception  as  e: 
+    print('\nError: ', e)
+  except  KeyboardInterrupt:
+    print('\n#用户ctrl+ c 中断执行^CTraceback 报错')
+  else:
+    print('\033[32;46;1m 100/num is %f\033[0m' % result, \
+    end= ' this is result\n')
+
+def  solution_error5():
+  
+  try:
+    num = int(input("please enter an integer:"))
+    result = 100 / num
+
+    print('\033[33;1m undefinedx is \033[0m')
+#    print('\033[33;1m undefinedx is %f\033[0m' % undefinedx, \
+#    end= '----undefined\n')
+  except  NameError:
+    print('\n变量undefinedx 未定义!')
+  except  (ValueError, ZeroDivisionError, EOFError): 
+    print('\nError:--ValueError, ZeroDivisionError, EOFError')
+  except  KeyboardInterrupt:
+    print('\n#用户ctrl+ c 中断执行^CTraceback 报错')
+  else:   #不发生异常才执行的语句
+    print('\033[32;46;1m 100/num is %f\033[0m' % result, \
+    end= ' this is result\n')
+  finally:
+    print('不管是否异常都会执行的finally 语句')
+  print('end of Exception capture program \n \
+  当前面出现 "except 语句" 所 没有捕获到的异常后,本语句也不会执行---')
+
+def  set_age(name,age):
+  try:  
+    print('%s is %d years old' % (name, age))
+  except  TypeError as  te:
+    print('\n #变量类型错误,应该是int(age)\t',te)
+    print('%s is %d years old' % (name, int(age)))
+    print('--------------------------')
+    if  not  0< int(age) < 100:
+      raise  ValueError("输入的数据错误,超出规定范围")
+   # raise 语句能够主动触发异常
+    print('-----如果执行了raise 语句,此行代码不会输出----')
+    print('%s is %s  old' % (name,age))     
+  # 断言是一句必须等价于布尔值为真的判定
+    assert  name  in  ['peri','hiys','qq'], \
+      'name is out of listRange---AssertionError:'
+
+    print('-**-如果执行了assert 语句,此行代码不会输出-*-')
+    print('name is %s' % name)
+  else:   #不发生异常才执行的语句
+    print('\033[32;46;1m#不发生异常才执行的语句\033[0m', \
+    end= ' this is else\n')
+  finally:
+    print('不管是否异常都会执行的finally 语句')
+  print('end of Exception capture program \n \
+  当前面出现 "except 语句" 所 没有捕获到的异常后,本语句也不会执行---')
+
+
+
+
+if __name__ == '__main__':
+
+  print('\033[30;43;1m sys.argv[0]  is %s \033[0m' % sys.argv[0])
+#  solution_error()
+#  solution_error2()
+#  solution_error3()
+#  solution_error4()
+#  solution_error5()
+  try:
+    set_age(sys.argv[1],sys.argv[2])
+  except IndexError as  ie:
+    print('\nIndexError 没有输入位置参数,序列中没有没有此索引\n',ie)
+
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+
+
+python中定义的主要异常如下：
+- BaseException                     # 所有异常的父类
+    - SystemExit                     # 由sys.exit()抛出的异常
+    - KeyBoardInterrupt              # 通常由ctrl+c或者Delete抛出的异常
+    - GeneratorExit                  # 当生成器被关闭时抛出的异常
+    - Exception                      # 
+        - StopIteration              # 迭代结束异常
+        - StopAsyncIteration         # 由异步迭代的`__anext__()`抛出的异常
+        - ArithmeticError            # 各种算数错误引起的异常
+            - FloatingPointError     # 浮点数操作错误
+            - OverflowError          # 结果超出范围
+            - ZeroDivisionError      # ０为除数异常
+    - AssertionError                 # assert错误异常
+    - AttributeError                 # 属性引用异常
+    - BufferError                    # 缓存错误
+    - EOFError                       # 读不到数据
+    - ImportError                    # import错误
+        - ModuleNotFoundError        # 找不多模块
+    - LookupError                    # 由索引和key值引起的异常
+        - IndexError                 # 索引错误
+        - KeyError                   # 字典key值错误
+    - MemortError                    # 内存溢出异常
+    - NameError                      # 本地和全局找不到变量名
+        - UnboundLocalError          # 局部变量没有赋值
+    - OSError                        # system错误
+        - BlockingIOError            # 调用阻塞异常错误
+        - ChildProcessError          # 子进程
+        - ConnectionError            # 连接
+            - BrokenPipeError        # 管道读写异常
+            - ConnectionAbortedError # 连接失败
+            - ConnectionRefusedError # 连接拒绝
+            - ConnectionResetError   # 连接重置
+        - FileExistsError            # 创建文件和文件夹错误
+        - FileNotFoundError          # 文件未找到
+        - InterruptedError           # 中断错误
+        - IsADirectoryError          # 文件操作用在文件夹上
+        - NotADirectoryError         # 不是文件夹
+        - PermissionError            # 权限
+        - ProcessLookupError         # 进程不存在
+        - TimeoutError               # 超时
+    - ReferenceError                 # 引用异常
+    - RuntimeError                   # 
+        - NotImplementedError        # 运行抽象方法
+        - RecursionError             # 超出最大递归深度
+    - SyntaxError                    # 语法错误
+        - IndentationError           # 缩进错误
+            - TabError               # tab错误
+    - SystemError                    # 解释器中断
+    - TypeError                      # 类型错误
+    - ValueError                     # 赋值错误
+        - UnicodeError               # 
+            - UnicodeEncodeError     # unicode编码错误
+            - UnicodeDecodeError     # unicode解码错误
+            - UnicodeTranslateError  # unicode转换错误
+    - Warning                        # 
+        - DeprecationWarning         # 操作不赞成警告
+        - PendingDeprecationWarning  # 表明此操作将来会被弃用
+        - UserWarning                # 用于用户生成警告
+        - SyntaxWarning              # 语法可疑警告
+        - RuntimeWarning             # 运行警告
+        - FutureWarning              # 将会改变警告
+        - ImportWarning              # 导入警告
+        - UnicodeWarning             # unicode相关警告
+        - BytesWarning               # 字节相关警告
+        - ResourceWarning            # 资源使用情况警告
+
+IndentationError: expected an indented block
+
+缩进错误：需要缩进块
+--------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+

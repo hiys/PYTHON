@@ -28,7 +28,29 @@ cadefault参数已经被弃用，可以不用管了。
 import urllib.request
 ...............................
 
+
 [root@V0 devops_day01]# scp   forkzombie.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day01
+
+ssh: connect to host 192.168.0.254 port 22: Connection refused
+lost connection
+[root@V0 devops_day01]# 
+[root@room9pc01 ~]# grep  -ni  root  /etc/ssh/sshd_config 
+38:PermitRootLogin yes
+90:# the setting of "PermitRootLogin without-password".
+119:#ChrootDirectory none
+[root@room9pc01 ~]# systemctl is-active  sshd
+unknown
+[root@room9pc01 ~]# systemctl is-enabled  sshd
+disabled
+[root@room9pc01 ~]# systemctl  enable  sshd
+Created symlink from /etc/systemd/system/multi-user.target.wants/sshd.service to /usr/lib/systemd/system/sshd.service.
+[root@room9pc01 ~]# systemctl  restart  sshd
+
+[root@V0 devops_day01]# scp   forkzombie.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day01
+
+root@192.168.0.254's password: 
+forkzombie.py                                           100% 1256     1.0MB/s   00:00    
+[root@V0 devops_day01]# 
 
 
 [root@V0 devops_day01]# ps  aux |head  -3
@@ -41,7 +63,19 @@ root  8935  0.0  0.0  108156    680 pts/2   S+   20:47   0:00 tail -2
 [root@V0 devops_day01]# 
 
 
-
+>>> if  not  {}: print('yes')
+... 
+yes
+>>> if  not  '': print('yes')
+... 
+yes
+>>> if  not  0 : print('yes')
+... 
+yes
+>>> 0 == False
+True
+>>> 
+[root@V0 devops_day01]# scp   forkzombie2.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day01
 
 
 
@@ -61,7 +95,7 @@ root  8935  0.0  0.0  108156    680 pts/2   S+   20:47   0:00 tail -2
 os.fork将 返回 两 次 
 
 •  对fork()的调用,针对父进程返回子进程的PID;
-对于子进程,   返回PID0
+对于子进程,   返回PID 0
 
 fork        英 [fɔːk]   美 [fɔːrk]  
     n.餐叉;叉(挖掘用的园艺工具);(道路、河流等的)分岔处，分流处，岔口，岔路
@@ -75,6 +109,120 @@ invoke             英 [ɪnˈvəʊk]   美 [ɪnˈvoʊk]
          提及，援引(某人、某理论、实例等作为支持);
          提出(某人的名字，以激发某种感觉或行动)
 
+[root@V0 devops_day01]# watch  -n 5 -d  ps  a
+
+Every 5.0s: ps a                                             Thu Apr 18 12:40:53 2019
+
+  PID TTY      STAT   TIME COMMAND
+ 1090 ttyS0    Ss+    0:00 /sbin/agetty --keep-baud 115200 38400 9600 ttyS0 vt220
+ 1107 tty1     Ssl+   0:00 /usr/bin/X :0 -background none -noreset -audit 4 -verbose
+ 1590 pts/0    Ss     0:00 -bash
+ 1632 pts/1    Ss     0:00 -bash
+ 1669 pts/2    Ss+    0:00 -bash
+ 4877 pts/0    S+     0:00 vim fork_time.py
+ 4892 pts/1    S+     0:00 watch -n 5 -d ps a
+ 4897 pts/1    S+     0:00 watch -n 5 -d ps a
+ 4898 pts/1    R+     0:00 ps a
+
+[root@V0 devops_day01]# python3  fork_time.py 
+
+__name__  is __main__
+
+第一个等级顺序: 先执行父pid is  4940 --- 2019年*04月*18日 12时:42分:14秒 ----**** 1555562534.104862
+
+
+第一个等级顺序:    再执行子pid ;
+<class 'int'> --- 0 --- 1555562534.105016--child子程序
+2019年*04月*18日 12时:42分:14秒 ----**** 1555562534.105184
+2019年*04月*18日 12时:42分:16秒 ----**** 1555562536.107557
+2019年*04月*18日 12时:42分:18秒 ----**** 1555562538.110105
+2019年*04月*18日 12时:42分:20秒 ----**** 1555562540.112403
+2019年*04月*18日 12时:42分:22秒 ----**** 1555562542.114703
+2019年*04月*18日 12时:42分:24秒 ----**** 1555562544.117016
+2019年*04月*18日 12时:42分:26秒 ----**** 1555562546.119456
+2019年*04月*18日 12时:42分:28秒 ----**** 1555562548.121732
+--- from  child  pid  is  0 , exit 退出子进程-----
+
+ sys.argv[0]  is fork_time.py
+
+<class 'int'> --- 4940---end父代码
+2019年*04月*18日 12时:42分:46秒 ----**** 1555562566.137435 ---exit 父进程退出
+ sys.argv[0]  is fork_time.py
+
+[root@V0 devops_day01]# 
+
+
+[root@V0 devops_day01]# watch  -n 5 -d  ps  a
+
+ 4877 pts/0    S+     0:00 vim fork_time.py
+ 4892 pts/1    S+     0:00 watch -n 5 -d ps a
+ 4939 pts/2    S+     0:00 python3 fork_time.py  #第一个等级顺序: 先执行父pid is  4940 
+ 4940 pts/2    S+     0:00 python3 fork_time.py
+ 4953 pts/1    S+     0:00 watch -n 5 -d ps a
+ 4954 pts/1    R+     0:00 ps a
+
+ 4892 pts/1    S+     0:00 watch -n 5 -d ps a
+ 4939 pts/2    S+     0:00 python3 fork_time.py  #第一个等级顺序: 先执行父pid is  4940 
+ 4940 pts/2    Z+     0:00 [python3] <defunct>   #注意僵尸进程 Z+
+ 4957 pts/1    S+     0:00 watch -n 5 -d ps a
+ 4958 pts/1    R+     0:00 ps a
+
+ 4892 pts/1    S+     0:00 watch -n 5 -d ps a
+ 5022 pts/2    S+     0:00 python3 fork_time.py  #第一个等级顺序: 先执行父pid is 5023 
+ 5023 pts/2    Z+     0:00 [python3] <defunct>   #注意僵尸进程 Z+
+ 5030 pts/1    S+     0:00 watch -n 5 -d ps a
+ 5031 pts/1    R+     0:00 ps a
+
+ 4877 pts/0    S+     0:00 vim fork_time.py
+ 4892 pts/1    S+     0:00 watch -n 5 -d ps a
+ 5036 pts/1    S+     0:00 watch -n 5 -d ps a  
+ 5037 pts/1    R+     0:00 ps a               
+                                             
+                               
+
+
+
+
+
+
+
+
+[root@V0 devops_day01]# python3  fork_time.py 
+__name__  is __main__
+
+第一个等级顺序: 先执行父pid is  4502 --- 2019年*04月*18日 12时:26分:25秒 ----**** 1555561585.142083
+
+
+第一个等级顺序:    再执行子pid ;
+<class 'int'> --- 0 --- 1555561585.1422377--child子程序
+2019年*04月*18日 12时:26分:25秒 ----**** 1555561585.142415
+2019年*04月*18日 12时:26分:27秒 ----**** 1555561587.144792
+2019年*04月*18日 12时:26分:29秒 ----**** 1555561589.147067
+2019年*04月*18日 12时:26分:31秒 ----**** 1555561591.149481
+2019年*04月*18日 12时:26分:33秒 ----**** 1555561593.151916
+--- from  child  pid  is  0 , exit 退出子进程-----
+
+ sys.argv[0]  is fork_time.py
+
+<class 'int'> --- 4502---end父代码
+2019年*04月*18日 12时:26分:41秒 ----**** 1555561601.158525 ---exit 父进程退出
+ sys.argv[0]  is fork_time.py
+
+[root@V0 devops_day01]# 
+
+>>> import  os
+>>> os.W
+os.WCONTINUED     os.WIFEXITED(     os.WSTOPPED
+os.WCOREDUMP(     os.WIFSIGNALED(   os.WSTOPSIG(
+os.WEXITED        os.WIFSTOPPED(    os.WTERMSIG(
+os.WEXITSTATUS(   os.WNOHANG        os.WUNTRACED
+os.WIFCONTINUED(  os.WNOWAIT        os.W_OK
+>>> os.WNOHANG
+1
+>>> os.wait
+os.wait(           os.wait4(          os.waitid_result(
+os.wait3(          os.waitid(         os.waitpid(
+>>> 
 
 使用轮询解决zombie问题
 •  父进程通过os.wait()来得到子进程是否终止的信息
@@ -85,19 +233,275 @@ invoke             英 [ɪnˈvəʊk]   美 [ɪnˈvoʊk]
 系统自动将子进程的父进程设置为init进程,
 init将来负责清理僵尸进程
 
+•  python可以使用waitpid()来处理子进程
+•  waitpid()接受两个参数,
+第一个参数设置为 -1, 表示与wait()函数相同;
+第二参数 如果 设置为 0 表示 挂起 父进程,直到子程序退出,
+               设置为 1 表示 不挂起父进程
+•  waitpid()的返回值:
+如果子进程尚未结束则返回0,
+如果子进程 已经结束了, 就返回子进程的PID
+
+wnohang#WNOHANG即值为1
+  waitpid =  os.waitpid(-1, os.WNOHANG)   #WNOHANG即值为1
+
+
+>>> a = {'a', 'b', 'c'} ; b = {'c', 'f', 'g'}
+>>> a
+{'a', 'b', 'c'}
+>>> b
+{'g', 'f', 'c'}
+>>> a & b
+{'c'}
+>>> a - b
+{'a', 'b'}
+>>> a | b
+{'a', 'b', 'g', 'f', 'c'}
+>>> add2 = lambda x, y: x+y
+>>> x = 2; y = 4
+>>> add2
+<function <lambda> at 0x7f190fe89620>
+>>> 
+>>> lambda x, y: x+y
+<function <lambda> at 0x7f190fe89598>
+>>> 
+>>> add2(3,4)
+7
+>>> 
+(单选题)关于形参的说法正确的是
+A.形参最多可以设置5个
+ B.形参只能是str类型
+ C.有默认值的形参后边不允许再出现没有默认值的形参
+ D.与实参顺序无关
+【正确答案】C
+【答题时间】2019-04-18 02:44:15
+【答案解析】形参个数没有限制，类型可以是每种数据类型，调用函数时如果不采用形参=实参的方式，则默认按照形参的顺序传递实参，定义函数时，如果有例如def a(name='bob',age)的情况则会报语法错误
+
+
+(单选题)关于集合的说法错误的是
+A.分为可变和不可变两种类型
+ B.不支持切片
+ C.集合内元素无序排列
+ D.可变集合支持append方法
+【正确答案】D
+【答题时间】2019-04-18 02:44:15
+【答案解析】可变类型的集合支持的是add方法，没有append方法
+
+
+(单选题)如果定义函数的时候形参为*args，则实参将会以哪种方式传递给形参
+A.集合
+ B.元组
+ C.列表
+ D.字典
+【正确答案】B
+【答题时间】2019-04-18 02:44:15
+【答案解析】当实参个数不确定的时候，将函数定义成def fun(*args)的形式，传参时，实参以元组的形式进行传递，而非列表
 
 
 
+python中定义的主要异常如下：
+- BaseException                     # 所有异常的父类
+    - SystemExit                     # 由sys.exit()抛出的异常
+    - KeyBoardInterrupt              # 通常由ctrl+c或者Delete抛出的异常
+    - GeneratorExit                  # 当生成器被关闭时抛出的异常
+    - Exception                      # 
+        - StopIteration              # 迭代结束异常
+        - StopAsyncIteration         # 由异步迭代的`__anext__()`抛出的异常
+        - ArithmeticError            # 各种算数错误引起的异常
+            - FloatingPointError     # 浮点数操作错误
+            - OverflowError          # 结果超出范围
+            - ZeroDivisionError      # ０为除数异常
+    - AssertionError                 # assert错误异常
+    - AttributeError                 # 属性引用异常
+    - BufferError                    # 缓存错误
+    - EOFError                       # 读不到数据
+    - ImportError                    # import错误
+        - ModuleNotFoundError        # 找不多模块
+    - LookupError                    # 由索引和key值引起的异常
+        - IndexError                 # 索引错误
+        - KeyError                   # 字典key值错误
+    - MemortError                    # 内存溢出异常
+    - NameError                      # 本地和全局找不到变量名
+        - UnboundLocalError          # 局部变量没有赋值
+    - OSError                        # system错误
+        - BlockingIOError            # 调用阻塞异常错误
+        - ChildProcessError          # 子进程
+        - ConnectionError            # 连接
+            - BrokenPipeError        # 管道读写异常
+            - ConnectionAbortedError # 连接失败
+            - ConnectionRefusedError # 连接拒绝
+            - ConnectionResetError   # 连接重置
+        - FileExistsError            # 创建文件和文件夹错误
+        - FileNotFoundError          # 文件未找到
+        - InterruptedError           # 中断错误
+        - IsADirectoryError          # 文件操作用在文件夹上
+        - NotADirectoryError         # 不是文件夹
+        - PermissionError            # 权限
+        - ProcessLookupError         # 进程不存在
+        - TimeoutError               # 超时
+    - ReferenceError                 # 引用异常
+    - RuntimeError                   # 
+        - NotImplementedError        # 运行抽象方法
+        - RecursionError             # 超出最大递归深度
+    - SyntaxError                    # 语法错误
+        - IndentationError           # 缩进错误
+            - TabError               # tab错误
+    - SystemError                    # 解释器中断
+    - TypeError                      # 类型错误
+    - ValueError                     # 赋值错误
+        - UnicodeError               # 
+            - UnicodeEncodeError     # unicode编码错误
+            - UnicodeDecodeError     # unicode解码错误
+            - UnicodeTranslateError  # unicode转换错误
+    - Warning                        # 
+        - DeprecationWarning         # 操作不赞成警告
+        - PendingDeprecationWarning  # 表明此操作将来会被弃用
+        - UserWarning                # 用于用户生成警告
+        - SyntaxWarning              # 语法可疑警告
+        - RuntimeWarning             # 运行警告
+        - FutureWarning              # 将会改变警告
+        - ImportWarning              # 导入警告
+        - UnicodeWarning             # unicode相关警告
+        - BytesWarning               # 字节相关警告
+        - ResourceWarning            # 资源使用情况警告
+--------------------- 
+缩进错误：需要缩进块
+IndentationError: expected an indented block
+-----------------------------------------------------------
+
+>>> tuple_x = (33,0)
+>>> type(tuple_x)
+<class 'tuple'>
+>>> tuple_x
+(33, 0)
+>>> ' ---%s' %  tuple_x
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: not all arguments converted during string formatting
+
+>>> ' ---%s' %  str(tuple_x)
+' ---(33, 0)'
+>>>
+>>> ' ---%s' %  type(tuple_x)
+" ---<class 'tuple'>"
+>>> 
+------------------------------------------------
+
+什么是进程
+•  计算机程序是
+磁盘中可执行的、二进制(或其它类型)的数据
+
+•  进程(有时被称为重量级进程)是程序的一次执行
+•  每个进程都有自己的地址空间、内存
+以及其它记录其 运行轨迹的辅助数据
+
+•  操作系统 管理 在操作系统上 运行的
+所有进程,
+并为这些进程公平地分配时间
+------------------------------------------------
+
+什么是线程
+•  线程(有时被称为轻量级进程)跟进程有些相似。
+不同的是,
+  所有的线程运行在同一个进程中,
+共享相同的运行环境
+
+•  线程有 开始, 顺序执行 和 结束 三部分
+•  线程的运行 可能 被抢占 (中断),
+  或暂时的 被挂起 (也叫睡眠),
+  让其它的线程运行, 
+这叫做让步
+
+•  一个进程中的 各个线程 之间 共享同一片数据空间,
+所以线程之间可以
+比进程之间
+更方便地 共享数据 和 相互通讯
+-----------------------------------------------
+
+进程 是 cpu 资源分配 的最小单位，
+线程 是 cpu 调度     的最小单位
+
+进程 是 应用程序的 执行实例。
+
+一个进程 至少 包括 一个线程
+一个进程 可以 包含 多个线程，
+
+线程可以被认为是“轻量级”的进程 。
+
+线程 是 cpu 调度     的最小单位。
+
+线程是 建立在 进程 的基础上的   一次程序运行的基本单位。
+
+线程 是 执行进程中的 路径。
+
+进程和线程都是 一个时间段的描述，
+进程和线程都是 CPU工作时间段的描述
+
+线程是共享了 进程的 执行环境资源的 更为 细小的 CPU时间段
+
+进程的创建调用fork或者vfork，
+线程的创建调用pthread_create，
+
+进程结束后它 拥有的所有线程 都将销毁，
+
+线程的结束 不会影响 同个进程中的 其他线程的运行状态
+
+线程是轻量级的进程，
+它的创建和销毁所需要的时间比进程小很多，
+
+所有操作系统中的执行功能 都是 创建线程 去完成的
+
+线程有自己的私有属性TCB，线程id，寄存器、硬件上下文，
+而进程也有自己的私有属性 进程控制块PCB，
+
+这些私有属性是不被共享的，
+用来标示一个 进程 或一个 线程 的标志
+
+进程：内存独立，
+线程共享同一进程的内存，
+一个进程就是一个应用程序的一次执行
+
+进程之间不能直接互相访问，同一进程中的线程可以互相通信
+
+创建新进程消耗系统资源，线程非常轻量，
+只保存线程运行时的必要数据，如上下文、程序堆栈信息
+
+同一进程里的线程可以相互控制，
+父进程可以控制子进程
+
+------------------------------------------------
+
+多线程任务的工作特点
+•  它们本质上就是异步的,需要有多个并发事务
+•  各个事务的运行顺序可以是不确定的,随机的,不可预测的
+•  这样的编程任务可以被分成多个执行流,
+每个流都有一个要完成的目标
+•  根据应用的不同,
+这些子任务可能都要计算出一个中间结果,
+用于合并得到最后的结果
 
 
 
+多线程相关模块
+•  thread和threading模块 允许 程序员创建和管理线程
+
+•  thread模块提供了基本的线程 和 锁的支持,
+而threading 提供了更高级别、功能更强的线程管理功能
+
+•  推荐使用更高级别的threading模块
+•  只建议那些有经验的专家在想访问线程的底层结构的时候,
+才使用thread模块
 
 
+•  Thread对象使用start()方法开始线程的执行,
+使用join()方法挂起程序,直到线程结束
 
 
+loop     英 [luːp]   美 [luːp]  
+    n.环形;环状物;圆圈;(绳、电线等的)环，圈;循环电影胶片;循环音像磁带
+    v.使成环;使绕成圈;成环形运动
 
-
-
+[root@V0 devops_day01]# scp  threadstart.py  root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day01
 
 
 
