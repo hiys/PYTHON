@@ -16,7 +16,7 @@ TCP协议 用主机的IP地址 加上 主机上的端口号 作为 TCP连接的�
 #17
 """
 
-import  sys, socket, time
+import  sys, socket, time, threading
 
 sys.stdout.write('\033[32;46;1m__name__ is %s\n\033[0m' % __name__)
 
@@ -76,6 +76,10 @@ class  TcpTimeServer:
 #cli_sock.sendall()--serverV0返回信息
 #None---<class 'NoneType'>
 
+#第七步,传输结束，关闭链接
+    cli_sock.close() #关闭客户端链接 #注意逻辑层次,缩进格式
+    print('\n本次服务端与客户端的对话结束,可以开启下一个新的对话连接\n')
+
 
   def  mainloop(self):
     while  True:
@@ -89,14 +93,17 @@ class  TcpTimeServer:
       print('socket套接字对象cli_sock是  ', cli_sock)      
       print('Client address is cli_addr connect from :\n ', cli_addr)
 
-#第六步,处理阶段，服务器与客户端通过send和recv方法通信(传输数据)
-      self.handle_child(cli_sock)
 
-#第七步,传输结束，关闭链接 #注意逻辑层次,缩进格式
-    cli_sock.close() #关闭客户端链接 #注意逻辑层次,缩进格式
-    print('\n本次服务端与客户端的对话结束,可以开启下一个新的对话连接\n')
+#第六步,处理阶段，服务器与客户端通过send和recv方法通信(传输数据)
+#      self.handle_child(cli_sock)
+      thr = threading.Thread(target=self.handle_child, args = (cli_sock,))
+      thr.start()
 
 #第七步,传输结束，关闭链接
+#    cli_sock.close() #关闭客户端链接
+#    print('\n本次服务端与客户端的对话结束,可以开启下一个新的对话连接\n')
+
+#第八步,传输结束，关闭链接
     self.servSocketObj.close() #关闭服务端(本地主机)链接
 
 

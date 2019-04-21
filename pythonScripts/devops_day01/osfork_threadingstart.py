@@ -67,8 +67,8 @@ if pid:
   print('父进程一直等到子进程退出,确认子进程已经退出 ---father\n')
   #父进程一直等到子进程退出,确认子进程已经退出 ---father
 
-  t1 = threading.Thread(target = add())
-  t2 = threading.Thread(target = add2())
+  t1 = threading.Thread(target = add)
+  t2 = threading.Thread(target = add2)
   print('线程t1= %s ---- 线程t2 = %s' % (t1, t2) )
   t1.start()
   print('线程t1= %s ---- 线程t2 = %s' % (t1, t2) )

@@ -1,4 +1,11 @@
 
+>>> t2.start()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/local/lib/python3.6/threading.py", line 842, in start
+    raise RuntimeError("threads can only be started once")
+RuntimeError: threads can only be started once
+>>> 
 
 >>> import  time
 >>> type(time.time())
@@ -292,6 +299,536 @@ TypeError: 'int' object is not iterable
 >>> 
 [root@V0 devops_day01]# scp   ping_subprocess_threading.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day01
 
+
+  File "/usr/local/lib/python3.6/threading.py", line 864, in run
+    self._target(*self._args, **self._kwargs)
+TypeError: add() takes from 0 to 1 positional arguments but 4 were given
+
+
+lock
+英 [lɒk]   美 [lɑːk]  
+v.
+(用锁)锁上;被锁住;
+
+[root@V0 devops_day01]# python3 
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import  threading
+>>> threading.
+threading.Barrier(             threading.WeakSet(
+threading.BoundedSemaphore(    threading.activeCount(
+threading.BrokenBarrierError(  threading.active_count(
+threading.Condition(           threading.currentThread(
+threading.Event(               threading.current_thread(
+threading.Lock(                threading.enumerate(
+threading.RLock(               threading.get_ident(
+threading.Semaphore(           threading.local(
+threading.TIMEOUT_MAX          threading.main_thread(
+threading.Thread(              threading.setprofile(
+threading.ThreadError(         threading.settrace(
+threading.Timer(               threading.stack_size(
+
+>>> threading.Lock()
+<unlocked _thread.lock object at 0x7f68248337d8>
+
+>>> type(threading.Lock())
+<class '_thread.lock'>
+
+>>> lock = threading.Lock()
+>>> type(lock)
+<class '_thread.lock'>
+
+>>> lock.acquire
+lock.acquire(       lock.acquire_lock(  
+
+>>> lock.acquire()
+True
+>>>
+>>> lock.release
+lock.release(       lock.release_lock(  
+>>> lock.release()
+>>> 
+revert
+英 [rɪˈvɜːt]   美 [rɪˈvɜːrt]  
+v.
+恢复，回复(到以前的状态、制度或行为);
+回到，重提，重新考虑(某个话题);(财产、权力、金钱等)归还，归属
+
+recurrence
+英 [rɪˈkʌrəns]   美 [rɪˈkɜːrəns]  
+  n.重现;复发
+
+===========================
+
+
+import  sys, os, time, threading
+
+lock = threading.Lock()   ## 生成lock实例
+num_a = 100
+
+def  add(thr_name = ''):
+  return_value = lock.acquire()    #访问共享资源时,先请求锁
+  print('type(return_value) = %s , return_value = %s) ' % (type(return_value), return_value))
+  global   num_a
+  if thr_name :
+    print('\n开始启动线程 %s -----在函数add()里面\n' % thr_name)
+  time.sleep(1)
+  print( '\n在函数add()里面刚开始全局变量num_a的值 为 %d --add' %  num_a)
+  num_a += 1000
+  print('\n在函数add() 里面改变全局变量num_a 的值为 %d --add' % num_a)
+  return_value2 = lock.release()   #访问共享资源结束后,立即释放锁
+  print('type(return_value2) = %s , return_value2 = %s) ' % (type(return_value2), return_value2))
+
+
+def  add2(thr_name = ''):
+  lock.acquire()    #访问共享资源时,先请求锁
+  global   num_a
+  if thr_name :
+    print('\n开始启动线程 %s -------*add2()\n' % thr_name)
+  time.sleep(1)
+  print( '\n在函数add2()里面刚开始全局变量num_a的值 为 %d --*add2()' %  num_a)
+  num_a += 200
+  print('\n在函数add2() 里面改变全局变量num_a 的值为 %d --*add2()' % num_a)
+  lock.release()    #访问共享资源结束后,立即释放锁
+
+
+t1 = threading.Thread(target = add, args = ('thr1',))
+t2 = threading.Thread(target = add2,args = ('thr2',))
+t1.start()
+t2.start()
+print('\n线程thr1= %s ----线程thr2 = %s thr2全部已经启动---father\n' % (t1, t2) )
+print('父进程里面的线程t1=%s \n t2 = %s \n刚刚开始运行后的结果num_a = %d ---father\n' % (t1, t2, num_a))
+
+
+t11 = threading.Thread(target = add, args = ('thr11',))
+t22 = threading.Thread(target = add2,args = ('thr22',))
+t22.start()
+t11.start()
+print('\n线程thr11= %s ----线程thr22 = %s thr2全部已经启动---father\n' % (t11, t22) )
+print('父进程里面的线程t11=%s \n t22 = %s \n刚刚开始运行后的结果num_a = %d ---father\n' % (t11, t22, num_a))
+print('--------------------------------')
+
+
+[root@V0 devops_day01]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import  sys, os, time, threading
+>>> 
+>>> lock = threading.Lock()   ## 生成lock实例
+>>> num_a = 100
+>>> 
+>>> def  add(thr_name = ''):
+...   return_value = lock.acquire()    #访问共享资源时,先请求锁
+...   print('type(return_value) = %s , return_value = %s) ' % (type(return_value), return_value))
+...   global   num_a
+...   if thr_name :
+...     print('\n开始启动线程 %s -----在函数add()里面\n' % thr_name)
+...   time.sleep(1)
+...   print( '\n在函数add()里面刚开始全局变量num_a的值 为 %d --add' %  num_a)
+...   num_a += 1000
+...   print('\n在函数add() 里面改变全局变量num_a 的值为 %d --add' % num_a)
+...   return_value2 = lock.release()   #访问共享资源结束后,立即释放锁
+...   print('type(return_value2) = %s , return_value2 = %s) ' % (type(return_value2), return_value2))
+... 
+>>> 
+>>> def  add2(thr_name = ''):
+...   lock.acquire()    #访问共享资源时,先请求锁
+...   global   num_a
+...   if thr_name :
+...     print('\n开始启动线程 %s -------*add2()\n' % thr_name)
+...   time.sleep(1)
+...   print( '\n在函数add2()里面刚开始全局变量num_a的值 为 %d --*add2()' %  num_a)
+...   num_a += 200
+...   print('\n在函数add2() 里面改变全局变量num_a 的值为 %d --*add2()' % num_a)
+...   lock.release()    #访问共享资源结束后,立即释放锁
+... 
+>>> 
+>>> t1 = threading.Thread(target = add, args = ('thr1',))
+>>> t2 = threading.Thread(target = add2,args = ('thr2',))
+>>> t1.start()
+type(return_value) = <class 'bool'> , return_value = True) 
+
+开始启动线程 thr1 -----在函数add()里面
+>>> 
+t2.start()
+>>> print('\n线程thr1= %s ----线程thr2 = %s thr2全部已经启动---father\n' % (t1, t2) )
+
+线程thr1= <Thread(Thread-1, started 139759009928960)> ----线程thr2 = <Thread(Thread-2, started 139759001536256)> thr2全部已经启动---father
+
+>>> print('父进程里面的线程t1=%s \n t2 = %s \n刚刚开始运行后的结果num_a = %d ---father\n' % (t1, t2, num_a))
+父进程里面的线程t1=<Thread(Thread-1, started 139759009928960)> 
+ t2 = <Thread(Thread-2, started 139759001536256)> 
+刚刚开始运行后的结果num_a = 100 ---father
+
+>>> 
+>>> 
+>>> t11 = threading.Thread(target = add, args = ('thr11',))
+>>> t22 = threading.Thread(target = add2,args = ('thr22',))
+>>> t22.start()
+>>> t11.start()
+>>> print('\n线程thr11= %s ----线程thr22 = %s thr2全部已经启动---father\n' % (t11, t22) )
+
+线程thr11= <Thread(Thread-3, started 139758984750848)> ----线程thr22 = <Thread(Thread-4, started 139758993143552)> thr2全部已经启动---father
+
+>>> print('父进程里面的线程t11=%s \n t22 = %s \n刚刚开始运行后的结果num_a = %d ---father\n' % (t11, t22, num_a))
+父进程里面的线程t11=<Thread(Thread-3, started 139758984750848)> 
+ t22 = <Thread(Thread-4, started 139758993143552)> 
+刚刚开始运行后的结果num_a = 100 ---father
+
+>>> print('--------------------------------')
+--------------------------------
+>>> 
+在函数add()里面刚开始全局变量num_a的值 为 100 --add
+
+在函数add() 里面改变全局变量num_a 的值为 1100 --add
+type(return_value2) = <class 'NoneType'> , return_value2 = None) 
+
+开始启动线程 thr2 -------*add2()
+
+
+在函数add2()里面刚开始全局变量num_a的值 为 1100 --*add2()
+
+在函数add2() 里面改变全局变量num_a 的值为 1300 --*add2()
+
+开始启动线程 thr22 -------*add2()
+
+
+在函数add2()里面刚开始全局变量num_a的值 为 1300 --*add2()
+
+在函数add2() 里面改变全局变量num_a 的值为 1500 --*add2()
+type(return_value) = <class 'bool'> , return_value = True) 
+
+开始启动线程 thr11 -----在函数add()里面
+
+
+在函数add()里面刚开始全局变量num_a的值 为 1500 --add
+
+在函数add() 里面改变全局变量num_a 的值为 2500 --add
+type(return_value2) = <class 'NoneType'> , return_value2 = None) 
+
+>>> 
+
+===============================================
+
+Python3之GIL全局解释器锁
+
+GIL全局解释器锁： 
+    同一进程下的多线程共享数据，共享意味着竞争，竞争带来无序，
+为了数据安全所以需要  加锁 进行数据保护，
+GIL本质是一把互斥锁，  使并发变为串行，
+保证同一时间只有一条线程访问解释器级别的数据，
+这样就保证了解释器级别的数据安全，
+同时也带来了一些问题，同一进程只有一条线程执行任务，
+无法利用多核优势，
+解决方案可以根据任务的类型来处理，
+如果是I/O密集型，则需要开多线程提高效率，
+如果是计算密集型则需要多进程。
+--------------------- 
+在CPython中，全局解释器锁(GIL)，
+本质是一把互斥锁。
+用于防止本地线程，多次调用执行Python字节码。
+这把锁存在的必要，是因为CPython的 内存管理 不是 线程安全的。
+然而，自从GIL存在，其他功能已经发展到 依赖于它所执行的保证。
+
+GIL下的多进程和多线程
+
+ - 多线程、多进程效率测试
+
+ - 计算密集型：多进程效率高, 不适合多线程
+
+- I/O密集型：多线程效率高(例如ping操作是输入输出操作,适合使用)
+
+GIL和Lock（即全局解释器锁和本地锁）
+
+
+系统层面的线程处理：
+
+1 系统开启多线程
+2 线程编译代码，查找语法错误
+3 调用解释器外的GIL锁
+4 抢到GIL锁的线程，调用解释器执行程序代码
+5 结束代码执行，释放GIL锁
+
+
+CPU单核： ====> 都选择使用线程
+多任务处理计算密集型，无法实现并行，
+创建进程的开销大。
+选择开启一个进程，多个线程。
+
+多任务处理I/O密集型，无法实现并行的进程开销又大，
+而切换进程的速度不如线程快。
+选择开启一个进程，多个线程。
+
+ 
+
+CPU多核：
+
+多任务处理计算密集型，多核实现进程并行，对于线程无法实现并行。
+选择开启多个进程。
+
+多任务处理I/O密集型，多核情况下进程并发，
+线程在一个cpu核内(cpu不固定，任意切换)进行切换并发，
+差别在于并发的切换速度。
+选择开启一个进程，多个线程。
+
+ 
+
+结论：由于市场上基本上是多核处理器，开发多是IO密集型程序，则对于性能的提升多用多线程。
+
+
+GIL总结：
+
+GIL本质是一把互斥锁，相当于使用Cpython解释器的权限，
+默认每一个进程内都存在一把GIL。
+同一进程内的多个线程必须抢到GIL后才能使用Cpython解释器执行代码。
+同一个进程下的多个线程无法实现并行，但是可以实现并发。
+若想要以线程实现并行，则需要开启多个进程实现。
+--------------------- 
+
+cpu缓存 大小 直接影响CPU的读取速度，
+cpu缓存 是 介于 内存与CPU 之间的存储器，
+  容量 比 内存 小，
+但速度 比 内存 快， 他可以大大减少CPU 访问 内存 的时间
+
+cpu缓存的部件，由若干缓存段组成，
+每个缓存段 具有 连续内存地址的 若干个 存储单元。
+
+缓存的工作原理；
+  CPU需要读取一个数据的时候，
+首先会从高速缓存中查找，
+如果找到就会立即读取并发送给CPU处理，
+如果没找到 就 以较慢的速度 去 内存 中读取并发送给CPU，
+同时在把 这个数据所需要的数据块 调入高速缓存内，
+ 后面再读取数据的时候直接从cpu缓存 读取，
+不必再调用内存。
+
+CPU二级缓存 编辑
+CPU缓存（Cache Memory）位于CPU与内存之间的临时存储器，
+它的  容量比  内存小
+但 交换速度 快。
+
+在缓存中的数据是内存中的一小部分，
+但这一小部分是短时间内CPU即将访问的，
+当CPU调用大量数据时，就可避开内存直接从缓存中调用，
+从而加快读取速度。
+
+而二级缓存则是介于 一级缓存 和 内存之间的存储器，
+其容量较 大于 一级缓存、 远小于内存，
+
+主要用来协调一级缓存 与 内存之间的速率差。
+
+一级缓存中还分数据缓存（Data Cache，D-Cache）
+和指令缓存（Instruction Cache，I-Cache）。
+二者分别用来存放数据
+和执行这些数据的指令，
+而且两者可以同时被CPU访问，
+减少了争用Cache所造成的冲突，提高了处理器效能。
+
+
+随着CPU制造工艺的发展，二级缓存也能轻易的集成在CPU内核中，容量也在逐年提升
+
+二级缓存是CPU性能表现的关键之一，
+在CPU核心不变化的情况下，
+增加二级缓存容量能使性能大幅度提高。
+而同一核心的CPU高低端之分往往也是在二级缓存上有差异，
+由此可见二级缓存对于CPU的重要性。
+
+缓存替换编辑
+CPU在缓存中找到有用的数据 被称为 命中，
+
+当缓存中没有CPU所需的数据时（这时称为未命中），CPU才访问内存。
+
+从理论上讲，在一颗拥有二级缓存的CPU中，
+读取一级缓存的命中率为80%。
+
+也就是说CPU一级缓存中找到的有用数据占数据总量的80%，
+
+剩下的20%从二级缓存中读取。
+
+由于不能准确预测将要执行的数据，
+读取二级缓存的命中率也在80%左右（从二级缓存读到有用的数据占总数据的16%）。
+
+那么还有的数据就不得不从内存调用，但这已经是一个相当小的比例了。
+
+目前的较高端的CPU中，
+还会带有三级缓存，
+它是为读取二级缓存后未命中的数据设计的—种缓存，
+
+在拥有三级缓存的CPU中，
+只有约5%的数据需要从内存中调用，这进一步提高了CPU的效率。
+
+为了保证CPU访问时有较高的命中率，缓存中的内容应该按一定的算法替换。
+
+一种较常用的算法是“最近最少使用算法”（LRU算法），
+它是将最近一段时间内最少被访问过的行淘汰出局。
+
+因此需要为每行设置一个计数器，
+LRU算法是把命中行的计数器清零，
+其他各行计数器加1。
+
+当需要替换时淘汰行计数器计数值最大的数据行出局。
+
+这是一种高效、科学的算法，
+其计数器清零过程可以把一些频繁调用后再不需要的数据淘汰出缓存，提高缓存的利用率。
+
+
+缓存容量编辑
+CPU产品中，一级缓存的容量基本在4KB到64KB之间，
+
+二级缓存的容量则分为128KB、256KB、512KB、1MB、2MB等。
+
+一级缓存容量各产品之间相差不大，
+
+而二级缓存容量则是提高CPU性能的关键。
+
+二级缓存容量的提升是由CPU制造工艺所决定的，
+容量增大必然导致CPU内部晶体管数的增加，
+要在有限的CPU面积上集成更大的缓存，对制造工艺的要求也就越高
+
+CPU的二级缓存一般情况下你感觉不是很明显。
+但是它的作用却不可忽视。
+它是暂存CPU运算时的数据的。
+
+硬盘的缓存主要在读/写的时候很突出。
+
+
+什么是上下文切换
+
+即使是单核CPU也支持多线程执行代码，
+CPU通过给每个线程分配CPU时间片来实现这个机制。
+
+时间片是CPU分配给各个线程的时间，因为时间片非常短，
+所以CPU通过不停地切换线程执行，
+让我们感觉多个线程时同时执行的，
+时间片一般是几十毫秒（ms）。
+
+CPU通过时间片分配算法来循环执行任务，
+当前任务执行一个时间片后会切换到下一个任务。
+但是，在切换前会保存上一个任务的状态，
+  以便下次切换回 这个任务时，可以再次加载这个任务的状态，
+从任务保存到再加载的过程
+就是一次上下文切换。
+
+上下文切换 会影响多线程的执行速度
+
+
+[root@V0 devops_day01]# scp  root@192.168.1.254:/var/git/PYTHON/pythonScripts/devops_day01/tcp_time_server_oop2.py  .
+
+
+  File "threadingtcp_server_oop.py", line 52, in handle_child
+    databytes = cli_sock.recv(1024) #接收客户端信息，一次接收数据的大小最多是1024字节
+OSError: [Errno 9] Bad file descriptor
+
+oserror:[errno 9]错误的文件描述符
+
+#第六步,处理阶段，服务器与客户端通过send和recv方法通信(传输数据)
+#      self.handle_child(cli_sock)
+      thr = threading.Thread(target=self.handle_child, args = (cli_sock,))
+      thr.start()
+
+#第七步,传输结束，关闭链接
+#    cli_sock.close() #关闭客户端链接
+#    print('\n本次服务端与客户端的对话结束,可以开启下一个新的对话连接\n')
+
+#第六步,处理阶段，服务器与客户端通过send和recv方法通信(传输数据)
+#调用新链接对象cli_sock 与客户端cli_addr 或者服务器通信
+  def  handle_child(self,cli_sock):
+    while  True:
+      try:
+        databytes = cli_sock.recv(1024) #接收客户端信息，一次接收数据的大小最多是1024字节
+      except  KeyboardInterrupt:
+        print('--- 在接收客户端信息的时候服务端Ctrl + C 将会退出客户端与服务端的对话程序!')  
+        break
+      print('接受的客户端二进制信息是\n', [databytes])
+#接受的客户端二进制信息是
+# [b'\t']
+# [b'']
+
+      try:
+        datastr = str(databytes, encoding='utf8')  #将客户端发送的二进制文字转utf8字符串格式
+
+      except   UnicodeDecodeError  as  ue :
+        print('\n客户端执行 Ctrl + C会发生错误UnicodeDecodeError\n', ue)
+        break
+      print('---接受的客户端信息转utf8字符串格式\n', datastr)
+
+      if  not datastr.strip(): #如果客户端输入任意连续的空字符(包括\r\v\t 空格)
+        break
+      data = '[%s] %s' % (self.date, datastr)  #注意这里的属性日期变量date
+
+#服务端V0调用新链接对象 cli_sock 发送二进制信息bytes(data, encoding='utf8')给客户端
+      serverV0 = cli_sock.sendall(bytes(data, encoding='utf8'))
+      print('cli_sock.sendall()--serverV0返回信息\n%s---%s' %  (serverV0, type(serverV0)))
+#cli_sock.sendall()--serverV0返回信息
+#None---<class 'NoneType'>
+
+#第七步,传输结束，关闭链接
+    cli_sock.close() #关闭客户端链接 #注意逻辑层次,缩进格式
+    print('\n本次服务端与客户端的对话结束,可以开启下一个新的对话连接\n')
+
+[root@V0 devops_day01]# scp   threadingtcp_server_oop.py  root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day01
+
+
+[root@V0 devops_day01]# scp    tcp_time_server_oop2.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day01
+
+
+.  匹配任意字符，除了换行符，当re.DOTALL标记被指定时，则可以匹配包括换行符的任意字符。
+[...]用来表示一组字符,单独列出：[amk] 匹配 'a'，'m'或'k'
+[^...]不在[]中的字符：[^abc] 匹配除了a,b,c之外的字符。
+*匹配0个或多个的表达式。
++匹配1个或多个的表达式。
+?匹配0个或1个由前面的正则表达式定义的片段，非贪婪方式
+
+
+(单选题)os.waitpid(-1, 0)的说法正确的是
+A.不挂起父进程
+ B.挂起父进程，等待所有子进程完成
+ C.挂起父进程，等待当前子进程完成
+ D.设置参数有错误，代码执行时会报错
+【正确答案】B
+【答题时间】2019-04-21 05:08:56
+【答案解析】os.waitpid()的第一个参数如果大于0，表示等待该pid号进程结束，
+等于0表示等待当前子进程结束，  -1 表示等待所有子进程结束，
+第二个参数为0表示挂起父进程，  为1 表示不挂起父进程
+
+
+(单选题)关于多线程工作特点说法错误的是
+A.由于在一个进程下边，本质上是同步进行
+ B.各个线程的运行顺序是随机的，不确定的
+ C.程序可以被分成多个执行流，每个流完成独立的目标
+ D.每个流执行的结果最后汇总，合并成最后的结果
+【正确答案】A
+【答题时间】2019-04-21 05:08:56
+【答案解析】多线程本质上就是异步的，需要多个事务并发执行
+
+异步就是多个事件同时发生运行,不分顺序
+是一种并行处理的方式，不必等待一个程序执行完，
+可以同时执行其它的任务,不需要等待
+
+
+同步就是多个事件按照时间或锁机制的先后顺序一次次地排队等待运行
+是一种线性执行的方式, 需要等待
+
+
+计算机领域中的同步（Synchronous）和异步（Asynchronous）
+-------------************************** ------------------------------------------------
+    计算机领域中的  同步和异步 的 概念
+和我们平时生活中的  同步和异步 是 不一样的。
+
+同步就是整个处理过程顺序执行，当各个过程都执行完毕，并返回结果。
+是一种线性执行的方式，执行的流程不能跨越。
+一般用于流程性比较强的程序，
+比如用户登录，需要对用户验证完成后才能登录系统。
+
+
+异步则是只是发送了调用的指令，
+调用者 无 需 等待被调用的方法 完全执行完毕；
+ 而是继续执行下面的流程。
+是一种并行处理的方式，
+不必等待一个程序执行完，可以执行其它的任务，
+比如页面数据加载过程，不需要等所有数据获取后再显示页面。
 
 
 
