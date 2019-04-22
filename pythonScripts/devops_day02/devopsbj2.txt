@@ -1,6 +1,25 @@
 
 
+https://pypi.python.org
+https://pypi.org/
 
+
+
+
+http://down.51cto.com/
+
+mysql必知必会
+https://down.51cto.com/data/585281
+
+https://home.51cto.com/info/set-pass
+
+
+https://edu.51cto.com/
+
+http://www.51cto.com/
+
+alter     英 [ˈɔːltə(r)]   美 [ˈɔːltər]  
+   v.(使)改变，更改，改动;修改(衣服使更合身)
 
 ===============================================
 
@@ -424,6 +443,7 @@ E-R方法是“实体-联系方法”（Entity-Relationship Approach）的简称
 
 第二范式（2NF）要求实体的属性完全依赖于主关键字。
 所谓完全依赖是指不能存在仅依赖主关键字一部分的属性，
+
 如果存在，那么这个属性和主关键字的 这一部分应该分离出来形成一个新的实体，
 新实体与原实体之间是一对多的关系。
 
@@ -585,6 +605,711 @@ BC范式既检查非主属性，又检查主属性。
 
 
 https://blog.csdn.net/zgcr654321/article/details/82350236
+
+
+实体关系模型（Entity Relationship Diagram）
+
+E-R图（Entity Relationship Diagram）即实体联系图，也称实体关系图，
+
+ER模型的基本元素是： [ 实体 ]、 <联系>和 (属性)
+
+实体：是一个数据对象，
+指应用中可以区别的客观存在的事物。
+（ER模型中的实体往往是指实体集）
+
+实体集：指同一类实体构成的集合
+
+实体 用 [ 方框 ] 表示，
+方框内注明实体的命名。
+
+
+联系：表示一个或多个实体之间的关联关系。
+
+联系 用 < 菱形框 > 表示，
+并用 --线段-- 将 <其> 与相关的 [ 实体 ] 链接起来
+
+属性： 实体 的某一特性称为 属性
+属性 用 ( 椭圆形框 ) 表示，加 _下划线 的属性为 标识符。
+
+例如:
+ (_下划线_属性_标识符_ 椭圆形框 )   (属性2 椭圆形框 )   (属性3 椭圆形框 )
+             |                             |                      |
+             |                             |                      |
+             |-------------------------- [ 实体 方框 ] --------------------------|
+                                    |
+               |-----------------------------|----------------------|
+       <联系1 菱形框 >                     |---<联系2  菱形框 >----|
+               |                                            |
+               |                                            |
+            [ 实体x 方框 ] ----- <联系xy 菱形框 > -------[ 实体y 方框 ]
+               |                                            |
+               |                                            |
+       |-----------|--------------------------|                   (属性y 椭圆形框 ) 
+       |                           |
+ (_属性_标识符_ 椭圆形框)   (属性x 椭圆形框 ) 
+
+
+关系模型：
+  用二维表的形式
+     表示实体和实体间联系的数据模型
+
+关系模型中，
+字段称为属性，
+字段值称为属性值，
+记录类型称为关系模型。
+
+关系模式名是R。
+记录称为元组，
+元组的集合称为关系或实例。
+
+一般用大写字母A、B、C、……表示单个属性，
+用小写字母a-z表示属性值。
+关系 中 属性的个数 称为“元数”，
+ 元组的个数称为“基数”。
+
+有时也称关系为表格，
+元组为行，
+属性为列。
+
+Oracle宣布Java收费
+9月Oracle发布了最新版的java 11，同时也宣布了Java开始收费
+
+长期支持的java 8后续更新也将收费。
+
+对于已经发布的java 8版本以及java 9和java 10不收费。
+但是java 9和java 10不是长期支持版本，
+也意味着它们可能不会再更新。
+
+Oracle宣布Java收费是迫于营收压力，
+微软收购GitHub是为了圈用户，
+
+微软 2018年6月份确认同意75亿美元收购GitHub的
+
+
+IBM看重的是Red Hat的云计算能力
+
+commercial      英 [kəˈmɜːʃl]   美 [kəˈmɜːrʃl]  
+    adj.贸易的;商业的;赢利的;以获利为目的的;偏重利润和声望的;商业化的
+
+10月29日，IBM以340亿美元收购了开源软件公司Red Hat（红帽）
+
+International Commercial Machinery Company
+国际商用机器公司
+
+[root@V0 devops_day02]# cat  /etc/yum.repos.d/local.repo 
+[rhel7]
+name=rhel-server-7.4-x86_64-dvd.iso
+baseurl=ftp://192.168.0.254/rhel7
+enabled=1
+gpgcheck=0
+[root@V0 devops_day02]# yum  list |grep  mariadb
+mariadb-libs.x86_64                     1:5.5.56-2.el7             @anaconda/7.4
+mariadb.x86_64                          1:5.5.56-2.el7             rhel7 
+mariadb-bench.x86_64                    1:5.5.56-2.el7             rhel7 
+mariadb-devel.i686                      1:5.5.56-2.el7             rhel7  
+mariadb-devel.x86_64                    1:5.5.56-2.el7             rhel7 
+mariadb-libs.i686                       1:5.5.56-2.el7             rhel7
+mariadb-server.x86_64                   1:5.5.56-2.el7             rhel7 
+mariadb-test.x86_64                     1:5.5.56-2.el7             rhel7 
+[root@V0 devops_day02]# yum  -y install  mariadb-server  |tail  -5
+
+作为依赖被安装:
+  mariadb.x86_64 1:5.5.56-2.el7       perl-DBD-MySQL.x86_64 0:4.023-5.el7      
+
+完毕！
+[root@V0 devops_day02]# rpm  -qa |grep mariadb
+mariadb-server-5.5.56-2.el7.x86_64
+mariadb-libs-5.5.56-2.el7.x86_64
+mariadb-5.5.56-2.el7.x86_64
+[root@V0 devops_day02]# 
+[root@V0 devops_day02]# systemctl  enable  mariadb.service   && systemctl  start   mariadb
+
+Created symlink from /etc/systemd/system/multi-user.target.wants/mariadb.service to /usr/lib/systemd/system/mariadb.service.
+[root@V0 devops_day02]# 
+
+[root@V0 devops_day02]# type  mysqladmin 
+mysqladmin 已被哈希 (/usr/bin/mysqladmin)
+[root@V0 devops_day02]# type mysql
+mysql 是 /usr/bin/mysql
+[root@V0 devops_day02]# rpm  -qf  /usr/bin/mysqladmin
+mariadb-5.5.56-2.el7.x86_64
+[root@V0 devops_day02]# rpm  -qf  /usr/bin/mysql
+mariadb-5.5.56-2.el7.x86_64
+
+[root@V0 devops_day02]# mysqladmin  -uroot  password  '123'
+
+[root@V0 devops_day02]# mysql  -uroot  -p123  -e  'show  databases;'
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| test               |
++--------------------+
+[root@V0 devops_day02]# mysql  -uroot  -p123  -e  'select  user();'
++----------------+
+| user()         |
++----------------+
+| root@localhost |
++----------------+
+
+[root@V0 devops_day02]# mysql  -uroot  -p123  -e  "select  distinct concat('username: ''',user,'''@''',host,''';') from  mysql.user"
+
+[root@V0 devops_day02]# mysql  -uroot  -p123  -e  \
+> "select  distinct concat('username: ''',user,'''@''',host,''';') from  mysql.user"
+
++------------------------------------------------+
+| concat('username: ''',user,'''@''',host,''';') |
++------------------------------------------------+
+| username: 'root'@'127.0.0.1';                  |
+| username: 'root'@'::1';                        |
+| username: ''@'localhost';                      |
+| username: 'root'@'localhost';                  |
+| username: ''@'v0';                             |
+| username: 'root'@'v0';                         |
++------------------------------------------------+
+[root@V0 devops_day02]# 
+
+
+[root@V0 devops_day02]# mysql  -uroot -p123
+
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 13
+Server version: 5.5.56-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]>
+MariaDB [(none)]> create  database  pysql   default  charset  utf8;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> show  databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| pysql              |
+| test               |
++--------------------+
+5 rows in set (0.00 sec)
+
+MariaDB [(none)]> use  pysql;
+Database changed
+
+MariaDB [pysql]> show  create   database  pysql;
++----------+----------------------------------------------------------------+
+| Database | Create Database                                                |
++----------+----------------------------------------------------------------+
+| pysql    | CREATE DATABASE `pysql` /*!40100 DEFAULT CHARACTER SET utf8 */ |
++----------+----------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+MariaDB [pysql]> 
+
+
+MariaDB [pysql]> create  table  departments(dep_id int(4), dep_name varchar(20));
+Query OK, 0 rows affected (0.05 sec)
+
+
+MariaDB [pysql]> show   tables;
++-----------------+
+| Tables_in_pysql |
++-----------------+
+| departments     |
++-----------------+
+1 row in set (0.00 sec)
+
+MariaDB [pysql]> desc    departments;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dep_id   | int(4)      | YES  |     | NULL    |       |
+| dep_name | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+MariaDB [pysql]> drop  table  departments;
+Query OK, 0 rows affected (0.02 sec)
+
+MariaDB [pysql]> 
+unique       英 [juˈniːk]   美 [juˈniːk]  
+    adj.唯一的;独一无二的;独特的;罕见的;(某人、地或事物)独具的，特有的
+
+MariaDB [pysql]> create  table  departments(
+    -> dep_id int(4),
+    -> dep_name varchar(20) not null unique,
+    -> primary key(dep_id)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+MariaDB [pysql]> desc    departments;       #部门表
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dep_id   | int(4)      | NO   | PRI | 0       |       |
+| dep_name | varchar(20) | NO   | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+MariaDB [pysql]> 
+
+employee     英 [ɪmˈplɔɪiː]   美 [ɪmˈplɔɪiː]  
+   n.受雇者;雇工;雇员
+
+MariaDB [pysql]> create  table  employees(
+    -> emp_id int(4), 
+    -> emp_name varchar(20)  not null,
+    -> gender  enum('mail', 'female'),
+    -> birth_date  datetime,
+    -> phone_number  varchar(11),
+    -> email  varchar(50),
+    -> dep_id  int(4),
+    -> primary  key(emp_id),
+    -> foreign  key(dep_id) references  departments(dep_id)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+MariaDB [pysql]> desc   employees;       #员工表
++--------------+-----------------------+------+-----+---------+-------+
+| Field        | Type                  | Null | Key | Default | Extra |
++--------------+-----------------------+------+-----+---------+-------+
+| emp_id       | int(4)                | NO   | PRI | 0       |       |
+| emp_name     | varchar(20)           | NO   |     | NULL    |       |
+| gender       | enum('mail','female') | YES  |     | NULL    |       |
+| birth_date   | datetime              | YES  |     | NULL    |       |
+| phone_number | varchar(11)           | YES  |     | NULL    |       |
+| email        | varchar(50)           | YES  |     | NULL    |       |
+| dep_id       | int(4)                | YES  | MUL | NULL    |       |
++--------------+-----------------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+MariaDB [pysql]> 
+
+
+
+
+MariaDB [pysql]> 
+MariaDB [pysql]> CREATE  table salary(     #员工薪水表
+    -> auto_id int(4) auto_increment,
+    -> date    datetime,
+    -> emp_id int(4),     #员工id号
+    -> basic  int(4),     #基本工资
+    -> award  int(4),     #奖金
+    -> primary  key(auto_id),
+    -> foreign key(emp_id) references  employees(emp_id) 
+    -> );          #外键-->员工表的员工id号
+
+Query OK, 0 rows affected (0.04 sec)
+
+MariaDB [pysql]> desc   salary;
++---------+----------+------+-----+---------+----------------+
+| Field   | Type     | Null | Key | Default | Extra          |
++---------+----------+------+-----+---------+----------------+
+| auto_id | int(4)   | NO   | PRI | NULL    | auto_increment |
+| date    | datetime | YES  |     | NULL    |                |
+| emp_id  | int(4)   | YES  | MUL | NULL    |                |
+| basic   | int(4)   | YES  |     | NULL    |                |
+| award   | int(4)   | YES  |     | NULL    |                |
++---------+----------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+
+MariaDB [pysql]> show  create   table  salary;
++--------+---------------------------------------------------+
+| Table  | Create Table         |
++--------+--------------------------------------------+
+| salary | CREATE TABLE `salary` (
+  `auto_id` int(4) NOT NULL AUTO_INCREMENT,
+  `date` datetime DEFAULT NULL,
+  `emp_id` int(4) DEFAULT NULL,
+  `basic` int(4) DEFAULT NULL,
+  `award` int(4) DEFAULT NULL,
+  PRIMARY KEY (`auto_id`),
+  KEY `emp_id` (`emp_id`),
+  CONSTRAINT `salary_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employees` (`emp_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 |
++--------+----------------------------------------------------+
+1 row in set (0.00 sec)
+
+MariaDB [pysql]> 
+
+MariaDB [pysql]> select  now();
++---------------------+
+| now()               |
++---------------------+
+| 2019-04-22 13:29:29 |
++---------------------+
+1 row in set (0.00 sec)
+
+MariaDB [pysql]> select  sysdate();  #系统动态日期时间
++---------------------+
+| sysdate()           |
++---------------------+
+| 2019-04-22 13:29:39 |
++---------------------+
+1 row in set (0.00 sec)
+
+MariaDB [pysql]> select  curdate(); #当前系统日期
++------------+
+| curdate()  |
++------------+
+| 2019-04-22 |
++------------+
+1 row in set (0.00 sec)
+
+MariaDB [pysql]> select  curtime();  #当前系统时间(时:分:秒)
++-----------+
+| curtime() |
++-----------+
+| 13:29:58  |
++-----------+
+1 row in set (0.00 sec)
+
+MariaDB [pysql]> 
+
+
+
+MariaDB [pysql]> create  table  departments(   #部门表
+    -> dep_id int(4),                   #部门id号
+    -> dep_name varchar(20) not null unique,
+    -> primary key(dep_id)
+    -> );
+
+MariaDB [pysql]> create  table  employees(  #员工表
+    -> emp_id int(4),                 #员工id号
+    -> emp_name varchar(20)  not null,
+    -> gender  enum('mail', 'female'),
+    -> birth_date  datetime,
+    -> phone_number  varchar(11),
+    -> email  varchar(50),
+    -> dep_id  int(4),
+    -> primary  key(emp_id),
+    -> foreign  key(dep_id) references  departments(dep_id) 
+    -> );          #外键-->部门表的部门id号
+
+MariaDB [pysql]> CREATE  table salary(     #员工薪水表
+    -> auto_id int(4) auto_increment,
+    -> date    datetime,
+    -> emp_id int(4),     #员工id号
+    -> basic  int(4),     #基本工资
+    -> award  int(4),     #奖金
+    -> primary  key(auto_id),
+    -> foreign key(emp_id) references  employees(emp_id) 
+    -> );          #外键-->员工表的员工id号
+
+
+
+
+[root@V1 ~]# mysql  -uroot  -p123
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 3
+Server version: 5.5.56-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+
+MariaDB [(none)]> create  database  pysql  default  charset  utf8;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> show  create  database  pysql;
++----------+----------------------------------------------------------------+
+| Database | Create Database                                                |
++----------+----------------------------------------------------------------+
+| pysql    | CREATE DATABASE `pysql` /*!40100 DEFAULT CHARACTER SET utf8 */ |
++----------+----------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+===================================
+
+mysql  -uroot  -p123
+
+create  database  pysql  default  charset  utf8;
+
+show  create  database  pysql;
+
+use    pysql;
+create  table  departments(   #部门表
+dep_id int(4),                   #部门id号
+dep_name varchar(20) not null unique,
+primary key(dep_id)
+);
+
+create  table  employees(  #员工表
+emp_id int(4),                 #员工id号
+emp_name varchar(20)  not null,
+gender  enum('male', 'female'),
+birth_date  date,
+phone_number  varchar(11),
+email  varchar(50),
+dep_id  int(4),
+primary  key(emp_id),
+foreign  key(dep_id) references  departments(dep_id) 
+);          #外键-->部门表的部门id号
+
+
+CREATE  table salary(     #员工薪水表
+auto_id int(4) auto_increment,
+date    date,
+emp_id int(4),     #员工id号
+basic  int(4),     #基本工资
+award  int(4),     #奖金
+primary  key(auto_id),
+foreign key(emp_id) references  employees(emp_id) 
+);          #外键-->员工表的员工id号
+
+
+insert  into  departments  values(1, '人事部'),
+(2, '开发部'),
+(3, '运维部'), (4, '财务部') ,
+(5, '市场部'), (6, '销售部') ;
+
+
+insert  into  employees   values
+( 1, '张三', 'male', '1985-04-02', '13302224455', 'zhsan@163.com', 1),
+( 2, '李四', 'male', '1990-03-05', '15099887766', 'lisi@qq.com', 1),
+( 3, '王五', 'female', '2000-10-10', '13802381238', 'wgwu@qq.com',2);
+
+insert  into  salary
+(date,  emp_id,  basic,  award)
+values
+('2018-11-11', 1, 10000, 2000),
+('2018-01-10', 2, 8000, 1500);
+
+select  bm.emp_name, bm2.date,
+bm2.basic + bm2.award as  total
+from  employees as bm
+left  join  salary  as  bm2
+on  bm.emp_id = bm2.emp_id;
+
+
+
+
+
+[root@V2 pyscripts]# mysql  -uroot  -p123
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 3
+Server version: 5.5.56-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> 
+MariaDB [(none)]> create  database  pysql  default  charset  utf8;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> 
+MariaDB [(none)]> show  create  database  pysql;
++----------+----------------------------------------------------------------+
+| Database | Create Database                                                |
++----------+----------------------------------------------------------------+
+| pysql    | CREATE DATABASE `pysql` /*!40100 DEFAULT CHARACTER SET utf8 */ |
++----------+----------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+MariaDB [(none)]> 
+MariaDB [(none)]> use    pysql;
+Database changed
+MariaDB [pysql]> create  table  departments(   #部门表
+    -> dep_id int(4),                   #部门id号
+    -> dep_name varchar(20) not null unique,
+    -> primary key(dep_id)
+    -> );
+Query OK, 0 rows affected (0.09 sec)
+
+MariaDB [pysql]> 
+MariaDB [pysql]> create  table  employees(  #员工表
+    -> emp_id int(4),                 #员工id号
+    -> emp_name varchar(20)  not null,
+    -> gender  enum('male', 'female'),
+    -> birth_date  date,
+    -> phone_number  varchar(11),
+    -> email  varchar(50),
+    -> dep_id  int(4),
+    -> primary  key(emp_id),
+    -> foreign  key(dep_id) references  departments(dep_id) 
+    -> );          #外键-->部门表的部门id号
+Query OK, 0 rows affected (0.02 sec)
+
+MariaDB [pysql]> 
+MariaDB [pysql]> 
+MariaDB [pysql]> CREATE  table salary(     #员工薪水表
+    -> auto_id int(4) auto_increment,
+    -> date    date,
+    -> emp_id int(4),     #员工id号
+    -> basic  int(4),     #基本工资
+    -> award  int(4),     #奖金
+    -> primary  key(auto_id),
+    -> foreign key(emp_id) references  employees(emp_id) 
+    -> );          #外键-->员工表的员工id号
+Query OK, 0 rows affected (0.03 sec)
+
+MariaDB [pysql]> 
+MariaDB [pysql]> 
+MariaDB [pysql]> insert  into  departments  values(1, '人事部'),
+    -> (2, '开发部'),
+    -> (3, '运维部'), (4, '财务部') ,
+    -> (5, '市场部'), (6, '销售部') ;
+Query OK, 6 rows affected (0.00 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [pysql]> 
+MariaDB [pysql]> 
+MariaDB [pysql]> insert  into  employees   values
+    -> ( 1, '张三', 'male', '1985-04-02', '13302224455', 'zhsan@163.com', 1),
+    -> ( 2, '李四', 'male', '1990-03-05', '15099887766', 'lisi@qq.com', 1),
+    -> ( 3, '王五', 'female', '2000-10-10', '13802381238', 'wgwu@qq.com',2);
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [pysql]> 
+MariaDB [pysql]> insert  into  salary
+    -> (date,  emp_id,  basic,  award)
+    -> values
+    -> ('2018-11-11', 1, 10000, 2000),
+    -> ('2018-01-10', 2, 8000, 1500);
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [pysql]> 
+MariaDB [pysql]> select  bm.emp_name, bm2.date, bm2.basic + bm2.award as  total
+    -> from  employees as bm
+    -> left  join  salary  as  bm2
+    -> on  bm.emp_id = bm2.emp_id;
++----------+------------+-------+
+| emp_name | date       | total |
++----------+------------+-------+
+| 张三     | 2018-11-11 | 12000 |
+| 李四     | 2018-01-10 |  9500 |
+| 王五     | NULL       |  NULL |
++----------+------------+-------+
+3 rows in set (0.00 sec)
+
+MariaDB [pysql]> 
+MariaDB [pysql]> 
+MariaDB [pysql]> exit
+Bye
+
+[root@V2 pyscripts]# mysql  -uroot -p123  -e  "use pysql;show tables;"
++-----------------+
+| Tables_in_pysql |
++-----------------+
+| departments     |
+| employees       |
+| salary          |
++-----------------+
+[root@V2 pyscripts]# 
+
+MariaDB [pysql]> quit
+Bye
+[root@V1 ~]# mysql  -uroot -p123  -e  "use pysql;show tables;"
++-----------------+
+| Tables_in_pysql |
++-----------------+
+| departments     |
+| employees       |
+| salary          |
++-----------------+
+[root@V1 ~]# 
+
+
+[root@V1 ~]# mysql  -uroot -p123  -e  "use pysql;show tables;"
++-----------------+
+| Tables_in_pysql |
++-----------------+
+| departments     |
+| employees       |
+| salary          |
++-----------------+
+
+[root@V1 ~]# mysql  -uroot -p123  -e  "use pysql;desc  departments;"
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dep_id   | int(4)      | NO   | PRI | 0       |       |
+| dep_name | varchar(20) | NO   | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+[root@V1 ~]# mysql  -uroot -p123  -e  "use pysql;select *  from  departments;"
++--------+-----------+
+| dep_id | dep_name  |
++--------+-----------+
+|      1 | 人事部    |
+|      5 | 市场部    |
+|      2 | 开发部    |
+|      4 | 财务部    |
+|      3 | 运维部    |
+|      6 | 销售部    |
++--------+-----------+
+
+[root@V1 ~]# mysql  -uroot -p123  -e  "use pysql;desc  employees;"
++--------------+-----------------------+------+-----+---------+-------+
+| Field        | Type                  | Null | Key | Default | Extra |
++--------------+-----------------------+------+-----+---------+-------+
+| emp_id       | int(4)                | NO   | PRI | 0       |       |
+| emp_name     | varchar(20)           | NO   |     | NULL    |       |
+| gender       | enum('male','female') | YES  |     | NULL    |       |
+| birth_date   | date                  | YES  |     | NULL    |       |
+| phone_number | varchar(11)           | YES  |     | NULL    |       |
+| email        | varchar(50)           | YES  |     | NULL    |       |
+| dep_id       | int(4)                | YES  | MUL | NULL    |       |
++--------------+-----------------------+------+-----+---------+-------+
+[root@V1 ~]# mysql  -uroot -p123  -e  "use pysql;select  *  from  employees;"
++--------+----------+--------+------------+--------------+---------------+--------+
+| emp_id | emp_name | gender | birth_date | phone_number | email         | dep_id |
++--------+----------+--------+------------+--------------+---------------+--------+
+|      1 | 张三     | male   | 1985-04-02 | 13302224455  | zhsan@163.com |      1 |
+|      2 | 李四     | male   | 1990-03-05 | 15099887766  | lisi@qq.com   |      1 |
+|      3 | 王五     | female | 2000-10-10 | 13802381238  | wgwu@qq.com   |      2 |
++--------+----------+--------+------------+--------------+---------------+--------+
+
+[root@V1 ~]# mysql  -uroot -p123  -e  "use pysql;desc  salary;"
++---------+--------+------+-----+---------+----------------+
+| Field   | Type   | Null | Key | Default | Extra          |
++---------+--------+------+-----+---------+----------------+
+| auto_id | int(4) | NO   | PRI | NULL    | auto_increment |
+| date    | date   | YES  |     | NULL    |                |
+| emp_id  | int(4) | YES  | MUL | NULL    |                |
+| basic   | int(4) | YES  |     | NULL    |                |
+| award   | int(4) | YES  |     | NULL    |                |
++---------+--------+------+-----+---------+----------------+
+[root@V1 ~]# mysql  -uroot -p123  -e  "use pysql;select  *  from  salary;"
++---------+------------+--------+-------+-------+
+| auto_id | date       | emp_id | basic | award |
++---------+------------+--------+-------+-------+
+|       1 | 2018-11-11 |      1 | 10000 |  2000 |
+|       2 | 2018-01-10 |      2 |  8000 |  1500 |
++---------+------------+--------+-------+-------+
+[root@V1 ~]# 
+
+[root@V1 ~]# mysql  -uroot -p123  -e  "use pysql; \
+> select  bm.emp_name, bm2.date,   \
+> bm2.basic + bm2.award as  total   \
+> from  employees as bm     \
+> left  join  salary  as  bm2    \
+> on  bm.emp_id = bm2.emp_id;"
++----------+------------+-------+
+| emp_name | date       | total |
++----------+------------+-------+
+| 张三     | 2018-11-11 | 12000 |
+| 李四     | 2018-01-10 |  9500 |
+| 王五     | NULL       |  NULL |
++----------+------------+-------+
+[root@V1 ~]# 
+
+mysql  -uroot -p123  -e  "use pysql; \
+select  bm.emp_name, bm2.date,   \
+bm2.basic + bm2.award as  total   \
+from  employees as bm     \
+left  join  salary  as  bm2    \
+on  bm.emp_id = bm2.emp_id;"
+
 
 
 

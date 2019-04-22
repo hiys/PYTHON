@@ -1,0 +1,1267 @@
+
+
+https://pypi.python.org
+https://pypi.org/
+•  pypi即python package index
+•  是python语言的软件仓库
+•  官方站点为https://pypi.python.org
+
+
+cursor            英 [ˈkɜːsə(r)]   美 [ˈkɜːrsər]  
+    n.(计算机荧光屏上的)光标，游标
+
+
+http://down.51cto.com/
+
+mysql必知必会
+https://down.51cto.com/data/585281
+
+https://home.51cto.com/info/set-pass
+
+
+JPEG（Joint Photographic Experts GROUP）联合摄影专家组
+
+GIF (Graphics Interchange Format) 图形交换格式
+
+PNG (Portable Network Graphic Format)
+便携式网络图形格式
+
+--------------------------------------------------------------
+异步就是多个事件同时发生运行,不分顺序
+是一种并行处理的方式，不必等待一个程序执行完，
+可以同时执行其它的任务,不需要等待
+
+
+同步就是多个事件按照时间或锁机制的先后顺序一次次地排队等待运行
+是一种线性执行的方式, 需要等待
+
+
+计算机领域中的同步（Synchronous）和异步（Asynchronous）
+-------------************************** ------------------------------------------------
+    计算机领域中的  同步和异步 的 概念
+和我们平时生活中的  同步和异步 是 不一样的。
+
+同步就是整个处理过程顺序执行，当各个过程都执行完毕，并返回结果。
+是一种 线性 执行的方式，执行的流程不能跨越。
+一般用于流程性比较强的程序，
+比如用户登录，需要对用户验证完成后才能登录系统。
+
+
+异步则是只是发送了调用的指令，
+调用者 无 需 等待被调用的方法 完全执行完毕；
+ 而是继续执行下面的流程。
+是一种并行处理的方式，
+不必等待一个程序执行完，可以执行其它的任务，
+比如页面数据加载过程，不需要等所有数据获取后再显示页面。
+
+---------------------------------------------------------------------
+
+award
+英 [əˈwɔːd]   美 [əˈwɔːrd]  
+n.
+奖;奖品;奖金;奖状;(收入的)增加;(赔偿)裁定额;(赔偿)裁决
+v.
+授予;奖励;判给
+
+
+structure            英 [ˈstrʌktʃə(r)]   美 [ˈstrʌktʃər]  
+       n.结构;构造;结构体;(尤指)建筑物;精心组织;周密安排;体系
+       v.使形成体系;系统安排;精心组织
+
+query     英 [ˈkwɪəri]   美 [ˈkwɪri]  
+   n.疑问;询问;问号
+   v.怀疑;表示疑虑;询问
+
+language         英 [ˈlæŋɡwɪdʒ]   美 [ˈlæŋɡwɪdʒ]  
+      n.语言;语言文字;言语;说话;
+
+manipulation     英 [məˌnɪpjʊˈleɪʃən]  美 [məˌnɪpjəˈleɪʃən]  
+  n.操作；操作法；管理措施；操作处理；处理;操纵证券市场；操纵证券交易;变换
+
+transaction        英 [trænˈzækʃn]   美 [trænˈzækʃn]  
+   n.(一笔)交易，业务，买卖;办理;处理
+
+process         英 [ˈprəʊses , prəˈses]  美 [ˈprɑːses , prəˈses]  
+  n.(为达到某一目标的)过程;进程;(事物发展，尤指自然变化的)过程，步骤，流程;
+      做事方法;工艺流程;工序
+  v.加工;处理;审阅，审核，处理(文件、请求等);数据处理
+
+definition    英 [ˌdefɪˈnɪʃn]   美 [ˌdefɪˈnɪʃn]  
+    n.(尤指词典里的词或短语的)释义，解释;定义;清晰度
+
+entity    英 [ˈentəti]   美 [ˈentəti]  
+   n.独立存在物;实体
+
+relationship    英 [rɪˈleɪʃnʃɪp]   美 [rɪˈleɪʃnʃɪp]  
+   n.(人、团体、国家之间的)关系，联系;
+      情爱关系;性爱关系;(事物之间的)关联，关系
+
+diagram    英 [ˈdaɪəɡræm]   美 [ˈdaɪəɡræm]  
+   n.简图;图解;图表;示意图
+
+model          英 [ˈmɒdl]   美 [ˈmɑːdl]  
+n.(依照实物按比例制成的)模型;样式;设计;型;(用于示范运作方法等的)模型
+v.做模特儿;(向顾客)穿戴展示;将…做成模型;复制
+
+
+NoSQL=Not Only SQL
+NoSQL，泛指非关系型的数据库
+
+结构化查询语言(Structured Query Language)
+简称SQL(发音：/ˈes kjuː ˈel/ "S-Q-L")，
+
+是一种特殊目的的编程语言，
+是一种数据库查询和程序设计语言，
+用于存取数据以及查询、更新和管理关系数据库系统；
+同时也是数据库脚本文件的扩展名。
+
+结构化查询语言是高级的非过程化编程语言，允许用户在高层数据结构上工作。
+
+
+结构化查询语言包含6个部分：
+
+一：数据查询语言（DQL:Data Query Language）：
+其语句，也称为“数据检索语句”，
+用以从表中获得数据，确定数据怎样在应用程序给出。
+保留字SELECT是DQL（也是所有SQL）用得最多的动词，
+其他DQL常用的保留字有WHERE，ORDER BY，GROUP BY和HAVING。
+这些DQL保留字常与其他类型的SQL语句一起使用。
+
+二：数据操作语言（DML：Data Manipulation Language）：
+其语句包括动词INSERT，UPDATE和DELETE。
+它们分别用于添加，修改和删除表中的行。
+也称为动作查询语言。
+
+三：事务处理语言（TPL）：
+Transaction Processing Language
+
+它的语句能确保被DML语句影响的表的所有行及时得以更新。
+TPL语句包括BEGIN TRANSACTION，COMMIT和ROLLBACK。
+
+
+四：数据控制语言（DCL）：
+它的语句通过GRANT或REVOKE获得许可，
+确定单个用户和用户组对数据库对象的访问。
+某些RDBMS可用GRANT或REVOKE控制对表单个列的访问。
+
+
+五：数据定义语言（DDL）：
+Data Definition Language
+
+其语句包括动词CREATE和DROP。
+在数据库中创建新表或删除表（CREAT TABLE 或 DROP TABLE）；
+为表加入索引等。DDL包括许多与人数据库目录中获得数据有关的保留字。
+它也是动作查询的一部分。
+
+六：指针控制语言（CCL）：
+Pointer Control Language
+它的语句，像DECLARE CURSOR，FETCH INTO和UPDATE WHERE CURRENT
+用于对一个或多个表单独行的操作。
+
+=================================
+
+实体关系模型（Entity Relationship Diagram）
+
+E-R图（Entity Relationship Diagram）即实体联系图，也称实体关系图，
+
+ER模型的基本元素是： [ 实体 ]、 <联系>和 (属性)
+
+实体：是一个数据对象，
+指应用中可以区别的客观存在的事物。
+（ER模型中的实体往往是指实体集）
+
+实体集：指同一类实体构成的集合
+
+实体 用 [ 方框 ] 表示，
+方框内注明实体的命名。
+
+
+联系：表示一个或多个实体之间的关联关系。
+
+联系 用 < 菱形框 > 表示，
+并用 --线段-- 将 <其> 与相关的 [ 实体 ] 链接起来
+
+属性： 实体 的某一特性称为 属性
+属性 用 ( 椭圆形框 ) 表示，加 _下划线 的属性为 标识符。
+
+
+ (_下划线_属性_标识符_ 椭圆形框 )   (属性2 椭圆形框 )   (属性3 椭圆形框 )
+             |                             |                      |
+             |                             |                      |
+             |-------------------------- [ 实体 方框 ] --------------------------|
+                                    |
+               |-----------------------------|----------------------|
+       <联系1 菱形框 >                     |---<联系2  菱形框 >----|
+               |                                            |
+               |                                            |
+            [ 实体x 方框 ] ----- <联系xy 菱形框 > -------[ 实体y 方框 ]
+               |                                            |
+               |                                            |
+       |-----------|--------------------------|                   (属性y 椭圆形框 ) 
+       |                           |
+ (_属性_标识符_ 椭圆形框)   (属性x 椭圆形框 ) 
+
+
+
+范式：英文名称是 Normal Form
+
+ 范式是关系数据库理论的基础，
+也是我们在设计数据库结构过程中所要遵循的规则和指导方法
+
+共有8种范式，依次是：
+1NF，2NF，3NF，BCNF，
+4NF，5NF，DKNF，6NF。
+
+在第一范式（1NF）中
+表的每一行只 包含一个实例的信息。
+第一范式就是无重复的列。
+即列不能够再分成其他几列
+
+◆ 第二范式（2NF）：
+主属性所属的字段称为主键
+
+一是表必须有一个主键；
+二是没有包含在主键中的列
+必须 完全 依赖于 主键 ，
+而不能只依赖于主键的一部分
+
+要求实体的属性完全依赖于主关键字。
+所谓完全依赖是指
+不能 存在 仅依赖 主关键字 一部分的属性
+
+当主键由多个字段组成时称之为复合主键。
+这个主键本身不要求有意义，
+所以经常使用连续增长的 数 来作为 主属性。 
+
+所谓传递函数依赖，
+指的是如果存在"A → B → C"的决定关系，
+则C传递函数依赖于A
+
+第 二范式就是
+非主属性 必须 完全依赖于 主关键字.
+可以包含 传递依赖（A->B->C）
+
+不符合 2NF 的设计容易产生冗余数据
+
+
+◆ 第三范式（3NF）：
+另外非主键列必须直接依赖于主键，不能存在传递依赖。
+即不能存在：非主键列 A 依赖于 非主键列 B，
+             非主键列 B 依赖于 主键 的情况。
+
+要求 任何非主属性 不依赖于 其他 非主属性，
+也就是在第二范式的基础上消除传递依赖（A->B->C）。
+消除传递依赖。
+3NF是对字段冗余性的约束，
+即任何字段 不能由其他 字段 派生出来，
+ 它要求字段 没有冗余。
+
+[root@V0 devops_day02]# mysql  -uroot  -p123  -e  'select  user();'
++----------------+
+| user()         |
++----------------+
+| root@localhost |
++----------------+
+
+[root@V0 devops_day02]# mysql  -uroot  -p123  -e  "select  distinct concat('username: ''',user,'''@''',host,''';') from  mysql.user"
+
+[root@V0 devops_day02]# mysql  -uroot  -p123  -e  \
+> "select  distinct concat('username: ''',user,'''@''',host,''';') from  mysql.user"
+
++------------------------------------------------+
+| concat('username: ''',user,'''@''',host,''';') |
++------------------------------------------------+
+| username: 'root'@'127.0.0.1';                  |
+| username: 'root'@'::1';                        |
+| username: ''@'localhost';                      |
+| username: 'root'@'localhost';                  |
+| username: ''@'v0';                             |
+| username: 'root'@'v0';                         |
++------------------------------------------------+
+[root@V0 devops_day02]# 
+
+
+MariaDB [(none)]> create  database  pysql   default  charset  utf8;
+
+
+MariaDB [pysql]> show  create   database  pysql;
++----------+----------------------------------------------------------------+
+| Database | Create Database                                                |
++----------+----------------------------------------------------------------+
+| pysql    | CREATE DATABASE `pysql` /*!40100 DEFAULT CHARACTER SET utf8 */ |
++----------+----------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+MariaDB [pysql]> 
+
+MariaDB [pysql]> show  create   table  salary;
++--------+---------------------------------------------------+
+| Table  | Create Table         |
++--------+--------------------------------------------+
+| salary | CREATE TABLE `salary` (
+  `auto_id` int(4) NOT NULL AUTO_INCREMENT,
+  `date` datetime DEFAULT NULL,
+  `emp_id` int(4) DEFAULT NULL,
+  `basic` int(4) DEFAULT NULL,
+  `award` int(4) DEFAULT NULL,
+  PRIMARY KEY (`auto_id`),
+  KEY `emp_id` (`emp_id`),
+  CONSTRAINT `salary_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employees` (`emp_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 |
++--------+----------------------------------------------------+
+1 row in set (0.00 sec)
+
+MariaDB [pysql]> 
+
+
+
+unique       英 [juˈniːk]   美 [juˈniːk]  
+    adj.唯一的;独一无二的;独特的;罕见的;(某人、地或事物)独具的，特有的
+unique是唯一约束
+
+multiple  允许重复
+multiple      英 [ˈmʌltɪpl]   美 [ˈmʌltɪpl]  
+   adj.数量多的;多种多样的
+
+
+MariaDB [pysql]> create  table  departments(   #部门表
+    -> dep_id int(4),                   #部门id号
+    -> dep_name varchar(20) not null unique,
+    -> primary key(dep_id)
+    -> );
+
+MariaDB [pysql]> desc    departments;  #部门表
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dep_id   | int(4)      | NO   | PRI | 0       |       |
+| dep_name | varchar(20) | NO   | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+
+MariaDB [pysql]> 
+
+employee     英 [ɪmˈplɔɪiː]   美 [ɪmˈplɔɪiː]  
+       n.受雇者;雇工;雇员
+
+
+
+MariaDB [pysql]> create  table  employees(  #员工表
+    -> emp_id int(4),                 #员工id号
+    -> emp_name varchar(20)  not null,
+    -> gender  enum('mail', 'female'),
+    -> birth_date  datetime,
+    -> phone_number  varchar(11),
+    -> email  varchar(50),
+    -> dep_id  int(4),
+    -> primary  key(emp_id),
+    -> foreign  key(dep_id) references  departments(dep_id) 
+    -> );          #外键-->部门表的部门id号
+
+
+MariaDB [pysql]> desc   employees;       #员工表
++--------------+-----------------------+------+-----+---------+-------+
+| Field        | Type                  | Null | Key | Default | Extra |
++--------------+-----------------------+------+-----+---------+-------+
+| emp_id       | int(4)                | NO   | PRI | 0       |       |
+| emp_name     | varchar(20)           | NO   |     | NULL    |       |
+| gender       | enum('mail','female') | YES  |     | NULL    |       |
+| birth_date   | datetime              | YES  |     | NULL    |       |
+| phone_number | varchar(11)           | YES  |     | NULL    |       |
+| email        | varchar(50)           | YES  |     | NULL    |       |
+| dep_id       | int(4)                | YES  | MUL | NULL    |       |
++--------------+-----------------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+MariaDB [pysql]>   unique是唯一约束
+                  multiple  允许重复
+multiple      英 [ˈmʌltɪpl]   美 [ˈmʌltɪpl]  
+   adj.数量多的;多种多样的
+
+increase     英 [ɪnˈkriːs , ˈɪŋkriːs]  美 [ɪnˈkriːs , ˈɪŋkriːs]  
+   v.(使)增长，增多;增加
+   n.增长;增多;增加
+
+increment      英 [ˈɪŋkrəmənt]   美 [ˈɪŋkrəmənt]  
+    n.定期的加薪;增量;增加
+
+MariaDB [pysql]> 
+MariaDB [pysql]> CREATE  table salary(     #员工薪水表
+    -> auto_id int(4) auto_increment,
+    -> date    datetime,
+    -> emp_id int(4),     #员工id号
+    -> basic  int(4),     #基本工资
+    -> award  int(4),     #奖金
+    -> primary  key(auto_id),
+    -> foreign key(emp_id) references  employees(emp_id) 
+    -> );          #外键-->员工表的员工id号
+
+
+MariaDB [pysql]> desc   salary;
++---------+----------+------+-----+---------+----------------+
+| Field   | Type     | Null | Key | Default | Extra          |
++---------+----------+------+-----+---------+----------------+
+| auto_id | int(4)   | NO   | PRI | NULL    | auto_increment |
+| date    | datetime | YES  |     | NULL    |                |
+| emp_id  | int(4)   | YES  | MUL | NULL    |                |
+| basic   | int(4)   | YES  |     | NULL    |                |
+| award   | int(4)   | YES  |     | NULL    |                |
++---------+----------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+MariaDB [pysql]> show  tables;
++-----------------+
+| Tables_in_pysql |
++-----------------+
+| departments     |    #部门表
+| employees       |    #员工表
+| salary          | #员工薪水表
++-----------------+
+3 rows in set (0.00 sec)
+
+MariaDB [pysql]> select  database();
++------------+
+| database() |
++------------+
+| pysql      |
++------------+
+1 row in set (0.00 sec)
+
+MariaDB [pysql]> 
+
+ alter     英 [ˈɔːltə(r)]   美 [ˈɔːltər]  
+     v.(使)改变，更改，改动;修改(衣服使更合身)
+
+
+--------------------------------------------##修改字段类型
+MariaDB [pysql]> alter table    表名    modify   column    字段名     类型;
+
+MariaDB [pysql]> alter table employees  modify  column  birth_date  date  not null;
+
+MariaDB [pysql]> alter table  salary  modify  column  date  date  not null;
+
+MariaDB [pysql]> insert  into  employees 
+    -> \c
+MariaDB [pysql]> alter table  employees  modify  column  
+    -> gender   enum('male', 'female');
+
+MariaDB [pysql]> desc    employees;
++--------------+-----------------------+------+-----+---------+-------+
+| Field        | Type                  | Null | Key | Default | Extra |
++--------------+-----------------------+------+-----+---------+-------+
+| emp_id       | int(4)                | NO   | PRI | 0       |       |
+| emp_name     | varchar(20)           | NO   |     | NULL    |       |
+| gender       | enum('male','female') | YES  |     | NULL    |       |
+| birth_date   | date                  | NO   |     | NULL    |       |
+| phone_number | varchar(11)           | YES  |     | NULL    |       |
+| email        | varchar(50)           | YES  |     | NULL    |       |
+| dep_id       | int(4)                | YES  | MUL | NULL    |       |
++--------------+-----------------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+MariaDB [pysql]> 
+
+MariaDB [pysql]> desc   salary;
++---------+--------+------+-----+---------+----------------+
+| Field   | Type   | Null | Key | Default | Extra          |
++---------+--------+------+-----+---------+----------------+
+| auto_id | int(4) | NO   | PRI | NULL    | auto_increment |
+| date    | date   | NO   |     | NULL    |                |
+| emp_id  | int(4) | YES  | MUL | NULL    |                |
+| basic   | int(4) | YES  |     | NULL    |                |
+| award   | int(4) | YES  |     | NULL    |                |
++---------+--------+------+-----+---------+----------------+
+
+
+MariaDB [pysql]> desc   departments;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dep_id   | int(4)      | NO   | PRI | 0       |       |
+| dep_name | varchar(20) | NO   | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+
+MariaDB [pysql]> insert  into  departments  values(1, '人事部');
+
+
+MariaDB [pysql]> insert  into  departments  values(2, '开发部'),
+    -> (3, '运维部');
+
+
+MariaDB [pysql]> select   *  from  departments;
++--------+-----------+
+| dep_id | dep_name  |
++--------+-----------+
+|      1 | 人事部    |
+|      2 | 开发部    |
+|      3 | 运维部    |
++--------+-----------+
+3 rows in set (0.00 sec)
+
+MariaDB [pysql]> insert  into  employees   values(1, '张三', 'male', '1985-04-02', '13302224455', 'zhsan@163.com', 1);
+
+MariaDB [pysql]> insert  into  employees   values(
+    -> 2, '李四', 'male', '1990-03-05', '15099887766', 'lisi@qq.com', 1),
+    -> (3, '王五', 'female', '2000-10-10', '13802381238', 'wgwu@qq.com',2);
+
+
+MariaDB [pysql]> select  *  from  employees;+--------+----------+--------+------------+--------------+---------------+--------+
+| emp_id | emp_name | gender | birth_date | phone_number | email         | dep_id |
++--------+----------+--------+------------+--------------+---------------+--------+
+|      1 | 张三     | male   | 1985-04-02 | 13302224455  | zhsan@163.com |      1 |
+|      2 | 李四     | male   | 1990-03-05 | 15099887766  | lisi@qq.com   |      1 |
+|      3 | 王五     | female | 2000-10-10 | 13802381238  | wgwu@qq.com   |      2 |
++--------+----------+--------+------------+--------------+---------------+--------+
+
+
+MariaDB [pysql]> insert  into  salary
+    -> (date,  emp_id,  basic,  award)
+    -> values('2018-11-11', 1, 10000, 2000);
+
+
+MariaDB [pysql]> select  *  from  salary;
++---------+------------+--------+-------+-------+
+| auto_id | date       | emp_id | basic | award |
++---------+------------+--------+-------+-------+
+|       1 | 2018-11-11 |      1 | 10000 |  2000 |
++---------+------------+--------+-------+-------+
+
+
+MariaDB [pysql]> delete  from  departments  where  dep_id = 3;
+
+
+MariaDB [pysql]> select  *   from  departments;
++--------+-----------+
+| dep_id | dep_name  |
++--------+-----------+
+|      1 | 人事部    |
+|      2 | 开发部    |
++--------+-----------+
+
+MariaDB [pysql]> update   departments  set dep_name = '人力资源部'
+    -> where  dep_id = 2;
+
+
+MariaDB [pysql]> insert  into  departments  values
+    -> (3, '运维部'), (4, '财务部');
+
+MariaDB [pysql]> insert  into  departments  values (5, '市场部'), (6, '销售部');
+
+                    #注意 星号 *  耗费cpu资源,建议不使用
+MariaDB [pysql]> select  *   from  departments;
++--------+-----------------+
+| dep_id | dep_name        |
++--------+-----------------+
+|      1 | 人事部          |
+|      2 | 人力资源部      |
+|      5 | 市场部          |
+|      4 | 财务部          |
+|      3 | 运维部          |
+|      6 | 销售部          |
++--------+-----------------+
+
+MariaDB [pysql]> select  dep_id, dep_name  from  departments
+    -> order  by  dep_id;
++--------+-----------------+
+| dep_id | dep_name        |
++--------+-----------------+
+|      1 | 人事部          |
+|      2 | 人力资源部      |
+|      3 | 运维部          |
+|      4 | 财务部          |
+|      5 | 市场部          |
+|      6 | 销售部          |
++--------+-----------------+
+
+MariaDB [pysql]> select  dep_id, dep_name  from  departments 
+    ->  order  by  dep_id  desc;    #降序排列
++--------+-----------------+
+| dep_id | dep_name        |
++--------+-----------------+
+|      6 | 销售部          |
+|      5 | 市场部          |
+|      4 | 财务部          |
+|      3 | 运维部          |
+|      2 | 人力资源部      |
+|      1 | 人事部          |
++--------+-----------------+
+
+       #显示前3 行记录  limit  3 注意索引第一个是0,即从零开始计算排列次序号码
+MariaDB [pysql]> select  dep_id, dep_name  from  departments order  by  dep_id  limit  3;
+
++--------+-----------------+
+| dep_id | dep_name        |
++--------+-----------------+
+|      1 | 人事部          |
+|      2 | 人力资源部      |
+|      3 | 运维部          |
++--------+-----------------+
+
+  # 注意索引第一个是0,即从零开始计算排列次序号码
+  #  从 索引 2号(即第三个记录开始) , 位移3行记录, 
+  #查询从第三行开始和它之后的3行记录(自身也算一行记录,加在位移的记录中)
+MariaDB [pysql]> select  dep_id, dep_name  from  departments
+    -> order  by  dep_id  limit  2,3;
++--------+-----------+
+| dep_id | dep_name  |
++--------+-----------+
+|      3 | 运维部    |
+|      4 | 财务部    |
+|      5 | 市场部    |
++--------+-----------+
+
+
+MariaDB [pysql]> insert  into  salary  values
+    -> (2, 2018-01-10, 2, 8000, 1500);
+         #注意日期要加 引号,否则会出现0000-00-00 默认的日期
+
+
+MariaDB [pysql]> select  *  from    salary;
++---------+------------+--------+-------+-------+
+| auto_id | date       | emp_id | basic | award |
++---------+------------+--------+-------+-------+
+|       1 | 2018-11-11 |      1 | 10000 |  2000 |
+|       2 | 0000-00-00 |      2 |  8000 |  1500 |
+
+
+MariaDB [pysql]> select  bm.emp_name, bm2.date, bm2.basic + bm2.award
+    ->  from  employees as bm
+    ->  join  salary  as  bm2;
+
++----------+------------+-----------------------+
+| emp_name | date       | bm2.basic + bm2.award |
++----------+------------+-----------------------+
+| 张三     | 2018-11-11 |                 12000 |
+| 张三     | 0000-00-00 |                  9500 |
+| 李四     | 2018-11-11 |                 12000 |
+| 李四     | 0000-00-00 |                  9500 |
+| 王五     | 2018-11-11 |                 12000 |
+| 王五     | 0000-00-00 |                  9500 |
++----------+------------+-----------------------+
+
+
+MariaDB [pysql]> 
+MariaDB [pysql]> select  bm.emp_name, bm2.date, bm2.basic + bm2.award
+    -> from  employees as bm
+    -> join  salary  as  bm2
+    -> on  bm.emp_id = bm2.emp_id;
+
++----------+------------+-----------------------+
+| emp_name | date       | bm2.basic + bm2.award |
++----------+------------+-----------------------+
+| 张三     | 2018-11-11 |                 12000 |
+| 李四     | 0000-00-00 |                  9500 |
++----------+------------+-----------------------+
+
+
+
+MariaDB [pysql]> select  *  from  employees;
++--------+----------+--------+------------+--------------+---------------+--------+
+| emp_id | emp_name | gender | birth_date | phone_number | email         | dep_id |
++--------+----------+--------+------------+--------------+---------------+--------+
+|      1 | 张三     | male   | 1985-04-02 | 13302224455  | zhsan@163.com |      1 |
+|      2 | 李四     | male   | 1990-03-05 | 15099887766  | lisi@qq.com   |      1 |
+|      3 | 王五     | female | 2000-10-10 | 13802381238  | wgwu@qq.com   |      2 |
++--------+----------+--------+------------+--------------+---------------+--------+
+
+
+MariaDB [pysql]> select  *  from   salary;
++---------+------------+--------+-------+-------+
+| auto_id | date       | emp_id | basic | award |
++---------+------------+--------+-------+-------+
+|       1 | 2018-11-11 |      1 | 10000 |  2000 |
+|       2 | 0000-00-00 |      2 |  8000 |  1500 |
++---------+------------+--------+-------+-------+
+
+MariaDB [pysql]> 
+MariaDB [pysql]> select  count(*)  from  departments;
++----------+
+| count(*) |
++----------+
+|        6 |
++----------+
+===========================
+•  pypi即python package index
+•  是python语言的软件仓库
+•  官方站点为https://pypi.python.org
+
+
+
+https://pypi.python.org
+https://pypi.org/
+
+Help   Donate   Log in    Register
+帮助     捐赠         登录       注册
+
+Find, install and publish Python packages with the Python Package Index
+使用Python Package Index查找，安装和发布Python包
+
+搜索框里面输入 pymysql
+
+https://pypi.org/search/?q=pymysql
+
+PyMySQL 0.9.3
+PyMySQL 0.9.3
+纯Python MySQL驱动程序
+
+pymysql-pooling 1.0.1
+基于pymysql的数据库连接池
+
+pymysql-pool 0.3.2
+基于MySQL连接池的pymysql
+
+
+https://pypi.org/project/PyMySQL/
+
+PyMySQL 0.9.3
+pip install PyMySQLCopy PIP instructions
+
+Latest version
+Last released: Dec 18, 2018
+最新版本
+最后发布： 2018年12月18日
+
+
+资源
+DB-API 2.0：https：//www.python.org/dev/peps/pep-0249/
+MySQL参考手册：https：//dev.mysql.com/doc/
+MySQL客户端/服务器协议：https： //dev.mysql.com/doc/internals/en/client-server-protocol.html
+MySQL Community Slack中的“连接器”通道：https： //lefred.be/mysql-community-on-slack/
+PyMySQL邮件列表：https：//groups.google.com/forum/#!forum/pymysql-users
+
+
+  [ 下载文件]  <----点击下载
+项目链接
+主页
+文档
+
+
+下载文件
+下载适用于您平台的文件。如果您不确定选择哪个，请了解有关安装软件包的更多信息。
+文件名，大小和哈希 SHA256哈希帮助	文件类型	上传日期
+PyMySQL-0.9.3-py2.py3-none-any.whl （47.7 kB）  复制SHA256哈希 SHA256	轮	2018年12月18日
+
+PyMySQL-0.9.3.tar.gz （75.3 kB）  复制SHA256哈希 SHA256	资源	2018年12月18日
+
+点击下载
+https://pypi.org/project/PyMySQL/#files
+
+[root@room9pc01 ~]# du  -sh  /root/下载/PyMySQL-0.9.3.tar.gz
+80K	/root/下载/PyMySQL-0.9.3.tar.gz
+
+[root@room9pc01 ~]# ll   /root/下载/PyMySQL-0.9.3.tar.gz
+-rw-r--r-- 1 root root 75293 4月  22 19:01 /root/下载/PyMySQL-0.9.3.tar.gz
+
+PyMySQL-0.9.3.tar.gz （75.3 kB）  复制SHA256哈希 SHA256	资源	2018年12月18日
+
+d8c059dcd81dedb85a9f034d5e22dcb4442c0b201908bede99e306d65ea7c8e7
+
+[root@room9pc01 ~]# sha256sum   /root/桌面/PyMySQL-0.9.3.tar.gz    #结果sha256值一致,安全完整有效
+d8c059dcd81dedb85a9f034d5e22dcb4442c0b201908bede99e306d65ea7c8e7  /root/桌面/PyMySQL-0.9.3.tar.gz
+[root@room9pc01 ~]# 
+
+[root@room9pc01 ~]# md5sum   /root/桌面/PyMySQL-0.9.3.tar.gz   #结果sha256值不一致
+e5d9183cc0a775ac29f9e0365cca6556  /root/桌面/PyMySQL-0.9.3.tar.gz
+
+[root@room9pc01 ~]# type   sha256sum
+sha256sum 是 /usr/bin/sha256sum
+
+[root@room9pc01 ~]# type  md5sum
+md5sum 已被哈希 (/usr/bin/md5sum)
+
+[root@room9pc01 ~]# rpm  -qf   /usr/bin/sha256sum
+coreutils-8.22-18.el7.x86_64
+
+[root@room9pc01 ~]# rpm  -qf   /usr/bin/md5sum 
+coreutils-8.22-18.el7.x86_64
+
+
+====================================
+
+[root@V0 devops_day02]# pip3
+pip3    pip3.6  
+
+[root@V0 devops_day02]# type  pip3
+pip3 是 /usr/local/bin/pip3
+
+[root@V0 devops_day02]# rpm  -qf  /usr/local/bin/pip3
+文件 /usr/local/bin/pip3 不属于任何软件包
+
+[root@V0 devops_day02]# type  file
+file 是 /usr/bin/file
+[root@V0 devops_day02]# rpm  -qf  /usr/bin/file
+file-5.11-33.el7.x86_64
+
+[root@V0 devops_day02]# file     /usr/local/bin/pip3
+/usr/local/bin/pip3: Python script, ASCII text executable
+
+[root@V0 devops_day02]# ll   /usr/local/bin/pip3
+-rwxr-xr-x 1 root root 224 4月   2 11:31 /usr/local/bin/pip3
+
+[root@V0 devops_day02]# cat  /etc/resolv.conf 
+nameserver  192.168.0.254
+[root@V0 devops_day02]#  rpm  -q   gcc
+gcc-4.8.5-16.el7.x86_64
+
+
+[root@V0 devops_day02]# ping  -c2 www.baidu.com   #虚拟机可以连接外网
+
+PING www.a.shifen.com (14.215.177.39) 56(84) bytes of data.
+64 bytes from 14.215.177.39 (14.215.177.39): icmp_seq=1 ttl=54 time=4.67 ms
+64 bytes from 14.215.177.39 (14.215.177.39): icmp_seq=2 ttl=54 time=4.84 ms
+
+--- www.a.shifen.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 4.677/4.759/4.841/0.082 ms
+
+[root@V0 devops_day02]# pip3    install    pymysql    #下载安装 pymysql 模块 
+Collecting pymysql
+  Downloading https://files.pythonhosted.org/packages/ed/39/15045ae46f2a123019aa968dfcba0396c161c20f855f11dea6796bcaae95/PyMySQL-0.9.3-py2.py3-none-any.whl (47kB)
+    100% |████████████████████████████████| 51kB 75kB/s 
+Installing collected packages: pymysql
+Successfully installed pymysql-0.9.3
+You are using pip version 10.0.1, however version 19.0.3 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+安装收集的包：pymysql
+成功安装pymysql-0.9.3
+您使用的是10.0.1版PIP，但是19.0.3版可用。
+您应该考虑通过“pip install --upgrade pip”命令进行升级。
+
+[root@V0 devops_day02]# 
+
+[root@V0 devops_day02]# pip3    --version    #版本  10.0.1 
+pip 10.0.1 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
+
+--------------------------------- 进行版本升级 ,也可以不升级的 ----------------------
+
+[root@V0 devops_day02]# pip3    install   --upgrade   pip  #注意开头的是pip3,注意数字3
+Collecting pip
+  Downloading https://files.pythonhosted.org/packages/d8/f3/413bab4ff08e1fc4828dfc59996d721917df8e8583ea85385d51125dceff/pip-19.0.3-py2.py3-none-any.whl (1.4MB)
+    100% |████████████████████████████████| 1.4MB 7.9kB/s 
+Installing collected packages: pip
+  Found existing installation: pip 10.0.1
+    Uninstalling pip-10.0.1:
+      Successfully uninstalled pip-10.0.1
+Successfully installed pip-19.0.3
+
+[root@V0 devops_day02]# pip3  --version
+pip 19.0.3 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
+
+[root@V0 devops_day02]# 
+[root@V0 devops_day02]# pip3  --version
+
+pip 19.0.3 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
+[root@V0 devops_day02]# python3 
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   pymysql
+>>> 
+===============================================
+
+[root@room9pc01 ~]# ssh  -X  192.168.0.11
+root@192.168.0.11's password: 
+Last login: Tue Apr 16 15:10:49 2019 from 192.168.1.254
+
+[root@V1 ~]# cat    /etc/resolv.conf 
+nameserver  192.168.1.254
+[root@V1 ~]#  rpm  -q   gcc
+gcc-4.8.5-16.el7.x86_64
+
+
+[root@V1 ~]# pip3  --version            #版本  10.0.1 
+
+pip 10.0.1 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
+
+[root@V1 ~]# python3            #现在 pymysql 模块  不可以使用, 还没有下载安装
+
+Python 3.6.7 (default, Apr  2 2019, 11:29:57) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  pymysql
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'pymysql'
+>>> 
+
+[root@V1 ~]# type  pip3
+pip3 已被哈希 (/usr/local/bin/pip3)
+[root@V1 ~]# pip3
+pip3    pip3.6  
+[root@V1 ~]# file   /usr/local/bin/pip3
+/usr/local/bin/pip3: Python script, ASCII text executable
+[root@V1 ~]# ll    /usr/local/bin/pip3
+-rwxr-xr-x 1 root root 224 4月   2 11:31 /usr/local/bin/pip3
+[root@V1 ~]# 
+
+
+[root@V1 ~]#  rpm  -q   gcc   #必须有此依赖包 gcc
+gcc-4.8.5-16.el7.x86_64
+
+[root@V1 ~]# pip3   install  pymysql      #下载安装 pymysql 模块 
+Collecting pymysql
+  Downloading https://files.pythonhosted.org/packages/ed/39/15045ae46f2a123019aa968dfcba0396c161c20f855f11dea6796bcaae95/PyMySQL-0.9.3-py2.py3-none-any.whl (47kB)
+    100% |████████████████████████████████| 51kB 248kB/s 
+Installing collected packages: pymysql
+Successfully installed pymysql-0.9.3
+You are using pip version 10.0.1, however version 19.0.3 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+安装收集的包：pymysql
+成功安装pymysql-0.9.3
+您使用的是10.0.1版PIP，但是19.0.3版可用。
+您应该考虑通过“pip install --upgrade pip”命令进行升级。
+
+[root@V1 ~]#  -----------------  不升级  版本  --------
+[root@V1 ~]# pip3  --version      #版本  10.0.1 
+
+pip 10.0.1 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
+
+
+[root@V1 ~]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:29:57) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import  pymysql    #现在模块可以使用
+>>> 
+
+
+[root@V0 devops_day02]# pwd
+/root/pyscripts/devops_day02
+
+[root@V0 devops_day02]# cd
+
+[root@V0 ~]# cd  -
+/root/pyscripts/devops_day02
+
+[root@V0 devops_day02]# 
+
+
+[root@room9pc01 ~]# ssh -X 192.168.0.12
+
+[root@V2 ~]# mkdir  pyscripts
+[root@V2 ~]# cd   pyscripts/
+[root@V2 pyscripts]# ls  -a
+.  ..
+[root@V2 pyscripts]# mkdir   .pip
+[root@V2 pyscripts]# ls  -a
+.  ..  .pip
+
+
+搜索输入  http://pypi.douban.com/simple/
+网页自动跳转到  http://pypi.doubanio.com/simple/
+
+[root@V2 pyscripts]# vim   .pip/pip.conf
+[global]
+index-url = http://pypi.douban.com/simple/
+[install]
+trusted-host = pypi.douban.com
+
+--------------------------  此配置文件  .pip/pip.conf 可以加快 网络安装模块 -------------
+
+[root@V2 pyscripts]# cat    .pip/pip.conf  #运行报错??
+[global]
+index-url = http://pypi.douban.com/simple/
+[install]
+trusted-host = pypi.douban.com
+[root@V2 pyscripts]# 
+
+[root@V2 pyscripts]# vim   .pip/pip.conf
+
+[root@V2 pyscripts]# cat   .pip/pip.conf    #运行报错?
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+[root@V2 pyscripts]#
+
+[root@V2 pyscripts]# pip3   --version
+pip 10.0.1 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
+[root@V2 pyscripts]# 
+[root@V2 pyscripts]# pip3  install  --upgrade   pip  #运行报错??
+...................
+
+[root@V2 pyscripts]# ls   -a
+.  ..  .pip
+[root@V2 pyscripts]# rm  -rf  .pip/
+[root@V2 pyscripts]# ls   -a
+.  ..
+[root@V2 ~]#  rpm  -q   gcc   #必须有此依赖包 gcc
+gcc-4.8.5-16.el7.x86_64
+
+[root@V2 pyscripts]#  pip3   install  pymysql 
+Collecting pymysql
+  Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after 
+.....................
+  Could not find a version that satisfies the requirement pymysql (from versions: )
+No matching distribution found for pymysql
+找不到满足pymysql要求的版本（来自版本：）
+没有为pymysql找到匹配的分发
+
+[root@V2 pyscripts]# reboot
+Connection to 192.168.0.12 closed by remote host.
+Connection to 192.168.0.12 closed.
+
+[root@room9pc01 ~]# ssh -X 192.168.0.12
+
+[root@V2 ~]# ping  -c2   www.baidu.com
+ping: www.baidu.com: 未知的名称或服务
+
+[root@room9pc01 ~]# ls  /etc/named
+named/               named.iscdlv.key     named.root.key
+named.conf           named.rfc1912.zones  
+
+[root@room9pc01 ~]# sed  -n   '12,15p'   /etc/named.conf
+options {
+	listen-on port 53 { 127.0.0.1; 192.168.0.254; 192.168.1.254; };
+//	listen-on-v6 port 53 { ::1; };
+	directory 	"/var/named";
+[root@room9pc01 ~]# 
+
+[root@V2 ~]# cat    /etc/resolv.conf 
+
+search localdomain
+[root@V2 ~]# echo  "nameserver  192.168.0.254" >  /etc/resolv.conf
+
+[root@V2 ~]# cat    /etc/resolv.conf 
+nameserver  192.168.0.254
+
+[root@V2 ~]# ping  -c2   www.baidu.com
+PING www.a.shifen.com (14.215.177.38) 56(84) bytes of data.
+64 bytes from 14.215.177.38 (14.215.177.38): icmp_seq=1 ttl=54 time=7.85 ms
+64 bytes from 14.215.177.38 (14.215.177.38): icmp_seq=2 ttl=54 time=9.08 ms
+
+--- www.a.shifen.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 7.854/8.471/9.089/0.624 ms
+[root@V2 ~]# 
+
+[root@V2 ~]# cd    pyscripts/
+[root@V2 pyscripts]# mkdir   .pip
+[root@V2 pyscripts]# vim    .pip/pip.conf
+
+--------------------------  此配置文件  .pip/pip.conf 可以加快 网络安装模块 -------------
+--------------------- http://pypi.doubanio.com/simple/
+
+[root@V2 pyscripts]# cat    .pip/pip.conf
+
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+[root@V2 pyscripts]# pip3
+pip3    pip3.6  
+[root@V2 pyscripts]# pip3   --version      #老版本 10.0.1 
+pip 10.0.1 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
+[root@V2 pyscripts]# 
+
+[root@V2 pyscripts]# pip3   install    --upgrade   pip
+Collecting pip
+  Downloading https://files.pythonhosted.org/packages/d8/f3/413bab4ff08e1fc4828dfc59996d721917df8e8583ea85385d51125dceff/pip-19.0.3-py2.py3-none-any.whl (1.4MB)
+    100% |████████████████████████████████| 1.4MB 22kB/s 
+Installing collected packages: pip
+  Found existing installation: pip 10.0.1
+    Uninstalling pip-10.0.1:
+      Successfully uninstalled pip-10.0.1
+Successfully installed pip-19.0.3
+
+
+[root@V2 pyscripts]# pip3   --version     #版本已经升级了19.0.3 
+pip 19.0.3 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
+
+
+[root@V2 pyscripts]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:29:55) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import  pymysql
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'pymysql'
+>>> 
+
+[root@V2 pyscripts]# pip3   install   pymysql
+
+
+Collecting pymysql
+  Downloading https://files.pythonhosted.org/packages/ed/39/15045ae46f2a123019aa968dfcba0396c161c20f855f11dea6796bcaae95/PyMySQL-0.9.3-py2.py3-none-any.whl (47kB)
+    100% |████████████████████████████████| 51kB 182kB/s 
+Installing collected packages: pymysql
+Successfully installed pymysql-0.9.3
+
+
+[root@V2 pyscripts]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:29:55) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import  pymysql
+>>> 
+[root@V2 pyscripts]# 
+----------------------------- http://pypi.doubanio.com/simple/
+
+=======================
+
+[root@V1 ~]# yum  -y install  mariadb-server  |tail  -5
+
+作为依赖被安装:
+  mariadb.x86_64 1:5.5.56-2.el7       perl-DBD-MySQL.x86_64 0:4.023-5.el7      
+
+完毕！
+[root@V1 ~]#
+[root@V1 ~]# systemctl  enable  mariadb.service   && systemctl  start   mariadb
+
+[root@V1 ~]# mysqladmin  -uroot  password  '123'
+[root@V1 ~]# 
+
+
+
+
+[root@V2 pyscripts]# rpm  -q   gcc
+gcc-4.8.5-16.el7.x86_64
+[root@V2 pyscripts]# yum  -y install  mariadb-server  |tail  -5
+
+作为依赖被安装:
+  mariadb.x86_64 1:5.5.56-2.el7       perl-DBD-MySQL.x86_64 0:4.023-5.el7      
+
+完毕！
+[root@V2 pyscripts]# 
+
+[root@V2 pyscripts]# systemctl  enable  mariadb.service   && systemctl  start   mariadb
+
+[root@V2 pyscripts]# mysqladmin  -uroot  password  '123'
+
+cursor            英 [ˈkɜːsə(r)]   美 [ˈkɜːrsər]  
+    n.(计算机荧光屏上的)光标，游标
+
+
+[root@V1 ~]# mysql  -uroot -p123  -e  "use pysql;show tables;"
++-----------------+
+| Tables_in_pysql |
++-----------------+
+| departments     |
+| employees       |
+| salary          |
++-----------------+
+
+[root@V1 ~]# mysql  -uroot -p123  -e  "use pysql;desc  departments;"
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dep_id   | int(4)      | NO   | PRI | 0       |       |
+| dep_name | varchar(20) | NO   | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+[root@V1 ~]# mysql  -uroot -p123  -e  "use pysql;select *  from  departments;"
++--------+-----------+
+| dep_id | dep_name  |
++--------+-----------+
+|      1 | 人事部    |
+|      5 | 市场部    |
+|      2 | 开发部    |
+|      4 | 财务部    |
+|      3 | 运维部    |
+|      6 | 销售部    |
++--------+-----------+
+
+[root@V1 ~]# mysql  -uroot -p123  -e  "use pysql;desc  employees;"
++--------------+-----------------------+------+-----+---------+-------+
+| Field        | Type                  | Null | Key | Default | Extra |
++--------------+-----------------------+------+-----+---------+-------+
+| emp_id       | int(4)                | NO   | PRI | 0       |       |
+| emp_name     | varchar(20)           | NO   |     | NULL    |       |
+| gender       | enum('male','female') | YES  |     | NULL    |       |
+| birth_date   | date                  | YES  |     | NULL    |       |
+| phone_number | varchar(11)           | YES  |     | NULL    |       |
+| email        | varchar(50)           | YES  |     | NULL    |       |
+| dep_id       | int(4)                | YES  | MUL | NULL    |       |
++--------------+-----------------------+------+-----+---------+-------+
+[root@V1 ~]# mysql  -uroot -p123  -e  "use pysql;select  *  from  employees;"
++--------+----------+--------+------------+--------------+---------------+--------+
+| emp_id | emp_name | gender | birth_date | phone_number | email         | dep_id |
++--------+----------+--------+------------+--------------+---------------+--------+
+|      1 | 张三     | male   | 1985-04-02 | 13302224455  | zhsan@163.com |      1 |
+|      2 | 李四     | male   | 1990-03-05 | 15099887766  | lisi@qq.com   |      1 |
+|      3 | 王五     | female | 2000-10-10 | 13802381238  | wgwu@qq.com   |      2 |
++--------+----------+--------+------------+--------------+---------------+--------+
+
+[root@V1 ~]# mysql  -uroot -p123  -e  "use pysql;desc  salary;"
++---------+--------+------+-----+---------+----------------+
+| Field   | Type   | Null | Key | Default | Extra          |
++---------+--------+------+-----+---------+----------------+
+| auto_id | int(4) | NO   | PRI | NULL    | auto_increment |
+| date    | date   | YES  |     | NULL    |                |
+| emp_id  | int(4) | YES  | MUL | NULL    |                |
+| basic   | int(4) | YES  |     | NULL    |                |
+| award   | int(4) | YES  |     | NULL    |                |
++---------+--------+------+-----+---------+----------------+
+[root@V1 ~]# mysql  -uroot -p123  -e  "use pysql;select  *  from  salary;"
++---------+------------+--------+-------+-------+
+| auto_id | date       | emp_id | basic | award |
++---------+------------+--------+-------+-------+
+|       1 | 2018-11-11 |      1 | 10000 |  2000 |
+|       2 | 2018-01-10 |      2 |  8000 |  1500 |
++---------+------------+--------+-------+-------+
+[root@V1 ~]# 
+
+[root@V1 ~]# mysql  -uroot -p123  -e  "use pysql; \
+> select  bm.emp_name, bm2.date,   \
+> bm2.basic + bm2.award as  total   \
+> from  employees as bm     \
+> left  join  salary  as  bm2    \
+> on  bm.emp_id = bm2.emp_id;"
++----------+------------+-------+
+| emp_name | date       | total |
++----------+------------+-------+
+| 张三     | 2018-11-11 | 12000 |
+| 李四     | 2018-01-10 |  9500 |
+| 王五     | NULL       |  NULL |
++----------+------------+-------+
+[root@V1 ~]# 
+
+
+mysql  -uroot -p123  -e  "use pysql;show tables;"
+mysql  -uroot -p123  -e  "use pysql;select *  from  departments;"
+mysql  -uroot -p123  -e  "use pysql;select  *  from  employees;"
+mysql  -uroot -p123  -e  "use pysql;select  *  from  salary;"
+
+
+mysql  -uroot -p123  -e  "use pysql;desc  departments;"
+mysql  -uroot -p123  -e  "use pysql;desc  departments;"
+mysql  -uroot -p123  -e  "use pysql;desc  salary;"
+
+
+mysql  -uroot -p123  -e  "use pysql;show tables;"
+
+mysql  -uroot -p123  -e  "use pysql;desc  employees;"
+
+mysql  -uroot -p123  -e  "use pysql;select  *  from  employees;"
+
+mysql  -uroot -p123  -e  "use pysql;desc  salary;"
+
+mysql  -uroot -p123  -e  "use pysql;select  *  from  salary;"
+
+
+mysql  -uroot -p123  -e  "use pysql; \
+select  bm.emp_name, bm2.date,   \
+bm2.basic + bm2.award as  total   \
+from  employees as bm     \
+left  join  salary  as  bm2    \
+on  bm.emp_id = bm2.emp_id;"
+
+
+
+
+
+cursor            英 [ˈkɜːsə(r)]   美 [ˈkɜːrsər]  
+    n.(计算机荧光屏上的)光标，游标
+
+
+[root@room9pc01 ~]# for  i  in  V{0..2};do virsh shutdown  $i; done;
+
+
+
+
+
+
