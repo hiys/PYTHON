@@ -624,9 +624,16 @@ active
 [root@V0 devops_day02]# scp    alchemy_create_engine.py  root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
 
 
+如果有中文件,注意engine的参数
 
+engine = create_engine('mysql+pymysql://root:tedu.cn@localhost/
+tarena?charset=utf8', encoding='utf8', echo=True)
 
-
+enginex = create_engine(
+  'mysql+pymysql://root:123@192.168.1.11/alchemy?charset=utf8',#这里不能有空格
+  encoding = 'utf8', #这里可以有空格
+  echo = True
+)
 
 
 
