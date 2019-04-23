@@ -1,0 +1,642 @@
+
+
+[root@room9pc01 ~]# for  i  in  V{0..2};do virsh shutdown  $i; done;
+
+pip3：（Python3  Install Package ）
+
+pip3命令是python3中用来安装与管理包的命令工具
+
+python3有丰富的第三方库（模块），都要用到这个命令工具来安装
+
+PyPI(Python Package Index)是python官方的第三方仓库，
+所有人都可以下载第三方库或上传自己开发的库到PyPI。
+PyPI推荐使用pip包管理器来下载第三方库
+
+[root@V2 ~]# cd    pyscripts/
+[root@V2 pyscripts]# mkdir   .pip
+[root@V2 pyscripts]# vim    .pip/pip.conf
+
+--------------------------  此配置文件  .pip/pip.conf 可以加快 网络安装模块 -------------
+--------------------- http://pypi.doubanio.com/simple/
+
+[root@V2 pyscripts]# cat    .pip/pip.conf
+
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+[root@V2 pyscripts]# pip3
+pip3    pip3.6  
+[root@V2 pyscripts]# pip3   --version      #老版本 10.0.1 
+pip 10.0.1 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
+
+[root@V2 pyscripts]# pip3   install    --upgrade   pip
+.....................
+    Uninstalling pip-10.0.1:
+      Successfully uninstalled pip-10.0.1
+Successfully installed pip-19.0.3
+
+
+[root@V2 pyscripts]# pip3   --version     #版本已经升级了19.0.3 
+pip 19.0.3 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
+
+
+[root@V2 pyscripts]# pip3   install   pymysql
+
+
+Collecting pymysql
+  Downloading https://files.pythonhosted.org/packages/ed/39/15045ae46f2a123019aa968dfcba0396c161c20f855f11dea6796bcaae95/PyMySQL-0.9.3-py2.py3-none-any.whl (47kB)
+    100% |████████████████████████████████| 51kB 182kB/s 
+Installing collected packages: pymysql
+Successfully installed pymysql-0.9.3
+
+
+[root@V2 pyscripts]# python3
+............
+>>> import  pymysql
+>>> 
+[root@V2 pyscripts]# 
+----------------------------- http://pypi.doubanio.com/simple/
+==================================
+
+[root@V0 devops_day02]# python3  pymysqltest.py
+........................
+pymysql.err.OperationalError: (1045, "Access denied for user 'root'@'V0' (using password: YES)")
+pymysql.err.operationalerror:（1045，“拒绝用户'root'@'v0'的访问（使用密码：yes）”）
+
+[root@V0 devops_day02]#  解决办法: 查看是否有用户名为空的用户，有的话干掉它
+当你设置了用户a：’user0‘@‘%’
+
+然后你的用户表里面有用户名为空的用户b：‘’@‘localhst’ 
+
+当你用用户a登陆时会与b(空用户名身份)造成冲突。
+所以干掉没有用户名的用户
+
+
+使用grant all privileges on来更改用户对应某些库的远程权限
+
+grant  all  privileges  on  库名.表名  to  '用户名'@'IP地址'  
+identified  by  '密码'  with  grant  option;
+
+flush privileges;
+
+库名:要远程访问的数据库名称,所有的数据库使用“*” 
+表名:要远程访问的数据库下的表的名称，所有的表使用“*” 
+用户名:要赋给远程访问权限的用户名称 
+IP地址:可以远程访问的电脑的IP地址，所有的地址使用“%” 
+密码:要赋给远程访问权限的用户对应使用的密码
+--------------------- 
+
+[root@V0 devops_day02]# mysql  -uroot  -p123
+.............
+MariaDB [(none)]> select   user();
++----------------+
+| user()         |
++----------------+
+| root@localhost |
++----------------+
+
+MariaDB [(none)]> show  grants;
++------------------------------------------------------+
+| Grants for root@localhost    |
++-----------------------------------------------------+
+| GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257' WITH GRANT OPTION |
+| GRANT PROXY ON ''@'' TO 'root'@'localhost' WITH GRANT OPTION |
+
+
+MariaDB [(none)]> grant  all  privileges  on  *.*   to  'root'@'%'  identified 
+               -> by  '123'   with    grant   option;
+
+MariaDB [(none)]> grant  all   on  *.*  to  'root'@'192.168.%'
+                > identified  by '123'  with  grant  option;
+
+
+select  distinct concat(
+'username: ''',user,'''@''',host,''' password:''',password,''';') 
+from  mysql.user
+------------------------------------ 查看所有的授权用户的信息(包含用户名 主机ip 密码)-----------------------------------
+MariaDB [Contacts]> select  distinct concat('userName:''',user,'''@''',host,'''xxPasswordxx:''',password,''';') from mysql.user;
+
+
+MariaDB [(none)]> select  distinct concat(
+    -> 'username: ''',user,'''@''',host,''' password:''',password,''';') 
+    -> from  mysql.user;
+
++------------------------------------------------------------------------------------+
+| concat('username: ''',user,'''@''',host,''' password:''',password,''';')           |
++------------------------------------------------------------------------------------+
+| username: 'root'@'localhost' password:'*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; |
+| username: 'root'@'v0' password:'';                                                 |
+| username: 'root'@'127.0.0.1' password:'';                                          |
+| username: 'root'@'::1' password:'';                                                |
+| username: ''@'localhost' password:'';                                              |
+| username: ''@'v0' password:'';                                                     |
+| username: 'root'@'%' password:'*23AE809DDACAF96AF0FD78ED04B6A265E05AA257';         |
+| username: 'root'@'192.168.%' password:'*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; |
+
+/*************************************
+pymysql.err.operationalerror:（1045，“拒绝用户'root'@'v0'的访问（使用密码：yes）”）
+
+[root@V0 devops_day02]#  解决办法: 查看是否有用户名为空的用户，有的话干掉它
+当你设置了用户a：’user0‘@‘%’
+
+然后你的用户表里面有用户名为空的用户b：‘’@‘localhst’ 
+
+当你用用户a登陆时会与b(空用户名身份)造成冲突。
+                         所以干掉 delete 没有用户名的用户where  user='';
+
+MariaDB [(none)]> delete   from  mysql.user  where  user='';
+Query OK, 2 rows affected (0.00 sec)
+
+MariaDB [(none)]> select user,host,password from mysql.user;
++------+-----------+-------------------------------------------+
+| user | host      | password                                  |
++------+-----------+-------------------------------------------+
+| root | localhost | *23AE809DDACAF96AF0FD78ED04B6A265E05AA257 |
+| root | v0        |                                           |
+| root | 127.0.0.1 |                                           |
+| root | ::1       |                                           |
+| root | %         | *23AE809DDACAF96AF0FD78ED04B6A265E05AA257 |
+| root | 192.168.% | *23AE809DDACAF96AF0FD78ED04B6A265E05AA257 |
++------+-----------+-------------------------------------------+
+6 rows in set (0.00 sec)
+
+MariaDB [(none)]> delete    from   mysql.user  where  password = '';
+Query OK, 3 rows affected (0.00 sec)
+
+MariaDB [(none)]> flush  privileges;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]> select user,host,password from mysql.user;
++------+-----------+-------------------------------------------+
+| user | host      | password                                  |
++------+-----------+-------------------------------------------+
+| root | localhost | *23AE809DDACAF96AF0FD78ED04B6A265E05AA257 |
+| root | %         | *23AE809DDACAF96AF0FD78ED04B6A265E05AA257 |
+| root | 192.168.% | *23AE809DDACAF96AF0FD78ED04B6A265E05AA257 |
++------+-----------+-------------------------------------------+
+3 rows in set (0.00 sec)
+
+
+MariaDB [(none)]> show  grants  for  'root'@'%';
++-----------------------------------------------+
+| Grants for root@%        |
++-------------------------------------------------------+
+| GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257' WITH GRANT OPTION |
++----------------------------------------------------+
+
+
+MariaDB [(none)]> show  grants  for  'root'@'192.168.%';
++---------------------------------------------------------------------------------------------+
+| Grants for root@192.168.%                          |
++--------------------------------------------------------------------------------------------+
+| GRANT ALL PRIVILEGES ON *.* TO 'root'@'192.168.%' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257' WITH GRANT OPTION |
++---------------------------------------------------------------------------------------+
+
+MariaDB [(none)]> exit
+Bye
+[root@V0 devops_day02]# 
+
+
+[root@V0 devops_day02]# systemctl   restart   mariadb
+===========================================
+....................
+pymysql.err.OperationalError: (1045, "Access denied for user 'root'@'V0' (using password: YES)")
+
+[root@V0 devops_day02]# python3  pymysqltest.py  #mysql的所有的空用户名空密码的记录都要删除
+__name__ is __main__
+ sys.argv[0]  is pymysqltest.py
+
+[root@V0 devops_day02]# 
+
+[root@V0 devops_day02]# scp   pymysqlcursor.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
+
+TypeError: not enough arguments for format string
+[root@V0 devops_day02]# 
+
+[root@V0 devops_day02]# scp   pymysqltest.py    root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
+
+[root@V0 devops_day02]# scp    pymysqlfetch.py    root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
+
+
+WSGI协议
+什么是WSGI
+(1)、WSGI(Web 服务器网关接口)
+是python中所定义的Web Server和Web APP之间或框架之间的接口标准规范
+
+(2)、WSGI接口规范的目的
+就是规范Web服务器与Web应用之间的交互，在协议之间进行转换
+(3)、WSGI将Web组件分成三类：
+Web服务器(Server)、Web中间件(Middleware)与Web应用程序(APP)。
+
+
+alchemy      英 [ˈælkəmi]   美 [ˈælkəmi]  
+    n.炼金术(见于中世纪，企图把普通金属炼成黄金);
+       (改变事物的)神秘力量，魔力
+
+SQLAlchemy简介
+
+•  SQLAlchemy是Python编程语下的一款开源软件。
+提供 SQL 具包及对象关系映 射(ORM) 工具,使用
+MIT许可证发
+•  SQLAlchemy“采用简单的Python语言,为高效和
+高性能的数据库访问设计,实现了完整的企业级持久
+模型”
+•  SQLAlchemy的理念是,SQL数据库的量级和性能重
+要于对象集合;而对象集合的抽象又重要于表和行
+•  目标是提供能兼容众多数据库(如 SQLite、MySQL、
+Postgresql、Oracle、MS-SQL、SQLServer 和
+Firebird)的企业级持久性模型
+
+，SQLAlchemy采用了类似于Java里Hibernate的数据映射模型，
+而不是其他ORM框架采用的Active Record模型。
+不过，Elixir和declarative等可选插件可以让用户使用声明语法。
+
+SQLAlchemy首次发行于2006年2月，
+并迅速地在Python社区中最广泛使用的ORM工具之一，
+不亚于Django的 ORM 框架。 
+
+
+•  ORM即对象关系映射
+对象关系映射器（Object Relational Mappers，ORM）
+就是在python中设定一个类，
+在mysql中定义一个表，
+把关系数据库的表结构映射到这个类上。
+
+•  数据库表是一个二维表,包含多行多列。
+把一个表的内容用Python的数据结构表示出来的话,
+可以用一个list表示多行,
+list的每一个元素是tuple,
+表示一行记录
+[
+ ('1', 'Michael'),
+ ('2', 'Bob'),
+ ('3', 'Adam')
+]
+•  用tuple表示一行很难看出表的结构。
+如果把一个tuple用class实例来表示,就可以更容易地看出表的结构来
+
+操作前提  以下三点必须
+ 
+1. 安装好Python 
+2. 安装好mysql 
+3. 安装好sqlalchemy包
+
+dialect        英 [ˈdaɪəlekt] 
+       n.地方话;土话;方言
+
+dialogue       美 [ˈdaɪəlɔːɡ]  
+       n.(书、戏剧或电影中的)对话，对白;
+
+alchemy     美 [ˈælkəmi]  
+    n.炼金术, 神秘力量，魔力
+
+===================================
+
+mysql  -uroot  -p123
+
+create  database  alchemy  default charset 'utf8'; #炼金术
+
+show  create   database  alchemy;
+
+use   alchemy;
+
+create  table  departments(   #部门表
+dep_id int(4),                   #部门id号
+dep_name varchar(20) not null unique,
+primary key(dep_id)
+);
+
+create  table  employees(  #员工表
+emp_id int(4),                 #员工id号
+emp_name varchar(20)  not null,
+gender  enum('male', 'female'),
+birth_date  date,
+phone_number  varchar(11),
+email  varchar(50),
+dep_id  int(4),
+primary  key(emp_id),
+foreign  key(dep_id) references  departments(dep_id) 
+);          #外键-->部门表的部门id号
+
+
+CREATE  table salary(     #员工薪水表
+auto_id int(4) auto_increment,
+date    date,
+emp_id int(4),     #员工id号
+basic  int(4),     #基本工资
+award  int(4),     #奖金
+primary  key(auto_id),
+foreign key(emp_id) references  employees(emp_id) 
+);          #外键-->员工表的员工id号
+
+
+insert  into  departments  values(1, '人事部'),
+(2, '开发部'),
+(3, '运维部'), (4, '财务部') ,
+(5, '市场部'), (6, '销售部') ;
+
+
+insert  into  employees   values
+( 1, '张三', 'male', '1985-04-02', '13302224455', 'zhsan@163.com', 1),
+( 2, '李四', 'male', '1990-03-05', '15099887766', 'lisi@qq.com', 1),
+( 3, '王五', 'female', '2000-10-10', '13802381238', 'wgwu@qq.com',2);
+
+insert  into  salary
+(date,  emp_id,  basic,  award)
+values
+('2018-11-11', 1, 10000, 2000),
+('2018-01-10', 2, 8000, 1500);
+
+select  bm.emp_name, bm2.date,
+bm2.basic + bm2.award as  total
+from  employees as bm
+left  join  salary  as  bm2
+on  bm.emp_id = bm2.emp_id;
+
+#-------------------------------------------------------------------
+
+mysql  -uroot -p123  -e  "use pysql; \
+select  bm.emp_name, bm2.date,   \
+bm2.basic + bm2.award as  total   \
+from  employees as bm     \
+left  join  salary  as  bm2    \
+on  bm.emp_id = bm2.emp_id;"
+
+
+delete  from  mysql.user  where  password='';
+
+grant  all  privileges  on  *.*  to  'root'@'%'
+identified by '123'  with grant option;
+
+flush  privileges;
+
+select  distinct  concat(
+'userName: ''',user,'''@''',host,''' Password: ''',password,''';')
+from  mysql.user;
+
+show  grants  for  'root'@'%';
+
+
+mysql  -uroot -p123  -e  "use pysql;select  *  from  departments;"
+
+mysql -uroot -p123 -e "use pysql;select *  from  employees;"
+ 
+mysql -uroot -p123 -e "use pysql;select *  from  salary;"
+
+===============================
+
+步骤一：SQLAlchemy安装
+
+[root@V0 devops_day02]# pip3   install   sqlalchemy
+Collecting sqlalchemy
+  Downloading https://files.pythonhosted.org/packages/2b/b2/e6f5c5efc68942edefaa924e8fbea0b32375baa434a511cbf6bb17769cf6/SQLAlchemy-1.3.3.tar.gz (5.9MB)
+...........................
+Successfully installed sqlalchemy-1.3.3
+[root@V0 devops_day02]# 
+
+
+步骤二：为SQLAlchemy创建数据库
+
+[root@V0 devops_day02]# mysql  -uroot  -p123
+....................
+
+MariaDB [(none)]> create  database  alchemy  default charset 'utf8'; #炼金术
+
+MariaDB [(none)]> show  databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| alchemy            |
+| mysql              |
+| performance_schema |
+| pysql              |
+| test               |
++--------------------+
+6 rows in set (0.00 sec)
+
+
+MariaDB [(none)]> show  create   database  alchemy;
++----------+------------------------------------------------------------------+
+| Database | Create Database    |
++----------+------------------------------------------------------------------+
+| alchemy  | CREATE DATABASE `alchemy` /*!40100 DEFAULT CHARACTER SET utf8 */ |
+
+
+# sqlalchemy.create_engine()
+alchemy     美 [ˈælkəmi]  
+    n.炼金术, 神秘力量，魔力
+
+oracle     美 [ˈɔːrəkl]  
+n.
+(古希腊的)神示所;(传达神谕的)牧师，女祭司;
+(古希腊常有隐含意义的)神谕，神示;
+能提供宝贵信息的人(或书);权威;智囊
+
+oracle     美 [ˈɔːrəkl]  
+     n. 权威;智囊
+
+[root@V0 devops_day02]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  sqlalchemy
+>>> sqlalchemy.ex
+sqlalchemy.exc          sqlalchemy.except_all(  sqlalchemy.extract(
+sqlalchemy.except_(     sqlalchemy.exists(   
+   
+>>> Base = sqlalchemy.ext.declarative.declarative_base()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: module 'sqlalchemy' has no attribute 'ext'
+
+>>> import  sys, pymysql
+>>> 
+>>> from   sqlalchemy  import  create_engine, Column, Integer, String
+>>> 
+>>> from   sqlalchemy.ext.declarative  import  declarative_base
+
+>>> Base = declarative_base()   #创建映射类的基本类
+>>> print('type(Base)= %s,  Base= %s, Base.__table__ = %s' % \
+...       (type(Base), Base, Base.__table__))
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+AttributeError: type object 'Base' has no attribute '__table__'
+
+>>> Base.m
+Base.metadata  Base.mro(      
+>>> Base.__
+Base.__abstractmethods__  Base.__getattribute__(    Base.__qualname__
+Base.__base__(            Base.__gt__(              Base.__reduce__(
+Base.__bases__            Base.__hash__(            Base.__reduce_ex__(
+Base.__basicsize__        Base.__init__(            Base.__repr__(
+Base.__call__(            Base.__init_subclass__(   Base.__setattr__(
+Base.__class__(           Base.__instancecheck__(   Base.__sizeof__(
+Base.__delattr__(         Base.__itemsize__         Base.__str__(
+Base.__dict__             Base.__le__(              Base.__subclasscheck__(
+Base.__dictoffset__       Base.__lt__(              Base.__subclasses__(
+Base.__dir__(             Base.__module__           Base.__subclasshook__(
+Base.__doc__              Base.__mro__              Base.__text_signature__
+Base.__eq__(              Base.__name__             Base.__weakref__
+Base.__flags__            Base.__ne__(              Base.__weakrefoffset__
+Base.__format__(          Base.__new__(             
+Base.__ge__(              Base.__prepare__(         
+>>> Base.__
+
+>>> Base = sqlalchemy.ext.declarative.declarative_base()
+>>> Base
+<class 'sqlalchemy.ext.declarative.api.Base'>
+>>> type(Base)
+<class 'sqlalchemy.ext.declarative.api.DeclarativeMeta'>
+>>> 
+>>> import    sqlalchemy.ext
+
+>>> sqlalchemy.ext.
+sqlalchemy.ext.baked        sqlalchemy.ext.declarative
+
+>>> 
+>>> sqlalchemy.ext.declarative.
+sqlalchemy.ext.declarative.AbstractConcreteBase(
+sqlalchemy.ext.declarative.ConcreteBase(
+sqlalchemy.ext.declarative.DeclarativeMeta(
+sqlalchemy.ext.declarative.DeferredReflection(
+sqlalchemy.ext.declarative.api
+sqlalchemy.ext.declarative.as_declarative(
+sqlalchemy.ext.declarative.base
+sqlalchemy.ext.declarative.clsregistry
+sqlalchemy.ext.declarative.comparable_using(
+sqlalchemy.ext.declarative.declarative_base(
+sqlalchemy.ext.declarative.declared_attr(
+sqlalchemy.ext.declarative.has_inherited_table(
+sqlalchemy.ext.declarative.instrument_declarative(
+sqlalchemy.ext.declarative.synonym_for(
+>>> 
+>>> import   sqlalchemy
+>>> sqlalchemy.
+    sqlalchemy.create_engine(
+sqlalchemy.Column(  
+sqlalchemy.Integer(
+sqlalchemy.String( 
+
+
+
+[root@V0 devops_day02]# python3  alchemy_create_engine.py
+__name__ is __main__
+type(enginex) = <class 'sqlalchemy.engine.base.Engine'>,  enginex = Engine(mysql+pymysql://root:***@192.168.1.11/alchemy)
+
+ sys.argv[0]  is alchemy_create_engine.py
+
+Departments.__table__ = departmentsxxxxxxxxx, type(Departments) = <class 'sqlalchemy.ext.declarative.api.DeclarativeMeta'>
+
+
+[root@V0 devops_day02]# python3 
+..........
+>>> import   alchemy_create_engine   #自己写的文件alchemy_create_engine.py
+__name__ is alchemy_create_engine
+type(enginex) = <class 'sqlalchemy.engine.base.Engine'>,  enginex = Engine(mysql+pymysql://root:***@192.168.1.11/alchemy)
+
+>>> 
+>>> alchemy_create_engine.Departments.__tablename__
+'departmentsxxxxxxxxx'
+
+>>>
+>>> type(alchemy_create_engine.Departments.__table__)
+<class 'sqlalchemy.sql.schema.Table'>
+>>> 
+>>> alchemy_create_engine.Departments.__table__
+
+Table('departmentsxxxxxxxxx', MetaData(bind=None), Column('dep_id', Integer(), table=<departmentsxxxxxxxxx>, primary_key=True, nullable=False), Column('dep_name', String(length=20), table=<departmentsxxxxxxxxx>), schema=None)
+
+>>> print(alchemy_create_engine.Departments.__table__)
+departmentsxxxxxxxxx
+
+>>> print(alchemy_create_engine.Departments.__tablename__)
+departmentsxxxxxxxxx
+>>> 
+
+schema      英 [ˈskiːmə]
+   n.(计划或理论的)提要，纲要
+
+[root@V1 pyscripts]# mysql  -uroot  -p123  -e  "
+> create  database  alchemy  default charset 'utf8';
+> show  databases;"
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| alchemy            |
+| mysql              |
+| performance_schema |
+| pysql              |
+| test               |
++--------------------+
+[root@V1 pyscripts]#
+
+
+[root@V2 pyscripts]# mysql  -uroot  -p123  -e  "
+> create  database  alchemy  default charset 'utf8';
+> show  databases;"
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| alchemy            |
+| mysql              |
+| performance_schema |
+| pysql              |
+| test               |
++--------------------+
+[root@V2 pyscripts]# 
+
+
+---------------------------------
+#!/usr/bin/env  python3
+#coding:UTF-8
+
+
+from   sqlalchemy  import  create_engine, Column, Integer, String
+
+from   sqlalchemy.ext.declarative  import  declarative_base
+
+
+  ##create_engine('使用的数据库类型(比如mysql,oracle等) + python的pymysql模块://用户名:用户的密码@连接的数据库服务器主机/主机上的数据库名',encoding='utf8', echo=True)
+#echo=True表示将日志输出到终端屏幕,默认为False
+         
+enginex = create_engine(
+  'mysql + pymysql://root:123@192.168.1.11/alchemy',
+  encoding= 'utf8',
+  echo = True
+)
+#首先通过声明系统,定义基类Base
+Base = declarative_base() #创建映射类的基本类
+
+
+sqlalchemy.exc.ArgumentError: Could not parse rfc1738 URL from string 'mysql + pymysql://root:123@192.168.1.11/alchemy'
+
+sqlachemy.exc.argumenterror:无法从字符串'mysql+pymysql://root:123@192.168.1.11/alchemy'分析rfc1738 URL
+
+[root@V0 devops_day02]# systemctl is-active  mariadb
+active
+
+[root@V0 devops_day02]# scp    alchemy_create_engine.py  root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

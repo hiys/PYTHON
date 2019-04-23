@@ -1251,11 +1251,256 @@ left  join  salary  as  bm2    \
 on  bm.emp_id = bm2.emp_id;"
 
 
+delete  from  mysql.user  where  password='';
+
+grant  all  privileges  on  *.*  to  'root'@'%'
+identified by '123'  with grant option;
+
+flush  privileges;
+
+select  distinct  concat(
+'userName: ''',user,'''@''',host,''' Password: ''',password,''';')
+from  mysql.user;
+
+show  grants  for  'root'@'%';
 
 
 
 cursor            英 [ˈkɜːsə(r)]   美 [ˈkɜːrsər]  
     n.(计算机荧光屏上的)光标，游标
+
+
+[root@V0 devops_day02]# pip
+pip     pip3    pip3.6  
+[root@V0 devops_day02]# ping  -c2  www.baidu.com  
+PING www.a.shifen.com (14.215.177.39) 56(84) bytes of data.
+64 bytes from 14.215.177.39 (14.215.177.39): icmp_seq=1 ttl=54 time=5.10 ms
+64 bytes from 14.215.177.39 (14.215.177.39): icmp_seq=2 ttl=54 time=4.75 ms
+
+--- www.a.shifen.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 4.758/4.932/5.107/0.188 ms
+[root@V0 devops_day02]# cat   /etc/resolv.conf 
+nameserver  192.168.0.254
+[root@V0 devops_day02]# pip3
+
+Usage:   
+  pip3 <command> [options]
+
+Commands:
+  install                     Install packages.
+  download                    Download packages.
+  uninstall                   Uninstall packages.
+  freeze                      Output installed packages in requirements format.
+  list                        List installed packages.
+  show                        Show information about installed packages.
+  check                       Verify installed packages have compatible dependencies.
+  config                      Manage local and global configuration.
+  search                      Search PyPI for packages.
+  wheel                       Build wheels from your requirements.
+  hash                        Compute hashes of package archives.
+  completion                  A helper command used for command completion.
+  help                        Show help for commands.
+
+General Options:
+  -h, --help                  Show help.
+  --isolated                  Run pip in an isolated mode, ignoring
+                              environment variables and user configuration.
+  -v, --verbose               Give more output. Option is additive, and can be
+                              used up to 3 times.
+  -V, --version               Show version and exit.
+  -q, --quiet                 Give less output. Option is additive, and can be
+                              used up to 3 times (corresponding to WARNING,
+                              ERROR, and CRITICAL logging levels).
+  --log <path>                Path to a verbose appending log.
+  --proxy <proxy>             Specify a proxy in the form
+                              [user:passwd@]proxy.server:port.
+  --retries <retries>         Maximum number of retries each connection should
+                              attempt (default 5 times).
+  --timeout <sec>             Set the socket timeout (default 15 seconds).
+  --exists-action <action>    Default action when a path already exists:
+                              (s)witch, (i)gnore, (w)ipe, (b)ackup, (a)bort).
+  --trusted-host <hostname>   Mark this host as trusted, even though it does
+                              not have valid or any HTTPS.
+  --cert <path>               Path to alternate CA bundle.
+  --client-cert <path>        Path to SSL client certificate, a single file
+                              containing the private key and the certificate
+                              in PEM format.
+  --cache-dir <dir>           Store the cache data in <dir>.
+  --no-cache-dir              Disable the cache.
+  --disable-pip-version-check
+                              Don't periodically check PyPI to determine
+                              whether a new version of pip is available for
+                              download. Implied with --no-index.
+  --no-color                  Suppress colored output
+[root@V0 devops_day02]# 
+[root@V0 devops_day02]# pip3   install   sqlalchemy
+Collecting sqlalchemy
+  Downloading https://files.pythonhosted.org/packages/2b/b2/e6f5c5efc68942edefaa924e8fbea0b32375baa434a511cbf6bb17769cf6/SQLAlchemy-1.3.3.tar.gz (5.9MB)
+    100% |████████████████████████████████| 5.9MB 52kB/s 
+Installing collected packages: sqlalchemy
+  Running setup.py install for sqlalchemy ... done
+Successfully installed sqlalchemy-1.3.3
+[root@V0 devops_day02]# 
+
+
+[root@V1 pyscripts]#  ping  -c2  www.baidu.com  
+
+PING www.a.shifen.com (14.215.177.39) 56(84) bytes of data.
+64 bytes from 14.215.177.39 (14.215.177.39): icmp_seq=1 ttl=52 time=7.36 ms
+64 bytes from 14.215.177.39 (14.215.177.39): icmp_seq=2 ttl=52 time=10.7 ms
+.....................
+[root@V1 pyscripts]# cat   /etc/resolv.conf 
+nameserver  192.168.1.254
+
+[root@V1 pyscripts]# mkdir   .pip/
+
+[root@V1 pyscripts]# vim   .pip/pip.conf
+
+[root@V1 pyscripts]# cat   .pip/pip.conf  #使用国内镜像站点
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+[root@V1 pyscripts]# 
+
+
+[root@V1 pyscripts]#  pip3   install   sqlalchemy
+Collecting sqlalchemy
+  Downloading https://files.pythonhosted.org/packages/2b/b2/e6f5c5efc68942edefaa924e8fbea0b32375baa434a511cbf6bb17769cf6/SQLAlchemy-1.3.3.tar.gz (5.9MB)
+    100% |████████████████████████████████| 5.9MB 41kB/s 
+Installing collected packages: sqlalchemy
+  Running setup.py install for sqlalchemy ... done
+Successfully installed sqlalchemy-1.3.3
+You are using pip version 10.0.1, however version 19.0.3 is available.
+You should consider upgrading via the 'pip3 install --upgrade  pip' command.
+
+已成功安装SQLAlchemy-1.3.3
+您使用的是10.0.1版PIP，但是19.0.3版可用。
+您应该考虑通过“pip3 install--upgrade pip”命令进行升级。
+
+[root@V1 pyscripts]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:29:57) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import   sqlalchemy
+>>> 
+[root@V1 pyscripts]# pip3  --version
+pip 10.0.1 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
+
+
+
+[root@V2 pyscripts]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:29:55) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   sqlalchemy
+>>> sqlalchemy.
+Display all 130 possibilities? (y or n)
+sqlalchemy.ARRAY(                 sqlalchemy.asc(
+sqlalchemy.BIGINT(                sqlalchemy.between(
+sqlalchemy.BINARY(                sqlalchemy.bindparam(
+sqlalchemy.BLANK_SCHEMA           sqlalchemy.case(
+sqlalchemy.BLOB(                  sqlalchemy.cast(
+sqlalchemy.BOOLEAN(               sqlalchemy.collate(
+sqlalchemy.BigInteger(            sqlalchemy.column(
+sqlalchemy.Binary(                sqlalchemy.cprocessors
+sqlalchemy.Boolean(               sqlalchemy.create_engine(
+sqlalchemy.CHAR(                  sqlalchemy.cresultproxy
+sqlalchemy.CLOB(                  sqlalchemy.cutils
+sqlalchemy.CheckConstraint(       sqlalchemy.delete(
+sqlalchemy.Column(                sqlalchemy.desc(
+sqlalchemy.ColumnDefault(         sqlalchemy.dialects
+sqlalchemy.Constraint(            sqlalchemy.distinct(
+sqlalchemy.DATE(                  sqlalchemy.engine
+sqlalchemy.DATETIME(              sqlalchemy.engine_from_config(
+sqlalchemy.DDL(                   sqlalchemy.event
+sqlalchemy.DECIMAL(               sqlalchemy.events
+sqlalchemy.Date(                  sqlalchemy.exc
+sqlalchemy.DateTime(              sqlalchemy.except_(
+sqlalchemy.DefaultClause(         sqlalchemy.except_all(
+sqlalchemy.Enum(                  sqlalchemy.exists(
+sqlalchemy.FLOAT(                 sqlalchemy.extract(
+sqlalchemy.FetchedValue(          sqlalchemy.false(
+sqlalchemy.Float(                 sqlalchemy.func(
+sqlalchemy.ForeignKey(            sqlalchemy.funcfilter(
+sqlalchemy.ForeignKeyConstraint(  sqlalchemy.insert(
+sqlalchemy.INT(                   sqlalchemy.inspect(
+sqlalchemy.INTEGER(               sqlalchemy.inspection
+sqlalchemy.Index(                 sqlalchemy.interfaces
+sqlalchemy.Integer(               sqlalchemy.intersect(
+sqlalchemy.Interval(              sqlalchemy.intersect_all(
+sqlalchemy.JSON(                  sqlalchemy.join(
+sqlalchemy.LargeBinary(           sqlalchemy.lateral(
+sqlalchemy.MetaData(              sqlalchemy.literal(
+sqlalchemy.NCHAR(                 sqlalchemy.literal_column(
+sqlalchemy.NUMERIC(               sqlalchemy.log
+sqlalchemy.NVARCHAR(              sqlalchemy.modifier(
+sqlalchemy.Numeric(               sqlalchemy.not_(
+sqlalchemy.PassiveDefault(        sqlalchemy.null(
+sqlalchemy.PickleType(            sqlalchemy.nullsfirst(
+sqlalchemy.PrimaryKeyConstraint(  sqlalchemy.nullslast(
+sqlalchemy.REAL(                  sqlalchemy.or_(
+sqlalchemy.SMALLINT(              sqlalchemy.outerjoin(
+sqlalchemy.Sequence(              sqlalchemy.outparam(
+sqlalchemy.SmallInteger(          sqlalchemy.over(
+sqlalchemy.String(                sqlalchemy.pool
+sqlalchemy.TEXT(                  sqlalchemy.processors
+sqlalchemy.TIME(                  sqlalchemy.schema
+sqlalchemy.TIMESTAMP(             sqlalchemy.select(
+sqlalchemy.Table(                 sqlalchemy.sql
+sqlalchemy.Text(                  sqlalchemy.subquery(
+sqlalchemy.ThreadLocalMetaData(   sqlalchemy.table(
+sqlalchemy.Time(                  sqlalchemy.tablesample(
+sqlalchemy.TypeDecorator(         sqlalchemy.text(
+sqlalchemy.Unicode(               sqlalchemy.true(
+sqlalchemy.UnicodeText(           sqlalchemy.tuple_(
+sqlalchemy.UniqueConstraint(      sqlalchemy.type_coerce(
+sqlalchemy.VARBINARY(             sqlalchemy.types
+sqlalchemy.VARCHAR(               sqlalchemy.union(
+sqlalchemy.alias(                 sqlalchemy.union_all(
+sqlalchemy.all_(                  sqlalchemy.update(
+sqlalchemy.and_(                  sqlalchemy.util
+sqlalchemy.any_(                  sqlalchemy.within_group(
+>>> 
+
+
+>>> import   pymysql
+>>> pymysql.
+pymysql.BINARY               pymysql.TimeFromTicks(
+pymysql.Binary(              pymysql.Timestamp(
+pymysql.Connect(             pymysql.TimestampFromTicks(
+pymysql.Connection(          pymysql.VERSION
+pymysql.DATE                 pymysql.VERSION_STRING
+pymysql.DATETIME             pymysql.Warning(
+pymysql.DBAPISet(            pymysql.apilevel
+pymysql.DataError(           pymysql.charset
+pymysql.DatabaseError(       pymysql.connect(
+pymysql.Date(                pymysql.connections
+pymysql.DateFromTicks(       pymysql.constants
+pymysql.Error(               pymysql.converters
+pymysql.FIELD_TYPE           pymysql.cursors
+pymysql.IntegrityError(      pymysql.err
+pymysql.InterfaceError(      pymysql.escape_dict(
+pymysql.InternalError(       pymysql.escape_sequence(
+pymysql.MySQLError(          pymysql.escape_string(
+pymysql.NULL                 pymysql.get_client_info(
+pymysql.NUMBER               pymysql.install_as_MySQLdb(
+pymysql.NotSupportedError(   pymysql.optionfile
+pymysql.OperationalError(    pymysql.paramstyle
+pymysql.PY2                  pymysql.protocol
+pymysql.ProgrammingError(    pymysql.sys
+pymysql.ROWID                pymysql.thread_safe(
+pymysql.STRING               pymysql.threadsafety
+pymysql.TIME                 pymysql.times
+pymysql.TIMESTAMP            pymysql.util
+pymysql.Time(                pymysql.version_info
+>>> 
+
+>>> 
+[root@V2 pyscripts]# 
+
 
 
 [root@room9pc01 ~]# for  i  in  V{0..2};do virsh shutdown  $i; done;

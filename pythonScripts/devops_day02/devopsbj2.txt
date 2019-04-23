@@ -1311,7 +1311,127 @@ left  join  salary  as  bm2    \
 on  bm.emp_id = bm2.emp_id;"
 
 
+delete  from  mysql.user  where  password='';
 
+grant  all  privileges  on  *.*  to  'root'@'%'
+identified by '123'  with grant option;
+
+flush  privileges;
+
+select  distinct  concat(
+'userName: ''',user,'''@''',host,''' Password: ''',password,''';')
+from  mysql.user;
+
+show  grants  for  'root'@'%';
+
+
+[root@V1 pyscripts]# mysql  -uroot  -p123
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 2
+Server version: 5.5.56-MariaDB MariaDB Server
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> delete  from  mysql.user  where  password='';
+Query OK, 5 rows affected (0.00 sec)
+
+MariaDB [(none)]> grant  all  privileges  on  *.*  to  'root'@'%'
+    -> identified by '123'  with grant option;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]> flush  privileges;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]> select  distinct  concat(
+    -> 'userName: ''',user,'''@''',host,'''Password: ''',password,''';')
+    -> from  mysql.user;
++------------------------------------------------------------------------------------+
+| concat(
+'userName: ''',user,'''@''',host,'''Password: ''',password,''';')          |
++------------------------------------------------------------------------------------+
+| userName: 'root'@'localhost'Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; |
+| userName: 'root'@'%'Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257';         |
++------------------------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+MariaDB [(none)]> show  grants  for  'root'@'%';
++--------------------------------------------------------------------------------------------------------------------------------+
+| Grants for root@%                                                                                                              |
++--------------------------------------------------------------------------------------------------------------------------------+
+| GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257' WITH GRANT OPTION |
++--------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+MariaDB [(none)]> exit
+Bye
+[root@V1 pyscripts]# 
+
+[root@V0 devops_day02]# vim   pymysqltest.py 
+[root@V0 devops_day02]# cat   pymysqltest.py
+#!/usr/bin/env  python3
+#coding:UTF-8
+"""#coding=UTF-8
+"""
+import  sys, pymysql
+sys.stdout.write('\033[32;46;1m__name__ is %s\n\033[0m' % __name__)
+
+#创建连接conn,访问数据库pysql
+conn =  pymysql.connect(
+  host = '192.168.1.10',  #具体的ip地址不允许空密码匿名用户存在
+#  host = '192.168.0.10', #具体的ip地址不允许空密码匿名用户存在
+#  host = '127.0.0.10',   #127.0.0.10允许空密码匿名用户存在
+  port = 3306,
+  user = 'root',
+  passwd = '123',
+  db = 'pysql',
+  charset = 'utf8'
+)
+
+cursor  = conn.cursor()  #创建游标
+
+sql_insert1 = "insert into departments values (%s, %s)"
+result = cursor.execute(sql_insert1, (7, '行政部'))
+#sql_select = 'select dep_id, dep_name  from  departments where dep_name= %s'
+#result = cursor.execute(sql_select,('财务部',))
+#对数据库表做修改操作,必须要commit提交
+conn.commit()
+
+
+if __name__ == '__main__':
+  print('\033[30;43;1m sys.argv[0]  is %s\n\033[0m' % sys.argv[0])
+
+
+
+[root@V0 devops_day02]#  mysql  -uroot -p123  -e  "use pysql;select *  from  departments;"
++--------+-----------------+
+| dep_id | dep_name        |
++--------+-----------------+
+|      1 | 人事部          |
+|      2 | 人力资源部      |
+|      5 | 市场部          |
+|      4 | 财务部          |
+|      3 | 运维部          |
+|      6 | 销售部          |
++--------+-----------------+
+[root@V0 devops_day02]# python3  pymysqltest.py
+__name__ is __main__
+ sys.argv[0]  is pymysqltest.py
+
+[root@V0 devops_day02]#  mysql  -uroot -p123  -e  "use pysql;select *  from  departments;"
++--------+-----------------+
+| dep_id | dep_name        |
++--------+-----------------+
+|      1 | 人事部          |
+|      2 | 人力资源部      |
+|      5 | 市场部          |
+|      7 | 行政部          |   #注意 7 新加的记录
+|      4 | 财务部          |
+|      3 | 运维部          |
+|      6 | 销售部          |
++--------+-----------------+
+[root@V0 devops_day02]# 
 
 
 
