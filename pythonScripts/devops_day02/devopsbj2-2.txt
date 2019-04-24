@@ -550,6 +550,18 @@ type(enginex) = <class 'sqlalchemy.engine.base.Engine'>,  enginex = Engine(mysql
 
 Table('departmentsxxxxxxxxx', MetaData(bind=None), Column('dep_id', Integer(), table=<departmentsxxxxxxxxx>, primary_key=True, nullable=False), Column('dep_name', String(length=20), table=<departmentsxxxxxxxxx>), schema=None)
 
+schema: (None)表的模式（一般默认是数据库名, 无需特别指定; 
+Oracle中是owner, 当一个数据库由多个用户管理时，
+用户的默认数据库不是要连接的数据库时，需要指定此项）
+
+comment: 注释
+
+metadata 元数据对象
+print('Base.metadata.create_all = %s, type(Base.metadata.create_all)= %s\n' \
+      %  (Base.metadata.create_all, type(Base.metadata.create_all)))
+#Base.metadata.create_all = <bound method MetaData.create_all of MetaData(bind=None)>, type(Base.metadata.create_all)= <class 'method'>
+
+
 >>> print(alchemy_create_engine.Departments.__table__)
 departmentsxxxxxxxxx
 
@@ -630,17 +642,321 @@ engine = create_engine('mysql+pymysql://root:tedu.cn@localhost/
 tarena?charset=utf8', encoding='utf8', echo=True)
 
 enginex = create_engine(
-  'mysql+pymysql://root:123@192.168.1.11/alchemy?charset=utf8',#这里不能有空格
-  encoding = 'utf8', #这里可以有空格
+  'mysql+pymysql://root:123@192.168.1.11/alchemy?charset=utf8',#这里不能有空格,在连接数据库的时候声明编码'utf8'
+  encoding = 'utf-8', #这里可以有空格,设置引擎编码方式为utf-8
   echo = True
 )
 
+设置数据库表编码方式为utf8
+from sqlalchemy import Column,ForeignKey,Integer,String,UniqueConstraint,Float,DateTime,Text
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship,sessionmaker
+from sqlalchemy import create_engine
+ 
+Base = declarative_base()
+ 
+ 
+class User(Base):
+    __tablename__ = 'tb_user’
+		id = Column(Integer,primary_key = True,autoincrement=True)
+    name = Column(String(250),nullable=False,unique = True,comment=u"姓名")
+    __table_args__ = {
+        "mysql_charset" : "utf8"
+}
+
+--------------------- 
+设置mysql编码：
+
+--在 [mysql]  标签下加上一行
+
+default-character-set = utf8
+
+ 
+
+--在 [mysql.server]标签下加上一行
+
+default-character-set = utf8
+
+ 
+
+--在 [mysqld_safe]标签下加上一行
+
+default-character-set = utf8
+
+ 
+
+--在 [client]标签下加上一行
+
+default-character-set = utf8
+
+重启服务：service mysql restart
+--------------------- 
+
+命令行连接
+mysql -u 用户名 -p密码 -h 服务器IP地址 -P 服务器端MySQL端口号  -D 数据库名 -e  相关mysql的sql语句
+注意：
+    (1)服务器端口标志-P一定要大些以区别于用户-p,如果直接连接数据库标志-D也要大写；
+    (2)如果要直接输入密码-p后面不能留有空格如-pmypassword;
+    (3)命令结束段没有';'分号。
+--------------------- 
+
+
+[root@V1 pyscripts]# mysql  --help
+  -A, --no-auto-rehash 
+无自动刷新。
+一个人必须使用“重新粉刷”来完成表和字段。
+这样可以更快地启动MySQL并禁用重新连接时的刷新。
+
+  -D, --database=name 数据库使用
+
+[root@V0 devops_day02]# mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+> show tables;"
++-------------------+
+| Tables_in_alchemy |
++-------------------+
+| departments       |
++-------------------+
+[root@V0 devops_day02]# mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+> drop  table   departments; show tables;"
+[root@V0 devops_day02]# 
+
+
+mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+drop  table   departments; show tables;"
+
+
+mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+show tables;"
+
+=========================================
+
+import  sys,  subprocess
+
+from   sqlalchemy  import  create_engine, Column, Integer, String
+from   sqlalchemy.ext.declarative  import  declarative_base
+from   sqlalchemy.orm  import  sessionmaker
+
+enginex = create_engine(
+  #  在连接数据库的时候声明编码'utf8'
+  'mysql+pymysql://root:123@192.168.1.11/alchemy?charset=utf8',#这里不能有空格
+  encoding = 'utf-8', #这里可以有空格,设置引擎编码方式为utf-8
+  echo = True
+)
+
+#首先通过声明系统,定义基类Base, 使用声明层作为基类
+Base = declarative_base() #创建映射类的基本类
+
+class  Departments(Base):  #继承基本类Base
+
+  #在alchemy数据库中创建的表名'departments'
+  #对__tablename__进行赋值，确定表名
+  __tablename__ = 'departments'   #库中的表名
+  __table_args__ = { "mysql_charset" : "utf8" } #设置数据库表编码方式为utf8
+
+  #Integer整数类型, autoincrement数字自动增加1,primary_key主键
+  dep_id = Column(Integer, autoincrement= True, primary_key= True)
+
+  # String字符串类型，nullable非空约束，unique唯一性约束
+  dep_name = Column(String(20), nullable= False, unique= True)
+
+  def  __str__(self):  #打印/显示实例时调用内建方法str
+    return  '<Departments(dep_name= %s)>'  %  self.dep_name
+
+
+if __name__ == '__main__':
+  print('\033[30;43;1m sys.argv[0]  is %s\n\033[0m' % sys.argv[0])
+
+  mysqlshell= 'mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy \
+    -e "drop  table   departments;"'
+  returncmd = subprocess.call(mysqlshell, shell = True)
+  #无法返回命令的输出,只会返回函数运行成功与否的0或其他值。
+  if returncmd == 0:
+    print('-----------OK----------------\n')
+  else:
+    print('-----returncmd = %d -------\n' % returncmd)
+
+
+  Base.metadata.create_all(enginex)
+
+-----------------------结果--------------------------
+CREATE TABLE departments (
+	dep_id INTEGER NOT NULL AUTO_INCREMENT, 
+	dep_name VARCHAR(20) NOT NULL, 
+	PRIMARY KEY (dep_id), 
+	UNIQUE (dep_name)
+)CHARSET=utf8
+-------------------------------------------
+
+
+#创建映射类的实例时,并不会真正在表中添加记录
+  hr = Departments(dep_name='人事部')
+
+  print('type(hr)= %s,   hr= %s\n' % (type(hr), hr))
+type(hr)= <class '__main__.Departments'>,   hr= <Departments(dep_name= 人事部)>
+
+  print('hr.dep_id= %s, hr.dep_name= %s, type(hr.dep_id)= %s\n' \
+      % (hr.dep_id, hr.dep_name, type(hr.dep_id)))
+
+#hr.dep_id= None, hr.dep_name= 人事部, type(hr.dep_id)= <class 'NoneType'>
+#创建映射类的实例时,并不会真正在表中添加记录
+
+  mysqlshell= "date"
+  rcmd = subprocess.check_output(mysqlshell).decode("utf-8") #返回系统shell命令>的返回值
+  if rcmd:
+    print('-----OK ---- rcmd is:\n%s --------\n' % rcmd)
+#-----OK ---- rcmd is:
+#2019年 04月 24日 星期三 13:10:21 CST
+# --------
+  else:
+    print('----- rcmd = %s -------\n' % rcmd)
+
+  sqlcmd = "\'show  tables;select  dep_id, dep_name  from  departments;\'"
+  mysqlshell= "mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy  -e  %s" %  sqlcmd
+  rcmd2 = subprocess.call(mysqlshell, shell = True)
++-------------------+
+| Tables_in_alchemy |
++-------------------+
+| departments       |
++-------------------+
+
+  if rcmd2 == 0:
+    print('-----OK ---- rcmd2  --------\n')
+-----OK ---- rcmd2  --------
+  else:
+    print('----- rcmd2 = %d -------\n' % rcmd2)
+
+
+[root@V0 devops_day02]# scp    alchemy_create_engine2.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
+
+
+[root@V0 devops_day02]# scp   alchemy_create_engine3.py    root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
+
+[root@V0 devops_day02]# scp   alchemy_create_engine4.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
+
+[root@V0 devops_day02]# scp   alchemy_create_engine6.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
+
+[root@V0 devops_day02]# scp    alchemy_ORM.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
+
+[root@V0 devops_day02]# python3
+..............
+>>> import  datetime
+>>> 
+>>> datetime.datetime.now()
+datetime.datetime(2019, 4, 24, 18, 35, 45, 117943)
+>>>
+>>> date = datetime.datetime.da
+datetime.datetime.date(  datetime.datetime.day  
+>>>
+>>> date = datetime.datetime.date(datetime.datetime.now())
+>>> date
+datetime.date(2019, 4, 24)
+>>> 
+>>> quit()
+[root@V0 devops_day02]# python3
+...............
+>>> from   datetime  import  datetime
+>>> datetime.now()
+datetime.datetime(2019, 4, 24, 18, 39, 16, 484021)
+>>> date = datetime.da
+datetime.date(  datetime.day    
+>>> date = datetime.date(datetime.now())
+>>> 
+>>> date
+datetime.date(2019, 4, 24)
+>>> type(date)
+<class 'datetime.date'>
+>>> print(date)
+2019-04-24
+>>> 
+
+[root@V1 pyscripts]# mysql -uroot -p123  -e  "use alchemy;show tables;"
+
+mysql -uroot -p123  -e  "use alchemy;delete  from  salary;"
+mysql -uroot -p123  -e  "use alchemy;delete  from  employees;"
+mysql -uroot -p123  -e  "use alchemy;delete  from  departments;"
+
+mysql -uroot -p123  -e  "use alchemy;select  *  from  departments;"
+mysql -uroot -p123  -e  "use alchemy;select  *  from  employees;"
+mysql -uroot -p123  -e  "use alchemy;select  *  from  salary;"
 
 
 
 
+dep_hr = Departments(dep_name='人力部')
+dep_dev = Departments(dep_name='开发部')
+dep_ops = Departments(dep_name='运维部')
+dep_finance = Departments(dep_name='财务部')
 
+emp_bob = Employees(
+  emp_name='bob',
+  gender = 'male',
+  phone = '13302381238',
+  email = 'bob@qq.com',
+  dep_id = 1
+)
 
+emp_alice = Employees(
+  emp_name='alice',
+  gender = 'female',
+  phone = '15802381238',
+  email = 'alice@qq.com',
+  dep_id = 1
+)
+
+emp_zs = Employees(
+  emp_name='张三',
+  gender = 'male',
+  phone = '15802581238',
+  email = 'zs@qq.com',
+  dep_id = 1
+)
+
+emp_lisi = Employees(
+  emp_name='李四',
+  gender = 'male',
+  phone = '13305881255',
+  email = 'lisi@qq.com',
+  dep_id = 2
+)
+
+emp_ww = Employees(
+  emp_name='王五',
+  gender = 'male',
+  phone = '13302381238',
+  email = 'ww@qq.com',
+  dep_id = 2
+)
+
+emp_zl = Employees(
+  emp_name='赵六',
+  gender = 'female',
+  phone = '13502381258',
+  email = 'zhaoliu@qq.com',
+  dep_id = 3
+)
+
+emp_peri = Employees(
+  emp_name='peri',
+  gender = 'female',
+  phone = '15802381258',
+  email = 'peri@qq.com',
+  dep_id = 4
+)
+
+##添加单个实例的记录
+session.add(emp_bob)
+
+##批量添加多个实例的记录
+session.add_all([emp_alice, emp_zs, emp_lisi, emp_ww, emp_zl, emp_peri])
+
+##创建多个实例
+sal_bob_201904 
+
+sal_bob_201804
+
+[root@V0 devops_day02]# scp   alchemy_create_engine_insert.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
+
+[root@V0 devops_day02]# scp   alchemy_ORM.py    root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
 
 
 
