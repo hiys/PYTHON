@@ -188,5 +188,87 @@ if __name__ == '__main__':
   
   
 
+#[root@V0 devops_day02]# python3  alchemy_ORM.py
+#__name__ is __main__
+#type(enginex) = <class 'sqlalchemy.engine.base.Engine'>,  enginex = Engine(mysql+pymysql://root:***@192.168.1.11/alchemy?charset=utf8)
+#
+#Base.metadata.create_all = <bound method MetaData.create_all of MetaData(bind=None)>, type(Base.metadata.create_all)= <class 'method'>
+#
+#Sessionmk = sessionmaker(class_='Session', bind=None, autoflush=True, autocommit=False, expire_on_commit=True),  type(Sessionmk)= <class 'sqlalchemy.orm.session.sessionmaker'>
+#
+#session = <sqlalchemy.orm.session.Session object at 0x7ff698fb6208>,  type(session)= <class 'sqlalchemy.orm.session.Session'>
+#
+# sys.argv[0]  is alchemy_ORM.py
+#
+#-----------OK----------------
+#
+#2019-04-25 10:28:37,232 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'sql_mode'
+#2019-04-25 10:28:37,232 INFO sqlalchemy.engine.base.Engine {}
+#2019-04-25 10:28:37,236 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'lower_case_table_names'
+#2019-04-25 10:28:37,236 INFO sqlalchemy.engine.base.Engine {}
+#2019-04-25 10:28:37,240 INFO sqlalchemy.engine.base.Engine SELECT DATABASE()
+#2019-04-25 10:28:37,240 INFO sqlalchemy.engine.base.Engine {}
+#2019-04-25 10:28:37,243 INFO sqlalchemy.engine.base.Engine show collation where `Charset` = 'utf8mb4' and `Collation` = 'utf8mb4_bin'
+#2019-04-25 10:28:37,243 INFO sqlalchemy.engine.base.Engine {}
+#2019-04-25 10:28:37,248 INFO sqlalchemy.engine.base.Engine SELECT CAST('test plain returns' AS CHAR(60)) AS anon_1
+#2019-04-25 10:28:37,248 INFO sqlalchemy.engine.base.Engine {}
+#2019-04-25 10:28:37,250 INFO sqlalchemy.engine.base.Engine SELECT CAST('test unicode returns' AS CHAR(60)) AS anon_1
+#2019-04-25 10:28:37,251 INFO sqlalchemy.engine.base.Engine {}
+#2019-04-25 10:28:37,253 INFO sqlalchemy.engine.base.Engine SELECT CAST('test collated returns' AS CHAR CHARACTER SET utf8mb4) COLLATE utf8mb4_bin AS anon_1
+#2019-04-25 10:28:37,253 INFO sqlalchemy.engine.base.Engine {}
+#2019-04-25 10:28:37,256 INFO sqlalchemy.engine.base.Engine DESCRIBE `departments`
+#2019-04-25 10:28:37,257 INFO sqlalchemy.engine.base.Engine {}
+#2019-04-25 10:28:37,258 INFO sqlalchemy.engine.base.Engine ROLLBACK
+#2019-04-25 10:28:37,259 INFO sqlalchemy.engine.base.Engine DESCRIBE `employees`
+#2019-04-25 10:28:37,260 INFO sqlalchemy.engine.base.Engine {}
+#2019-04-25 10:28:37,261 INFO sqlalchemy.engine.base.Engine ROLLBACK
+#2019-04-25 10:28:37,261 INFO sqlalchemy.engine.base.Engine DESCRIBE `salary`
+#2019-04-25 10:28:37,261 INFO sqlalchemy.engine.base.Engine {}
+#2019-04-25 10:28:37,262 INFO sqlalchemy.engine.base.Engine ROLLBACK
+#2019-04-25 10:28:37,264 INFO sqlalchemy.engine.base.Engine 
+#CREATE TABLE departments (
+#	dep_id INTEGER NOT NULL AUTO_INCREMENT, 
+#	dep_name VARCHAR(20) NOT NULL, 
+#	PRIMARY KEY (dep_id), 
+#	UNIQUE (dep_name)
+#)CHARSET=utf8
+#
+#
+#2019-04-25 10:28:37,264 INFO sqlalchemy.engine.base.Engine {}
+#2019-04-25 10:28:37,303 INFO sqlalchemy.engine.base.Engine COMMIT
+#2019-04-25 10:28:37,305 INFO sqlalchemy.engine.base.Engine 
+#CREATE TABLE employees (
+#	emp_id INTEGER NOT NULL AUTO_INCREMENT, 
+#	emp_name VARCHAR(20) NOT NULL, 
+#	gender VARCHAR(10), 
+#	phone VARCHAR(11), 
+#	email VARCHAR(50), 
+#	dep_id INTEGER, 
+#	PRIMARY KEY (emp_id), 
+#	FOREIGN KEY(dep_id) REFERENCES departments (dep_id)
+#)
+#
+#
+#2019-04-25 10:28:37,305 INFO sqlalchemy.engine.base.Engine {}
+#2019-04-25 10:28:37,345 INFO sqlalchemy.engine.base.Engine COMMIT
+#2019-04-25 10:28:37,347 INFO sqlalchemy.engine.base.Engine 
+#CREATE TABLE salary (
+#	auto_id INTEGER NOT NULL AUTO_INCREMENT, 
+#	emp_id INTEGER, 
+#	date DATE, 
+#	basic INTEGER, 
+#	award INTEGER, 
+#	PRIMARY KEY (auto_id), 
+#	FOREIGN KEY(emp_id) REFERENCES employees (emp_id)
+#)
+#
+#
+#2019-04-25 10:28:37,348 INFO sqlalchemy.engine.base.Engine {}
+#2019-04-25 10:28:37,378 INFO sqlalchemy.engine.base.Engine COMMIT
+#[root@V0 devops_day02]# 
+
+
+
+
 
 

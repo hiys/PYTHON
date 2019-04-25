@@ -1,0 +1,443 @@
+
+https://yiyibooks.cn/?search=sqlalchemy中文翻译文档
+https://yiyibooks.cn/information/wizard/sqlalchemy_11/
+https://yiyibooks.cn/wizard/sqlalchemy_11/index.html
+
+
+
+[root@V0 devops_day02]# scp   alchemy_ORM.py    root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
+
+[root@V0 devops_day02]# scp   alchemy_create_engine_insert.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
+
+
+ email = Column(String(50)) #String() 对应数据库中的varchar()数据类型
+
+
+#Table(name, metadata[, *column_list][, **kwargs])
+class  Departments(Base):  #继承基本类Base
+
+  #在alchemy数据库中创建的表名'departments'
+  #对__tablename__进行赋值，确定表名
+  __tablename__ = 'departments'   #库中的表名
+  __table_args__ = { "mysql_charset" : "utf8" } #设置数据库表编码方式为utf8
+
+  #Integer整数类型, autoincrement数字自动增加1,primary_key主键
+  dep_id = Column(Integer, autoincrement= True, primary_key= True)
+
+  # String字符串类型，nullable非空约束，unique唯一性约束
+  dep_name = Column(String(20), nullable= False, unique= True)
+
+  def  __str__(self):  #打印/显示实例时调用内建方法str
+    return  '<Departments(dep_name= %s)>'  %  self.dep_name
+
+------------------------------
+create  table  departments(   #部门表
+dep_id int(4),                   #部门id号
+dep_name varchar(20) not null unique,
+primary key(dep_id)
+);
+----------
+| departments | CREATE TABLE `departments` (
+  `dep_id` int(11) NOT NULL AUTO_INCREMENT,
+  `dep_name` varchar(20) NOT NULL,
+  PRIMARY KEY (`dep_id`),
+  UNIQUE KEY `dep_name` (`dep_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 |
+--------------------------------------------------------------------------
+
+
+class  Employees(Base):
+  __tablename__ = 'employees'
+  emp_id = Column(Integer, autoincrement= True, primary_key= True)
+  emp_name = Column(String(20), nullable = False)
+  gender = Column(String(10))
+  phone = Column(String(11))
+  email = Column(String(50))
+  dep_id = Column(Integer, ForeignKey('departments.dep_id'))
+
+  def  __str__(self):  #打印/显示实例时调用内建方法str
+    return  '<Employees(emp_name= %s)>' % self.emp_name
+
+create  table  employees(  #员工表
+emp_id int(4),                 #员工id号
+emp_name varchar(20)  not null,
+gender  enum('male', 'female'),
+birth_date  date,
+phone_number  varchar(11),
+email  varchar(50),
+dep_id  int(4),
+primary  key(emp_id),
+foreign  key(dep_id) references  departments(dep_id) 
+);          #外键-->部门表的部门id号
+
+| employees | CREATE TABLE `employees` (
+  `emp_id` int(11) NOT NULL AUTO_INCREMENT,
+  `emp_name` varchar(20) NOT NULL,
+  `gender` varchar(10) DEFAULT NULL,
+  `phone` varchar(11) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `dep_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`emp_id`),
+  KEY `dep_id` (`dep_id`),
+  CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`dep_id`) REFERENCES `departments` (`dep_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 |
+-----------------------------------------------------------------
+constraint    英 [kənˈstreɪnt] 
+      n.限制;限定;约束;严管
+
+class  Salary(Base):
+  __tablename__ = 'salary'
+  auto_id = Column(Integer, autoincrement=True, primary_key= True)
+  emp_id = Column(Integer, ForeignKey('employees.emp_id'))
+  date = Column(Date)
+  basic = Column(Integer)
+  award = Column(Integer)
+
+CREATE  table salary(     #员工薪水表
+auto_id int(4) auto_increment,
+date    date,
+emp_id int(4),     #员工id号
+basic  int(4),     #基本工资
+award  int(4),     #奖金
+primary  key(auto_id),
+foreign key(emp_id) references  employees(emp_id) 
+);          #外键-->员工表的员工id号
+
+| salary | CREATE TABLE `salary` (
+  `auto_id` int(11) NOT NULL AUTO_INCREMENT,
+  `emp_id` int(11) DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `basic` int(11) DEFAULT NULL,
+  `award` int(11) DEFAULT NULL,
+  PRIMARY KEY (`auto_id`),
+  KEY `emp_id` (`emp_id`),
+  CONSTRAINT `salary_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employees` (`emp_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 |
+==================
+constraint    英 [kənˈstreɪnt] 
+      n.限制;限定;约束;严管
+
+insert  into  salary
+(date,  emp_id,  basic,  award)
+values
+('2018-11-11', 1, 10000, 2000),
+('2018-01-10', 2, 8000, 1500);
+
+select  bm.emp_name, bm2.date,
+bm2.basic + bm2.award as  total
+from  employees as bm
+left  join  salary  as  bm2
+on  bm.emp_id = bm2.emp_id;
+
+delete  from  mysql.user  where  password='';
+
+grant  all  privileges  on  *.*  to  'root'@'%'
+identified by '123'  with grant option;
+
+flush  privileges;
+
+select  distinct  concat(
+'userName: ''',user,'''@''',host,''' Password: ''',password,''';')
+from  mysql.user;
+
+show  grants  for  'root'@'%';
+
+
+MariaDB [(none)]> create  database  alchemy  default charset 'utf8'; #炼金术
+
+MariaDB [(none)]> show  databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| alchemy            |
+| mysql              |
+| performance_schema |
+| pysql              |
+| test               |
++--------------------+
+6 rows in set (0.00 sec)
+
+
+MariaDB [(none)]> show  create   database  alchemy;
++----------+------------------------------------------------------------------+
+| Database | Create Database    |
++----------+------------------------------------------------------------------+
+| alchemy  | CREATE DATABASE `alchemy` /*!40100 DEFAULT CHARACTER SET utf8 */ |
+
+
+
+mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+show tables;"
+mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+select  *  from  departments;
+select  *  from  employees;
+select  *  from  salary;"
+
+mysql -uroot -p123  -D alchemy -e "show tables;"
+mysql -uroot -p123  -D alchemy -e "select  *  from  departments;"
+mysql -uroot -p123  -D alchemy -e "select  *  from  employees;"
+mysql -uroot -p123  -D alchemy -e "select  *  from  salary;"
+
+mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+show  create   database  alchemy;
+show  create   table   salary;
+show  create   table   departments;
+show  create   table   employees;"
+
+
+
+>>> import   collections
+>>> help(collections)
+.........
+PACKAGE CONTENTS
+    abc
+/named  #输入named 搜索
+
+
+FUNCTIONS
+    namedtuple(typename, field_names, *, verbose=False, rename=False, module=None)
+        Returns a new subclass of tuple with named fields.
+        
+        >>> Point = namedtuple('Point', ['x', 'y'])
+        >>> Point.__doc__                   # docstring for the new class
+        'Point(x, y)'
+        >>> p = Point(11, y=22)             # instantiate with positional args or keywords
+        >>> p[0] + p[1]                     # indexable like a plain tuple
+        33
+        >>> x, y = p                        # unpack like a regular tuple
+        >>> x, y
+        (11, 22)
+        >>> p.x + p.y                       # fields also accessible by name
+        33
+        >>> d = p._asdict()                 # convert to a dictionary
+        >>> d['x']
+        11
+        >>> Point(**d)                      # convert from a dictionary
+        Point(x=11, y=22)
+        >>> p._replace(x=100)               # _replace() is like str.replace() but targets named fields
+        Point(x=100, y=22)
+
+DATA
+    __all__ = ['deque', 'defaultdict', 'namedtuple', 'UserDict', 'UserList...
+
+FILE
+    /usr/local/lib/python3.6/collections/__init__.py
+
+(END)
+>>>
+element    英 [ˈelɪmənt]
+   n.要素;基本部分;典型部分;
+  >>> Point = namedtuple('Point', ['x', 'y'])
+
+>>> tuple_element= collections.namedtuple('tuple_element', ['index0', 'index_1'])
+
+>>> tuple_element.__doc__
+'tuple_element(index0, index_1)'
+
+>>> peri = tuple_element('red peri', 18)
+
+>>> type(peri)
+<class '__main__.tuple_element'>
+
+>>> peri
+tuple_element(index0='red peri', index_1=18)
+
+>>> peri[0]
+'red peri'
+>>> type(peri[0])
+<class 'str'>
+>>> peri[1]
+18
+>>> peri.index0
+'red peri'
+>>> peri.index_1
+18
+>>> 
+https://yiyibooks.cn/?search=sqlalchemy中文翻译文档
+
+[root@V0 devops_day02]# mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+> select  *  from  departments;
+> select  *  from  departments limit 1, 2;"
++--------+-----------+
+| dep_id | dep_name  |
++--------+-----------+
+|      1 | 人力部    |
+|      2 | 开发部    |
+|      4 | 财务部    |
+|      3 | 运维部    |
++--------+-----------+
++--------+-----------+
+| dep_id | dep_name  |
++--------+-----------+
+|      2 | 开发部    |
+|      4 | 财务部    |
++--------+-----------+
+[root@V0 devops_day02]# mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+select  *  from  departments order by dep_id limit 1, 2;"
++--------+-----------+
+| dep_id | dep_name  |
++--------+-----------+
+|      2 | 开发部    |
+|      3 | 运维部    |
++--------+-----------+
+[root@V0 devops_day02]# 
+
+
+mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+select  *  from   employees where  emp_name like  '%i%';"
+
+[root@V0 devops_day02]# mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+> select  *  from   employees where  emp_name like  '%i%';"
++--------+----------+--------+-------------+--------------+--------+
+| emp_id | emp_name | gender | phone       | email        | dep_id |
++--------+----------+--------+-------------+--------------+--------+
+|      2 | alice    | female | 15802381238 | alice@qq.com |      1 |
+|      7 | peri     | female | 15802381258 | peri@qq.com  |      4 |
++--------+----------+--------+-------------+--------------+--------+
+
+
+
+  filter(and_(Employees.email.is_(None),Employees.phone.is_(None))):
+
+  filter(Employees.emp_name.like('b_b')):
+
+mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+select e.emp_name, e.phone, d.dep_name 
+from  employees as e
+left  join  departments as  d
+on   e.dep_id = d.dep_id;"
+
+[root@V0 devops_day02]# mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+> select e.emp_name, e.phone, d.dep_name 
+> from  employees as e
+> left  join  departments as  d
+> on   e.dep_id = d.dep_id;"
++----------+-------------+-----------+
+| emp_name | phone       | dep_name  |
++----------+-------------+-----------+
+| bob      | 13302381238 | 人力部    |
+| alice    | 15802381238 | 人力部    |
+| 张三       | 15802581238   | 人力部    |
+| 李四       | 13305881255   | 开发部    |
+| 王五       | 13302381238   | 开发部    |
+| 赵六       | 13502381258   | 运维部    |
+| peri     | 15802381258 | 财务部    |
+| 老八     | NULL        | 财务部    |
+| 九妹     | NULL        | 财务部    |
++----------+-------------+-----------+
+
+
+[root@V0 devops_day02]# mysql -uroot -p123 -h192.168.0.11 -P3306 -D  pysql -e "
+select  bm.emp_name, bm2.date,
+bm2.basic + bm2.award as  total
+from  employees as bm
+left  join  salary  as  bm2
+on  bm.emp_id = bm2.emp_id;"
++----------+------------+-------+
+| emp_name | date       | total |
++----------+------------+-------+
+| 张三     | 2018-11-11 | 12000 |
+| 李四     | 2018-01-10 |  9500 |
+| 王五     | NULL       |  NULL |
++----------+------------+-------+
+[root@V0 devops_day02]# 
+
+
+
+mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+select e.emp_name, e.emp_id, s.basic+s.award as total
+from  employees as e
+left  join  salary  as  s
+on   e.emp_id = s.emp_id;"
+
+[root@V0 devops_day02]# mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+> select e.emp_name, e.emp_id, s.basic+s.award as total
+> from  employees as e
+> left  join  salary  as  s
+> on   e.emp_id = s.emp_id;"
++----------+--------+-------+
+| emp_name | emp_id | total |
++----------+--------+-------+
+| bob      |      1 | 12000 |
+| bob      |      1 | 14990 |
+| alice    |      2 | 11000 |
+| alice    |      2 | 13000 |
+| 张三     |      3 | 10000 |
+| 张三     |      3 | 10000 |
+| 李四     |      4 | 11000 |
+| 李四     |      4 | 11000 |
+| 王五     |      5 | 12100 |
+| 王五     |      5 | 13100 |
+| 赵六     |      6 | 13200 |
+| 赵六     |      6 | 13200 |
+| peri     |      7 | 18000 |
+| peri     |      7 | 18000 |
+| 老八     |      8 |  NULL |
+| 九妹     |      9 |  NULL |
++----------+--------+-------+
+[root@V0 devops_day02]# 
+[root@V0 devops_day02]# scp   alchemy_select.py    root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
+
+mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+show tables;"
+mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+select  *  from  departments;
+select  *  from  employees;
+select  *  from  salary;"
+
+==============================================
+
+sqlcmd="
+SELECT departments.dep_id , departments.dep_name
+FROM departments 
+WHERE departments.dep_name ='人力部';"
+
+echo  $sqlcmd
+
+mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy  -e "$sqlcmd"
+
+mysqlshell="mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy  -e \"$sqlcmd\""
+
+echo $mysqlshell
+
+[root@V0 devops_day02]# sqlcmd="
+> SELECT departments.dep_id , departments.dep_name
+> FROM departments 
+> WHERE departments.dep_name ='人力部';"
+[root@V0 devops_day02]# 
+[root@V0 devops_day02]# echo  $sqlcmd
+SELECT departments.dep_id , departments.dep_name FROM departments WHERE departments.dep_name ='人力部';
+[root@V0 devops_day02]# 
+[root@V0 devops_day02]# mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy  -e "$sqlcmd"
++--------+-----------+
+| dep_id | dep_name  |
++--------+-----------+
+|      1 | 人力部    |
++--------+-----------+
+[root@V0 devops_day02]# 
+[root@V0 devops_day02]# mysqlshell="mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy  -e \"$sqlcmd\""
+[root@V0 devops_day02]# 
+[root@V0 devops_day02]# echo $mysqlshell
+mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e " SELECT departments.dep_id , departments.dep_name FROM departments WHERE departments.dep_name ='人力部';"
+[root@V0 devops_day02]# 
+[root@V0 devops_day02]# 
+[root@V0 devops_day02]# scp   alchemy_mysqlshell.py    root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
