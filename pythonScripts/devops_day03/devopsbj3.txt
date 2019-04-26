@@ -1,0 +1,354 @@
+
+
+hyper          英 [ˈhaɪpə(r)]
+   adj.既兴奋又紧张的;精力过旺的
+
+transfer     美 [trænsˈfɜːr , ˈtrænsfɜːr]  
+   v.(使)转移，搬迁;(使)调动;转职;转学;改变(环境);转移(感情);传染(疾病);让与，转让(权力等)
+    n.搬迁;转移;调动;变换;
+
+超文本传输协议(
+HTTP, HyperText  Transfer  Protocol)
+是互联网上应用最为广泛的一种网络协议。
+所有的WWW文件都必须遵守这个标准。
+设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。
+
+
+
+HTTP方法
+•  GET和POST这两种方法提供了HTTP基本的
+“读”和“写”操作
+
+GET    请求获取Request-URI所标识的资源
+
+POST    在Request-URI所标识的资源后附加新的数据
+
+•  其余方法可以分为两大类:
+本质上类似于GET的方法
+和本质上类似于POST的方法
+
+•  OPTIONS 请求与给定路径匹配的HTTP头的值
+•  HEAD 请求服务器做好一切发送资源的准备,
+但是只发送头信息
+•  DELETE 请求服务器删除Request-URI所标识的资源
+•  PUT 请求服务器存储一个资源,
+并用Request-URI作为其标识
+•  TRACE 请求服务器回送收到的请求信息,
+主要用于测试或诊断
+•  CONNECT 保留将来使用
+
+
+浏览器采用GET方法,现在默认使用的协议版本是1.1
+
+•  http    ://    www.xxx.cn     /
+•  协议部分 分隔符     目标域名      请求的资源
+模拟访问:
+telnet   www.xxx.cn 80
+
+
+•  常用的请求报头
+–  METHOD 请求资源的方法,这个是必须的
+–  Host 被请求资源的名子,这个是必须的
+–  Accept 请求报头域用于指定客户端接受哪些类型的信息
+–  Accept-Encoding 它是用于指定可接受的内容编码
+–  User-Agent 客户端信息
+–  Connection 是否关闭连接
+
+
+GET应响消息
+•  HTTP/1.1 200
+协议、版本和状态码
+•  Date  日期时间
+•  Server   服务器信息
+•  Content-Type  响应内容类型
+•  Content-Length  响应数据长度
+•  Last-Modified  资源最后更改时间
+•  Connection   连接方式
+
+
+===================================
+
+view-source:https://www.baidu.com/
+
+<!DOCTYPE html>
+<!--STATUS OK-->
+
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta content="always" name="referrer">
+    <meta name="theme-color" content="#2932e1">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="search" type="application/opensearchdescription+xml" href="/content-search.xml" title="百度搜索" />
+    <link rel="icon" sizes="any" mask href="//www.baidu.com/img/baidu_85beaf5496f291521eb75ba38eacbd87.svg">
+	
+    <title>百度一下，你就知道</title>
+    
+
+<style id="css_index" index="index" type="text/css">html,body{height:100%}
+html{overflow-y:auto}
+body{font:12px arial;text-align:;background:#fff}
+............................
+.qrcode-chunwan:hover .close-chunwan{display:block}</style>
+
+<!--[if lte IE 8]>
+<style index="index" data-compress="strip">
+.s_form{top:260px}
+</style>
+<![endif]-->
+<!--[if IE 8]>
+<style index="index" data-compress="strip">
+#u1 a.mnav,#u1 a.mnav:visited,#u1 a.lb,#u1 a.lb:visited,#u1 a.pf,#u1 a.pf:visited,#u1 a.bri,#u1 a.bri:visited{font-family:simsun;}
+</style>
+<![endif]-->
+<style data-for="debug">
+#debug{display:none!important;}
+</style>
+<style data-for="result" id="css_index_result" type="text/css">#seth{display:inline;behavior:url(#default#homepage)}
+#setf{display:inline}
+....................
+#lh a{margin-left:25px}
+.bdbriwrapper-tuiguang{display:none!important}</style>
+<!--[if IE 8]>
+<style index="index" data-compress="strip">
+.s_ipt{background-color:#FFF;}
+</style>
+<![endif]-->
+
+    
+<script data-compress="strip">
+function h(obj){
+    obj.style.behavior='url(#default#homepage)';
+	var a = obj.setHomePage('//www.baidu.com/');
+}
+</script>
+
+<noscript>
+    <meta http-equiv="refresh" content="0; url=/baidu.html?from=noscript"/>
+</noscript>
+
+    <script>window._ASYNC_START=new Date().getTime();</script>
+</head>
+
+<body link="#0000cc">
+	<script>
+	if (/Chrome\/37.0.2062.94/i.test(navigator.userAgent) && (/(windows 7)|(windows nt 6.1)/i.test(navigator.userAgent))) {
+		var _chrome_37_fix = document.createElement("style");
+		_chrome_37_fix.type="text/css";
+		_chrome_37_fix.setAttribute("data-for","result");
+		_chrome_37_fix.innerHTML = ".t,.f16,#kw,.s_ipt,.c-title,.c-title-size,.to_zhidao,.to_tieba,.to_zhidao_bottom{font-size:15px;} .ec-hospital-info-main h2,.ad-widget-gx_sck-ylzx-doctor-info h2,.ec-card-main h2,.ad-widget-h1 h2,.ad-widget-title h2,.ad-widget-small-head h2,.ad-widget-small-head h2 a,.ad-widget-header .ec-figcaption h2{font-size: 15px !important;}";
+		document.getElementsByTagName("head")[0].appendChild(_chrome_37_fix);
+	}
+	</script>
+    <div id="wrapper" style="display:none;">
+...................
+    <script>
+        window.__async_strategy=2;
+    </script>
+    
+    
+<script>
+var bds={
+    se:{},
+    su:{
+        urdata:[],
+                urSendClick:function(){}
+    },
+    util:{},
+    use:{},
+    comm : {
+        domain:"http://www.baidu.com",        
+..............
+        cookie : null,
+        userAgent : "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36",
+................
+<script>
+if(navigator.cookieEnabled){
+	document.cookie="NOJS=;expires=Sat, 01 Jan 2000 00:00:00 GMT";
+}
+</script>
+
+
+
+</body>
+</html>
+=============================
+
+
+[root@V0 devops_day03]# yum  -y install  httpd 
+
+软件包 httpd-2.4.6-67.el7.x86_64 已安装并且是最新版本
+无须任何处理
+
+[root@V0 devops_day03]# vim   /var/www/html/index.html
+[root@V0 devops_day03]# cat   /var/www/html/index.html
+<!DOCTYPE html>
+<!--STATUS OK-->  #检查服务是否正常
+
+<html>
+ <head>
+  <title>百度一下title</title>
+ </head>
+ <body link="#aabbcc">
+  <div>
+   <br/> V0 192.168.0.10 httpd<tag ............/>
+   <br/>
+   <tag> .......................</tag>
+   <br/>
+  </div>
+ </body>
+</html>
+
+[root@V0 devops_day03]# systemctl  restart  httpd  && systemctl  enable  httpd
+
+[root@V0 devops_day03]# elinks   -dump   http://192.168.0.10/
+   V0 192.168.0.10 httpd
+   .......................
+[root@V0 devops_day03]# 
+
+<html lang="en">
+向搜索引擎表示该页面是html语言，并且语言为英文网站，
+其"lang"的意思就是“language”，语言的意思，而“en”即表示english
+页面如果是中文页面，可将其改为
+<html lang="zh">
+
+    <meta charset="UTF-8">
+
+网站设计的三剑客
+dreamwearver 是页面排版软件
+firework    是图片设计软件 
+Flash      是动画设计软件
+
+aspx  jsp   动态
+
+aspx文件是微软的在服务器端运行的动态网页文件,属于ASP.NET技术。
+
+
+ETag定义：RFC2616(也就是HTTP/1.1)中没有说明ETag该是什么格式的，
+只要确保用双引号括起来就行了，
+所以可以用文件的hash，
+甚至是直接用Last-Modified，
+以下是服务器端返回的格式：ETag: "50b1c1d4f775c61:df3" 
+客户端向服务端发出的请求：If-None-Match: W/"50b1c1d4f775c61:df3"  
+这样，在J2EE/JavaEE服务器端，
+我们判断如果ETag没改变也是返回状态304
+
+http状态码
+200：OK 成功
+301：永久重定向
+302：临时重定向
+如果ETag没改变 返回状态304
+403: Forbidden 禁止访问
+404：Not Found 页面找不到
+500：服务器内部错误
+
+
+客户端请求的是动态资源（*.jsp、*.asp/*.aspx、*.php），
+
+
+字号、pt(点数或磅)、px(像素)、inch(英寸)、cm(厘米)之间关系对照表
+
+
+
+CDN加速
+将源站内容分发至全球各地最接近用户的节点（用户可私人定制需求节点），
+缩短用户到节点的物理距离，使用户可就近取得所需内容，降低延迟， 
+提高用户访问网站的响应速度与网站的可用性，
+解决因分布、带宽、服务器性能突发、源服务器压力、路由跳转等问题。
+CDN能显著改善用户体验，更低的延迟，助力企业降低运营成本。
+
+
+[root@V0 devops_day03]#  scp  root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day03/ERD_2.png     /root/pyscripts/devops_day03/
+root@192.168.0.254's password: 
+
+[root@V0 devops_day03]# cp  /root/pyscripts/devops_day03/ERD_2.png   /var/www/html/
+[root@V0 devops_day03]# ls  /var/www/html/
+ERD_2.png  index.html
+
+[root@V0 devops_day03]# scp  root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day03/baidu_jgylogo3.gif     /root/pyscripts/devops_day03/
+root@192.168.0.254's password: 
+baidu_jgylogo3.gif                        100%  705   429.6KB/s   00:00    
+[root@V0 devops_day03]# cp  baidu_jgylogo3.gif   /var/www/html/
+
+[root@V0 devops_day03]# ls  /var/www/html/
+baidu_jgylogo3.gif  ERD_2.png  index.html
+
+[root@V0 devops_day03]# mkdir  /var/www/html/html/
+[root@V0 devops_day03]# cp  baidu_jgylogo3.gif  /var/www/html/html/
+[root@V0 devops_day03]# ls   /var/www/html/
+baidu_jgylogo3.gif  ERD_2.png  html  index.html
+    <img  src="baidu_jgylogo3.gif" width='200px' height='50px'>
+    <img  src='ERD_2.png'  width='400px' height='200px'> 相对路径
+
+
+[root@V0 devops_day03]# ls   /var/www/html/html/
+baidu_jgylogo3.gif
+   <img  src="/html/baidu_jgylogo3.gif" width='100px' height='80px'>
+  绝对路径/html/, 网页根目录是  /var/www/html/
+
+
+   <img  src="//www.baidu.com/img/baidu_jgylogo3.gif" width='200px' height='100px'>网络来源路径//
+
+-------------------------------------------------------------
+Content-Type: text/HTML
+表示内容是 text/HTML 类型，也就是超文本文件
+
+每个MIME类型由两部分组成，前面是数据的大类别，例如声音audio、图象image等，后面定义具体的种类。
+
+常见的MIME类型()(mimetype)
+
+超文本标记语言文本 .html,.html text/html 
+普通文本 .txt text/plain 
+RTF文本 .rtf application/rtf 
+GIF图形 .gif image/gif 
+JPEG图形 .ipeg,.jpg image/jpeg 
+au声音文件 .au audio/basic 
+MIDI音乐文件 mid,.midi audio/midi,audio/x-midi 
+RealAudio音乐文件 .ra, .ram audio/x-pn-realaudio 
+MPEG文件 .mpg,.mpeg video/mpeg 
+AVI文件 .avi video/x-msvideo 
+GZIP文件 .gz application/x-gzip 
+TAR文件 .tar application/x-tar 
+
+MIME (Multipurpose Internet Mail Extensions) 是描述消息内容类型的因特网标准。
+MIME 消息能包含文本、图像、音频、视频以及其他应用程序专用的数据。
+
+
+官方的 MIME 信息是由 Internet Engineering Task Force (IETF) 在下面的文档中提供的：
+RFC-822 Standard for ARPA Internet text messages
+
+RFC-2045 MIME Part 1: Format of Internet Message Bodies
+
+RFC-2046 MIME Part 2: Media Types
+
+RFC-2047 MIME Part 3: Header Extensions for Non-ASCII Text
+
+RFC-2048 MIME Part 4: Registration Procedures
+
+RFC-2049 MIME Part 5: Conformance Criteria and Examples
+
+不同的应用程序支持不同的 MIME 类型。
+
+
+常用文件的mime和mimetype的对应关系
+最全的： 
+http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types
+
+mimetypes	      mimes
+“image/jpeg”	“jpg”
+“image/jpeg”	“jpeg”
+“image/png”       “png”
+
+
+[root@V0 devops_day03]# scp    /var/www/html/index.html   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day03/
+
+
+
+
+
+
+
+
+
