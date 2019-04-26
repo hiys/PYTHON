@@ -242,6 +242,82 @@ django.core.exceptions.ImproperlyConfigured: Error loading either pysqlite2 or s
 
 
 
+(单选题)"有如下代码，返回的结果是
+import pymysql
+conn = pymysql.connect(省略具体参数)
+cursor = conn.cursor()
+sql = 'select * from student order by stu_id'
+cursor.execute(sql)
+cursor.fetchone()
+cursor.scroll(3, mode='absolute')
+res = cursor.fetchmany(2)
+print(res)"
+A.student表按stu_id排序后的第5行到第6行
+ B.student表按stu_id排序后的第4行到第5行
+ C.student表按stu_id排序后的第5行到最后一行
+ D.student表按stu_id排序后的第4行最后一行
+【正确答案】B
+【答题时间】2019-04-26 03:53:42
+【答案解析】cursor.fetchone()把游标移动到第二行，然后按照绝对值向后移动3，游标移动到第4行，fetchmany(2)得到的结果就是第4行和第5行
+
+
+(单选题)关于数据库名说法错误的是
+A.可以使用数字、字母和下划线，但是不能是纯数字
+ B.区分大小写，具有唯一性
+ C.不可以使用关键词、特殊符号
+ D.可以使用关键词、特殊符号，但是在写库名的时候需要用反撇号括起来
+【正确答案】C
+【答题时间】2019-04-26 03:53:42
+【答案解析】创建数据库的时候可以使用关键字、特殊字符，在创建的时候需要用反撇号把库名括起来，使用该库的时候也需要把库名用反撇号括起来。虽然可行，但是不建议这么操作
+
+
+
+(多选题)非关系型数据库有哪几种
+A.键值存储数据库
+ B.列存储数据库
+ C.面向文档数据库
+ D.图形数据库
+【正确答案】A,B,C,D
+【答题时间】2019-04-26 03:53:42
+【答案解析】键值存储数据库包括redis、memchched等；
+列存储数据库包括Hbase、Cassandra等；
+面向文档数据库包括MongoDB、CouchDB等；
+图形数据库包括Neo4J、InfoGrid等
+
+
+
+【单选题】
+(单选题)"有如下代码，返回的结果是
+import pymysql
+conn = pymysql.connect(省略具体参数)
+cursor = conn.cursor()
+sql = 'select * from student order by stu_id'
+cursor.execute(sql)
+cursor.fetchone()
+cursor.scroll(3, mode='relative')
+res = cursor.fetchmany(2)
+print(res)"
+A.student表按stu_id排序后的第5行到第6行
+ B.student表按stu_id排序后的第4行到第5行
+ C.student表按stu_id排序后的第5行到最后一行
+ D.student表按stu_id排序后的第4行最后一行
+【正确答案】A
+【答题时间】2019-04-26 03:53:42
+【答案解析】cursor.fetchone()把游标移动到第二行，
+然后按照相对值向后移动3，游标移动到第5行，fetchmany(2)得到的结果就是第5行和第6行
+
+
+
+[root@V0 devops_day02]# scp   alchemy_testxx.py     root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
+[root@V0 devops_day02]# scp   alchemy_testxx.py     root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day03
+
+
+
+
+
+
+
+
 
 
 
