@@ -1,0 +1,367 @@
+
+
+虚拟环境软件
+virtualenv 虚拟环境软件
+python3自带虚拟环境软件
+pycharm  虚拟环境软件
+
+======================================
+
+[root@V0 devops_day02]# pwd
+/root/pyscripts/devops_day02
+
+[root@V0 devops_day02]# cd
+
+[root@V0 ~]# cat   /etc/resolv.conf 
+nameserver  192.168.0.254
+
+[root@V0 ~]# ping  -c2   pypi.doubanio.com   #确保虚拟机能够解析 外网 镜像 站点
+
+PING pypi.doubanio.com.w.kunlunhuf.com (119.147.40.244) 56(84) bytes of data.
+64 bytes from 119.147.40.244 (119.147.40.244): icmp_seq=1 ttl=55 time=5.86 ms
+64 bytes from 119.147.40.244 (119.147.40.244): icmp_seq=2 ttl=55 time=6.09 ms
+
+--- pypi.doubanio.com.w.kunlunhuf.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 5.868/5.982/6.097/0.138 ms
+
+[root@V0 ~]# nslookup   pypi.doubanio.com
+
+Server:		192.168.0.254
+Address:	192.168.0.254#53
+
+Non-authoritative answer:
+pypi.doubanio.com	canonical name = pypi.doubanio.com.w.kunlunhuf.com.
+Name:	pypi.doubanio.com.w.kunlunhuf.com
+Address: 119.147.40.243
+Name:	pypi.doubanio.com.w.kunlunhuf.com
+Address: 113.96.179.242
+..........................
+Name:	pypi.doubanio.com.w.kunlunhuf.com
+Address: 119.147.40.244
+
+
+[root@V0 ~]# mkdir  .pip   #在root家目录下安装国内镜像网站站点
+
+[root@V0 ~]# vim    .pip/pip.conf
+
+[root@V0 ~]# cat    .pip/pip.conf
+
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+
+[root@V0 ~]# type  pyvenv
+pyvenv 是 /usr/local/bin/pyvenv
+
+[root@V0 ~]# ll   /usr/local/bin/pyvenv
+lrwxrwxrwx 1 root root 10 4月   2 11:31 /usr/local/bin/pyvenv -> pyvenv-3.6
+
+
+[root@V0 ~]# ll  /usr/local/bin/pyvenv-3.6 
+-rwxr-xr-x 1 root root 441 4月   2 11:31 /usr/local/bin/pyvenv-3.6
+
+[root@V0 ~]# type   pyvenv-3.6 
+pyvenv-3.6 是 /usr/local/bin/pyvenv-3.6
+
+[root@V0 ~]# file   /usr/local/bin/pyvenv-3.6
+/usr/local/bin/pyvenv-3.6: Python script, ASCII text executable
+
+[root@V0 ~]# cat  -n   /usr/local/bin/pyvenv-3.6
+     1	#!/usr/local/bin/python3.6
+     2	if __name__ == '__main__':
+     3	    import sys
+     4	    import pathlib
+     5	
+     6	    executable = pathlib.Path(sys.executable or 'python3').name
+     7	    print('WARNING: the pyenv script is deprecated in favour of '
+     8	          f'`{executable} -m venv`', file=sys.stderr)
+     9	
+    10	    rc = 1
+    11	    try:
+    12	        import venv
+    13	        venv.main()
+    14	        rc = 0
+    15	    except Exception as e:
+    16	        print('Error: %s' % e, file=sys.stderr)
+    17	    sys.exit(rc)
+[root@V0 ~]# 
+
+
+[root@V0 ~]# mkdir  devops_day03     #创建项目目录
+
+[root@V0 ~]# ls   devops_day03/
+
+--------------- 创建自定义的 干净 虚拟环境 ------------------
+------------- python3.6  -m   venv   新目录名 -------------------
+#新目录名 env_django_1_11_6  用于存储  虚拟环境
+
+[root@V0 ~]#  python3.6  -m   venv    devops_day03/env_django_1_11_6
+
+
+[root@V0 ~]# ls   -a  devops_day03/env_django_1_11_6/
+.  ..  bin  include  lib  lib64  pyvenv.cfg
+
+[root@V0 ~]# ll   devops_day03/env_django_1_11_6/bin/activate
+-rw-r--r-- 1 root root 2238 4月  26 12:43 devops_day03/env_django_1_11_6/bin/activate
+
+---------------------- 激活  虚拟环境 ---------------
+
+[root@V0 ~]# source    devops_day03/env_django_1_11_6/bin/activate
+
+(env_django_1_11_6) [root@V0 ~]# python  --version
+Python 3.6.7
+
+(env_django_1_11_6) [root@V0 ~]# pip  --version
+pip 10.0.1 from /root/devops_day03/env_django_1_11_6/lib/python3.6/site-packages/pip (python 3.6)
+
+
+(env_django_1_11_6) [root@V0 ~]# pip  install  django==1.11.6    #安装软件django指定版本1.11.6 
+
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting django==1.11.6
+  Downloading http://pypi.doubanio.com/packages/82/33/f9d2871f3aed5062661711bf91b3ebb03daa52cc0e1c37925f3e0c4508c5/Django-1.11.6-py2.py3-none-any.whl (6.9MB)
+    100% |████████████████████████████████| 7.0MB 7.1MB/s 
+Collecting pytz (from django==1.11.6)
+  Downloading http://pypi.doubanio.com/packages/3d/73/fe30c2daaaa0713420d0382b16fbb761409f532c56bdcc514bf7b6262bb6/pytz-2019.1-py2.py3-none-any.whl (510kB)
+    100% |████████████████████████████████| 512kB 5.5MB/s 
+
+Installing collected packages: pytz, django    #注意依赖包pytz
+
+Successfully installed django-1.11.6 pytz-2019.1
+You are using pip version 10.0.1, however version 19.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+(env_django_1_11_6) [root@V0 ~]# 
+
+(env_django_1_11_6) [root@V0 ~]# 
+(env_django_1_11_6) [root@V0 ~]# python
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import  django
+>>> django.
+django.VERSION           django.setup(            django.utils
+django.get_version(      django.unicode_literals  
+>>> 
+(env_django_1_11_6) [root@V0 ~]# 
+(env_django_1_11_6) [root@V0 ~]# pip   freeze   #查看在虚拟环境中安装的所有软件包
+Django==1.11.6
+pytz==2019.1
+You are using pip version 10.0.1, however version 19.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+(env_django_1_11_6) [root@V0 ~]# 
+
+(env_django_1_11_6) [root@V0 ~]# pip   freeze  >  devops_day03/pkg.txt  #导出信息到文件中
+
+You are using pip version 10.0.1, however version 19.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+
+(env_django_1_11_6) [root@V0 ~]# cat    devops_day03/pkg.txt
+Django==1.11.6
+pytz==2019.1
+(env_django_1_11_6) [root@V0 ~]# 
+
+=========================================
+================================================
+
+
+[root@V0 ~]# mkdir   pyscripts/devops_day03    #创建项目目录
+
+[root@V0 ~]# ls  pyscripts/devops_day02/
+alchemy_create_engine2.py        alchemy_delete.py        __pycache__
+alchemy_create_engine3.py        alchemy_mysqlshell.py    pymysqlcursor.py
+alchemy_create_engine4.py        alchemy_ORM.py           pymysqlfetch.py
+alchemy_create_engine5.py        alchemy_select.py        pymysqltest.py
+alchemy_create_engine_insert.py  alchemy_update.py        pymysqlupdate.py
+alchemy_create_engine.py         osfork_threadingLock.py
+
+[root@V0 ~]# ls  pyscripts/devops_day03
+[root@V0 ~]# 
+[root@V0 ~]# cd    pyscripts/devops_day03
+
+[root@V0 devops_day03]# pwd
+/root/pyscripts/devops_day03
+
+--------------- 创建自定义的 干净 虚拟环境 ------------------
+------------- python3.6  -m   venv   新目录名 -------------------
+#新目录名 new_env_django_1_11_6  用于存储  虚拟环境
+
+
+[root@V0 devops_day03]# python3.6  -m   venv    new_env_django_1_11_6
+
+
+[root@V0 devops_day03]# ls  new_env_django_1_11_6/
+bin  include  lib  lib64  pyvenv.cfg
+
+
+
+---------------------- 激活  虚拟环境 ---------------
+
+[root@V0 devops_day03]# source    new_env_django_1_11_6/bin/activate  #激活  虚拟环境 
+
+(new_env_django_1_11_6) [root@V0 devops_day03]# 
+
+(new_env_django_1_11_6) [root@V0 devops_day03]#  pip   freeze   #查看在虚拟环境中安装的所有软件包
+(new_env_django_1_11_6) [root@V0 devops_day03]# 
+
+(env_django_1_11_6) [root@V0 ~]# cp  /root/devops_day03/pkg.txt   /root/pyscripts/devops_day03/new_env_django_1_11_6/
+
+(new_env_django_1_11_6) [root@V0 devops_day03]# cat  /root/pyscripts/devops_day03/new_env_django_1_11_6/pkg.txt 
+Django==1.11.6
+pytz==2019.1
+
+(new_env_django_1_11_6) [root@V0 devops_day03]# ls
+new_env_django_1_11_6
+
+(new_env_django_1_11_6) [root@V0 devops_day03]# ls   new_env_django_1_11_6/
+bin  include  lib  lib64  pkg.txt  pyvenv.cfg
+
+
+(new_env_django_1_11_6) [root@V0 devops_day03]# pip   install  `cat new_env_django_1_11_6/pkg.txt`
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting Django==1.11.6
+  Downloading http://pypi.doubanio.com/packages/82/33/f9d2871f3aed5062661711bf91b3ebb03daa52cc0e1c37925f3e0c4508c5/Django-1.11.6-py2.py3-none-any.whl (6.9MB)
+    100% |████████████████████████████████| 7.0MB 5.2MB/s 
+Collecting pytz==2019.1
+  Downloading http://pypi.doubanio.com/packages/3d/73/fe30c2daaaa0713420d0382b16fbb761409f532c56bdcc514bf7b6262bb6/pytz-2019.1-py2.py3-none-any.whl (510kB)
+    100% |████████████████████████████████| 512kB 4.3MB/s 
+Installing collected packages: pytz, Django
+Successfully installed Django-1.11.6 pytz-2019.1
+You are using pip version 10.0.1, however version 19.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+
+(new_env_django_1_11_6) [root@V0 devops_day03]# 
+(new_env_django_1_11_6) [root@V0 devops_day03]# python
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import    django
+>>> import    pytz
+>>> pytz.
+pytz.AmbiguousTimeError(    pytz.build_tzinfo(
+pytz.BaseTzInfo(            pytz.common_timezones
+pytz.FixedOffset(           pytz.common_timezones_set
+pytz.HOUR                   pytz.country_names
+pytz.InvalidTimeError(      pytz.country_timezones(
+pytz.LazyDict(              pytz.datetime
+pytz.LazyList(              pytz.exceptions
+pytz.LazySet(               pytz.lazy
+pytz.NonExistentTimeError(  pytz.open_resource(
+pytz.OLSEN_VERSION          pytz.os
+pytz.OLSON_VERSION          pytz.resource_exists(
+pytz.UTC                    pytz.sys
+pytz.UnknownTimeZoneError(  pytz.timezone(
+pytz.VERSION                pytz.tzfile
+pytz.ZERO                   pytz.tzinfo
+pytz.all_timezones          pytz.unicode(
+pytz.all_timezones_set      pytz.unpickler(
+pytz.ascii(                 pytz.utc
+>>> django.
+django.VERSION           django.setup(            django.utils
+django.get_version(      django.unicode_literals  
+>>> 
+(new_env_django_1_11_6) [root@V0 devops_day03]# ls
+new_env_django_1_11_6
+
+(new_env_django_1_11_6) [root@V0 devops_day03]# pwd
+/root/pyscripts/devops_day03
+
+
+(new_env_django_1_11_6) [root@V0 devops_day03]# ls  new_env_django_1_11_6/
+bin  include  lib  lib64  pip-selfcheck.json  pkg.txt  pyvenv.cfg
+
+(new_env_django_1_11_6) [root@V0 devops_day03]# type  django-admin
+django-admin 是 /root/pyscripts/devops_day03/new_env_django_1_11_6/bin/django-admin
+
+(new_env_django_1_11_6) [root@V0 devops_day03]# file   /root/pyscripts/devops_day03/new_env_django_1_11_6/bin/django-admin
+
+/root/pyscripts/devops_day03/new_env_django_1_11_6/bin/django-admin: Python script, ASCII text executable
+
+
+(new_env_django_1_11_6) [root@V0 devops_day03]# django-admin  startproject  mysite  #新建一个项目
+
+(new_env_django_1_11_6) [root@V0 devops_day03]# ls
+mysite  new_env_django_1_11_6
+(new_env_django_1_11_6) [root@V0 devops_day03]# ls  mysite/
+manage.py  mysite
+
+(new_env_django_1_11_6) [root@V0 devops_day03]# ls   new_env_django_1_11_6/bin/
+activate       django-admin     easy_install-3.6  pip3.6       python3
+activate.csh   django-admin.py  pip               __pycache__  python3.6
+activate.fish  easy_install     pip3              python
+(new_env_django_1_11_6) [root@V0 devops_day03]# 
+
+(new_env_django_1_11_6) [root@V0 devops_day03]# cd  mysite/
+
+(new_env_django_1_11_6) [root@V0 mysite]# pwd
+/root/pyscripts/devops_day03/mysite
+
+(new_env_django_1_11_6) [root@V0 mysite]# ls
+manage.py  mysite
+
+(new_env_django_1_11_6) [root@V0 mysite]# ll  manage.py 
+-rwxr-xr-x 1 root root 804 4月  26 13:51 manage.py
+
+
+(new_env_django_1_11_6) [root@V0 mysite]# cat    manage.py
+#!/usr/bin/env python
+import os
+import sys
+
+if __name__ == "__main__":
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
+    try:
+        from django.core.management import execute_from_command_line
+    except ImportError:
+        # The above import may fail for some other reason. Ensure that the
+        # issue is really that Django is missing to avoid masking other
+        # exceptions on Python 2.
+        try:
+            import django
+        except ImportError:
+            raise ImportError(
+                "Couldn't import Django. Are you sure it's installed and "
+                "available on your PYTHONPATH environment variable? Did you "
+                "forget to activate a virtual environment?"
+            )
+        raise
+    execute_from_command_line(sys.argv)
+(new_env_django_1_11_6) [root@V0 mysite]# 
+(new_env_django_1_11_6) [root@V0 mysite]# ls
+manage.py  mysite
+(new_env_django_1_11_6) [root@V0 mysite]# python
+python             python3            python3.6m         
+python2            python3.6          python3.6m-config  
+python2.7          python3.6-config   python3-config     
+(new_env_django_1_11_6) [root@V0 mysite]# python    manage.py   runserver   9000
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 13 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+
+April 26, 2019 - 05:59:51
+Django version 1.11.6, using settings 'mysite.settings'
+Starting development server at http://127.0.0.1:9000/
+Quit the server with CONTROL-C.
+
+^C(new_env_django_1_11_6) [root@V0 mysite]# 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

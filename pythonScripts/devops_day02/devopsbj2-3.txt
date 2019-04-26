@@ -425,6 +425,249 @@ mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e " SELECT departments.dep_
 [root@V0 devops_day02]# scp   alchemy_mysqlshell.py    root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
 
 
+mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+UPDATE departments SET dep_name= '人力资源部'
+WHERE departments.dep_name = '人力部';" 
+
+mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "select  *  from  departments;"
+
+mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "
+UPDATE departments SET dep_name= '人力部'
+WHERE departments.dep_name = '人力资源部';" 
+
+mysql -uroot -p123 -h192.168.0.11 -P3306 -D alchemy -e "select  *  from  departments;"
+
+
+[root@V0 devops_day02]# scp   alchemy_update.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day02
+
+虚拟环境软件
+virtualenv 虚拟环境软件
+python3自带虚拟环境软件
+pycharm  虚拟环境软件
+
+====================================
+[root@V2 ~]# cd pyscripts/
+
+[root@V2 pyscripts]# cat  /etc/resolv.conf 
+nameserver  192.168.0.254
+
+[root@V2 pyscripts]# ping  -c2  www.baidu.com
+
+PING www.a.shifen.com (14.215.177.38) 56(84) bytes of data.
+64 bytes from 14.215.177.38 (14.215.177.38): icmp_seq=1 ttl=54 time=6.41 ms
+64 bytes from 14.215.177.38 (14.215.177.38): icmp_seq=2 ttl=54 time=6.46 ms
+
+--- www.a.shifen.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 6.412/6.438/6.465/0.084 ms
+[root@V2 pyscripts]#
+
+[root@V2 pyscripts]# type   pyvenv
+pyvenv 是 /usr/local/bin/pyvenv
+[root@V2 pyscripts]# rpm  -qf   /usr/local/bin/pyvenv
+文件 /usr/local/bin/pyvenv 不属于任何软件包
+
+[root@V2 pyscripts]# file   /usr/local/bin/pyvenv
+/usr/local/bin/pyvenv: symbolic link to `pyvenv-3.6'
+[root@V2 pyscripts]# ll  /usr/local/bin/pyvenv
+lrwxrwxrwx 1 root root 10 4月   2 11:31 /usr/local/bin/pyvenv -> pyvenv-3.6
+
+[root@V2 pyscripts]# ll  /usr/local/bin/pyvenv-3.6 
+-rwxr-xr-x 1 root root 441 4月   2 11:31 /usr/local/bin/pyvenv-3.6
+
+[root@V2 pyscripts]# file   /usr/local/bin/pyvenv-3.6
+/usr/local/bin/pyvenv-3.6: Python script, ASCII text executable
+
+[root@V2 pyscripts]# wc  -l  /usr/local/bin/pyvenv-3.6
+17 /usr/local/bin/pyvenv-3.6
+
+[root@V2 pyscripts]# cat  /usr/local/bin/pyvenv-3.6
+#!/usr/local/bin/python3.6
+if __name__ == '__main__':
+    import sys
+    import pathlib
+
+    executable = pathlib.Path(sys.executable or 'python3').name
+    print('WARNING: the pyenv script is deprecated in favour of '
+          f'`{executable} -m venv`', file=sys.stderr)
+
+    rc = 1
+    try:
+        import venv
+        venv.main()
+        rc = 0
+    except Exception as e:
+        print('Error: %s' % e, file=sys.stderr)
+    sys.exit(rc)
+[root@V2 pyscripts]# 
+[root@V2 pyscripts]# mkdir  myproject_env
+
+[root@V2 pyscripts]# cd  myproject_env/
+
+--------------- 创建自定义的 干净 虚拟环境 ------------------
+------------- python3.6  -m   venv   新目录名 -------------------
+#新目录名 newdir_env 用于存储  虚拟环境
+
+[root@V2 myproject_env]# python3.6  -m   venv  newdir_env
+
+[root@V2 myproject_env]# ls  -a
+.  ..  newdir_env
+
+[root@V2 myproject_env]# ls  -a  newdir_env/
+.  ..  bin  include  lib  lib64  pyvenv.cfg
+
+[root@V2 myproject_env]# 
+---------------------- 激活  虚拟环境 ---------------
+
+[root@V2 myproject_env]# ls  newdir_env/bin/
+activate      activate.fish  easy_install-3.6  pip3    python   python3.6
+activate.csh  easy_install   pip               pip3.6  python3
+
+[root@V2 myproject_env]# ll  newdir_env/bin/activate
+-rw-r--r-- 1 root root 2228 4月  26 12:18 newdir_env/bin/activate
+
+[root@V2 myproject_env]# file   newdir_env/bin/activate
+newdir_env/bin/activate: ASCII text
+
+[root@V2 myproject_env]# source   newdir_env/bin/activate
+(newdir_env) [root@V2 myproject_env]# 
+
+(newdir_env) [root@V2 myproject_env]# python
+Python 3.6.7 (default, Apr  2 2019, 11:29:55) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+
+
+(newdir_env) [root@V2 myproject_env]# pip  install  django==1.11.6
+
+Collecting django==1.11.6
+  Downloading https://files.pythonhosted.org/packages/82/33/f9d2871f3aed5062661711bf91b3ebb03daa52cc0e1c37925f3e0c4508c5/Django-1.11.6-py2.py3-none-any.whl (6.9MB)
+    100% |████████████████████████████████| 7.0MB 17kB/s 
+Collecting pytz (from django==1.11.6)
+  Downloading https://files.pythonhosted.org/packages/3d/73/fe30c2daaaa0713420d0382b16fbb761409f532c56bdcc514bf7b6262bb6/pytz-2019.1-py2.py3-none-any.whl (510kB)
+    100% |████████████████████████████████| 512kB 43kB/s 
+Installing collected packages: pytz, django
+Successfully installed django-1.11.6 pytz-2019.1
+You are using pip version 10.0.1, however version 19.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+(newdir_env) [root@V2 myproject_env]# 
+
+
+
+
+
+==============================
+[root@V2 pyscripts]# cat  .pip/pip.conf 
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+[root@V2 pyscripts]# 
+=============================
+
+======================================
+
+[root@V0 devops_day02]# pwd
+/root/pyscripts/devops_day02
+
+[root@V0 devops_day02]# cd
+
+[root@V0 ~]# ping  -c2   pypi.doubanio.com
+
+PING pypi.doubanio.com.w.kunlunhuf.com (119.147.40.244) 56(84) bytes of data.
+64 bytes from 119.147.40.244 (119.147.40.244): icmp_seq=1 ttl=55 time=5.86 ms
+64 bytes from 119.147.40.244 (119.147.40.244): icmp_seq=2 ttl=55 time=6.09 ms
+
+--- pypi.doubanio.com.w.kunlunhuf.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 5.868/5.982/6.097/0.138 ms
+
+[root@V0 ~]# nslookup   pypi.doubanio.com
+
+Server:		192.168.0.254
+Address:	192.168.0.254#53
+
+Non-authoritative answer:
+pypi.doubanio.com	canonical name = pypi.doubanio.com.w.kunlunhuf.com.
+Name:	pypi.doubanio.com.w.kunlunhuf.com
+Address: 119.147.40.243
+Name:	pypi.doubanio.com.w.kunlunhuf.com
+Address: 113.96.179.242
+..........................
+Name:	pypi.doubanio.com.w.kunlunhuf.com
+Address: 119.147.40.244
+
+
+[root@V0 ~]# mkdir  .pip   #在root家目录下安装国内镜像网站站点
+
+[root@V0 ~]# vim    .pip/pip.conf
+
+[root@V0 ~]# cat    .pip/pip.conf
+
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+[root@V0 ~]# mkdir  devops_day03
+
+[root@V0 ~]# ls   devops_day03/
+
+[root@V0 ~]#  python3.6  -m   venv    devops_day03/env_django_1_11_6
+
+
+[root@V0 ~]# ls   -a  devops_day03/env_django_1_11_6/
+.  ..  bin  include  lib  lib64  pyvenv.cfg
+
+[root@V0 ~]# ll   devops_day03/env_django_1_11_6/bin/activate
+-rw-r--r-- 1 root root 2238 4月  26 12:43 devops_day03/env_django_1_11_6/bin/activate
+
+[root@V0 ~]# source    devops_day03/env_django_1_11_6/bin/activate
+
+(env_django_1_11_6) [root@V0 ~]# python  --version
+Python 3.6.7
+
+(env_django_1_11_6) [root@V0 ~]# pip  --version
+pip 10.0.1 from /root/devops_day03/env_django_1_11_6/lib/python3.6/site-packages/pip (python 3.6)
+
+
+(env_django_1_11_6) [root@V0 ~]# pip  install  django==1.11.6
+
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting django==1.11.6
+  Downloading http://pypi.doubanio.com/packages/82/33/f9d2871f3aed5062661711bf91b3ebb03daa52cc0e1c37925f3e0c4508c5/Django-1.11.6-py2.py3-none-any.whl (6.9MB)
+    100% |████████████████████████████████| 7.0MB 7.1MB/s 
+Collecting pytz (from django==1.11.6)
+  Downloading http://pypi.doubanio.com/packages/3d/73/fe30c2daaaa0713420d0382b16fbb761409f532c56bdcc514bf7b6262bb6/pytz-2019.1-py2.py3-none-any.whl (510kB)
+    100% |████████████████████████████████| 512kB 5.5MB/s 
+
+Installing collected packages: pytz, django    #注意依赖包pytz
+
+Successfully installed django-1.11.6 pytz-2019.1
+You are using pip version 10.0.1, however version 19.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+(env_django_1_11_6) [root@V0 ~]# 
+
+(env_django_1_11_6) [root@V0 ~]# 
+(env_django_1_11_6) [root@V0 ~]# python
+Python 3.6.7 (default, Apr  2 2019, 11:30:00) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import  django
+>>> django.
+django.VERSION           django.setup(            django.utils
+django.get_version(      django.unicode_literals  
+>>> 
+(env_django_1_11_6) [root@V0 ~]# 
+
+
+
+
+
+
+
 
 
 
