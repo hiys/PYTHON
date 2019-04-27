@@ -341,8 +341,930 @@ mimetypes	      mimes
 “image/jpeg”	“jpeg”
 “image/png”       “png”
 
+BootStarp EasyUI
+一般用easyUI做系统级项目（企业级项目），
+    用bootstrap做网站类项目。
 
-[root@V0 devops_day03]# scp    /var/www/html/index.html   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day03/
+easyUI属于jQuery-UI的一个前端UI组件库（比jQuery-UI更轻量级），
+           bootstrap也有一些UI组件 
+1.boostrap UI组件大部分偏向于使用class来使用（语义化的类名），
+    easyUI  则大部分通过使用js函数来实现。 
+2.bootstrap更加侧重样式的表现，比较美观，符合现在的流行趋势，
+  easyUI反之样式不是特别好， 不太美观 
+
+3.bootstrap不带数据交互功能，
+    而easyUI则带有强大的数据交互功能 
+
+4.bootstrap兼容手机和pc，easyUI做不到这一点 
+
+5.bootstrap的前端社区比easyUI更加成熟，资源也比较丰富，
+而且bootstrap有栅格化布局也已经成为主流，是现在大部分网站或者后台系统的开发趋势，
+而且使用率高，可以在网上找到好多的实例直接使用。十分方便。
+
+
+[root@V0 devops_day03]# cat  /var/www/html/css/first.css
+.first{
+ font-size:33px;
+ color:green;
+ background-color:gray;
+<!-- background-image:url(http://192.168.0.10/ERD_2.png)-->
+}
+
+
+
+[root@V0 devops_day03]# ls  /var/www/html/css/
+first.css
+[root@V0 devops_day03]# ls  /var/www/html/html/
+baidu_jgylogo3.gif
+[root@V0 devops_day03]# ls  /var/www/html/
+baidu_jgylogo3.gif  css  ERD_2.png  html  index.html  test.html
+
+[root@V0 devops_day03]# vim   /var/www/html/test.html
+
+  <title>test--title</title>
+  <link  rel='stylesheet' href='./css/first.css'/>
+  <style>
+   .first{
+    font-size:26px;
+    color:blue;
+   }
+  </style>
+ </head>
+ <body bgcolor="pink">
+  <div  class='first'>
+   <table  border=1>
+
+
+lavender
+英 [ˈlævəndə(r)]   美 [ˈlævəndər]  
+n.
+熏衣草(花园植物或灌木，开紫花，有香味);干熏衣草花(用以熏香衣物等);淡紫色
+
+
+.first{
+ font-size:53px;
+ color:green;
+ background-color:gray;
+<!-- background-image:url(http://192.168.0.10/ERD_2.png)-->
+}
+
+http://192.168.0.10/test.html
+
+
+
+[root@V1 pyscripts]# ls  -a
+.   .pip            tcp_client_oop.py  udp_client2.py  udp_client.py
+..  tcp_client2.py  tcp_client.py      udp_client3.py
+[root@V1 pyscripts]# pwd
+/root/pyscripts
+
+[root@V1 pyscripts]# python  -m  SimpleHTTPServer
+Serving HTTP on 0.0.0.0 port 8000 ...
+192.168.0.254 - - [27/Apr/2019 14:10:25] "GET / HTTP/1.1" 200 -
+192.168.0.254 - - [27/Apr/2019 14:10:26] code 404, message File not found
+192.168.0.254 - - [27/Apr/2019 14:10:26] "GET /favicon.ico HTTP/1.1" 404 -
+192.168.0.254 - - [27/Apr/2019 14:10:30] "GET /.pip/ HTTP/1.1" 200 -
+192.168.0.254 - - [27/Apr/2019 14:10:32] "GET /.pip/pip.conf HTTP/1.1" 200 -
+
+http://192.168.0.11:8000/
+
+Directory listing for /
+
+.pip/
+tcp_client.py
+tcp_client2.py
+
+
+[root@V0 devops_day03]# pwd
+/root/pyscripts/devops_day03
+
+[root@V0 devops_day03]# cd  /var/www/html/
+
+[root@V0 html]# python  -m  SimpleHTTPServer
+
+http://192.168.0.10:8000/test.html
+
+192.168.0.254 - - [27/Apr/2019 14:16:36] "GET /test.html HTTP/1.1" 200 -
+192.168.0.254 - - [27/Apr/2019 14:16:36] "GET /css/base.css HTTP/1.1" 200 -
+
+[root@V0 html]# python  -m  SimpleHTTPServer
+Serving HTTP on 0.0.0.0 port 8000 ...
+192.168.0.254 - - [27/Apr/2019 14:18:44] "GET /test.html HTTP/1.1" 200 -
+192.168.0.254 - - [27/Apr/2019 14:18:44] "GET /css/base.css HTTP/1.1" 200 -
+^C----------------------------------------
+
+[root@V0 html]# cd -
+/root/pyscripts/devops_day03
+[root@V0 devops_day03]# 
+
+
+微信小程序的背景图映入base64
+
+page {
+  overflow:hidden; 
+  position:fixed; 
+  /* background-image:url('http://p0d5ombx1.bkt.clouddn.com/login.png');  */
+  background: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2w.........................0P/aAAgBAwEBPwAWA//Z);
+  margin: 0px; 
+  /*下面的是关键的设置100%显示*/ 
+  background-size: auto 100%;
+}
+
+
+dhtml chm
+DHTML.CHM帮助文档-CSDN下载
+https://www.jb51.net/books/64330.html
+
+html  style dom style
+
+HTML DOM Style 对象 样式设置修改 (案例) - weixin_44..._CSDN博客
+https://blog.csdn.net/weixin_44382073/article/details/86651304
+
+
+Bootstrap
+是美国Twitter公司的设计师Mark Otto和Jacob Thornton合作
+基于HTML、CSS、JavaScript 开发的简洁、直观、强悍的前端开发框架，
+使得 Web 开发更加快捷
+
+Bootstrap中文网
+Bootstrap是Twitter推出的一个用于前端开发的开源工具包。
+它由Twitter的设计师Mark Otto和Jacob Thornton合作开发,是一个CSS/HTML框架。
+目前,Bootstrap最新版本为3.0 ...
+http://www.bootcss.com/
+
+HTML DOM Style 对象
+http://www.w3school.com.cn/jsref/dom_obj_style.asp
+
+HTML 全局属性
+http://www.w3school.com.cn/tags/html_ref_standardattributes.asp
+
+参考手册
+标签列表（字母排序）
+标签列表（功能排序）
+HTML 属性
+HTML 事件
+HTML 视频/音频
+HTML 画布
+HTML 文档类型
+HTML 颜色名
+HTML 字符集
+HTML ASCII
+HTML ISO-8859-1
+HTML 符号
+HTML URL 编码
+HTML 语言代码
+HTTP 消息
+HTTP 方法
+HTML 标签
+
+[root@V0 devops_day03]# scp   /var/www/html/test.html  root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day03/
+
+bootstrap  admin theme
+
+https://colorlib.com/wp/free-bootstrap-admin-dashboard-templates/
+
+39 Free Bootstrap Admin Dashboard Templates For Your Web App 2019
+
+Node.js v10.15.3 文档
+
+http://nodejs.cn/
+
+Node.js 中文网 v10.15.3
+assert - 断言
+async_hooks - 异步钩子
+Buffer - 缓冲器
+child_process - 子进程
+cluster - 集群
+console - 控制台
+crypto - 加密
+debugger - 调试器
+dgram - 数据报
+dns - 域名服务器
+domain - 域
+Error - 异常
+events - 事件触发器
+fs - 文件系统
+global - 全局变量
+http - HTTP
+http2 - HTTP/2
+https - HTTPS
+inspector - 检查器
+module - 模块
+net - 网络
+os - 操作系统
+path - 路径
+perf_hooks - 性能钩子
+process - 进程
+punycode - 域名代码
+querystring - 查询字符串
+readline - 逐行读取
+repl - 交互式解释器
+stream - 流
+string_decoder - 字符串解码器
+timer - 定时器
+tls - 安全传输层
+trace_events - 跟踪事件
+tty - 终端
+url - URL
+util - 实用工具
+v8 - V8引擎
+vm - 虚拟机
+worker_threads - 工作线程
+zlib - 压缩
+关于本文档
+用法与示例
+C++插件
+N-API
+命令行选项
+ECMAScript 模块
+
+[root@V0 devops_day03]# scp  /var/www/html/css/base.css  root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day03/
+
+===========================================
+
+解决linux 无法下载 oracle 官网 java的 安装包
+wget  --no-cookies  --no-check-certificate  --header 
+ "Cookie: oraclelicense=accept-securebackup-cookie;" 
+ "http://download.oracle.com/otn-pub/java/jdk/7u80-b15/jdk-7u80-linux-x64.rpm"。
+
+原因是因为默认下载时没接受许可协议。
+http://www.oracle.com/technetwork/java/javase/downloads/
+
+=============================================
+
+https://www.oracle.com/technical-resources/
+技术资源
+（原Oracle技术网）
+获取有关使用和管理Oracle产品的问题的答案，包括软件下载，文档，技术文章，示例代码，社区论坛，培训和支持。
+
+https://www.oracle.com/technetwork/java/javase/downloads/index.html
+
+1.JDK下载地址：
+https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+
+https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+
+ Java SE开发工具包8u212
+您必须接受Oracle Java SE的Oracle技术网络许可协议才能下载此软件。
+感谢您接受Oracle Java SE的Oracle技术网许可协议; 您现在可以下载此软件。
+http://download.oracle.com/otn-pub/java/jdk/7u80-b15/jdk-7u80-linux-x64.rpm
+
+
+2.点击Accept License Agreement，下载适合自己电脑版本的JDK
+
+
+可能下的是个SDK（开发包）带JDK升级包，
+但本机未安装任何JAVA环境，建议先下载 jdk-6u37-linux-i586-rpm.bin等先安装java运行环境
+
+https://www.java.com/zh_CN/download/
+免费 Java 下载
+
+重要的Oracle Java许可证更新
+Oracle Java许可证已从2019年4月16日开始发布更改。
+
+免费 Java 下载
+https://www.java.com/zh_CN/download/linux_manual.jsp
+https://www.java.com/zh_CN/download/linux_manual.jsp
+
+适用于 Linux 的 Java 下载
+推荐 Version 8 Update 211
+发行日期 2019 年 4 月 16 日 
+===============================================
+
+https://www.java.com/zh_CN/download/help/linux_x64_install.xml
+
+用于 Java 的 Linux 64 位安装说明
+本文适用于:
+平台: Red Hat Linux, SUSE Linux, Oracle Linux, Oracle Enterprise Linux, Ubuntu Linux, SLES
+Java 版本: 7.0, 8.0
+
+按照以下步骤为 Linux 下载和安装 Java。
+下载
+安装
+下载
+
+此过程使用档案二进制文件 (.tar.gz) 安装用于 64 位 Linux 的 Java 运行时环境 (JRE)。
+
+转至 http://java.com 并单击下载按钮。
+您必须先接受许可协议，然后才能下载文件。
+下载并检查所下载的文件大小，确保下载了完整无缺的软件包。
+下载文件之前，注意 Web 站点下载页面上提供的文件大小。
+下载完毕后，比较所下载文件的大小以及页面上提供的文件大小，确保二者相同。
+
+安装
+
+ 下面是针对的是版本 Java 8 Update 73 (8u73) 的安装说明。如果您安装的是其他版本，请确保在终端上键入命令时对版本号进行相应的更改。
+示例：对于 Java 8u79，将 8u73 替换为 8u79。
+请注意，就如在前面的示例中一样，版本号的前面有时会附加字母 u，有时会附加下划线；例如 jre1.8.0_73。 
+关于根访问权限的说明：要在系统范围的位置（例如 /usr/local）安装 Java，您必须以 root 用户身份登录以获取必要权限。
+如果您不具有超级用户访问权限，请将 Java 安装在您的主目录中，或者安装在您具有写入权限的子目录中。
+
+切换到所需的安装目录。键入：
+cd directory_path_name
+例如，要将软件安装到 /usr/java/ 目录中，请键入：
+cd /usr/java/
+
+将 .tar.gz 档案二进制文件移到当前目录。
+解压缩 tarball 并安装 Java
+tar zxvf jre-8u73-linux-x64.tar.gz
+
+Java 文件将安装在当前目录中名为 jre1.8.0_73 的目录内。在本示例中，Java 将安装在 /usr/java/jre1.8.0_73 目录中。
+当安装完成时，您将看到 Done（完成）字样。
+如果要节省磁盘空间，请删除 .tar.gz 文件。
+
+
+　　1.JDK下载地址：http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html.
+
+　2.点击Accept License Agreement，下载适合自己电脑版本的JDK.由于我的电脑是windows10 64位专业版，所以我选择的是最后一个。
+
+　　点击红色下载按钮。保存位置自己决定，只要自己安装时能找到就行。
+
+　　3.找到安装文件，双击。
+
+　　4.下一步，这里会让你选择安装目录。
+
+　　注意：最好不要选择源安装目录，
+因为你发现Program Files中间含有空格，以后编译java软件可能会发生错误，
+一时半会都找不到问题出在哪里，所以防患于未然，这里建议安装到其他目录上面。
+我个人是选择在D盘新建一个文件给他叫做Java，打开Java文件夹，
+在里面新建两个文件夹，一个叫jdk，一个叫jre.
+　　5.回到原来的安装界面，更改安装目录到刚刚新建的那个jdk文件下。点击下一步。
+
+　　6.安装完jdk之后，会弹出jre的安装界面。这里选择安装路径到新建的jre文件夹下面。
+　　7.点击下一步。之后jdk和jre都安装成功。点击关闭。
+　　8.测试jdk是否安装成功。这里教大家一个快捷键。windows+R打开运行界面。输入cmd打开dos系统。
+
+　9.点击运行。输入java。如果显示下面内容就表示安装成功。
+
+　10.但是当你输入javac的时候，会显示这个。
+这是因为你还没有配置java运行环境，接下来教你们怎么配置java运行环境，配置完运行环境就能使用完整的java了。
+
+　11.右键电脑属性，打开高级系统设置。
+
+　12.点击高级，再点击环境变量。
+
+　　13.新建系统变量JAVA_HOME，变量值填D:\Java\jdk，（这是我的jdk的安装路径，你们安装在其他盘的找到jdk的安装路径复制进去就行）
+
+　　14.找到自己系统变量里的Path,双击，找到编辑文本点击，在变量值的最后添加   ;%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin
+
+　　15.新建系统变量CLASSPATH，变量值填  .;%JAVA_HOME%\lib;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar（
+注意这个变量值前面还有一个点，代表从当前路径）
+
+　　16.点击确定，这时来测试以下javac能不能用，windows+R键打开运行，输入cmd，打开dos系统，
+输入javac.
+[root@V0 devops_day03]# javac
+用法: javac <options> <source files>
+其中, 可能的选项包括:
+  -g                         生成所有调试信息
+  -g:none                    不生成任何调试信息
+  -g:{lines,vars,source}     只生成某些调试信息
+  -nowarn                    不生成任何警告
+  -verbose                   输出有关编译器正在执行的操作的消息
+  -deprecation               输出使用已过时的 API 的源位置
+  -classpath <路径>            指定查找用户类文件和注释处理程序的位置
+  -cp <路径>                   指定查找用户类文件和注释处理程序的位置
+  -sourcepath <路径>           指定查找输入源文件的位置
+  -bootclasspath <路径>        覆盖引导类文件的位置
+  -extdirs <目录>              覆盖所安装扩展的位置
+  -endorseddirs <目录>         覆盖签名的标准路径的位置
+  -proc:{none,only}          控制是否执行注释处理和/或编译。
+  -processor <class1>[,<class2>,<class3>...] 要运行的注释处理程序的名称; 绕过默认的搜索进程
+  -processorpath <路径>        指定查找注释处理程序的位置
+  -parameters                生成元数据以用于方法参数的反射
+  -d <目录>                    指定放置生成的类文件的位置
+  -s <目录>                    指定放置生成的源文件的位置
+  -h <目录>                    指定放置生成的本机标头文件的位置
+  -implicit:{none,class}     指定是否为隐式引用文件生成类文件
+  -encoding <编码>             指定源文件使用的字符编码
+  -source <发行版>              提供与指定发行版的源兼容性
+  -target <发行版>              生成特定 VM 版本的类文件
+  -profile <配置文件>            请确保使用的 API 在指定的配置文件中可用
+  -version                   版本信息
+  -help                      输出标准选项的提要
+  -A关键字[=值]                  传递给注释处理程序的选项
+  -X                         输出非标准选项的提要
+  -J<标记>                     直接将 <标记> 传递给运行时系统
+  -Werror                    出现警告时终止编译
+  @<文件名>                     从文件读取选项和文件名
+
+[root@V0 devops_day03]# 
+
+　　17.到此为止，jdk的安装以及java运行环境已经全部完成了，使用eclipse的同学可以开始自己的编程之旅了，
+如果在配置环境变量之中遇到任何问题，欢迎在评论区留言。
+
+分类: Java SE
+标签: Java SE, 技术。
+
+https://www.cnblogs.com/liu-en-ci/p/6743106.html
+
+
+
+
+Linux 下使用Shell脚本启动Java应用
+
+示例项目源码地址：https://gitee.com/liupeifeng3514/Linux_Java_Shell
+
+打包方式
+
+选中项目—>右键—>Export—>WAR file
+
+部署项目
+
+将打包好的项目上传到 Linux 服务器上，使用如下命令解压：
+
+[root@peipei3514 src]# unzip -oq Linux_Java_Shell.war -d /usr/local/Linux_Java_Shell
+
+命令解释：
+
+-o 不必先询问用户，unzip执行后覆盖原有文件；
+-q 执行时不显示任何信息；
+-d <目录> 指定文件解压缩后所要存储的目录。
+
+启动脚本
+#!/bin/sh
+#该脚本为Linux下启动java程序的通用脚本。既可以作为开机自启动service脚本被调用，
+#也可以作为启动java程序的独立脚本来使用。
+#
+#警告!!!：该脚本stop部分使用系统kill命令来强制终止指定的java程序进程。
+#在杀死进程前，未作任何条件检查。在某些情况下，如程序正在进行文件或数据库写操作，
+#可能会造成数据丢失或数据不完整。如果必须要考虑到这类情况，则需要改写此脚本，
+#增加在执行kill命令前的一系列检查。
+#
+#
+###################################
+#环境变量及程序执行参数
+#需要根据实际环境以及Java程序名称来修改这些参数
+###################################
+[root@V0 devops_day03]# ls  /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/
+bin  include  jre  lib  tapset
+
+[root@V0 devops_day03]# ls   /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/bin
+appletviewer  java     java-rmi.cgi  jhat   jrunscript  keytool       rmic         servertool  xjc
+extcheck      javac    jcmd          jinfo  jsadebugd   native2ascii  rmid         tnameserv
+idlj          javadoc  jconsole      jjs    jstack      orbd          rmiregistry  unpack200
+jar           javah    jdb           jmap   jstat       pack200       schemagen    wsgen
+jarsigner     javap    jdeps         jps    jstatd      policytool    serialver    wsimport
+[root@V0 devops_day03]# 
+
+[root@V0 devops_day03]# ll  /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/bin/jps 
+-rwxr-xr-x 1 root root 7352 6月  14 2017 /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/bin/jps
+[root@V0 devops_day03]# 
+
+#JDK所在路径
+JAVA_HOME="/usr/local/jdk1.8.0_161/"
+
+[root@V0 devops_day03]# which  java
+/usr/bin/java
+[root@V0 devops_day03]# ll  /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/jre/bin/java
+-rwxr-xr-x. 1 root root 7304 6月  14 2017 /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/jre/bin/java
+
+[root@V0 devops_day03]# cd  /usr/lib/jvm/
+[root@V0 jvm]# ls
+java
+java-1.8.0
+java-1.8.0-openjdk
+java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64
+java-openjdk
+jre
+jre-1.8.0
+jre-1.8.0-openjdk
+jre-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64
+jre-openjdk
+[root@V0 jvm]# 
+
+
+#执行程序启动所使用的系统用户，考虑到安全，推荐不使用root帐号
+RUNNING_USER=root
+
+#Java程序所在的目录（classes的上一级目录）
+APP_HOME=/usr/local/Linux_Java_Shell/WEB-INF/
+
+
+#需要启动的Java主程序（main方法类）
+APP_MAINCLASS=com.lpf.Test
+
+
+#拼凑完整的classpath参数，包括指定lib目录下所有的jar
+CLASSPATH=$APP_HOME/classes
+for i in "$APP_HOME"/lib/*.jar; do
+   CLASSPATH="$CLASSPATH":"$i"
+done
+
+#java虚拟机启动参数
+JAVA_OPTS="-ms512m -mx512m -Xmn256m -Djava.awt.headless=true -XX:MaxPermSize=128m"
+
+
+###################################
+#(函数)判断程序是否已启动
+#
+#说明：
+#使用JDK自带的JPS命令及grep命令组合，准确查找pid
+#jps 加 l 参数，表示显示java的完整包路径
+#使用awk，分割出pid ($1部分)，及Java程序名称($2部分)
+###################################
+#初始化psid变量（全局）
+psid=0
+
+checkpid() {
+   javaps=`$JAVA_HOME/bin/jps -l | grep $APP_MAINCLASS`
+
+checkpid() {
+   javaps=`$JAVA_HOME/bin/jps -l | grep $APP_MAINCLASS`
+
+   if [ -n "$javaps" ]; then
+      psid=`echo $javaps | awk '{print $1}'`
+   else
+      psid=0
+   fi
+}
+
+###################################
+#(函数)启动程序
+#
+#说明：
+#1. 首先调用checkpid函数，刷新$psid全局变量
+#2. 如果程序已经启动（$psid不等于0），则提示程序已启动
+#3. 如果程序没有被启动，则执行启动命令行
+#4. 启动命令执行后，再次调用checkpid函数
+#5. 如果步骤4的结果能够确认程序的pid,则打印[OK]，否则打印[Failed]
+#注意：echo -n 表示打印字符后，不换行
+#注意: "nohup 某命令 >/dev/null 2>&1 &" 的用法
+###################################
+start() {
+   checkpid
+
+   if [ $psid -ne 0 ]; then
+
+
+启动应用：
+
+###################################
+#读取脚本的第一个参数($1)，进行判断
+#参数取值范围：{start|stop|restart|status|info}
+#如参数不在指定范围之内，则打印帮助信息
+###################################
+case "$1" in
+   'start')
+      start
+      ;;
+   'stop')
+     stop
+     ;;
+   'restart')
+     stop
+     start
+     ;;
+   'status')
+     status
+     ;;
+   'info')
+
+
+[root@peipei3514 Linux_Java_Shell]# ./Linux_Java_Shell.sh start
+
+
+一、javac命令
+javac 用于编译Java文件，格式为：
+java [options] [sourcefiles] [@files]
+其中：
+options：命令行选项；
+sourcefiles：一个或多个要编译的源文件；
+@files：一个或多个对源文件进行列表的文件，有时候要编译的文件很多，
+一个个敲命令会显得很长，也不方便修改，可以把要编译的源文件列在文件中，
+在文件名前加@，这样就可以对多个文件进行编译，
+对编译一个工程很有用，方便，省事。
+
+有几个比较重要的选项：
+-d 用于指定编译成的class文件的存放位置，缺省情况下不指定class文件的存放目录，
+编译的class文件将和源文件在同一目录下；
+
+-classpath 可以简写成-cp，用于搜索编译所需的class文件，
+指出编译所用到的class文件的位置，如jar、zip或者其他包含class文件的目录，
+指定该选项会覆盖CLASSPATH的设定；
+-sourcepath用于搜索编译所需的源文件（即java文件），
+指定要搜索的源文件的位置，如jar、zip或其他包含java文件的目录；
+
+
+二、java命令
+java 用于执行程序，格式如下：
+java [options] classfile
+options：命令行选项，一般用于 -classpath 指定要执行的文件所在的位置以及需要用到的类路径，
+包括jar、zip和class文件目录，会覆盖CLASSPATH的设定
+
+
+
+
+最后，用文本编辑器编写代码。用 javac 文件名 编译代码，java 类名 运行。
+
+
+
+
+[root@V0 jvm]# vim  hello.java
+[root@V0 jvm]# cat   hello.java
+public class HelloWorld{
+  public static void main(String[] args){
+    System.out.print("Hello World!");
+  }
+}
+[root@V0 jvm]# javac  hello.java
+hello.java:1: 错误: 类HelloWorld是公共的, 应在名为 HelloWorld.java 的文件中声明
+
+这个问题是，当类设置public时，public设置的那个类必须与文件名相同。
+
+
+
+
+输入命令javac HelloWorld.java 编译Java类
+输入java HelloWorld执行Java类
+
+
+[root@V0 devops_day03]# ls  /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/
+bin  include  jre  lib  tapset
+
+[root@V0 devops_day03]# ls   /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/bin
+appletviewer  java     java-rmi.cgi  jhat   jrunscript  keytool       rmic         servertool  xjc
+extcheck      javac    jcmd          jinfo  jsadebugd   native2ascii  rmid         tnameserv
+idlj          javadoc  jconsole      jjs    jstack      orbd          rmiregistry  unpack200
+jar           javah    jdb           jmap   jstat       pack200       schemagen    wsgen
+jarsigner     javap    jdeps         jps    jstatd      policytool    serialver    wsimport
+[root@V0 devops_day03]# 
+
+[root@V0 devops_day03]# ll  /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/bin/jps 
+-rwxr-xr-x 1 root root 7352 6月  14 2017 /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/bin/jps
+[root@V0 devops_day03]# 
+
+
+
+
+
+
+
+
+
+
+查看yum库中的Java安装包
+
+[root@V0 devops_day03]# yum list |grep java
+java-1.8.0-openjdk.x86_64               1:1.8.0.131-11.b12.el7     @anaconda/7.4
+java-1.8.0-openjdk-headless.x86_64      1:1.8.0.131-11.b12.el7     @anaconda/7.4
+javapackages-tools.noarch               3.4.1-11.el7               @anaconda/7.4
+python-javapackages.noarch              3.4.1-11.el7               @anaconda/7.4
+tzdata-java.noarch                      2017b-1.el7                @anaconda/7.4
+abrt-java-connector.x86_64              1.0.6-12.el7               rhel7        
+java-1.6.0-openjdk.x86_64               1:1.6.0.41-1.13.13.1.el7_3 rhel7        
+java-1.6.0-openjdk-devel.x86_64         1:1.6.0.41-1.13.13.1.el7_3 rhel7        
+java-1.7.0-openjdk.x86_64               1:1.7.0.141-2.6.10.5.el7   rhel7        
+java-1.7.0-openjdk-devel.x86_64         1:1.7.0.141-2.6.10.5.el7   rhel7        
+java-1.7.0-openjdk-headless.x86_64      1:1.7.0.141-2.6.10.5.el7   rhel7        
+java-1.8.0-openjdk.i686                 1:1.8.0.131-11.b12.el7     rhel7        
+java-1.8.0-openjdk-devel.i686           1:1.8.0.131-11.b12.el7     rhel7        
+java-1.8.0-openjdk-devel.x86_64         1:1.8.0.131-11.b12.el7     rhel7        
+java-1.8.0-openjdk-headless.i686        1:1.8.0.131-11.b12.el7     rhel7        
+java-atk-wrapper.i686                   0.30.4-5.el7               rhel7        
+java-atk-wrapper.x86_64                 0.30.4-5.el7               rhel7        
+javamail.noarch                         1.4.6-8.el7                rhel7        
+javassist.noarch                        3.16.1-10.el7              rhel7        
+libguestfs-java.x86_64                  1:1.36.3-6.el7             rhel7        
+libvirt-java.noarch                     0.4.9-4.el7                rhel7        
+libvirt-java-devel.noarch               0.4.9-4.el7                rhel7        
+mysql-connector-java.noarch             1:5.1.25-3.el7             rhel7        
+nuxwdog-client-java.x86_64              1.0.3-5.el7                rhel7        
+pki-base-java.noarch                    10.4.1-10.el7              rhel7        
+system-switch-java.noarch               1.1.7.1-0.el7              rhel7        
+
+[root@V0 devops_day03]# yum  -y install  java-1.8.0-openjdk*
+已加载插件：langpacks, product-id, search-disabled-repos, subscription-manager
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+软件包 1:java-1.8.0-openjdk-devel-1.8.0.131-11.b12.el7.x86_64 已安装并且是最新版本
+软件包 1:java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64 已安装并且是最新版本
+软件包 1:java-1.8.0-openjdk-headless-1.8.0.131-11.b12.el7.x86_64 已安装并且是最新版本
+无须任何处理
+[root@V0 devops_day03]#
+
+[root@V0 devops_day03]# java  -version
+openjdk version "1.8.0_131"
+OpenJDK Runtime Environment (build 1.8.0_131-b12)
+OpenJDK 64-Bit Server VM (build 25.131-b12, mixed mode)
+[root@V0 devops_day03]# 
+
+[root@V0 devops_day03]# type  java
+java 已被哈希 (/usr/bin/java)
+[root@V0 devops_day03]# rpm  -qf  /usr/bin/java
+文件 /usr/bin/java 不属于任何软件包
+
+[root@V0 devops_day03]# file   /usr/bin/java
+/usr/bin/java: symbolic link to `/etc/alternatives/java'
+
+[root@V0 devops_day03]# ll  /usr/bin/java
+lrwxrwxrwx. 1 root root 22 1月  30 2018 /usr/bin/java -> /etc/alternatives/java
+
+[root@V0 devops_day03]# ll   /etc/alternatives/java
+lrwxrwxrwx. 1 root root 72 1月  30 2018 /etc/alternatives/java -> /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/jre/bin/java
+
+[root@V0 devops_day03]# ll   /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/jre/bin/java
+-rwxr-xr-x. 1 root root 7304 6月  14 2017 /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/jre/bin/java
+
+[root@V0 devops_day03]# file    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/jre/bin/java
+/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/jre/bin/java: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=2f50bd8b973122cab485167ad7524e2d7587a49f, stripped
+[root@V0 devops_day03]# 
+
+
+[root@V0 devops_day03]# type  javac
+javac 是 /usr/bin/javac
+[root@V0 devops_day03]# ll  /usr/bin/javac
+lrwxrwxrwx 1 root root 23 4月  27 17:21 /usr/bin/javac -> /etc/alternatives/javac
+
+[root@V0 devops_day03]# ll   /etc/alternatives/javac
+lrwxrwxrwx 1 root root 69 4月  27 17:21 /etc/alternatives/javac -> /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/bin/javac
+
+[root@V0 devops_day03]# ll   /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/bin/javac
+-rwxr-xr-x 1 root root 7352 6月  14 2017 /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/bin/javac
+
+[root@V0 devops_day03]# file    /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/bin/javac
+/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/bin/javac: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=a60931f33d7cd45e2f4b154a0dd216ace14ecb30, stripped
+[root@V0 devops_day03]# 
+
+[root@V0 devops_day03]# 
+
+[root@V0 devops_day03]# echo  $JAVA_HOME
+
+[root@V0 devops_day03]# which  java
+/usr/bin/java
+[root@V0 devops_day03]# ll  /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/jre/bin/java
+-rwxr-xr-x. 1 root root 7304 6月  14 2017 /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/jre/bin/java
+
+[root@V0 devops_day03]# cd  /usr/lib/jvm/  #家目录
+
+[root@V0 jvm]# ls
+java
+java-1.8.0
+java-1.8.0-openjdk
+java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64
+java-openjdk
+jre
+jre-1.8.0
+jre-1.8.0-openjdk
+jre-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64
+jre-openjdk
+[root@V0 jvm]# 
+
+[root@V0 devops_day03]# cd  /usr/lib/jvm/  #家目录
+
+[root@V0 jvm]# ls
+java
+java-1.8.0
+java-1.8.0-openjdk
+java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64
+java-openjdk
+jre
+jre-1.8.0
+jre-1.8.0-openjdk
+jre-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64
+jre-openjdk
+
+[root@V0 jvm]# vim  hello.java
+
+[root@V0 jvm]# cat   hello.java
+
+public class HelloWorld{
+  public static void main(String[] args){
+    System.out.print("Hello World!");
+  }
+}
+
+[root@V0 jvm]# javac  hello.java
+hello.java:1: 错误: 类HelloWorld是公共的, 应在名为 HelloWorld.java 的文件中声明
+public class HelloWorld{
+       ^
+1 个错误
+
+[root@V0 jvm]# ls
+hello.java          java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64  jre-1.8.0-openjdk
+java                java-openjdk                                    jre-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64
+java-1.8.0          jre                                             jre-openjdk
+java-1.8.0-openjdk  jre-1.8.0
+
+------------------------------------- 当类设置public时，public设置的那个类必须与文件名相同
+----------------- 解决办法 修改文件名 和类名 相同的名称,区分大小写 ------------
+
+[root@V0 jvm]# mv  hello.java    HelloWorld.java
+                #命令javac  文件完整的名称
+[root@V0 jvm]# javac   HelloWorld.java  #命令javac  文件完整的名称 # 编译Java类
+
+[root@V0 jvm]# java    HelloWorld
+
+Hello World![root@V0 jvm]# 
+
+
+[root@V0 jvm]# 
+[root@V0 jvm]# cd -
+/root/pyscripts/devops_day03
+
+[root@V0 devops_day03]# vim   hello.java
+
+[root@V0 devops_day03]# cat   hello.java
+
+public  class  hello{
+  public static void main(String[] args){
+    System.out.print("Hello World!\n");
+  }
+}
+
+[root@V0 devops_day03]# javac   hello.java
+
+[root@V0 devops_day03]# java     hello
+Hello World!
+[root@V0 devops_day03]# 
+
+
+首先在shell中执行js脚本需要可以执行的环境，其次调配环境，之后进行运行，具体步骤与实例如下：
+①安装java、javac环境（如已安装环境请跳过此步）
+
+[root@V0 devops_day03]# yum  -y install  java-1.8.0-openjdk*
+已加载插件：langpacks, product-id, search-disabled-repos, subscription-manager
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+软件包 1:java-1.8.0-openjdk-devel-1.8.0.131-11.b12.el7.x86_64 已安装并且是最新版本
+软件包 1:java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64 已安装并且是最新版本
+软件包 1:java-1.8.0-openjdk-headless-1.8.0.131-11.b12.el7.x86_64 已安装并且是最新版本
+无须任何处理
+
+[root@V0 devops_day03]# 
+
+[root@V0 devops_day03]# java  -version
+openjdk version "1.8.0_131"
+OpenJDK Runtime Environment (build 1.8.0_131-b12)
+OpenJDK 64-Bit Server VM (build 25.131-b12, mixed mode)
+
+[root@V0 devops_day03]# type  java
+java 已被哈希 (/usr/bin/java)
+
+[root@V0 devops_day03]# vim    RunScriptFile.java
+[root@V0 devops_day03]# cat    RunScriptFile.java
+import java.io.FileReader;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+public class RunScriptFile {
+ public static void main(String[] args) {
+  ScriptEngineManager manager = new ScriptEngineManager();
+  ScriptEngine engine = manager.getEngineByName("js");
+  try {
+   FileReader reader = new FileReader("testFile.js");
+   engine.eval(reader);
+   reader.close();
+  }
+  catch (Exception e) {
+   e.printStackTrace();
+  }
+ }
+}
+[root@V0 devops_day03]# vim    testFile.js
+[root@V0 devops_day03]# cat    testFile.js
+function add(a, b) {
+ c = a + b;
+ return c;
+}
+result = add (10, 5);
+print ('Result = ' + result);
+[root@V0 devops_day03]# javac   RunScriptFile.java
+
+[root@V0 devops_day03]# java    RunScriptFile
+Result = 15
+[root@V0 devops_day03]# 
+
+[root@V0 devops_day03]# ls  /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/
+bin  include  jre  lib  tapset
+[root@V0 devops_day03]# ls   /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/bin
+appletviewer  java     java-rmi.cgi  jhat   jrunscript  keytool       rmic         servertool  xjc
+extcheck      javac    jcmd          jinfo  jsadebugd   native2ascii  rmid         tnameserv
+idlj          javadoc  jconsole      jjs    jstack      orbd          rmiregistry  unpack200
+jar           javah    jdb           jmap   jstat       pack200       schemagen    wsgen
+jarsigner     javap    jdeps         jps    jstatd      policytool    serialver    wsimport
+
+
+[root@V0 devops_day03]# file   /usr/lib/jvm/HelloWorld.class
+/usr/lib/jvm/HelloWorld.class: compiled Java class data, version 52.0 (Java 1.8)
+
+[root@V0 devops_day03]# du  -sh  /usr/lib/jvm/
+165M	/usr/lib/jvm/
+[root@V0 devops_day03]# scp   -r   /usr/lib/jvm/  root@192.168.0.254:/root/桌面/
+
+[root@V0 devops_day03]# scp   RunScriptFile.java   testFile.js   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day03/
+root@192.168.0.254's password: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

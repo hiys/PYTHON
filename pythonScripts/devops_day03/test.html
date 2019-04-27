@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--STATUS OK-->
+
+<html lang="en">
+ <head>
+  <meta  content="text/html;charset=utf-8">
+  <meta name="keywords" content="翻译,在线翻译,百度翻译,词典,英语,"/>
+  <meta name="description" content="百度翻译支持中、英、日、韩、泰、法、西、德等语言"/>
+  <meta name="renderer" content="webkit">
+  <title>test--title</title>
+
+  <!--优先级第3 -->
+  <link  href="./css/base.css" rel="stylesheet" type="text/css" charset="utf-8"/>
+
+  <!--优先级第2 -->
+  <style>
+   .second{
+    font-size:32px;
+    color:blue;
+    background-color:green;
+   }
+  </style>
+ </head>
+<!-- <body bgcolor="pink"> -->
+ <body bgcolor='pink'>
+  <!--优先级第1 -->
+  <div class='second' style='background-color:purple;font-size:24px;'>
+   <table  border=1>
+    <tr>
+     <td>姓名</td>
+     <td>年龄</td>
+    </tr> 
+    <tr><td>Tom</td><td>4</td></tr>
+    <tr><td>Alice</td><td>13</td></tr>
+    <tr><td colspan='2'>成人组</td></tr>
+    <tr><td>刘若英</td><td>33</td></tr>
+    <tr><td>凤凰传奇</td>
+     <td>
+      <table  border='1'>
+       <tr><td>a</td><td>a</td></tr>
+       <tr><td>a</td><td>a</td></tr>
+      </table>
+     </td>
+    </tr>
+   </table>
+   <hr/>
+   <img  src="//www.baidu.com/img/baidu_jgylogo3.gif" width='200px' height='70px'><!--注释文字//www.baidu 这是网络路径//hr水平线--><hr/>
+  </div>
+  <!--优先级第2 -->
+  <div class='second'>
+   &nbsp;&nbsp;second优先级第2 
+   <hr/>
+   <p id='no_id'>
+    pppp  id='no_id' span, p{font-size:64px;}
+   </p>
+  </div>
+  <!--优先级第3 -->
+  <div class='third'>
+   &nbsp;&nbsp;third优先级第3 
+   background-image:url(http://192.168.0.10/ERD_2.png);
+   <hr/>
+  </div>
+  <p id='id_p'>
+   pppxxxxxpp  color:red;id='id_p'
+  </p>
+  <div class="third_2">
+   <span>span, p{font-size:64px;} span</span>
+   third_2优先级第3 background-color:gray;
+   <hr/>
+  </div>
+  <div id="idcss">
+   third  idcss 优先级第3 color:yellow;
+   <hr/>
+  </div>
+  <div>
+   <ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3<span>abc  span</span></li>
+    <li>4</li>
+   </ul>
+  </div>
+  <div id='div1'>
+    div1  color: #00aaff;
+  </div>
+  <div id='div2'>
+   <p name="div2p">div2p   color: rgb(1,0,255);</p>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://www.cnblogs.com/liu-en-ci/p/6743106.html -->
+<html lang="zh-cn"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="origin">
+    <title>【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园</title>
+<meta property="og:description" content="摘要：不管是作为苦逼的Java码农，还是高端大气的Java系统架构师，如果不会安装JDK以及配置Java运行环境，那就巧妇难为无米之炊，不能进行Java后续的代码编写。当然如果你是Myeclipse编">
+    <link type="text/css" rel="stylesheet" href="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/bundle-Dark.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/bundle-Dark-mobile.css">
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/liu-en-ci/rss">
+    <link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/liu-en-ci/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/liu-en-ci/wlwmanifest.xml">
+    <script src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/amp4ads-host-v0.js"></script><script src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/pubads_impl_rendering_2019041801.js"></script><script async="" src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/analytics.js"></script><script src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/jquery-2.2.0.min.js"></script>
+    <script>var currentBlogId=345262;var currentBlogApp='liu-en-ci',cb_enable_mathjax=false;var isLogined=false;</script>
+    <script src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/blog-common.js" type="text/javascript"></script>
+<link rel="preload" href="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/integrator.js" as="script"><script type="text/javascript" src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/integrator.js"></script><script src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/pubads_impl_2019041801.js" async=""></script></head>
+<body>
+<a name="top"></a>
+
+
+<table width="100%" cellspacing="0" cellpadding="5" border="0">
+<tbody><tr>
+<td class="banner" height="100">
+
+<div id="header">
+	<span>
+		<a id="Header1_HeaderTitle" href="https://www.cnblogs.com/liu-en-ci/">LuckJavaCi</a><br>
+		<div class="sub">meet the different world</div>
+	</span>
+</div>
+</td>
+</tr>
+<tr>
+<td style="padding-left: 5px" height="35">
+<div style="border: solid 4px #333333; padding: 0px">
+<div style="border: solid 1px #666666; padding: 5px">
+<a id="blog_nav_sitehome" class="listitem" href="https://www.cnblogs.com/">博客园</a> | 
+<a id="blog_nav_myhome" class="listitem" href="https://www.cnblogs.com/liu-en-ci/">首页</a> | 
+<a id="blog_nav_newpost" class="listitem" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">发新随笔</a> | 
+<a id="MyLinks1_NewArticleLink" class="listitem" href="https://www.cnblogs.com/EnterMyBlog.aspx?NewArticle=1">发新文章</a> | 
+<a id="blog_nav_contact" accesskey="9" class="listitem" rel="nofollow" href="https://msg.cnblogs.com/send/LuckJavaCi">联系</a> | 
+<a id="blog_nav_rss" class="listitem" href="https://www.cnblogs.com/liu-en-ci/rss">订阅</a> <a id="blog_nav_rss_image" href="https://www.cnblogs.com/liu-en-ci/rss"><img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/xml.gif" alt="订阅"></a> | 
+<a id="blog_nav_admin" class="listitem" rel="nofollow" href="https://i.cnblogs.com/">管理</a>
+
+<div id="blog_stats"><div id="blog_stats">
+随笔：11
+文章：1
+评论：29
+引用：0</div></div>
+</div>
+</div>
+</td>
+</tr>
+</tbody></table>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tbody><tr>
+<td valign="top" style="padding: 0">
+<table align="center" width="100%" height="1400" cellspacing="0" cellpadding="5" border="0" class="index">
+<tbody><tr>
+<td class="banner" valign="top">
+
+        <div id="post_detail">
+<div class="block">
+	<h1 class="block_title"><a id="cb_post_title_url" href="https://www.cnblogs.com/liu-en-ci/p/6743106.html">【Java SE】如何安装JDK以及配置Java运行环境</a></h1>
+	<div class="post">
+		<div class="postcontent">
+			<div id="cnblogs_post_body" class="blogpost-body"><h2><strong>摘要：不管是作为苦逼的Java码农，还是高端大气的Java系统架构师，如果不会安装JDK以及配置Java运行环境，那就巧妇难为无米之炊，不能进行Java后续的代码编写。当然如果你是Myeclipse编译器的爱好者，你就可以直接点击右上角的×，然后在心里给我一个大大的鄙视就好了。如果你使用的是dos黑框编译Java代码，那么希望接下来的内容能带你进入Java的新世界。</strong></h2>
+<h3><strong>前期准备：</strong></h3>
+<p><strong>　　<span style="color: #ff6600;">1.JDK(版本选择的话各人有各人的看法，我自己更喜欢1.8版本以上，有人喜欢1.6，或者1.7版本的也无可非议，但是技术是在进步的，早一点接受新技术也没什么不好的)</span></strong></p>
+<p><span style="color: #ff6600;"><strong>　　2.一双明眸以及听话的双手。</strong></span></p>
+<p>&nbsp;</p>
+<h3><strong>话不多说，进入正题。</strong></h3>
+<p><strong>　　1.JDK下载地址：http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html.</strong></p>
+<p><strong>　　<img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/1035652-20170421125128681-1694502245.png" alt=""></strong></p>
+<p>　　2.点击Accept License Agreement，下载适合自己电脑版本的JDK.由于我的电脑是windows10 64位专业版，所以我选择的是最后一个。</p>
+<p>　　<img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/1035652-20170421125343665-1590826165.png" alt=""></p>
+<p>　　点击红色下载按钮。保存位置自己决定，只要自己安装时能找到就行。</p>
+<p>　　3.找到安装文件，双击。</p>
+<p>　　<img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/1035652-20170421125656071-704177630.png" alt="" width="266" height="201"></p>
+<p>　　4.下一步，这里会让你选择安装目录。</p>
+<p>　　注意：最好不要选择源安装目录，因为你发现Program Files中间含有空格，以后编译java软件可能会发生错误，一时半会都找不到问题出在哪里，所以防患于未然，这里建议安装到其他目录上面。我个人是选择在D盘新建一个文件给他叫做Java，打开Java文件夹，在里面新建两个文件夹，一个叫jdk，一个叫jre.</p>
+<p>　　<img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/1035652-20170421130359040-685861846.png" alt="" width="626" height="142"></p>
+<p>　　5.回到原来的安装界面，更改安装目录到刚刚新建的那个jdk文件下。点击下一步。</p>
+<p>　　<img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/1035652-20170421130524946-1114971147.png" alt="" width="369" height="280"></p>
+<p>　　6.安装完jdk之后，会弹出jre的安装界面。这里选择安装路径到新建的jre文件夹下面。</p>
+<p>　　<img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/1035652-20170421130652102-1711946241.png" alt="" width="342" height="260"><img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/1035652-20170421130802446-1494424491.png" alt="" width="350" height="264"></p>
+<p>　　7.点击下一步。之后jdk和jre都安装成功。点击关闭。</p>
+<p>　　<img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/1035652-20170421131202399-1471279826.png" alt="" width="331" height="251"></p>
+<p>　　8.测试jdk是否安装成功。这里教大家一个快捷键。windows+R打开运行界面。输入cmd打开dos系统。</p>
+<p>　　<img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/1035652-20170421131454243-729799460.png" alt="" width="332" height="190"></p>
+<p>　　9.点击运行。输入java。如果显示下面内容就表示安装成功。</p>
+<p>　　<img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/1035652-20170421155816493-1199895005.png" alt="" width="697" height="375"></p>
+<p>　　10.但是当你输入javac的时候，会显示这个。这是因为你还没有配置java运行环境，接下来教你们怎么配置java运行环境，配置完运行环境就能使用完整的java了。</p>
+<p>　　<img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/1035652-20170421155927384-955711692.png" alt="" width="699" height="365"></p>
+<p>&nbsp;</p>
+<p>&nbsp;　　11.右键电脑属性，打开高级系统设置。</p>
+<p>&nbsp;　　<img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/1035652-20170421160208384-1526395166.png" alt="" width="373" height="457"></p>
+<p>　　12.点击高级，再点击环境变量。</p>
+<p>　　<img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/1035652-20170421160311993-436224637.png" alt="" width="354" height="372"></p>
+<p>　　13.新建系统变量JAVA_HOME，变量值填D:\Java\jdk，（这是我的jdk的安装路径，你们安装在其他盘的找到jdk的安装路径复制进去就行）</p>
+<p>&nbsp;　　<img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/1035652-20170421160714134-1278111964.png" alt="" width="486" height="138"></p>
+<p>　</p>
+<p>　　14.找到自己系统变量里的Path,双击，找到编辑文本点击，在变量值的最后添加&nbsp;&nbsp; ;%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin</p>
+<p>　　<img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/1035652-20170421161419556-170699020.png" alt="" width="488" height="139"></p>
+<p>　　15.新建系统变量CLASSPATH，变量值填&nbsp; .;%JAVA_HOME%\lib;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar（注意这个变量值前面还有一个点，代表从当前路径）</p>
+<p>　　<img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/1035652-20170421163711384-1959818363.png" alt="" width="481" height="137"></p>
+<p>&nbsp;</p>
+<p>　　16.点击确定，这时来测试以下javac能不能用，windows+R键打开运行，输入cmd，打开dos系统，输入javac.</p>
+<p>　　<img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/1035652-20170421163734102-1315153237.png" alt="" width="590" height="317"></p>
+<p>　　17.到此为止，jdk的安装以及java运行环境已经全部完成了，使用eclipse的同学可以开始自己的编程之旅了，如果在配置环境变量之中遇到任何问题，欢迎在评论区留言。</p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="https://www.cnblogs.com/liu-en-ci/category/988834.html" target="_blank">Java SE</a></div>
+<div id="EntryTag">标签: <a href="https://www.cnblogs.com/liu-en-ci/tag/Java%20SE/">Java SE</a>, <a href="https://www.cnblogs.com/liu-en-ci/tag/%E6%8A%80%E6%9C%AF%E3%80%82/">技术。</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(6743106,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;cfe95c03-bd86-e611-845c-ac853d9f53ac&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/liu-en-ci/" target="_blank"><img src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/20170331143328.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/liu-en-ci/">LuckJavaCi</a><br>
+            <a href="http://home.cnblogs.com/u/liu-en-ci/followees">关注 - 1</a><br>
+            <a href="http://home.cnblogs.com/u/liu-en-ci/followers">粉丝 - 10</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;cfe95c03-bd86-e611-845c-ac853d9f53ac&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(6743106,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">6</span>
+    </div>
+    <div class="buryit" onclick="votePost(6743106,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="https://www.cnblogs.com/liu-en-ci/p/6721963.html" class="p_n_p_prefix">« </a> 上一篇：<a href="https://www.cnblogs.com/liu-en-ci/p/6721963.html" title="发布于2017-04-17 11:16">【CSS】如何用css做一个爱心</a><br><a href="https://www.cnblogs.com/liu-en-ci/p/6772617.html" class="p_n_p_prefix">» </a> 下一篇：<a href="https://www.cnblogs.com/liu-en-ci/p/6772617.html" title="发布于2017-04-27 09:38">【Java SE】如何用Java实现冒泡排序</a><br></div>
+</div>
+
+
+		</div>
+		<div class="itemdesc">
+			发表于 <span id="post-date">2017-04-21 16:41</span> <a href="https://www.cnblogs.com/liu-en-ci/">LuckJavaCi</a> 阅读(<span id="post_view_count">39750</span>) 评论(<span id="post_comment_count">3</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=6743106" rel="nofollow">编辑</a> <a href="https://www.cnblogs.com/liu-en-ci/p/6743106.html#" onclick="AddToWz(6743106);return false;">收藏</a>
+		</div>
+	</div>
+	<div class="seperator">&nbsp;</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=345262,cb_entryId=6743106,cb_blogApp=currentBlogApp,cb_blogUserGuid='cfe95c03-bd86-e611-845c-ac853d9f53ac',cb_entryCreatedDate='2017/4/21 16:41:00';loadViewCount(cb_entryId);var cb_postType=1;var isMarkdown=false;</script>
+	
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<div class="post">
+<a name="评论"></a>
+<div class="moreinfo">
+	<div class="moreinfotitle">
+		评论
+	</div>
+	
+	
+			<div class="comments">
+		
+			<div class="comment">
+				<div class="comment_title">
+					<a href="https://www.cnblogs.com/liu-en-ci/p/6743106.html#3781299" class="layer">#1楼</a><a name="3781299" id="comment_anchor_3781299"></a>
+				</div>
+				<div class="comment_content"><div id="comment_body_3781299" class="blog_comment_body">您好，我早上安装了数据库和vs 下午安装java se 的时候 ，安装界面就显示不出来，选择了下一步之后，就没有反应了。。不知道是为什么呢</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3781299,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3781299,&#39;Bury&#39;,this)">反对(0)</a></div></div>
+				<div class="comment_footer"><a id="a_comment_author_3781299" href="http://home.cnblogs.com/u/1178529/" target="_blank">樱桃不淘</a> <a href="http://msg.cnblogs.com/send/%E6%A8%B1%E6%A1%83%E4%B8%8D%E6%B7%98" title="发送站内短消息" class="sendMsg2This">&nbsp;</a> 评论于  <span class="comment_date">2017-09-11 19:10</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+		
+			<div class="comment">
+				<div class="comment_title">
+					<a href="https://www.cnblogs.com/liu-en-ci/p/6743106.html#3781955" class="layer">#2楼</a><a name="3781955" id="comment_anchor_3781955"></a>[<span class="louzhu">楼主</span>]
+				</div>
+				<div class="comment_content"><div id="comment_body_3781955" class="blog_comment_body"><a href="https://www.cnblogs.com/liu-en-ci/p/6743106.html#3781299" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3781299);">@</a>
+樱桃不淘<br>jdk的安装界面出不来吗？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3781955,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3781955,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3781955_avatar" style="display:none;">http://pic.cnblogs.com/face/1035652/20170331143328.png</span></div>
+				<div class="comment_footer"><a id="a_comment_author_3781955" href="https://www.cnblogs.com/liu-en-ci/" target="_blank">LuckJavaCi</a> <a href="http://msg.cnblogs.com/send/LuckJavaCi" title="发送站内短消息" class="sendMsg2This">&nbsp;</a> 评论于  <span class="comment_date">2017-09-12 13:51</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+		
+			<div class="comment">
+				<div class="comment_title">
+					<a href="https://www.cnblogs.com/liu-en-ci/p/6743106.html#3920807" class="layer">#3楼</a><a name="3920807" id="comment_anchor_3920807"></a><span id="comment-maxId" style="display:none;">3920807</span><span id="comment-maxDate" style="display:none;">2018/3/12 14:52:47</span>
+				</div>
+				<div class="comment_content"><div id="comment_body_3920807" class="blog_comment_body">我这样做了没行，在Path前面又添加了D:\Java\jdk\bin才成</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3920807,&#39;Digg&#39;,this)">支持(1)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3920807,&#39;Bury&#39;,this)">反对(0)</a></div></div>
+				<div class="comment_footer"><a id="a_comment_author_3920807" href="https://www.cnblogs.com/cjf1699-dut/" target="_blank">扶摇直上的鱼</a> <a href="http://msg.cnblogs.com/send/%E6%89%B6%E6%91%87%E7%9B%B4%E4%B8%8A%E7%9A%84%E9%B1%BC" title="发送站内短消息" class="sendMsg2This">&nbsp;</a> 评论于  <span class="comment_date">2018-03-12 14:52</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment_actions"></span></div>
+			</div>
+		
+			</div>
+		
+</div>
+</div>
+<div class="seperator">&nbsp;</div>
+<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="https://www.cnblogs.com/liu-en-ci/p/6743106.html#" onclick="return RefreshPage();">刷新页面</a><a href="https://www.cnblogs.com/liu-en-ci/p/6743106.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-工控&#39;)">【推荐】超50万C++/C#源码: 大型实时仿真组态图形源码</a><br><a href="https://ke.qq.com/adActivity.html?name=xiangxueketang2" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-享学&#39;)">【培训】IT职业生涯指南，Java程序员薪资翻3倍的秘密</a><br><a href="https://group.cnblogs.com/topic/81220.html" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-咕泡&#39;)">【培训】架构师开发十年，就只剩下这套架构体系了</a><br><a href="https://gitee.com/enterprises?from=bky-2" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-gitee&#39;)">【推荐】专业便捷的企业级代码托管服务 - Gitee 码云</a><br></div>
+<div id="opt_under_post"></div>
+<script async="async" src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/gpt.js"></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+<script>
+  googletag.cmd.push(function() {
+        googletag.defineSlot('/1090369/C1', [300, 250], 'div-gpt-ad-1546353474406-0').addService(googletag.pubads());
+        googletag.defineSlot('/1090369/C2', [468, 60], 'div-gpt-ad-1539008685004-0').addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+  });
+</script>
+<div id="cnblogs_c1" class="c_ad_block">
+    <div id="div-gpt-ad-1546353474406-0" style="height:250px; width:300px;" data-google-query-id="CMCX3dH97-ECFUwbvAodcMkOzA"><div id="google_ads_iframe_/1090369/C1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C1_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" style="border: 0px; vertical-align: bottom;" data-google-container-id="1" data-load-complete="true" src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/saved_resource.html"></iframe></div></div>
+</div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>相关博文：</b><br>·  <a href="https://www.cnblogs.com/xing901022/p/3955794.html" target="_blank" onclick="clickRecomItmem(3955794)">【java开发系列】—— JDK安装</a><br>·  <a href="https://www.cnblogs.com/XDJjy/p/4234833.html" target="_blank" onclick="clickRecomItmem(4234833)">java jdk安装</a><br>·  <a href="https://www.cnblogs.com/xiaomingtx/p/5618308.html" target="_blank" onclick="clickRecomItmem(5618308)">运行monitor提示需要安装旧JAVA SE 6运行环境</a><br>·  <a href="https://www.cnblogs.com/liulei0919/p/9687313.html" target="_blank" onclick="clickRecomItmem(9687313)">Java安装JDK</a><br>·  <a href="https://www.cnblogs.com/baoxiaofei/p/4257187.html" target="_blank" onclick="clickRecomItmem(4257187)">java的SE、EE、ME、跨平台性质、安装jdk</a><br></div></div>
+<div id="cnblogs_c2" class="c_ad_block">
+    <div id="div-gpt-ad-1539008685004-0" style="height:60px; width:468px;" data-google-query-id="CKr229H97-ECFUwbvAodcMkOzA"><div id="google_ads_iframe_/1090369/C2_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/1090369/C2_0" title="3rd party ad content" name="google_ads_iframe_/1090369/C2_0" width="468" height="60" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" data-google-container-id="2" style="border: 0px; vertical-align: bottom;" data-load-complete="true" src="./【Java SE】如何安装JDK以及配置Java运行环境 - LuckJavaCi - 博客园_files/saved_resource(1).html"></iframe></div></div>
+</div>
+<div id="under_post_kb"><div class="itnews c_ad_block"><b>最新新闻</b>：<br> ·  <a href="https://news.cnblogs.com/n/624480/" target="_blank">新锤子手机系统要来了？坚果OS官方微博现身</a><br> ·  <a href="https://news.cnblogs.com/n/624479/" target="_blank">大规模广告欺诈?谷歌下架百度DO Global 46款应用</a><br> ·  <a href="https://news.cnblogs.com/n/624478/" target="_blank">B站付费会员猛增51倍 年轻人愿为精品付费</a><br> ·  <a href="https://news.cnblogs.com/n/624477/" target="_blank">马斯克与SEC达成和解：今后发特斯拉推文要律师批准</a><br> ·  <a href="https://news.cnblogs.com/n/624476/" target="_blank">自主导航机器人设备帮助医生完成对活猪实施的心脏瓣膜修复手术</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+ if(enablePostBottom()) {
+    codeHighlight();
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverT2();
+    deliverC1();
+    deliverC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);  
+}
+</script>
+</div>
+
+    
+</div></td>
+</tr>
+</tbody></table>
+</td>
+<td width="200" valign="top" style="border-left: dashed 1px #CCCCCC">
+<table align="center" width="100%" height="1400" cellspacing="0" cellpadding="5" border="0">
+<tbody><tr>
+<td class="banner" valign="top" style="padding-top: 0px">
+
+<table width="100%" height="200">
+<tbody><tr>
+<td>
+<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2019/03/01&#39;);return false;">&lt;</a></td><td align="center">2019年4月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2019/05/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td align="center">5</td><td class="CalWeekendDay" align="center">6</td></tr><tr><td class="CalWeekendDay" align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td align="center">12</td><td class="CalWeekendDay" align="center">13</td></tr><tr><td class="CalWeekendDay" align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td align="center">19</td><td class="CalWeekendDay" align="center">20</td></tr><tr><td class="CalWeekendDay" align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td align="center">26</td><td class="CalTodayDay" align="center">27</td></tr><tr><td class="CalWeekendDay" align="center">28</td><td align="center">29</td><td align="center">30</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td></tr><tr><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td><td class="CalOtherMonthDay" align="center">11</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+</td>
+</tr>
+</tbody></table>
+<div id="side_right">
+
+<h1>公告</h1>
+<div align="center" style="margin-top:10px;"><div id="blog-news"><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/liu-en-ci/">LuckJavaCi</a><br>园龄：<a href="https://home.cnblogs.com/u/liu-en-ci/" title="入园时间：2016-09-30">2年6个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/liu-en-ci/followers/">10</a><br>关注：<a href="https://home.cnblogs.com/u/liu-en-ci/followees/">1</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;cfe95c03-bd86-e611-845c-ac853d9f53ac&#39;)">+加关注</a></div><script>getFollowStatus('cfe95c03-bd86-e611-845c-ac853d9f53ac')</script></div></div><script type="text/javascript">loadBlogNews();</script></div>
+<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+<div id="widget_my_google" class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="https://www.cnblogs.com/liu-en-ci/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+
+</div></div><div id="sidebar_recentposts" class="sidebar-block">
+<h3 class="catListTitle">最新随笔</h3>
+<div class="RecentComment" id="RecentPosts">
+<ul style="word-break:break-all">
+<li><a href="https://www.cnblogs.com/liu-en-ci/p/8407189.html">1. 数据结构 | 如何实现线性表的顺序结构</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/7449184.html">2. Java项目专栏之数据库建表</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/7446089.html">3. Java Swing项目专栏之项目业务流程与业务逻辑</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/7099533.html">4. 【hexo】如何在一个小时内搭载个人博客</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/6855228.html">5. 【Java SE】利用Java的for循环加random制作小学试卷</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/6834289.html">6. 【Java SE】如何用Java实现插入排序</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/6829161.html">7. 【Java SE】如何用Java实现反转排序</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/6828311.html">8. 【Java SE】如何用Java实现直接选择排序</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/6772617.html">9. 【Java SE】如何用Java实现冒泡排序</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/6743106.html">10. 【Java SE】如何安装JDK以及配置Java运行环境</a></li>
+</ul>
+</div>
+</div><div id="sidebar_toptags" class="sidebar-block">
+<h3 class="catListTitle">我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="https://www.cnblogs.com/liu-en-ci/tag/Java%20SE/">Java SE</a>(6)</li><li><a href="https://www.cnblogs.com/liu-en-ci/tag/%E6%8A%80%E6%9C%AF%E3%80%82/">技术。</a>(6)</li><li><a href="https://www.cnblogs.com/liu-en-ci/tag/hexo/">hexo</a>(1)</li>
+</ul>
+</div></div><div id="sidebar_categories">
+		<h1 class="listtitle">随笔分类</h1>
+		
+				<ul class="list" type="square">
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_0" class="listitem" href="https://www.cnblogs.com/liu-en-ci/category/985677.html">HTML/CSS(1)</a> </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_1" class="listitem" href="https://www.cnblogs.com/liu-en-ci/category/988834.html">Java SE(7)</a> </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_2" class="listitem" href="https://www.cnblogs.com/liu-en-ci/category/1067990.html">java项目(2)</a> </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_0_Link_3" class="listitem" href="https://www.cnblogs.com/liu-en-ci/category/1005439.html">个人博客搭建(2)</a> </li>
+			
+				</ul>
+			
+	
+		<h1 class="listtitle">随笔档案</h1>
+		
+				<ul class="list" type="square">
+			
+				<li class="listitem"><a id="CatList_LinkList_1_Link_0" class="listitem" href="https://www.cnblogs.com/liu-en-ci/archive/2018/02.html">2018年2月 (1)</a> </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_1_Link_1" class="listitem" href="https://www.cnblogs.com/liu-en-ci/archive/2017/08.html">2017年8月 (2)</a> </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_1_Link_2" class="listitem" href="https://www.cnblogs.com/liu-en-ci/archive/2017/06.html">2017年6月 (1)</a> </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_1_Link_3" class="listitem" href="https://www.cnblogs.com/liu-en-ci/archive/2017/05.html">2017年5月 (4)</a> </li>
+			
+				<li class="listitem"><a id="CatList_LinkList_1_Link_4" class="listitem" href="https://www.cnblogs.com/liu-en-ci/archive/2017/04.html">2017年4月 (3)</a> </li>
+			
+				</ul>
+			
+	
+		<h1 class="listtitle">文章档案</h1>
+		
+				<ul class="list" type="square">
+			
+				<li class="listitem"><a id="CatList_LinkList_2_Link_0" class="listitem" href="https://www.cnblogs.com/liu-en-ci/archives/2017/05.html" rel="nofollow">2017年5月 (1)</a> </li>
+			
+				</ul>
+			
+	
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<h3>积分与排名</h3>
+<ul>
+	<li>
+		积分 -
+		13710
+	</li><li>
+		排名 -
+		39078
+	</li>
+</ul>
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/liu-en-ci/p/6743106.html#3920807">1. Re:【Java SE】如何安装JDK以及配置Java运行环境</a></li>
+        <li class="recent_comment_body">我这样做了没行，在Path前面又添加了D:\Java\jdk\bin才成</li>
+        <li class="recent_comment_author">--扶摇直上的鱼</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/liu-en-ci/p/6743106.html#3781955">2. Re:【Java SE】如何安装JDK以及配置Java运行环境</a></li>
+        <li class="recent_comment_body">@樱桃不淘jdk的安装界面出不来吗？...</li>
+        <li class="recent_comment_author">--LuckJavaCi</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/liu-en-ci/p/6743106.html#3781299">3. Re:【Java SE】如何安装JDK以及配置Java运行环境</a></li>
+        <li class="recent_comment_body">您好，我早上安装了数据库和vs 下午安装java se 的时候 ，安装界面就显示不出来，选择了下一步之后，就没有反应了。。不知道是为什么呢</li>
+        <li class="recent_comment_author">--樱桃不淘</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/liu-en-ci/p/7099533.html#3726161">4. Re:【hexo】如何在一个小时内搭载个人博客</a></li>
+        <li class="recent_comment_body">@怪咖在骚动厉害了...</li>
+        <li class="recent_comment_author">--只会修电脑的程序猿</li>
+        <li class="recent_comment_title"><a href="https://www.cnblogs.com/liu-en-ci/p/7099533.html#3726160">5. Re:【hexo】如何在一个小时内搭载个人博客</a></li>
+        <li class="recent_comment_body">@suilin给你一朵小花花...</li>
+        <li class="recent_comment_author">--只会修电脑的程序猿</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	<div id="TopViewPostsBlock"><ul><li><a href="https://www.cnblogs.com/liu-en-ci/p/6743106.html">1. 【Java SE】如何安装JDK以及配置Java运行环境(39750)</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/6721963.html">2. 【CSS】如何用css做一个爱心(12294)</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/7446089.html">3. Java Swing项目专栏之项目业务流程与业务逻辑(2334)</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/6829161.html">4. 【Java SE】如何用Java实现反转排序(1650)</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/7449184.html">5. Java项目专栏之数据库建表(1135)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="https://www.cnblogs.com/liu-en-ci/p/6721963.html">1. 【CSS】如何用css做一个爱心(17)</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/6772617.html">2. 【Java SE】如何用Java实现冒泡排序(5)</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/7099533.html">3. 【hexo】如何在一个小时内搭载个人博客(4)</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/6743106.html">4. 【Java SE】如何安装JDK以及配置Java运行环境(3)</a></li></ul></div>
+</div></div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div class="RecentComment">
+	<div id="TopDiggPostsBlock"><ul><li><a href="https://www.cnblogs.com/liu-en-ci/p/6721963.html">1. 【CSS】如何用css做一个爱心(9)</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/6743106.html">2. 【Java SE】如何安装JDK以及配置Java运行环境(6)</a></li><li><a href="https://www.cnblogs.com/liu-en-ci/p/7099533.html">3. 【hexo】如何在一个小时内搭载个人博客(2)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+</div>
+
+<br>
+
+<div class="footer">
+	Powered by: <a href="http://www.cnblogs.com/">博客园</a><br>模板提供：<a href="http://blog.hjenglish.com/">沪江博客</a><br>
+	Copyright ©2019 LuckJavaCi
+</div>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+</tbody></table>
+
+
+
+
+</body></html>
