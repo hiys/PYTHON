@@ -1241,6 +1241,42 @@ jar           javah    jdb           jmap   jstat       pack200       schemagen 
 jarsigner     javap    jdeps         jps    jstatd      policytool    serialver    wsimport
 
 
+
+[root@V0 devops_day03]#  ls  /usr/lib/jvm/
+HelloWorld.class                                java-openjdk
+HelloWorld.java                                 jre
+java                                            jre-1.8.0
+java-1.8.0                                      jre-1.8.0-openjdk
+java-1.8.0-openjdk                              jre-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64
+java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64  jre-openjdk
+
+[root@V0 devops_day03]#  ls  /usr/lib/jvm/java
+bin  include  jre  lib  tapset
+
+[root@V0 devops_day03]# ls   /usr/lib/jvm/jre
+bin  lib
+
+[root@V0 devops_day03]# ls   /usr/lib/jvm/jre/bin/
+java  keytool  pack200     rmid         servertool  unpack200
+jjs   orbd     policytool  rmiregistry  tnameserv
+
+[root@V0 devops_day03]# ls   /usr/lib/jvm/jre-openjdk/
+bin  lib
+
+[root@V0 devops_day03]# ls   /usr/lib/jvm/jre-openjdk/lib/
+amd64                     hijrah-config-umalqura.properties  net.properties
+applet                    images                             psfontj2d.properties
+calendars.properties      jce.jar                            psfont.properties.ja
+charsets.jar              jexec                              resources.jar
+classlist                 jsse.jar                           rt.jar
+cmm                       jvm.hprof.txt                      security
+content-types.properties  logging.properties                 sound.properties
+currency.data             management                         tzdb.dat
+ext                       management-agent.jar
+flavormap.properties      meta-index
+[root@V0 devops_day03]# 
+
+
 [root@V0 devops_day03]# file   /usr/lib/jvm/HelloWorld.class
 /usr/lib/jvm/HelloWorld.class: compiled Java class data, version 52.0 (Java 1.8)
 
