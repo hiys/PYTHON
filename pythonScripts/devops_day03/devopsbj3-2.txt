@@ -238,6 +238,408 @@ location:有关当前的URL的信息
 
 [root@V1 html]# scp   index.html  root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day03/jsform.html
 
+[root@V1 ~]# yum  -y  install  sqlite-devel tk-devel tcl-devel  readline-devel  zlib-devel  gcc  gcc-c++  openssl-devel  libffi-devel
+
+  tcl.x86_64 1:8.5.13-8.el7                                                     
+  tk.x86_64 1:8.5.13-6.el7                                                      
+  xorg-x11-proto-devel.noarch 0:7.7-20.el7                                      
+
+完毕！
+[root@V1 ~]# rpm  -q   sqlite-devel    tk-devel    tcl-devel    readline-devel
+    zlib-devel   gcc   gcc-c++   openssl-devel   libffi-devel
+
+sqlite-devel-3.7.17-8.el7.x86_64
+tk-devel-8.5.13-6.el7.x86_64
+tcl-devel-8.5.13-8.el7.x86_64
+readline-devel-6.2-10.el7.x86_64
+zlib-devel-1.2.7-17.el7.x86_64
+
+gcc-4.8.5-28.el7.x86_64
+gcc-c++-4.8.5-28.el7.x86_64
+openssl-devel-1.0.2k-12.el7.x86_64
+libffi-devel-3.0.13-18.el7.x86_64
+
+[root@V1 ~]# 
+
+[root@V1 pyscripts]# rpm  -q   sqlite-devel  tk-devel  tcl-devel   readline-devel    zlib-devel   gcc   gcc-c++   openssl-devel   libffi-devel
+
+sqlite-devel-3.7.17-8.el7.x86_64
+tk-devel-8.5.13-6.el7.x86_64
+tcl-devel-8.5.13-8.el7.x86_64
+readline-devel-6.2-10.el7.x86_64
+
+zlib-devel-1.2.7-17.el7.x86_64
+gcc-4.8.5-16.el7.x86_64
+gcc-c++-4.8.5-16.el7.x86_64
+openssl-devel-1.0.2k-8.el7.x86_64
+
+libffi-devel-3.0.13-18.el7.x86_64
+
+[root@V1 pyscripts]# 
+[root@V1 pyscripts]# rpm  -q    zlib-devel   libxml2-devel   libxslt-devel   openssl  openssl-devel    sqlite-devel    readline-devel    mysql-devel
+
+zlib-devel-1.2.7-17.el7.x86_64
+未安装软件包 libxml2-devel 
+未安装软件包 libxslt-devel 
+
+openssl-1.0.2k-8.el7.x86_64
+openssl-devel-1.0.2k-8.el7.x86_64
+sqlite-devel-3.7.17-8.el7.x86_64
+readline-devel-6.2-10.el7.x86_64
+未安装软件包 mysql-devel 
+
+[root@V1 pyscripts]# 
+
+
+  sqlite-devel      tk-devel       tcl-devel      readline-devel      zlib-devel      gcc       gcc-c++       openssl      openssl-devel     libffi-devel      libxml2-devel     libxslt-devel    mysql-devel 
+ 
+
+未安装软件包 libxml2-devel 
+未安装软件包 libxslt-devel 
+
+未安装软件包 mysql-devel 
+
+[root@V1 pyscripts]# yum  -y  install  sqlite-devel      tk-devel       tcl-devel \
+>   readline-devel      zlib-devel      gcc       gcc-c++    \
+> openssl      openssl-devel     libffi-devel      libxml2-devel  \
+>  libxslt-devel    mysql-devel 
+
+
+已安装:
+  libxml2-devel.x86_64 0:2.9.1-6.el7_2.3     libxslt-devel.x86_64 0:1.1.28-5.el7    
+  mariadb-devel.x86_64 1:5.5.56-2.el7       
+
+作为依赖被安装:
+  libgcrypt-devel.x86_64 0:1.5.3-14.el7    libgpg-error-devel.x86_64 0:1.12-3.el7   
+  xz-devel.x86_64 0:5.2.2-1.el7           
+
+完毕！
+[root@V1 pyscripts]# yum  -y  install  sqlite-devel      tk-devel       tcl-devel   readline-devel      zlib-devel      gcc       gcc-c++    openssl      openssl-devel     libffi-devel      libxml2-devel   libxslt-devel    mysql-devel 
+
+
+[root@room9pc01 ~]#  yum  -y  install  sqlite-devel      tk-devel       tcl-devel   readline-devel      zlib-devel      gcc       gcc-c++    openssl      openssl-devel     libffi-devel      libxml2-devel   libxslt-devel    mysql-devel  mariadb-devel    mariadb-server   mariadb
+
+软件包 readline-devel-6.2-10.el7.x86_64 已安装并且是最新版本
+软件包 zlib-devel-1.2.7-17.el7.x86_64 已安装并且是最新版本
+软件包 gcc-4.8.5-16.el7.x86_64 已安装并且是最新版本
+软件包 gcc-c++-4.8.5-16.el7.x86_64 已安装并且是最新版本
+软件包 1:openssl-1.0.2k-8.el7.x86_64 已安装并且是最新版本
+软件包 1:openssl-devel-1.0.2k-8.el7.x86_64 已安装并且是最新版本
+软件包 libffi-devel-3.0.13-18.el7.x86_64 已安装并且是最新版本
+
+
+已安装:
+  libxml2-devel.x86_64 0:2.9.1-6.el7_2.3   libxslt-devel.x86_64 0:1.1.28-5.el7  
+  mariadb-devel.x86_64 1:5.5.56-2.el7      sqlite-devel.x86_64 0:3.7.17-8.el7   
+  tcl-devel.x86_64 1:8.5.13-8.el7          tk-devel.x86_64 1:8.5.13-6.el7       
+
+作为依赖被安装:
+  expat-devel.x86_64 0:2.1.0-10.el7_3                                           
+  fontconfig-devel.x86_64 0:2.10.95-11.el7                                      
+  freetype-devel.x86_64 0:2.4.11-15.el7                                         
+  libX11-devel.x86_64 0:1.6.5-1.el7                                             
+  libXau-devel.x86_64 0:1.0.8-2.1.el7                                           
+  libXft-devel.x86_64 0:2.3.2-2.el7                                             
+  libXrender-devel.x86_64 0:0.9.10-1.el7                                        
+  libgcrypt-devel.x86_64 0:1.5.3-14.el7                                         
+  libgpg-error-devel.x86_64 0:1.12-3.el7                                        
+  libxcb-devel.x86_64 0:1.12-1.el7                                              
+  tcl.x86_64 1:8.5.13-8.el7                                                     
+  tk.x86_64 1:8.5.13-6.el7                                                      
+  xorg-x11-proto-devel.noarch 0:7.7-20.el7                                      
+  xz-devel.x86_64 0:5.2.2-1.el7                                                 
+
+完毕！
+[root@room9pc01 ~]# 
+
+
+[root@V2 pyscripts]#  yum  -y  install    sqlite-devel      tk-devel       tcl-devel 
+ readline-devel      zlib-devel      gcc         gcc-c++   
+ openssl          openssl-devel     libffi-devel      libxml2-devel  
+ libxslt-devel    mysql-devel 
+
+软件包 sqlite-devel-3.7.17-8.el7.x86_64 已安装并且是最新版本
+软件包 1:tk-devel-8.5.13-6.el7.x86_64 已安装并且是最新版本
+软件包 1:tcl-devel-8.5.13-8.el7.x86_64 已安装并且是最新版本
+软件包 readline-devel-6.2-10.el7.x86_64 已安装并且是最新版本
+软件包 zlib-devel-1.2.7-17.el7.x86_64 已安装并且是最新版本
+软件包 gcc-4.8.5-16.el7.x86_64 已安装并且是最新版本
+软件包 gcc-c++-4.8.5-16.el7.x86_64 已安装并且是最新版本
+软件包 1:openssl-1.0.2k-8.el7.x86_64 已安装并且是最新版本
+软件包 1:openssl-devel-1.0.2k-8.el7.x86_64 已安装并且是最新版本
+软件包 libffi-devel-3.0.13-18.el7.x86_64 已安装并且是最新版本
+
+已安装:
+  libxml2-devel.x86_64 0:2.9.1-6.el7_2.3     libxslt-devel.x86_64 0:1.1.28-5.el7    
+  mariadb-devel.x86_64 1:5.5.56-2.el7       
+
+作为依赖被安装:
+  libgcrypt-devel.x86_64 0:1.5.3-14.el7    libgpg-error-devel.x86_64 0:1.12-3.el7   
+  xz-devel.x86_64 0:5.2.2-1.el7           
+
+完毕！
+[root@V2 pyscripts]# 
+
+
+[root@room9pc01 ~]# yum  -y  install  sqlite-devel      tk-devel       tcl-devel   readline-devel      zlib-devel      gcc       gcc-c++    openssl      openssl-devel     libffi-devel      libxml2-devel   libxslt-devel    mysql-devel  mariadb-devel    mariadb-server   mariadb
+
+软件包 sqlite-devel-3.7.17-8.el7.x86_64 已安装并且是最新版本
+软件包 1:tk-devel-8.5.13-6.el7.x86_64 已安装并且是最新版本
+软件包 1:tcl-devel-8.5.13-8.el7.x86_64 已安装并且是最新版本
+软件包 readline-devel-6.2-10.el7.x86_64 已安装并且是最新版本
+软件包 zlib-devel-1.2.7-17.el7.x86_64 已安装并且是最新版本
+软件包 gcc-4.8.5-16.el7.x86_64 已安装并且是最新版本
+软件包 gcc-c++-4.8.5-16.el7.x86_64 已安装并且是最新版本
+软件包 1:openssl-1.0.2k-8.el7.x86_64 已安装并且是最新版本
+软件包 1:openssl-devel-1.0.2k-8.el7.x86_64 已安装并且是最新版本
+软件包 libffi-devel-3.0.13-18.el7.x86_64 已安装并且是最新版本
+软件包 libxml2-devel-2.9.1-6.el7_2.3.x86_64 已安装并且是最新版本
+软件包 libxslt-devel-1.1.28-5.el7.x86_64 已安装并且是最新版本
+软件包 1:mariadb-devel-5.5.56-2.el7.x86_64 已安装并且是最新版本
+软件包 1:mariadb-devel-5.5.56-2.el7.x86_64 已安装并且是最新版本
+
+已安装:
+  mariadb.x86_64 1:5.5.56-2.el7       mariadb-server.x86_64 1:5.5.56-2.el7      
+
+作为依赖被安装:
+  perl-DBD-MySQL.x86_64 0:4.023-5.el7     perl-DBI.x86_64 0:1.627-4.el7        
+  perl-Net-Daemon.noarch 0:0.48-5.el7     perl-PlRPC.noarch 0:0.2020-14.el7    
+
+完毕！
+[root@room9pc01 ~]# rpm  -q    sqlite-devel      tk-devel       tcl-devel   readline-devel
+      zlib-devel      gcc         gcc-c++      openssl      openssl-devel
+     libffi-devel    libxml2-devel    libxslt-devel     mysql-devel 
+    mariadb-devel    mariadb-server    mariadb
+
+sqlite-devel-3.7.17-8.el7.x86_64
+tk-devel-8.5.13-6.el7.x86_64
+tcl-devel-8.5.13-8.el7.x86_64
+readline-devel-6.2-10.el7.x86_64
+zlib-devel-1.2.7-17.el7.x86_64
+gcc-4.8.5-16.el7.x86_64
+gcc-c++-4.8.5-16.el7.x86_64
+openssl-1.0.2k-8.el7.x86_64
+openssl-devel-1.0.2k-8.el7.x86_64
+libffi-devel-3.0.13-18.el7.x86_64
+libxml2-devel-2.9.1-6.el7_2.3.x86_64
+libxslt-devel-1.1.28-5.el7.x86_64
+未安装软件包 mysql-devel 
+mariadb-devel-5.5.56-2.el7.x86_64
+mariadb-server-5.5.56-2.el7.x86_64
+mariadb-5.5.56-2.el7.x86_64
+[root@room9pc01 ~]# 
+
+
+
+
+  yum  -y  install  \
+ sqlite-devel    tk-devel        tcl-devel       readline-devel   \
+ zlib-devel      gcc             gcc-c++         openssl       openssl-devel \
+ libffi-devel    libxml2-devel   libxslt-devel   mysql-devel  \
+ mariadb-devel   mariadb-server  mariadb 
+
+
+rpm  -q  \
+ sqlite-devel    tk-devel        tcl-devel       readline-devel   \
+ zlib-devel      gcc             gcc-c++         openssl       openssl-devel \
+ libffi-devel    libxml2-devel   libxslt-devel   mysql-devel  \
+ mariadb-devel   mariadb-server  mariadb 
+
+tar  -zxf  Python-3.6.7.tgz 
+
+cd  Python-3.6.7/
+
+./configure   --prefix=/usr/local/
+
+ make && make install
+
+
+
+
+[root@V1 pyscripts]#   yum  -y  install  \
+>  sqlite-devel    tk-devel        tcl-devel       readline-devel   \
+>  zlib-devel      gcc             gcc-c++         openssl       openssl-devel \
+>  libffi-devel    libxml2-devel   libxslt-devel   mysql-devel  \
+>  mariadb-devel   mariadb-server  mariadb \
+> 
+已加载插件：langpacks, product-id, search-disabled-repos, subscription-manager
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+软件包 sqlite-devel-3.7.17-8.el7.x86_64 已安装并且是最新版本
+软件包 1:tk-devel-8.5.13-6.el7.x86_64 已安装并且是最新版本
+软件包 1:tcl-devel-8.5.13-8.el7.x86_64 已安装并且是最新版本
+软件包 readline-devel-6.2-10.el7.x86_64 已安装并且是最新版本
+软件包 zlib-devel-1.2.7-17.el7.x86_64 已安装并且是最新版本
+软件包 gcc-4.8.5-16.el7.x86_64 已安装并且是最新版本
+软件包 gcc-c++-4.8.5-16.el7.x86_64 已安装并且是最新版本
+软件包 1:openssl-1.0.2k-8.el7.x86_64 已安装并且是最新版本
+软件包 1:openssl-devel-1.0.2k-8.el7.x86_64 已安装并且是最新版本
+软件包 libffi-devel-3.0.13-18.el7.x86_64 已安装并且是最新版本
+软件包 libxml2-devel-2.9.1-6.el7_2.3.x86_64 已安装并且是最新版本
+软件包 libxslt-devel-1.1.28-5.el7.x86_64 已安装并且是最新版本
+软件包 1:mariadb-devel-5.5.56-2.el7.x86_64 已安装并且是最新版本
+软件包 1:mariadb-devel-5.5.56-2.el7.x86_64 已安装并且是最新版本
+软件包 1:mariadb-server-5.5.56-2.el7.x86_64 已安装并且是最新版本
+软件包 1:mariadb-5.5.56-2.el7.x86_64 已安装并且是最新版本
+无须任何处理
+[root@V1 pyscripts]# rpm  -q  \
+>  sqlite-devel    tk-devel        tcl-devel       readline-devel   \
+>  zlib-devel      gcc             gcc-c++         openssl       openssl-devel \
+>  libffi-devel    libxml2-devel   libxslt-devel   mysql-devel  \
+>  mariadb-devel   mariadb-server  mariadb 
+sqlite-devel-3.7.17-8.el7.x86_64
+tk-devel-8.5.13-6.el7.x86_64
+tcl-devel-8.5.13-8.el7.x86_64
+readline-devel-6.2-10.el7.x86_64
+zlib-devel-1.2.7-17.el7.x86_64
+gcc-4.8.5-16.el7.x86_64
+gcc-c++-4.8.5-16.el7.x86_64
+openssl-1.0.2k-8.el7.x86_64
+openssl-devel-1.0.2k-8.el7.x86_64
+libffi-devel-3.0.13-18.el7.x86_64
+libxml2-devel-2.9.1-6.el7_2.3.x86_64
+libxslt-devel-1.1.28-5.el7.x86_64
+未安装软件包 mysql-devel 
+mariadb-devel-5.5.56-2.el7.x86_64
+mariadb-server-5.5.56-2.el7.x86_64
+mariadb-5.5.56-2.el7.x86_64
+[root@V1 pyscripts]# 
+
+[root@room9pc01 ~]#   yum  -y  install  \
+>  sqlite-devel    tk-devel        tcl-devel       readline-devel   \
+>  zlib-devel      gcc             gcc-c++         openssl       openssl-devel \
+>  libffi-devel    libxml2-devel   libxslt-devel   mysql-devel  \
+>  mariadb-devel   mariadb-server  mariadb 
+已加载插件：fastestmirror, langpacks
+Loading mirror speeds from cached hostfile
+软件包 sqlite-devel-3.7.17-8.el7.x86_64 已安装并且是最新版本
+软件包 1:tk-devel-8.5.13-6.el7.x86_64 已安装并且是最新版本
+软件包 1:tcl-devel-8.5.13-8.el7.x86_64 已安装并且是最新版本
+软件包 readline-devel-6.2-10.el7.x86_64 已安装并且是最新版本
+软件包 zlib-devel-1.2.7-17.el7.x86_64 已安装并且是最新版本
+软件包 gcc-4.8.5-16.el7.x86_64 已安装并且是最新版本
+软件包 gcc-c++-4.8.5-16.el7.x86_64 已安装并且是最新版本
+软件包 1:openssl-1.0.2k-8.el7.x86_64 已安装并且是最新版本
+软件包 1:openssl-devel-1.0.2k-8.el7.x86_64 已安装并且是最新版本
+软件包 libffi-devel-3.0.13-18.el7.x86_64 已安装并且是最新版本
+软件包 libxml2-devel-2.9.1-6.el7_2.3.x86_64 已安装并且是最新版本
+软件包 libxslt-devel-1.1.28-5.el7.x86_64 已安装并且是最新版本
+软件包 1:mariadb-devel-5.5.56-2.el7.x86_64 已安装并且是最新版本
+软件包 1:mariadb-devel-5.5.56-2.el7.x86_64 已安装并且是最新版本
+软件包 1:mariadb-server-5.5.56-2.el7.x86_64 已安装并且是最新版本
+软件包 1:mariadb-5.5.56-2.el7.x86_64 已安装并且是最新版本
+无须任何处理
+[root@room9pc01 ~]# 
+[root@room9pc01 ~]# 
+[root@room9pc01 ~]# rpm  -q  \
+>  sqlite-devel    tk-devel        tcl-devel       readline-devel   \
+>  zlib-devel      gcc             gcc-c++         openssl       openssl-devel \
+>  libffi-devel    libxml2-devel   libxslt-devel   mysql-devel  \
+>  mariadb-devel   mariadb-server  mariadb 
+sqlite-devel-3.7.17-8.el7.x86_64
+tk-devel-8.5.13-6.el7.x86_64
+tcl-devel-8.5.13-8.el7.x86_64
+readline-devel-6.2-10.el7.x86_64
+zlib-devel-1.2.7-17.el7.x86_64
+gcc-4.8.5-16.el7.x86_64
+gcc-c++-4.8.5-16.el7.x86_64
+openssl-1.0.2k-8.el7.x86_64
+openssl-devel-1.0.2k-8.el7.x86_64
+libffi-devel-3.0.13-18.el7.x86_64
+libxml2-devel-2.9.1-6.el7_2.3.x86_64
+libxslt-devel-1.1.28-5.el7.x86_64
+未安装软件包 mysql-devel 
+mariadb-devel-5.5.56-2.el7.x86_64
+mariadb-server-5.5.56-2.el7.x86_64
+mariadb-5.5.56-2.el7.x86_64
+[root@room9pc01 ~]# 
+
+[root@V2 ~]# ls
+anaconda-ks.cfg       ip.sh      Python-3.6.7      公共  视频  文档  音乐
+initial-setup-ks.cfg  pyscripts  Python-3.6.7.tgz  模板  图片  下载  桌面
+
+[root@V2 ~]# scp   Python-3.6.7.tgz  root@192.168.0.254:/root/
+
+.................................
+Looking in links: /tmp/tmpobn03qms
+Requirement already up-to-date: setuptools in /usr/local/lib/python3.6/site-packages (39.0.1)
+Requirement already up-to-date: pip in /usr/local/lib/python3.6/site-packages (10.0.1)
+[root@V1 Python-3.6.7]# ls
+aclocal.m4     Doc              Makefile         PCbuild         python-config.py
+build          Grammar          Makefile.pre     Programs        python-gdb.py
+config.guess   Include          Makefile.pre.in  pybuilddir.txt  README.rst
+config.log     install-sh       Misc             pyconfig.h      setup.py
+config.status  Lib              Modules          pyconfig.h.in   Tools
+config.sub     libpython3.6m.a  Objects          python
+configure      LICENSE          Parser           Python
+configure.ac   Mac              PC               python-config
+[root@V1 Python-3.6.7]# 
+
+
+[root@room9pc01 ~]# cd  /testPython/
+[root@room9pc01 testPython]# 
+[root@room9pc01 testPython]# tar  -xzvf  /root/桌面/zzg_pypkgs.tar.gz
+
+[root@room9pc01 testPython]# ls  zzg_pypkgs/
+ansible-cmdb_pkgs  dj_pkgs  matplotlib_pkgs  python3_pkg      wordcloud_pkgs
+ansible_pkg        docker   paramiko_pkgs    requests_pkgs    wordpress
+bootcss            jenkins  pymysql_pkgs     sqlalchemy_pkgs
+
+[root@room9pc01 testPython]#  cd  zzg_pypkgs/
+
+
+[root@room9pc01 zzg_pypkgs]# find  ./ -iname "*.tar.gz"  -type  f
+
+./paramiko_pkgs/pycparser-2.19.tar.gz
+
+./sqlalchemy_pkgs/SQLAlchemy-1.2.14.tar.gz
+
+./ansible-cmdb_pkgs/jsonxs-0.6.tar.gz
+
+./ansible-cmdb_pkgs/ansible-cmdb-1.30.tar.gz
+
+./ansible-cmdb_pkgs/Mako-1.0.7.tar.gz
+
+./ansible-cmdb_pkgs/PyYAML-3.13.tar.gz
+
+./ansible-cmdb_pkgs/ushlex-0.99.1.tar.gz
+./pymysql_pkgs/pycparser-2.19.tar.gz
+
+./dj_pkgs/pycparser-2.18.tar.gz
+./ansible_pkg/pycparser-2.19.tar.gz
+
+./ansible_pkg/ansible-2.7.2.tar.gz
+./ansible_pkg/PyYAML-3.13.tar.gz
+
+[root@room9pc01 zzg_pypkgs]# 
+
+django-1.9.6.tar.gz
+
+
+https://www.djangoproject.com/download/
+
+https://www.djangoproject.com/download/
+
+
+(env_django_1_11_6) [root@V0 ~]# pip  install  django==1.11.6    #安装软件django指定版本1.11.6 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

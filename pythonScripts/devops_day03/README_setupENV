@@ -1,0 +1,30 @@
+# yum install -y sqlite-devel tk-devel tcl-devel readline-devel zlib-devel gcc gcc-c++ openssl-devel libffi-devel
+# tar xzf Python-3.6.7.tgz
+# cd Python-3.6.7
+# ./configure --prefix=/usr/local/
+# make && make install
+
+
+  yum  -y  install  \
+ sqlite-devel    tk-devel        tcl-devel       readline-devel   \
+ zlib-devel      gcc             gcc-c++         openssl       openssl-devel \
+ libffi-devel    libxml2-devel   libxslt-devel   mysql-devel  \
+ mariadb-devel   mariadb-server  mariadb 
+
+
+rpm  -q  \
+ sqlite-devel    tk-devel        tcl-devel       readline-devel   \
+ zlib-devel      gcc             gcc-c++         openssl       openssl-devel \
+ libffi-devel    libxml2-devel   libxslt-devel   mysql-devel  \
+ mariadb-devel   mariadb-server  mariadb 
+
+tar  -zxf  Python-3.6.7.tgz 
+
+cd  Python-3.6.7/
+
+./configure   --prefix=/usr/local/
+
+ make && make install
+
+
+

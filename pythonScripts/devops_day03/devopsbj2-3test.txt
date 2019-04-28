@@ -240,6 +240,17 @@ django.core.exceptions.ImproperlyConfigured: Error loading either pysqlite2 or s
 
 ^C(newEnv_dir) [root@room9pc01 mysite]# 
 
+[root@room9pc01 ~]# python3
+Python 3.6.1 (default, Mar 20 2018, 00:12:35) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   _sqlite3
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named '_sqlite3'
+>>> 
+
+
 
 
 (单选题)"有如下代码，返回的结果是

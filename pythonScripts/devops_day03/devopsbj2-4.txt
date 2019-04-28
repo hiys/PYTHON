@@ -354,7 +354,26 @@ Quit the server with CONTROL-C.
 
 
 
+[root@V1 pyscripts]# python3
+Python 3.6.7 (default, Apr  2 2019, 11:29:57) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   _sqlite3
+>>> _sqlite3.
+_sqlite3.Cache(                       _sqlite3.SQLITE_DROP_INDEX
+_sqlite3.Connection(                  _sqlite3.SQLITE_DROP_TABLE
+_sqlite3.Cursor(  
+...........
 
+[root@room9pc01 ~]# python3
+Python 3.6.1 (default, Mar 20 2018, 00:12:35) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   _sqlite3
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named '_sqlite3'
+>>> 
 
 
 
