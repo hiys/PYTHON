@@ -1288,10 +1288,48 @@ flavormap.properties      meta-index
 root@192.168.0.254's password: 
 
 
+!function(e){
+ var t={};
+ function n(s){
+  if(t[s])return t[s].exports;
+  var r=t[s]={
+   i:s,l:!1,exports:{}};
+  return e[s].call(r.exports,r,r.exports,n),
+   r.l=!0,r.exports}n.m=e,
+   n.c=t,
+   n.d=function(e,t,s){
+    n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:s})},
+     n.r=function(e){
+      "undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),
+       Object.defineProperty(e,"__esModule",{value:!0})},
+        n.t=function(e,t){
+         if(1&t&&(e=n(e)),8&t)return e;
+         if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;
+         var s=Object.create(null);
+         if(n.r(s),Object.defineProperty(s,"default",{enumerable:!0,value:e}),
+          2&t&&"string"!=typeof e)for(var r in e)n.d(s,r,function(t){return e[t]}.bind(null,r));
+           return s},
+           n.n=function(e){var t=e&&e.__esModule?function(){
+            return e.default}:function(){return e};.........................................||e.setAttribute("target","_blank")});
+      var u=document.getElementById("adWrap");
+      if(u){
+       var l="";
+       (0,a.default)("api").forEach(function(e){
+        l+='<a title="'.concat(e.title,'" target="_blank" href="').concat(e.link,'"><img src="').concat(e.img,'" /></a>')}),
+        u.innerHTML=l
+        }
+      function h(){
+       location.hash&&(0,s.default)({url:"/node/count?v="+encodeURIComponent(location.href.substr(location.href.lastIndexOf("/")+1))})}}]);
 
 
+[root@room9pc01 ~]# for  i  in  V{0..2};do  virsh shutdown  $i;done;
+域 V0 被关闭
 
+域 V1 被关闭
 
+域 V2 被关闭
+
+[root@room9pc01 ~]# 
 
 
 

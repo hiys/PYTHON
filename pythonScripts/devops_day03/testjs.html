@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--STATUS OK-->
+
+<html lang="en">
+ <head>
+  <meta  content="text/html;charset=utf-8">
+  <meta name="keywords" content="翻译,在线翻译,百度翻译,词典,英语,"/>
+  <meta name="description" content="百度翻译支持中、英、日、法、德等语言"/>
+  <meta name="renderer" content="webkit">
+  <title>test--title</title>
+
+  <!--优先级第3 -->
+  <link  href="./css/base.css" rel="stylesheet" type="text/css" charset="utf-8"/>
+
+  <!--优先级第2 -->
+  <style>
+   .second{
+    font-size:32px;
+    color:blue;
+    background-color:green;
+   }
+  </style>
+  <script>
+   document.write('hello  world head!\n');
+  </script>
+ </head>
+<!-- <body bgcolor="pink"> -->
+ <body bgcolor='pink'>
+  <hr/>
+  <img  src="//www.baidu.com/img/baidu_jgylogo3.gif" width='200px' height='70px'><!--注释文字//www.网络路径//hr水平线--><hr/>
+  <div id='div1' onclick="alert(1);">
+   <div onclick="alert(2);">
+    <div onclick="alert(3);">
+     <input type='text'/>
+    </div>
+   </div>
+  </div>
+  <div id='div2'>
+   <p name="p1">css/base.css  p[name='p1']color:rgb(255,255,0);</p>
+   <input type='text' onclick="this.blur()"/>
+  </div>
+  <div id='div3'>
+   div[id="div3"] color: #ee0000;
+  </div>
+  <form>
+   <label>用户名</label><input  name="namex1" type="text"/>
+   <label>密码</label><input  name="passx2" type="password"/>
+   <label>验证码</label><input  id="code" type="text"/>
+   <button onclick="getValue()" type="button">button</button>
+  </form>  
+
+
+  <script>
+   function  add(a, b){
+     var o = Object();
+     alert(o);
+     return a+b;
+   }
+   document.write('body end hello\n' + add(100, 10));
+   var xo = {};
+   console.error(xo+'error\n');
+   console.log(xo);
+
+   function  getValue(){
+    var  inputs = document.getElementsByTagName('input');
+    for(i= 0;i<inputs.length;i++){
+      alert(inputs[i].value);
+      inputs[i].value = i*10;
+    }
+   }
+   var code = document.getElementById("code");
+   console.log(code);
+   var namex1 = document.getElementsByName("namex1");
+   console.log(namex1);
+  </script>
+ </body>
+</html>
+

@@ -1,0 +1,244 @@
+
+
+[root@V0 gcc-bulid-8.1.0]# ls  -ld   /usr/local/include/c++/8.1.0/  #头文件
+drwxr-xr-x 13 root root 4096 4月  28 15:07 /usr/local/include/c++/8.1.0/
+
+---------------------------------------------- 查看glibc版本信息  -------------------------
+
+[root@V0 gcc-bulid-8.1.0]# rpm  -qa  |grep  glibc  #查看当前的GLIBC版本
+
+glibc-headers-2.17-196.el7.x86_64
+glibc-common-2.17-196.el7.x86_64
+glibc-devel-2.17-196.el7.x86_64
+glibc-2.17-196.el7.x86_64
+
+[root@V0 gcc-bulid-8.1.0]# find  /  -iname "*libstdc++.so*" -type  f
+
+/usr/lib64/libstdc++.so.6.0.19
+/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.py
+/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.pyc
+/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.pyo
+/usr/local/lib64/libstdc++.so.6.0.25
+
+
+[root@V0 gcc-bulid-8.1.0]# ll   /usr/local/lib64/libstdc++.so.6.0.25
+-rwxr-xr-x 1 root root 12133568 4月  28 15:07 /usr/local/lib64/libstdc++.so.6.0.25
+
+[root@V0 gcc-bulid-8.1.0]# type  strings 
+strings 是 /usr/bin/strings
+---------------------------------------------- 查看glibc版本信息  -------------------------
+
+[root@V0 gcc-bulid-8.1.0]# strings  /usr/local/lib64/libstdc++.so.6.0.25  |grep GLIBCXX
+GLIBCXX_3.4
+GLIBCXX_3.4.1
+GLIBCXX_3.4.2
+GLIBCXX_3.4.3
+GLIBCXX_3.4.4
+GLIBCXX_3.4.5
+GLIBCXX_3.4.6
+GLIBCXX_3.4.7
+GLIBCXX_3.4.8
+GLIBCXX_3.4.9
+GLIBCXX_3.4.10
+GLIBCXX_3.4.11
+GLIBCXX_3.4.12
+GLIBCXX_3.4.13
+GLIBCXX_3.4.14
+GLIBCXX_3.4.15
+GLIBCXX_3.4.16
+GLIBCXX_3.4.17
+GLIBCXX_3.4.18
+GLIBCXX_3.4.19
+GLIBCXX_3.4.20
+GLIBCXX_3.4.21
+GLIBCXX_3.4.22
+GLIBCXX_3.4.23
+GLIBCXX_3.4.24
+GLIBCXX_3.4.25
+GLIBCXX_DEBUG_MESSAGE_LENGTH
+.......................
+[root@V0 gcc-bulid-8.1.0]# 
+[root@V0 gcc-bulid-8.1.0]# type  ldd
+ldd 已被哈希 (/usr/bin/ldd)
+[root@V0 gcc-bulid-8.1.0]# ldd   --version
+ldd (GNU libc) 2.17
+Copyright (C) 2012 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+由 Roland McGrath 和 Ulrich Drepper 编写。
+
+[root@V0 gcc-bulid-8.1.0]# pwd
+/usr/src/gcc-bulid-8.1.0
+
+[root@V0 gcc-bulid-8.1.0]# cd
+[root@V0 ~]#
+
+
+linux服务器安装nodejs运行环境
+安装nodejs运行环境
+
+第一步：到node官网下载相应版本的安装包，将安装包放置服务器上，
+路径为 usr/local/node（可根据自身情况进行修改）
+
+node官网下载
+https://nodejs.org/en/download/
+
+源代码	            节点v10.15.3.tar.gz
+Source Code	   node-v10.15.3.tar.gz
+
+[root@room9pc01 ~]# ll  '/root/桌面/node-v10.15.3.tar.gz' 
+-rw-r--r-- 1 root root 36370204 4月  28 11:42 /root/桌面/node-v10.15.3.tar.gz
+
+[root@room9pc01 ~]# file  /root/桌面/node-v10.15.3.tar.gz
+/root/桌面/node-v10.15.3.tar.gz: gzip compressed data, was "node-v10.15.3.tar", from Unix, last modified: Tue Mar  5 23:16:37 2019, max compression
+
+
+[root@room9pc01 ~]# scp   /root/桌面/node-v10.15.3.tar.gz  root@192.168.0.10:/root/
+root@192.168.0.10's password: 
+node-v10.15.3.tar.gz                          100%   35MB 173.3MB/s   00:00    
+
+[root@room9pc01 ~]# ssh  -X  192.168.0.10
+
+[root@V0 ~]# ll   node-v10.15.3.tar.gz 
+-rw-r--r-- 1 root root 36370204 4月  28 11:44 node-v10.15.3.tar.gz
+
+[root@V0 ~]#  mkdir  /usr/local/nodejs   #安装目录
+
+[root@V0 ~]#  cd   /usr/local/nodejs/
+
+第二步：解压
+
+[root@V0 nodejs]#  tar  -xzvf  /root/node-v10.15.3.tar.gz 
+....................
+node-v10.15.3/deps/v8/gypfiles/verify_source_deps.py
+node-v10.15.3/deps/v8/gypfiles/mac/asan.gyp
+node-v10.15.3/deps/v8/gni/v8.gni
+node-v10.15.3/deps/v8/docs/README.md
+..........................
+node-v10.15.3/benchmark/assert/ok.js
+node-v10.15.3/benchmark/assert/throws.js
+[root@V0 nodejs]# ls
+node-v10.15.3
+[root@V0 nodejs]# pwd
+/usr/local/nodejs
+
+/******************
+[root@V0 devops_day03]# watch -n1 -d free -m
+
+available
+英 [əˈveɪləbl]   美 [əˈveɪləbl]  
+adj.
+可获得的;可购得的;可找到的;有空的
+
+原因解析：make版本过低导致。安装所需环境如下：
+1. GNU make 3.8.1+
+2. Python 2.6 or 2.7
+3. setenv FLOCK or export FLOCK
+    setenv LINK g++ or export LINK=g++
+
+[root@V0 node-v10.15.3]# make  -v
+GNU Make 3.82
+Built for x86_64-redhat-linux-gnu
+Copyright (C) 2010  Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+[root@V0 node-v10.15.3]# 
+
+[root@V0 node-v10.15.3]# python  --version
+Python 2.7.5
+
+************/
+
+------------------------- 第三步：配置环境变量
+
+[root@V0 nodejs]# cd   node-v10.15.3/
+
+[root@V0 node-v10.15.3]# pwd
+/usr/local/nodejs/node-v10.15.3
+
+[root@V0 node-v10.15.3]# ls
+android-configure   COLLABORATOR_GUIDE.md  doc            README.md
+AUTHORS             common.gypi            GOVERNANCE.md  SECURITY.md
+benchmark           configure              lib            src
+BSDmakefile         configure.py           LICENSE        test
+BUILDING.md         CONTRIBUTING.md        Makefile       tools
+CHANGELOG.md        CPP_STYLE_GUIDE.md     node.gyp       vcbuild.bat
+CODE_OF_CONDUCT.md  deps                   node.gypi
+
+[root@V0 node-v10.15.3]# 
+[root@V0 node-v10.15.3]# ./configure
+WARNING: C++ compiler too old, need g++ 4.9.4 or clang++ 3.4.2 (CXX=g++)
+creating icu_config.gypi
+* Using ICU in deps/icu-small
+WARNING: Using floating patch "tools/icu/patches/62/source/i18n/decimfmt.cpp" from "tools/icu"
+警告：从“工具/icu”使用浮动补丁“tools/icu/patches/62/source/i18n/decimfmt.cpp”
+creating icu_config.gypi
+.....................
+creating config.mk
+running: 
+    python tools/gyp_node.py --no-parallel -f make-linux
+
+
+
+[root@V0 node-v10.15.3]# make           #默认路径安装：/usr/local/bin
+...................
+make[1]: 离开目录“/usr/local/nodejs/node-v10.15.3/out”
+make: *** [node] 错误 2
+[root@V0 node-v10.15.3]# 
+[root@V0 node-v10.15.3]# make   install
+
+make -C out BUILDTYPE=Release V=1
+make[1]: 进入目录“/usr/local/nodejs/node-v10.15.3/out”
+.................
+make[1]: 离开目录“/usr/local/nodejs/node-v10.15.3/out”
+make: *** [node] 错误 2
+[root@V0 node-v10.15.3]#  
+==================================================
+
+JavaScript Window - 浏览器对象模型
+
+BOM：浏览器对象模型（Browser Object Model） 
+BOM提供了独立于内容的，可以于浏览器窗口进行互动的对象结构 
+
+Window 对象
+所有浏览器都支持 window 对象。它表示浏览器窗口。
+所有 JavaScript 全局对象、函数以及变量均自动成为 window 对象的成员。
+全局变量是 window 对象的属性。
+全局函数是 window 对象的方法。
+甚至 HTML DOM 的 document 也是 window 对象的属性之一：
+window.document.getElementById("header");
+
+document.getElementById("header");
+
+
+window.open() - 打开新窗口
+window.close() - 关闭当前窗口
+window.moveTo() - 移动当前窗口
+window.resizeTo() - 调整当前窗口的尺寸
+window对象的常见方法
+
+prompt():显示可提示用户输入的对话框
+alert()：显示带有一个提示信息和一个确定按钮的警示框
+confirm()：一个带有提示信息，取得和取消按钮的对话框
+close()：关闭浏览器窗口
+open()：打开一个新的浏览器窗口，加载给定URL所指定的文档
+setTimeout()：在指定的毫秒数后调用函数或者计算表达式
+setInterval()：按照指定的周期|（以毫秒记）来调用函数或表达式 
+https://blog.csdn.net/qq_42408149/article/details/82728785
+
+JS中用document对象操作form表单 案例
+https://blog.csdn.net/racy696/article/details/77534850
+
+Javascript中DOM，window对象,history对象，location对象，document对象，内置对象
+
+常用的属性： 
+history:有关客户访问过的URL的信息 
+location:有关当前的URL的信息 
+
+[root@V1 html]# scp   index.html  root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day03/jsform.html
+
+
+
+
+

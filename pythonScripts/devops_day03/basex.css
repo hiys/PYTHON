@@ -1,0 +1,23 @@
+/*优先级第3 */
+/**CSS  清零无边框**/
+body,*{
+ margin:0 auto;
+ padding:0;
+ text-align: center;
+ font-size:32px;
+ border:2px  dotted red;
+}
+#div1{
+ color: #00ffee;
+ background-color: #ff00ee;
+}
+div[id="div3"]{
+ font-size:64px;
+ color: #ee0000;
+ background-color: rgb(0,0,255);
+}
+p[name='p1']{
+ color:rgb(255,255,0);
+ background-color:orange;
+}
+

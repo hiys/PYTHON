@@ -1,0 +1,1094 @@
+
+
+[root@V0 devops_day03]# scp  hello.java  root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day03/
+
+[root@room9pc01 ~]# for  i  in  V{0..2};do  virsh shutdown  $i;done;
+域 V0 被关闭
+
+域 V1 被关闭
+
+域 V2 被关闭
+
+[root@room9pc01 ~]# 
+
+首先在shell中执行js脚本需要可以执行的环境，其次调配环境，之后进行运行，具体步骤与实例如下：
+①安装java、javac环境（如已安装环境请跳过此步）
+
+[root@V0 devops_day03]# yum  -y install  java-1.8.0-openjdk*
+已加载插件：langpacks, product-id, search-disabled-repos, subscription-manager
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+软件包 1:java-1.8.0-openjdk-devel-1.8.0.131-11.b12.el7.x86_64 已安装并且是最新版本
+软件包 1:java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64 已安装并且是最新版本
+软件包 1:java-1.8.0-openjdk-headless-1.8.0.131-11.b12.el7.x86_64 已安装并且是最新版本
+无须任何处理
+
+[root@V0 devops_day03]# 
+
+[root@V0 devops_day03]# java  -version
+openjdk version "1.8.0_131"
+OpenJDK Runtime Environment (build 1.8.0_131-b12)
+OpenJDK 64-Bit Server VM (build 25.131-b12, mixed mode)
+
+[root@V0 devops_day03]# type  java
+java 已被哈希 (/usr/bin/java)
+-----------------------------------------------------   #家目录 ---------------------------
+[root@V0 devops_day03]# echo  $JAVA_HOME
+
+[root@V0 devops_day03]# which  java
+/usr/bin/java
+
+[root@V0 devops_day03]# ls  /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/
+bin  include  jre  lib  tapset
+
+[root@V0 devops_day03]# ls   /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/bin/
+
+appletviewer  java     java-rmi.cgi  jhat   jrunscript  keytool       rmic         servertool  xjc
+extcheck      javac    jcmd          jinfo  jsadebugd   native2ascii  rmid         tnameserv
+idlj          javadoc  jconsole      jjs    jstack      orbd          rmiregistry  unpack200
+jar           javah    jdb           jmap   jstat       pack200       schemagen    wsgen
+jarsigner     javap    jdeps         jps    jstatd      policytool    serialver    wsimport
+
+[root@V0 devops_day03]# ll  /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/bin/javac 
+-rwxr-xr-x 1 root root 7352 6月  14 2017 /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/bin/javac
+
+
+[root@V0 devops_day03]# ll /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/bin/java
+-rwxr-xr-x 1 root root 7304 6月  14 2017 /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/bin/java
+
+[root@V0 devops_day03]# vim   hello.java
+
+[root@V0 devops_day03]# cat   hello.java
+
+public  class  hello{
+  public static void main(String[] args){
+    System.out.print("Hello World!\n");
+  }
+}
+
+[root@V0 jvm]# javac  hello.java
+hello.java:1: 错误: 类HelloWorld是公共的, 应在名为 HelloWorld.java 的文件中声明
+public class HelloWorld{
+       ^
+1 个错误
+------------------------------------- 当类设置public时，public设置的那个类必须与文件名相同
+----------------- 解决办法 修改文件名 和类名 相同的名称,区分大小写 ------------
+
+[root@V0 jvm]# mv  hello.java    HelloWorld.java
+                #命令javac  文件完整的名称
+[root@V0 jvm]# javac   HelloWorld.java  #命令javac  文件完整的名称 # 编译Java类
+
+[root@V0 jvm]# java    HelloWorld
+
+Hello World![root@V0 jvm]# 
+
+
+----------------------------- # 命令 javac   文件完整的名称   # 编译Java类
+
+[root@V0 devops_day03]# javac   hello.java
+
+[root@V0 devops_day03]# java     hello
+Hello World!
+[root@V0 devops_day03]#
+
+[root@V0 devops_day03]# vim    RunScriptFile.java
+
+[root@V0 devops_day03]# cat    RunScriptFile.java
+import java.io.FileReader;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+public class RunScriptFile {
+ public static void main(String[] args) {
+  ScriptEngineManager manager = new ScriptEngineManager();
+  ScriptEngine engine = manager.getEngineByName("js");
+  try {
+   FileReader reader = new FileReader("testFile.js");
+   engine.eval(reader);
+   reader.close();
+  }
+  catch (Exception e) {
+   e.printStackTrace();
+  }
+ }
+}
+[root@V0 devops_day03]# javac   RunScriptFile.java
+
+[root@V0 devops_day03]# cat     testFile.js 
+function add(a, b) {
+ c = a + b;
+ return c;
+}
+result = add (10, 5);
+print ('Result = ' + result);
+
+[root@V0 devops_day03]# java     RunScriptFile.java
+错误: 找不到或无法加载主类 RunScriptFile.java
+
+[root@V0 devops_day03]# java     RunScriptFile
+Result = 15
+
+[root@V0 devops_day03]# ll    RunScriptFile.*
+-rw-r--r-- 1 root root 796 4月  28 10:00 RunScriptFile.class
+-rw-r--r-- 1 root root 453 4月  27 19:40 RunScriptFile.java
+
+[root@V0 devops_day03]# file   RunScriptFile.class 
+RunScriptFile.class: compiled Java class data, version 52.0 (Java 1.8)
+
+[root@V0 devops_day03]# file   RunScriptFile.java 
+RunScriptFile.java: C source, ASCII text
+
+[root@V0 devops_day03]# file   testFile.js 
+testFile.js: ASCII text
+[root@V0 devops_day03]# 
+
+
+http://nodejs.cn/
+
+Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。 
+Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。 
+
+v10.15.3 文档
+唯一与官网同步的中文文档
+
+Node.js 中文网 v10.15.3
+assert - 断言
+async_hooks - 异步钩子
+Buffer - 缓冲器
+child_process - 子进程
+cluster - 集群
+console - 控制台
+crypto - 加密
+debugger - 调试器
+dgram - 数据报
+dns - 域名服务器
+domain - 域
+Error - 异常
+events - 事件触发器
+fs - 文件系统
+global - 全局变量
+http - HTTP
+http2 - HTTP/2
+https - HTTPS
+inspector - 检查器
+module - 模块
+net - 网络
+os - 操作系统
+path - 路径
+perf_hooks - 性能钩子
+process - 进程
+punycode - 域名代码
+querystring - 查询字符串
+readline - 逐行读取
+repl - 交互式解释器
+stream - 流
+string_decoder - 字符串解码器
+timer - 定时器
+tls - 安全传输层
+trace_events - 跟踪事件
+tty - 终端
+url - URL
+util - 实用工具
+v8 - V8引擎
+vm - 虚拟机
+worker_threads - 工作线程
+zlib - 压缩
+关于本文档
+用法与示例
+C++插件
+N-API
+命令行选项
+ECMAScript 模块
+
+
+[root@V0 ~]# cd  pyscripts/devops_day03/
+[root@V0 devops_day03]# cd  /var/www/html/
+[root@V0 html]# ls
+baidu_jgylogo3.gif  css  ERD_2.png  html  index.html  nodejs.html  test.html
+
+[root@V0 html]# vim    nodejs.html 
+[root@V0 html]# cat   nodejs.html 
+<!DOCTYPE html>
+<!--STATUS OK-->
+
+<html lang="en">
+ <head>
+  <meta  content="text/html;charset=utf-8">
+  <meta name="keywords" content="翻译,在线翻译,百度翻译,词典,英语,"/>
+  <meta name="description" content="百度翻译支持中、英、日、法、德等语言"/>
+  <meta name="renderer" content="webkit">
+  <title>test--title</title>
+
+  <!--优先级第3 -->
+  <link  href="./css/base2.css" rel="stylesheet" type="text/css" charset="utf-8"/>
+
+  <!--优先级第2 -->
+  <style>
+   .second{
+    font-size:32px;
+    color:blue;
+    background-color:green;
+   }
+  </style>
+ </head>
+<!-- <body bgcolor="pink"> -->
+ <body bgcolor='pink'>
+  <hr/>
+  <img  src="//www.baidu.com/img/baidu_jgylogo3.gif" width='200px' height='70px'><!--注释文字//www.网络路径//hr水平线--><hr/>
+  <div id='div1'>
+   div id='div1'  color: #00ffee;background-color: #ff00ee;
+  </div>
+  <div id='div2'>
+   <p name="p1">css/base2.css  p[name='p1']color:rgb(255,255,0);</p>
+  </div>
+  <div id='div3'>
+   div[id="div3"] color: #ee0000;
+  </div>
+  
+
+
+ </body>
+</html>
+[root@V0 html]# 
+
+[root@V0 html]# vim   css/base2.css
+[root@V0 html]# cat   css/base2.css
+/*优先级第3 */
+/**CSS  清零无边框**/
+body,*{
+ margin:0 auto;
+ padding:0;
+ text-align: center;
+ font-size:32px;
+ border:2px  dotted red;
+}
+#div1{
+ color: #00ffee;
+ background-color: #ff00ee;
+}
+div[id="div3"]{
+ font-size:64px;
+ color: #ee0000;
+ background-color: rgb(0,0,255);
+}
+p[name='p1']{
+ color:rgb(255,255,0);
+ background-color:orange;
+}
+
+[root@V0 html]# 
+
+============= js中加“var”和不加“var”的区别 ===============
+
+var num = 1；
+
+是在当前域中声明变量. 
+如果 在方法 中 声明，则为局部变量（local variable）；
+如果 在全局域中声明，则为全局变量。
+
+-----------------------------
+
+而 num = 1；
+
+事实上是对属性赋值操作。
+首先，它会尝试在当前作用域链
+（如在方法中声明，则当前作用域链代表全局作用域和方法局部作用域etc。。。）
+中解析 num； 
+如果在任何当前作用域链中找到num，则会执行对num属性赋值；
+ 如果没有找到num，
+它才会在全局对象（即当前作用域链的最顶层对象，如window对象）
+中创造num属性并赋值。
+
+注意！它并不是声明了一个全局变量，而是创建了一个全局对象的属性。
+
+
+“变量声明”跟“创建对象属性”在这里的区别。
+事实上，Javascript的变量声明、创建属性
+以及每个Javascript中的每个属性
+都有一定的标志说明它们的属性----如
+只读（ReadOnly）不可枚举（DontEnum）不可删除（DontDelete）等等。
+
+由于变量 var 声明自带 不可删除属性，
+ var num = 1  变量声明，带不可删除属性，因此无法被删除
+ num = 1  为全局变量的一个属性，因此可以从全局变量中删除。
+
+
+
+linux服务器安装nodejs运行环境
+安装nodejs运行环境
+
+第一步：到node官网下载相应版本的安装包，将安装包放置服务器上，
+路径为 usr/local/node（可根据自身情况进行修改）
+
+node官网下载
+https://nodejs.org/en/download/
+
+源代码	            节点v10.15.3.tar.gz
+Source Code	   node-v10.15.3.tar.gz
+
+[root@room9pc01 ~]# ll  '/root/桌面/node-v10.15.3.tar.gz' 
+-rw-r--r-- 1 root root 36370204 4月  28 11:42 /root/桌面/node-v10.15.3.tar.gz
+
+[root@room9pc01 ~]# file  /root/桌面/node-v10.15.3.tar.gz
+/root/桌面/node-v10.15.3.tar.gz: gzip compressed data, was "node-v10.15.3.tar", from Unix, last modified: Tue Mar  5 23:16:37 2019, max compression
+
+[root@room9pc01 ~]# scp   /root/桌面/node-v10.15.3.tar.gz  root@192.168.0.10:/root/
+root@192.168.0.10's password: 
+node-v10.15.3.tar.gz                          100%   35MB 173.3MB/s   00:00    
+
+[root@room9pc01 ~]# ssh  -X  192.168.0.10
+
+[root@V0 ~]# ll   node-v10.15.3.tar.gz 
+-rw-r--r-- 1 root root 36370204 4月  28 11:44 node-v10.15.3.tar.gz
+
+[root@V0 ~]#  mkdir  /usr/local/nodejs   #安装目录
+
+[root@V0 ~]#  cd   /usr/local/nodejs/
+
+第二步：解压
+
+[root@V0 nodejs]#  tar  -xzvf  /root/node-v10.15.3.tar.gz 
+....................
+node-v10.15.3/deps/v8/gypfiles/verify_source_deps.py
+node-v10.15.3/deps/v8/gypfiles/mac/asan.gyp
+node-v10.15.3/deps/v8/gni/v8.gni
+node-v10.15.3/deps/v8/docs/README.md
+..........................
+node-v10.15.3/benchmark/assert/ok.js
+node-v10.15.3/benchmark/assert/throws.js
+[root@V0 nodejs]# ls
+node-v10.15.3
+[root@V0 nodejs]# pwd
+/usr/local/nodejs
+
+------------------------- 第三步：配置环境变量
+
+[root@V0 nodejs]# cd   node-v10.15.3/
+
+[root@V0 node-v10.15.3]# pwd
+/usr/local/nodejs/node-v10.15.3
+
+[root@V0 node-v10.15.3]# ls
+android-configure   COLLABORATOR_GUIDE.md  doc            README.md
+AUTHORS             common.gypi            GOVERNANCE.md  SECURITY.md
+benchmark           configure              lib            src
+BSDmakefile         configure.py           LICENSE        test
+BUILDING.md         CONTRIBUTING.md        Makefile       tools
+CHANGELOG.md        CPP_STYLE_GUIDE.md     node.gyp       vcbuild.bat
+CODE_OF_CONDUCT.md  deps                   node.gypi
+
+[root@V0 node-v10.15.3]# 
+[root@V0 node-v10.15.3]# ./configure
+WARNING: C++ compiler too old, need g++ 4.9.4 or clang++ 3.4.2 (CXX=g++)
+creating icu_config.gypi
+* Using ICU in deps/icu-small
+WARNING: Using floating patch "tools/icu/patches/62/source/i18n/decimfmt.cpp" from "tools/icu"
+creating icu_config.gypi
+{ 'target_defaults': { 'cflags': [],
+                       'default_configuration': 'Release',
+                       'defines': [],
+                       'include_dirs': [],
+                       'libraries': []},
+  'variables': { 'asan': 0,
+                 'build_v8_with_gn': 'false',
+                 'coverage': 'false',
+                 'debug_nghttp2': 'false',
+                 'enable_lto': 'false',
+                 'enable_pgo_generate': 'false',
+                 'enable_pgo_use': 'false',
+                 'force_dynamic_crt': 0,
+                 'gas_version': '2.25',
+                 'host_arch': 'x64',
+                 'icu_data_in': '../../deps/icu-small/source/data/in/icudt62l.dat',
+                 'icu_endianness': 'l',
+                 'icu_gyp_path': 'tools/icu/icu-generic.gyp',
+                 'icu_locales': 'en,root',
+                 'icu_path': 'deps/icu-small',
+.............................
+                 'node_use_large_pages': 'false',
+                 'node_use_openssl': 'true',
+..........................................
+                 'v8_trace_maps': 0,
+                 'v8_typed_array_max_size_in_heap': 0,
+                 'v8_use_snapshot': 'true',
+                 'want_separate_host_toolset': 0}}
+creating config.gypi
+creating config.status
+creating config.mk
+running: 
+    python tools/gyp_node.py --no-parallel -f make-linux
+
+[root@V0 node-v10.15.3]# make           #默认路径安装：/usr/local/bin
+/******************
+[root@V0 devops_day03]# watch -n1 -d free -m
+
+available
+英 [əˈveɪləbl]   美 [əˈveɪləbl]  
+adj.
+可获得的;可购得的;可找到的;有空的
+************/
+
+../src/cares_wrap.cc: 在函数‘void node::cares_wrap::{anonymous}::Query(const v8::FunctionCallbackInfo<v8::Value>&)’中:
+../src/cares_wrap.cc:1799:15: 错误：‘make_unique’不是‘std’的成员
+   auto wrap = std::make_unique<Wrap>(channel, req_wrap_obj);
+               ^
+../src/cares_wrap.cc:1799:36: 错误：expected primary-expression before ‘>’ token
+   auto wrap = std::make_unique<Wrap>(channel, req_wrap_obj);
+                                    ^
+../src/cares_wrap.cc: 在函数‘void node::cares_wrap::{anonymous}::GetAddrInfo(const v8::FunctionCallbackInfo<v8::Value>&)’中:
+../src/cares_wrap.cc:1973:19: 错误：‘make_unique’不是‘std’的成员
+   auto req_wrap = std::make_unique<GetAddrInfoReqWrap>(env,
+                   ^
+../src/cares_wrap.cc:1973:54: 错误：expected primary-expression before ‘>’ token
+   auto req_wrap = std::make_unique<GetAddrInfoReqWrap>(env,
+                                                      ^
+../src/cares_wrap.cc:1974:56: 警告：left operand of comma operator has no effect [-Wunused-value]
+                                                        req_wrap_obj,
+                                                        ^
+../src/cares_wrap.cc:1975:72: 警告：right operand of comma operator has no effect [-Wunused-value]
+                                                        args[4]->IsTrue());
+                                                                        ^
+../src/cares_wrap.cc: 在函数‘void node::cares_wrap::{anonymous}::GetNameInfo(const v8::FunctionCallbackInfo<v8::Value>&)’中:
+../src/cares_wrap.cc:2016:19: 错误：‘make_unique’不是‘std’的成员
+   auto req_wrap = std::make_unique<GetNameInfoReqWrap>(env, req_wrap_obj);
+                   ^
+../src/cares_wrap.cc:2016:54: 错误：expected primary-expression before ‘>’ token
+   auto req_wrap = std::make_unique<GetNameInfoReqWrap>(env, req_wrap_obj);
+                                                      ^
+../src/cares_wrap.cc:2016:61: 警告：left operand of comma operator has no effect [-Wunused-value]
+   auto req_wrap = std::make_unique<GetNameInfoReqWrap>(env, req_wrap_obj);
+                                                             ^
+make[1]: *** [/usr/local/nodejs/node-v10.15.3/out/Release/obj.target/node_lib/src/cares_wrap.o] 错误 1
+rm a30994da3f2b342690bde1a98776f4aa4747539e.intermediate d5f70c98db235ad60f3e607bf0e472ab430326d6.intermediate db627a5fbda2902841126bbdb012277ab5ac8024.intermediate
+make[1]: 离开目录“/usr/local/nodejs/node-v10.15.3/out”
+make: *** [node] 错误 2
+[root@V0 node-v10.15.3]# 
+
+原因解析：make版本过低导致。安装所需环境如下：
+1. GNU make 3.8.1+
+2. Python 2.6 or 2.7
+3. setenv FLOCK or export FLOCK
+    setenv LINK g++ or export LINK=g++
+
+
+查看当前的GLIBC版本
+strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
+
+[root@V0 node-v10.15.3]# type  ldd
+ldd 是 /usr/bin/ldd
+[root@V0 node-v10.15.3]# ldd   --version
+ldd (GNU libc) 2.17
+Copyright (C) 2012 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+由 Roland McGrath 和 Ulrich Drepper 编写。
+[root@V0 node-v10.15.3]# 
+
+
+[root@V0 node-v10.15.3]# python  --version
+Python 2.7.5
+[root@V0 node-v10.15.3]# type  make
+make 已被哈希 (/usr/bin/make)
+[root@V0 node-v10.15.3]# ll  /usr/bin/make
+-rwxr-xr-x. 1 root root 182768 7月   8 2016 /usr/bin/make
+
+[root@V0 node-v10.15.3]# make  -?
+make：无效选项 -- ?
+用法：make [选项] [目标] ...
+选项：
+  -b, -m                      忽略兼容性。
+  -v, --version               打印 make 的版本号并退出。
+
+[root@V0 node-v10.15.3]# make  -v
+GNU Make 3.82
+Built for x86_64-redhat-linux-gnu
+Copyright (C) 2010  Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+[root@V0 node-v10.15.3]# 
+
+[root@V0 node-v10.15.3]# gcc  --version
+
+gcc (GCC) 4.8.5 20150623 (Red Hat 4.8.5-16)
+Copyright © 2015 Free Software Foundation, Inc.
+本程序是自由软件；请参看源代码的版权声明。本软件没有任何担保；
+包括没有适销性和某一专用目的下的适用性担保。
+
+[root@V0 node-v10.15.3]# ls  /usr/lib/gcc/
+x86_64-redhat-linux
+[root@V0 node-v10.15.3]# ls  /usr/lib/gcc/x86_64-redhat-linux/
+4.8.2  4.8.5
+[root@V0 node-v10.15.3]#
+[root@V0 node-v10.15.3]# type   strings 
+strings 是 /usr/bin/strings
+
+[root@V0 node-v10.15.3]# ls  /usr/lib/
+alsa       firmware    java-ext     modprobe.d      sendmail.postfix
+binfmt.d   games       jvm          modules         sse2
+bonobo     gcc         jvm-commmon  modules-load.d  sysctl.d
+cpp        grub        jvm-exports  mozilla         systemd
+crda       java        jvm-private  NetworkManager  tmpfiles.d
+cups       java-1.5.0  kbd          polkit-1        tuned
+debug      java-1.6.0  kdump        python2.7       udev
+dracut     java-1.7.0  kernel       rpm             udisks2
+firewalld  java-1.8.0  locale       sendmail        yum-plugins
+
+http://ftp.de.debian.org/debian/pool/main/g/gcc-8/
+
+http://ftp.gnu.org/gnu/gcc/gcc-8.3.0/gcc-8.3.0.tar.gz
+http://ftp.gnu.org/gnu/gcc/gcc-8.1.0/gcc-8.1.0.tar.xz
+
+linux升级gcc到gcc-8.1.0
+
+[root@room9pc01 ~]# scp    /root/桌面/gcc-8.1.0.tar.xz  root@192.168.0.10:/root/root@192.168.0.10's password: 
+
+[root@V0 node-v10.15.3]# cd  /usr/src/
+[root@V0 src]# pwd
+/usr/src
+[root@V0 src]# ls
+debug  kernels
+[root@V0 src]# ll   /root/gcc-8.1.0.tar.xz 
+-rw-r--r-- 1 root root 63372320 4月  28 13:22 /root/gcc-8.1.0.tar.xz
+[root@V0 src]# tar  -xJvf  /root/gcc-8.1.0.tar.xz 
+.................
+gcc-8.1.0/gotools/configure
+gcc-8.1.0/gotools/aclocal.m4
+gcc-8.1.0/gotools/configure.ac
+gcc-8.1.0/gotools/ChangeLog
+[root@V0 src]# ls
+debug  gcc-8.1.0  kernels
+[root@V0 src]# cd  gcc-8.1.0/
+[root@V0 gcc-8.1.0]# ls
+ABOUT-NLS           fixincludes   libgomp          ltsugar.m4
+ChangeLog           gcc           libhsail-rt      ltversion.m4
+ChangeLog.jit       gnattools     libiberty        MAINTAINERS
+ChangeLog.tree-ssa  gotools       libitm           maintainer-scripts
+compile             include       libmpx           Makefile.def
+config              INSTALL       libobjc          Makefile.in
+config.guess        install-sh    liboffloadmic    Makefile.tpl
+config-ml.in        intl          libquadmath      MD5SUMS
+config.rpath        LAST_UPDATED  libsanitizer     missing
+config.sub          libada        libssp           mkdep
+configure           libatomic     libstdc++-v3     mkinstalldirs
+configure.ac        libbacktrace  libtool-ldflags  move-if-change
+contrib             libcc1        libtool.m4       NEWS
+COPYING             libcpp        libvtv           README
+COPYING3            libdecnumber  ltgcc.m4         symlink-tree
+COPYING3.LIB        libffi        ltmain.sh        ylwrap
+COPYING.LIB         libgcc        lt~obsolete.m4   zlib
+COPYING.RUNTIME     libgfortran   lto-plugin
+depcomp             libgo         ltoptions.m4
+[root@V0 gcc-8.1.0]# 
+[root@V0 gcc-8.1.0]# ls  co
+compile       config.guess  config.rpath  configure     contrib/
+config/       config-ml.in  config.sub    configure.ac  
+
+[root@V0 gcc-8.1.0]# ls  contrib/
+
+analyze_brprob.py              dg-extract-results.sh   mklog
+analyze_brprob_spec.py         dglib.pm                mklog.pl
+ChangeLog                      download_prerequisites  paranoia.cc
+ChangeLog.jit                  filter_gcc_for_doxygen  patch_tester.sh
+ChangeLog.tree-ssa             filter_knr2ansi.pl      prepare_patch.sh
+check_GNU_style_lib.py         filter_params.py        prerequisites.md5
+check_GNU_style.py             gcc_build               prerequisites.sha512
+check_GNU_style.sh             gcc.doxy                reghunt
+check_makefile_deps.sh         gcc_update              regression
+check_warning_flags.sh         gen_autofdo_event.py    repro_fail
+clang-format                   gennews                 test_installed
+compare-all-tests              gimple.vim              test_recheck
+compare-debug                  gthr_supp_vxw_5x.c      testsuite-management
+compareSumTests3               header-tools            test_summary
+compare_tests                  index-prop              texi2pod.pl
+compare_two_ftime_report_sets  jit-coverage-report.py  uninclude
+config-list.mk                 make-obstacks-texi.pl   update-copyright.py
+dg-cmp-results.sh              make_sunver.pl          vimrc
+dg-extract-results.py          mark_spam.py            warn_summary
+
+[root@V0 gcc-8.1.0]# ll  contrib/download_prerequisites 
+-rwxrwxr-x 1 lisi lisi 7853 1月  29 2018 contrib/download_prerequisites
+
+[root@V0 gcc-8.1.0]# ./contrib/download_prerequisites 
+
+2019-04-28 13:33:32 URL: ftp://gcc.gnu.org/pub/gcc/infrastructure/gmp-6.1.0.tar.bz2 [2383840] -> "./gmp-6.1.0.tar.bz2" [1]
+2019-04-28 13:34:06 URL: ftp://gcc.gnu.org/pub/gcc/infrastructure/mpfr-3.1.4.tar.bz2 [1279284] -> "./mpfr-3.1.4.tar.bz2" [1]
+2019-04-28 13:34:22 URL: ftp://gcc.gnu.org/pub/gcc/infrastructure/mpc-1.0.3.tar.gz [669925] -> "./mpc-1.0.3.tar.gz" [1]
+2019-04-28 13:35:13 URL: ftp://gcc.gnu.org/pub/gcc/infrastructure/isl-0.18.tar.bz2 [1658291] -> "./isl-0.18.tar.bz2" [1]
+gmp-6.1.0.tar.bz2: 确定
+mpfr-3.1.4.tar.bz2: 确定
+mpc-1.0.3.tar.gz: 确定
+isl-0.18.tar.bz2: 确定
+All prerequisites downloaded successfully.
+已成功下载所有必备组件。
+
+prerequisites
+英 [ˌpriːˈrɛkwɪzɪts]  美 [priˈrɛkwəzəts]  
+n.
+先决条件;前提;必备条件
+
+[root@V0 gcc-8.1.0]# ls
+ABOUT-NLS           gmp-6.1.0          libgomp          maintainer-scripts
+ChangeLog           gmp-6.1.0.tar.bz2  libhsail-rt      Makefile.def
+ChangeLog.jit       gnattools          libiberty        Makefile.in
+ChangeLog.tree-ssa  gotools            libitm           Makefile.tpl
+compile             include            libmpx           MD5SUMS
+.................
+gcc                 libgfortran        ltversion.m4
+gmp                 libgo              MAINTAINERS
+
+[root@V0 gcc-8.1.0]# cd  ../
+
+[root@V0 src]# ls
+debug  gcc-8.1.0  kernels
+
+-----------------------#建立编译输出目录
+
+[root@V0 src]# mkdir  gcc-bulid-8.1.0
+
+----------------- #进入下面目录，执行命令，生成Makefile文件
+
+[root@V0 src]# cd   gcc-bulid-8.1.0/
+
+[root@V0 gcc-bulid-8.1.0]# ls
+[root@V0 gcc-bulid-8.1.0]# 
+
+../gcc-8.1.0/configure --enable-checking=release --enable-languages=c,c++ --disable-multilib
+
+[root@V0 gcc-bulid-8.1.0]# ll  ../gcc-8.1.0/configure
+-rwxrwxr-x 1 lisi lisi 480293 5月   2 2018 ../gcc-8.1.0/configure
+[root@V0 gcc-bulid-8.1.0]# ../gcc-8.1.0/configure  \
+> --enable-checking=release  \
+> --enable-languages=c,c++   \
+> --disable-multilib
+...................
+checking whether to enable maintainer-specific portions of Makefiles... no
+configure: creating ./config.status
+config.status: creating Makefile
+
+[root@V0 gcc-bulid-8.1.0]# 
+[root@V0 gcc-bulid-8.1.0]# make  -h
+用法：make [选项] [目标] ...
+  -h, --help                  打印该消息并退出。
+  -i, --ignore-errors         Ignore errors from recipes.
+  -I DIRECTORY, --include-dir=DIRECTORY
+                              在 DIRECTORY 中搜索被包含的 makefile。
+  -j [N], --jobs[=N]          同时允许 N 个任务；无参数表明允许无限个任务。
+  -v, --version               打印 make 的版本号并退出。
+该程序为 x86_64-redhat-linux-gnu 编译
+报告错误到 <bug-make@gnu.org>
+------------ #执行命令进行编译，此处利用4个job，需编译时约40分钟，此值不宜设置过高
+
+[root@V0 gcc-bulid-8.1.0]# make   -j4
+...................
+"PICFLAG=" "PICFLAG_FOR_TARGET=" "SHELL=/bin/sh" "RUNTESTFLAGS=" "exec_prefix=/usr/local" "infodir=/usr/local/share/info" "libdir=/usr/local/lib" "prefix=/usr/local" "includedir=/usr/local/include" "AR=ar" "AS=/usr/src/gcc-bulid-8.1.0/./gcc/as" "LD=/usr/src/gcc-bulid-8.1.0/./gcc/collect-ld" "LIBCFLAGS=-g -O2" "NM=/usr/src/gcc-bulid-8.1.0/./gcc/nm" "PICFLAG=" "RANLIB=ranlib" "DESTDIR=" DO=all multi-do # make
+make[4]: 离开目录“/usr/src/gcc-bulid-8.1.0/x86_64-pc-linux-gnu/libsanitizer”
+make[3]: 离开目录“/usr/src/gcc-bulid-8.1.0/x86_64-pc-linux-gnu/libsanitizer”
+make[2]: 离开目录“/usr/src/gcc-bulid-8.1.0/x86_64-pc-linux-gnu/libsanitizer”
+make[1]: 离开目录“/usr/src/gcc-bulid-8.1.0”
+
+[root@V0 gcc-bulid-8.1.0]# ls
+build-x86_64-pc-linux-gnu  prev-libiberty
+compare                    prev-lto-plugin
+config.log                 prev-mpc
+config.status              prev-mpfr
+...............
+[root@V0 gcc-bulid-8.1.0]# ls  ../
+debug  gcc-8.1.0  gcc-bulid-8.1.0  kernels
+
+[root@V0 gcc-bulid-8.1.0]# ls  ../gcc-8.1.0/M*
+../gcc-8.1.0/MAINTAINERS   ../gcc-8.1.0/Makefile.in   ../gcc-8.1.0/MD5SUMS
+../gcc-8.1.0/Makefile.def  ../gcc-8.1.0/Makefile.tpl
+
+[root@V0 gcc-bulid-8.1.0]# cat  ../gcc-8.1.0/README 
+
+This directory contains the GNU Compiler Collection (GCC).
+这个目录包含GNU编译器集合（GCC）。
+
+The GNU Compiler Collection is free software.  
+GNU编译器集合是免费软件。
+
+See the files whose names start with COPYING for copying permission.  
+
+查看名称以“复制”开头的文件以获得复制权限。
+手册和一些运行时库的术语不同；
+有关详细信息，请参见各个源文件。
+
+目录安装包含安装信息的HTML和纯文本副本。
+此信息的来源是gcc/doc/install.texi。
+安装信息包括GCC源中包含的内容和GCC安装的文件的详细信息。
+
+有关用法和移植信息，请参阅gcc/doc/gcc.texi文件（以及它包含的其他文件）。
+手册的在线可读版本在gcc/doc/gcc.info*文件中。
+
+See http://gcc.gnu.org/bugs/ for how to report bugs usefully.
+有关如何有效地报告错误，请参阅http://gcc.gnu.org/bugs/。
+
+GCC源文件的版权年份可以使用范围表示法列出，
+例如1987-2012年，表示该范围内的每一年（包括在内）都是一个可受版权保护的年份，
+否则可以单独列出。
+
+[root@V0 gcc-bulid-8.1.0]# make  install
+
+
+make[1]: 进入目录“/usr/src/gcc-bulid-8.1.0”
+/bin/sh ../gcc-8.1.0/mkinstalldirs /usr/local /usr/local
+make[2]: 进入目录“/usr/src/gcc-bulid-8.1.0/fixincludes”
+rm -rf /usr/local/libexec/gcc/x86_64-pc-linux-gnu/8.1.0/install-tools
+/bin/sh ../../gcc-8.1.0/fixincludes/../mkinstalldirs /usr/local/libexec/gcc/x86_64-pc-linux-gnu/8.1.0/install-tools
+mkdir -p -- /usr/local/libexec/gcc/x86_64-pc-linux-gnu/8.1.0/install-tools
+/bin/sh ../../gcc-8.1.0/fixincludes/../mkinstalldirs /usr/local/lib/gcc/x86_64-pc-linux-gnu/8.1.0/install-tools/include
+mkdir -p -- /usr/local/lib/gcc/x86_64-pc-linux-gnu/8.1.0/install-tools/include
+/usr/bin/install -c -m 644 ../../gcc-8.1.0/fixincludes/README-fixinc \
+  /usr/local/lib/gcc/x86_64-pc-linux-gnu/8.1.0/install-tools/include/README
+/usr/bin/install -c fixinc.sh /usr/local/libexec/gcc/x86_64-pc-linux-gnu/8.1.0/install-tools/fixinc.sh
+/usr/bin/install -c fixincl /usr/local/libexec/gcc/x86_64-pc-linux-gnu/8.1.0/install-tools/fixincl
+/usr/bin/install -c mkheaders /usr/local/libexec/gcc/x86_64-pc-linux-gnu/8.1.0/install-tools/mkheaders
+make[2]: 离开目录“/usr/src/gcc-bulid-8.1.0/fixincludes”
+make[2]: 进入目录“/usr/src/gcc-bulid-8.1.0/lto-plugin”
+make[3]: 进入目录“/usr/src/gcc-bulid-8.1.0/lto-plugin”
+ /usr/bin/mkdir -p '/usr/local/libexec/gcc/x86_64-pc-linux-gnu/8.1.0'
+ /bin/sh ./libtool --tag=disable-static  --mode=install /usr/bin/install -c   liblto_plugin.la '/usr/local/libexec/gcc/x86_64-pc-linux-gnu/8.1.0'
+libtool: install: /usr/bin/install -c .libs/liblto_plugin.so.0.0.0 /usr/local/libexec/gcc/x86_64-pc-linux-gnu/8.1.0/liblto_plugin.so.0.0.0
+libtool: install: (cd /usr/local/libexec/gcc/x86_64-pc-linux-gnu/8.1.0 && { ln -s -f liblto_plugin.so.0.0.0 liblto_plugin.so.0 || { rm -f liblto_plugin.so.0 && ln -s liblto_plugin.so.0.0.0 liblto_plugin.so.0; }; })
+libtool: install: (cd /usr/local/libexec/gcc/x86_64-pc-linux-gnu/8.1.0 && { ln -s -f liblto_plugin.so.0.0.0 liblto_plugin.so || { rm -f liblto_plugin.so && ln -s liblto_plugin.so.0.0.0 liblto_plugin.so; }; })
+libtool: install: /usr/bin/install -c .libs/liblto_plugin.lai /usr/local/libexec/gcc/x86_64-pc-linux-gnu/8.1.0/liblto_plugin.la
+libtool: finish: PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:/sbin" ldconfig -n /usr/local/libexec/gcc/x86_64-pc-linux-gnu/8.1.0
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/local/libexec/gcc/x86_64-pc-linux-gnu/8.1.0
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the `-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the `LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the `LD_RUN_PATH' environment variable
+     during linking
+   - use the `-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to `/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+make[3]: 对“install-data-am”无需做任何事。
+make[3]: 离开目录“/usr/src/gcc-bulid-8.1.0/lto-plugin”
+make[2]: 离开目录“/usr/src/gcc-bulid-8.1.0/lto-plugin”
+make[2]: 进入目录“/usr/src/gcc-bulid-8.1.0/gcc”
+............................
+libtool: install: chmod 644 /usr/local/lib/../lib64/libatomic.a
+libtool: install: ranlib /usr/local/lib/../lib64/libatomic.a
+libtool: finish: PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:/sbin" ldconfig -n /usr/local/lib/../lib64
+ldconfig: /usr/local/lib/../lib64/libstdc++.so.6.0.25-gdb.py is not an ELF file - it has the wrong magic bytes at the start.
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/local/lib/../lib64
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the `-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the `LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the `LD_RUN_PATH' environment variable
+     during linking
+   - use the `-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to `/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+
+如果您碰巧希望链接到给定目录libdir中的已安装库，
+则必须使用libtool并指定库的完整路径名，
+或者在链接期间使用“-llibdir”标志，并至少执行以下操作之一：
+-在执行期间将libdir添加到'ld_library_path'环境变量
+-在链接期间将libdir添加到'ld_run_path'环境变量
+-使用`-wl、-rpath-wl、libdir'链接器标志
+-让系统管理员将libdir添加到`/etc/ld.so.conf'
+
+有关更多信息，请参阅有关共享库的任何操作系统文档，
+如ld（1）和ld.so（8）手册页。
+
+----------------------------------------------------------------------
+make[4]: 对“install-data-am”无需做任何事。
+make[4]: 离开目录“/usr/src/gcc-bulid-8.1.0/x86_64-pc-linux-gnu/libatomic”
+make[3]: 离开目录“/usr/src/gcc-bulid-8.1.0/x86_64-pc-linux-gnu/libatomic”
+make[2]: 离开目录“/usr/src/gcc-bulid-8.1.0/x86_64-pc-linux-gnu/libatomic”
+make[1]: 离开目录“/usr/src/gcc-bulid-8.1.0”
+[root@V0 gcc-bulid-8.1.0]# 
+
+[root@V0 gcc-bulid-8.1.0]# gcc  -v
+使用内建 specs。
+COLLECT_GCC=gcc
+目标：x86_64-redhat-linux
+配置为：../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++,objc,obj-c++,java,fortran,ada,go,lto --enable-plugin --enable-initfini-array --disable-libgcj --with-isl=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/isl-install --with-cloog=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/cloog-install --enable-gnu-indirect-function --with-tune=generic --with-arch_32=x86-64 --build=x86_64-redhat-linux
+线程模型：posix
+gcc 版本 4.8.5 20150623 (Red Hat 4.8.5-16) (GCC) 
+
+[root@V0 gcc-bulid-8.1.0]# gcc  --version
+
+gcc (GCC) 4.8.5 20150623 (Red Hat 4.8.5-16)
+Copyright © 2015 Free Software Foundation, Inc.
+本程序是自由软件；请参看源代码的版权声明。本软件没有任何担保；
+包括没有适销性和某一专用目的下的适用性担保。
+[root@V0 gcc-bulid-8.1.0]# 
+
+[root@V0 gcc-bulid-8.1.0]# ls  /usr/local/include/c++/
+8.1.0
+[root@V0 gcc-bulid-8.1.0]# ls  /usr/local/include/c++/8.1.0/  # 头文件
+
+algorithm           cstdalign     initializer_list  shared_mutex
+any                 cstdarg       iomanip           sstream
+array               cstdbool      ios               stack
+atomic              cstddef       iosfwd            stdexcept
+backward            cstdint       iostream          stdlib.h
+bits                cstdio        istream           streambuf
+bitset              cstdlib       iterator          string
+cassert             cstring       limits            string_view
+ccomplex            ctgmath       list              system_error
+cctype              ctime         locale            tgmath.h
+cerrno              cuchar        map               thread
+cfenv               cwchar        math.h            tr1
+cfloat              cwctype       memory            tr2
+charconv            cxxabi.h      mutex             tuple
+chrono              debug         new               typeindex
+cinttypes           decimal       numeric           typeinfo
+ciso646             deque         optional          type_traits
+climits             exception     ostream           unordered_map
+clocale             experimental  parallel          unordered_set
+cmath               ext           profile           utility
+codecvt             fenv.h        queue             valarray
+complex             filesystem    random            variant
+complex.h           forward_list  ratio             vector
+condition_variable  fstream       regex             x86_64-pc-linux-gnu
+csetjmp             functional    scoped_allocator
+csignal             future        set
+
+[root@V0 gcc-bulid-8.1.0]# ls  -ld   /usr/local/include/c++/8.1.0/  #头文件
+drwxr-xr-x 13 root root 4096 4月  28 15:07 /usr/local/include/c++/8.1.0/
+[root@V0 gcc-bulid-8.1.0]# 
+
+[root@V0 gcc-bulid-8.1.0]# rpm  -qa  |grep  glibc
+
+glibc-headers-2.17-196.el7.x86_64
+glibc-common-2.17-196.el7.x86_64
+glibc-devel-2.17-196.el7.x86_64
+glibc-2.17-196.el7.x86_64
+
+[root@V0 gcc-bulid-8.1.0]# find  /  -iname "*libstdc++.so*" -type  f
+
+/usr/lib64/libstdc++.so.6.0.19
+/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.py
+/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.pyc
+/usr/share/gdb/auto-load/usr/lib64/libstdc++.so.6.0.19-gdb.pyo
+/usr/local/lib64/libstdc++.so.6.0.25
+/usr/local/lib64/libstdc++.so.6.0.25-gdb.py
+/usr/src/gcc-bulid-8.1.0/prev-x86_64-pc-linux-gnu/libstdc++-v3/src/.libs/libstdc++.so.6.0.25
+/usr/src/gcc-bulid-8.1.0/x86_64-pc-linux-gnu/libstdc++-v3/src/.libs/libstdc++.so.6.0.25
+/usr/src/gcc-bulid-8.1.0/stage1-x86_64-pc-linux-gnu/libstdc++-v3/src/.libs/libstdc++.so.6.0.25
+[root@V0 gcc-bulid-8.1.0]#
+[root@V0 gcc-bulid-8.1.0]# ll   /usr/local/lib64/libstdc++.so.6.0.25
+-rwxr-xr-x 1 root root 12133568 4月  28 15:07 /usr/local/lib64/libstdc++.so.6.0.25
+
+[root@V0 gcc-bulid-8.1.0]# type  strings 
+strings 是 /usr/bin/strings
+---------------------------------------------- 查看glibc版本信息  -------------------------
+
+[root@V0 gcc-bulid-8.1.0]# strings  /usr/local/lib64/libstdc++.so.6.0.25  |grep GLIBCXX
+GLIBCXX_3.4
+GLIBCXX_3.4.1
+GLIBCXX_3.4.2
+GLIBCXX_3.4.3
+GLIBCXX_3.4.4
+GLIBCXX_3.4.5
+GLIBCXX_3.4.6
+GLIBCXX_3.4.7
+GLIBCXX_3.4.8
+GLIBCXX_3.4.9
+GLIBCXX_3.4.10
+GLIBCXX_3.4.11
+GLIBCXX_3.4.12
+GLIBCXX_3.4.13
+GLIBCXX_3.4.14
+GLIBCXX_3.4.15
+GLIBCXX_3.4.16
+GLIBCXX_3.4.17
+GLIBCXX_3.4.18
+GLIBCXX_3.4.19
+GLIBCXX_3.4.20
+GLIBCXX_3.4.21
+GLIBCXX_3.4.22
+GLIBCXX_3.4.23
+GLIBCXX_3.4.24
+GLIBCXX_3.4.25
+GLIBCXX_DEBUG_MESSAGE_LENGTH
+.......................
+[root@V0 gcc-bulid-8.1.0]# 
+lib64stdc++6_8.1.0-8_i386.deb
+
+https://blog.csdn.net/weixin_34150830/article/details/87160440
+
+
+
+
+
+解决：采用高版本make编译
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[root@V1 pyscripts]# systemctl  is-active  httpd
+unknown
+[root@V1 pyscripts]# yum  -y install  httpd
+....................
+[root@V1 pyscripts]# cd  /var/www/html/
+
+[root@V1 html]# mkdir   /var/www/html/css
+
+[root@V1 html]# vim   /var/www/html/css/base.css
+
+[root@V1 html]# vim    /var/www/html/index.html
+
+[root@V1 html]# cat    /var/www/html/index.html
+<!DOCTYPE html>
+<!--STATUS OK-->
+
+<html lang="en">
+ <head>
+  <meta  content="text/html;charset=utf-8">
+  <meta name="keywords" content="翻译,在线翻译,百度翻译,词典,英语,"/>
+  <meta name="description" content="百度翻译支持中、英、日、法、德等语言"/>
+  <meta name="renderer" content="webkit">
+  <title>test--title</title>
+
+  <!--优先级第3 -->
+  <link  href="./css/base.css" rel="stylesheet" type="text/css" charset="utf-8"/>
+
+  <!--优先级第2 -->
+  <style>
+   .second{
+    font-size:32px;
+    color:blue;
+    background-color:green;
+   }
+  </style>
+ </head>
+<!-- <body bgcolor="pink"> -->
+ <body bgcolor='pink'>
+  <hr/>
+  <img  src="//www.baidu.com/img/baidu_jgylogo3.gif" width='200px' height='70px'><!--注释文字//www.网络路径//hr水平线--><hr/>
+  <div id='div1'>
+   div id='div1'  color: #00ffee;background-color: #ff00ee;
+  </div>
+  <div id='div2'>
+   <p name="p1">css/base2.css  p[name='p1']color:rgb(255,255,0);</p>
+  </div>
+  <div id='div3'>
+   div[id="div3"] color: #ee0000;
+  </div>
+  
+
+
+ </body>
+</html>
+
+[root@V1 html]# 
+[root@V1 html]# cat   /var/www/html/css/base.css
+/*优先级第3 */
+/**CSS  清零无边框**/
+body,*{
+ margin:0 auto;
+ padding:0;
+ text-align: center;
+ font-size:32px;
+ border:2px  dotted red;
+}
+#div1{
+ color: #00ffee;
+ background-color: #ff00ee;
+}
+div[id="div3"]{
+ font-size:64px;
+ color: #ee0000;
+ background-color: rgb(0,0,255);
+}
+p[name='p1']{
+ color:rgb(255,255,0);
+ background-color:orange;
+}
+
+[root@V1 html]# systemctl  start  httpd  &&  systemctl  enable  httpd
+Created symlink from /etc/systemd/system/multi-user.target.wants/httpd.service to /usr/lib/systemd/system/httpd.service.
+[root@V1 html]# 
+
+利用 document.write() 写入不平衡树引发来自网络的数据被重新解析。
+更多信息参见 https://developer.mozilla.org/en/Optimizing_Your_Pages_for_Speculative_Parsing  192.168.0.11:25
+Object {  }
+
+
+  <div id='div1' onclick="alert(1);">
+   <div onclick="alert(2);">
+    <div onclick="alert(3);">
+     <input type='text'/>
+    </div>
+   </div>
+  </div>
+  <div id='div2'>
+   <p name="p1">css/base.css  p[name='p1']color:rgb(255,255,0);</p>
+   <input type='text' onclick="this.blur()"/>
+  </div>
+
+
+
+  <script>
+   function  add(a, b){
+     var o = Object();
+     alert(o);
+     return a+b;
+   }
+   document.write('body end hello\n' + add(100, 10));
+   var xo = {};
+   xo.id= 1;
+   xo.name = 'namexo';
+   console.error(xo+'error\n');
+   console.log(xo);
+   var oDiv = document.getElementById("oDiv");
+   oDiv.click()
+
+  </script>
+
+  <script>
+   function  add(a, b){
+     var o = Object();
+     alert(o);
+     return a+b;
+   }
+   document.write('body end hello\n' + add(100, 10));
+   var xo = {};
+   xo.id= 1;
+   xo.name = 'namexo';
+   console.error(xo+'error\n');
+   console.log(xo);
+   var oDiv = document.getElementById("oDiv");
+   var  c = confirm("abc");
+   alert(c);   
+
+  </script>
+
+[root@V1 html]# scp   index.html   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day03/testjs.html
+
+
+
+
+
