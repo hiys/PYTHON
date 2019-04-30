@@ -622,17 +622,81 @@ https://www.djangoproject.com/download/
 
 (env_django_1_11_6) [root@V0 ~]# pip  install  django==1.11.6    #安装软件django指定版本1.11.6 
 
+mvc主要用于建站，web api主要用于构建http服务
+
+CGI：（Common Gateway Interface）公共网关接口，
+一种在web服务端使用的脚本技术，使用C或Perl语言编写，
+用于接收web用户请求并处理，最后动态产生响应给用户，但每次请求将产生一个进程，重量级。
+
+Servlet：一种JavaEE web组件技术，
+是一种在服务器端执行的web组件，用于接收web用户请求并处理，最后动态产生响应给用户。
+但每次请求只产生一个线程（而且有线程池），轻量级。
+而且能利用许多JavaEE技术（如JDBC等）。
+本质就是在java代码里面 输出 html流。
+但表现逻辑、控制逻辑、业务逻辑调用混杂。
+
+JSP：（Java Server Page）：一种在服务器端执行的web组件，
+是一种运行在标准的HTML页面中嵌入脚本语言（
+现在只支持Java）的模板页面技术。
+本质就是在html代码中嵌入java代码。JSP最终还是会被编译为Servlet，只不过比纯Servlet开发页面更简单、方便。但表现逻辑、控制逻辑、业务逻辑调用还是混杂。
+
+JSP本质还是Servlet，
+最终在运行时会生成一个Servlet
+（如tomcat，将在tomcat\work\Catalina\web应用名\org\apache\jsp下生成），
+但这种使得写html简单点，但仍是控制逻辑、表现代码、业务逻辑对象调用混杂在一起。
+
+Model2：在JavaEE世界里，它可以认为就是Web MVC模型 
+Model2架构其实可以认为就是我们所说的Web MVC模型，只是控制器采用Servlet、模型采用JavaBean、视图采用JSP 
 
 
+服务到工作者：
+Front Controller + Application Controller + Page Controller + Context 
+即，前端控制器+应用控制器+页面控制器（也有称其为动作）+上下文，
+也是Web MVC，只是责任更加明确，
+详情请参考《核心J2EE设计模式》和《企业应用架构模式》 
+
+MVC全名是Model View Controller，
+是模型(model)－视图(view)－控制器(controller)的缩写，
+一种软件设计典范，
+用一种业务逻辑、数据、界面显示分离的方法组织代码，
+将业务逻辑聚集到一个部件里面，
+在改进和个性化定制界面及用户交互的同时，
+不需要重新编写业务逻辑。
+MVC被独特的发展起来
+用于映射 传统的输入、处理和输出功能
+在一个逻辑的图形化用户界面的结构中。
 
 
+MVC开始是存在于桌面程序中的，
+M是指业务模型，V是指用户界面，C则是控制器，
+使用MVC的目的是将M和V的实现代码分离，
+从而使同一个程序可以使用不同的表现形式。
+
+Model（模型）表示应用程序核心（比如数据库记录列表）。
+View（视图）显示数据（数据库记录）。
+Controller（控制器）处理输入（写入数据库记录）。
+
+最典型的MVC就是JSP + servlet + javabean的模式。
 
 
+django （Python Web 框架） 编辑 讨论
+Django是一个开放源代码的Web应用框架，由Python写成。
+采用了MVC的框架模式，即模型M，视图V和控制器C。
+
+它最初是被开发来用于管理劳伦斯出版集团旗下的一些以新闻内容为主的网站的，
+即是CMS（内容管理系统）软件。
+
+这套框架是以比利时的吉普赛爵士吉他手Django Reinhardt来命名的。
 
 
+Django的主要目的是
+简便、快速的开发 数据库 驱动的网站。
 
-
-
+它强调代码复用，多个组件可以很方便的以“插件”形式服务于整个框架，
+Django有许多功能强大的第三方插件，
+你甚至可以很方便的开发出自己的工具包。
+这使得Django具有很强的可扩展性。
+它还强调快速开发和DRY(Do Not Repeat Yourself)原则。
 
 
 

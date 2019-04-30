@@ -1,0 +1,1255 @@
+
+
+(env_django_1_11_6) [root@V0 ~]# pip  install  django==1.11.6    #安装软件django指定版本1.11.6 
+
+(env_django_1_11_6) [root@V0 ~]# cat    devops_day03/pkg.txt
+Django==1.11.6
+pytz==2019.1
+(env_django_1_11_6) [root@V0 ~]# 
+
+
+
+https://www.djangoproject.com/download/
+
+Django 1.11.20 (LTS): Django-1.11.20.tar.gz
+Checksums: Django-1.11.20.checksum.txt
+Release notes: Online documentation
+
+Django 1.11.20（LTS）：Django-1.11.20.tar.gz
+校验和：django-1.11.20.checksum.txt
+发行说明：在线文档
+
+--------------  校验和：django-1.11.20.checksum.txt --------------------------
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+此文件包含源代码的MD5、SHA1和SHA256校验和
+Django 1.11.20的tarball和wheel文件，于2019年2月11日发布。
+
+要使用此文件，您需要安装pgp或其他
+兼容的公钥加密软件。你也需要
+Django发行管理器的公钥在您的钥匙圈中；此密钥
+ID``E17DF5C82B4F9D00``可以从MIT导入
+密钥服务器。例如，如果使用开源GNU隐私保护
+PGP的实施：
+
+    gpg --keyserver pgp.mit.edu --recv-key E17DF5C82B4F9D00
+
+导入密钥后，请验证此文件
+
+    gpg --verify <<THIS FILENAME>>
+
+验证此文件后，可以使用普通MD5、SHA1或SHA256
+校验和应用程序以生成Django的校验和
+打包并与下面列出的校验和进行比较。
+
+Release packages:
+=================
+
+https://www.djangoproject.com/m/releases/1.11/Django-1.11.20.tar.gz
+https://www.djangoproject.com/m/releases/1.11/Django-1.11.20-py2.py3-none-any.whl
+
+MD5 checksums
+=============
+
+096091c29c00f36cce4356054119b702  Django-1.11.20.tar.gz
+f597fa6d128cda70649a2147819d2b5e  Django-1.11.20-py2.py3-none-any.whl
+
+SHA1 checksums
+==============
+
+bad59a5672e6abe394ed03b9fd6d592d874bd750  Django-1.11.20.tar.gz
+99e3161e6878168954996a7e36629721a1b004e4  Django-1.11.20-py2.py3-none-any.whl
+
+SHA256 checksums
+================
+
+43a99da08fee329480d27860d68279945b7d8bf7b537388ee2c8938c709b2041  Django-1.11.20.tar.gz
+0a73696e0ac71ee6177103df984f9c1e07cd297f080f8ec4dc7c6f3fb74395b5  Django-1.11.20-py2.py3-none-any.whl
+
+
+https://www.djangoproject.com/download/1.11.20/tarball/
+Django-1.11.20.tar.gz
+
+=====================================
+
+
+[root@V0 devops_day03]# cat /root/.pip/pip.conf 
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+[root@V0 devops_day03]# scp  -r  /root/.pip/  root@192.168.0.11:/root/
+root@192.168.0.11's password: 
+pip.conf                                      100%   97    87.5KB/s   00:00    
+[root@V0 devops_day03]# scp  -r  /root/.pip/  root@192.168.0.12:/root/
+
+
+  yum  -y  install  \
+ sqlite-devel    tk-devel        tcl-devel       readline-devel   \
+ zlib-devel      gcc             gcc-c++         openssl       openssl-devel \
+ libffi-devel    libxml2-devel   libxslt-devel   mysql-devel  \
+ mariadb-devel   mariadb-server  mariadb 
+
+
+rpm  -q  \
+ sqlite-devel    tk-devel        tcl-devel       readline-devel   \
+ zlib-devel      gcc             gcc-c++         openssl       openssl-devel \
+ libffi-devel    libxml2-devel   libxslt-devel   mysql-devel  \
+ mariadb-devel   mariadb-server  mariadb 
+
+tar  -zxf  Python-3.6.7.tgz 
+
+cd  Python-3.6.7/
+
+./configure   --prefix=/usr/local/
+
+ make && make install
+
+--------------------------------------------------------
+
+https://www.djangoproject.com/download/1.11.20/tarball/
+Django-1.11.20.tar.gz
+
+[root@room9pc01 ~]# scp  '/root/桌面/Django-1.11.20.tar.gz'  root@192.168.0.10:/root/
+
+[root@V0 ~]# ll  Django-1.11.20.tar.gz 
+-rw-r--r-- 1 root root 7846576 4月  29 11:53 Django-1.11.20.tar.gz
+
+-----  #校验和验证和文件Django-1.11.20.checksum.txt记录一致 -------------
+
+[root@V0 ~]# md5sum  Django-1.11.20.tar.gz   
+096091c29c00f36cce4356054119b702  Django-1.11.20.tar.gz
+
+MD5 checksums
+=============
+
+096091c29c00f36cce4356054119b702  Django-1.11.20.tar.gz
+f597fa6d128cda70649a2147819d2b5e  Django-1.11.20-py2.py3-none-any.whl
+
+
+[root@V0 ~]# scp  Django-1.11.20.tar.gz   root@192.168.0.11:/root/
+root@192.168.0.11's password: 
+Django-1.11.20.tar.gz                         100% 7663KB  86.6MB/s   00:00    
+[root@V0 ~]# scp  Django-1.11.20.tar.gz   root@192.168.0.12:/root/
+
+[root@V0 ~]# mkdir    Django
+
+[root@V0 ~]# cd       Django/
+
+[root@V0 Django]# pip
+pip     pip3    pip3.6  
+
+[root@V0 Django]# pip3.6   install   /root/Django-1.11.20.tar.gz 
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Processing /root/Django-1.11.20.tar.gz
+Collecting pytz (from Django==1.11.20)
+  Downloading http://pypi.doubanio.com/packages/3d/73/fe30c2daaaa0713420d0382b16fbb761409f532c56bdcc514bf7b6262bb6/pytz-2019.1-py2.py3-none-any.whl (510kB)
+    100% |████████████████████████████████| 512kB 6.7MB/s 
+Installing collected packages: pytz, Django
+  Running setup.py install for Django ... done
+Successfully installed Django-1.11.20 pytz-2019.1
+[root@V0 Django]# ls
+[root@V0 Django]# python3
+Python 3.6.7 (default, Apr 28 2019, 20:32:23) 
+[GCC 8.1.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   django
+>>>
+>>> django.
+django.VERSION           django.setup(            django.utils
+django.get_version(      django.unicode_literals  
+>>> django.get_version()
+'1.11.20'
+>>> django.VERSION
+(1, 11, 20, 'final', 0)
+>>> 
+>>> 
+[root@V0 Django]# 
+
+
+[root@V1 ~]# cat /root/.pip/pip.conf 
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+[root@V1 ~]# ll  Django-1.11.20.tar.gz 
+-rw-r--r-- 1 root root 7846576 4月  29 11:57 Django-1.11.20.tar.gz
+[root@V1 ~]# pip3.6   install   Django-1.11.20.tar.gz
+Looking in indexes: http://pypi.doubanio.com/simple/
+Processing ./Django-1.11.20.tar.gz
+Collecting pytz (from Django==1.11.20)
+  Downloading http://pypi.doubanio.com/packages/3d/73/fe30c2daaaa0713420d0382b16fbb761409f532c56bdcc514bf7b6262bb6/pytz-2019.1-py2.py3-none-any.whl (510kB)
+    100% |████████████████████████████████| 512kB 25.9MB/s 
+Installing collected packages: pytz, Django
+  Running setup.py install for Django ... done
+Successfully installed Django-1.11.20 pytz-2019.1
+You are using pip version 10.0.1, however version 19.0.3 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+[root@V1 ~]# python3
+Python 3.6.7 (default, Apr 28 2019, 20:31:29) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   django
+>>> django.VERSION
+(1, 11, 20, 'final', 0)
+>>> 
+[root@V1 ~]# 
+
+
+[root@V1 ~]# cat /root/.pip/pip.conf 
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+[root@V1 ~]# ll  Django-1.11.20.tar.gz 
+-rw-r--r-- 1 root root 7846576 4月  29 11:57 Django-1.11.20.tar.gz
+
+[root@V1 ~]# pip3.6   install   Django-1.11.20.tar.gz
+Looking in indexes: http://pypi.doubanio.com/simple/
+Processing ./Django-1.11.20.tar.gz
+Collecting pytz (from Django==1.11.20)
+  Downloading http://pypi.doubanio.com/packages/3d/73/fe30c2daaaa0713420d0382b16fbb761409f532c56bdcc514bf7b6262bb6/pytz-2019.1-py2.py3-none-any.whl (510kB)
+.................
+Successfully installed Django-1.11.20 pytz-2019.1
+You are using pip version 10.0.1, however version 19.0.3 is available.
+You should consider upgrading via the 'pip3 install --upgrade pip' command.
+
+[root@V1 ~]# python3
+Python 3.6.7 (default, Apr 28 2019, 20:31:29) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   django
+>>> django.VERSION
+(1, 11, 20, 'final', 0)
+>>> 
+[root@V1 ~]# pip3   freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+You are using pip version 10.0.1, however version 19.0.3 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+[root@V1 ~]# 
+
+[root@V0 Django]# pip3  freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+[root@V0 Django]# 
+
+[root@V1 ~]# cd  pyscripts/
+[root@V1 pyscripts]# python3
+Python 3.6.7 (default, Apr 28 2019, 20:31:29) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   django
+>>> django.VERSION
+(1, 11, 20, 'final', 0)
+>>> 
+[root@V1 pyscripts]# ls
+tcp_client2.py     tcp_client.py   udp_client3.py
+tcp_client_oop.py  udp_client2.py  udp_client.py
+[root@V1 pyscripts]# python3  -m   django  version
+1.11.20
+[root@V1 pyscripts]# 
+
+[root@V0 devops_day03]# pip3  --version
+pip 19.0.3 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
+[root@V0 devops_day03]# 
+
+
+http://127.0.0.1:8800/
+
+-------------------------------------
+
+
+[root@V0 ~]# mkdir    Django    #创建项目目录
+
+[root@V0 ~]# cd       Django/
+
+[root@V0 Django]# pip
+pip     pip3    pip3.6  
+
+[root@V0 Django]# ll   /root/Django-1.11.20.tar.gz 
+-rw-r--r-- 1 root root 7846576 4月  29 11:53 /root/Django-1.11.20.tar.gz
+
+[root@V0 Django]# md5sum   /root/Django-1.11.20.tar.gz
+096091c29c00f36cce4356054119b702  /root/Django-1.11.20.tar.gz
+
+[root@V0 Django]# pip3.6   install   /root/Django-1.11.20.tar.gz 
+..........
+[root@V0 Django]# pip3  freeze   #查看 安装的所有软件包
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+
+[root@V0 Django]# python3  -m   django  version
+1.11.20
+
+[root@V0 Django]# pip3  freeze  > pkg1120.txt #导出信息到文件中
+
+[root@V0 Django]# cat    pkg1120.txt
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+
+[root@V0 Django]# ls
+pkg1120.txt
+
+--------------- 创建自定义的 干净 虚拟环境 ------------------
+------------- python3.6  -m   venv   新目录名 -------------------
+
+[root@V0 Django]# python3.6  -m   venv   django116
+[root@V0 Django]# ls
+django116  pkg1120.txt
+
+[root@V0 Django]# ls   django116/
+bin  include  lib  lib64  pyvenv.cfg
+
+---------------------- 激活  虚拟环境 ---------------
+
+[root@V0 Django]# ls    django116/bin/
+activate      activate.fish  easy_install-3.6  pip3    python   python3.6
+activate.csh  easy_install   pip               pip3.6  python3
+
+[root@V0 Django]# ll   django116/bin/activate
+-rw-r--r-- 1 root root 2208 4月  29 12:33 django116/bin/activate
+
+[root@V0 Django]# file   django116/bin/activate
+django116/bin/activate: ASCII text
+
+
+[root@V0 Django]# source    django116/bin/activate    #激活  虚拟环境 
+
+(django116) [root@V0 Django]# pip  freeze   #查看在虚拟环境中安装的所有软件包
+(django116) [root@V0 Django]# 
+
+(new_env_django_1_11_6) [root@V0 devops_day03]# pip   install  `cat new_env_django_1_11_6/pkg.txt`
+
+(django116) [root@V0 Django]# ls
+django116  pkg1120.txt
+(django116) [root@V0 Django]# pwd
+/root/Django
+(django116) [root@V0 Django]# cat   pkg1120.txt 
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+(django116) [root@V0 Django]# pip  install  $(cat  pkg1120.txt)  #安装模块
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting Django==1.11.20
+  Downloading http://pypi.doubanio.com/packages/8e/1f/20bbc601c442d02cc8d9b25a399a18ef573077e3350acdf5da3743ff7da1/Django-1.11.20-py2.py3-none-any.whl (6.9MB)
+...............................
+
+Installing collected packages: pytz, Django, PyMySQL, SQLAlchemy
+  Running setup.py install for SQLAlchemy ... done
+Successfully installed Django-1.11.20 PyMySQL-0.9.3 SQLAlchemy-1.3.3 pytz-2019.1
+You are using pip version 10.0.1, however version 19.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+
+(django116) [root@V0 Django]# pip   install  --upgrade  pip   #升级 pip3版本
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting pip
+  Downloading http://pypi.doubanio.com/packages/f9/fb/863012b13912709c13cf5cfdbfb304fa6c727659d6290438e1a88df9d848/pip-19.1-py2.py3-none-any.whl (1.4MB)
+    100% |████████████████████████████████| 1.4MB 10.2MB/s 
+Installing collected packages: pip
+  Found existing installation: pip 10.0.1
+    Uninstalling pip-10.0.1:
+      Successfully uninstalled pip-10.0.1
+Successfully installed pip-19.1
+
+(django116) [root@V0 Django]# pip  --version
+pip 19.1 from /root/Django/django116/lib/python3.6/site-packages/pip (python 3.6)
+
+(django116) [root@V0 Django]# python  --version
+Python 3.6.7
+(django116) [root@V0 Django]# 
+
+(django116) [root@V0 Django]# python
+Python 3.6.7 (default, Apr 28 2019, 20:32:23) 
+[GCC 8.1.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   django
+>>> import   pytz
+>>> import   pymysql
+>>> pymysql.
+pymysql.BINARY               pymysql.TimeFromTicks(
+.........
+pymysql.TIMESTAMP            pymysql.util
+pymysql.Time(                pymysql.version_info
+>>> pymysql.VERSION
+(0, 9, 3, None)
+>>> 
+
+(django116) [root@V0 Django]# ls
+django116  pkg1120.txt
+(django116) [root@V0 Django]# django-admin   startproject  mysite   #新建一个项目
+(django116) [root@V0 Django]# ls
+django116  mysite  pkg1120.txt
+(django116) [root@V0 Django]# ls   mysite/
+manage.py  mysite
+(django116) [root@V0 Django]# ls   mysite/mysite/
+__init__.py  settings.py  urls.py  wsgi.py
+(django116) [root@V0 Django]# 
+
+(django116) [root@V0 Django]# cd  mysite/   #进入项目
+(django116) [root@V0 mysite]# pwd
+/root/Django/mysite
+(django116) [root@V0 mysite]# ls
+manage.py  mysite
+
+(django116) [root@V0 mysite]# cat   manage.py 
+#!/usr/bin/env python
+import os
+import sys
+
+if __name__ == "__main__":
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
+    try:
+        from django.core.management import execute_from_command_line
+    except ImportError:
+        # The above import may fail for some other reason. Ensure that the
+        # issue is really that Django is missing to avoid masking other
+        # exceptions on Python 2.
+        try:
+            import django
+        except ImportError:
+            raise ImportError(
+                "Couldn't import Django. Are you sure it's installed and "
+                "available on your PYTHONPATH environment variable? Did you "
+                "forget to activate a virtual environment?"
+            )
+        raise
+    execute_from_command_line(sys.argv)
+(django116) [root@V0 mysite]# python   manage.py   runserver   8800   #开启网站服务
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 13 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+
+April 29, 2019 - 05:02:06
+Django version 1.11.20, using settings 'mysite.settings'
+Starting development server at http://127.0.0.1:8800/
+Quit the server with CONTROL-C.
+^C(django116) [root@V0 mysite]# exit
+登出
+Connection to 192.168.0.10 closed.
+
+[root@room9pc01 ~]# ssh  -X  192.168.0.10
+................
+[root@V0 ~]# cd  Django/
+
+[root@V0 Django]# ls
+django116  mysite  pkg1120.txt
+
+[root@V0 Django]# source    django116/bin/activate    #激活  虚拟环境 
+
+(django116) [root@V0 Django]# pip  freeze   #查看在虚拟环境中安装的所有软件包
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+(django116) [root@V0 Django]# ls
+django116  mysite  pkg1120.txt
+
+(django116) [root@V0 Django]# django-admin   startproject  mysite   #开始一个项 目
+CommandError: '/root/Django/mysite' already exists
+
+(django116) [root@V0 Django]# cd   mysite/
+(django116) [root@V0 mysite]# ls
+db.sqlite3  manage.py  mysite
+(django116) [root@V0 mysite]# pwd
+/root/Django/mysite
+(django116) [root@V0 mysite]# python   manage.py   runserver   8800   #开启网站 服务
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 13 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+
+April 29, 2019 - 05:13:43
+Django version 1.11.20, using settings 'mysite.settings'
+Starting development server at http://127.0.0.1:8800/
+Quit the server with CONTROL-C.
+[29/Apr/2019 05:15:40] "GET / HTTP/1.1" 200 1716
+Not Found: /favicon.ico
+[29/Apr/2019 05:15:40] "GET /favicon.ico HTTP/1.1" 404 1962
+
+^C(django116) [root@V0 mysite]# exit
+登出
+Connection to 192.168.0.10 closed.
+[root@room9pc01 ~]# 
+
+
+=====================================
+=====================================
+
+
+[root@room9pc01 ~]# cp   '/root/桌面/Django-1.11.20.tar.gz' .
+
+
+[root@room9pc01 ~]# ll   /root/Django-1.11.20.tar.gz 
+-rw-r--r-- 1 root root 7846576 4月  29 13:33 /root/Django-1.11.20.tar.gz
+
+[root@room9pc01 ~]# md5sum   /root/Django-1.11.20.tar.gz
+096091c29c00f36cce4356054119b702  /root/Django-1.11.20.tar.gz
+
+[root@room9pc01 ~]#  pip3.6   install   /root/Django-1.11.20.tar.gz 
+Looking in indexes: http://pypi.doubanio.com/simple/
+Processing ./Django-1.11.20.tar.gz
+Collecting pytz (from Django==1.11.20)
+  Downloading http://pypi.doubanio.com/packages/3d/73/...................
+Installing collected packages: pytz, Django
+  Running setup.py install for Django ... done
+Successfully installed Django-1.11.20 pytz-2019.1
+
+
+[root@room9pc01 ~]# pip3  freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+
+[root@room9pc01 ~]# mkdir   Django
+
+[root@room9pc01 ~]# cd    Django/
+
+[root@room9pc01 Django]# ls
+[root@room9pc01 Django]# pip3  freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+
+[root@room9pc01 Django]# python3  -m   django  version
+1.11.20
+[root@room9pc01 Django]# pip3  freeze  > pkg1120.txt #导出信息到文件中
+[root@room9pc01 Django]# 
+[root@room9pc01 Django]# cat    pkg1120.txt
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+[root@room9pc01 Django]# ls
+pkg1120.txt
+[root@room9pc01 Django]# python3.6   -m   venv   django1120
+[root@room9pc01 Django]# ls
+django1120  pkg1120.txt
+
+[root@room9pc01 Django]# ls   django1120/
+bin  include  lib  lib64  pyvenv.cfg
+[root@room9pc01 Django]# ll   django1120/bin/activate
+-rw-r--r-- 1 root root 2211 4月  29 13:38 django1120/bin/activate
+
+
+[root@room9pc01 Django]# source   django1120/bin/activate
+
+(django1120) [root@room9pc01 Django]# pip   freeze
+
+(django1120) [root@room9pc01 Django]# pip   install  `cat   pkg1120.txt`
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting Django==1.11.20
+  Downloading http://pypi.doubanio.com/packages/8e/1f/20bbc601c442d02cc8d9b25a399a18ef573077e3350acdf5da3743ff7da1/Django-1.11.20-py2.py3-none-any.whl (6.9MB)
+    100% |████████████████████████████████| 7.0MB 1.5MB/s 
+Collecting PyMySQL==0.9.3
+  Downloading http://pypi.doubanio.com/packages/ed/39/15045ae46f2a123019aa968dfcba0396c161c20f855f11dea6796bcaae95/PyMySQL-0.9.3-py2.py3-none-any.whl (47kB)
+    100% |████████████████████████████████| 51kB 2.2MB/s 
+Collecting pytz==2019.1
+  Downloading http://pypi.doubanio.com/packages/3d/73/fe30c2daaaa0713420d0382b16fbb761409f532c56bdcc514bf7b6262bb6/pytz-2019.1-py2.py3-none-any.whl (510kB)
+    100% |████████████████████████████████| 512kB 3.4MB/s 
+Collecting SQLAlchemy==1.3.3
+  Downloading http://pypi.doubanio.com/packages/2b/b2/e6f5c5efc68942edefaa924e8fbea0b32375baa434a511cbf6bb17769cf6/SQLAlchemy-1.3.3.tar.gz (5.9MB)
+    100% |████████████████████████████████| 5.9MB 1.5MB/s 
+Installing collected packages: pytz, Django, PyMySQL, SQLAlchemy
+  Running setup.py install for SQLAlchemy ... done
+Successfully installed Django-1.11.20 PyMySQL-0.9.3 SQLAlchemy-1.3.3 pytz-2019.1
+You are using pip version 10.0.1, however version 19.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+
+(django1120) [root@room9pc01 Django]# ls
+django1120  pkg1120.txt
+
+(django1120) [root@room9pc01 Django]# pip   freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+You are using pip version 10.0.1, however version 19.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+
+
+(django1120) [root@room9pc01 Django]# pip   install --upgrade  pip
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting pip
+  Downloading http://pypi.doubanio.com/packages/f9/fb/863012b13912709c13cf5cfdbfb304fa6c727659d6290438e1a88df9d848/pip-19.1-py2.py3-none-any.whl (1.4MB)
+    100% |████████████████████████████████| 1.4MB 2.2MB/s 
+Installing collected packages: pip
+  Found existing installation: pip 10.0.1
+    Uninstalling pip-10.0.1:
+      Successfully uninstalled pip-10.0.1
+Successfully installed pip-19.1
+
+(django1120) [root@room9pc01 Django]# pip  --version
+pip 19.1 from /root/Django/django1120/lib/python3.6/site-packages/pip (python 3.6)
+
+(django1120) [root@room9pc01 Django]# python3   --version
+Python 3.6.7
+(django1120) [root@room9pc01 Django]# ls
+django1120  pkg1120.txt
+(django1120) [root@room9pc01 Django]# pwd
+/root/Django
+------------------------ #新建一个django 项目 -----------------------------
+
+(django1120) [root@room9pc01 Django]# django-admin  startproject  mysite
+
+(django1120) [root@room9pc01 Django]# ls
+django1120  mysite  pkg1120.txt
+
+(django1120) [root@room9pc01 Django]# ls  mysite/
+manage.py  mysite
+
+(django1120) [root@room9pc01 Django]# cd   mysite/    #进入项目网站
+
+(django1120) [root@room9pc01 mysite]# pwd
+/root/Django/mysite
+
+[root@room9pc01 mysite]# pip3.6   install  tornado  #非必须的操作(安装模块)
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting tornado
+  Downloading http://pypi.doubanio.com/packages/03/3f/5f89d99fca3c0100c8cede4f53f660b126d39e0d6a1e943e95cc3ed386fb/tornado-6.0.2.tar.gz (481kB)
+     |████████████████████████████████| 491kB 7.4MB/s 
+Installing collected packages: tornado
+  Running setup.py install for tornado ... done
+Successfully installed tornado-6.0.2
+
+[root@room9pc01 mysite]# pip3  freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite
+
+[root@room9pc01 mysite]# ls
+db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# cat  manage.py 
+#!/usr/bin/env python
+import os
+import sys
+
+if __name__ == "__main__":
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings")
+    try:
+        from django.core.management import execute_from_command_line
+    except ImportError:
+        # The above import may fail for some other reason. Ensure that the
+        # issue is really that Django is missing to avoid masking other
+        # exceptions on Python 2.
+        try:
+            import django
+        except ImportError:
+            raise ImportError(
+                "Couldn't import Django. Are you sure it's installed and "
+                "available on your PYTHONPATH environment variable? Did you "
+                "forget to activate a virtual environment?"
+            )
+        raise
+    execute_from_command_line(sys.argv)
+
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite
+
+[root@room9pc01 mysite]# pip3  freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+[root@room9pc01 mysite]# 
+
+(django1120) [root@room9pc01 mysite]# ls    #注意这时候还没有文件db.sqlite3
+manage.py  mysite
+(django1120) [root@room9pc01 mysite]# ls   mysite/
+__init__.py  settings.py  urls.py  wsgi.py
+
+------------------------------------------ #开启 django网站 服务 ----------------------
+
+(django1120) [root@room9pc01 mysite]# python   manage.py  runserver   8800
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 13 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+您有13个未应用的迁移。
+在应用应用程序的迁移之前，项目可能无法正常工作：
+admin、auth、contenttypes、sessions。
+运行“python manage.py migrate”以应用它们。
+
+April 29, 2019 - 05:43:25
+Django version 1.11.20, using settings 'mysite.settings'
+Starting development server at http://127.0.0.1:8800/
+Quit the server with CONTROL-C.
+[29/Apr/2019 05:43:51] "GET / HTTP/1.1" 200 1716
+Not Found: /favicon.ico
+[29/Apr/2019 05:43:51] "GET /favicon.ico HTTP/1.1" 404 1962
+
+------------------------------------------------------------------------------------
+===================================
+
+refer
+英 [rɪˈfɜː(r)]   美 [rɪˈfɜːr]  
+v.
+谈及;提到;提及;称…(为);指;涉及;描述
+
+
+[root@V0 Django]# ls
+django116  mysite  pkg1120.txt
+
+[root@V0 Django]# pip3.6   install  tornado  #非必须的操作(安装模块)
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting tornado
+  Downloading http://pypi.doubanio.com/packages/03/3f/5f89d99fca3c0100c8cede4f53f660b126d39e0d6a1e943e95cc3ed386fb/tornado-6.0.2.tar.gz (481kB)
+    100% |████████████████████████████████| 491kB 389kB/s 
+Installing collected packages: tornado
+  Running setup.py install for tornado ... done
+Successfully installed tornado-6.0.2
+
+[root@V0 Django]# pip3 freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+[root@V0 Django]# pwd
+/root/Django
+[root@V0 Django]# 
+[root@V0 Django]# django-admin
+django-admin     django-admin.py 
+ 
+[root@V0 Django]# type   django-admin
+django-admin 是 /usr/local/bin/django-admin
+
+[root@V0 Django]# ll   /usr/local/bin/django-admin
+-rwxr-xr-x 1 root root 403 4月  29 12:01 /usr/local/bin/django-admin
+
+[root@V0 Django]# ll   /usr/local/bin/django-admin.py 
+-rwxr-xr-x 1 root root 133 4月  29 12:01 /usr/local/bin/django-admin.py
+
+
+[root@V0 Django]# cat    /usr/local/bin/django-admin.py
+
+#!/usr/local/bin/python3.6
+from django.core import management
+
+if __name__ == "__main__":
+    management.execute_from_command_line()
+
+[root@V0 Django]# 
+
+========================
+
+[root@room9pc01 mysite]# pip3.6   install   tornado    #非必须的操作(安装模块)
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting tornado
+  Downloading http://pypi.doubanio.com/packages/03/3f/5f89d99fca3c0100c8cede4f53f660b126d39e0d6a1e943e95cc3ed386fb/tornado-6.0.2.tar.gz (481kB)
+     |████████████████████████████████| 491kB 7.4MB/s 
+Installing collected packages: tornado
+  Running setup.py install for tornado ... done
+Successfully installed tornado-6.0.2
+
+
+[root@room9pc01 mysite]# pip3  freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite
+
+[root@room9pc01 mysite]# ls
+db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# ll  db.sqlite3 
+-rw-r--r-- 1 root root 3072 4月  29 13:43 db.sqlite3
+
+[root@room9pc01 mysite]# file   db.sqlite3
+db.sqlite3: SQLite 3.x database
+
+[root@room9pc01 mysite]# ls  /root/Django/
+django1120  mysite  pkg1120.txt
+
+[root@room9pc01 mysite]# ls  /root/Django/django1120/
+bin  include  lib  lib64  pip-selfcheck.json  pyvenv.cfg
+
+[root@room9pc01 mysite]# ls  /root/Django/mysite/
+db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# ls  /root/Django/mysite/mysite/
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+
+[root@room9pc01 mysite]# ls
+db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# 
+
+[root@room9pc01 mysite]# scp   manage.py    root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day03/manage1.py
+
+[root@room9pc01 ~]# ls  Django/
+django1120  mysite  pkg1120.txt
+
+[root@room9pc01 ~]# cp   -r  Django/   /var/git/PYTHON/pythonScripts/devops_day03/
+[root@room9pc01 ~]# cd -
+/root/Django/mysite
+
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite
+
+/***************
+# mkdir    Django    #创建项目目录
+ # cd       Django/
+--------------- 创建自定义的 干净 虚拟环境 ------------------
+------------- python3.6  -m   venv   新目录名 -------------------
+ # python3.6  -m   venv   django1120
+# django-admin   startproject  mysite   #新建一个django 项目mysite
+
+#cd  mysite/   #进入项目
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite
+
+--------------- /root/Django/mysite/manage.py
+# python   manage.py   runserver   8800  #启动 django网站mysite 服务 
+
+[root@room9pc01 mysite]# ls  
+db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# ls  mysite/
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+
+[root@room9pc01 mysite]# ls  /root/Django/mysite/manage.py 
+/root/Django/mysite/manage.py
+
+[root@room9pc01 mysite]# ls
+db.sqlite3  manage.py  mysite
+-------------------------------------------- 
+[root@room9pc01 mysite]# python3  manage.py  startapp  blog #新开一个应用blog
+
+[root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+site      英 [saɪt] 
+   n.地点，位置，发生地;场所;网站;站点
+   v.使坐落在;为…选址
+
+[root@room9pc01 mysite]# ls  blog/
+admin.py  apps.py  __init__.py  migrations  models.py  tests.py  views.py
+
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite
+
+[root@room9pc01 mysite]# vim   mysite/settings.py  #安装应用
+
+ 33 INSTALLED_APPS = [
+ 34     'django.contrib.admin',
+ 35     'django.contrib.auth',
+ 36     'django.contrib.contenttypes',
+ 37     'django.contrib.sessions',
+ 38     'django.contrib.messages',
+ 39     'django.contrib.staticfiles',
+ 40     'blog'    #新添加的目录blog/
+ 41 ]
+
+
+[root@room9pc01 mysite]# vim   mysite/urls.py 
+
+ 16 from django.conf.urls import url,include  #新添加include
+ 17 from django.contrib import admin
+ 18 
+ 19 urlpatterns = [ 
+ 20     url(r'^admin/', admin.site.urls),
+ 21     url(r'^blog/', include("blog.urls"))  #新添加
+ 22 ]
+[root@room9pc01 mysite]# pwd   #千万注意路径,注意同名但路径不同的目录mysite
+/root/Django/mysite
+
+[root@room9pc01 mysite]# ll    blog/urls.py
+ls: 无法访问blog/urls.py: 没有那个文件或目录
+[root@room9pc01 mysite]# vim    blog/urls.py  #创建文件blog/urls.py
+  1 from django.conf.urls import url
+  2 from  .views  import  index
+  3 
+  4 
+  5 urlpatterns = [
+  6     url(r'^$', index),
+  7 ]
+
+[root@room9pc01 mysite]# pwd   # 注意路径,注意同名但路径不同的目录mysite
+/root/Django/mysite/mysite
+[root@room9pc01 mysite]# ls
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+
+[root@room9pc01 mysite]# vim   ../blog/views.py   #定义view
+
+[root@room9pc01 mysite]# cat  -n   ../blog/views.py
+
+     1	from django.shortcuts import render, HttpResponse
+     2	
+     3	# Create your views here.
+     4	
+     5	def  index(request):
+     6	  return HttpResponse(".Django/mysite/blog/views.py");
+
+[root@room9pc01 mysite]# 
+
+/****************** 访问无法连接,ctrl+c  重新加载运行django网站 服务 -----------
+
+  File "<frozen importlib._bootstrap>", line 953, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'blog.urls'
+^C(django1120) [root@room9pc01 mysite]# 
+(django1120) [root@room9pc01 mysite]# python   manage.py  runserver   8800
+Performing system checks...
+
+System check identified no issues (0 silenced).
+...........
+http://127.0.0.1:8800/blog/
+.Django/mysite/blog/views.py
+
+[29/Apr/2019 08:49:29] "GET /blog/ HTTP/1.1" 200 28  #结果服务正常
+
+**************/
+
+[root@room9pc01 ~]# ls  Django/
+django1120  mysite  pkg1120.txt
+[root@room9pc01 ~]# cp   -r  Django/   /var/git/PYTHON/pythonScripts/
+
+[root@room9pc01 mysite]# grep  -n  'ROOT_URLCONF'  /root/Django/mysite/mysite/settings.py 
+53:ROOT_URLCONF = 'mysite.urls'
+[root@room9pc01 mysite]# 
+
+
+[root@room9pc01 mysite]# vim    blog/urls.py
+[root@room9pc01 mysite]# cat    blog/urls.py
+from django.conf.urls import url
+from  .views  import  index, hanshu
+
+
+urlpatterns = [
+    url(r'^$', index),
+    url(r'^index', hanshu),
+]
+[root@room9pc01 mysite]#  pwd
+/root/Django/mysite
+
+
+[root@room9pc01 mysite]# vim   ../blog/views.py 
+[root@room9pc01 mysite]# cat    ../blog/views.py
+from django.shortcuts import render, HttpResponse
+
+# Create your views here.
+
+def  index(request):
+  return HttpResponse(".Django/mysite/blog/views.py")
+def  hanshu(request):
+  return HttpResponse(".Django/mysite/blog/views.py---hanshu");
+
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite/mysite
+
+http://127.0.0.1:8800/blog/
+.Django/mysite/blog/views.py
+
+http://127.0.0.1:8800/blog/index
+.Django/mysite/blog/views.py---hanshu
+
+http://127.0.0.1:8800/admin/login/?next=/admin/
+
+/********************* 复制网上的 html源代码 -----------------------
+Bootstrap 优站精选
+http://www.youzhan.org/
+
+https://v3.bootcss.com/
+Bootstrap 是完全开源的。它的代码托管、开发、维护都依赖 GitHub 平台。
+https://v3.bootcss.com/getting-started/#download
+
+https://v3.bootcss.com/getting-started/
+
+https://v3.bootcss.com/getting-started/#template
+基本模板
+使用以下给出的这份超级简单的 HTML 模版，或者修改这些实例。
+
+https://v3.bootcss.com/examples/starter-template/#
+
+
+https://v3.bootcss.com/examples/blog/
+***********/
+
+
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite
+
+[root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# ls  blog/
+admin.py  __init__.py  models.py    tests.py  views.py
+apps.py   migrations   __pycache__  urls.py
+
+[root@room9pc01 mysite]# mkdir  blog/templates   #新建立模版目录(默认名字templates)
+
+[root@room9pc01 mysite]# vim    blog/templates/index.html
+
+[root@room9pc01 mysite]# head  -3   blog/templates/index.html
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+[root@room9pc01 mysite]# 
+
+migrations
+英 [maɪˈgreɪʃənz]  美 [maɪˈgreɪʃənz]  
+n.
+迁移;移居;迁徙;(计算机系统的)改变;(程序或硬件的)迁移，转移
+
+[root@room9pc01 mysite]# ls  blog/
+admin.py  apps.py  __init__.py  migrations  models.py  __pycache__  templates  tests.py  urls.py  views.py
+
+[root@room9pc01 mysite]# 
+
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite/mysite
+[root@room9pc01 mysite]# vim   ../blog/views.py 
+[root@room9pc01 mysite]# cat   ../blog/views.py
+from django.shortcuts import render, HttpResponse
+
+# Create your views here.
+
+def  index(request):
+  return render(request, "index.html")
+def  hanshu(request):
+  return HttpResponse(".Django/mysite/blog/views.py---hanshu");
+
+[root@room9pc01 mysite]# ls  ../blog/
+admin.py  apps.py  __init__.py  migrations  models.py  __pycache__  templates  tests.py  urls.py  views.py
+
+[root@room9pc01 mysite]# ls  ../blog/templates/
+index.html
+
+/***************
+[root@room9pc01 ~]# cd  Django/
+[root@room9pc01 Django]# ls
+django1120  mysite  pkg1120.txt
+
+[root@room9pc01 Django]# find  mysite/ |xargs  grep -lri "templates"
+mysite/mysite/__pycache__/settings.cpython-36.pyc
+mysite/mysite/settings.py
+************************/
+
+[root@room9pc01 mysite]# 
+[root@room9pc01 mysite]# grep  -n  'blog.css'  blog/templates/index.html
+21:    <link href="blog.css" rel="stylesheet">
+
+[root@room9pc01 mysite]# 
+[root@room9pc01 mysite]# mkdir   -p  blog/static/{css,js}
+
+[root@room9pc01 mysite]# ls  -R   blog/static/
+blog/static/:
+css  js
+
+blog/static/css:
+
+blog/static/js:
+[root@room9pc01 mysite]# ls  blog/static/
+css  js
+[root@room9pc01 mysite]# vim   blog/static/css/blog.css
+
+[root@room9pc01 mysite]# vim    blog/templates/index.html
+
+[root@room9pc01 mysite]# grep  -n  'blog.css'  blog/templates/index.html
+
+21:    <link href="static/css/blog.css" rel="stylesheet"> 
+         #修改路径 blog/根"/"下的static/css/blog.css
+
+[root@room9pc01 mysite]# 
+
+[root@room9pc01 mysite]# vim    blog/templates/index.html
+  1 {% load  static %}   #新添加的
+  2 <!DOCTYPE html>
+  3 <html lang="zh-CN">
+  4   <head>
+  5     <meta charset="utf-8">
+  6     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  7     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+ 21     <!-- Custom styles for this template -->
+ 22     <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+
+[root@room9pc01 mysite]# grep  -n  'blog.css'  blog/templates/index.html
+22:    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+[root@room9pc01 mysite]# 
+
+http://127.0.0.1:8800/blog/ 反复刷新页面200 成功 304状态不变
+ (证明21:    <link href="static/css/blog.css"文件路径改对了)
+
+(django1120) [root@room9pc01 mysite]# python   manage.py  runserver   8800
+
+[29/Apr/2019 10:58:49] "GET /static/css/blog.css HTTP/1.1" 200 2459 
+[29/Apr/2019 11:00:41] "GET /static/css/blog.css HTTP/1.1" 304 0
+
+
+inflate
+英 [ɪnˈfleɪt]   美 [ɪnˈfleɪt]  
+v.
+使充气;膨胀;鼓吹;吹捧;(使)涨价
+
+https://v3.bootcss.com/getting-started/#download
+https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip  
+## 下载文件bootstrap-3.3.7-dist.zip   下载文件
+
+
+[root@room9pc01 mysite]# ls  ../blog/static/
+css  js
+[root@room9pc01 mysite]# unzip  '/root/桌面/bootstrap-3.3.7-dist.zip'  -d  ../blog/static/
+Archive:  /root/桌面/bootstrap-3.3.7-dist.zip
+   creating: ../blog/static/bootstrap-3.3.7-dist/css/
+  inflating: ../blog/static/bootstrap-3.3.7-dist/css/bootstrap-theme.css  
+.................
+
+  inflating: ../blog/static/bootstrap-3.3.7-dist/js/bootstrap.min.js  
+  inflating: ../blog/static/bootstrap-3.3.7-dist/js/npm.js  
+
+[root@room9pc01 mysite]# ls  ../blog/static/
+bootstrap-3.3.7-dist  css  js
+
+[root@room9pc01 mysite]# ls  ../blog/static/bootstrap-3.3.7-dist/
+css  fonts  js
+
+[root@room9pc01 mysite]# mv   ../blog/static/bootstrap-3.3.7-dist   ../blog/static/bootstrap
+
+[root@room9pc01 mysite]# ls  ../blog/static/
+bootstrap  css  js
+
+[root@room9pc01 mysite]# ls  ../blog/static/bootstrap/
+css  fonts  js
+
+[root@room9pc01 mysite]# ls  ../blog/static/bootstrap/js/
+bootstrap.js  bootstrap.min.js  npm.js
+
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite/mysite
+
+
+[root@room9pc01 mysite]# grep  -n  'blog.css'  blog/templates/index.html
+22:    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite
+
+]# du  -sh  /root/Django/mysite/blog/static/bootstrap/css/bootstrap.min.css
+120K	/root/Django/mysite/blog/static/bootstrap/css/bootstrap.min.css
+
+[root@room9pc01 mysite]# vim    blog/templates/index.html
+
+
+ 13     <title>Blog Template for Bootstrap</title>
+ 14 
+ 15     <!-- Bootstrap core CSS -->
+ 16     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  #修改16行不使用cdn网上的资源,  改成下面的格式,使用本地文件
+16:    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+ 17 
+[root@room9pc01 mysite]# wc  -l    blog/templates/index.html
+182 blog/templates/index.html
+[root@room9pc01 mysite]# grep  -n  'bootstrap.min.css'  blog/templates/index.html
+16:    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+[root@room9pc01 mysite]# 
+
+
+^C(django1120) [root@room9pc01 mysite]# 
+(django1120) [root@room9pc01 mysite]# python   manage.py  runserver   8800
+
+[29/Apr/2019 11:40:33] "GET /static/bootstrap/css/bootstrap.min.css HTTP/1.1" 304 0
+
+[root@room9pc01 ~]# \cp   -r  Django/   /var/git/PYTHON/pythonScripts/
+
+
+[root@room9pc01 mysite]# ls   blog/
+admin.py  __init__.py  models.py    static     tests.py  views.py
+apps.py   migrations   __pycache__  templates  urls.py
+
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite
+
+[root@room9pc01 mysite]# cat   blog/views.py 
+from django.shortcuts import render, HttpResponse
+
+# Create your views here.
+
+def  index(request):
+  return render(request, "index.html")
+def  hanshu(request):
+  return HttpResponse(".Django/mysite/blog/views.py---hanshu");
+[root@room9pc01 mysite]# 
+
+[root@room9pc01 mysite]# 
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite
+[root@room9pc01 mysite]# vim    blog/urls.py 
+[root@room9pc01 mysite]# cat  -n  blog/urls.py
+     1	from django.conf.urls import url
+     2	from  .views  import  index, hanshu, indexx
+     3	
+     4	
+     5	urlpatterns = [
+     6	    url(r'^$', index),
+     7	    url(r'^indexx$', indexx),
+     8	    url(r'^indexxx', hanshu),
+     9	]
+[root@room9pc01 mysite]# vim    blog/views.py
+
+[root@room9pc01 mysite]# cat   -n   blog/views.py
+     1	from django.shortcuts import render, HttpResponse
+     2	
+     3	# Create your views here.
+     4	
+     5	def  index(request):
+     6	  page = request.GET.get('page');
+     7	  return render(request, "index.html")
+     8	def  indexx(request):
+     9	  return render(request, "index.html")
+    10	def  hanshu(request):
+    11	  return HttpResponse(".Django/mysite/blog/views.py---hanshu");
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite
+
+
+migrate
+英 [maɪˈɡreɪt]   美 [ˈmaɪɡreɪt]  
+v.
+(随季节变化)迁徙;移居;迁移;移动;转移
+
+
+
+
+
+
+
+
