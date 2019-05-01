@@ -1,0 +1,36 @@
+
+
+
+[root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# du    -sh   .
+1.9M	.
+[root@room9pc01 mysite]# \cp   -r  .   /var/git/PYTHON/pythonScripts/Django1120/
+
+[root@room9pc01 mysite]# cd  ../
+
+[root@room9pc01 Django]# ls 
+django1120  mysite  pkg1120.txt
+
+[root@room9pc01 Django]# \cp   -r  mysite/   /var/git/PYTHON/pythonScripts/Django1120/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
