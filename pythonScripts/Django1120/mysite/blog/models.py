@@ -11,14 +11,14 @@ class Post(models.Model):
     add_date = models.DateTimeField('添加日期', default=timezone.now)
     mod_date = models.DateTimeField('最后修改日期', auto_now=True)
 
-#    def __str__(self):
-#        return self.title
-#
-#
-#class Comments(models.Model):
-#    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-#    content = models.TextField(max_length=500)
-#
-#    def __str__(self):
-#        return self.content
-#
+    def __str__(self):
+        return self.title
+
+
+class Comments(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    content = models.TextField(max_length=500)
+
+    def __str__(self):
+        return self.content
+
