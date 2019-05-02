@@ -616,12 +616,137 @@ django1120  mysite  pkg1120.txt
 [root@room9pc01 Django]# \cp   -r  mysite/   /var/git/PYTHON/pythonScripts/Django1120/
 
 
+Django中MVC与MVT设计模式的区别
+
+MVC各部分的功能
+
+M全拼为Model，主要封装对数据库层的访问，对数据库中的数据进行增、删、改、查操作。
+
+V全拼为View，用于封装结果，生成页面展示的html内容。
+
+C全拼为Controller，用于接收请求，处理业务逻辑，与Model和View交互，返回结果。
+
+
+
+MVT各部分的功能
+
+M全拼为Model，与MVC中的M功能相同，负责和数据库交互，进行数据处理。
+
+V全拼为View，与MVC中的C功能相同，接收请求，进行业务处理，返回应答。
+
+T全拼为Template，与MVC中的V功能相同，负责封装构造要返回的html。
+
+
+
+Structured Query Language
+结构化查询语言(Structured Query Language)简称SQL
+
+什么是 SQLite？
+SQLite是一个进程内的库，实现了自给自足的、无服务器的、零配置的、事务性的 SQL 数据库引擎。
+它是一个零配置的数据库，
+这意味着与其他数据库一样，您不需要在系统中配置。
+就像其他数据库，SQLite 引擎不是一个独立的进程，
+可以按应用程序需求进行静态或动态连接。
+SQLite 直接访问其存储文件。
+
+为什么要用 SQLite？
+不需要一个单独的服务器进程或操作的系统（无服务器的）。
+SQLite 不需要配置，这意味着不需要安装或管理。
+一个完整的 SQLite 数据库是存储在一个单一的跨平台的磁盘文件。
+SQLite 是非常小的，是轻量级的，完全配置时小于 400KiB，省略可选功能配置时小于250KiB。
+SQLite 是自给自足的，这意味着不需要任何外部的依赖。
+SQLite 事务是完全兼容 ACID 的，允许从多个进程或线程安全访问。
+SQLite 支持 SQL92（SQL2）标准的大多数查询语言的功能。
+SQLite 使用 ANSI-C 编写的，并提供了简单和易于使用的 API。
+SQLite 可在 UNIX（Linux, Mac OS-X, Android, iOS）和 Windows（Win32, WinCE, WinRT）中运行。
 
 
 
 
 
 
+检查是否已安装sqlite3
+
+[fanmaolin@Centeros ~]$ rpm -qa | grep sqlite
+qt-sqlite-4.6.2-28.el6_5.x86_64
+sqlite-devel-3.6.20-1.el6.x86_64
+sqlite-3.6.20-1.el6.x86_64
+
+下载安装sqlite3
+
+http://www.sqlite.org/download.html
+
+
+[fanmaolin@Centeros ~]$ tar -zxvf sqlite-autoconf-3200000.tar.gz
+
+省略
+
+[fanmaolin@Centeros ~]$ cd sqlite-autoconf-3200000
+
+[fanmaolin@Centeros sqlite-autoconf-3200000]$ ./configure
+省略
+[fanmaolin@Centeros sqlite-autoconf-3200000]$ make
+省略
+[fanmaolin@Centeros sqlite-autoconf-3200000]$ sudo make install
+省略
+
+
+创建数据库文件
+
+[fanmaolin@Centeros sqlite-autoconf-3200000]$ sqlite3 mydbtest
+SQLite version 3.20.0 2017-08-01 13:24:15
+Enter ".help" for usage hints.
+sqlite> 
+出现sqlite>提示符
+
+
+
+
+安装rlwrap让sqlite3使用更简单
+
+按上下键可以让历史命令回调
+
+下载安装
+
+工具下载地址： 
+http://download.csdn.NET/detail/sharqueen/5433087
+
+[fanmaolin@Centeros ~]$ tar -zvxf rlwrap-0.30.tar.gz 
+省略
+[fanmaolin@Centeros ~]$ cd rlwrap-0.30
+[fanmaolin@Centeros rlwrap-0.30]$ ./configure
+省略
+[fanmaolin@Centeros rlwrap-0.30]$ make
+省略
+[fanmaolin@Centeros rlwrap-0.30]$ sudo make install
+省略
+[fanmaolin@Centeros rlwrap-0.30]$ rlwrap
+Usage: rlwrap [options] command ...
+
+Options:
+  -a[password:]              --always-readline[=password:]
+  -A                         --ansi-colour-aware
+...............
+安装完成
+
+使用
+
+[fanmaolin@Centeros ~]$  rlwrap sqlite3
+SQLite version 3.20.0 2017-08-01 13:24:15
+Enter ".help" for usage hints.
+Connected to a transient in-memory database.
+Use ".open FILENAME" to reopen on a persistent database.
+sqlite> .tables
+
+
+
+**如果不想在每次使用前加rlwrap,则需要在~/.bash_profile下 
+添加： 
+alias sqlite3=’rlwrap sqlite3’**
+
+[fanmaolin@Centeros ~]$ vim ~/.bash_profile
+alias sqlite3='rlwrap sqlite3'  #添加
+[fanmaolin@Centeros ~]$ source ~/.bash_profile
 
 
 
