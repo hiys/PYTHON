@@ -1,0 +1,88 @@
+
+
+[root@room9pc01 mysite]# cat  -n   blog/views.py
+
+     1	from django.shortcuts import render, HttpResponse, HttpResponseRedirect
+     2	from  .models  import  Post, Comments
+     4	from django.http import JsonResponse
+
+    90	def ajaxDel(request):
+    91	    post = Post.objects.get(id=request.GET.get("id"))
+    92	    post.delete()
+    93	    return JsonResponse({"code": 0, "msg": "删除成功"})
+    94	
+
+[root@room9pc01 mysite]# cat    -n   blog/urls.py
+     1	from django.conf.urls import url
+     2	from  .views  import  *
+     3	
+     4	urlpatterns = [
+     5	    url(r'^$', index),
+                url(r'^ajaxdel$',ajaxDel),
+                 ]
+
+[root@room9pc01 ~]#tail   Django/mysite/blog/templates/list.html 
+
+{% block js %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+    <script>
+        function ajaxDel(id) {
+            $.ajax({
+             type:'GET',
+             url:'/blog/ajaxdel',
+             dataType:'json'
+            },function  (data) {
+               console.log(data);
+                });
+            $('#p'+id).remove();
+        }
+    </script>
+{% endblock %}
+
+--------------------------------------------------
+
+spider       英 [ˈspaɪdə(r)]
+           n.蜘蛛
+
+Spider就是定义爬取的动作及分析网站的地方。
+spider原理 
+以初始的URL**初始化Request**，并设置回调函数。 
+当该request**下载完毕并返回时，将生成**response ，并作为参数传给该回调函数。
+
+初始化request —> start_requests() 
+start_requests() 读取 start_urls 中的URL， 并以 parse 为回调函数生成 Request 。
+
+回调处理parse(self,response) 
+以使用 选择器(Selectors)或者BeautifulSoup 来分析网页内容，
+返回 Item 对象或者 Request 
+返回的Request对象之后scrapy 会跟进处理 进入下一轮的循环 
+返回item 会进Item Pipeline 处理数据
+
+spider 属性方法
+
+name 
+定义spider名字的字符串
+allowed_domains 
+可选。包含了spider允许爬取的域名(domain)列表(list)
+start_urls 
+URL列表。当没有制定特定的URL时，spider将从该列表中开始进行爬取
+start_requests() 
+当spider启动爬取并且未制定URL时，该方法被调用。可用于批量生成初始url
+parse() 
+当response没有指定回调函数时，该方法是Scrapy处理下载的response的默认方法。
+log() 
+使用 scrapy.log.msg() 方法记录(log)message。
+closed() 
+当spider关闭时，该函数被调用。
+
+
+
+
+
+
+
+
+
+
+
+

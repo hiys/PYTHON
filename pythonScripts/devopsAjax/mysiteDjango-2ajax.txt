@@ -1,0 +1,998 @@
+
+https://v4.bootcss.com/docs/4.0/layout/grid/
+
+	            Extra small       Small        Medium       Large      Extra large
+                   <576px           ≥576px       ≥768px        ≥992px    ≥1200px
+Max container width  None (auto)     540px	      720px          960px     1140px
+Class prefix         .col-           .col-sm-    .col-md-       .col-lg-   .col-xl-
+# of columns          12 
+Gutter width          30px (15px on each side of a column)
+Nestable              Yes
+Column ordering       Yes
+
+[root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# du    -sh   .
+1.9M	.
+[root@room9pc01 mysite]# \cp   -r  .   /var/git/PYTHON/pythonScripts/Django1120/
+
+[root@room9pc01 mysite]# cd  ../
+
+[root@room9pc01 Django]# ls 
+django1120  mysite  pkg1120.txt
+
+[root@room9pc01 Django]# \cp   -r  mysite/   /var/git/PYTHON/pythonScripts/Django1120/
+
+
+[root@room9pc01 mysite]# python3  -m  django  version
+1.11.20
+
+[root@room9pc01 mysite]# ls  blog/
+admin.py  __init__.py  models.py    static     tests.py  views.py
+apps.py   migrations   __pycache__  templates  urls.py
+
+[root@room9pc01 mysite]# vim    blog/models.py 
+
+[root@room9pc01 mysite]# scp    blog/models.py   '/var/git/PYTHON/pythonScripts/Django1120/mysite/blog' 
+
+
+[root@room9pc01 ~]# cd   Django/
+
+[root@room9pc01 Django]# source    django1120/bin/activate
+
+(django1120) [root@room9pc01 Django]# cd   mysite/
+
+(django1120) [root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+(django1120) [root@room9pc01 mysite]# python  manage.py  runserver  0:8800
+
+Performing system checks...
+
+System check identified no issues (0 silenced).
+May 02, 2019 - 10:39:49
+Django version 1.11.20, using settings 'mysite.settings'
+Starting development server at http://0:8800/
+Quit the server with CONTROL-C.
+
+http://192.168.0.254:8800/blog/indexxx
+
+http://127.0.0.1:8800/blog/t
+
+http://127.0.0.1:8800/admin/blog/post/
+
+
+[root@room9pc01 mysite]# cat   -n   blog/admin.py 
+     1	from django.contrib import admin
+     2	from   .models  import  Post
+     3	
+     4	# Register your models here.
+     5	admin.site.register(Post)
+
+[root@room9pc01 mysite]# vim     blog/admin.py
+
+[root@room9pc01 mysite]# cat    -n   blog/admin.py
+
+     1	from django.contrib import admin
+     2	from   .models  import  Post,Comments
+     3	
+     4	# Register your models here.
+     5	admin.site.register(Post)
+     6	admin.site.register(Comments)
+
+
+
+
+[root@room9pc01 mysite]# cat    -n    blog/models.py 
+     1	from django.db import models
+     2	import django.utils.timezone as timezone
+     3	
+     4	# Create your models here.
+     5	
+     6	class Post(models.Model):
+     7	    title = models.CharField(max_length=100)
+     8	    desc = models.CharField(max_length=500)
+     9	    content = models.TextField()
+    10	    author = models.CharField(max_length=50)
+    11	    add_date = models.DateTimeField('添加日期', default=timezone.now)
+    12	    mod_date = models.DateTimeField('最后修改日期', auto_now=True)
+    13	
+    14	    def __str__(self):
+    15	        return self.title
+    16	
+    17	
+    18	class Comments(models.Model):
+    19	    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    20	    content = models.TextField(max_length=500)
+    21	
+    22	    def __str__(self):
+    23	        return self.content
+    24	
+[root@room9pc01 mysite]# 
+
+[root@room9pc01 mysite]# mysql  -uroot  -p123  -e "show  databases;"
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| site01             |
+| test               |
++--------------------+
+[root@room9pc01 mysite]# systemctl  is-enabled  mariadb.service 
+enabled
+
+
+[root@room9pc01 mysite]# mysql  -uroot  -p123  -P3306 -D site01  -e "
+show  tables;"
++----------------------------+
+| Tables_in_site01           |
++----------------------------+
+| auth_group                 |
+| auth_group_permissions     |
+| auth_permission            |
+| auth_user                  |
+| auth_user_groups           |
+| auth_user_user_permissions |
+| blog_post                  |
+| django_admin_log           |
+| django_content_type        |
+| django_migrations          |
+| django_session             |
++----------------------------+
+[root@room9pc01 mysite]# mysql  -uroot  -p123  -P3306 -D site01  -e "
+select  *  from  blog_post;"
++----+-----------+---------------------+---------------------------------+--------+---------------------+---------------------+
+| id | title     | desc      | content             | author | add_date   | mod_date  |
++----+-----------+---------------------+-------------------+--------+---------------------+---------------------+
+|  1 | Biao-Ti   | not-set             | not   default  utf8     | root   | 2019-04-30 09:34:00 | 2019-04-30 10:23:41 |
+|  2 | Biao-Ti-2 | not or descriptions | ????xxxxxxxxxxxxxxxxxxxxxxx
+descriptions
+? [d?s?kr?p??nz]  ? [d??skr?p??nz]  
+n.
+??(??);??;??;??
+description??? | lisi   | 2019-05-01 05:24:00 | 2019-05-01 05:25:05 |
++----+-----------+---------------------+------+--------+---------------------+---------------------+
+[root@room9pc01 mysite]# 
+
+[root@room9pc01 mysite]# cat   -n   mysite/settings.py
+     1	"""
+...............
+     9	For the full list of settings and their values, see
+    10	https://docs.djangoproject.com/en/1.11/ref/settings/
+    11	"""
+    12	
+    13	import os
+    14	
+    15	# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+    16	BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    22	# SECURITY WARNING: keep the secret key used in production secret!
+    23	SECRET_KEY = 'icvvo0@hnz#d$-o8^&pxwt)vx_=r0pb=_!cwb4tcj8nyj7z+fv'
+    24	
+    25	# SECURITY WARNING: don't run with debug turned on in production!
+    26	DEBUG = True
+    27	
+    28	ALLOWED_HOSTS = ['192.168.0.10','192.168.0.254','127.0.0.1', '176.121.210.37']
+    29	
+    30	
+    31	# Application definition
+    32	
+    33	INSTALLED_APPS = [
+    34	    'django.contrib.admin',
+    35	    'django.contrib.auth',
+    36	    'django.contrib.contenttypes',
+    37	    'django.contrib.sessions',
+    38	    'django.contrib.messages',
+    39	    'django.contrib.staticfiles',
+    40	    'blog'
+    41	]
+
+    53	ROOT_URLCONF = 'mysite.urls'
+    54	
+    74	# Database
+    75	# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+    76	
+    77	DATABASES = {
+    78	    'default': {
+    79	        'ENGINE': 'django.db.backends.mysql',
+    80	        'NAME': 'site01',
+    81	        'USER': 'root',
+    82	        'PASSWORD': '123',
+    83	        'HOST': '127.0.0.1',
+    84	        'PORT': '3306',
+    85	    }
+    86	}
+
+   108	# Internationalization
+   109	# https://docs.djangoproject.com/en/1.11/topics/i18n/
+   110	
+   111	LANGUAGE_CODE = 'zh-Hans'
+   112	
+   113	TIME_ZONE = 'Asia/Shanghai'
+   114	
+   115	USE_I18N = True
+   116	
+   117	USE_L10N = True
+   118	
+   119	USE_TZ = True
+   120	
+   122	# Static files (CSS, JavaScript, Images)
+   123	# https://docs.djangoproject.com/en/1.11/howto/static-files/
+   124	
+   125	STATIC_URL = '/static/'
+
+[root@room9pc01 mysite]# cat    mysite/__init__.py 
+
+import   pymysql
+pymysql.install_as_MySQLdb()
+
+
+
+[root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# ls   blog/
+admin.py  __init__.py  models.py    static     tests.py  views.py
+apps.py   migrations   __pycache__  templates  urls.py
+
+
+[root@room9pc01 mysite]# ls   blog/migrations/
+0001_initial.py  __init__.py  __pycache__
+
+[root@room9pc01 mysite]# cat   blog/apps.py 
+
+from django.apps import AppConfig
+
+
+class BlogConfig(AppConfig):
+    name = 'blog'
+
+[root@room9pc01 mysite]# 
+
+
+python manage.py makemigrations
+这个命令是
+记录我们对models.py的所有改动，
+并且将这个改动迁移到migrations这个文件夹下生成一个文件
+0001_initial.py文件，
+如果你接下来还要进行改动的话可能生成就是
+另外一个文件不一定都是0001文件，( 0002_comments.py)
+但是这个命令并没有作用到数据库
+makemigrations只是生成了迁移文件,
+并未真正的反馈到数据库中
+--------------------- 
+
+[root@room9pc01 mysite]# python3   manage.py   makemigrations
+
+Migrations for 'blog':
+  blog/migrations/0002_comments.py
+    - Create model Comments
+
+[root@room9pc01 mysite]# mysql  -uroot  -p123  -P3306 -D site01  -e "
+> show  tables;"
++----------------------------+
+| Tables_in_site01           |
++----------------------------+
+| auth_group                 |
+| auth_group_permissions     |
+| auth_permission            |
+| auth_user                  |
+| auth_user_groups           |
+| auth_user_user_permissions |
+| blog_post                  |
+| django_admin_log           |
+| django_content_type        |
+| django_migrations          |
+| django_session             |
++----------------------------+
+
+[root@room9pc01 mysite]# ls   blog/migrations/
+0001_initial.py  0002_comments.py  __init__.py  __pycache__
+
+[root@room9pc01 mysite]# cat    -n   blog/migrations/0002_comments.py 
+     1	# -*- coding: utf-8 -*-
+     2	# Generated by Django 1.11.20 on 2019-05-02 04:03
+     3	from __future__ import unicode_literals
+     4	
+     5	from django.db import migrations, models
+     6	import django.db.models.deletion
+     7	
+     8	
+     9	class Migration(migrations.Migration):
+    10	
+    11	    dependencies = [
+    12	        ('blog', '0001_initial'),
+    13	    ]
+    14	
+    15	    operations = [
+    16	        migrations.CreateModel(
+    17	            name='Comments',
+    18	            fields=[
+    19	                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+    20	                ('content', models.TextField(max_length=500)),
+    21	                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='blog.Post')),
+    22	            ],
+    23	        ),
+    24	    ]
+
+--------------------------------------------#迁移Django储存模型  真正生成数据库 ----------------------
+
+[root@room9pc01 mysite]# python3   manage.py   migrate
+
+System check identified some issues:
+
+WARNINGS:
+?: (mysql.W002) MySQL Strict Mode is not set for database connection 'default'
+	HINT: MySQL's Strict Mode fixes many data integrity problems in MySQL, such as data truncation upon insertion, by escalating warnings into errors. It is strongly recommended you activate it. See: https://docs.djangoproject.com/en/1.11/ref/databases/#mysql-sql-mode
+Operations to perform:
+  Apply all migrations: admin, auth, blog, contenttypes, sessions
+Running migrations:
+  Applying blog.0002_comments... OK
+
+[root@room9pc01 mysite]# mysql  -uroot  -p123  -P3306 -D site01  -e "
+show  tables;"
++----------------------------+
+| Tables_in_site01           |
++----------------------------+
+| auth_group                 |
+| auth_group_permissions     |
+| auth_permission            |
+| auth_user                  |
+| auth_user_groups           |
+| auth_user_user_permissions |
+| blog_comments              |  #多出一张表 blog_comments 
+| blog_post                  |
+| django_admin_log           |
+| django_content_type        |
+| django_migrations          |
+| django_session             |
++----------------------------+
+
+[root@room9pc01 mysite]# ls   blog/migrations/
+0001_initial.py  0002_comments.py  __init__.py  __pycache__
+
+
+[root@room9pc01 mysite]# ls  blog/
+admin.py  __init__.py  models.py    static     tests.py  views.py
+apps.py   migrations   __pycache__  templates  urls.py
+
+[root@room9pc01 mysite]# vim    blog/models.py 
+
+[root@room9pc01 mysite]# vim    blog/models.py 
+
+[root@room9pc01 mysite]# cat    -n   blog/models.py
+
+     1	from django.db import models
+     2	import django.utils.timezone as timezone
+     3	
+     4	# Create your models here.
+     5	
+     6	class Post(models.Model):
+     7	    title = models.CharField(max_length=100)
+     8	    desc = models.CharField(max_length=500)
+     9	    content = models.TextField()
+    10	    author = models.CharField(max_length=50)
+    11	    add_date = models.DateTimeField('添加日期', default=timezone.now)
+    12	    mod_date = models.DateTimeField('最后修改日期', auto_now=True)
+    13	
+    14	    def __str__(self):
+    15	        return self.title
+    16	
+    17	
+    18	class Comments(models.Model):
+    19	    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    20	    content = models.TextField(max_length=500)
+    21	    add_date = models.DateTimeField('添加日期', default=timezone.now)
+    22	
+    23	    def __str__(self):
+    24	        return self.content
+    25	
+
+[root@room9pc01 mysite]# 
+
+
+[root@room9pc01 mysite]# python3   manage.py   makemigrations
+
+Migrations for 'blog':
+  blog/migrations/0003_comments_add_date.py
+    - Add field add_date to comments
+
+
+[root@room9pc01 mysite]# python3   manage.py   migrate
+
+System check identified some issues:
+
+WARNINGS:
+?: (mysql.W002) MySQL Strict Mode is not set for database connection 'default'
+	HINT: MySQL's Strict Mode fixes many data integrity problems in MySQL, such as data truncation upon insertion, by escalating warnings into errors. It is strongly recommended you activate it. See: https://docs.djangoproject.com/en/1.11/ref/databases/#mysql-sql-mode
+Operations to perform:
+  Apply all migrations: admin, auth, blog, contenttypes, sessions
+Running migrations:
+  Applying blog.0003_comments_add_date... OK
+
+[root@room9pc01 mysite]# ls    blog/migrations/
+
+0001_initial.py   0003_comments_add_date.py  __pycache__
+0002_comments.py  __init__.py
+
+[root@room9pc01 mysite]# cat   -n  blog/migrations/0003_comments_add_date.py 
+
+     1	# -*- coding: utf-8 -*-
+     2	# Generated by Django 1.11.20 on 2019-05-02 04:25
+     3	from __future__ import unicode_literals
+     4	
+     5	from django.db import migrations, models
+     6	import django.utils.timezone
+     7	
+     8	
+     9	class Migration(migrations.Migration):
+    10	
+    11	    dependencies = [
+    12	        ('blog', '0002_comments'),
+    13	    ]
+    14	
+    15	    operations = [
+    16	        migrations.AddField(
+    17	            model_name='comments',
+    18	            name='add_date',
+    19	            field=models.DateTimeField(default=django.utils.timezone.now, verbose_name='添加日期'),
+    20	        ),
+    21	    ]
+[root@room9pc01 mysite]# 
+
+ mysql  -uroot  -p123  -P3306 -D site01  -e "
+select  *  from  blog_post;"
+
+ mysql  -uroot  -p123  -P3306 -D site01  -e "
+show  columns  from  blog_comments;"
+
+
+[root@room9pc01 mysite]#  mysql  -uroot  -p123  -P3306 -D site01  -e "
+> show  columns  from  blog_comments;"
++----------+----------+------+-----+---------+----------------+
+| Field    | Type     | Null | Key | Default | Extra          |
++----------+----------+------+-----+---------+----------------+
+| id       | int(11)  | NO   | PRI | NULL    | auto_increment |
+| content  | longtext | NO   |     | NULL    |                |
+| post_id  | int(11)  | NO   | MUL | NULL    |                |
+| add_date | datetime | NO   |     | NULL    |                |
++----------+----------+------+-----+---------+----------------+
+
+[root@room9pc01 mysite]# python3   manage.py   createsuperuser #建立管理员用户
+
+Username (leave blank to use 'root'): admin
+Email address: admin@qq.com
+Password: 123
+Password (again):123
+This password is too short. It must contain at least 8 characters.
+This password is entirely numeric.
+Password:  Abc123.yes
+Password (again): Abc123.yes
+Superuser created successfully.
+
+[root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# python3  manage.py   createsuperuser
+
+Username (leave blank to use 'root'): 
+Email address: root@qq.com
+Password:   Abc123.yes
+Password (again):   Abc123.yes
+Superuser created successfully.
+
+http://192.168.0.254:8800/admin/
+http://192.168.0.254:8800/admin/auth/user/
+
+http://127.0.0.1:8800/admin/login/?next=/admin/
+
+Django 管理
+用户名:
+admin
+
+密码:
+Abc123.yes
+ 
+http://127.0.0.1:8800/admin/login/?next=/admin/
+http://127.0.0.1:8800/admin/login/?next=/root/
+
+
+[root@room9pc01 mysite]# vim   /etc/my.cnf
+
+  1 [client]
+  2 default-character-set=utf8
+  3 
+  4 [mysqld]
+  5 character-set-server=utf8
+  6 datadir=/var/lib/mysql
+  7 socket=/var/lib/mysql/mysql.sock
+
+[root@room9pc01 mysite]# systemctl   restart   mariadb
+
+[root@room9pc01 mysite]# head  -7   /etc/my.cnf
+[client]
+default-character-set=utf8
+
+[mysqld]
+character-set-server=utf8
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+
+[root@room9pc01 mysite]# vim    blog/views.py 
+
+[root@room9pc01 mysite]# cat    -n    blog/views.py
+     1	from django.shortcuts import render, HttpResponse
+     2	from  .models  import  Post
+     3	
+     4	# Create your views here.
+     5	
+     6	def  index(request):
+     7	  page = request.GET.get('page');
+     8	  listPost = Post.objects.all()
+     9	  return render(request, "index.html", {'lstPost': listPost})
+    10	def  indexx(request):
+    11	  return render(request, "index.html")
+    12	def  hanshu(request):
+    13	  return HttpResponse("中文页面.Django/mysite/blog/views.py---hanshu");
+    14	
+    15	def  test(request):
+    16	  a = [0, 1, 2, 3, 4]
+    17	  b = 'hello world'
+    18	  return render(request,'t.html', {'a':a, 'b' : b})
+    19	
+    20	def  renderIndex(request):
+    21	  a = [1, 2, 3, 4,5, 6, 7]
+    22	  posts = Post.objects.all()
+    23	  return  render(request, "index.html",
+    24	                 {"abc":1, "a":a, "posts": posts})
+    25	
+    26	
+[root@room9pc01 mysite]# 
+[root@room9pc01 mysite]# vim   blog/templates/index.html 
+
+[root@room9pc01 mysite]# cat   -n   blog/templates/index.html
+     1	{% load  static %}
+     2	<!DOCTYPE html>
+     3	<html lang="zh-CN">
+     4	  <head>
+
+
+ 56       <div class="row">
+ 57 
+ 58         <div class="col-sm-8 blog-main">
+ 59           {% for  post  in  lstPost %}
+ 60           <div class="blog-post">
+ 61             <h2 class="blog-post-title">{{ post.title }}</h2>
+ 62             <p class="blog-post-meta">{{ post.add_date }} by<a href="#">{{     post.author }}</a></p>
+
+    73	            <p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
+    74	          </div><!-- /.blog-post -->
+    75	
+    76	          {% endfor %}
+
+    77	          <div class="blog-post">
+    78	           {{abc}}
+    79	           <ul>
+    80	            {% for item in a  %}
+    81	            <li>{{ item }}</li>  
+    82	            {% endfor %}
+    83	           </ul>
+    84	          </div><!-- /.blog-post -->
+    85	          <nav>
+    86	            <ul class="pager">
+    87	              <li><a href="#">Previous</a></li>
+
+[root@room9pc01 mysite]# cat  -n    blog/urls.py
+     1	from django.conf.urls import url
+     2	from  .views  import  index, hanshu, indexx, test,renderIndex
+     3	
+     4	urlpatterns = [
+     5	    url(r'^$', index),
+     6	    url(r'^indexx$', indexx),
+     7	    url(r'^indexxx', hanshu),
+     8	    url(r'^t', test),
+     9	    url(r'^r', renderIndex),
+    10	]
+[root@room9pc01 mysite]# 
+
+http://192.168.0.254:8800/blog/r
+
+
+[root@room9pc01 mysite]# cp  '/root/桌面/site196/blog/static/js/jquery.min.js'   blog/static/js/
+
+[root@room9pc01 mysite]# ls   blog/static/js/
+jquery.min.js
+
+[root@room9pc01 mysite]# ll  blog/static/js/jquery.min.js
+-rwxr----- 1 root root 85578 5月   2 14:09 blog/static/js/jquery.min.js
+
+[root@room9pc01 mysite]# cp  '/root/桌面/site196/blog/templates/index.html'   blog/templates/index2.html
+
+[root@room9pc01 mysite]# ls  blog/templates/
+base.html    edit.html    index.html  login.html
+detail.html  index2.html  list.html   t.html
+
+[root@room9pc01 mysite]# vim   blog/templates/base.html 
+[root@room9pc01 mysite]# vim   blog/templates/list.html 
+
+
+
+[root@room9pc01 mysite]# vim   blog/views.py
+
+from django.shortcuts import render, HttpResponse
+from  .models  import  Post, Comments
+
+...................
+
+# @login_required(login_url="/blog/login")
+def showList(request):
+    posts = Post.objects.all()
+
+    return render(request, "list.html", {'posts': posts})
+
+
+
+[root@room9pc01 mysite]# vim   blog/urls.py 
+
+[root@room9pc01 mysite]# cat  -n   blog/urls.py
+
+     1	from django.conf.urls import url
+     2	from  .views  import  *
+     3	
+     4	urlpatterns = [
+     5	    url(r'^$', index),
+     6	    url(r'^indexx$', indexx),
+     7	    url(r'^indexxx', hanshu),
+     8	    url(r'^t', test),
+     9	    url(r'^r', renderIndex),
+    10	    url(r'^list/$',showList),
+    11	]
+
+[root@room9pc01 mysite]# head  -38   blog/views.py
+from django.shortcuts import render, HttpResponse
+from  .models  import  Post, Comments
+
+# Create your views here.
+
+def  index(request):
+  page = request.GET.get('page');
+  listPost = Post.objects.all()
+  return render(request, "index.html", {'lstPost': listPost})
+def  indexx(request):
+  return render(request, "index.html")
+def  hanshu(request):
+  return HttpResponse("中文页面.Django/mysite/blog/views.py---hanshu");
+
+def  test(request):
+  a = [0, 1, 2, 3, 4]
+  b = 'hello world'
+  return render(request,'t.html', {'a':a, 'b' : b})
+
+def  renderIndex(request):
+  a = [1, 2, 3, 4,5, 6, 7]
+  posts = Post.objects.all()
+  return  render(request, "index.html",
+                 {"abc":1, "a":a, "posts": posts})
+
+
+# @login_required(login_url="/blog/login")
+def showList(request):
+    posts = Post.objects.all()
+
+    return render(request, "list.html", {'posts': posts})
+
+
+def add(request):
+        return render(request, "edit.html")
+
+#def add(request):
+#    if request.method == "POST":
+[root@room9pc01 mysite]# 
+
+[root@room9pc01 mysite]#  vim   blog/urls.py 
+
+[root@room9pc01 mysite]# cat   -n  blog/urls.py
+     1	from django.conf.urls import url
+     2	from  .views  import  *
+     3	
+     4	urlpatterns = [
+     5	    url(r'^$', index),
+     6	    url(r'^indexx$', indexx),
+     7	    url(r'^indexxx', hanshu),
+     8	    url(r'^t', test),
+     9	    url(r'^r', renderIndex),
+    10	    url(r'^list/$',showList),
+    11	    url(r'^add$', add),
+    12	]
+
+[root@room9pc01 mysite]# vim    blog/templates/edit.html 
+
+
+https://v4.bootcss.com/docs/4.0/layout/grid/
+
+(?P<name>pattern) 这样的类型的是python正则表达式组
+例子：
+ m=re.match('(?P<var>[a-zA-Z_]\w*)', 'abc=123')
+result  = m.group('var')
+print result
+输出的结果是 ‘abc’
+相当于为分组起了一个别名的叫做var
+
+m=re.search('(?P<var>\d{3})abc(?P=var)','a113abc113asdfasdvg')
+m=re.search('(\d{3})abc(\d{3})','a113abc113asdfasdvg')
+
+这两条语句是一样的只不过是加了一个别名
+
+[root@room9pc01 mysite]# vim    blog/urls.py
+
+[root@room9pc01 mysite]# cat    -n   blog/urls.py
+     1	from django.conf.urls import url
+     2	from  .views  import  *
+     3	
+     4	urlpatterns = [
+     5	    url(r'^$', index),
+     6	    url(r'^indexx$', indexx),
+     7	    url(r'^indexxx', hanshu),
+     8	    url(r'^t', test),
+     9	    url(r'^r', renderIndex),
+    10	    url(r'^list/$',showList),
+    11	    url(r'^add$', add),
+    12	    url(r'^edit/(?<id>\d+)$', edit)
+    13	    url(r'^del$',delPost),
+    14	    url(r'^addcomments$',addComment),
+    15	    url(r'^login', loginView)
+    16	]
+[root@room9pc01 mysite]# 
+
+[root@room9pc01 mysite]# cat  -n  blog/models.py 
+     1	from django.db import models
+     2	import django.utils.timezone as timezone
+     3	
+     4	# Create your models here.
+     5	
+     6	class Post(models.Model):
+     7	    title = models.CharField(max_length=100)
+     8	    desc = models.CharField(max_length=500)
+     9	    content = models.TextField()
+    10	    author = models.CharField(max_length=50)
+    11	    add_date = models.DateTimeField('添加日期', default=timezone.now)
+    12	    mod_date = models.DateTimeField('最后修改日期', auto_now=True)
+    13	
+    14	    def __str__(self):
+    15	        return self.title
+    16	
+    17	
+    18	class Comments(models.Model):
+    19	    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    20	    content = models.TextField(max_length=500)
+    21	    add_date = models.DateTimeField('添加日期', default=timezone.now)
+    22	
+    23	    def __str__(self):
+    24	        return self.content
+    25	
+[root@room9pc01 mysite]# 
+
+[root@room9pc01 mysite]# ls  blog/templates/
+base.html    edit.html    index.html  login.html
+detail.html  index2.html  list.html   t.html
+
+[root@room9pc01 mysite]# vim   blog/templates/index2.html 
+
+[root@room9pc01 mysite]# vim   blog/templates/index.html 
+
+[root@room9pc01 mysite]#  vim    blog/views.py
+
+
+
+[root@room9pc01 mysite]# cat  -n   blog/views.py
+
+     1	from django.shortcuts import render, HttpResponse, HttpResponseRedirect
+     2	from  .models  import  Post, Comments
+     3	
+     4	from django.http import JsonResponse
+     5	from django.contrib.auth import authenticate, login
+     6	from django.contrib.auth.decorators import login_required
+     7	
+     8	from django.core.paginator import Paginator, EmptyPage
+     9	from django.http import Http404
+    10	
+    11	# Create your views here.
+    12	
+    13	def  indexx(equest):
+    14	  page = request.GET.get('page');
+    15	  listPost = Post.objects.all()
+    16	  return render(request, "index.html", {'lstPost': listPost})
+    17	def  hanshu(request):
+    18	  return HttpResponse("中文页面.Django/mysite/blog/views.py---hanshu");
+    19	
+    20	def index(request):
+    21	    posts = Post.objects.all()
+    22	    paginator = Paginator(posts, 5)
+    23	    page = request.GET.get('page', 1)
+    24	    try:
+    25	        posts = paginator.page(page)
+    26	    except EmptyPage:  # 如果页码太大，没有相应的记录
+    27	        posts = paginator.page(paginator.num_pages)  # 取最后一页的记录
+    28	    return render(request, "index.html", {'posts': posts})
+    29	
+    30	
+    31	def  test(request):
+    32	  a = [0, 1, 2, 3, 4]
+    33	  b = 'hello world'
+    34	  return render(request,'t.html', {'a':a, 'b' : b})
+    35	
+    36	def  renderIndex(request):
+    37	  a = [1, 2, 3, 4,5, 6, 7]
+    38	  posts = Post.objects.all()
+    39	  return  render(request, "index.html",
+    40	                 {"abc":1, "a":a, "posts": posts})
+    41	
+    42	
+    43	# @login_required(login_url="/blog/login")
+    44	def showList(request):
+    45	    posts = Post.objects.all()
+    46	
+    47	    return render(request, "list.html", {'posts': posts})
+    48	
+    49	
+    50	def add(request):
+    51	  if  request.method == "POST":
+    52	    post = Post()
+    53	    title = request.POST.get('title')
+    54	    post.desc = request.POST.get('desc')
+    55	    post.author = request.POST.get('author')
+    56	    post.content = request.POST.get('content')
+    57	    post.save()
+    58	    return HttpResponseRedirect("/blog/list")
+    59	
+    60	  else:
+    61	    return render(request, "edit.html", {'action': "/blog/add/"})
+    62	
+    63	
+    64	def edit(request, id):
+    65	    post = Post.objects.get(id=id)
+    66	    if request.method == "POST":
+    67	        post.title = request.POST.get('title')
+    68	        post.desc = request.POST.get('desc')
+    69	        post.content = request.POST.get('content')
+    70	        post.save()
+    71	        return HttpResponseRedirect("/blog/list")
+    72	    else:
+    73	        return render(request, "edit.html", {'action': "/blog/edit/{0}".format(id), 'post': post})
+    74	
+    75	
+    76	def detail(request, id):
+    77	    post = Post.objects.get(id=id)
+    78	    if post:
+    79	        return render(request, "detail.html", {'post': post})
+    80	    else:
+    81	        raise Http404
+    82	
+    83	
+    84	def delPost(request):
+    85	   post = Post.objects.get(id=request.GET.get("id"))
+    86	   post.delete()
+    87	   return HttpResponseRedirect("/blog/list")
+    88	
+    89	
+    90	def ajaxDel(request):
+    91	    post = Post.objects.get(id=request.GET.get("id"))
+    92	    post.delete()
+    93	    return JsonResponse({"code": 0, "msg": "删除成功"})
+    94	
+    95	
+    96	def loginView(request):
+    97	    if request.method == "GET":
+    98	        return render(request, "login.html")
+    99	    else:
+   100	        username = request.POST.get('username')
+   101	        password = request.POST.get('password')
+   102	        user = authenticate(username=username, password=password)
+   103	        if user is not None:
+   104	            login(request, user)
+   105	            return HttpResponseRedirect('/blog/list')
+   106	        else:
+   107	            return HttpResponseRedirect('/blog/login')
+   108	
+   109	
+   110	def addComment(request):
+   111	    c = Comments()
+   112	    c.content = "abc"
+   113	    c.post_id = 1
+   114	    c.save()
+   115	    return HttpResponseRedirect("/blog/list")
+   116	
+   117	
+   118	
+[root@room9pc01 mysite]# 
+
+
+[root@room9pc01 mysite]# \cp  -r  blog/templates/  '/var/git/PYTHON/pythonScripts/Django1120' 
+
+[Python3网络爬虫开发实战] 6.3-Ajax结果提取
+
+https://cuiqingcai.com/5609.html
+
+
+[root@room9pc01 mysite]# cat  -n   blog/views.py
+
+     1	from django.shortcuts import render, HttpResponse, HttpResponseRedirect
+     2	from  .models  import  Post, Comments
+     4	from django.http import JsonResponse
+
+    90	def ajaxDel(request):
+    91	    post = Post.objects.get(id=request.GET.get("id"))
+    92	    post.delete()
+    93	    return JsonResponse({"code": 0, "msg": "删除成功"})
+    94	
+
+[root@room9pc01 mysite]# cat    -n   blog/urls.py
+     1	from django.conf.urls import url
+     2	from  .views  import  *
+     3	
+     4	urlpatterns = [
+     5	    url(r'^$', index),
+                url(r'^ajaxdel$',ajaxDel),
+
+
+{% block js %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+    <script>
+        function ajaxDel(id) {
+            $.ajax({
+             type:'GET',
+             url:'/blog/ajaxdel',
+             dataType:'json'
+            },function  (data) {
+               console.log(data);
+                });
+            $('#p'+id).remove();
+        }
+    </script>
+{% endblock %}
+
+[root@room9pc01 ~]# cat  -n   Django/mysite/blog/templates/list.html 
+     1	{% extends "base.html" %}
+     2	{% load static %}
+     3	{% block content %}
+     4	    <a href="/blog/add" class="btn btn-primary">添加</a>
+     5	<table class="table table-striped table-bordered">
+     6	    <tr>
+     7	        <td>标题</td>
+     8	        <td>描述</td>
+     9	        <td>作者</td>
+    10	        <td>修改时间</td>
+    11	        <td>操作</td>
+    12	    </tr>
+    13	{% for p in posts %}
+    14	    <tr id="p{{ p.id }}">
+    15	        <td>{{ p.title }}</td>
+    16	        <td>{{ p.desc }}</td>
+    17	        <td>{{ p.author }}</td>
+    18	        <td>{{ p.mod_date| date:"Y-m-j" }}</td>
+    19	        <td>
+    20	            <a href="/blog/edit/{{ p.id }}" class="btn btn-success">编辑</a>
+    21	            <a href="/blog/del?id={{ p.id }}" class="btn btn-danger">删除</a>
+    22	            <a href="javascript:ajaxDel({{ p.id }})" class="btn btn-danger">ajax删除</a>
+    23	        </td>
+    24	    </tr>
+    25	{% endfor %}
+    26	</table>
+    27	{% endblock %}
+    28	
+    29	{% block js %}
+    30	<script src="{% static 'js/jquery.min.js' %}"></script>
+    31	    <script>
+    32	        function ajaxDel(id) {
+    33	            console.log($,id);
+    34	            $('#p'+id).remove();
+    35	        }
+    36	    </script>
+    37	{% endblock %}[root@room9pc01 ~]# 
+
+
+
+
