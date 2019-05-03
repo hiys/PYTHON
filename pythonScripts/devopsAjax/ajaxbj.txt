@@ -41,6 +41,26 @@
 
 --------------------------------------------------
 
+(?P<name>pattern) 这样的类型的是python正则表达式组
+例子：
+ m=re.match('(?P<var>[a-zA-Z_]\w*)', 'abc=123')
+result  = m.group('var')
+print result
+输出的结果是 ‘abc’
+相当于为分组起了一个别名的叫做var
+
+m=re.search('(?P<var>\d{3})abc(?P=var)','a113abc113asdfasdvg')
+m=re.search('(\d{3})abc(\d{3})','a113abc113asdfasdvg')
+
+这两条语句是一样的只不过是加了一个别名
+
+
+bot      英 [bɒt]
+    n.网上机器人;自动程序;机器人程式
+
+robot    英 [ˈrəʊbɒt] 
+      n.机器人;(尤指故事中的)机器人;交通信号灯
+
 spider       英 [ˈspaɪdə(r)]
            n.蜘蛛
 
@@ -74,6 +94,646 @@ log()
 使用 scrapy.log.msg() 方法记录(log)message。
 closed() 
 当spider关闭时，该函数被调用。
+
+==========================
+https://www.taobao.com/robots.txt
+
+User-agent:  Baiduspider
+Allow:  /article
+Allow:  /oshtml
+Allow:  /ershou
+Allow: /$
+Disallow:  /product/
+Disallow:  /     #不允许百度的机器人访问其网站下其所有的目录
+
+User-Agent:  Googlebot
+Allow:  /article
+Allow:  /oshtml
+Allow:  /product
+Allow:  /spu
+Allow:  /dianpu
+Allow:  /oversea
+Allow:  /list
+Allow:  /ershou
+Allow: /$
+Disallow:  /
+
+User-agent:  Bingbot
+Allow:  /article
+Allow:  /oshtml
+Allow:  /product
+Allow:  /spu
+Allow:  /dianpu
+Allow:  /oversea
+Allow:  /list
+Allow:  /ershou
+Allow: /$
+Disallow:  /
+
+User-Agent:  360Spider
+Allow:  /article
+Allow:  /oshtml
+Allow:  /ershou
+Disallow:  /
+
+User-Agent:  Yisouspider
+Allow:  /article
+Allow:  /oshtml
+Allow:  /ershou
+Disallow:  /
+
+User-Agent:  Sogouspider
+Allow:  /article
+Allow:  /oshtml
+Allow:  /product
+Allow:  /ershou
+Disallow:  /
+
+User-Agent:  Yahoo!  Slurp
+Allow:  /product
+Allow:  /spu
+Allow:  /dianpu
+Allow:  /oversea
+Allow:  /list
+Allow:  /ershou
+Allow: /$
+Disallow:  /
+
+User-Agent:  *
+Disallow:  /
+
+=======================
+
+https://www.jd.com/robots.txt
+
+User-agent: * 
+Disallow: /?* 
+Disallow: /pop/*.html 
+Disallow: /pinpai/*.html?* 
+User-agent: EtaoSpider 
+Disallow: / 
+User-agent: HuihuiSpider 
+Disallow: / 
+User-agent: GwdangSpider 
+Disallow: / 
+User-agent: WochachaSpider 
+Disallow: /
+
+
+
+ 允许所有的robot访问
+ (或者也可以建一个空文件 “/robots.txt” file)
+User-agent: *
+Allow:　/
+
+允许某个搜索引擎的访问
+User-agent: Baiduspider
+allow:/
+
+
+bot      英 [bɒt]
+    n.网上机器人;自动程序;机器人程式
+
+robot    英 [ˈrəʊbɒt] 
+      n.机器人;(尤指故事中的)机器人;交通信号灯
+
+spider       英 [ˈspaɪdə(r)]
+           n.蜘蛛
+
+response       英 [rɪˈspɒns]
+    n.(口头的或书面的)回答，答复;反应;响应;
+
+Robots协议（也称为爬虫协议、机器人协议等）的全称是
+“网络爬虫排除标准”（Robots Exclusion Protocol），
+网站通过Robots协议告诉搜索
+引擎哪些页面可以抓取，哪些页面不能抓取。
+
+仅当您的网站包含
+不希望被搜索引擎收录的内容时，才需要使用robots.txt文件。
+如果您希望
+搜索引擎收录网站上所有内容，请勿建立robots.txt文件。
+
+但robots.txt不是命令，也不是防火墙，
+如同守门人无法阻止窃贼等恶意闯入者
+
+可以屏蔽一些网站中比较大的文件，如：图片，音乐，视频等，
+节省服务器带宽；
+
+
+在Python3中,已经不存在urllib2这个库了,
+统一为urllib
+•  urllib中包括了四个模块
+–  urllib.request可以用来发送request
+和 获取request的结果
+–  urllib.error包含了urllib.request产生的异常
+–  urllib.parse用来解析和处理URL
+–  urllib.robotparse用来解析页面的robots.txt文件
+
+
+导入用到的模块:urllib.request
+•  在导入了模块之后,我们需要使用
+urllib.request.urlopen打开并爬取一个网页
+•  读取内容常见的有3种方式:
+–  read()读取文件的全部内容,
+与readlines()不同的是,
+read()会把读取到的内容赋给
+一个字符串变量。
+
+–  readlines()读取文件的全部内容,
+readlines()会把读取到的内容赋值给
+一个列表变量。
+
+–  readline()读取文件的一行内容。
+
+[root@room9pc01 ~]# type  wget
+wget 是 /usr/bin/wget
+[root@room9pc01 ~]# rpm  -qf   /usr/bin/wget
+wget-1.14-15.el7.x86_64
+
+[root@room9pc01 ~]# mkdir  spider
+[root@room9pc01 ~]# cd    spider/
+
+[root@room9pc01 spider]# python3
+
+Python 3.6.7 (default, Apr 28 2019, 20:32:58) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import   urllib.request
+
+>>> response = urllib.request.urlopen('https://fanyi.baidu.com/#en/zh/')
+
+>>> html = response.read()
+
+>>> print(html)
+
+b'<!DOCTYPE html>\n<html>\n<head>\n<meta charset="utf-8">\n<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">\n<title>
+...............
+>>> html = response.readline()
+>>> print(html)
+b''
+>>> response = urllib.request.urlopen('https://fanyi.baidu.com/#en/zh/')
+>>> html = response.readline()
+>>> print(html)
+b'<!DOCTYPE html>\n'
+>>> html = response.readline()
+>>> print(html)
+b'<html>\n'
+>>> html = response.readline()
+>>> print(html)
+b'<head>\n'
+>>> html = response.readline()
+>>> print(html)
+b'<meta charset="utf-8">\n'
+>>> html = response.readline()
+>>> print(html)
+b'<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">\n'
+>>> 
+>>> html = response.readlines()
+>>> print(html)
+[b'<title>\xe7\x99\xbe\xe5\xba\xa6\xe7\xbf\xbb\xe8\xaf\x91</title>\n', b'<meta name="keywords" content="\xe7\xbf\xbb\xe8\xaf\x91,\xe5\x9c\xa8\xe7\xba\xbf\xe7\xbf\xbb\xe8\xaf\x91,\xe7\x99\xbe\xe5\xba\xa6\xe7\xbf\xbb\xe8\xaf\x91,\xe8\xaf\x8d\xe5\x85\xb8,\xe8\x8b\xb1\xe8\xaf\xad,"/>\n', b'<meta name="description" content="......................
+;</script></body>\n', b'</html>\n']
+
+>>> html = response.readlines()
+>>> print(html)
+[]
+>>> 
+[root@room9pc01 spider]# unzip   '/root/桌面/day27-28.zip' 
+Archive:  /root/桌面/day27-28.zip
+   creating: day27-28/
+...........
+
+https://search.jd.com/Search?keyword=linux%E7%AC%94%E8%AE%B0%E6%9C%AC&enc=utf-8&suggest=1.his.0.0&wq=&pvid=d4fa390e22e04cc080e5ebbfba6fb49d
+
+
+https://www.jd.com/
+
+Host: misc.360buyimg.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0
+Accept: */*
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: https://www.jd.com/
+Connection: keep-alive
+
+handle
+英 [ˈhændl]   美 [ˈhændl]  
+v.
+处理，应付(局势、人、工作或感情);(用手)触，拿，搬动;控制，操纵(车辆、动物、工具等)
+n.
+把手;拉手;柄;把;
+
+ls  /usr/local/lib/python3.6/site-packages/django/db/models/
+------  /usr/local/lib/python3.6/site-packages/django/db/models/base.py ---------
+ 470 
+ 471 class Model(six.with_metaclass(ModelBase)):
+ 472 
+ 473     def __init__(self, *args, **kwargs):
+
+
+[root@V0 ~]# ls   /usr/local/lib/python3.6/urllib/
+error.py     parse.py     request.py   robotparser.py
+__init__.py  __pycache__  response.py
+
+[root@V0 ~]# ll   /usr/local/lib/python3.6/urllib/response.py 
+-rw-r--r-- 1 root root 2299 4月  28 20:33 /usr/local/lib/python3.6/urllib/response.py
+
+[root@V0 ~]# ll  /usr/local/lib/python3.6/tempfile.py
+-rw-r--r-- 1 root root 26776 4月  28 20:33 /usr/local/lib/python3.6/tempfile.py
+
+[root@V0 ~]# ll   /usr/local/lib/python3.6/urllib/request.py 
+-rw-r--r-- 1 root root 99998 4月  28 20:33 /usr/local/lib/python3.6/urllib/request.py
+
+[root@V0 ~]# cat  -n   /usr/local/lib/python3.6/urllib/request.py 
+
+  84 import base64
+  85 import bisect
+  86 import email
+  87 import hashlib
+  88 import http.client
+  89 import io
+  90 import os
+  91 import posixpath
+  92 import re
+  93 import socket
+  94 import string
+  95 import sys
+  96 import time
+  97 import collections
+  98 import tempfile
+  99 import contextlib
+ 100 import warnings
+ 101 
+ 102 
+ 103 from urllib.error import URLError, HTTPError, ContentTooShortError
+ 104 from urllib.parse import (
+ 105     urlparse, urlsplit, urljoin, unwrap, quote, unquote,
+ 106     splittype, splithost, splitport, splituser, splitpasswd,
+ 107     splitattr, splitquery, splitvalue, splittag, to_bytes,
+ 108     unquote_to_bytes, urlunparse)
+ 109 from urllib.response import addinfourl, addclosehook
+ 110 
+
+ 324 class Request:
+ 325 
+ 326     def __init__(self, url, data=None, headers={},
+ 327                  origin_req_host=None, unverifiable=False,
+ 328                  method=None):
+ 329         self.full_url = url
+ 330         self.headers = {}
+ 331         self.unredirected_hdrs = {}
+ 332         self._data = None
+ 333         self.data = data
+ 334         self._tunnel_host = None
+ 335         for key, value in headers.items():
+ 336             self.add_header(key, value)
+ 337         if origin_req_host is None:
+ 338             origin_req_host = request_host(self)
+ 339         self.origin_req_host = origin_req_host
+ 340         self.unverifiable = unverifiable
+ 341         if method:
+ 342             self.method = method
+
+
+
+
+http://www.goubanjia.com/
+
+全网代理IP    首页 动态代理IP 公开代理IP 创建API接口 软件下载 常见问题 登录/注册 
+
+
+[root@V0 ~]# mkdir    robot
+[root@V0 ~]# cd    robot/
+-----------------------------------------------
+[root@V0 robot]# vim   urllib_request.py
+
+#!/usr/bin/env  python3
+#coding:UTF-8
+"""
+import urllib.request
+import  sys
+sys.stdout.write('\033[32;46;1m__name__ is %s\n\033[0m' % __name__)
+
+url='http://www.goubanjia.com'
+header = {
+ 'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+}
+request = urllib.request.Request(url,headers=header)
+response = urllib.request.urlopen(request).read()
+
+fh = open('1.html','wb')
+fh.write(response)
+fh.close()
+
+with open('./1.html','rb') as fobj:
+  data = fobj.readlines()
+  print(data,end='\n\n')
+print(" = = = = = = = =\n")
+
+
+if  __name__ == '__main__':
+  sys.stdout.write('\033[31;47;1msys.argv is %s\n\033[0m' % sys.argv)
+
+----------------------------------------------------------------------
+
+
+
+[root@V0 robot]# ls
+urllib_request.py
+
+[root@V0 robot]# python3   urllib_request.py
+__name__ is __main__
+[b'<!DOCTYPE html>\n', b'<!--[if lt IE 9]>\r\n', b'<html class="ie ie8" lang="zh-CN">\r\n', b'<![endif]-->\n', b'<!--[if !(IE 7) | !(IE 8)  ]><!-->\r\n', b'<html lang="zh-CN">\r\n', b'<!--<![endif]--><head>\n',
+..................................
+</script>\n', b'<script type="text/javascript" src="http://www.goubanjia.com/theme/goubanjia/javascript/pde.js?v=1.0"></script>\n', b'</body>\n', b'</html>']
+
+ = = = = = = = =
+
+sys.argv is ['urllib_request.py']
+[root@V0 robot]# ls
+1.html  urllib_request.py
+[root@V0 robot]# head   -3  1.html 
+<!DOCTYPE html>
+<!--[if lt IE 9]>
+<html class="ie ie8" lang="zh-CN">
+
+[root@V0 robot]# tail  -3   1.html
+<script type="text/javascript" src="http://www.goubanjia.com/theme/goubanjia/javascript/pde.js?v=1.0"></script>
+</body>
+</html>[root@V0 robot]#  
+
+[root@V0 robot]# scp  urllib_request.py   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devopsAjax/
+
+
+refer     英 [rɪˈfɜː(r)]  
+    v.谈及;提到;提及;称…(为);指;涉及;
+referer
+引用;引用页;推荐人;参照页
+
+
+Host: lib.baomitu.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0
+Accept: */*
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://www.goubanjia.com/
+Connection: keep-alive
+If-Modified-Since: Mon, 01 Jan 2018 00:00:00 GMT
+If-None-Match: W/"40c432fc1691b02b"
+Cache-Control: max-age=0
+
+
+http://sbj.saic.gov.cn/sbcx/
+国家知识产权局 商标局
+使用说明
+  本栏目为社会公众提供商标注册申请信息查询，本系统的数据信息并非实时更新，
+有一定滞后性，仅供参考，不具有法律效力。
+
+请求头:
+Host: wsjs.saic.gov.cn
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0
+Accept: */*
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://wsjs.saic.gov.cn/txnT01.do?y7bRbp=qmF8g.4oKeSg7PmHWnzaKRkFNinqllicepsPZO.V8PEx...xbYlSFpp4.AqSoeUFIORym5E6KgGrB
+Cookie: UM_distinctid=16a7cc0480b11d-07bfb496da47cd-38694646-100200-16a7cc0480c254; JSESSIONID=3DF5C2CADA901827048B3B889F182C4B; FSSBBIl1UgzbN7N80S=CV7ZVx...xm_IfrVOlSbew9MEqO; __jsluid=1025x...xf8274; FSSBBIl1UgzbN7Nenable=true; FSSBBIl1UgzbN7N80T=3fv9UBUNlo.6z7Ax...x3iP.45PefnBtIsh51Fhbic8Nu_Wubs8x...x8oQhZF3G
+Connection: keep-alive
+
+[root@V0 robot]# pwd
+/root/robot
+
+# pip3.6   install   tornado
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+.......................
+Installing collected packages: tornado
+  Running setup.py install for tornado ... done
+Successfully installed tornado-6.0.2
+
+[root@V0 robot]# pip3  freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+
+[root@V0 robot]# python3  -m   django  version
+1.11.20
+[root@V0 robot]# 
+
+
+[root@V0 robot]# ls    /usr/local/lib/python3.6/site-packages/tornado/
+auth.py             iostream.py      routing.py
+autoreload.py       _locale_data.py  simple_httpclient.py
+concurrent.py       locale.py        speedups.cpython-36m-x86_64-linux-gnu.so
+curl_httpclient.py  locks.py         tcpclient.py
+escape.py           log.py           tcpserver.py
+gen.py              netutil.py       template.py
+http1connection.py  options.py       test
+httpclient.py       platform         testing.py
+httpserver.py       process.py       util.py
+httputil.py         __pycache__      web.py
+__init__.py         py.typed         websocket.py
+ioloop.py           queues.py        wsgi.py
+
+[root@V0 robot]# ll    /usr/local/lib/python3.6/site-packages/tornado/web.py 
+-rw-r--r-- 1 root root 138158 3月  24 00:37 /usr/local/lib/python3.6/site-packages/tornado/web.py
+[root@V0 robot]# cat  -n  /usr/local/lib/python3.6/site-packages/tornado/web.py
+
+
+[root@V0 robot]# vim   tornado_server.py
+#!/usr/bin/env  python3
+#coding:UTF-8
+"""#coding=UTF-8
+"""
+#！ -*- coding: utf8 -*-
+import tornado.ioloop
+import tornado.web
+
+.......
+class MainHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        self.write("Hello, world")
+............
+
+
+[root@V0 robot]# cat   -n   /usr/local/lib/python3.6/site-packages/tornado/web.py 
+
+ 178 class RequestHandler(object):
+...............
+1351     def get_login_url(self) -> str:
+1352         """Override to customize the login URL based on the request.
+1353 
+1354         By default, we use the ``login_url`` application setting.
+1355         """
+1356         self.require_setting("login_url", "@tornado.web.authenticated")
+1357         return self.application.settings["login_url"]
+..............
+3142 def authenticated(
+3143     method: Callable[..., Optional[Awaitable[None]]]
+3144 ) -> Callable[..., Optional[Awaitable[None]]]:
+
+
+[root@V0 robot]# scp   tornado_server.py   root@192.168.0.254:/root/spider
+
+======================================================
+
+[root@room9pc01 spider]# cat  /root/.pip/pip.conf 
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+
+[root@room9pc01 spider]#  pip3.6   install   tornado
+.................
+
+[root@room9pc01 spider]# pwd
+/root/spider
+[root@room9pc01 spider]# du  -sh  /usr/local/lib/python3.6/site-packages/tornado/web.py 
+136K	/usr/local/lib/python3.6/site-packages/tornado/web.py
+
+[root@room9pc01 spider]# pip3  freeze
+
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+
+[root@room9pc01 spider]# ls    templates/
+index.html  __init__.py
+
+[root@room9pc01 spider]# cat  -n   templates/index.html 
+     1	<!DOCTYPE html>
+     2	<html lang="en">
+     3	<head>
+     4	    <meta charset="UTF-8">
+     5	    <title>Title</title>
+     6	</head>
+     7	<body>
+     8	    <form action="/login" method="post">
+     9	        <input name="username">
+    10	        <input name="password">
+    11	        <button type="submit">提交</button>
+    12	    </form>
+    13	</body>
+    14	</html>[root@room9pc01 spider]# cat   templates/__init__.py 
+[root@room9pc01 spider]# ls
+
+templates  tornado_server.py
+
+[root@room9pc01 spider]# cp   -r   templates/   tornado_server.py   /var/git/PYTHON/pythonScripts/devopsAjax/
+
+[root@room9pc01 spider]# python3   tornado_server.py  #开启服务  #这里是物理机192.168.0.254
+
+
+
+http://127.0.0.1:8888/
+localhost:8888/
+http://192.168.0.254:8888/ 自动跳转到下面的页面
+
+http://192.168.0.254:8888/login?next=%2F
+
+----------   #开启服务  #这里是物理机 192.168.0.254  -----------------------------
+----- python3   tornado_server.py  #开启服务 服务器终端出现的信息 --------
+
+WARNING:tornado.access:404 GET /favicon.ico (192.168.0.254) 0.49ms
+WARNING:tornado.access:404 GET /favicon.ico (127.0.0.1) 1.04ms
+
+
+
+[root@V0 robot]# vim   request_parse_post.py  #这里是虚拟机192.168.0.10
+
+[root@V0 robot]# python3   request_parse_post.py
+__name__ is __main__
+b'{"code": 0, "msg": "OK HAHA ---ok"}'
+-------1---------
+b'<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<title>Title</title>\n</head>\n<body>\n<form action="/login" method="post">\n<input name="username">\n<input name="password">\n<button type="submit">\xe6\x8f\x90\xe4\xba\xa4</button>\n</form>\n</body>\n</html>'
+-------2---------
+sys.argv is ['request_parse_post.py']
+
+[root@V0 robot]# cat  -n   request_parse_post.py
+     1	#!/usr/bin/env  python3
+     2	#coding:UTF-8
+     3	"""#coding=UTF-8
+     4	/usr/local/lib/python3.6/urllib/request.py 
+     5	 324 class Request:
+     6	 325 
+     7	 326     def __init__(self, url, data=None, headers={},
+     8	 327                  origin_req_host=None, unverifiable=False,
+     9	 328                  method=None):
+    10	 329         self.full_url = url
+    11	 330         self.headers = {}
+    12	 331         self.unredirected_hdrs = {}
+    13	 332         self._data = None
+    14	 333         self.data = data
+    15	"""
+    16	#! -*- coding: utf8 -*-
+    17	
+    18	import urllib.request
+    19	import urllib.parse
+    20	import  sys
+    21	sys.stdout.write('\033[32;46;1m__name__ is %s\n\033[0m' % __name__)
+    22	
+    23	url = "http://192.168.0.254:8888/login"
+    24	header = {
+    25	 'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+    26	}
+    27	# 192.168.0.254:8888/login  物理机IP
+    28	data = {'username':'admin','password':'admin'}
+    29	postdata = urllib.parse.urlencode(data).encode('utf-8')
+    30	
+    31	request = urllib.request.Request(url,data=postdata, headers=header)
+    32	
+    33	response = urllib.request.urlopen(request).read()
+    34	
+    35	print(response, end ='\n-------1---------\n')
+    36	
+    37	response = urllib.request.urlopen("http://192.168.0.254:8888/").read()
+    38	print(response, end ='\n-------2---------\n')
+    39	
+    40	
+    41	if __name__ == "__main__":
+    42	  sys.stdout.write('\033[31;47;1msys.argv is %s\n\033[0m' % sys.argv)
+    43	
+    44	
+[root@V0 robot]# 
+[root@V0 robot]# scp   urllib_request.py     root@192.168.0.254:/root/spider
+[root@V0 robot]# scp    request_parse_post.py    root@192.168.0.254:/root/spider
+[root@room9pc01 spider]# cp    request_parse_post.py    /var/git/PYTHON/pythonScripts/devopsAjax/
+
+
+[root@room9pc01 spider]# python3     request_parse_post.py 
+__name__ is __main__
+b'{"code": 0, "msg": "OK HAHA ---ok"}'
+-------1---------
+b'<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<title>Title</title>\n</head>\n<body>\n<form action="/login" method="post">\n<input name="username">\n<input name="password">\n<button type="submit">\xe6\x8f\x90\xe4\xba\xa4</button>\n</form>\n</body>\n</html>'
+-------2---------
+sys.argv is ['request_parse_post.py']
+
+
+[root@room9pc01 spider]# cp    request_parse_post.py  request_parse_post2.py
+[root@room9pc01 spider]# vim   request_parse_post2.py
+
+[root@room9pc01 spider]# grep  -n  ^data   request_parse_post2.py
+28:data = {'username':'admin','password':'12345'}
+
+
+[root@room9pc01 spider]# python3    request_parse_post2.py
+__name__ is __main__
+b'{"code": 404, "msg": "\\u7528\\u6237\\u540d\\u548c\\u5bc6\\u7801\\u4e0d\\u6b63\\u786e"}'
+-------1---------
+b'<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<title>Title</title>\n</head>\n<body>\n<form action="/login" method="post">\n<input name="username">\n<input name="password">\n<button type="submit">\xe6\x8f\x90\xe4\xba\xa4</button>\n</form>\n</body>\n</html>'
+-------2---------
+sys.argv is ['request_parse_post2.py']
+
+[root@room9pc01 spider]# cp   request_parse_post2.py    /var/git/PYTHON/pythonScripts/devopsAjax/ 
+
+
+
+
 
 
 
