@@ -316,12 +316,9 @@ Accept-Encoding: gzip, deflate, br
 Referer: https://www.jd.com/
 Connection: keep-alive
 
-handle
-英 [ˈhændl]   美 [ˈhændl]  
-v.
-处理，应付(局势、人、工作或感情);(用手)触，拿，搬动;控制，操纵(车辆、动物、工具等)
-n.
-把手;拉手;柄;把;
+handle    英 [ˈhændl] 
+    v.处理，应付(局势、人、工作或感情);(用手)触，拿，搬动;控制，操纵(车辆、动物、工具等)
+    n.把手;拉手;柄;把;
 
 ls  /usr/local/lib/python3.6/site-packages/django/db/models/
 ------  /usr/local/lib/python3.6/site-packages/django/db/models/base.py ---------

@@ -1,0 +1,664 @@
+
+
+bot      英 [bɒt]
+    n.网上机器人;自动程序;机器人程式
+
+robot    英 [ˈrəʊbɒt] 
+      n.机器人;(尤指故事中的)机器人;交通信号灯
+
+spider       英 [ˈspaɪdə(r)]
+           n.蜘蛛
+
+response       英 [rɪˈspɒns]
+    n.(口头的或书面的)回答，答复;反应;响应;
+
+handle    英 [ˈhændl] 
+    v.处理，应付(局势、人、工作或感情);(用手)触，拿，搬动;控制，操纵(车辆、动物、工具等)
+    n.把手;拉手;柄;把;
+
+expire    英 [ɪkˈspaɪə(r)] 
+   v.(因到期而)失效，终止;到期;届满;逝世;去世;
+
+
+
+
+http://www.goubanjia.com/
+
+全网代理IP    首页 动态代理IP 公开代理IP 创建API接口 软件下载 常见问题 登录/注册 
+
+国家企业信用信息公示 系统
+http://www.gsxt.gov.cn/index.html
+http://xwqy.gsxt.gov.cn/
+小微企业库
+
+https://www.douban.com
+
+
+
+ls  /usr/local/lib/python3.6/site-packages/django/db/models/
+------  /usr/local/lib/python3.6/site-packages/django/db/models/base.py ---------
+ 470 
+ 471 class Model(six.with_metaclass(ModelBase)):
+ 472 
+ 473     def __init__(self, *args, **kwargs):
+
+
+
+[root@V0 ~]# ls   /usr/local/lib/python3.6/urllib/
+error.py     parse.py     request.py   robotparser.py
+__init__.py  __pycache__  response.py
+
+[root@V0 ~]# ll   /usr/local/lib/python3.6/urllib/response.py 
+-rw-r--r-- 1 root root 2299 4月  28 20:33 /usr/local/lib/python3.6/urllib/response.py
+
+[root@V0 ~]# ll  /usr/local/lib/python3.6/tempfile.py
+-rw-r--r-- 1 root root 26776 4月  28 20:33 /usr/local/lib/python3.6/tempfile.py
+
+[root@V0 ~]# ll   /usr/local/lib/python3.6/urllib/request.py 
+-rw-r--r-- 1 root root 99998 4月  28 20:33 /usr/local/lib/python3.6/urllib/request.py
+
+[root@V0 ~]# cat  -n   /usr/local/lib/python3.6/urllib/request.py 
+
+  84 import base64
+  85 import bisect
+  86 import email
+  87 import hashlib
+  88 import http.client
+  89 import io
+  90 import os
+  91 import posixpath
+  92 import re
+  93 import socket
+  94 import string
+  95 import sys
+  96 import time
+  97 import collections
+  98 import tempfile
+  99 import contextlib
+ 100 import warnings
+ 101 
+ 102 
+ 103 from urllib.error import URLError, HTTPError, ContentTooShortError
+ 104 from urllib.parse import (
+ 105     urlparse, urlsplit, urljoin, unwrap, quote, unquote,
+ 106     splittype, splithost, splitport, splituser, splitpasswd,
+ 107     splitattr, splitquery, splitvalue, splittag, to_bytes,
+ 108     unquote_to_bytes, urlunparse)
+ 109 from urllib.response import addinfourl, addclosehook
+ 110 
+
+ 324 class Request:
+ 325 
+ 326     def __init__(self, url, data=None, headers={},
+ 327                  origin_req_host=None, unverifiable=False,
+ 328                  method=None):
+ 329         self.full_url = url
+ 330         self.headers = {}
+ 331         self.unredirected_hdrs = {}
+ 332         self._data = None
+ 333         self.data = data
+ 334         self._tunnel_host = None
+ 335         for key, value in headers.items():
+ 336             self.add_header(key, value)
+ 337         if origin_req_host is None:
+ 338             origin_req_host = request_host(self)
+ 339         self.origin_req_host = origin_req_host
+ 340         self.unverifiable = unverifiable
+ 341         if method:
+ 342             self.method = method
+
+
+
+http://sbj.saic.gov.cn/sbcx/
+国家知识产权局 商标局
+使用说明
+  本栏目为社会公众提供商标注册申请信息查询，本系统的数据信息并非实时更新，
+有一定滞后性，仅供参考，不具有法律效力。
+
+请求头:
+Host: wsjs.saic.gov.cn
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0
+Accept: */*
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Referer: http://wsjs.saic.gov.cn/txnT01.do?y7bRbp=qmF8g.4oKeSg7PmHWnzaKRkFNinqllicepsPZO.V8PEx...xbYlSFpp4.AqSoeUFIORym5E6KgGrB
+Cookie: UM_distinctid=16a7cc0480b11d-07bfb496da47cd-38694646-100200-16a7cc0480c254; JSESSIONID=3DF5C2CADA901827048B3B889F182C4B; FSSBBIl1UgzbN7N80S=CV7ZVx...xm_IfrVOlSbew9MEqO; __jsluid=1025x...xf8274; FSSBBIl1UgzbN7Nenable=true; FSSBBIl1UgzbN7N80T=3fv9UBUNlo.6z7Ax...x3iP.45PefnBtIsh51Fhbic8Nu_Wubs8x...x8oQhZF3G
+Connection: keep-alive
+
+
+
+
+
+
+Robots协议（也称为爬虫协议、机器人协议等）的全称是
+“网络爬虫排除标准”（Robots Exclusion Protocol），
+网站通过Robots协议告诉搜索
+引擎哪些页面可以抓取，哪些页面不能抓取。
+
+
+
+==========================
+https://www.taobao.com/robots.txt
+
+User-agent:  Baiduspider
+Allow:  /article
+Allow:  /oshtml
+Allow:  /ershou
+Allow: /$
+Disallow:  /product/
+Disallow:  /     #不允许百度的机器人访问其网站下其所有的目录
+
+User-Agent:  Googlebot
+Allow:  /article
+Allow:  /oshtml
+Allow:  /product
+Allow:  /spu
+Allow:  /dianpu
+Allow:  /oversea
+Allow:  /list
+Allow:  /ershou
+Allow: /$
+Disallow:  /
+
+................
+
+=======================
+
+https://www.jd.com/robots.txt
+
+User-agent: * 
+Disallow: /?* 
+Disallow: /pop/*.html 
+Disallow: /pinpai/*.html?* 
+User-agent: EtaoSpider 
+Disallow: / 
+User-agent: HuihuiSpider 
+Disallow: / 
+User-agent: GwdangSpider 
+Disallow: / 
+User-agent: WochachaSpider 
+Disallow: /
+
+ 允许所有的robot访问
+ (或者也可以建一个空文件 “/robots.txt” file)
+User-agent: *
+Allow:　/
+
+允许某个搜索引擎的访问
+User-agent: Baiduspider
+allow:/
+
+
+
+
+
+[root@room9pc01 ~]# ssh  -X  192.168.0.10
+......................
+[root@V0 ~]# cd   robot/
+
+[root@V0 robot]# pwd
+/root/robot
+
+[root@V0 robot]# cat   /root/.pip/pip.conf 
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+[root@V0 robot]# pip3.6   install   tornado
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+.......................
+Installing collected packages: tornado
+  Running setup.py install for tornado ... done
+Successfully installed tornado-6.0.2
+
+[root@V0 robot]# pip3  freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+
+[root@V0 robot]# python3  -m   django  version
+1.11.20
+
+[root@V0 robot]# vim   tornado_server.py 
+[root@V0 robot]# cat   -n   tornado_server.py
+     1	#!/usr/bin/env  python3
+     2	#coding:UTF-8
+     3	"""#coding=UTF-8
+     4	"""
+     5	#! -*- coding: utf8 -*-
+     6	import tornado.ioloop
+     7	import tornado.web
+     8	
+     9	
+    10	class BaseHandler(tornado.web.RequestHandler):
+    11	    def get_current_user(self):
+    12	        return self.get_secure_cookie("uid")
+    13	
+    14	
+    15	class LoginHandler(BaseHandler):
+    16	
+    17	    def get(self):
+    18	        self.render("templates/index.html")
+    19	        # self.finish("请使用post方法提交username/password,并且两个值保持一致")
+    20	
+    21	    def post(self, *args, **kwargs):
+    22	        username = self.get_argument('username')
+    23	        password = self.get_argument('password')
+    24	        if username == password:
+    25	            self.set_secure_cookie('uid', username)
+    26	            self.finish({"code":0,"msg":"OK HAHA ---ok"})
+    27	        else:
+    28	            self.finish({"code":404,"msg":"用户名和密码不正确"})
+    29	
+    30	
+    31	class MainHandler(BaseHandler):
+    32	    @tornado.web.authenticated
+    33	    def get(self):
+    34	        self.write("Hello, world")
+    35	
+    36	
+    37	def make_app():
+    38	    settings = dict(
+    39	        debug=True,
+    40	        xsrf_cookies=False,
+    41	        login_url='/login',
+    42	        cookie_secret='61oETzKXQAGaYdkL5gEmGEJJFuYh7EQnp2XdTP1o/Vo=',
+    43	    )
+    44	    return tornado.web.Application([
+    45	        (r"/", MainHandler),
+    46	        (r"/login", LoginHandler)        
+    47	    ], **settings)
+    48	
+    49	
+    50	if __name__ == "__main__":
+    51	    app = make_app()
+    52	    app.listen(8888)
+    53	    tornado.ioloop.IOLoop.current().start()
+    54	
+    55	
+[root@V0 robot]# 
+
+[root@V0 robot]# ls
+1.html  request_parse_post.py  tornado_server.py  urllib_request.py
+
+
+[root@V0 robot]# cat   -n   /usr/local/lib/python3.6/site-packages/tornado/web.py 
+
+ 178 class RequestHandler(object):
+...............
+1351     def get_login_url(self) -> str:
+1352         """Override to customize the login URL based on the request.
+1353 
+1354         By default, we use the ``login_url`` application setting.
+1355         """
+1356         self.require_setting("login_url", "@tornado.web.authenticated")
+1357         return self.application.settings["login_url"]
+..............
+3142 def authenticated(
+3143     method: Callable[..., Optional[Awaitable[None]]]
+3144 ) -> Callable[..., Optional[Awaitable[None]]]:
+
+
+
+============================================
+
+
+[root@room9pc01 ~]# cd  spider/
+[root@room9pc01 spider]# cat  /root/.pip/pip.conf 
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+[root@room9pc01 spider]#  pip3.6   install   tornado
+.................
+
+[root@room9pc01 spider]# pip3  freeze
+
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+
+[root@room9pc01 spider]# ls    templates/
+index.html  __init__.py
+
+[root@room9pc01 spider]# du  -sh  /usr/local/lib/python3.6/site-packages/tornado/web.py 
+136K	/usr/local/lib/python3.6/site-packages/tornado/web.py
+
+
+原始图像可以接受: .jpg .jpeg .gif .png等图像格式
+photoshop不能将png格式的图片直接转换成ico格式的图片
+动态ico图标的实现方法，
+先把做好的gif动态图标命名为favico.gif 
+<head></head>之间加上： <link rel="icon" href="favicon.gif" type="image/gif" >
+ www.ico.la 这个网站可以在线转换 
+可以转换成 16*16 32*32 48*48 的图片，还有透明背景图片的制作方法。
+
+[root@room9pc01 spider]# cp  '/var/git/PYTHON/pythonScripts/xshell6.png'  .
+[root@room9pc01 spider]# ls
+favicon.ico             request_parse_post.py  tornado_server.py  xshell6.png
+request_parse_post2.py  templates              urllib_request.py
+
+
+eog全称：eye of gmone，是linux下内置的图片查看器
+
+[root@room9pc01 spider]# eog    favicon.ico 
+^C
+[root@room9pc01 spider]# eog   xshell6.png 
+
+[root@room9pc01 spider]# ls
+favicon.ico             request_parse_post.py  tornado_server.py  xshell6.png
+request_parse_post2.py  templates              urllib_request.py
+
+[root@room9pc01 spider]# cp   favicon.ico   xshell6.png   templates/
+
+[root@room9pc01 spider]# ls  templates/
+
+favicon.ico  index.html  __init__.py   xshell6.png
+
+[root@room9pc01 spider]# vim  templates/index.html 
+
+[root@room9pc01 spider]# cat  -n   templates/index.html
+     1	<!DOCTYPE html>
+     2	<!--STATUS OK-->
+     3	<html lang="zh-CN">
+     4	 <head>
+     5	  <meta charset="UTF-8">
+     6	  <link rel="icon" href="/favicon.ico">
+     7	  <title>Title标题</title>
+     8	 </head>
+     9	 <body>
+    10	  <div>
+    11	   <a  href="/xshell6.png" target="_blank">_blank点击xshell6.png</a>
+    12	   <a  href="javascript:alert('这是弹出对话框的内容');">点击链接</a>
+    13	  </div>
+    14	  <form action="/login" method="post">
+    15	   <input name="username">
+    16	   <input name="password">
+    17	   <button type="submit">提交submit</button>
+    18	  </form>
+    19	</body>
+    20	</html>
+    21	
+    22	
+[root@room9pc01 spider]# 
+
+[root@room9pc01 spider]# vim   tornado_server.py 
+
+
+[root@room9pc01 spider]# vim   request_parse_post
+
+[root@room9pc01 spider]# cat    -n   request_parse_post.py
+     1	#!/usr/bin/env  python3
+     2	#coding:UTF-8
+     3	"""#coding=UTF-8
+     4	/usr/local/lib/python3.6/urllib/request.py 
+     5	 324 class Request:
+     6	 325 
+     7	 326     def __init__(self, url, data=None, headers={},
+     8	 327                  origin_req_host=None, unverifiable=False,
+     9	 328                  method=None):
+    10	 329         self.full_url = url
+    11	 330         self.headers = {}
+    12	 331         self.unredirected_hdrs = {}
+    13	 332         self._data = None
+    14	 333         self.data = data
+    15	"""
+    16	#! -*- coding: utf8 -*-
+    17	
+    18	import urllib.request
+    19	import urllib.parse
+    20	import  sys
+    21	sys.stdout.write('\033[32;46;1m__name__ is %s\n\033[0m' % __name__)
+    22	
+    23	url = "http://192.168.0.254:8888/login"
+    24	header = {
+    25	 'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+    26	}
+    27	# 192.168.0.254:8888/login  物理机IP
+    28	data = {'username':'admin','password':'admin'}
+    29	postdata = urllib.parse.urlencode(data).encode('utf-8')
+    30	
+    31	request = urllib.request.Request(url,data=postdata, headers=header)
+    32	
+    33	response = urllib.request.urlopen(request).read()
+    34	
+    35	print(response, end ='\n-------1---------\n')
+    36	
+    37	response = urllib.request.urlopen("http://192.168.0.254:8888/").read()
+    38	
+    39	fhandle = open('./templates/x1.html','wb')
+    40	fhandle.write(response)
+    41	fhandle.close()
+    42	
+    43	with open('./templates/x1.html','rb') as fobj:
+    44	  data = fobj.readlines()
+    45	  print(data,end='\n\n')
+    46	print('\n-------2---------\n')
+    47	
+    48	
+    49	if __name__ == "__main__":
+    50	  sys.stdout.write('\033[31;47;1msys.argv is %s\n\033[0m' % sys.argv)
+    51	
+    52	
+[root@room9pc01 spider]# 
+
+-------------------------  #开启服务  #这里是物理机192.168.0.254 --------------
+
+[root@room9pc01 spider]# python3   tornado_server.py  #开启服务 
+
+[root@room9pc01 spider]# python3   request_parse_post.py   #提交请求
+
+__name__ is __main__
+b'{"code": 0, "msg": "OK HAHAhaha ---ok"}'
+-------1---------
+[b'<!DOCTYPE html>\n', b'<!--STATUS OK-->\n', b'<html lang="zh-CN">\n', b'<head>\n', b'<meta charset="UTF-8">\n', b'<link rel="icon" href="/favicon.ico">\n', b'<title>Title\xe6\xa0\x87\xe9\xa2\x98</title>\n', b'</head>\n', b'<body>\n', b'<div>\n', b'<a href="/xshell6.png" target="_blank">_blank\xe7\x82\xb9\xe5\x87\xbbxshell6.png</a>\n', b'<a href="javascript:alert(\'\xe8\xbf\x99\xe6\x98\xaf\xe5\xbc\xb9\xe5\x87\xba\xe5\xaf\xb9\xe8\xaf\x9d\xe6\xa1\x86\xe7\x9a\x84\xe5\x86\x85\xe5\xae\xb9\');">\xe7\x82\xb9\xe5\x87\xbb\xe9\x93\xbe\xe6\x8e\xa5</a>\n', b'</div>\n', b'<form action="/login" method="post">\n', b'<input name="username">\n', b'<input name="password">\n', b'<button type="submit">\xe6\x8f\x90\xe4\xba\xa4submit</button>\n', b'</form>\n', b'</body>\n', b'</html>\n']
+
+
+-------2---------
+
+sys.argv is ['request_parse_post.py']
+
+[root@room9pc01 spider]# ls 
+favicon.ico             request_parse_post.py  tornado_server.py  xshell6.png
+request_parse_post2.py  templates              urllib_request.py
+
+[root@room9pc01 spider]# ls   templates/
+favicon.ico  index.html  __init__.py  x1.html  xshell6.png
+
+
+[root@room9pc01 spider]# ll   templates/{index,x1}.html
+-rw-r--r-- 1 root root 511 5月   4 11:25 templates/index.html
+-rw-r--r-- 1 root root 475 5月   4 11:31 templates/x1.html
+[root@room9pc01 spider]# 
+
+[root@room9pc01 spider]# python3    request_parse_post2.py 
+__name__ is __main__
+b'{"code": 404, "msg": "\\u7528\\u6237\\u540d\\u548c\\u5bc6\\u7801incorrect"}'
+-------1---------
+b'<!DOCTYPE html>\n<!--STATUS OK-->\n<html lang="zh-CN">\n<head>\n<meta charset="UTF-8">\n<link rel="icon" href="/favicon.ico">\n<title>Title\xe6\xa0\x87\xe9\xa2\x98</title>\n</head>\n<body>\n<div>\n<a href="/xshell6.png" target="_blank">_blank\xe7\x82\xb9\xe5\x87\xbbxshell6.png</a>\n<a href="javascript:alert(\'\xe8\xbf\x99\xe6\x98\xaf\xe5\xbc\xb9\xe5\x87\xba\xe5\xaf\xb9\xe8\xaf\x9d\xe6\xa1\x86\xe7\x9a\x84\xe5\x86\x85\xe5\xae\xb9\');">\xe7\x82\xb9\xe5\x87\xbb\xe9\x93\xbe\xe6\x8e\xa5</a>\n</div>\n<form action="/login" method="post">\n<input name="username">\n<input name="password">\n<button type="submit">\xe6\x8f\x90\xe4\xba\xa4submit</button>\n</form>\n</body>\n</html>\n'
+-------2---------
+sys.argv is ['request_parse_post2.py']
+
+============================================
+expire    英 [ɪkˈspaɪə(r)] 
+   v.(因到期而)失效，终止;到期;届满;逝世;去世;
+
+
+响应头:
+Set-Cookie: "uid=2|1:0|10:1556947728|3:uid|4:MTIz|06770407efc3ae500f1aaaed17c87df100482c0d831652bf7428d99ac8d1caf5; expires=Mon, 03 Jun 2019 05:28:48 GMT; Path=/"
+
+请求头:
+Host: 192.168.0.254:8888
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Cookie: uid=2|1:0|10:1556946231|3:uid|0:|a71357637635c085e15f1186865164028bea29842b9e488b54d4068082387aa2
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+If-None-Match: "e02aa1b106d5c7c6a98def2b13005d5b84fd8dc8"
+Cache-Control: max-age=0
+
+-------------------------------------------------------------------------
+请求头:
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0
+
+Cookie: uid=2|1:0|10:1556946231|3:uid|0:|a71357637635c085e15f1186865164028bea29842b9e488b54d4068082387aa2
+
+
+def make_app():
+    settings = dict(
+        debug=True,
+        xsrf_cookies=False,
+        login_url='/login',
+        cookie_secret='61oETzKXQAGaYdkL5gEmGEJJFuYh7EQnp2XdTP1o/Vo=',
+    )
+
+url='http://192.168.0.254:8888'
+header = {
+    'Cookie' : "csrftoken=4EGTEFQvW1f00JVTa4FsgI1vWDYg4xnQ; sessionid=ni2fvu8zxtzt5sqkwaksporumcu90224; uid=2|1:0|10:1527942835|3:uid|4:YWJj|d9063b2a749b9b9eb3b47e31b15b521fc95b72f300bd444f5b66d98c746d2ba9"
+}
+
+--------------------XSRF保护--------------------
+1、XSRF保护概念：
+    1、浏览器有一个很重要的概念——同源策略(Same-Origin Policy)。所谓同源是指，域名，协议，端口相同。 不同源的客户端脚本(javascript、ActionScript)在没明确授权的情况下，不能读写对方的资源。
+ 
+    2、由于第三方站点没有访问cookie数据的权限（同源策略），所以可以要求每个请求包括一个特定的参数值作为令牌来匹配存储在cookie中的对应值，如果两者匹配，的应用认定请求有效。而第三方站点无法在请求中包含令牌cookie值，这就有效地防止了不可信网站发送未授权的请求。
+ 
+ 
+2、开启XSRF保护：
+    1、要开启XSRF保护，需要在Application的构造函数中添加xsrf_cookies参数：
+        app = tornado.web.Application(
+            [(r"/", IndexHandler),],
+            cookie_secret = "2hcicVu+TqShDpfsjMWQLZ0Mkq5NPEWSk9fi0zsSt3A=",
+            xsrf_cookie = True
+        )
+
+python tornado中cookie_secret的生成方法
+
+
+from base64 import b64encode 
+from uuid import uuid4 
+b64encode(uuid4().bytes + uuid4().bytes) 
+
+得到: 
+如 urnqS8z4RB6CENU+jEPvLqjXbinxQEsJlTwdp/ehx9Y=
+  '61oETzKXQAGaYdkL5gEmGEJJFuYh7EQnp2XdTP1o/Vo='
+
+[root@V0 robot]# python3
+Python 3.6.7 (default, Apr 28 2019, 20:32:23) 
+[GCC 8.1.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> from base64 import b64encode 
+>>> from uuid import uuid4 
+
+>>> b64encode(uuid4().bytes + uuid4().bytes)
+b'/izH4PU2Tji4mI53+/jCDzRIMTrS+0B3tDAcJ1hbC8k='
+
+>>> b64encode(uuid4().bytes + uuid4().bytes)
+b'kLDHMNW0SsuMuyVijRQ/ZVJkoORkx0syjdGq8m+ArMs='
+
+>>> b64encode(uuid4().bytes + uuid4().bytes)
+b'wkWTPI3VQ9a+NqwIfAoGjt3l0EhPbUUhjjIx4hHVNbE='
+>>> 
+ '61oETzKXQAGaYdkL5gEmGEJJFuYh7EQnp2XdTP1o/Vo='
+
+[root@room9pc01 spider]# vim   request_parse_login.py
+
+
+[root@V0 robot]# mkdir   templates
+[root@V0 robot]# vim    templates/index.html
+
+[root@V0 robot]# scp  -r  root@192.168.0.254:/root/spider/* .
+
+[root@V0 robot]# python3
+Python 3.6.7 (default, Apr 28 2019, 20:32:23) 
+[GCC 8.1.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import  http.cookiejar
+>>> cj = http.cookiejar.CookieJar()
+>>> print(cj,type(cj),sep = '\n',end='\n-----cj-------\n')
+<CookieJar[]>
+<class 'http.cookiejar.CookieJar'>
+-----cj-------
+>>> cookieStr = ''
+>>> for item in cj:
+...   cookieStr = cookieStr + item.name + '=' + item.value + ';'
+... 
+>>> print(cookieStr,end='\n----------cookieStr -------\n')
+
+----------cookieStr -------
+>>> 
+
+
+
+import http.cookiejar
+import urllib.request
+import urllib.parse
+cj = http.cookiejar.CookieJar()
+opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+data = {'username': 'admin', 'password': 'admin'}
+r = opener.open("http://localhost:8888/login",
+data=urllib.parse.urlencode(data).encode('utf8'))
+print(r.read())
+r = opener.open('http://localhost:8888/')
+print(r.read())
+
+
+[root@room9pc01 spider]# ls
+favicon.ico             request_parse_post.py  urllib_request.py
+request_parse_login.py  templates              xshell6.png
+request_parse_post2.py  tornado_server.py
+[root@room9pc01 spider]# python3
+Python 3.6.7 (default, Apr 28 2019, 20:32:58) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import http.cookiejar
+>>> import urllib.request
+>>> import urllib.parse
+>>> cj = http.cookiejar.CookieJar()
+>>> opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+>>> data = {'username': 'admin', 'password': 'admin'}
+>>> r = opener.open("http://localhost:8888/login",
+... data=urllib.parse.urlencode(data).encode('utf8'))
+>>> print(r.read())
+b'{"code": 0, "msg": "OK HAHAhaha ---ok"}'
+>>> r = opener.open('http://localhost:8888/')
+>>> print(r.read())
+b'Hello, world'
+>>> 
+>>> 
+
+
+
+netscape美 [ˈnɛtˌskeɪp]  
+网景;网景公司;网景浏览器;浏览器
+
+Netscape HTTP Cookie File
+http://curl.haxx.se/rfc/cookie_spec.html
+This is a generated file!  Do not edit.
+这是生成的文件！不要编辑。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
