@@ -20,7 +20,8 @@ expire    英 [ɪkˈspaɪə(r)]
    v.(因到期而)失效，终止;到期;届满;逝世;去世;
 
 
-
+http://httpbin.org/
+一个简单的HTTP请求和响应服务。
 
 http://www.goubanjia.com/
 
@@ -646,6 +647,839 @@ Netscape HTTP Cookie File
 http://curl.haxx.se/rfc/cookie_spec.html
 This is a generated file!  Do not edit.
 这是生成的文件！不要编辑。
+
+
+chrome开发者工具最常用的四个功能模块：
+
+    Elements：主要用来查看前面界面的html的Dom结构，和修改css的样式。
+css可以即时修改，即使显示。大大方便了开发者调试页面，这真是十分友好的~
+
+    console：这个除了查看错误信息、打印调试信息(console.log())、写一些测试脚本以外，
+还可以当作Javascript API查看用。
+例如我想查看console都有哪些方法和属性，我可以直接在Console中输入"console"并执行~
+
+    Sources：主要用来调试js和查看源代码
+
+    Network：
+Network详细介绍
+按照从左到右的顺序来写
+
+    clipboard.png记录按钮 处于打开状态时会在此面板进行网络连接的信息记录，关闭后则不会记录。
+
+    clipboard.png清除按钮 清除当前的网络连接记录信息。（点击一下就能清空）
+
+    clipboard.png捕获截屏 记录页面加载过程中一些时间点的页面渲染情况，截图根据可视窗口截取 
+
+clipboard.png
+
+
+larger-than：显示大于指定值大小规格的资源。单位是字节(B),但是K(kB)和M(MB)也是可以的~ 如larger-than:150K
+
+method：使用何种HTTP请求方式。如 GET
+
+mime-type：也写作content-type，是资源类型的标识符。如 text/html
+
+scheme：协议规定。如 HTTPS
+
+set-cookie-name：服务器设置的cookies名称
+
+set-cookie-value：服务器设置的cookies的值
+
+set-cookie-domain：服务器设置的cookies的域
+
+status-code：HTTP响应头的状态码
+
+前者为名词解释，后者为举例
+
+    Name/Pat：资源名称以及URL路径 （main.css）
+
+    Method：Http请求方法 (GET或者POST)
+
+    status/Text：Http状态码/文字解释 （200，ok）
+
+    Type ：请求资源的MIME类型，MIME是Multipurpose Internet Mail Extensions (html,css,js等)
+
+    Initiator：解释请求是怎么发起的，有四种可能的值
+
+               1.Parser  ：请求是由页面的html解析时发送
+               2.Redirect：请求是由页面重定向发送
+               3.script  ：请求是由script脚本处理发送
+               4.other   ：请求是由其他过程发送的，比如页面里的Link链接点击
+
+    size/content：size是响应头部和响应体结合的大小，content是请求解码后的大小
+
+
+第一个红色记录按钮， 处于打开状态时会在此面板进行网络连接的信息记录，关闭后则不会记录
+
+清除按钮，清除当前的网络连接记录信息，（点击一下就能清空）
+
+捕获截屏按钮，记录页面加载过程中一些时间点的页面渲染情况，截图根据可视窗口截取
+
+过滤器， 能够自定义筛选条件，找到自己想要资源信息
+
+view后面的两个按钮，前者点亮文本，后者显示时间流，可根据时间查看对应时间下浏览器请求的资源信息。
+
+
+【Group by frame】，这个用的不多，frame应该是内联框架。
+【Preserve log】是否保留日志，当选择保留日志，重新加载url当前界面时，之前请求显示的资源信息，会保留下来。
+【Disable cache】是否进行缓存，开发者工具生效，打开这个开关，则页面资源不会存入缓存，可以从Status栏的状态码看  文件请求状态。
+【Offine Online】设置模拟限速，设置限速可以模拟处于各种网络环境下的不同用户访问本页面的情况，如图示。
+
+
+Name/Pat：资源名称以及URL路径 （main.css）
+
+Method：Http请求方法 (GET或者POST)
+
+status/Text：Http状态码/文字解释 （200，ok）
+
+Type ：请求资源的MIME类型，MIME是Multipurpose Internet Mail Extensions (html,css,js等)
+
+Initiator：解释请求是怎么发起的，有四种可能的值
+
+    1.Parser  ：请求是由页面的html解析时发送
+    2.Redirect：请求是由页面重定向发送
+    3.script  ：请求是由script脚本处理发送
+    4.other   ：请求是由其他过程发送的，比如页面里的Link链接点击
+
+size/content：size是响应头部和响应体结合的大小，content是请求解码后的大小
+
+time：请求的时间（ms）,pending表示延迟等待
+
+一共分为五个模块：
+
+    Headers：如上图，Header面板列出
+资源的请求url、HTTP方法、响应状态码、请求头和响应头及它们各自的值、请求参数等等
+    Preview：预览面板，用于资源的预览
+
+Response：响应信息面板包含资源还未进行格式处理的内容
+
+
+Cookies：请求中的Cookie信息，包括请求和返回时的缓存信息
+
+Timing：资源请求的详细信息花费时间
+
+
+4、编辑源代码
+（1）【Console】下面输入框输入，不过按回车不是换行，会直接执行，如果有多行代码，需要在别的地方写好再粘贴进去。
+（2）【Sources】下面，点击左上角第二行Sources旁边的“>>”打开Snippets，点击“+ New Snippet”新建一个文件编辑脚本，写完右键“Save”保存，再右键点击这个文件“Run”运行。
+
+说明，如果是要覆盖页面js代码：
+如果是函数，则是直接以相同的函数名称重写方法即可。
+如果是要覆盖页面js代码的按钮事件，则需要重新注册该事件，否则相同的多个事件会全部响应。
+参考自：http://www.cnblogs.com/yougewe/p/6964724.html
+
+$('#id').off().on(function() {
+alert('test');
+});
+
+5、只分析异步请求资源
+【Network】下面点击“XHR”，这样就只会显示XHR异步请求资源，以便于快速分析请求Headers和Response。
+
+北京知道创宇信息技术有限公司
+https://www.yunaq.com/
+知道创宇云安全
+
+欢迎访问知道创宇云安全，请牢记我们的网址：www.yunaq.com，您可以 “CTRL+D”一键收藏本站网址 
+
+
+在海外，知道创宇与China Telecom Global等大陆运营商国际公司广泛合作，
+拥有多条直连中国大陆CN2专线，通过CN2专线的接入，
+知道创宇海外CN2线路在国内ping值仅需30~90ms，
+几乎可以等同于国内服务器的访问速度，
+这对于国际性贸易在中国大陆的开展具有无与伦比的体验优势。
+
+
+http://www.ip138.com/ips1388.asp
+
+====================================
+
+Linux下解析域名除了使用nslookup之外，
+使用dig命令来解析域名，dig命令可以得到更多的域名信息。
+
+dig的全称是 (domain information groper)。
+它是一个用来灵活探测DNS的工具。
+它会打印出DNS name server的回应。
+
+一、dig命令用法
+
+dig [@server] [-b address] [-c class] [-f filename] [-k filename] [ -n ][-p port#] [-t type] [-x addr] [-y name:key] [name] [type] [class] [queryopt...]
+
+dig [-h]
+
+dig [global-queryopt...] [query...]
+
+dig（域信息搜索器）命令是一个用于询问 DNS 域名服务器的灵活的工具。
+它执行 DNS 搜索，显示从受请求的域名服务器返回的答复。
+多数 DNS 管理员利用 dig 作为 DNS 问题的故障诊断，
+因为它灵活性好、易用、输出清晰。
+
+查询www.baidu.com这个域名的信息
+
+[root@RHEL6 ~]#dig www.baidu.com
+
++[no]trace
+切换为待查询名称从根名称服务器开始的代理路径跟踪。
+缺省情况不使用跟踪。一旦启用跟踪，dig 使用迭代查询解析待查询名称。
+它将按照从根服务器的参照，显示来自每台使用解析查询的服务器的应答。
+
+[root@room9pc01 spider]# dig
+
+; <<>> DiG 9.9.4-RedHat-9.9.4-50.el7 <<>>
+.............................
+;.				IN	NS
+
+;; ANSWER SECTION:
+.			184498	IN	NS	c.root-servers.net.
+.........................
+.			184498	IN	NS	f.root-servers.net.
+
+;; Query time: 1 msec
+;; SERVER: 176.121.0.100#53(176.121.0.100)
+;; WHEN: 日 5月 05 13:37:25 CST 2019
+;; MSG SIZE  rcvd: 239
+
+[root@room9pc01 spider]# cat  /etc/resolv.conf 
+nameserver 176.121.0.100
+
+[root@room9pc01 spider]# ifconfig  |head -3
+enp1s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 176.121.210.37  netmask 255.255.255.0  broadcast 176.121.210.255
+        inet6 fe80::cad3:ffff:fe3f:cd59  prefixlen 64  scopeid 0x20<link>
+
+[root@room9pc01 spider]# ip  route  show  |grep  default
+default via 176.121.210.1 dev enp1s0 proto static metric 100 
+
+
+[root@room9pc01 spider]# dig  +trace
+
+; <<>> DiG 9.9.4-RedHat-9.9.4-50.el7 <<>> +trace
+...........................
+JX8 hQp5Pg==
+;; Received 525 bytes from 176.121.0.100#53(176.121.0.100) in 481 ms
+
+.			518400	IN	NS	a.root-servers.net.
+.......................................
+;; Received 1097 bytes from 198.97.190.53#53(h.root-servers.net) in 237 ms
+
+第一部分的左边的“.”就是之前提到的root DNS服务器，
+后面的received。。。。176.121.0.100就是直接为本机服务的DNS
+
+
+[root@room9pc01 spider]# type   trac
+tracepath    tracepath6   traceroute   traceroute6  tracker
+
+[root@room9pc01 spider]# type   tracepath
+tracepath 是 /usr/bin/tracepath
+
+[root@room9pc01 spider]# rpm  -qf  /usr/bin/tracepath
+iputils-20160308-10.el7.x86_64
+
+[root@room9pc01 spider]# type   traceroute
+traceroute 是 /usr/bin/traceroute
+
+[root@room9pc01 spider]# rpm  -qf  /usr/bin/traceroute
+traceroute-2.0.22-2.el7.x86_64
+
+[root@room9pc01 spider]# tracepath
+Usage: tracepath [-n] [-b] [-l <len>] [-p port] <destination>
+
+------------------------ tracepath可以查出网络在哪里断了或是慢了 ----------
+
+[root@room9pc01 spider]# tracepath  www.baidu.com  #查出网络
+
+ 1?: [LOCALHOST]                                         pmtu 1500
+ 1:  gateway                                               0.673ms 
+ 1:  gateway                                               0.627ms 
+ 2:  no reply
+ 3:  100.64.0.1                                            3.466ms 
+ 4:  218.19.193.181                                        4.146ms 
+ 5:  121.8.203.97                                          7.084ms 
+ 6:  113.96.4.98                                          10.499ms 
+ 7:  90.96.135.219.broad.fs.gd.dynamic.163data.com.cn     12.310ms 
+ 8:  14.215.32.102                                        10.796ms 
+ 9:  no reply
+....................
+20:  no reply
+^C
+[root@room9pc01 spider]# 
+
+traceroute是用来检测发出数据包的主机到目标主机之间所经过的网关数量的工具。
+traceroute的原理是
+试图以最小的TTL（存活时间）发出探测包来跟踪数据包到达目标主机所经过的网关，
+然后监听一个来自网关ICMP的应答。
+.
+命令格式:
+traceroute [参数] [主机]
+-m 设置检测数据包的最大存活数值TTL的大小。 
+-n 直接使用IP地址而非主机名称。 
+
+traceroute指令让你追踪网络数据包的路由途径，预设数据包大小是40Bytes，
+用户可另行设置。 
+具体参数格式：
+traceroute [-dFlnrvx][-f<存活数值>][-g<网关>…][-i<网络界面>][-m<存活数值>][-p<通信端口>][-s<来源地址>][-t<服务类型>][-w<超时秒数>][主机名称或IP地址][数据包大小]
+
+
+
+记录按序列号从1开始，每个纪录就是一跳 ，每跳表示一个网关，我们看到每行有三个时间，单位是 ms，其实就是-q的默认参数。
+
+有时我们traceroute 一台主机时，会看到有一些行是以星号 * * *表示的。
+出现这样的情况，可能是防火墙封掉了ICMP的返回信息，所以我们得不到什么相关的数据包返回数据。
+
+跳数设置 
+命令：traceroute -m 10 www.baidu.com 
+
+把对外发探测包的等待响应时间设置为3秒
+
+命令：traceroute -w 3 www.baidu.com
+
+[root@room9pc01 spider]# traceroute  -m 12  -n  www.baidu.com
+traceroute to www.baidu.com (14.215.177.39), 12 hops max, 60 byte packets
+ 1  176.121.210.1  0.517 ms  1.092 ms  1.381 ms
+ 2  * * *
+ 3  100.64.0.1  82.506 ms  82.611 ms  82.672 ms
+ 4  218.19.193.181  4.327 ms  4.336 ms  12.341 ms
+ 5  121.8.203.97  7.983 ms  7.994 ms  7.982 ms
+ 6  113.96.4.98  14.023 ms 113.96.4.102  15.958 ms 113.96.4.94  9.338 ms
+ 7  219.135.96.90  11.369 ms  10.571 ms  10.558 ms
+ 8  14.215.32.94  9.116 ms 14.29.121.178  12.817 ms 14.29.121.182  9.026 ms
+ 9  * * *
+10  * * *
+11  * * *
+12  * * *
+[root@room9pc01 spider]# 
+
+[root@room9pc01 spider]# traceroute   -w 3  -m 18  -n  httpbin.org
+
+traceroute to httpbin.org (34.238.32.178), 18 hops max, 60 byte packets
+ 1  176.121.210.1  0.697 ms  0.951 ms  1.210 ms
+ 2  * * *
+ 3  100.64.0.1  3.099 ms  3.314 ms  3.327 ms
+ 4  113.98.93.89  13.711 ms  13.723 ms  13.719 ms
+ 5  183.56.30.21  5.663 ms  5.634 ms  5.660 ms
+ 6  202.97.91.154  82.835 ms  82.135 ms  81.933 ms
+ 7  202.97.91.137  4.548 ms  3.612 ms  4.396 ms
+ 8  202.97.86.138  235.184 ms 202.97.58.230  167.967 ms 202.97.86.138  232.832 ms
+ 9  202.97.92.37  205.332 ms  192.600 ms  191.565 ms
+10  218.30.53.2  156.529 ms  159.007 ms  153.959 ms
+11  54.239.103.16  228.346 ms 54.239.103.64  296.594 ms 54.239.103.88  217.126 ms
+12  * 54.239.103.107  219.730 ms 54.239.102.223  217.787 ms
+13  * * *
+14  54.239.43.59  222.667 ms  217.820 ms  213.526 ms
+15  52.93.129.239  225.317 ms 54.239.46.2  227.769 ms *
+16  54.239.42.237  301.116 ms 54.240.229.171  219.616 ms  221.057 ms
+17  * * *
+18  * * *
+
+[root@room9pc01 spider]# nslookup     httpbin.org
+Server:		176.121.0.100
+Address:	176.121.0.100#53
+
+Non-authoritative answer:
+Name:	httpbin.org
+Address: 34.238.32.178
+Name:	httpbin.org
+Address: 18.211.162.154
+
+[root@room9pc01 spider]# 
+
+
+[root@room9pc01 spider]# python3
+
+Python 3.6.7 (default, Apr 28 2019, 20:32:58) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import   requests
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'requests'
+>>> 
+
+[root@room9pc01 spider]# pip3  freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+[root@room9pc01 spider]# pip3  install  requests
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting requests
+  Downloading http://pypi.doubanio.com/packages/7d/e3/20f3d364d6c8e5d2353c72a67778eb189176f08e873c9900e10c0287b84b/requests-2.21.0-py2.py3-none-any.whl (57kB)
+     |████████████████████████████████| 61kB 2.0MB/s 
+Collecting chardet<3.1.0,>=3.0.2 (from requests)
+  Downloading http://pypi.doubanio.com/packages/bc/a9/01ffebfb562e4274b6487b4bb1ddec7ca55ec7510b22e4c51f14098443b8/chardet-3.0.4-py2.py3-none-any.whl (133kB)
+     |████████████████████████████████| 143kB 2.9MB/s 
+Collecting idna<2.9,>=2.5 (from requests)
+  Downloading http://pypi.doubanio.com/packages/14/2c/cd551d81dbe15200be1cf41cd03869a46fe7226e7450af7a6545bfc474c9/idna-2.8-py2.py3-none-any.whl (58kB)
+     |████████████████████████████████| 61kB 32.9MB/s 
+Collecting certifi>=2017.4.17 (from requests)
+  Downloading http://pypi.doubanio.com/packages/60/75/f692a584e85b7eaba0e03827b3d51f45f571c2e793dd731e598828d380aa/certifi-2019.3.9-py2.py3-none-any.whl (158kB)
+     |████████████████████████████████| 163kB 845kB/s 
+Collecting urllib3<1.25,>=1.21.1 (from requests)
+  Downloading http://pypi.doubanio.com/packages/01/11/525b02e4acc0c747de8b6ccdab376331597c569c42ea66ab0a1dbd36eca2/urllib3-1.24.3-py2.py3-none-any.whl (118kB)
+     |████████████████████████████████| 122kB 799kB/s 
+Installing collected packages: chardet, idna, certifi, urllib3, requests
+Successfully installed certifi-2019.3.9 chardet-3.0.4 idna-2.8 requests-2.21.0 urllib3-1.24.3
+
+[root@room9pc01 spider]# pip3  freeze
+certifi==2019.3.9
+chardet==3.0.4
+Django==1.11.20
+idna==2.8
+PyMySQL==0.9.3
+pytz==2019.1
+requests==2.21.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+[root@room9pc01 spider]# python3
+Python 3.6.7 (default, Apr 28 2019, 20:32:58) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   requests
+>>> requests.
+requests.ConnectTimeout(             requests.compat
+requests.ConnectionError(            requests.cookies
+requests.DependencyWarning(          requests.delete(
+requests.FileModeWarning(            requests.exceptions
+requests.HTTPError(                  requests.get(
+requests.NullHandler(                requests.head(
+requests.PreparedRequest(            requests.hooks
+requests.ReadTimeout(                requests.logging
+requests.Request(                    requests.models
+requests.RequestException(           requests.options(
+requests.RequestsDependencyWarning(  requests.packages
+requests.Response(                   requests.patch(
+requests.Session(                    requests.post(
+requests.Timeout(                    requests.put(
+requests.TooManyRedirects(           requests.request(
+requests.URLRequired(                requests.session(
+requests.adapters                    requests.sessions
+requests.api                         requests.status_codes
+requests.auth                        requests.structures
+requests.certs                       requests.urllib3
+requests.chardet                     requests.utils
+requests.check_compatibility(        requests.warnings
+requests.codes                       
+>>> 
+[root@room9pc01 spider]# 
+
+[root@room9pc01 spider]# vim   requestsSession.py
+
+"Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+Firefox 52.0 
+　首先去火狐主页，中文是http://www.firefox.com.cn/，点击"免费下载"
+http://www.firefox.com.cn/
+
+[root@room9pc01 ~]# mv  '/root/下载/Firefox-latest-x86_64.tar.bz2' .
+
+[root@room9pc01 ~]# du  -sh   Firefox-latest-x86_64.tar.bz2 
+60M	Firefox-latest-x86_64.tar.bz2
+
+[root@room9pc01 ~]# file   Firefox-latest-x86_64.tar.bz2
+Firefox-latest-x86_64.tar.bz2: bzip2 compressed data, block size = 900k
+
+[root@room9pc01 ~]# ll   Firefox-latest-x86_64.tar.bz2
+-rw-r--r-- 1 root root 62044183 5月   5 19:00 Firefox-latest-x86_64.tar.bz2
+
+--------------- # tar  -xjvf  Firefox-latest-x86_64.tar.bz2
+[root@room9pc01 ~]# tar  -xjPvf  Firefox-latest-x86_64.tar.bz2
+
+firefox/libnss3.so
+firefox/gtk2/libmozgtk.so
+firefox/crashreporter
+firefox/chrome.manifest
+firefox/removed-files
+firefox/firefox
+firefox/libplds4.so
+firefox/libnspr4.so
+firefox/libfreeblpriv3.so
+firefox/libmozwayland.so
+firefox/fonts/TwemojiMozilla.ttf
+firefox/firefox.sig
+firefox/libnssdbm3.so
+firefox/dependentlibs.list
+firefox/libnssutil3.so
+firefox/icons/updater.png
+firefox/plugin-container.sig
+firefox/libsoftokn3.so
+firefox/libxul.so
+firefox/firefox-bin
+firefox/libnssckbi.so
+firefox/precomplete
+firefox/libmozgtk.so
+firefox/updater
+firefox/liblgpllibs.so
+firefox/libfreeblpriv3.chk
+firefox/libmozsqlite3.so
+firefox/libmozavcodec.so
+firefox/plugin-container
+firefox/minidump-analyzer
+firefox/libmozsandbox.so
+firefox/libplc4.so
+firefox/firefox-bin.sig
+firefox/libsoftokn3.chk
+firefox/application.ini
+firefox/gmp-clearkey/0.1/libclearkey.so.sig
+firefox/gmp-clearkey/0.1/manifest.json
+firefox/gmp-clearkey/0.1/libclearkey.so
+firefox/browser/chrome.manifest
+firefox/browser/chrome/icons/default/default16.png
+firefox/browser/chrome/icons/default/default128.png
+firefox/browser/chrome/icons/default/default32.png
+firefox/browser/chrome/icons/default/default64.png
+firefox/browser/chrome/icons/default/default48.png
+firefox/browser/features/webcompat@mozilla.org.xpi
+firefox/browser/features/screenshots@mozilla.org.xpi
+firefox/browser/features/webcompat-reporter@mozilla.org.xpi
+firefox/browser/features/formautofill@mozilla.org.xpi
+firefox/browser/blocklist.xml
+firefox/browser/crashreporter-override.ini
+firefox/browser/omni.ja
+firefox/libnssdbm3.chk
+firefox/crashreporter.ini
+firefox/update-settings.ini
+firefox/pingsender
+firefox/libxul.so.sig
+firefox/defaults/pref/channel-prefs.js
+firefox/libmozavutil.so
+firefox/updater.ini
+firefox/Throbber-small.gif
+firefox/platform.ini
+firefox/omni.ja
+firefox/libsmime3.so
+firefox/libssl3.so
+firefox/
+firefox/distribution/
+firefox/distribution/searchplugins/
+firefox/distribution/searchplugins/locale/
+firefox/distribution/searchplugins/locale/zh-CN/
+firefox/distribution/searchplugins/locale/zh-CN/youdao.xml
+firefox/distribution/searchplugins/locale/zh-CN/taobao.xml
+firefox/distribution/searchplugins/locale/zh-CN/baidu.xml
+firefox/distribution/searchplugins/locale/zh-CN/dangdang.xml
+firefox/distribution/searchplugins/locale/zh-CN/amazondotcn.xml
+firefox/distribution/distribution.ini
+firefox/distribution/extensions/
+firefox/distribution/extensions/cpmanager@mozillaonline.com.xpi
+firefox/distribution/extensions/cehomepage@mozillaonline.com.xpi
+firefox/distribution/extensions/tabtweak@mozillaonline.com.xpi
+firefox/distribution/extensions/easyscreenshot@mozillaonline.com.xpi
+[root@room9pc01 ~]# 
+[root@room9pc01 ~]# ls  -ld  firefox/
+drwxr-xr-x 9 Student Student 4096 4月  10 04:26 firefox/
+[root@room9pc01 ~]# ls   firefox/
+application.ini     gmp-clearkey        libnss3.so       minidump-analyzer
+browser             gtk2                libnssckbi.so    omni.ja
+chrome.manifest     icons               libnssdbm3.chk   pingsender
+crashreporter       libfreeblpriv3.chk  libnssdbm3.so    platform.ini
+crashreporter.ini   libfreeblpriv3.so   libnssutil3.so   plugin-container
+defaults            liblgpllibs.so      libplc4.so       plugin-container.sig
+dependentlibs.list  libmozavcodec.so    libplds4.so      precomplete
+distribution        libmozavutil.so     libsmime3.so     removed-files
+firefox             libmozgtk.so        libsoftokn3.chk  Throbber-small.gif
+firefox-bin         libmozsandbox.so    libsoftokn3.so   updater
+firefox-bin.sig     libmozsqlite3.so    libssl3.so       updater.ini
+firefox.sig         libmozwayland.so    libxul.so        update-settings.ini
+fonts               libnspr4.so         libxul.so.sig
+
+[root@room9pc01 ~]# mv  firefox/   /usr/local/
+
+[root@room9pc01 ~]# ls   firefox/
+ls: 无法访问firefox/: 没有那个文件或目录
+[root@room9pc01 ~]# ls    /usr/local/firefox/ |wc  -l
+51
+
+[root@room9pc01 ~]# cd   /usr/local/firefox/
+
+[root@room9pc01 firefox]# ll   firefox
+-rwxr-xr-x 1 root root 14712 4月  10 01:26 firefox
+
+[root@room9pc01 firefox]# file    firefox
+firefox: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.26, BuildID[sha1]=eff0a761405f465fc60945a360d29265eefff01a, stripped
+
+[root@room9pc01 firefox]# .
+./            .desktop0.sh  .server0.sh   
+[root@room9pc01 firefox]# ./firefox   &
+[1] 17113
+
+
+[root@room9pc01 firefox]# ll   /root/桌面/firefox.desktop
+-rwxr--r-- 1 root root 2434 8月   7 2017 /root/桌面/firefox.desktop
+
+
+[root@room9pc01 firefox]# head  -3  /root/桌面/firefox.desktop
+[Desktop Entry]
+Version=1.0
+Name=Firefox Web Browser
+[root@room9pc01 firefox]# tail  -2  /root/桌面/firefox.desktop
+Categories=Network;WebBrowser;
+X-Desktop-File-Install-Version=0.23
+[root@room9pc01 firefox]# 
+
+[root@room9pc01 firefox]# firefox   --version
+Mozilla Firefox 52.2.0
+
+[root@room9pc01 firefox]# pwd
+/usr/local/firefox
+[root@room9pc01 firefox]# /usr/local/firefox/firefox  --version
+Mozilla Firefox 66.0.3
+
+[root@room9pc01 firefox]# type  firefox
+firefox 已被哈希 (/usr/bin/firefox)
+
+[root@room9pc01 firefox]# rpm  -qf   /usr/bin/firefox 
+firefox-52.2.0-2.el7.centos.x86_64
+
+[root@room9pc01 firefox]# ll     /usr/bin/firefox
+-rwxr-xr-x. 1 root root 6929 8月   7 2017 /usr/bin/firefox
+
+[root@room9pc01 firefox]# ll     /usr/local/firefox/firefox
+-rwxr-xr-x 1 root root 14712 4月  10 01:26 /usr/local/firefox/firefox
+
+[root@room9pc01 firefox]# ln   -s   /usr/local/firefox/firefox   /root/桌面/firefox.desktop 
+ln: 无法创建符号链接"/root/桌面/firefox.desktop": 文件已存在
+
+[root@room9pc01 firefox]# ll   /root/桌面/firefox.desktop
+-rwxr--r-- 1 root root 2434 8月   7 2017 /root/桌面/firefox.desktop
+
+[root@room9pc01 firefox]# >  /root/桌面/firefox.desktop
+
+[root@room9pc01 firefox]# ll   /root/桌面/firefox.desktop
+-rwxr--r-- 1 root root 0 5月   5 19:37 /root/桌面/firefox.desktop
+
+[root@room9pc01 firefox]# ln   -s   /usr/local/firefox/firefox   /root/桌面/firefox.desktop 
+ln: 无法创建符号链接"/root/桌面/firefox.desktop": 文件已存在
+
+给顶部面板原有的火狐图标更改链接，在图标上右击选择"属性"，
+命令输入框原来是 firefox %u，我们改成 usr/local/firefox/firefox %u
+                                /usr/local/firefox/firefox %u
+然后单击"关闭"，这个时候链接就指向了我们新安装的火狐了
+
+打开更新页面 ，直接点"更新 Firefox"可以更新，
+https://www.mozilla.org/zh-CN/firefox/new/
+
+https://www.mozilla.org/zh-CN/firefox/new/
+
+https://support.mozilla.org/zh-CN/kb/update-firefox-latest-version
+
+注意：如果您使用的是 Linux 发行版打包的 Firefox，
+那么您需要等新的软件包发行到软件包库中才能进行更新。
+只有当您的 Firefox 是手动（而非使用 Linux 发行版的软件包管理器）安装的时候，本文才适用。
+
+点击菜单按钮 Fx57Menu , 点击 Fx57Help 帮助并选择 关于 Firefox。
+
+    在 关于 Mozilla Firefox 窗口，Firefox 会开始检查并自动下载更新。 
+
+更新文件准备完毕后，点击 重启 Firefox 以更新。 
+
+
+特别提醒：如果更新未能启动、未能完成或者发生其他问题，
+请用   这个下载链接  或者到  系统和语言页面
+下载适合您的操作系统和语言的最新版 Firefox（参见“在Linux中安装Firefox”中的说明）。 
+
+https://support.mozilla.org/zh-CN/kb/%E5%9C%A8Linux%E4%B8%AD%E5%AE%89%E8%A3%85Firefox
+https://support.mozilla.org/zh-CN/kb/在Linux中安装Firefox
+
+
+
+
+在您安装 Firefox 之前，确保您的计算机安装了需要的库。缺失库文件会导致 Firefox 无法运行。
+
+    Mozilla 提供的 .tar.bz2 格式安装文件不包含源代码，而是预编译二进制文件，因此您只需要解包并运行文件，不需要从源代码编译程序。
+    以下步骤将指导您将 Firefox 安装到 home 目录，而且只有当前用户能够运行它。
+
+     从Firefox 下载页面下载 Firefox 到您的 home 目录中。
+    打开一个终端，转到 home 目录：cd ~
+    将下载文件的内容解压缩：tar xjf firefox-*.tar.bz2
+    如果 Firefox 正开着，请将其关闭。
+    要启动 Firefox，请运行 firefox 文件夹中的 firefox 脚本：~/firefox/firefox 
+
+[root@room9pc01 spider]# yum  list  libstdc++5
+
+已加载插件：fastestmirror, langpacks
+Loading mirror speeds from cached hostfile
+错误：没有匹配的软件包可以列出
+
+[root@room9pc01 ~]# yum  list    libstdc++.so.5
+......................
+错误：没有匹配的软件包可以列出
+
+
+[root@room9pc01 spider]# yum  list  firefox
+
+已加载插件：fastestmirror, langpacks
+Loading mirror speeds from cached hostfile
+已安装的软件包
+firefox.x86_64                       52.2.0-2.el7.centos                       @anaconda
+
+
+解决安装mysql动态库libstdc++.so.6、libc.so.6版本过低问题
+动态库版本低
+
+[root@haughty software] strings /usr/lib/libstdc++.so.6 | grep GLIBCXX    
+###查看动态库版本
+并没有动态库中要求的GCC版本 “GLIBCXX_3.4.15”，
+所以需要进行升级一下我们的GCC版本 过程如下：
+
+[root@haughty software] wget http://ftp.de.debian.org/debian/pool/main/g/gcc-4.7/libstdc++6_4.7.2-5_amd64.deb 
+#下载较新版本的GCC libstdc库
+
+[root@haughty software] ar -x libstdc++6_4.7.2-5_amd64.deb #解压
+
+[root@haughty software] tar -zxvf data.tar.gz #解压
+
+[root@haughty software] cp usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.17 /usr/lib64 #拷贝至/usr/lib64下
+
+[root@haughty software] rm -rf /usr/lib64/libstdc++.so.6 #删除低版本库的软连接
+
+[root@haughty software] ln -s /usr/lib64/libstdc++.so.6.0.17 /usr/lib64/libstdc++.so.6
+
+-----------------------------------------------------------------------------------------------------------
+./bin/mysqld: /lib64/libc.so.6: version `GLIBC_2.14' not found (required by ./bin/mysqld)
+解决：
+[root@haughty mysql]#strings /lib64/libc.so.6 |grep GLIBC
+wget http://ftp.gnu.org/gnu/glibc/glibc-2.15.tar.gz
+wget http://ftp.gnu.org/gnu/glibc/glibc-ports-2.15.tar.gz
+tar -xvf glibc-2.15.tar.gz
+tar -xvf glibc-ports-2.15.tar.gz
+mv glibc-ports-2.15 glibc-2.15/ports
+mkdir glibc-build-2.15
+cd glibc-build-2.15
+ls
+../glibc-2.15/configure --prefix=/usr --disable-profile --enable-add-ons 
+--with-headers=/usr/include --with-binutils=/usr/bin
+make
+make install
+strings libc.so | grep GLIBC
+
+ 
+
+
+
+
+
+
+[root@room9pc01 ~]# find  /  -iname  '*libc.so*'   -type  f
+/usr/lib64/libc.so
+[root@room9pc01 ~]# ll  /usr/lib64/libc.so
+-rw-r--r--. 1 root root 253 8月   2 2017 /usr/lib64/libc.so
+[root@room9pc01 ~]# strings  /usr/lib64/libc.so  |grep  GLIBC
+
+
+libstdc++
+
+The GNU C++ Library manual
+
+https://gcc.gnu.org/onlinedocs/libstdc++/
+https://gcc.gnu.org/onlinedocs/gcc-4.8.5/libstdc++/manual/
+
+
+附：libc++ 与 libstdc++
+
+libc++/libstdc++,这两个库有关系吗？有。两个都是C++标准库。
+  libc++是针对clang编译器特别重写的C++标准库，
+那libstdc++自然就是gcc的事儿了。
+libstdc++与gcc的关系就像clang与libc++.
+
+
+libstdc++与gcc是捆绑在一起的，
+也就是说安装gcc的时候会把libstdc++装上。 
+那为什么glibc和gcc没有捆绑在一起呢？
+相比glibc，libstdc++虽然提供了c++程序的标准库，但它并不与内核打交道。
+
+对于系统级别的事件，libstdc++首先是会与glibc交互，才能和内核通信。
+相比glibc来说，libstdc++就显得没那么基础了。
+
+#yum  list  libstdc++5
+错误：没有匹配的软件包可以列出
+
+libc是Linux下原来的标准C库，也就是当初写hello world时
+包含的头文件#include < stdio.h> 定义的地方。
+
+后来逐渐被glibc取代，也就是传说中的GNU C Library,
+主流的一些linux操作系统如 Debian, Ubuntu，Redhat等用的都是glibc（或者其变种)
+glibc是Linux系统中最底层的API，几乎其它任何的运行库都要依赖glibc。 
+glibc最主要的功能就是对系统调用的封装
+
+在C代码中直接用fopen函数就能打开文件？ 
+打开文件最终还是要触发系统中的sys_open系统调用
+，而这中间的处理过程都是glibc来完成的
+
+除了封装系统调用，
+glibc自身也提供了一些上层应用函数必要的功能,
+如string,malloc,stdlib,linuxthreads,locale,signal等等
+
+embed   英 [ɪmˈbed] 
+    v.把…牢牢地嵌入(或插入、埋入);派遣(战地记者、摄影记者等);
+    嵌入(在I'm aware that she knows句中，she knows为内嵌句)
+
+aware         英 [əˈweə(r)]
+  adj.知道;意识到;明白;察觉到;发觉;发现;对…有兴趣的;有…意识的
+
+ e是Embedded的意思，eglibc是前面说到的 变种glibc。
+eglibc的主要特性是为了更好的支持嵌入式架构，可以支持不同的shell(包括嵌入式)，
+但它是二进制兼容glibc的，
+就是说如果你的代码之前依赖eglibc库，那么换成glibc后也不需要重新编译。
+ubuntu系统用的就是eglibc（而不是glibc）,
+不信，你执行 ldd –version 或者 /lib/i386-linux-gnu/libc.so.6
+
+[root@room9pc01 ~]# ldd    --version
+ldd (GNU libc) 2.17
+Copyright (C) 2012 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+由 Roland McGrath 和 Ulrich Drepper 编写。
+[root@room9pc01 ~]# type   ldd
+ldd 已被哈希 (/usr/bin/ldd)
+[root@room9pc01 ~]# rpm  -qf  /usr/bin/ldd
+glibc-common-2.17-196.el7.x86_64
+
+(64位系统运行/lib/x86_64-linux-gnu）看看，
+便会显示你系统中eglibc/glibc的版本信息。 
+这里提到了libc.so.6,这个文件就是eglibc/glibc编译后的生成库文件。
+
+glib也是个c程序库，不过比较轻量级，
+glib将C语言中的数据类型统一封装成自己的数据类型，
+提供了C语言常用的数据结构的定义以及处理函数，有趣的宏以及可移植的封装等
+(注：glib是可移植的，说明你可以在linux下，也可以在windows下使用它）。
+
+glib库在ubuntu系统中并不会默认安装
+(可以通过apt-get install libglib2.0-dev手动安装)，
+著名的GTK+和Gnome底层用的都是glib库。
+
+是不是该动手换个glibc/eglibc了？ 
+这里强调一点，在你准备更换/升级这些库之前，你应该好好思考一下，
+你要时刻知道glibc/eglibc的影响有多大，
+不管你之前部署的什么程序，
+linux系统的ls,cd,mv,ps等等全都得依赖它，
+很多人在更换/升级都有过惨痛的教训，甚至让整个系统奔溃无法启动。
+所以，强烈不建议更换/升级这些库！
+
+你写的C代码.c文件通过gcc首先转化为汇编.S文件，
+之后汇编器as将.S文件转化为机器代码.o文件，
+生成的.o文件再与其它.o文件，
+或者之前提到的libc.so.6库文件
+通过ld链接器链接在一块生成可执行文件。
+当然，在你编译代码使用gcc的时候，
+gcc命令已经帮你把这些细节全部做好了。
+
+不要以为gcc只能编译C代码，g++只能编译c++代码。 
+后缀为.c的，gcc把它当作是C程序，
+           而g++把它当作是c++程序；
+后缀为.cpp的，两者都会认为是c++程序，
+注意，虽然c++是c的超集，
+但是两者对语法的要求是有区别的。
+
+在编译阶段，g++会调用gcc,
+对于c++代码，两者是等价的，
+但是因为gcc命令不能自动和C++程序使用的库联接，
+需要这样，gcc -lstdc++, 
+所以如果你的Makefile文件并没有手动加上libstdc++库，
+一般就会提示错误，要求你安装g++编译器了。
+
 
 
 
