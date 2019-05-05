@@ -277,6 +277,9 @@ http://httpbin.org/get
 
 [root@room9pc01 spider]# vim   requestspost.py
 
+[root@room9pc01 spider]# \cp  -r  ./   /var/git/PYTHON/pythonScripts/devopsAjax/spider/
+
+
 Firefox 52.0 支持HttpRequester 2.2的 火狐版本HttpRequester插件 替代的 fiddler
 Firefox 52.0 支持HttpRequester 2.2 相同功能的火狐 插件 
 
@@ -312,18 +315,103 @@ libstdc++-static-4.8.5-36.el7.i686.rpm             12-Nov-2018 15:04            
 libstdc++-static-4.8.5-36.el7.x86_64.rpm           12-Nov-2018 14:38              420720
 
 
-https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-4.8.5-36.el7.i686.rpm
-https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-4.8.5-36.el7.x86_64.rpm
-https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-devel-4.8.5-36.el7.i686.rpm
-https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-devel-4.8.5-36.el7.x86_64.rpm
-https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-docs-4.8.5-36.el7.x86_64.rpm
-https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-static-4.8.5-36.el7.i686.rpm
-https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-static-4.8.5-36.el7.x86_64.rpm
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-4.8.5-36.el7.i686.rpm   \
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-4.8.5-36.el7.x86_64.rpm    \
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-devel-4.8.5-36.el7.i686.rpm   \
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-devel-4.8.5-36.el7.x86_64.rpm   \
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-docs-4.8.5-36.el7.x86_64.rpm   \
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-static-4.8.5-36.el7.i686.rpm   \
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-static-4.8.5-36.el7.x86_64.rpm  \
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc%2b%2b-33-3.2.3-72.el7.i686.rpm   \
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc%2b%2b-33-3.2.3-72.el7.x86_64.rpm  \
 
 
+[root@room9pc01 ~]# yum  -y  install   \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-4.8.5-36.el7.i686.rpm   \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-4.8.5-36.el7.x86_64.rpm    \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-devel-4.8.5-36.el7.i686.rpm   \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-devel-4.8.5-36.el7.x86_64.rpm   \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-docs-4.8.5-36.el7.x86_64.rpm   \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-static-4.8.5-36.el7.i686.rpm   \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-static-4.8.5-36.el7.x86_64.rpm  \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc%2b%2b-33-3.2.3-72.el7.i686.rpm   \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc%2b%2b-33-3.2.3-72.el7.x86_64.rpm  \
 
+正在解决依赖关系
+--> 正在检查事务
+---> 软件包 compat-libstdc++-33.i686.0.3.2.3-72.el7 将被 安装
+--> 正在处理依赖关系 libc.so.6，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+rhel7                                                    | 4.1 kB     00:00     
+rpm                                                      | 2.9 kB     00:00     
+Loading mirror speeds from cached hostfile
+--> 正在处理依赖关系 libc.so.6(GLIBC_2.0)，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libc.so.6(GLIBC_2.1)，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libc.so.6(GLIBC_2.1.3)，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libc.so.6(GLIBC_2.2)，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libc.so.6(GLIBC_2.3)，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libgcc_s.so.1，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libgcc_s.so.1(GCC_3.0)，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libgcc_s.so.1(GCC_3.3)，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libgcc_s.so.1(GLIBC_2.0)，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libm.so.6，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+---> 软件包 compat-libstdc++-33.x86_64.0.3.2.3-72.el7 将被 安装
+---> 软件包 libstdc++.x86_64.0.4.8.5-16.el7 将被 升级
+--> 正在处理依赖关系 libstdc++ = 4.8.5-16.el7，它被软件包 gcc-c++-4.8.5-16.el7.x86_64 需要
+---> 软件包 libstdc++.i686.0.4.8.5-36.el7 将被 更新
+---> 软件包 libstdc++.x86_64.0.4.8.5-36.el7 将被 更新
+---> 软件包 libstdc++-devel.x86_64.0.4.8.5-16.el7 将被 升级
+--> 正在处理依赖关系 libstdc++-devel = 4.8.5-16.el7，它被软件包 gcc-c++-4.8.5-16.el7.x86_64 需要
+---> 软件包 libstdc++-devel.i686.0.4.8.5-36.el7 将被 更新
+---> 软件包 libstdc++-devel.x86_64.0.4.8.5-36.el7 将被 更新
+---> 软件包 libstdc++-docs.x86_64.0.4.8.5-36.el7 将被 安装
+---> 软件包 libstdc++-static.i686.0.4.8.5-36.el7 将被 安装
+---> 软件包 libstdc++-static.x86_64.0.4.8.5-36.el7 将被 安装
+--> 正在检查事务
+---> 软件包 glibc.i686.0.2.17-196.el7 将被 安装
+--> 正在处理依赖关系 libfreebl3.so，它被软件包 glibc-2.17-196.el7.i686 需要
+--> 正在处理依赖关系 libfreebl3.so(NSSRAWHASH_3.12.3)，它被软件包 glibc-2.17-196.el7.i686 需要
+---> 软件包 libgcc.i686.0.4.8.5-16.el7 将被 安装
+---> 软件包 libstdc++.x86_64.0.4.8.5-16.el7 将被 升级
+--> 正在处理依赖关系 libstdc++ = 4.8.5-16.el7，它被软件包 gcc-c++-4.8.5-16.el7.x86_64 需要
+---> 软件包 libstdc++-devel.x86_64.0.4.8.5-16.el7 将被 升级
+--> 正在处理依赖关系 libstdc++-devel = 4.8.5-16.el7，它被软件包 gcc-c++-4.8.5-16.el7.x86_64 需要
+--> 正在检查事务
+---> 软件包 libstdc++.x86_64.0.4.8.5-16.el7 将被 升级
+--> 正在处理依赖关系 libstdc++ = 4.8.5-16.el7，它被软件包 gcc-c++-4.8.5-16.el7.x86_64 需要
+---> 软件包 libstdc++-devel.x86_64.0.4.8.5-16.el7 将被 升级
+--> 正在处理依赖关系 libstdc++-devel = 4.8.5-16.el7，它被软件包 gcc-c++-4.8.5-16.el7.x86_64 需要
+---> 软件包 nss-softokn-freebl.i686.0.3.28.3-6.el7 将被 安装
+--> 解决依赖关系完成
+错误：软件包：gcc-c++-4.8.5-16.el7.x86_64 (@CentOS7)
+          需要：libstdc++-devel = 4.8.5-16.el7
+          正在删除: libstdc++-devel-4.8.5-16.el7.x86_64 (@CentOS7)
+              libstdc++-devel = 4.8.2-16.el7
+              libstdc++-devel = 4.8.5-16.el7
+          更新，由: libstdc++-devel-4.8.5-36.el7.x86_64 (/libstdc%2b%2b-devel-4.8.5-36.el7.x86_64)
+              libstdc++-devel = 4.8.2-16.el7
+              libstdc++-devel = 4.8.5-36.el7
+错误：软件包：gcc-c++-4.8.5-16.el7.x86_64 (@CentOS7)
+          需要：libstdc++ = 4.8.5-16.el7
+          正在删除: libstdc++-4.8.5-16.el7.x86_64 (@anaconda)
+              libstdc++ = 4.8.2-16.el7
+              libstdc++ = 4.8.5-16.el7
+          更新，由: libstdc++-4.8.5-36.el7.x86_64 (/libstdc%2b%2b-4.8.5-36.el7.x86_64)
+              libstdc++ = 4.8.2-16.el7
+              libstdc++ = 4.8.5-36.el7
+ 您可以尝试添加 --skip-broken 选项来解决该问题
+ 您可以尝试执行：rpm -Va --nofiles --nodigest
+[root@room9pc01 ~]# 
 
+[root@room9pc01 firefox]# ll   compat-libstdc++-33-3.2.3-72.el7.*
+-rw-r--r-- 1 root root 200684 3月  14 2015 compat-libstdc++-33-3.2.3-72.el7.i686.rpm
+-rw-r--r-- 1 root root 195388 3月  14 2015 compat-libstdc++-33-3.2.3-72.el7.x86_64.rpm
 
+[root@room9pc01 firefox]# ll   compat-libstdc++-33-3.2.3-72.el7.*
+-rw-r--r-- 1 root root 200684 3月  14 2015 compat-libstdc++-33-3.2.3-72.el7.i686.rpm
+-rw-r--r-- 1 root root 195388 3月  14 2015 compat-libstdc++-33-3.2.3-72.el7.x86_64.rpm
+[root@room9pc01 firefox]# rpm  -qa |grep  -E "compat-libstdc++|libstdc++"
+libstdc++-4.8.5-16.el7.x86_64
+libstdc++-devel-4.8.5-16.el7.x86_64
 
 
 
