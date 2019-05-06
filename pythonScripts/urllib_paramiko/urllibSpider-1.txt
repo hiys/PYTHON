@@ -1,0 +1,426 @@
+
+
+
+bot      英 [bɒt]
+    n.网上机器人;自动程序;机器人程式
+
+robot    英 [ˈrəʊbɒt] 
+      n.机器人;(尤指故事中的)机器人;交通信号灯
+
+spider       英 [ˈspaɪdə(r)]
+           n.蜘蛛
+
+response       英 [rɪˈspɒns]
+    n.(口头的或书面的)回答，答复;反应;响应;
+
+handle    英 [ˈhændl] 
+    v.处理，应付(局势、人、工作或感情);(用手)触，拿，搬动;控制，操纵(车辆、动物、工具等)
+    n.把手;拉手;柄;把;
+
+expire    英 [ɪkˈspaɪə(r)] 
+   v.(因到期而)失效，终止;到期;届满;逝世;去世;
+
+parameter       英 [pəˈræmɪtə(r)]
+   n.决定因素;规范;范围
+
+
+http://httpbin.org/
+http://httpbin.org/
+一个简单的HTTP请求和响应服务。
+
+http://www.goubanjia.com/
+全网代理IP    首页 动态代理IP 公开代理IP 创建API接口 软件下载 常见问题 登录/注册 
+
+国家企业信用信息公示 系统
+http://www.gsxt.gov.cn/index.html
+http://xwqy.gsxt.gov.cn/
+小微企业库
+
+http://sbj.saic.gov.cn/
+国家知识产权局商标局
+中国商标网
+
+
+https://www.douban.com
+
+
+北京知道创宇信息技术有限公司
+https://www.yunaq.com/
+知道创宇云安全
+欢迎访问知道创宇云安全，请牢记我们的网址：www.yunaq.com，您可以 “CTRL+D”一键收藏本站网址 
+在海外，知道创宇与China Telecom Global等大陆运营商国际公司广泛合作，
+拥有多条直连中国大陆CN2专线，通过CN2专线的接入，
+知道创宇海外CN2线路在国内ping值仅需30~90ms，
+几乎可以等同于国内服务器的访问速度，
+这对于国际性贸易在中国大陆的开展具有无与伦比的体验优势。
+
+
+http://www.ip138.com/ips1388.asp
+
+
+[root@room9pc01 ~]# cd  spider/
+[root@room9pc01 spider]# ls
+cookie.txt              request_parse_post2.py  tornado_server.py
+favicon.ico             request_parse_post.py   urllib_request.py
+request_parse_login.py  templates               xshell6.png
+
+[root@room9pc01 spider]# python3  tornado_server.py   #开启后台服务
+
+
+http://127.0.0.1:8888/
+Hello, world
+
+http://192.168.0.254:8888/
+Hello, world
+
+http://192.168.0.254:8888/login
+ _blank点击xshell6.png 点击链接 
+
+
+http://127.0.0.1:8888/login?next=%2F
+ _blank点击xshell6.png 点击链接 
+
+http://localhost:8888/login?next=%2F
+ _blank点击xshell6.png 点击链接 
+
+[root@room9pc01 spider]# vim   request_parse_login2.py
+[root@room9pc01 spider]# python3  request_parse_login2.py
+__name__ is __main__
+b'{"code": 0, "msg": "OK HAHAhaha ---ok"}'
+
+
+-------cookie.save ---------
+
+sys.argv is ['request_parse_login2.py']
+
+
+[root@room9pc01 spider]# cat  templates/login_cookie.html 
+
+{"code": 0, "msg": "OK HAHAhaha ---ok"}[root@room9pc01 spider]# 
+
+[root@room9pc01 spider]# ll  cookie.txt 
+-rw-r--r-- 1 root root 261 5月   5 11:43 cookie.txt
+
+[root@room9pc01 spider]# cat   cookie.txt
+# Netscape HTTP Cookie File
+# http://curl.haxx.se/rfc/cookie_spec.html
+# This is a generated file!  Do not edit.
+
+192.168.0.254	FALSE	/	FALSE	1559619803	uid	"2|1:0|10:1557027803|3:uid|8:YWRtaW4=|2345da7d374fbbbfca625c1434fcaa36923c53d6de8fc2385cf7d4c85602eaec"
+
+[root@room9pc01 spider]#
+
+===================================
+
+
+http://www.ip138.com/
+www.ip138.com iP查询(搜索iP地址的地理位置)
+您的IP是：[14.23.116.138] 来自：广东省广州市 电信
+您的IP是：[58.62.92.104] 来自：广东省广州市 电信
+
+
+[root@room9pc01 spider]# tracepath  www.baidu.com  #查出网络
+ 1?: [LOCALHOST]                                         pmtu 1500
+ 1:  gateway                                               0.671ms 
+ 1:  gateway                                               0.723ms 
+ 2:  no reply
+ 3:  14.23.116.137                                         8.019ms 
+ 4:  121.8.132.161                                         4.892ms asymm  5 
+ 5:  183.56.31.37                                          6.005ms 
+ 6:  149.176.37.59.broad.dg.gd.dynamic.163data.com.cn     11.269ms asymm  5 
+ 7:  183.56.34.9                                           3.254ms 
+ 8:  113.96.4.74                                          12.089ms 
+ 9:  106.96.135.219.broad.fs.gd.dynamic.163data.com.cn     6.049ms 
+10:  14.215.32.134                                         9.285ms 
+11:  no reply
+12:  no reply
+13:  no reply
+^C
+[root@room9pc01 spider]# traceroute  -m 12  -n  www.baidu.com
+
+traceroute to www.baidu.com (14.215.177.39), 12 hops max, 60 byte packets
+ 1  176.121.210.1  0.517 ms  1.106 ms  1.358 ms
+ 2  * * *
+ 3  100.64.0.1  15.881 ms  15.895 ms  16.033 ms
+ 4  218.19.193.181  4.235 ms  4.234 ms  4.510 ms
+ 5  121.8.203.97  6.726 ms  6.742 ms  6.736 ms
+ 6  113.96.4.106  12.718 ms 113.96.4.94  13.771 ms 113.96.4.106  11.805 ms
+ 7  * * *
+ 8  14.29.121.178  10.613 ms 14.215.32.94  8.066 ms 14.29.121.182  9.744 ms
+ 9  * * *
+10  * * *
+11  * * *
+12  * * *
+[root@room9pc01 spider]# 
+
+
+http://www.ip138.com/
+
+火狐浏览器 鼠标右击 查看元素
+<iframe src="http://2019.ip138.com/ic.asp" rel="nofollow" scrolling="no" frameborder="0"></iframe>
+   鼠标右击 复制  HTML外面(O)
+<iframe src="http://2019.ip138.com/ic.asp" rel="nofollow" scrolling="no" frameborder="0"></iframe>
+
+http://2019.ip138.com/ic.asp
+您的IP是：[58.62.92.104] 来自：广东省广州市 电信
+
+
+http://www.goubanjia.com/
+ 全网代理IP
+120.234.63.196:3128 	透明 	https 	中国   广东   深圳 	移动 	0.366 秒 	18分钟前 	18天
+
+[root@room9pc01 spider]# ifconfig  |head -2
+enp1s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 176.121.210.37  netmask 255.255.255.0  broadcast 176.121.210.255
+
+[root@room9pc01 spider]# vim   urllib_request_proxy.py
+
+
+[root@room9pc01 spider]# python3  urllib_request_proxy.py
+
+__name__ is __main__
+b'<html>\r\n<head>\r\n<meta http-equiv="content-type" content="text/html; charset=gb2312">\r\n<title> \xc4\xfa\xb5\xc4IP\xb5\xd8\xd6\xb7 </title>\r\n</head>\r\n<body style="margin:0px"><center>\xc4\xfa\xb5\xc4IP\xca\xc7\xa3\xba[58.62.92.104] \xc0\xb4\xd7\xd4\xa3\xba\xb9\xe3\xb6\xab\xca\xa1\xb9\xe3\xd6\xdd\xca\xd0 \xb5\xe7\xd0\xc5</center></body></html>'
+-------------------
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=gb2312">
+<title> 您的IP地址 </title>
+</head>
+<body style="margin:0px"><center>您的IP是：[58.62.92.104] 来自：广东省广州市 电信</center></body></html>
+sys.argv is ['urllib_request_proxy.py']
+
+
+http://sbj.saic.gov.cn/
+国家知识产权局商标局
+中国商标网
+
+[root@room9pc01 spider]# pip3  freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+[root@room9pc01 spider]# pip3  install  requests
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting requests
+..............
+Installing collected packages: chardet, idna, certifi, urllib3, requests
+Successfully installed certifi-2019.3.9 chardet-3.0.4 idna-2.8 requests-2.21.0 urllib3-1.24.3
+
+[root@room9pc01 spider]# pip3  freeze
+certifi==2019.3.9
+chardet==3.0.4
+Django==1.11.20
+idna==2.8
+PyMySQL==0.9.3
+pytz==2019.1
+requests==2.21.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+
+[root@room9pc01 spider]# python3
+Python 3.6.7 (default, Apr 28 2019, 20:32:58) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import   requests
+>>> requests.
+requests.ConnectTimeout(             requests.compat
+requests.ConnectionError(            requests.cookies
+...........
+
+[root@room9pc01 spider]# vim    requestsget.py
+
+[root@room9pc01 spider]# python3  requestsget.py
+__name__ is __main__
+<!DOCTYPE html>
+<!--STATUS OK-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="/favicon.ico">
+<title>Title标题</title>
+</head>
+...............
+
+http://www.ip138.com/
+
+火狐浏览器 鼠标右击 查看元素
+<iframe src="http://2019.ip138.com/ic.asp" rel="nofollow" scrolling="no" frameborder="0"></iframe>
+   鼠标右击 复制  HTML外面(O)
+<iframe src="http://2019.ip138.com/ic.asp" rel="nofollow" scrolling="no" frameborder="0"></iframe>
+
+http://2019.ip138.com/ic.asp
+您的IP是：[58.62.92.104] 来自：广东省广州市 电信
+
+
+http://httpbin.org/
+一个简单的HTTP请求和响应服务。
+
+http://httpbin.org/get
+{
+  "args": {}, 
+  "headers": {
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", 
+    "Accept-Encoding": "gzip, deflate", 
+    "Accept-Language": "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3", 
+    "Host": "httpbin.org", 
+    "Upgrade-Insecure-Requests": "1", 
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+  }, 
+  "origin": "58.62.92.104, 58.62.92.104", 
+  "url": "https://httpbin.org/get"
+}
+
+
+[root@room9pc01 spider]# vim   requestspost.py
+
+[root@room9pc01 spider]# \cp  -r  ./   /var/git/PYTHON/pythonScripts/devopsAjax/spider/
+
+
+Firefox 52.0 支持HttpRequester 2.2的 火狐版本HttpRequester插件 替代的 fiddler
+Firefox 52.0 支持HttpRequester 2.2 相同功能的火狐 插件 
+
+
+http://mirrors.ispros.com.bd/centos/5.8/os/x86_64/CentOS/compat-libstdc++-33-3.2.3-61.x86_64.rpm
+
+[root@room9pc01 ~]# cat  /etc/redhat-release 
+CentOS Linux release 7.4.1708 (Core) 
+
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc%2b%2b-33-3.2.3-72.el7.i686.rpm
+
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc%2b%2b-33-3.2.3-72.el7.x86_64.rpm
+
+
+[root@room9pc01 firefox]# wget    https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc%2b%2b-33-3.2.3-72.el7.i686.rpm   https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc%2b%2b-33-3.2.3-72.el7.x86_64.rpm
+
+--2019-05-05 21:09:52--  https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc%2b%2b-33-3.2.3-72.el7.i686.rpm
+正在解析主机 mirrors.aliyun.com (mirrors.aliyun.com)... 101.89.125.215, 113.105.171.108, 116.211.182.238, ...
+
+[root@room9pc01 firefox]# ll   compat-libstdc++-33-3.2.3-72.el7.*
+-rw-r--r-- 1 root root 200684 3月  14 2015 compat-libstdc++-33-3.2.3-72.el7.i686.rpm
+-rw-r--r-- 1 root root 195388 3月  14 2015 compat-libstdc++-33-3.2.3-72.el7.x86_64.rpm
+
+
+libstdc++5
+
+libstdc++-4.8.5-36.el7.i686.rpm                    12-Nov-2018 15:04              325224
+libstdc++-4.8.5-36.el7.x86_64.rpm                  12-Nov-2018 14:37              311728
+libstdc++-devel-4.8.5-36.el7.i686.rpm              12-Nov-2018 15:04             1575784
+libstdc++-devel-4.8.5-36.el7.x86_64.rpm            12-Nov-2018 14:38             1580028
+libstdc++-docs-4.8.5-36.el7.x86_64.rpm             12-Nov-2018 14:38            11578496
+libstdc++-static-4.8.5-36.el7.i686.rpm             12-Nov-2018 15:04              416356
+libstdc++-static-4.8.5-36.el7.x86_64.rpm           12-Nov-2018 14:38              420720
+
+
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-4.8.5-36.el7.i686.rpm   \
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-4.8.5-36.el7.x86_64.rpm    \
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-devel-4.8.5-36.el7.i686.rpm   \
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-devel-4.8.5-36.el7.x86_64.rpm   \
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-docs-4.8.5-36.el7.x86_64.rpm   \
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-static-4.8.5-36.el7.i686.rpm   \
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-static-4.8.5-36.el7.x86_64.rpm  \
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc%2b%2b-33-3.2.3-72.el7.i686.rpm   \
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc%2b%2b-33-3.2.3-72.el7.x86_64.rpm  \
+
+
+[root@room9pc01 ~]# yum  -y  install   \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-4.8.5-36.el7.i686.rpm   \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-4.8.5-36.el7.x86_64.rpm    \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-devel-4.8.5-36.el7.i686.rpm   \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-devel-4.8.5-36.el7.x86_64.rpm   \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-docs-4.8.5-36.el7.x86_64.rpm   \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-static-4.8.5-36.el7.i686.rpm   \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/libstdc%2b%2b-static-4.8.5-36.el7.x86_64.rpm  \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc%2b%2b-33-3.2.3-72.el7.i686.rpm   \
+> https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc%2b%2b-33-3.2.3-72.el7.x86_64.rpm  \
+
+正在解决依赖关系
+--> 正在检查事务
+---> 软件包 compat-libstdc++-33.i686.0.3.2.3-72.el7 将被 安装
+--> 正在处理依赖关系 libc.so.6，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+rhel7                                                    | 4.1 kB     00:00     
+rpm                                                      | 2.9 kB     00:00     
+Loading mirror speeds from cached hostfile
+--> 正在处理依赖关系 libc.so.6(GLIBC_2.0)，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libc.so.6(GLIBC_2.1)，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libc.so.6(GLIBC_2.1.3)，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libc.so.6(GLIBC_2.2)，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libc.so.6(GLIBC_2.3)，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libgcc_s.so.1，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libgcc_s.so.1(GCC_3.0)，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libgcc_s.so.1(GCC_3.3)，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libgcc_s.so.1(GLIBC_2.0)，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+--> 正在处理依赖关系 libm.so.6，它被软件包 compat-libstdc++-33-3.2.3-72.el7.i686 需要
+---> 软件包 compat-libstdc++-33.x86_64.0.3.2.3-72.el7 将被 安装
+---> 软件包 libstdc++.x86_64.0.4.8.5-16.el7 将被 升级
+--> 正在处理依赖关系 libstdc++ = 4.8.5-16.el7，它被软件包 gcc-c++-4.8.5-16.el7.x86_64 需要
+---> 软件包 libstdc++.i686.0.4.8.5-36.el7 将被 更新
+---> 软件包 libstdc++.x86_64.0.4.8.5-36.el7 将被 更新
+---> 软件包 libstdc++-devel.x86_64.0.4.8.5-16.el7 将被 升级
+--> 正在处理依赖关系 libstdc++-devel = 4.8.5-16.el7，它被软件包 gcc-c++-4.8.5-16.el7.x86_64 需要
+---> 软件包 libstdc++-devel.i686.0.4.8.5-36.el7 将被 更新
+---> 软件包 libstdc++-devel.x86_64.0.4.8.5-36.el7 将被 更新
+---> 软件包 libstdc++-docs.x86_64.0.4.8.5-36.el7 将被 安装
+---> 软件包 libstdc++-static.i686.0.4.8.5-36.el7 将被 安装
+---> 软件包 libstdc++-static.x86_64.0.4.8.5-36.el7 将被 安装
+--> 正在检查事务
+---> 软件包 glibc.i686.0.2.17-196.el7 将被 安装
+--> 正在处理依赖关系 libfreebl3.so，它被软件包 glibc-2.17-196.el7.i686 需要
+--> 正在处理依赖关系 libfreebl3.so(NSSRAWHASH_3.12.3)，它被软件包 glibc-2.17-196.el7.i686 需要
+---> 软件包 libgcc.i686.0.4.8.5-16.el7 将被 安装
+---> 软件包 libstdc++.x86_64.0.4.8.5-16.el7 将被 升级
+--> 正在处理依赖关系 libstdc++ = 4.8.5-16.el7，它被软件包 gcc-c++-4.8.5-16.el7.x86_64 需要
+---> 软件包 libstdc++-devel.x86_64.0.4.8.5-16.el7 将被 升级
+--> 正在处理依赖关系 libstdc++-devel = 4.8.5-16.el7，它被软件包 gcc-c++-4.8.5-16.el7.x86_64 需要
+--> 正在检查事务
+---> 软件包 libstdc++.x86_64.0.4.8.5-16.el7 将被 升级
+--> 正在处理依赖关系 libstdc++ = 4.8.5-16.el7，它被软件包 gcc-c++-4.8.5-16.el7.x86_64 需要
+---> 软件包 libstdc++-devel.x86_64.0.4.8.5-16.el7 将被 升级
+--> 正在处理依赖关系 libstdc++-devel = 4.8.5-16.el7，它被软件包 gcc-c++-4.8.5-16.el7.x86_64 需要
+---> 软件包 nss-softokn-freebl.i686.0.3.28.3-6.el7 将被 安装
+--> 解决依赖关系完成
+错误：软件包：gcc-c++-4.8.5-16.el7.x86_64 (@CentOS7)
+          需要：libstdc++-devel = 4.8.5-16.el7
+          正在删除: libstdc++-devel-4.8.5-16.el7.x86_64 (@CentOS7)
+              libstdc++-devel = 4.8.2-16.el7
+              libstdc++-devel = 4.8.5-16.el7
+          更新，由: libstdc++-devel-4.8.5-36.el7.x86_64 (/libstdc%2b%2b-devel-4.8.5-36.el7.x86_64)
+              libstdc++-devel = 4.8.2-16.el7
+              libstdc++-devel = 4.8.5-36.el7
+错误：软件包：gcc-c++-4.8.5-16.el7.x86_64 (@CentOS7)
+          需要：libstdc++ = 4.8.5-16.el7
+          正在删除: libstdc++-4.8.5-16.el7.x86_64 (@anaconda)
+              libstdc++ = 4.8.2-16.el7
+              libstdc++ = 4.8.5-16.el7
+          更新，由: libstdc++-4.8.5-36.el7.x86_64 (/libstdc%2b%2b-4.8.5-36.el7.x86_64)
+              libstdc++ = 4.8.2-16.el7
+              libstdc++ = 4.8.5-36.el7
+ 您可以尝试添加 --skip-broken 选项来解决该问题
+ 您可以尝试执行：rpm -Va --nofiles --nodigest
+[root@room9pc01 ~]# 
+
+[root@room9pc01 firefox]# ll   compat-libstdc++-33-3.2.3-72.el7.*
+-rw-r--r-- 1 root root 200684 3月  14 2015 compat-libstdc++-33-3.2.3-72.el7.i686.rpm
+-rw-r--r-- 1 root root 195388 3月  14 2015 compat-libstdc++-33-3.2.3-72.el7.x86_64.rpm
+
+[root@room9pc01 firefox]# ll   compat-libstdc++-33-3.2.3-72.el7.*
+-rw-r--r-- 1 root root 200684 3月  14 2015 compat-libstdc++-33-3.2.3-72.el7.i686.rpm
+-rw-r--r-- 1 root root 195388 3月  14 2015 compat-libstdc++-33-3.2.3-72.el7.x86_64.rpm
+[root@room9pc01 firefox]# rpm  -qa |grep  -E "compat-libstdc++|libstdc++"
+libstdc++-4.8.5-16.el7.x86_64
+libstdc++-devel-4.8.5-16.el7.x86_64
+
+
+
+
+
+
+
+
+
+
+
+

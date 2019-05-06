@@ -1,0 +1,926 @@
+
+
+
+bot      英 [bɒt]
+    n.网上机器人;自动程序;机器人程式
+
+robot    英 [ˈrəʊbɒt] 
+      n.机器人;(尤指故事中的)机器人;交通信号灯
+
+spider       英 [ˈspaɪdə(r)]
+           n.蜘蛛
+
+response       英 [rɪˈspɒns]
+    n.(口头的或书面的)回答，答复;反应;响应;
+
+handle    英 [ˈhændl] 
+    v.处理，应付(局势、人、工作或感情);(用手)触，拿，搬动;控制，操纵(车辆、动物、工具等)
+    n.把手;拉手;柄;把;
+
+expire    英 [ɪkˈspaɪə(r)] 
+   v.(因到期而)失效，终止;到期;届满;逝世;去世;
+
+parameter       英 [pəˈræmɪtə(r)]
+   n.决定因素;规范;范围
+
+quote      英 [kwəʊt] 
+     v.引用;引述;举例说明;开价;出价;报价
+     n.引用
+
+pattern        美 [ˈpætərn]  
+    n.模式;方式;范例;典范;榜样;样板;图案;花样;式样
+    v.构成图案(或花样);
+
+
+http://httpbin.org/
+http://httpbin.org/
+一个简单的HTTP请求和响应服务。
+
+http://www.goubanjia.com/
+全网代理IP    首页 动态代理IP 公开代理IP 创建API接口 软件下载 常见问题 登录/注册 
+
+国家企业信用信息公示 系统
+http://www.gsxt.gov.cn/index.html
+http://xwqy.gsxt.gov.cn/
+小微企业库
+
+http://sbj.saic.gov.cn/
+国家知识产权局商标局
+中国商标网
+
+
+https://www.douban.com
+
+
+北京知道创宇信息技术有限公司
+https://www.yunaq.com/
+知道创宇云安全
+欢迎访问知道创宇云安全，请牢记我们的网址：www.yunaq.com，您可以 “CTRL+D”一键收藏本站网址 
+在海外，知道创宇与China Telecom Global等大陆运营商国际公司广泛合作，
+拥有多条直连中国大陆CN2专线，通过CN2专线的接入，
+知道创宇海外CN2线路在国内ping值仅需30~90ms，
+几乎可以等同于国内服务器的访问速度，
+这对于国际性贸易在中国大陆的开展具有无与伦比的体验优势。
+
+
+http://www.ip138.com/ips1388.asp
+
+
+C 语言的理念是信任程序员，
+保持语言的小巧，不屏蔽底层且底层友好，
+关注语言的执行效率和性能。
+
+而 Python 的姿态是用尽量少的代码完成尽量多的事。
+
+Go 语言想要把 C 和 Python 统一起来
+ Go 语言和 Docker 会是新一代的云计算技术
+
+ C、C++、Java、Python 和 JavaScript 的生态圈都是非常丰富和火爆的
+有很多商业机构参与的社区 --- Linux 的社区
+
+Go 语言不会吞食底层到 C 和 C++ 那个级别的，也不会吞食到高层如 Java 业务层的项目
+
+使用Python的SDK去对Docker进行操作，下面演示一下使用Python远程调用Docker的案例。
+
+    1.  想要操作远程docker 服务端，首先必须先让docker 守护进程监听远程主机。
+前面讲的都是基于/var/run/docker.sock这个socket文件进行操作的，
+假如你是在本地而不是远程操作docker。不用管下面的步骤。
+
+
+   首先修改docker配置文件:  vim  /lib/systemd/system/docker.service
+
+             [Service]
+
+        Type=notify# the default is not to use systemd for cgroups because the delegate issues still# exists and systemd currently does not support the cgroup feature set required# for containers run by docker
+
+        ExecStart=/usr/bin/dockerd
+
+        ExecReload=/bin/kill -s HUP $MAINPID
+
+
+
+            将ExecStart=/usr/bin/dockerd 修改为ExecStart=/usr/bin/dockerd -H unix:///var/run/docker.sock -H tcp://本机ip:2375
+
+端口自定义，不和系统冲突即可。
+
+    重启docker网络: systemctl daemon-reload 
+
+重启docker服务: systemctl start docker
+
+测试是否成功: docker -H 本机ip地址 images (列出本机的image) # 若可以显示鸡配置成功，否则请检查配置情况
+
+
+   2.  pip install  docker   #pip安装docker模块
+
+        模块文档地址:  https://docker-py.readthedocs.io/en/stable/
+
+   3.  使用python操作远程docker
+
+
+
+1.Accept属于请求头， Content-Type属于实体头。
+Http报头分为通用报头，请求报头，响应报头和实体报头。
+请求方的http报头结构：通用报头|请求报头|实体报头
+响应方的http报头结构：通用报头|响应报头|实体报头
+
+2.Accept代表发送端（客户端）希望接受的数据类型。
+比如：Accept：text/xml;
+代表客户端希望接受的数据类型是xml类型
+
+Content-Type代表发送端（客户端|服务器）发送的实体数据的数据类型。
+比如：Content-Type：text/html;
+代表发送端发送的数据格式是html。
+
+二者合起来，
+Accept:text/xml；
+Content-Type:text/html
+即代表希望接受的数据类型是xml格式，本次请求发送的数据的数据格式是html。
+
+
+
+"Accept",   "image/gif, image/jpeg, image/pjpeg, image/pjpeg,
+ application/x-shockwave-flash, application/xaml+xml, 
+application/vnd.ms-xpsdocument, application/x-ms-xbap, 
+application/x-ms-application, application/vnd.ms-excel, 
+application/vnd.ms-powerpoint, application/msword, 
+
+ Accept: */*  就是接收任意类型。
+
+
+[root@V0 ~]# systemctl is-active   httpd
+active
+[root@V0 ~]# systemctl is-enabled   httpd
+enabled
+[root@V0 ~]# elinks  -dump   http://127.0.0.1/
+   +----------------------+
+   | 姓名     | 年龄      |
+   |----------+-----------|
+   | Tom      | 4         |
+   |----------+-----------|
+   | Alice    | 13        |
+...........................
+   [18]链接图片self [19]点击链接图片_top.gif
+
+References
+
+   Visible links
+   1. https://fanyi.baidu.com/
+   2. http://127.0.0.1/baidu_jgylogo3.gif
+   3. javascript:alert('这是弹出对话框的内容');
+  18. http://127.0.0.1/baidu_jgylogo3.gif
+  19. http://127.0.0.1/baidu_jgylogo3.gif
+
+[root@V0 ~]#  ls  /var/www/html/
+baidu_jgylogo3.gif  css  ERD_2.png  html  index.html  nodejs.html  test.html
+
+
+[root@V0 ~]# curl  -I  http://127.0.0.1/
+HTTP/1.1 200 OK
+Date: Mon, 06 May 2019 03:50:34 GMT
+Server: Apache/2.4.6 (Red Hat Enterprise Linux)
+Last-Modified: Fri, 26 Apr 2019 13:20:14 GMT
+ETag: "bf0-5876ecb89e2c7"
+Accept-Ranges: bytes
+Content-Length: 3056
+Content-Type: text/html; charset=UTF-8
+
+[root@V0 ~]# curl  -I   http://www.baidu.com/
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Cache-Control: private, no-cache, no-store, proxy-revalidate, no-transform
+Connection: Keep-Alive
+Content-Length: 277
+Content-Type: text/html
+Date: Mon, 06 May 2019 03:51:21 GMT
+Etag: "575e1f72-115"
+Last-Modified: Mon, 13 Jun 2016 02:50:26 GMT
+Pragma: no-cache
+Server: bfe/1.0.8.18
+
+[root@V0 ~]# cat   /etc/resolv.conf 
+nameserver  192.168.0.254
+[root@V0 ~]# 
+
+
+Host: fanyi.bdstatic.com
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0
+Accept: */*
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate, br
+Referer: https://fanyi.bdstatic.com/static/translation/pkg/public_8497597.css
+Connection: keep-alive
+
+[root@V0 ~]# curl  -I   https://fanyi.baidu.com/
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: text/html
+Date: Mon, 06 May 2019 03:55:35 GMT
+P3p: CP=" OTI DSP COR IVA OUR IND COM "
+Server: yunjiasu-nginx
+Set-Cookie: locale=zh; expires=Sun, 01-Mar-2020 03:55:35 GMT; path=/; domain=.baidu.com
+Set-Cookie: BAIDUID=5C3866F7D6CDE95E96A1103565E7833B:FG=1; expires=Tue, 05-May-20 03:55:35 GMT; max-age=31536000; path=/; domain=.baidu.com; version=1
+Vary: Accept-Encoding
+Yjs-Id: 7b733b2c214e271b-100
+
+[root@V0 ~]# 
+
+[root@V0 ~]# type  telnet
+telnet 是 /usr/bin/telnet
+[root@V0 ~]# rpm  -qf  /usr/bin/telnet 
+telnet-0.17-64.el7.x86_64
+
+[root@V0 ~]# telnet   www.baidu.com  80
+
+Trying 14.215.177.38...
+Connected to www.baidu.com.
+Escape character is '^]'.
+GET / HTTP/1.1
+HOST:www.baidu.com
+
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Cache-Control: no-cache
+Connection: Keep-Alive
+Content-Length: 14615
+Content-Type: text/html
+Date: Mon, 06 May 2019 04:10:26 GMT
+Etag: "5cc18225-3917"
+Last-Modified: Thu, 25 Apr 2019 09:47:17 GMT
+P3p: CP=" OTI DSP COR IVA OUR IND COM "
+Pragma: no-cache
+Server: BWS/1.1
+Set-Cookie: BAIDUID=B7081B3E50A3CC3C3F5AE949EFDDEE85:FG=1; expires=Thu, 31-Dec-37 23:55:55 GMT; max-age=2147483647; path=/; domain=.baidu.com
+Set-Cookie: BIDUPSID=B7081B3E50A3CC3C3F5AE949EFDDEE85; expires=Thu, 31-Dec-37 23:55:55 GMT; max-age=2147483647; path=/; domain=.baidu.com
+Set-Cookie: PSTM=1557115826; expires=Thu, 31-Dec-37 23:55:55 GMT; max-age=2147483647; path=/; domain=.baidu.com
+Vary: Accept-Encoding
+X-Ua-Compatible: IE=Edge,chrome=1
+
+<!DOCTYPE html><!--STATUS OK-->
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+.......................
+
+[root@V0 ~]# telnet   www.baidu.com  80
+Trying 14.215.177.38...
+Connected to www.baidu.com.
+Escape character is '^]'.
+GET / HTTP/1.1
+HOST:  www.baidu.com              
+
+HTTP/1.1 200 OK
+Accept-Ranges: bytes
+Cache-Control: no-cache
+Connection: Keep-Alive
+Content-Length: 14615
+Content-Type: text/html
+Date: Mon, 06 May 2019 04:12:50 GMT
+Etag: "5cc18225-3917"
+Last-Modified: Thu, 25 Apr 2019 09:47:17 GMT
+P3p: CP=" OTI DSP COR IVA OUR IND COM "
+Pragma: no-cache
+Server: BWS/1.1
+Set-Cookie: BAIDUID=D320A565611C4A6CCDD0FCB88ABA546D:FG=1; expires=Thu, 31-Dec-37 23:55:55 GMT; max-age=2147483647; path=/; domain=.baidu.com
+Set-Cookie: BIDUPSID=D320A565611C4A6CCDD0FCB88ABA546D; expires=Thu, 31-Dec-37 23:55:55 GMT; max-age=2147483647; path=/; domain=.baidu.com
+Set-Cookie: PSTM=1557115970; expires=Thu, 31-Dec-37 23:55:55 GMT; max-age=2147483647; path=/; domain=.baidu.com
+Vary: Accept-Encoding
+X-Ua-Compatible: IE=Edge,chrome=1
+
+<!DOCTYPE html><!--STATUS OK-->
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<link rel="dns-prefetch" href="//s1.bdstatic.com"/>
+..........................
+
+HTML URL 编码
+下面是用 URL 编码形式表示的 ASCII 字符（十六进制格式）。
+
+十六进制格式用于在浏览器和插件中显示非标准的字母和字符。
+URL 编码 - 从 %00 到 %8f
+ASCII Value   URL-encod     ASCII Value   URL-encode   ASCII Value   URL-encode
+æ             %00           0             %30          `             %60
+              %01           1             %31          a             %61
+              %0c           <             %3c          l             %6c
+c return      %0d           =             %3d          m             %6d
+              %0e           >             %3e          n             %6e
+              %0f           ?             %3f          o             %6f
+              %10           @             %40          p             %70
+(             %28           X             %58          ˆ             %88
+)             %29           Y             %59          ‰             %89
+*             %2a           Z             %5a          Š             %8a
++             %2b           [             %5b          ‹             %8b
+
+
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc%2b%2b-33-3.2.3-72.el7.i686.rpm
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc++-33-3.2.3-72.el7.i686.rpm
+
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc%2b%2b-33-3.2.3-72.el7.x86_64.rpm
+https://mirrors.aliyun.com/centos/7/os/x86_64/Packages/compat-libstdc++-33-3.2.3-72.el7.x86_64.rpm
+
+
+
+response = opener.open('http://2019.ip138.com/ic.asp').read()
+
+print(response)
+#b'....<meta http-equiv="content-type" content="text/html; charset=gb2312">...'
+
+page = response.decode('gb18030')
+
+
+
+========================================
+#!/usr/bin/env  python3
+#coding:UTF-8
+"""#coding=UTF-8
+/usr/local/lib/python3.6/urllib/request.py 
+ 324 class Request:
+ 325 
+ 326     def __init__(self, url, data=None, headers={},
+ 327                  origin_req_host=None, unverifiable=False,
+ 328                  method=None):
+http://2019.ip138.com/ic.asp
+您的IP是：[58.62.92.104] 来自：广东省广州市 电信
+
+http://www.goubanjia.com/
+ 全网代理IP
+120.234.63.196:3128 	透明 	https 	中国   广东   深圳 	移动 	0.366 秒 	18分钟前 	18天
+"""
+#! -*- coding:utf8 -*-
+import  urllib.request
+import  sys
+sys.stdout.write('\033[32;46;1m__name__ is %s\n\033[0m' % __name__)
+
+## 设置代理ip
+proxy = urllib.request.ProxyHandler(
+    {'http':'120.234.63.196:3128'})
+
+ # 获取一个opener对象
+opener = urllib.request.build_opener(proxy)
+
+  # 给opener添加请求头，使用的是元组的方式
+opener.addheaders = [('User-Agent',
+      "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0")]
+
+urllib.request.install_opener(opener)
+
+response = opener.open('http://2019.ip138.com/ic.asp').read()
+
+print(response, end='\n-------------------\n')
+#b'<html>\r\n<head>\r\n<meta http-equiv="content-type" content="text/html; charset=gb2312">\r\n<title>.............</title>\r\n</head>\r\n<body style="margin:0px"><center>.............</center></body></html>'
+
+page = response.decode('gb18030')
+print(page)
+#<html>
+#<head>
+#<meta http-equiv="content-type" content="text/html; charset=gb2312">
+#<title> 您的IP地址 </title>
+#</head>
+#<body style="margin:0px"><center>您的IP是：[58.62.92.104] 来自：广东省广州市 电信</center></body></html>
+
+if __name__ == "__main__":
+  sys.stdout.write('\033[31;47;1msys.argv is %s\n\033[0m' % sys.argv)
+
+===========================================
+import urllib.request
+#import urllib.parse
+
+url='http://www.goubanjia.com'
+header = {
+ 'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+}
+request = urllib.request.Request(url,headers=header)
+response = urllib.request.urlopen(request).read()
+
+urllib.request.urlopen打开并且爬取一个网页请求
+
+
+>>> import  urllib.request
+>>> html = urllib.request.urlopen('http://127.0.0.1/').readlines()
+>>> html
+[b'<!DOCTYPE html>\n', b'<!--STATUS OK-->\n', b'\n', b'<html lang="en">\n', b' <head>\n', b'  <meta  content="text/html;charset=utf-8">\n', .............
+ b'  </div>\n', b' </body>\n', b'</html>\n']
+>>> type(html)
+<class 'list'>
+>>> 
+
+>>> html = urllib.request.urlopen('http://127.0.0.1/').readlines()
+>>> 
+>>> html[0]
+b'<!DOCTYPE html>\n'
+>>> html[1]
+b'<!--STATUS OK-->\n'
+>>> html[:3]
+[b'<!DOCTYPE html>\n', b'<!--STATUS OK-->\n', b'\n']
+>>> 
+>>> html[9]
+b'  <title>\xe7\x99\xbe\xe5\xba\xa6\xe4\xb8\x80\xe4\xb8\x8btitle</title>\n'
+>>> html[9].decode('utf8')
+'  <title>百度一下title</title>\n'
+>>>
+..........
+>>> html = urllib.request.urlopen('http://127.0.0.1/')
+>>> html.read(256)
+b'<!DOCTYPE html>\n<!--STATUS OK-->\n\n<html lang="en">\n <head>\n  <meta  content="text/html;charset=utf-8">\n  <meta name="keywords" content="\xe7\xbf\xbb\xe8\xaf\x91,\xe5\x9c\xa8\xe7\xba\xbf\xe7\xbf\xbb\xe8\xaf\x91,\xe7\x99\xbe\xe5\xba\xa6\xe7\xbf\xbb\xe8\xaf\x91,\xe8\xaf\x8d\xe5\x85\xb8,\xe8\x8b\xb1\xe8\xaf\xad,"/>\n  <meta name="description" content="\xe7\x99\xbe\xe5\xba\xa6\xe7\xbf\xbb\xe8\xaf\x91\xe6\x94\xaf\xe6\x8c\x81\xe4\xb8\xad\xe3\x80\x81\xe8\x8b\xb1\xe3\x80\x81\xe6\x97\xa5'
+>>> 
+>>> html.readline().decode('gb18030')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+UnicodeDecodeError: 'gb18030' codec can't decode byte 0x80 in position 17: illegal multibyte sequence
+>>> html.readline().decode('utf8')
+' </head>\n'
+>>> .................. 
+>>> html.readline().decode('utf8')
+'      <td>姓名</td>\n'
+>>> html.readline().decode('gb18030')
+'      <td>骞撮緞</td>\n'
+>>> 
+
+urllib.error.HTTPError: HTTP Error 403: Forbidden
+
+
+[root@room9pc01 ~]# ls  -a   urllib_paramiko/
+.  ..  request_urlopen.py  Test
+[root@room9pc01 ~]# cd   urllib_paramiko/
+
+[root@room9pc01 urllib_paramiko]# vim   request_urlopen.py 
+
+[root@room9pc01 urllib_paramiko]# rm  -f  Test/*
+
+[root@room9pc01 urllib_paramiko]# ls
+request_urlopen.py  Test
+[root@room9pc01 urllib_paramiko]# ls  Test/
+
+[root@room9pc01 urllib_paramiko]# python3    request_urlopen.py 
+__name__ is __main__
+sys.argv is ['request_urlopen.py']
+
+[root@room9pc01 urllib_paramiko]# ls  Test/
+baidutest.html  test.jpg  x1.jpg
+
+500 - Internal Server Error 
+碰到500错误，标题很明显，内部服务器错误，
+解决此类问题重点在于会看错误提示信息
+
+[root@room9pc01 urllib_paramiko]# eog   Test/test.jpg 
+^C
+
+strx = '中文abc'
+type(strx)
+byteX = strx.encode('gb18030')
+type(byteX)
+byteX
+decodeStrx = byteX.decode('gb18030')
+decodeStrx
+type(decodeStrx)
+
+strx2 = '中文啊abc'
+type(strx2)
+byteX2 = strx2.encode('utf8')
+type(byteX2)
+byteX2
+decodeStrx2 = byteX2.decode('utf8')
+decodeStrx2
+type(decodeStrx2)
+
+[root@V0 ~]# python3
+Python 3.6.7 (default, Apr 28 2019, 20:32:23) 
+[GCC 8.1.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> strx = '中文abc'
+>>> type(strx)
+<class 'str'>
+
+>>> byteX = strx.encode('gb18030')
+
+>>> type(byteX)
+<class 'bytes'>
+>>> byteX
+b'\xd6\xd0\xce\xc4abc'
+
+>>> decodeStrx = byteX.decode('gb18030')
+
+>>> decodeStrx
+'中文abc'
+>>> type(decodeStrx)
+<class 'str'>
+>>> 
+>>>
+>>> strx2 = '中文啊abc'
+>>> type(strx2)
+<class 'str'>
+
+>>> byteX2 = strx2.encode('utf8')
+
+>>> type(byteX2)
+<class 'bytes'>
+>>> byteX2
+b'\xe4\xb8\xad\xe6\x96\x87\xe5\x95\x8aabc'
+
+>>> decodeStrx2 = byteX2.decode('utf8')
+
+>>> decodeStrx2
+'中文啊abc'
+>>> type(decodeStrx2)
+<class 'str'>
+>>> 
+
+postdata = urllib.parse.urlencode(data).encode('utf-8')
+
+response = opener.open('http://2019.ip138.com/ic.asp').read()
+
+page = response.decode('gb18030')
+print(page)
+#<html>
+#<head>
+#<meta http-equiv="content-type" content="text/html; charset=gb2312">
+#<title> 您的IP地址 </title>
+................
+
+
+[root@V0 ~]# tail   -2   /var/log/httpd/access_log
+
+192.168.0.254 - - [06/May/2019:14:44:15 +0800] "GET /favicon.ico HTTP/1.1" 404 209 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+
+192.168.0.254 - - [06/May/2019:14:46:04 +0800] "GET / HTTP/1.1" 200 3056 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+[root@V0 ~]# 
+
+import  urllib.request
+
+def  download(url, fname):
+  header = {
+    'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+  }
+  request = urllib.request.Request(url,headers=header)
+  html = urllib.request.urlopen(request)
+  with  open(fname, 'wb') as  fobj:
+    while True:
+      data = html.read(1024)
+      if  not data:
+        break
+      fobj.write(data)
+
+if __name__ == "__main__":
+
+  download('https://www.baidu.com/s?ie=utf-8&wd=%E5%B0%A4%E6%9E%9C%E7%BD%91%E8%AF%B1%E6%83%91%E7%BE%8E%E5%A5%B3%E5%9B%BE%E7%89%87%E5%A4%A7%E5%85%A8', './Test/baidutest.html')
+
+  download('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557135913238&di=08b32ae9b1af2bbf514acbf6327e6a10&imgtype=0&src=http%3A%2F%2F00.minipic.eastday.com%2F20170413%2F20170413200739_cacbbcf55ced4150d07aecf717847681_1.jpeg', './Test/test.jpg')
+
+
+[root@V0 ~]# python3
+................
+>>> import   urllib.request
+
+>>> urllib.request.quote('hello中文')
+'hello%E4%B8%AD%E6%96%87'
+>>> urllib.request.unquote('hello%E4%B8%AD%E6%96%87')
+'hello中文'
+
+>>> urllib.request.quote('中')
+'%E4%B8%AD'
+>>> urllib.request.unquote('%E4%B8%AD')
+'中'
+>>> 
+quote      英 [kwəʊt] 
+     v.引用;引述;举例说明;开价;出价;报价
+     n.引用
+
+[root@room9pc01 urllib_paramiko]# systemctl is-enabled  httpd
+enabled
+
+[root@room9pc01 urllib_paramiko]# yum  -y install  elinks |tail -3
+  js.x86_64 1:1.8.5-19.el7         nss_compat_ossl.x86_64 0:0.9.6-8.el7        
+
+完毕！
+[root@room9pc01 urllib_paramiko]# ls  /var/www/html/
+favicon.ico  index.html  xshell6.png
+[root@room9pc01 urllib_paramiko]# vim   /var/www/html/index.html 
+[root@room9pc01 urllib_paramiko]# cat  -n  /var/www/html/index.html
+     1	<!DOCTYPE html>
+     2	<!--STATUS OK-->
+     3	<html lang="zh-CN">
+     4	 <head>
+     5	  <meta charset="UTF-8">
+     6	  <link rel="icon" href="./favicon.ico">
+     7	  <title>Title标题</title>
+     8	 </head>
+     9	 <body>
+    10	  <div>
+    11	   <a  href="./xshell6.png" target="_blank">_blank点击xshell6.png</a>
+    12	   <a  href="javascript:alert('这是弹出对话框的内容');">点击链接</a>
+    13	  </div>
+    14	  <form action="/login" method="post">
+    15	   <input name="username">
+    16	   <input name="password">
+    17	   <button type="submit">提交submit</button>
+    18	  </form>
+    19	</body>
+    20	</html>
+    21	
+    22	
+[root@room9pc01 urllib_paramiko]# elinks  -dump   http://127.0.0.1
+   [1]_blank点击xshell6.png [2]点击链接
+   [3]_____________________ [4]_____________________ [5]提交submit
+
+References
+
+   Visible links
+   1. http://127.0.0.1/xshell6.png
+   2. javascript:alert('这是弹出对话框的内容');
+[root@room9pc01 urllib_paramiko]# eog   /var/www/html/favicon.ico 
+^C
+[root@room9pc01 urllib_paramiko]# eog   /var/www/html/xshell6.png 
+[root@room9pc01 urllib_paramiko]# 
+[root@room9pc01 urllib_paramiko]# ls  /var/www/html/
+favicon.ico  index.html  xshell6.png
+
+[root@room9pc01 urllib_paramiko]# python3
+......................
+>>> import   urllib.request
+
+>>> urllib.request.urlopen('http://127.0.0.1/')
+<http.client.HTTPResponse object at 0x7fa6ec60c4a8>
+
+>>> urllib.request.urlopen('http://127.0.0.1/xx')
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+........................................
+  File "/usr/local/lib/python3.6/urllib/request.py", line 650, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+
+urllib.error.HTTPError: HTTP Error 404: Not Found
+>>> 
+urllib.error.HTTPError: HTTP Error 404: Not Found
+>>> 
+
+urllib.error.HTTPError: HTTP Error 403: Forbidden
+
+[root@room9pc01 urllib_paramiko]# vim   request_quote.py 
+
+[root@room9pc01 urllib_paramiko]# python3  request_quote.py
+__name__ is __main__
+================================
+
+
+----- urllib.error.HTTPError:  HTTP Error 404: Not Found
+
+sys.argv is ['request_quote.py']
+[root@room9pc01 urllib_paramiko]# 
+
+[root@room9pc01 urllib_paramiko]# mkdir  /var/www/html/zidir
+
+[root@room9pc01 urllib_paramiko]# ls  -ld  /var/www/html/zidir/
+drwxr-xr-x 2 root root 4096 5月   6 17:13 /var/www/html/zidir/
+
+[root@room9pc01 urllib_paramiko]# echo  "hello I am  zidir" >/var/www/html/zidir/index.html
+
+[root@room9pc01 urllib_paramiko]# cat  /var/www/html/zidir/index.html
+hello I am  zidir
+
+[root@room9pc01 urllib_paramiko]# elinks  -dump  http://127.0.0.1/zidir
+   hello I am zidir
+[root@room9pc01 urllib_paramiko]# elinks  -dump  http://127.0.0.1/ |head  -3
+   [1]_blank点击xshell6.png [2]点击链接
+   [3]_____________________ [4]_____________________ [5]提交submit
+
+
+[root@room9pc01 urllib_paramiko]# ll  /var/www/html/zidir/index.html
+-rw-r--r-- 1 root root 18 5月   6 17:14 /var/www/html/zidir/index.html
+
+[root@room9pc01 urllib_paramiko]# chmod  770  /var/www/html/zidir/index.html
+
+[root@room9pc01 urllib_paramiko]# ls  -ld  /var/www/html/zidir/
+drwxr-xr-x 2 root root 4096 5月   6 17:14 /var/www/html/zidir/
+
+[root@room9pc01 urllib_paramiko]# ll  /var/www/html/zidir/index.html 
+
+-rwxrwx--- 1 root root 18 5月   6 17:14 /var/www/html/zidir/index.html
+
+
+[root@room9pc01 urllib_paramiko]# elinks  -dump  http://127.0.0.1/zidir
+                                   Forbidden
+
+   You don't have permission to access /zidir/index.html on this server.
+[root@room9pc01 urllib_paramiko]# 
+
+
+
+>>> import  urllib.request, urllib.error
+>>> header = {
+...     'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+... }
+>>> url = 'http://127.0.0.1/zidir'
+>>> request = urllib.request.Request(url,headers=header)
+>>> 
+>>> try:
+...   html = urllib.request.urlopen(request)
+... except urllib.error.HTTPError  as  HEr:
+...   print('\n----- urllib.error.HTTPError: ', HEr, end='\n\n')
+... 
+
+----- urllib.error.HTTPError:  HTTP Error 403: Forbidden
+
+>>> 
+
+[root@room9pc01 urllib_paramiko]# chmod  700  /var/www/html/zidir/index.html
+
+[root@room9pc01 urllib_paramiko]# ll   /var/www/html/zidir/index.html
+-rwx------ 1 root root 18 5月   6 17:14 /var/www/html/zidir/index.html
+
+>>> try:
+...   html = urllib.request.urlopen(request)
+... except urllib.error.HTTPError  as  HEr:
+...   print('\n----- urllib.error.HTTPError: ', HEr, end='\n\n')
+... 
+
+----- urllib.error.HTTPError:  HTTP Error 403: Forbidden
+
+>>> 
+
+
+
+
+import  urllib.request, urllib.error
+header = {
+     'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+}
+url = 'http://127.0.0.1/zidir'
+request = urllib.request.Request(url,headers=header)
+try:
+  html = urllib.request.urlopen(request)
+except urllib.error.HTTPError  as  HEr:
+  print('\n----- urllib.error.HTTPError: ', HEr, end='\n\n')
+
+[root@room9pc01 urllib_paramiko]# ls
+request_quote.py  request_urlopen.py  Test
+
+[root@room9pc01 urllib_paramiko]# vim   request_quote.py 
+[root@room9pc01 urllib_paramiko]# python3   request_quote.py
+__name__ is __main__
+================================
+
+
+----- urllib.error.HTTPError:  HTTP Error 404: Not Found
+
+
+-------------- error.HTTPError:  HTTP Error 403: Forbidden
+
+sys.argv is ['request_quote.py']
+[root@room9pc01 urllib_paramiko]# 
+
+[root@room9pc01 urllib_paramiko]# ls  /var/www/html/zidir/
+index.html  test.jpg
+
+[root@room9pc01 urllib_paramiko]# ll  /var/www/html/zidir/test.jpg 
+-rw-r--r-- 1 root root 227704 5月   6 13:41 /var/www/html/zidir/test.jpg
+
+[root@room9pc01 urllib_paramiko]# vim  /var/www/html/index.html 
+
+
+[root@room9pc01 urllib_paramiko]# vim  request_quote.py 
+[root@room9pc01 urllib_paramiko]# python3  request_quote.py
+__name__ is __main__
+================================
+
+
+----- urllib.error.HTTPError:  HTTP Error 404: Not Found
+
+
+-------------- error.HTTPError:  HTTP Error 403: Forbidden
+
+sys.argv is ['request_quote.py']
+[root@room9pc01 urllib_paramiko]# ls
+request_quote.py  request_urlopen.py  Test
+
+[root@room9pc01 urllib_paramiko]# ls  Test/
+baidutest.html  test.jpg  x1.jpg  x2.jpg
+
+[root@room9pc01 urllib_paramiko]# eog   Test/x2.jpg 
+
+尤果网诱惑美女图片大全
+https://image.baidu.com/search/index?tn=baiduimage&ct=201326592&lm=-1&cl=2&ie=gb18030&word=%D3%C8%B9%FB%CD%F8%D3%D5%BB%F3%C3%C0%C5%AE%CD%BC%C6%AC%B4%F3%C8%AB&fr=ala&ala=1&alatpl=adress&pos=0&hs=2&xthttps=111111
+
+
+http://www.umei.cc/meinvtupian/meinvxiezhen/
+美女写真
+http://www.umei.cc/meinvtupian/meinvxiezhen/
+
+http://www.umei.cc/meinvtupian/xingganmeinv/
+性感美女
+
+http://www.umei.cc/meinvtupian/xingganmeinv/185526_4.htm
+
+
+
+Request URL:http://wl.wkxylm.com/auto_ds?wb=z&emn=gsso-29-1E-1Evvv-Ztldh-Zbb-1Eldhmustoh.m-1Eldhmuwhdygdm-1E&ilb=ebbzaz.4az0ec3z6a85b5ez30e.5z26z&wmf=9TSNZIRNMO&tkb=1&wv=3&xqil=000zz1,001zz5,00zz00&ill=007zw182z&il=1040wz&wbl=z&vxv=TSE_7&mik=0446028171167&wvu=ZZZa.hctZtmhnmZb.kka.bjZ&wkb=z&ivl=027w4zz&ibl=_0w_0&itk=0255w6z5&wtb=0&tgm=0&c3=z1mm8&c6=wa5uv
+Request Method:GET
+Status Code:200 OK
+Remote Address:115.231.186.132:80
+Referrer Policy:no-referrer-when-downgrade
+
+Response Headers
+view source
+Cache-Control:post-check=0, pre-check=0
+Connection:keep-alive
+Content-Encoding:gzip
+Content-Type:application/javascript;charset=UTF-8
+Date:Mon, 06 May 2019 10:41:22 GMT
+Expires:Mon, 26 Jul 1997 05:00:00 GMT
+Last-Modified:Mon May  6 18:41:22 2019
+P3p:CP=" OTI DSP COR IVA OUR IND COM "
+Pragma:no-cache
+Server:yunjiasu-nginx
+Set-Cookie:BAIDUID=A6D207085CBD649D5460D7C9456E4F74:FG=1; expires=Tue, 05-May-50 10:41:22 GMT; max-age=31536000; path=/; domain=.baidu.com; version=1
+Transfer-Encoding:chunked
+X-Xss-Protection:0
+YJS-ID:7b76f23750bd2b6a-111
+
+
+Request Headers
+view source
+Accept:*/*
+Accept-Encoding:gzip, deflate
+Accept-Language:zh-CN,zh;q=0.8
+Connection:keep-alive
+Host:wl.wkxylm.com
+Referer:http://www.umei.cc/meinvtupian/meinvxiezhen/
+User-Agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+Query String Parameters
+view source
+view URL encoded
+wb:z
+emn:gsso-29-1E-1Evvv-Ztldh-Zbb-1Eldhmustoh.m-1Eldhmuwhdygdm-1E
+ilb:ebbzaz.4az0ec3z6a85b5ez30e.5z26z
+wmf:9TSNZIRNMO
+tkb:1
+wv:3
+xqil:000zz1,001zz5,00zz00
+ill:007zw182z
+il:1040wz
+wbl:z
+vxv:TSE_7
+mik:0446028171167
+wvu:ZZZa.hctZtmhnmZb.kka.bjZ
+wkb:z
+ivl:027w4zz
+ibl:_0w_0
+itk:0255w6z5
+wtb:0
+tgm:0
+c3:z1mm8
+c6:wa5uv
+
+
+[root@room9pc01 urllib_paramiko]# vim   request_download.py
+
+
+<img alt="f奶肥乳核弹级妹子不遮挡大奶头国模私拍图片" src="http://i1.whymtj.com/uploads/tu/201901/9999/53c768658a.jpg" style="cursor: pointer;">
+
+<img src="http://i1.whymtj.com/uploads/tu/201608/206/c47.jpg" height="165" width="220">
+
+[root@room9pc01 urllib_paramiko]# vim   request_download.py
+[root@room9pc01 urllib_paramiko]# ls   Test/
+baidutest.html  test.jpg  x1.jpg  x2.jpg
+[root@room9pc01 urllib_paramiko]# python3  request_download.py
+
+[root@room9pc01 urllib_paramiko]# python3  request_download.py
+__name__ is __main__
+============= download(url, fname) ===================
+...........
+  File "request_download.py", line 147, in <module>
+    img_list = search_url('/root/urllib_paramiko/Test/down.html', img_pattern)
+  File "request_download.py", line 111, in search_url
+    for  m  in  match_objs:
+TypeError: 'NoneType' object is not iterable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
