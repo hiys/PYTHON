@@ -1,0 +1,173 @@
+ansible
+1、安装
+# cd ansible_pkg/
+# pip3 install pycparser-2.19.tar.gz PyYAML-3.13.tar.gz ansible-2.7.2.tar.gz *
+# yum install -y sshpass
+2、准备三台虚拟机，用于测试
+node4.tedu.cn   192.168.4.4
+node5.tedu.cn   192.168.4.5
+node6.tedu.cn   192.168.4.6
+3、基础配置
+[root@room8pc16 day06]# mkdir myansible
+[root@room8pc16 day06]# cd myansible
+[root@room8pc16 myansible]# vim ansible.cfg
+[defaults]
+inventory = hosts
+remote_user = root
+[root@room8pc16 myansible]# vim hosts
+[dbservers]
+192.168.4.4
+
+[webservers]
+192.168.4.5
+192.168.4.6
+4、扫描主机密钥并保存
+[root@room8pc16 ~]# ssh-keyscan 192.168.4.{4..6} >> /root/.ssh/known_hosts
+5、测试到所有服务器的管理操作
+[root@room8pc16 myansible]# ansible all -m ping -k
+6、在线centos RPM包
+http://vault.centos.org/
+http://rpmfind.net
+7、执行adhoc临时命令
+# ansible webservers -m yum -a "name=vsftpd state=latest" -k
+8、配置vim，如果是yaml文件按tab键缩进2个空格
+# vim ~/.vimrc
+autocmd FileType yaml setlocal sw=2 ts=2 et ai
+
+9、使用playbook分发密钥
+[root@room8pc16 day06]# ansible-doc authorized_key
+[root@room8pc16 myansible]# vim auth_keys.yml
+---
+- name: config public key
+  hosts: all
+  tasks:
+    - name: upload root pubkey
+      authorized_key:
+        user: root
+        state: present
+        key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+# ansible-playbook --syntax-check auth_keys.yml
+# ansible-playbook auth_keys.yml -k
+10、使用playbook上传yum配置文件
+[root@room8pc16 myansible]# mkdir files
+[root@room8pc16 myansible]# vim files/server.repo
+[root@room8pc16 myansible]# vim yum_repo.yml
+---
+- name: upload yum repo file
+  hosts: all
+  tasks:
+    - name: upload centos7 repo
+      copy:
+        src: files/server.repo
+        dest: /etc/yum.repos.d/server.repo
+[root@room8pc16 myansible]# ansible-playbook yum_repo.yml
+[root@room8pc16 myansible]# ansible all -m yum -a "list=php"
+11、配置服务器
+[root@room8pc16 myansible]# vim lamp.yml
+---
+- name: config webservers
+  hosts: webservers
+  tasks:
+    - name: install web pkgs
+      yum:
+        name: [httpd, php, php-mysql]
+        state: latest
+    - name: start web services
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+- name: config dbservers
+  hosts: dbservers
+  tasks:
+    - name: install db pkgs
+      yum:
+        name: mariadb-server
+        state: latest
+    - name: start db services
+      service:
+        name: mariadb
+        state: started
+        enabled: yes
+
+1、访问https://docs.ansible.com/
+在搜索框中输入python api进行搜索，点击进入python api的页面后，复制example代码
+
+
+>>> from collections import namedtuple
+>>> Point = namedtuple('Point', ['x', 'y', 'z'])
+>>> p1 = Point(10, 15, 30)
+>>> p1[0]
+10
+>>> p1[-1]
+30
+>>> p1[:2]
+(10, 15)
+>>> len(p1)
+>>> p1.x
+>>> p1.y
+>>> p1.z
+
+
+自定义ansible模块
+1、创建模块目录
+[root@room8pc16 myansible]# mkdir library
+# export ANSIBLE_LIBRARY=/var/ftp/nsd_2018/nsd1808/devops/day06/myansible/library
+2、创建模块
+[root@room8pc16 myansible]# vim library/mycopy.py
+#!/usr/bin/env python3
+
+import shutil
+from ansible.module_utils.basic import AnsibleModule
+
+def main():
+    module = AnsibleModule(
+        argument_spec=dict(
+            yuan=dict(required=True, type='str'),   # 必选项
+            mudi=dict(required=True, type='str')
+        )
+    )
+    shutil.copy(module.params['yuan'], module.params['mudi'])
+    module.exit_json(changed=True)
+
+if __name__ == '__main__':
+    main()
+3、执行adhoc临时命令
+# ansible webservers -m mycopy -a "yuan=/etc/hosts mudi=/tmp/"
+
+
+在远程主机上安装wget
+# pip3 download wget --trusted-host pypi.douban.com
+# scp wget-3.2.zip 192.168.4.4:/root
+# ssh 192.168.4.4
+# unzip wget-3.2.zip
+# cd wget-3.2/
+# python setup.py install
+# ansible 192.168.4.4 -m mkrepo -a "yuan=http://192.168.4.254/server.repo mudi=/etc/yum.repos.d/"
+
+
+ansible cmdb
+1、安装
+# cd ansible-cmdb_pkgs/
+# pip3 install ansible-cmdb-1.30.tar.gz
+2、收集远程主机的信息
+[root@room8pc16 myansible]# ansible all -m setup --tree /tmp/out
+[root@room8pc16 myansible]# ls /tmp/out/
+3、ansible-cmdb默认使用py2，改成py3
+[root@room8pc16 myansible]# vim /usr/local/bin/ansible-cmdb
+PY_BIN=$(which python3)
+
+4、利用ansible-cmdb分析收集的信息
+[root@room8pc16 myansible]# ansible-cmdb /tmp/out/ > /tmp/info.html
+[root@room8pc16 myansible]# firefox /tmp/info.html
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,117 @@
+CI/CD：持续集成、持续交付(部署)
+
+配置JENKINS环境
+1、启动gitlab服务器      192.168.4.1
+2、配置jenkins          eth0:192.168.4.3   eth1连接default
+[root@node3 ~]# ifconfig virbr0 down
+[root@node3 ~]# brctl delbr virbr0
+3、安装
+将jenkins/目录下的RPM包拷贝到192.168.4.3上安装
+[root@node3 ~]# rpm -ihv jenkins-2.138.2-1.1.noarch.rpm
+[root@node3 ~]# systemctl start jenkins
+4、配置
+通过浏览器访问http://192.168.4.3:8080/
+安装插件时，选择自定义，不安装任何插件
+
+5、通过镜像站点安装插件
+https://blog.csdn.net/you227/article/details/81076032
+把插件地址改为清华大学的镜像站点地址
+在“可选插件”中找到“git parameter”，直接安装
+
+
+模拟开发部开发软件
+[root@room8pc16 jenkins]# git init /tmp/myweb
+[root@room8pc16 jenkins]# cd /tmp/myweb
+[root@room8pc16 myweb]# echo '<h1>my web site</h1>' > index.html
+[root@room8pc16 myweb]# git add .
+[root@room8pc16 myweb]# git commit -m "myweb site init"
+[root@room8pc16 myweb]# git tag 1.0   # 把当前状态标记为1.0版本
+[root@room8pc16 myweb]# echo '<h2>new line</h2>' >> index.html
+[root@room8pc16 myweb]# git add .
+[root@room8pc16 myweb]# git commit -m "mysite version 2.0"
+[root@room8pc16 myweb]# git tag 2.0    # 把当前状态标记为2.0版本
+[root@room8pc16 myweb]# git tag        # 查看所有的版本
+
+[root@room8pc16 myweb]# cat index.html
+<h1>my web site</h1>
+<h2>new line</h2>
+[root@room8pc16 myweb]# git checkout 1.0
+[root@room8pc16 myweb]# cat index.html
+<h1>my web site</h1>
+[root@room8pc16 myweb]# git checkout master
+[root@room8pc16 myweb]# cat index.html
+<h1>my web site</h1>
+<h2>new line</h2>
+
+
+上传代码到gitlab
+1、gitlab服务器配置参见PPT
+2、上传代码到gitlab，采用http的方式
+cd /tmp/myweb
+git remote rename origin old-origin
+以下错误忽略 error: 不能重命名配置小节 'remote.origin' 到 'remote.old-origin'
+git remote add origin http://192.168.4.1/devops/myweb_1808.git
+git push -u origin --all
+git push -u origin --tags
+
+
+通过jenkins下载gitlab上指定版本的源码
+[root@node3 ~]# ls /var/lib/jenkins/
+下载的代码，将地存储到该目录的workspace中
+在jenkins中构建一个自由风格的项目，参数化构建git parameter => webver
+URL => http://192.168.4.1/devops/myweb_1808.git
+源码管理 => git => Branches to Build : $webver
+
+增加Additional Behaviours =>
+    Checkout to a sub-directory => mysite_$webver
+
+在jenkins上安装httpd，将gitlab上下载的代码放到httpd的文档目录，以便于
+其他应用服务器进行下载
+[root@node3 ~]# yum install -y httpd
+[root@node3 ~]# systemctl start httpd
+[root@node3 ~]# systemctl enable httpd
+
+配置jenkins，将下载的代码拷贝到/var/www/html/下，并且打包
+/var/www/html/deploy/packages/  -> 存放软件压缩包和md5值
+/var/www/html/deploy/  -> 存放版本文件
+[root@node3 ~]# mkdir -p /var/www/html/deploy/packages
+[root@node3 ~]# chown -R jenkins.jenkins /var/www/html/deploy
+
+增加构建步骤 => 执行shell
+deploy_dir=/var/www/html/deploy
+cp -r mysite_$webver $deploy_dir/packages
+cd $deploy_dir/packages
+rm -rf mysite_$webver/.git    # 删除版本库文件
+tar czf mysite_${webver}.tar.gz mysite_$webver
+md5sum mysite_${webver}.tar.gz | awk '{print $1}' > mysite_${webver}.tar.gz.md5
+rm -rf mysite_$webver
+[ -f $deploy_dir/live_version ] && cat $deploy_dir/live_version > $deploy_dir/last_version
+echo $webver > $deploy_dir/live_version
+
+
+应用服务器自动下载并部署最新版本
+/var/www/download/  -> 用于保存下载的压缩包和版本文件
+/var/www/deploy/    -> 解压软件到该目录
+/var/www/html/nsd1808  -> 是最新版本的软链接
+
+1、判断是否有最新版本
+2、如果有新版本则下载
+3、判断下载的软件包是否是完整的
+4、如果软件包完整，则解压缩并部署
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

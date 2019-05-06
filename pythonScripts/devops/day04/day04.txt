@@ -1,0 +1,106 @@
+json：可以在网络中传输各种数据类型的对象
+>>> import json
+>>> alist = [100, 200, 300]
+>>> json.dumps(alist)    # 将列表转换成json格式数据
+'[100, 200, 300]'
+>>> jdata = json.dumps(alist)
+>>> type(jdata)
+<class 'str'>
+>>> jdata
+'[100, 200, 300]'
+>>> json.loads(jdata)   # 将json字符转换为python数据类型
+[100, 200, 300]
+
+
+获取天气情况
+实况天气获取:http://www.weather.com.cn/data/sk/城市代码.html
+城市信息获取:http://www.weather.com.cn/data/cityinfo/城市代码.html
+详细指数获取:http://www.weather.com.cn/data/zs/城市代码.html
+百度搜索“中国天气网 城市代码”
+北京：
+http://www.weather.com.cn/data/sk/101010100.html
+>>> from urllib import request
+>>> import json
+>>> html = request.urlopen('http://www.weather.com.cn/data/sk/101010100.html')
+>>> data = html.read()
+>>> json.loads(data)
+>>> bj_weather = json.loads(data)
+>>> import pprint
+>>> pprint.pprint(bj_weather)
+>>> bj_weather['weatherinfo']['temp']
+
+天气图标地址：http://m.weather.com.cn/img/n1.gif
+
+
+requests
+1、安装
+# pip3 install requests
+2、应用
+>>> import requests
+>>> r = requests.get('http://www.sogou.com')
+>>> r.text    # 如果是文本内容使用text属性
+
+>>> r = requests.get('https://img30.360buyimg.com/n7/jfs/t1/10650/22/3705/309831/5c0745d2Ea9247815/d54de4e076dabb3d.jpg')
+>>> with open('/tmp/m.jpg', 'wb') as f:
+...     f.write(r.content)    # 如果是2进制文件采用content属性
+
+>>> r = requests.get('http://www.weather.com.cn/data/sk/101010100.html')
+>>> r.json()  # 如果是json格式就采用json方法
+>>> r.encoding    # 字符编码
+>>> r.encoding = 'utf8'   # 修改字符编码
+>>> r.json()
+
+3、传参
+获取https://www.sogou.com/web?query=人民币汇率  的内容
+>>> url = 'https://www.sogou.com/web'
+>>> param = {'query': '人民币汇率'}
+>>> r = requests.get(url, params=param)
+>>> with open('/tmp/sogou.html', 'w') as fobj:
+...     fobj.write(r.text)
+
+4、修改请求头
+>>> header = {'User-agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'}
+>>> r = requests.get('http://127.0.0.1/', headers=header)
+
+5、其他
+>>> r.status_code   # 返回的状态码
+>>> r = requests.get('http://127.0.0.1/abc')   # url不存在，没有异常
+>>> r.status_code
+404
+>>> r.raise_for_status()     # 触发异常
+
+6、post方法
+搜索钉钉机器人 开放平台  =>
+
+[电子书下载]
+http://down.51cto.com/
+
+
+
+zabbix:
+1、示例zabbix网址是http://192.168.4.2/zabbix/
+2、官方文档页：
+https://www.zabbix.com/documentation/4.0/zh/manual
+3、示例zabbix api的URL：http://192.168.4.2/zabbix/api_jsonrpc.php
+
+
+配置虚拟机上网
+1、virt-manager中  编辑=>连接详情=>虚拟网络=>default,勾选自动启动，点左下角的启动
+2、关闭虚拟机
+3、虚拟机控制台，点击灯泡图标，将第2块网卡连接到default网络
+4、开启虚拟机
+5、将虚拟机的virbr0网卡干掉
+[root@node2 ~]# ifconfig virbr0 down
+[root@node2 ~]# brctl delbr virbr0
+6、虚拟机eth1采用DHCP自动获取地址，即可上网
+
+
+
+
+
+
+
+
+
+
+
