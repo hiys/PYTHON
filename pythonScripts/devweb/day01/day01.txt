@@ -1,0 +1,56 @@
+HTML:
+CSS:
+BOOTSTRAP:
+
+服务器端的程序语言：python/php/java/asp
+客户端的程序语言：javascript(js)
+
+块级元素：即使文字很少，也必须占一行
+1、标题元素 h1 - h6
+2、段落元素 p
+3、div元素
+除了块级元素的都是行内元素：如果文字少，即使写到多行，在网页中也占一行
+
+http://www.runoob.com/  菜鸟教程
+
+
+https://www.sogou.com/web?query=python
+https://www.sogou.com/web 搜索网址
+query=python 是一个key-value键值对，表示搜索内容
+
+http://cn.bing.com/search?q=linux
+
+
+CSS: 层叠样式表，级联样式表
+内联样式：类似于标签的属性
+内部样式：定义在head元素中的样式
+外部样式：将样式单独写到一个文件中
+
+样式表的特性：
+继承性：子元素可以继承父元素的样式
+层叠性：样式如果不冲突，样式可以累加
+优先级：
+
+
+选择器：给谁设置样式？
+通用选择器： *    可以用来设置默认样式
+元素选择器：html标签   p body html  div
+类选择器：class属性    可以把多个标签起相同的class名称，表示分组
+p的class属性是c2： p.c2
+p和c2类：p,.c2
+p元素中间有个class是c2的元素：p .c2
+id选择器：给唯一的一个元素设置样式  #id1
+伪类选择器：给a标签设置访问前，鼠标悬停和访问后的样式
+
+
+
+
+
+
+
+
+
+
+
+
+
