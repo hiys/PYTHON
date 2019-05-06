@@ -1,0 +1,144 @@
+git
+[root@node2 ~]# yum install -y git
+[root@node2 ~]# git config --list
+[root@node2 ~]# git config --global user.name "zzg"
+[root@node2 ~]# git config --global user.email "zzg@tedu.cn"
+[root@node2 ~]# git config --global core.editor vim
+[root@node2 ~]# git config --list
+[root@node2 ~]# cat ~/.gitconfig
+
+git工作的三个重要区域：
+工作区：写代码的那个目录
+暂存区：工作区和版本库之间的一个过渡区域
+版本库：真正存储各个版本的位置，是工作目录的隐藏目录.git
+
+git应用
+1、初始化使用git管理的项目
+[root@node2 ~]# git init devops
+[root@node2 ~]# ls -a devops/
+2、在项目中编写代码
+[root@node2 ~]# cd devops/
+[root@node2 devops]# vim hi.py
+print('Hello World!')
+3、提交代码到暂存区
+[root@node2 devops]# git add .
+4、查看暂存区
+[root@node2 devops]# git status
+5、撤出暂存区
+[root@node2 devops]# git rm --cached hi.py
+6、提交文件到版本库
+[root@node2 devops]# git add .
+[root@node2 devops]# git commit -m "project init"
+[root@node2 devops]# git log
+7、查看版本库中的文件
+[root@node2 devops]# git ls-files
+8、误删除后，重新检出文件
+[root@node2 devops]# git rm hi.py
+[root@node2 devops]# git status
+[root@node2 devops]# git reset HEAD hi.py
+[root@node2 devops]# git checkout  --  hi.py
+
+
+gitlab服务器
+1、生成一台虚拟机，内存4G以上
+node1 -> 192.168.4.1 安装docker，导入gitlab镜像
+2、启动docker
+[root@node1 docker_pkgs]# yum install -y *rpm
+[root@node1 docker_pkgs]# systemctl start docker
+[root@node1 docker_pkgs]# systemctl enable docker
+3、导入镜像
+[root@node1 docker]# docker load < images/gitlab_zh.tar
+4、因为容器也需要用到22端口，所以把虚拟机的端口改为2022
+[root@node1 docker]# vim /etc/ssh/sshd_config
+Port 2022
+[root@node1 docker]# systemctl restart sshd
+5、启动gitlab容器
+[root@node1 ~]# docker run -d -h gitlab --name gitlab -p 443:443
+-p 80:80 -p 22:22 --restart always -v /srv/gitlab/config:/etc/gitlab
+-v /srv/gitlab/logs:/var/log/gitlab
+-v /srv/gitlab/data:/var/opt/gitlab gitlab_zh:latest
+6、访问http://192.168.4.1/。gitlab启动需要一段时间，开始的时候显示无法访问，
+过一段时间访问，出现内部错误，多等一会就可以了。
+# docker ps  看到状态是(healthy)时，就可以正常访问了
+7、第一次访问需要设置密码，密码必须8位以上，要复杂一些。用户名为root
+8、gitlab服务器上的重要组成部分：
+（1）群组group：对应一个个团队
+（2）项目project：每个group都会编写多个软件项目，每个软件项目创建一个project
+（3）成员member：对应一个个的用户
+新建用户的时候不能设置密码。但是创建完成后，编辑用户可以为其设置密码。
+9、设置新建的用户是项目的主程序员
+10、上传软件项目到gitlab
+[root@node2 ~]# cd devops/
+[root@node2 devops]# git remote rename origin old-origin
+  出现以下错误，忽略即可
+error: 不能重命名配置小节 'remote.origin' 到 'remote.old-origin'
+[root@node2 devops]# git remote add origin http://192.168.4.1/devops/core_py.git
+[root@node2 devops]# git push -u origin --all
+[root@node2 devops]# git push -u origin --tags
+
+11、使用ssh免密的方式上传
+(1) 本地生成密钥对
+[root@node2 devops]# ssh-keygen -t rsa -C "zzg@tedu.cn" -b 4096
+(2) 拷贝~/.ssh/id_rsa.pub，粘贴到gitlab用户的ssh密钥中
+(3) 将第10步中的http方式改为ssh
+[root@node2 devops]# git remote remove origin
+[root@node2 devops]# git remote add origin git@192.168.4.1:devops/core_py.git
+(4) 编写代码，上传
+[root@node2 devops]# echo "demo project" > README.md
+[root@node2 devops]# git add .
+[root@node2 devops]# git commit -m "add readme"
+[root@node2 devops]# git push
+12、如果在上传的时候，出现Permission Denied。解决办法：
+[root@node2 devops]# ssh-agent
+把ssh-agent输出的环境变量直接运行一下，然后执行下面命令
+[root@node2 devops]# ssh-add
+
+模拟用户登陆
+1.  创建名为login.py的程序文件
+2.  程序提示用户输入用户名
+3.  用户输入用户名后,打印欢迎用户
+
+变量：可变化的量
+常量：不可变化的量
+
+变量命名规范：
+1、首字符必须是字母或下划线
+2、其他字符可以是字母、数字、下划线
+3、区分大小写
+
+python变量在使用之前，必须先赋值
+python的数据有严格的类型，相同类型的数据进行运算
+变量赋值是自右向左进行的
+
+>>> import this   # python之禅
+美胜丑，明胜暗，简胜繁
+
+除法：
+>>> 5 / 2
+2.5
+>>> 5 // 2
+2
+>>> 5 % 2
+1
+>>> divmod(5, 2)  # 同时求商和余数
+(2, 1)
+
+比较：python支持连续比较
+>>> 10 < 20 < 30
+>>> 10 < 20 and 20 > 15
+True
+>>> 10 < 20 or 10 > 20
+True
+>>> not 10 < 20
+False
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,177 @@
+学历不等于能力
+学过不等于掌握
+经历不等于经验
+
+shutil模块
+>>> import shutil
+>>> f1 = open('/etc/hosts')
+>>> f2 = open('/tmp/zj', 'w')
+>>> shutil.copyfileobj(f1, f2)
+>>> f1.close()
+>>> f2.close()
+
+>>> shutil.copyfile('/etc/hosts', '/tmp/zhuji')  # 拷贝文件
+>>> shutil.copy('/etc/hosts', '/tmp/zj.txt')
+>>> shutil.copy('/etc/hosts', '/tmp/')
+>>> help(shutil)
+>>> shutil.copytree('/etc/security', '/tmp/anquan')  # 拷贝目录
+>>> shutil.move('/tmp/zhuji', '/var/tmp/')  # 移动
+>>> shutil.rmtree('/tmp/anquan')   # 删除目录
+
+https://yiyibooks.cn/  -> python 352 -> 库参考 -> ctrl + f
+
+
+关键字：
+>>> import keyword
+>>> keyword.kwlist
+>>> 'pass' in keyword.kwlist
+>>> keyword.iskeyword('pass')
+
+内建：
+>>> keyword.iskeyword('len')
+False
+>>> len('abcd')    # len是内建函数
+4
+
+关键字不能重新赋值，内建名称可以重新赋值
+
+判断合法标识符：
+1、程序的运行方式(交互式？简单运行后就结束？)。
+2、脑补，交互式运行，屏幕上的问题，用户的回答都是什么
+3、思考程序有哪些功能，把这些功能定义成函数
+4、编写主程序代码，按顺序调用函数
+5、完善每个函数
+
+
+序列对象内建函数
+>>> list('hello')
+>>> tuple('hello')
+>>> str(100)
+>>> str([10, 20, 30])
+>>> import random
+>>> alist = [random.randint(1, 100) for i in range(10)]
+>>> max(alist)
+>>> min(alist)
+
+
+格式化字符串
+>>> '%s is %s years old' % ('bob', 20)     # 常用
+>>> '%s is %d years old' % ('bob', 20)     # 常用
+>>> '97 is %c' % 97     # a的ASCII码是97
+>>> '10 is %o' % 10    # 转8进制
+>>> '10 is %#o' % 10
+>>> '10 is %x' % 10     # 转16进制
+>>> '10 is %#x' % 10
+>>> '10000000 is %e' % 10000000    # 科学计数法
+>>> '5/2 is %d' % (5 / 2)
+>>> '5/2 is %f' % (5 / 2)
+>>> '%10s%8s' % ('name', 'age')    # 第一个%s占10个宽度，第二个占8个宽度，常用
+>>> '%10s%8s' % ('bob', 20)
+>>> '%-10s%-8s' % ('name', 'age')    # 左对齐，常用
+
+字符串格式化也可以使用字符串的format方法
+>>> '{} is {} years old'.format('bob', 20)
+>>> '{1} is {0} years old'.format(20, 'bob')
+>>> '{0[1]} is {0[0]} years old'.format([20, 'bob'])
+
+python调用系统命令
+>>> import subprocess
+>>> subprocess.call('ls /home', shell=True)
+
+创建用户的脚本
+1、创建用户、加密码，调用系统命令即可
+2、密码采用前面自己写的randpass2.py
+3、用户名通过位置参数传递
+
+
+原始字符串、真实字符串
+>>> wpath = 'c:\temp'
+>>> print(wpath)
+c:	emp
+>>> wpath = 'c:\\temp'
+>>> print(wpath)
+c:\temp
+>>> win_path = r'c:\temp'
+>>> print(win_path)
+c:\temp
+>>> win_path
+'c:\\temp'
+
+字符串方法
+>>> py_str = 'Hao123'
+>>> py_str.center(20)   # 居中
+>>> py_str.center(40, '*')
+>>> py_str.ljust(40, '#')  # 左对齐
+>>> py_str.rjust(40, '#')  # 右对齐
+>>> 'Hao123'.rjust(40, '#')
+>>> '\thello world!   '.strip()   # 去除两端空白，常用
+>>> '\thello world!   '.lstrip()
+>>> '\thello world!   '.rstrip()
+>>> py_str.upper()   # 转大写
+>>> py_str.lower()   # 转小写
+>>> py_str.isidentifier()   # 可以用作标识符吗？
+>>> 'hao123'.islower()    # 只要字母全是小写返回True
+>>> 'hao123'.isdigit()    # 只要有一个字符不是数字就返回False
+>>> py_str.startswith('H')    # 以H开头吗？
+>>> py_str.startswith('Hao')
+>>> py_str.endswith('!')    # 以!为结尾吗？
+>>> 'hello world'.split()    # 以空格作为分隔符分割
+>>> 'hello.tar.gz'.split('.')
+
+
+列表：常用方法有append/insert/pop/sort/reverse
+>>> alist = [10, 20, 30, 100, [1,2,3]]
+>>> alist[-1] = 200
+>>> alist[1:3] = [60, 70]
+>>> alist[1:1] = [20, 30, 40, 50]
+>>> alist.index(70)   # 取出70的下标
+>>> alist.insert((alist.index(70) + 1), 80)  # 在指定的下标位置插入新值
+>>> alist.pop()   # 默认弹出下标为-1的元素
+>>> alist.pop(4)    # 弹出下标为4的元素
+>>> alist.remove(60)    # 删除第一个值为60的元素
+>>> alist.reverse()    # 翻转
+>>> alist.sort()   # 排序
+>>> alist.extend([1, 2])   # 将列表[1, 2]的项目扩展到alist中
+>>> blist = alist   # alist和blist指向内存的同一空间
+>>> blist.pop()   # 对blist操作，也会影响到alist
+>>> clist = alist.copy()   # 只是把alist的值拷贝给clist
+>>> clist.clear()   # 清空列表
+
+
+元组：
+>>> a = (10)   # a不是元组，是int
+>>> type(a)    # int
+>>> b = (10,)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
