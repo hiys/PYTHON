@@ -1,0 +1,460 @@
+修改投票详情，如果某一个问题没有选项，就显示“没有开始”
+# polls/templates/detail.html
+<body>
+<h1>投票详情</h1>
+{{ question.question_text }}
+<hr>
+{% if question.choice_set.all %}
+    <form action="{% url 'vote' question_id=question.id %}" method="post">
+        {% for choice in question.choice_set.all %}
+            <div>
+                <label>
+                    <input type="radio" name="choice_id" value="{{ choice.id }}">
+                    {{ choice.choice_text }}
+                </label>
+            </div>
+        {% endfor %}
+        <div><input type="submit" value="投 票"></div>
+    </form>
+{% else %}
+    <h2>没有开始</h2>
+{% endif %}
+</body>
+
+
+引入bootstrap
+1、拷贝bootstrap的static目录
+[root@room8pc16 mysite]# cp -r ../../day03/static/ polls/
+2、修改index.html，引入boostrap
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投票首页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+<div class="container">
+    <div id="linux-carousel" class="carousel slide">
+            <ol class="carousel-indicators">
+                <li class="active" data-target="#linux-carousel" data-slide-to="0"></li>
+                <li data-target="#linux-carousel" data-slide-to="1"></li>
+                <li data-target="#linux-carousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item active">
+                    <a href="http://www.sogou.com" target="_blank">
+                        <img src="{% static 'imgs/first.jpg' %}">
+                    </a>
+                </div>
+                <div class="item">
+                    <img src="{% static 'imgs/second.jpg' %}">
+                </div>
+                <div class="item">
+                    <img src="{% static 'imgs/third.jpg' %}">
+                </div>
+            </div>
+            <a href="#linux-carousel" data-slide="prev" class="carousel-control left">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a href="#linux-carousel" data-slide="next" class="carousel-control right">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+
+    <div class="main">
+        <h1>这是投票首页</h1>
+        <div class="h4">
+            {% for question in questions %}
+                <div>
+                    {{ forloop.counter }}.
+            {#        <a href="/polls/{{ question.id }}/" target="_blank">#}
+                    <a href="{% url 'detail' question_id=question.id %}" target="_blank">
+                        {{ question.question_text }}
+                    </a>
+                    {{ question.pub_date }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="footer h4 text-center">
+        <a href="#">达内云计算</a> NSD1808
+    </div>
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script type="text/javascript">
+    $('#linux-carousel').carousel({
+        interval : 3000
+    });
+</script>
+</body>
+</html>
+
+
+模块继承
+1、将index.html复制一份，起名为base.html
+2、将base.html中的个性化信息使用block替换
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+<div class="container">
+    <div id="linux-carousel" class="carousel slide">
+            <ol class="carousel-indicators">
+                <li class="active" data-target="#linux-carousel" data-slide-to="0"></li>
+                <li data-target="#linux-carousel" data-slide-to="1"></li>
+                <li data-target="#linux-carousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="item active">
+                    <a href="http://www.sogou.com" target="_blank">
+                        <img src="{% static 'imgs/first.jpg' %}">
+                    </a>
+                </div>
+                <div class="item">
+                    <img src="{% static 'imgs/second.jpg' %}">
+                </div>
+                <div class="item">
+                    <img src="{% static 'imgs/third.jpg' %}">
+                </div>
+            </div>
+            <a href="#linux-carousel" data-slide="prev" class="carousel-control left">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a href="#linux-carousel" data-slide="next" class="carousel-control right">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+
+    <div class="main">
+        {% block content %}{% endblock %}
+    </div>
+    <div class="footer h4 text-center">
+        <a href="#">达内云计算</a> NSD1808
+    </div>
+</div>
+
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script type="text/javascript">
+    $('#linux-carousel').carousel({
+        interval : 3000
+    });
+</script>
+</body>
+</html>
+
+3、在index.html中使用模板继承，把共性的信息删除，个性信息放到block中
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}投票首页{% endblock %}
+{% block content %}
+    <h1>这是投票首页</h1>
+    <div class="h4">
+        {% for question in questions %}
+            <div>
+                {{ forloop.counter }}.
+                <a href="{% url 'detail' question_id=question.id %}" target="_blank">
+                    {{ question.question_text }}
+                </a>
+                {{ question.pub_date }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+4、detail.html和result.html也使用模板继承
+# detail.html
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}投票详情{% endblock %}
+{% block content %}
+    <h1>投票详情</h1>
+    {{ question.question_text }}
+    <hr>
+    {% if question.choice_set.all %}
+        <form action="{% url 'vote' question_id=question.id %}" method="post">
+            {% for choice in question.choice_set.all %}
+                <div>
+                    <label>
+                        <input type="radio" name="choice_id" value="{{ choice.id }}">
+                        {{ choice.choice_text }}
+                    </label>
+                </div>
+            {% endfor %}
+            <div><input type="submit" value="投 票"></div>
+        </form>
+    {% else %}
+        <h2>没有开始</h2>
+    {% endif %}
+{% endblock %}
+
+# result.html
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}投票结果{% endblock %}
+{% block content %}
+    <h1>投票结果</h1>
+    <table border="1px">
+        <tr>
+            <td colspan="2">{{ question.question_text }}</td>
+        </tr>
+        {% for choice in question.choice_set.all %}
+            <tr>
+                <td>{{ choice.choice_text }}</td>
+                <td>{{ choice.votes }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+
+修改detail.html，使它可以使用boostrap的表单样式
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}投票详情{% endblock %}
+{% block content %}
+    <h1>投票详情</h1>
+    <div class="h3">{{ question.question_text }}</div>
+    <hr>
+    {% if question.choice_set.all %}
+        <form action="{% url 'vote' question_id=question.id %}" method="post">
+            {% for choice in question.choice_set.all %}
+                <div class="radio h4">
+                    <label>
+                        <input type="radio" name="choice_id" value="{{ choice.id }}">
+                        {{ choice.choice_text }}
+                    </label>
+                </div>
+            {% endfor %}
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" value="投 票">
+            </div>
+        </form>
+    {% else %}
+        <h2>没有开始</h2>
+    {% endif %}
+{% endblock %}
+
+
+修改result.html，使它可以使用boostrap的表单样式
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}投票结果{% endblock %}
+{% block content %}
+    <h1>投票结果</h1>
+    <table class="table table-striped table-hover h4">
+        <tr class="info">
+            <td colspan="2">{{ question.question_text }}</td>
+        </tr>
+        {% for choice in question.choice_set.all %}
+            <tr>
+                <td>{{ choice.choice_text }}</td>
+                <td>{{ choice.votes }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+
+django2 by example  : http://www.conyli.cc/
+django by example  :  http://down.51cto.com/
+
+
+自定义后台显示
+1、后台问题页面，显示问题内容和时间
+# polls/admin.py
+from django.contrib import admin
+from .models import Question, Choice
+
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ('question_text', 'pub_date')
+
+admin.site.register(Question, QuestionAdmin)
+admin.site.register(Choice)
+
+2、给问题加上时间轴
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ('question_text', 'pub_date')
+    date_hierarchy = 'pub_date'
+
+3、为问题添加过滤条件
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ('question_text', 'pub_date')
+    date_hierarchy = 'pub_date'
+    list_filter = ('pub_date',)
+
+4、增加查找功能
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ('question_text', 'pub_date')
+    date_hierarchy = 'pub_date'
+    list_filter = ('pub_date',)
+    search_fields = ('question_text',)
+
+5、增加排序功能
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ('question_text', 'pub_date')
+    date_hierarchy = 'pub_date'
+    list_filter = ('pub_date',)
+    search_fields = ('question_text',)
+    ordering = ('-pub_date',)
+
+6、为选项增加通过外键查找问题的功能
+from django.contrib import admin
+from .models import Question, Choice
+
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ('question_text', 'pub_date')
+    date_hierarchy = 'pub_date'
+    list_filter = ('pub_date',)
+    search_fields = ('question_text',)
+    ordering = ('-pub_date',)
+
+class ChoiceAdmin(admin.ModelAdmin):
+    raw_id_fields = ('question',)
+
+admin.site.register(Question, QuestionAdmin)
+admin.site.register(Choice, ChoiceAdmin)
+
+
+
+
+编写博客(新闻、留言)应用
+一、创建应用
+1、生成应用
+(djenv) [root@room8pc16 mysite]# python manage.py startapp blog
+2、集成应用到项目
+# mysite/settings.py
+INSTALLED_APPS = [
+    ... ...
+    'blog',
+]
+3、授权，以http://x.x.x.x/blog/开头的URL，交给应用处理
+# mysite/urls.py
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'^polls/', include('polls.urls')),
+    url(r'^blog/', include('blog.urls')),
+]
+
+# vim blog/urls.py
+from django.conf.urls import url
+
+urlpatterns = [
+]
+
+二、规划url
+博客首页: http://x.x.x.x/blog/
+具体文章: http://x.x.x.x/blog/1/
+
+三、创建模型
+1、编写blog/models.py
+from django.db import models
+
+class Article(models.Model):
+    title = models.CharField(max_length=100, null=False)
+    pub_date = models.DateTimeField(auto_now_add=True)  # 自动使用发布文章时的时间
+    content = models.TextField()
+
+    def __str__(self):
+        return self.title
+2、生成数据表
+(djenv) [root@room8pc16 mysite]# python manage.py makemigrations
+(djenv) [root@room8pc16 mysite]# python manage.py migrate
+
+3、把博客注册到后台管理界面
+# blog/admin.py
+from django.contrib import admin
+from .models import Article
+
+admin.site.register(Article)
+
+
+四、编写视图函数
+1、博客首页视图
+# blog/urls.py
+from django.conf.urls import url
+from . import views
+
+urlpatterns = [
+    url(r'^$', views.index, name='blog_index'),
+]
+
+# blog/views.py
+from django.shortcuts import render
+from .models import Article
+
+def index(request):
+    articles = Article.objects.order_by('-pub_date')
+    return render(request, 'blog_index.html', {'articles': articles})
+
+2、编写具体文章的视图
+# blog/urls.py
+    url(r'^(?P<article_id>\d+)/$', views.show_article, name='show_article'),
+
+# blog/views.py
+def show_article(request, article_id):
+    article = Article.objects.get(id=article_id)
+    return render(request, 'show_article.html', {'article': article})
+
+
+五、创建模板
+1、首页模板
+(djenv) [root@room8pc16 mysite]# mkdir blog/templates
+# blog/templates/blog_index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>博客首页</title>
+</head>
+<body>
+{% for article in articles %}
+    <h2>{{ article.title }}</h2>
+    <h5>{{ article.pub_date }}</h5>
+    <div>
+        {{ article.content | truncatewords:20 }}
+    </div>
+{% endfor %}
+</body>
+</html>
+
+2、博客文章模板
+# blog/templates/show_article.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>博客文章</title>
+</head>
+<body>
+<h2>{{ article.title }}</h2>
+<h5>{{ article.pub_date }}</h5>
+<div>
+    {{ article.content | linebreaksbr }}
+</div>
+</body>
+</html>
+3、修改博客首页，增加超链接
+<body>
+{% for article in articles %}
+    <h2>
+        <a href="{% url 'show_article' article_id=article.id %}" target="_blank">
+            {{ article.title }}
+        </a>
+    </h2>
+    <h5>{{ article.pub_date }}</h5>
+    <div>
+        {{ article.content | truncatewords:20 }}
+    </div>
+{% endfor %}
+</body>

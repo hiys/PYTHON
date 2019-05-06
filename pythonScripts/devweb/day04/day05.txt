@@ -1,0 +1,279 @@
+修改model.py中Question类的变量：question => question_text
+(djenv) [root@room8pc16 mysite]# python manage.py makemigrations
+(djenv) [root@room8pc16 mysite]# python manage.py migrate
+
+
+django api
+1、使用python shell
+(djenv) [root@room8pc16 mysite]# python manage.py shell
+>>> from polls.models import Question, Choice
+2、模型管理器
+每一个模型默认都有一个名为objects的管理器，可以通过它，实现增删改查
+>>> Question.objects.all()
+3、创建问题
+(1) 采用创建类的实例的方式
+>>> from django.utils import timezone
+>>> q1 = Question(question_text='你心仪的公司是哪家？', pub_date=timezone.now())
+>>> q1.save()
+(2) 通过管理器创建
+>>> q2 = Question.objects.create(question_text='散伙饭去哪吃？', pub_date=timezone.now())
+
+4、创建选项
+(1) 采用创建类的实例的方式
+>>> c1 = Choice(choice_text='达内', question=q1)
+>>> c1.save()
+(2) 通过管理器创建
+>>> c2 = Choice.objects.create(choice_text='华为', question=q1)
+(3) 通过问题直接创建选项
+因为Question和Choice有主外键关系，这是一个一对多的关系，也就是一个问题可以
+有很多个选项。这样每个问题的实例，都有一个反向管理器叫choice_set，通过它可
+以直接创建选项
+>>> c3 = q1.choice_set.create(choice_text='阿里巴巴')
+
+5、修改数据
+>>> q1.question_text
+>>> q1.question_text = '你期望哪家公司给你发Offer？'
+>>> q1.save()
+
+6、删除数据
+>>> q2.delete()
+
+7、查询
+查询的结果，有的是一个具体的实例，有的是0到多个实例的集合
+(1) get可以得到具体的一个实例，如果不是一个实例，将报错
+>>> q1 = Question.objects.get(id=1)
+>>> Question.objects.get(id__exact=1)
+id=1是id__exact=1的简写
+>>> q1.id
+>>> q1.question_text
+>>> q1.pub_date
+>>> Question.objects.get(id__gt=1)   # 多于1项，报错
+>>> Question.objects.get(id__gt=100)    # 少于1项，报错
+(2) 在django过滤条件中，数据的属性使用双下划线来表示，而不是句点
+>>> s1 = '过年，你胖了吗？'
+>>> s1.startswith('过年')
+>>> Question.objects.get(question_text__startswith=('过年'))
+
+(3) 获取所有问题
+>>> qset1 = Question.objects.all()
+>>> len(qset1)
+>>> qset1[0]
+>>> qset1[len(qset1) - 1]
+>>> for q in qset1:
+...     print(q.question_text)
+
+(4) 排序
+>>> qset2 = Question.objects.order_by('pub_date')
+>>> for q in qset2:
+...     print(q.question_text, q.pub_date)
+
+>>> qset3 = Question.objects.order_by('-pub_date')   # 降序排列
+>>> for q in qset3:
+...     print(q.question_text, q.pub_date)
+
+(5) 过滤
+>>> Question.objects.filter(question_text__contains='达内')
+>>> qset4 = Question.objects.filter(question_text__contains='达内')\
+            .order_by('-pub_date')
+>>> for q in qset4:
+...     print(q.question_text, q.pub_date)
+
+>>> Question.objects.filter(question_text__contains='工作')\
+    .filter(question_text__contains='月薪')
+
+
+
+在数据库中取出数据，发送到前台
+1、修改视图
+from django.shortcuts import render
+from .models import Question
+
+def index(request):
+    questions = Question.objects.order_by('-pub_date')
+    return render(request, 'index.html', {'questions': questions})
+
+# 说明：{'questions': questions}相当于是把questions=问题集合 发送到模板
+2、修改模板文件，显示变量questions的内容
+在模板中变量使用{{questions}}表示(双花括号)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投票首页</title>
+</head>
+<body>
+<h1>这是投票首页</h1>
+{{ questions }}
+</body>
+</html>
+
+
+规划URL
+http://x.x.x.x/polls/    -> 投票首页，用于显示所有的投票项目
+http://x.x.x.x/polls/1/  -> 显示投票详情
+http://x.x.x.x/polls/1/result  -> 显示投票结果
+
+
+编写投票详情页
+1、编写url映射
+# polls/urls.py
+    # url(r'^1/$', views.detail, name='detail'),
+    # url(r'^\d+/$', views.detail, name='detail'),
+    # url(r'^(\d+)/$', views.detail, name='detail'),
+    url(r'^(?P<question_id>\d+)/$', views.detail, name='detail'),
+说明：\d+匹配至少一个数字，把它保存到名为question_id的变量中，传递给
+后面的veiws.detail函数
+2、编写视图函数
+# polls/views.py
+def detail(request, question_id):
+    question = Question.objects.get(id=question_id)
+    return render(request, 'detail.html', {'question': question})
+3、编写模板
+# polls/templates/detail.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投票详情</title>
+</head>
+<body>
+<h1>投票详情</h1>
+{{ question }}
+</body>
+</html>
+
+
+编写投票结果页
+1、编写url映射
+    url(r'^(?P<question_id>\d+)/result/$', views.result, name='result'),
+2、编写视图函数
+# polls/views.py
+def result(request, question_id):
+    question = Question.objects.get(id=question_id)
+    return render(request, 'result.html', {'question': question})
+3、编写模板
+# polls/templates/result.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投票结果</title>
+</head>
+<body>
+<h1>投票结果</h1>
+{{ question }}
+{{ question.choice_set.all }}
+</body>
+</html>
+
+
+修改首页模板
+模板语法：(1)变量放到双花括号中；(2)语句块放在{% %}；(3)在花括号外的是普通字符
+1、修改首页模板，列出每个问题的题干和发布时间
+<body>
+<h1>这是投票首页</h1>
+{% for question in questions %}
+    <div>
+        {{ forloop.counter }}. {{ question.question_text }} {{ question.pub_date }}
+    </div>
+{% endfor %}
+</body>
+说明：forloop是模板语言中的对象
+2、在首页上添加a标签，使之可以跳转到投票详情
+<body>
+<h1>这是投票首页</h1>
+{% for question in questions %}
+    <div>
+        {{ forloop.counter }}.
+{#        <a href="/polls/{{ question.id }}/" target="_blank">#}
+        <a href="{% url 'detail' question_id=question.id %}" target="_blank">
+            {{ question.question_text }}
+        </a>
+        {{ question.pub_date }}
+    </div>
+{% endfor %}
+</body>
+
+修改详情页
+1、在详情页中列出问题和它相关的选项
+<body>
+<h1>投票详情</h1>
+{{ question.question_text }}
+<ul>
+    {% for choice in question.choice_set.all %}
+        <li>{{ choice.choice_text }}</li>
+    {% endfor %}
+</ul>
+</body>
+
+修改结果页
+1、在投票结果页中显示每个问题选项所得到的票数
+<body>
+<h1>投票结果</h1>
+<table border="1px">
+    <tr>
+        <td colspan="2">{{ question.question_text }}</td>
+    </tr>
+    {% for choice in question.choice_set.all %}
+        <tr>
+            <td>{{ choice.choice_text }}</td>
+            <td>{{ choice.votes }}</td>
+        </tr>
+    {% endfor %}
+</table>
+</body>
+
+
+完成投票功能
+1、修改detail.html，增加form表单
+<body>
+<h1>投票详情</h1>
+{{ question.question_text }}
+<hr>
+<form action="" method="post">
+    {% for choice in question.choice_set.all %}
+        <div>
+            <label>
+                <input type="radio" name="choice_id" value="{{ choice.id }}">
+                {{ choice.choice_text }}
+            </label>
+        </div>
+    {% endfor %}
+    <div><input type="submit" value="投 票"></div>
+</form>
+</body>
+
+2、为投票功能增加URL，表单数据提交给这个URL
+http://x.x.x.x/polls/1/vote/  给1号问题投票
+# polls/urls.py
+    url(r'^(?P<question_id>\d+)/vote/$', views.vote, name='vote'),
+3、为detail.html的action增加网址
+{#<form action="/polls/{{ question.id }}/vote/" method="post">#}
+<form action="{% url 'vote' question_id=question.id %}" method="post">
+
+4、编写视图函数vote
+# polls/views.py
+from django.shortcuts import render, redirect, HttpResponse
+
+def vote(request, question_id):
+    choice_id = request.POST.get('choice_id')
+    question = Question.objects.get(id=question_id)
+    choice = question.choice_set.get(id=choice_id)
+    choice.votes += 1
+    choice.save()
+    return redirect('result', question_id=question_id)
+说明：request是客户端发来的请求，因为客户端在表单上通过post方法提交数据，
+所以request.POST中包含了选票，它是一个像字典一样的数据类型，也有get方法
+redirect表示重定向，相当于是打开一个窗口，写入新的网址进行访问。这里没有
+使用render，是因为render会交换客户机的请求request内容也传递过去。
+
+
+
+
+
+
+
+
+
+
+
