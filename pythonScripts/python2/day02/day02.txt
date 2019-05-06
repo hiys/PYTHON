@@ -1,0 +1,156 @@
+记账程序
+1、交互式程序
+(0) save
+(1) cost
+(2) query
+(3) quit
+Please input your choice(0/1/2/3): 0/1
+amount: 100
+comment: eat
+(0) save
+(1) cost
+(2) query
+(3) quit
+Please input your choice(0/1/2/3): 2
+date        cost    save    balance     comment
+2019-1-18   100     0       9900        eat
+(0) save
+(1) cost
+(2) query
+(3) quit
+Please input your choice(0/1/2/3): 3
+Bye-bye
+2、思考有哪些功能，把功能定义成函数，编写程序主体框架
+3、在主程序代码部分，按顺序分别调用函数
+
+[('2018-1-18', 0, 0, 10000, 'init'),
+('2018-1-18', 0, 100, 9900, 'eat'),
+('2018-1-18', 0, 100, 9900, 'eat')]
+
+
+参数：
+>>> def set_age(name, age):
+...     print('%s is %s years old' % (name, age))
+>>> set_age('bob', 23)
+>>> set_age()   # error，参数个数不够
+>>> set_age('bob', 23, 100)   # error，参数个数太多
+>>> set_age(23, 'bob')   # 语法没错误，但是语义不对
+23 is bob years old
+>>> set_age(age=23, name='bob')
+>>> set_age(age=23, 'bob')   # 语法错误，kev=val样式必须在后
+>>> set_age('bob', age=23)   # 正确
+>>> set_age(23, name='bob')   # 错误，name得到了多个值
+
+
+数学游戏：
+1、运行
+10 + 5 = 15
+Very Good!
+Continue(y/n)? y
+10 - 5 = 1
+Wrong Answer
+10 - 5 = 2
+Wrong Answer
+10 - 5 = 3
+Wrong Answer
+10 - 5 = 5
+Continue(y/n)? n
+Bye-bye
+2、函数应该简单一些，只出一道题。如果希望有多道题，可以调用函数多次
+3、函数内部，需要得到两个数字、加法还是减法、算式的正确答案
+4、提示用户做答，判断用户是否答对
+
+
+1、全局变量：
+函数外面创建的。全局变量在它定义的位置开始，一直到程序结束，任何地方都可见可用
+>>> x = 10
+>>> def foo():
+...     print(x)
+...
+>>> foo()
+10
+2、局部变量：
+函数内部创建，仅在函数内可见可用。参数也可以看作是局部变量。
+>>> def bar():
+...     hi = 'hello'
+...     print(hi)
+...
+>>> bar()
+hello
+>>> print(hi)   # 报错
+3、如果局部和全局有相同的名字，局部变量名会将全局变量遮盖
+>>> def func1():
+...     x = 'abc'
+...     print(x)
+...
+>>> func1()
+abc
+>>> print(x)
+10
+4、如果希望在局部将全局变量改掉，可以在局部使用global关键字声明
+>>> def func2():
+...     global x
+...     x = 100
+...     print(x)
+...
+>>> func2()
+100
+>>> print(x)
+100
+
+
+偏函数：
+改造现有函数，将其中的一部分参数固定下来，生成一个新的函数。
+
+递归函数：函数内部包含了对自己的调用
+5!=5x4x3x2x1
+5!=5x4!
+5!=5x4x3!
+5!=5x4x3x2!
+5!=5x4x3x2x1!
+5!=5x4x3x2x1
+
+
+生成器：本质上就是一个函数，但是函数只能返回一个址，生成器可以返回很多中间值
+>>> def mygen():
+...     yield 10
+...     a = 100 + 200
+...     yield a
+...     yield 'hello'
+>>> a = mygen()
+>>> a.__next__()
+>>> a.__next__()
+>>> a.__next__()
+>>> a.__next__()
+>>> a = mygen()
+>>> for i in a:
+...     print(i)
+
+68-生成器实例：每次取出文件的10行内容
+def blocks(fobj):
+    block = []
+    counter = 0
+    for line in fobj:
+        block.append(line)
+        counter += 1
+        if counter == 10:
+            yield block  # 返回中间结果，下次取值，从这里继续向下执行
+            block = []
+            counter = 0
+    if block:  # 文件最后不够10行的部分
+        yield block
+
+if __name__ == '__main__':
+    fobj = open('/tmp/passwd')  # cp /etc/passwd /tmp
+    for lines in blocks(fobj):
+        print(lines)
+        print()
+    fobj.close()
+
+
+
+
+
+
+
+

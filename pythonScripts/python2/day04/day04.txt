@@ -1,0 +1,97 @@
+备份程序：
+1、非交互运行
+2、两个功能：完全备份、增量备份
+3、完全备份
+(1) 把整个目录打包
+(2) 生成每个文件的md5值
+(3) 确定备份文件名称 security_full_20190121.tar.gz
+4、增量备份
+(1) 计算当前目录每个文件md5值
+(2) 取出前一天的文件的md5值
+(3) 找出需要备份的文件，进行备份
+(4) 更新md5文件
+
+
+
+192.168.1.1     000C2912890A
+192.168.1.2     525400A8B9D0
+
+:%s/\(..\)\(..\)\(..\)\(..\)\(..\)\(..\)$/\1:\2:\3:\4:\5:\6/
+
+re模块
+>>> import re
+>>> re.match('f..', 'food')  # 匹配到，返回匹配对象
+<_sre.SRE_Match object; span=(0, 3), match='foo'>
+>>> print(re.match('f..', 'seafood'))   # 没匹配到返回None
+None
+>>> m = re.match('f..', 'food')
+>>> m.group()   # 通过匹配对象的group方法，返回匹配到的字符串
+'foo'
+>>> m = re.search('f..', 'seafood')
+>>> m.group()
+'foo'
+
+>>> re.findall('f..', 'seafood is food')
+['foo', 'foo']
+>>> list(re.finditer('f..', 'seafood is food'))
+>>> for m in re.finditer('f..', 'seafood is food'):
+...     m.group()
+
+在匹配量大的时候，可以先把模式进行编译以提升效率
+>>> patt = re.compile('f..')
+>>> m = patt.search('seafood')
+>>> m.group()
+'foo'
+>>> patt.findall('seafood is food')
+['foo', 'foo']
+
+以-和.作用分隔符进行切割
+>>> re.split('-|\.', 'hello-world.tar.gz')
+['hello', 'world', 'tar', 'gz']
+
+替换
+>>> re.sub('X', 'Mr.Smith', 'Hi X. Nice to meet you, X')
+'Hi Mr.Smith. Nice to meet you, Mr.Smith'
+
+排序
+>>> from collections import Counter
+>>> c = Counter()
+>>> c.update(['192.168.20.3'])
+>>> c.update(['192.168.20.3'])
+>>> c.update(['192.168.20.3'])
+>>> c.most_common(3)   # 值最多的前3名
+
+
+python的字符分为str和bytes，默认以utf8进行转换
+>>> hi = 'hello world!'
+>>> type(hi)
+<class 'str'>
+>>> hi.encode()
+b'hello world!'
+>>> hello = hi.encode()
+>>> type(hello)
+<class 'bytes'>
+>>> hello = b'hello world!'   # 英文字符可以直接转成bytes类型
+>>> hi = b'你好'   # 中文字符不方便直接转为bytes类型
+>>> hi = '你好'
+>>> hi.encode()
+b'\xe4\xbd\xa0\xe5\xa5\xbd'
+>>> hello = hi.encode()
+>>> type(hello)
+<class 'bytes'>
+>>> hello.decode()
+'你好'
+
+
+把tcpserv2.py改成oop的形式呈现，将客户端发来的数据，加上时间再发回去
+
+
+
+
+
+
+
+
+
+
+
