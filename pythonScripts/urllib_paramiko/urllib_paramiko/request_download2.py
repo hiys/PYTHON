@@ -76,8 +76,36 @@ pattern        美 [ˈpætərn]
 >>> url.split('/')[-1]
 'test.jpg'
 >>> 
+urllib.request.urlopen(
+         url, data=None, [timeout, ]*, cafile=None, capath=None, 
+         cadefault=False, context=None)
+
+urlopen(url, data=None, proxies=None)
+>>>>>> request = urllib.request.Request(url,headers=header)
+
+>>> html = urllib.request.urlopen(request)
+
+>>> html               #查看响应地址信息
+<http.client.HTTPResponse object at 0x7f61cdff34e0>
+>>> type(html)
+<class 'http.client.HTTPResponse'>
+
+.info() 返回一个httpMessage对象，表示远程服务器的头信息
+
+>>> html.info()          #查看头部信息
+<http.client.HTTPMessage object at 0x7f61cdffef28>
+>>> html.close()  #关闭对象方法
+>>> html.status
+200  获取当前网页的状态码 200代表成功，404网页未找到
+>>> html.readline()
+b''
+>>> import   urllib.error
+>>> urllib.error.
+urllib.error.ContentTooShortError(  urllib.error.URLError(
+urllib.error.HTTPError(             urllib.error.urllib
 >>> 
 """
+
 import  urllib.request
 import  urllib.error
 import  urllib.parse
@@ -90,13 +118,25 @@ def  download(url, fname):
     'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
   }
   request = urllib.request.Request(url,headers=header)
-  html = urllib.request.urlopen(request)
-  with  open(fname, 'wb') as  fobj:
-    while True:
-      data = html.read(1024)
-      if  not data:
-        break
-      fobj.write(data)
+  try:
+    html = urllib.request.urlopen(request, timeout = 1.5)
+  except  urllib.error.URLError as  er:
+    if hasattr(e,"code"):
+      print('状态码 e.code = ', e.code)
+    elif hasattr(e, "reason"):
+      print("异常原因e.reason = ", e.reason)
+  except  ConnectionResetError as ce:
+    print('连接被对等方重置 ce= ', ce)
+    
+  else:  #不发生异常才执行的语句
+    with  open(fname, 'wb') as  fobj:
+      while True:
+        data = html.read(1024)
+        if  not data:
+          break
+        fobj.write(data)
+  finally:    #不管是否异常都会执行的finally 语句
+    html.close() #关闭对象方法
 
 print('============= download(url, fname) ===================\n')
 
@@ -123,8 +163,8 @@ def  urlimg(img_list, img_dir):
     print(fname)
     try:
       download(url, fname)
-    except  urllib.error.HTTPError as he:
-      print('\n------------- error url= ',url, he, sep='\n')
+    except:
+      pass
 
 print('==============  urlimg(imglist, img_dir) ==================\n')
 
@@ -136,22 +176,19 @@ if __name__ == "__main__":
   if not os.path.exists(img_dir):
     os.mkdir(img_dir)
 
-  download('http://www.umei.cc/meinvtupian/xingganmeinv/185526_4.htm', './Test/down1.html')
-  download('http://www.umei.cc/meinvtupian/xingganmeinv/185526_5.htm', './Test/down2.html')
-  download('http://www.umei.cc/meinvtupian/meinvxiezhen/', './Test/down3.html')
-  download('http://www.umei.cc/meinvtupian/xingganmeinv/', './Test/down4.html')
+  download('http://www.umei.cc/meinvtupian/xingganmeinv/185526_6.htm', './Test/down1.html')
+  download('http://www.umei.cc/meinvtupian/xingganmeinv/185526_7.htm', './Test/down2.html')
+  download('http://www.umei.cc/meinvtupian/xingganmeinv/185526_8.htm', './Test/down3.html')
 
   img_pattern = '(https|http)://[\w./-]+\.(jpg|jpeg|gif|png)'  # 编写图片url的正则表达式
 
   img_list1 = search_url('/root/urllib_paramiko/Test/down1.html', img_pattern)
   img_list2 = search_url('/root/urllib_paramiko/Test/down2.html', img_pattern)
   img_list3 = search_url('/root/urllib_paramiko/Test/down3.html', img_pattern)
-  img_list4 = search_url('/root/urllib_paramiko/Test/down4.html', img_pattern)
 
   urlimg(img_list1, img_dir)
   urlimg(img_list2, img_dir)
   urlimg(img_list3, img_dir)
-  urlimg(img_list4, img_dir)
   
     
 

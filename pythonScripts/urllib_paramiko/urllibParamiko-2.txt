@@ -1,0 +1,939 @@
+
+
+nmcli  connection  modify  eth0  ipv4.method  manual  ipv4.addresses 192.168.0.13/24  ipv4.gateway  192.168.0.254  ipv4.dns 192.168.0.254  connection.autoconnect  yes
+nmcli   connection  up   eth0
+
+
+nmcli  connection  modify  eth0  ipv4.method  manual  ipv4.addresses 192.168.0.10/24  ipv4.gateway  192.168.0.254  ipv4.dns 192.168.0.254  connection.autoconnect  yes
+nmcli   connection  up   eth0
+
+
+
+http:超文本传输协议
+客户端发起请求request，服务器响应response。一个请求只能有一个响应。
+请求的方法：
+get：打开浏览器，输入网址；在页面中点击超链接；表单默认的行为也是get。
+post：表单常用的方法，用于上传数据给服务器。比如登陆
+
+状态码：
+200：OK
+3xx：重定向
+4xx：客户端错误
+5xx：服务器内部错误
+
+使用telnet访问web服务
+[root@room8pc16 day01]# telnet 127.0.0.1 80
+GET / HTTP/1.1
+HOST: localhost
+回车
+
+# telnet www.163.com 80
+GET / HTTP/1.1
+HOST: www.163.com
+
+
+下载网易首页
+from urllib import request
+
+html = request.urlopen('http://www.163.com/')
+with open('/tmp/163.html', 'wb') as fobj:
+    while True:
+        data = html.read(1024)
+        if not data:
+            break
+        fobj.write(data)
+下载的页面，如果使用vim打开，中文是乱码。如果用python默认的方式打开，文件读取异常
+原因是默认使用了utf8，但是网易使用的是“简体中文”
+简体中文可以用的字符编码是gb2312、gbk、gb18030，建议使用gbk
+>>> f = open('/tmp/163.html', encoding='gbk')
+>>> f.read()
+>>> f.close()
+
+
+模拟客户端：服务器日志记录中看到的客户端是指定的浏览器
+# vim /var/log/httpd/access_log
+>>> from urllib import request
+>>> header = {'User-agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'}
+>>> r = request.Request('http://127.0.0.1/', headers=header)
+>>> html = request.urlopen(r)
+>>> html.read()
+
+编码：URL中只允许一部字符，其他字符需要编码，比如“亚洲”在URL中的编码是%E4%BA%9A%E6%B4%B2
+https://www.sogou.com/web?query=%E4%BA%9A%E6%B4%B2
+
+>>> url = 'https://www.sogou.com/web?query=%s'
+>>> param = request.quote('中国')
+>>> print(param)
+>>> html = request.urlopen(url % param)
+>>> with open('/tmp/china.html', 'wb') as fobj:
+...     fobj.write(html.read())
+
+
+异常处理
+http://127.0.0.1/abc/   -> 不存在
+http://127.0.0.1/ban/   -> 无权限
+
+wget模块
+[root@room8pc16 day01]# pip3 install wget
+>>> wget.download('https://inews.gtimg.com/newsapp_bt/0/7436169646/641')
+>>> wget.download('https://inews.gtimg.com/newsapp_bt/0/7436169646/641', '/tmp/666.jpeg')
+>>> wget.download('https://inews.gtimg.com/newsapp_bt/0/7436169646/641', '/tmp')
+
+
+管理虚拟机
+# yum install -y libvirt-devel
+# pip3 install python-libvirt
+>>> import libvirt
+>>> kvm = libvirt.open('qemu:///system')
+>>> for vm in kvm.listAllDomains():
+...     print(vm.name())
+>>> vm1 = kvm.listAllDomains()[2]
+>>> vm1.name()
+
+查看本机属性
+# pip3 install psutil
+>>> import psutil
+>>> psutil.sensors_temperatures()   # CPU温度
+>>> psutil.sensors_fans()   # 风扇转速
+>>> psutil.sensors_battery()   # 电池
+>>> import pprint
+>>> pprint.pprint(psutil.sensors_temperatures()['coretemp'])
+>>> psutil.cpu_percent(1)  # 1秒间隔，取出CPU使用率
+>>> psutil.net_if_addrs()
+>>> psutil.net_if_addrs()['enp2s0']   # 名为enp2s0网卡的信息
+>>> psutil.disk_partitions()   # 分区
+>>> root = psutil.disk_partitions()[0]
+>>> root.mountpoint
+>>> root.device
+>>> psutil.virtual_memory()   #　内存
+>>> psutil.net_io_counters()   # 网络数据包收发
+>>> psutil.boot_time()    # 服务器开机时间
+>>> import time
+>>> time.ctime(psutil.boot_time())
+
+
+
+paramiko：实现SSH
+1、安装
+# cd paramiko_pkgs/
+# pip3 install *
+2、创建虚拟机，用于测试
+配置IP和主机名
+
+3、使用
+>>> import paramiko
+>>> ssh = paramiko.SSHClient()
+>>> ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())  # 回答yes
+>>> ssh.connect('192.168.4.3', username='root', password='123456')
+>>> ssh.exec_command('mkdir /tmp/demo')
+>>> ssh.close()
+
+>>> ssh.connect('192.168.4.3', username='root', password='123456')
+>>> result = ssh.exec_command('id root; id zhangsan')
+>>> len(result)
+执行命令的结果有三项，分别是输入、输出和错误的类文件对象
+>>> result[1].read()
+>>> result[2].read()
+
+================================================
+
+
+  	<ul>
+	<li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/194209.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201905/10042/z6c1sa6.jpg" height="270" width="180"><div>欲望少妇情趣黑丝套装大床激情诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/194210.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201905/10040/zc1s5a6.jpg" height="270" width="180"><div>乳摇女神性感大奶修长美腿户外撩人诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/194211.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201905/10038/z6c1s6az.jpg" height="270" width="180"><div>我的绝色美女老婆完美胸型性感泳衣销魂诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/194215.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201905/10035/zc61x5a6.jpg" height="270" width="180"><div>巨乳辣妹泳装湿身大奶翘臀热辣身材博人眼球诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/194165.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201905/14/z6c1sa6.jpg" height="270" width="180"><div>极品混血美女爆乳肥臀性感湿身诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/21376.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201905/16/3gykqywoqbn_3.jpg" height="270" width="180"><div>性感辣妹周妍希制服高跟蕾丝内衣大尺度诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/15637.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201905/10031/liixy0mb1x0_3.jpg" height="270" width="180"><div>日本气质女优伊藤由美酥胸翘臀大尺度性感写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/24440.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201905/10021/zc61sa56z.jpg" height="270" width="180"><div>日本知名AV女优苍井空童颜巨乳居家禁欲大胆诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/194098.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201905/10014/zc1a66.jpg" height="270" width="180"><div>宅男杀手性感吊带白皙美乳撩人红唇诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/15640.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201905/10009/c87a89z.jpg" height="270" width="180"><div>性感足球宝贝火辣身材修长美腿禁欲骚气诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/15578.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201905/5/c8s7a7.jpg" height="270" width="180"><div>淫乱姐妹花巨乳黑丝销魂惹火挑战极限诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/15600.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201905/4/c8a9s78z.jpg" height="270" width="180"><div>lo娘萌萝莉可爱小虎牙性感美腿大胆诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/63545.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201905/10007/c7a87c9a.jpg" height="270" width="180"><div>空姐制服美女黑丝高跟超短裙诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/193919.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201905/10001/c879z9.jpg" height="270" width="180"><div>我的年轻小姨子巨乳桃尻激情销魂诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/193932.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/10426/vva6zx6.jpg" height="270" width="180"><div>寂寞风骚美女豪放巨乳性感内裤大尺度诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/193933.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/10425/z6ca66z.jpg" height="270" width="180"><div>粉红女郎深沟巨乳透明蕾丝裙销魂诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/193900.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/10412/zc1a6.jpg" height="270" width="180"><div>性感美女旗袍黑丝大尺度cos碧蓝航线逸仙诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/193894.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/10409/z6c1s56z.jpg" height="270" width="180"><div>90后美女萝莉童颜巨乳大胆cos路人女主养成写真图片</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/193762.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/10391/c61s5a6z.jpg" height="270" width="180"><div>日本新人模特吊带美腿私密美穴若隐若现大胆诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/193763.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/10390/a61z6c16a.jpg" height="270" width="180"><div>妩媚女神皮裤胸罩豪放巨乳销魂惹火诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/193766.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/10389/1a6zc156a.jpg" height="270" width="180"><div>韩国19禁情色片朋友的年轻巨乳妈妈大床激情中出诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/193774.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/119/a6sa156c.jpg" height="270" width="180"><div>极品素人模特深V巨乳性感美腿翘臀销魂惹火写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/193780.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/118/cas89az.jpg" height="270" width="180"><div>金洲勇士篮球宝贝性感美腿蕾丝内裤销魂惹火写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/28204.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/10381/c1a6z66z.jpg" height="270" width="180"><div>丰满少妇黑丝高跟奔放巨乳酒店大床激情中出诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/30843.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/10375/64c89as.jpg" height="270" width="180"><div>亚裔混血美女爆乳蜜桃臀惹火自拍写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/193526.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/10318/zcsa66.jpg" height="270" width="180"><div>性感巨乳模特兔女郎装黑丝高跟大尺度诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/168434.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/10363/1c6as6.jpg" height="270" width="180"><div>清纯萝莉酥胸吊带修长美腿浴室销魂诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/192249.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/10357/c1as6a6.jpg" height="270" width="180"><div>湿吻女神李宓儿童颜巨乳三点式比基尼喷血诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/62014.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/10352/c6a1s6a.jpg" height="270" width="180"><div>岛国名模圣诞蜜穴丰满巨乳娇艳欲滴诱惑写真</div></a>
+		</li><li>
+			<a href="http://www.umei.cc/meinvtupian/xingganmeinv/193658.htm"  target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/10340/c64a6ad46.jpg" height="270" width="180"><div>放荡尤物火辣身材白玉酥胸大尺度诱惑写真</div></a>
+		</li>
+    </ul>
+  
+
+================================================
+
+[root@room9pc01 html]# ls
+favicon.ico  index.html  xshell6.png  zidir
+
+[root@room9pc01 html]# ls  zidir/
+index.html  test.jpg  x1.jpg  x2.jpg
+
+[root@room9pc01 html]# systemctl  is-enabled  httpd
+enabled
+[root@room9pc01 html]# systemctl  is-active   httpd
+active
+[root@room9pc01 html]# vim   /var/www/html/index.html 
+[root@room9pc01 html]# vim   /var/www/html/index.html 
+[root@room9pc01 html]# cat   -n   /var/www/html/index.html
+     1	<!DOCTYPE html>
+     2	<!--STATUS OK-->
+     3	<html lang="zh-CN">
+     4	 <head>
+     5	  <meta charset="UTF-8">
+     6	  <link rel="icon" href="./favicon.ico">
+     7	  <title>Title标题</title>
+     8	 </head>
+     9	 <body>
+    10	  <div>
+    11	   <a  href="./xshell6.png" target="_blank">_blank点击xshell6.png</a>
+    12	   <a  href="javascript:alert('这是弹出对话框的内容');">点击链接</a>
+    13	   </hr>
+    14	  </div>
+    15	  <form action="/login" method="post">
+    16	   <input name="username">
+    17	   <input name="password">
+    18	   <button type="submit">提交submit</button>
+    19	  </form>
+    20	  <div>
+    21	   <a  href="./zidir/test.jpg" target="_top">
+    22	    <img  src="http://127.0.0.1/zidir/test.jpg" width='200px'/>点击链接图片_top
+    23	   </a>
+    24	  </div>
+    25	  <div>
+    26	   <a  href="./zidir/x1.jpg" target="_top">
+    27	    <img  src="http://127.0.0.1/zidir/x1.jpg" width='200px'/>点击链接图片_top
+    28	   </a>
+    29	  </div>
+    30	  <div>
+    31	   <a  href="./zidir/x2.jpg" target="_top">
+    32	    <img  src="http://127.0.0.1/zidir/x2.jpg" width='200px'/>点击链接图片_top
+    33	   </a>
+    34	  </div>
+    35	</body>
+    36	</html>
+    37	
+    38	
+[root@room9pc01 html]# cat   -n   /var/www/html/zidir/index.html
+     1	hello I am  zidir
+[root@room9pc01 html]# ls  
+favicon.ico  index.html  xshell6.png  zidir
+[root@room9pc01 html]# eog  favicon.ico 
+^C
+[root@room9pc01 html]# eog  xshell6.png 
+^C
+[root@room9pc01 html]# ls   zidir/
+index.html  test.jpg  x1.jpg  x2.jpg
+[root@room9pc01 html]# eog   zidir/test.jpg 
+
+(eog:6155): EOG-WARNING **: 打开文件“/root/.cache/thumbnails/normal/4ed849c676fe83d529532c48f7756bf3.png”失败：没有那个文件或目录
+[root@room9pc01 html]# eog   zidir/x1.jpg 
+
+(eog:6175): EOG-WARNING **: 打开文件“/root/.cache/thumbnails/normal/3341c7ae3bd50e21ebdd8124409bf100.png”失败：没有那个文件或目录
+[root@room9pc01 html]# eog   zidir/x2.jpg 
+
+(eog:6201): EOG-WARNING **: 打开文件“/root/.cache/thumbnails/normal/2cdae19a189d19860f59d458c77316c6.png”失败：没有那个文件或目录
+[root@room9pc01 html]# 
+
+[root@room9pc01 html]# elinks   -dump   http://127.0.0.1
+   [1]_blank点击xshell6.png [2]点击链接
+   [3]_____________________ [4]_____________________ [5]提交submit
+   [6][IMG][7]点击链接图片_top
+   [8][IMG][9]点击链接图片_top
+   [10][IMG][11]点击链接图片_top
+
+References
+
+   Visible links
+   1. http://127.0.0.1/xshell6.png
+   2. javascript:alert('这是弹出对话框的内容');
+   6. http://127.0.0.1/zidir/test.jpg
+   7. http://127.0.0.1/zidir/test.jpg
+   8. http://127.0.0.1/zidir/x1.jpg
+   9. http://127.0.0.1/zidir/x1.jpg
+  10. http://127.0.0.1/zidir/x2.jpg
+  11. http://127.0.0.1/zidir/x2.jpg
+[root@room9pc01 html]# elinks   -dump   http://127.0.0.1/zidir
+                                   Forbidden
+
+   You don't have permission to access /zidir/index.html on this server.
+
+[root@room9pc01 html]# chmod  -R 777 zidir/
+
+[root@room9pc01 html]# ls  -l   zidir/
+总用量 352
+-rwxrwxrwx 1 root root     18 5月   6 17:14 index.html
+-rwxrwxrwx 1 root root  70416 5月   7 09:13 test.jpg
+-rwxrwxrwx 1 root root  49797 5月   7 09:13 x1.jpg
+-rwxrwxrwx 1 root root 227704 5月   7 09:13 x2.jpg
+[root@room9pc01 html]# elinks   -dump   http://127.0.0.1/zidir/index.html
+   hello I am zidir
+[root@room9pc01 html]# elinks   -dump   http://127.0.0.1/zidir
+   hello I am zidir
+[root@room9pc01 html]# 
+
+
+
+import   re, os
+patt = 'http://[\w./-]+\.(jpg|jpeg|gif|png)'
+img_dir = '/root/urllib_paramiko/Test/imgs'
+def  mkimgdir():
+  if not os.path.exists(img_dir):
+    os.mkdir(img_dir)
+
+mkimgdir()
+fname = '/var/www/html/index.html'
+
+def  search_url(fname, patt):
+  cpatt = re.compile(patt)
+  resultlist = []
+  with  open(fname) as fobj:
+    for  line   in  fobj:
+      match_objs = cpatt.search(line)
+      print(match_objs, type(match_objs))
+      if  match_objs:
+        url = match_objs.group()
+        resultlist.append(url)
+        print(resultlist)
+  return  resultlist
+
+print(search_url(fname, patt))
+
+
+[root@room9pc01 html]# python3
+Python 3.6.7 (default, Apr 28 2019, 20:32:58) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   re, os
+>>> patt = 'http://[\w./-]+\.(jpg|jpeg|gif|png)'
+>>> img_dir = '/root/urllib_paramiko/Test/imgs'
+>>> def  mkimgdir():
+...   if not os.path.exists(img_dir):
+...     os.mkdir(img_dir)
+... 
+>>> mkimgdir()
+>>> fname = '/var/www/html/index.html'
+>>> 
+>>> def  search_url(fname, patt):
+...   cpatt = re.compile(patt)
+...   resultlist = []
+...   with  open(fname) as fobj:
+...     for  line   in  fobj:
+...       match_objs = cpatt.search(line)
+...       print(match_objs, type(match_objs))
+...       if  match_objs:
+...         url = match_objs.group()
+...         resultlist.append(url)
+...         print(resultlist)
+...   return  resultlist
+... 
+>>> print(search_url(fname, patt))
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+<_sre.SRE_Match object; span=(15, 46), match='http://127.0.0.1/zidir/test.jpg'> <class '_sre.SRE_Match'>
+['http://127.0.0.1/zidir/test.jpg']
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+<_sre.SRE_Match object; span=(15, 44), match='http://127.0.0.1/zidir/x1.jpg'> <class '_sre.SRE_Match'>
+['http://127.0.0.1/zidir/test.jpg', 'http://127.0.0.1/zidir/x1.jpg']
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+<_sre.SRE_Match object; span=(15, 44), match='http://127.0.0.1/zidir/x2.jpg'> <class '_sre.SRE_Match'>
+['http://127.0.0.1/zidir/test.jpg', 'http://127.0.0.1/zidir/x1.jpg', 'http://127.0.0.1/zidir/x2.jpg']
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+None <class 'NoneType'>
+['http://127.0.0.1/zidir/test.jpg', 'http://127.0.0.1/zidir/x1.jpg', 'http://127.0.0.1/zidir/x2.jpg']
+>>> 
+
+import  os
+imglist = ['http://127.0.0.1/zidir/test.jpg', 'http://127.0.0.1/zidir/x1.jpg', 'http://127.0.0.1/zidir/x2.jpg']
+
+img_dir = '/root/urllib_paramiko/Test/imgs'
+if not os.path.exists(img_dir):
+  os.mkdir(img_dir)
+
+def  urlimg(imglist, img_dir):
+  for url  in  imglist:
+    fname = url.split('/')[-1]   # 取出网址中的文件名
+    fname = os.path.join(img_dir, fname) # 拼接本地文件绝对路径
+    print(fname)
+
+urlimg(imglist, img_dir)
+
+[root@room9pc01 urllib_paramiko]# python3
+Python 3.6.7 (default, Apr 28 2019, 20:32:58) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import  os
+>>> imglist = ['http://127.0.0.1/zidir/test.jpg', 'http://127.0.0.1/zidir/x1.jpg', 'http://127.0.0.1/zidir/x2.jpg']
+>>> 
+>>> img_dir = '/root/urllib_paramiko/Test/imgs'
+>>> if not os.path.exists(img_dir):
+...   os.mkdir(img_dir)
+... 
+>>> def  urlimg(imglist, img_dir):
+...   for url  in  imglist:
+...     fname = url.split('/')[-1]   # 取出网址中的文件名
+...     fname = os.path.join(img_dir, fname) # 拼接本地文件绝对路径
+...     print(fname)
+... 
+>>> urlimg(imglist, img_dir)
+/root/urllib_paramiko/Test/imgs/test.jpg
+/root/urllib_paramiko/Test/imgs/x1.jpg
+/root/urllib_paramiko/Test/imgs/x2.jpg
+>>> 
+
+
+
+[root@room9pc01 html]# vim   /var/www/html/index.html
+
+[root@room9pc01 urllib_paramiko]# pwd
+/root/urllib_paramiko
+[root@room9pc01 urllib_paramiko]# ls
+request_download.py  request_quote.py  request_testdown.py  request_urlopen.py  Test
+[root@room9pc01 urllib_paramiko]# ls  Test/
+baidutest.html  test.jpg  x1.jpg  x2.jpg
+[root@room9pc01 urllib_paramiko]# vim  request_testdown.py 
+
+[root@room9pc01 urllib_paramiko]# python3   request_testdown.py
+__name__ is __main__
+============= download(url, fname) ===================
+
+============ search_url(fname, patt) ====================
+
+==============  urlimg(imglist, img_dir) ==================
+
+sys.argv is ['request_testdown.py']
+[root@room9pc01 urllib_paramiko]# 
+
+
+[root@room9pc01 ~]# cd   urllib_paramiko/
+[root@room9pc01 urllib_paramiko]# vim   request_download.py 
+[root@room9pc01 urllib_paramiko]# ls
+request_download.py  request_testdown.py  Test
+request_quote.py     request_urlopen.py
+[root@room9pc01 urllib_paramiko]# ls  Test/
+baidutest.html  down.html  test.jpg  x1.jpg  x2.jpg
+[root@room9pc01 urllib_paramiko]# python3   request_download.py 
+
+__name__ is __main__
+============= download(url, fname) ===================
+
+============ search_url(fname, patt) ====================
+
+==============  urlimg(imglist, img_dir) ==================
+
+sys.argv is ['request_download.py']
+/root/urllib_paramiko/Test/peris/08ce255497.jpg
+/root/urllib_paramiko/Test/peris/ca61s6.jpg
+....................
+/root/urllib_paramiko/Test/peris/a0998876eb_555.jpg
+Traceback (most recent call last):
+  File "request_download.py", line 154, in <module>
+    urlimg(img_list4, img_dir)
+  File "request_download.py", line 125, in urlimg
+    download(url, fname)
+  File "request_download.py", line 93, in download
+    html = urllib.request.urlopen(request)
+  File "/usr/local/lib/python3.6/urllib/request.py", line 223, in urlopen
+    return opener.open(url, data, timeout)
+.......................................
+  File "/usr/local/lib/python3.6/socket.py", line 586, in readinto
+    return self._sock.recv_into(b)
+ConnectionResetError: [Errno 104] Connection reset by peer
+[root@room9pc01 urllib_paramiko]# 
+
+
+
+  File "request_download.py", line 93, in download
+    html = urllib.request.urlopen(request)
+
+
+ html = urllib.request.urlopen(request)
+
+ConnectionResetError: [Errno 104] Connection reset by peer
+
+
+>>> import   urllib.error
+>>> urllib.error.
+urllib.error.ContentTooShortError(  urllib.error.URLError(
+urllib.error.HTTPError(             urllib.error.urllib
+>>> 
+
+urllib.error.URLError
+由字面可知该错误是由于无法进行SSL验证所致
+[root@room9pc01 urllib_paramiko]# vim    request_download2.py
+
+>>> import urllib.request
+>>> import   urllib.error
+
+>>> url = 'http://127.0.0.1/'
+>>> header = {
+...   'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+... }
+>>> request = urllib.request.Request(url,headers=header)
+
+>>> html = urllib.request.urlopen(request)
+
+>>> html               #查看响应地址信息
+<http.client.HTTPResponse object at 0x7f61cdff34e0>
+>>> type(html)
+<class 'http.client.HTTPResponse'>
+
+
+.info() 返回一个httpMessage对象，表示远程服务器的头信息
+
+>>> html.info()          #查看头部信息
+<http.client.HTTPMessage object at 0x7f61cdffef28>
+
+>>> html.getheader
+html.getheader(   html.getheaders( 
+ 
+>>> html.getheaders()  #查看头部信息
+
+[('Date', 'Tue, 07 May 2019 07:16:14 GMT'), ('Server', 'Apache/2.4.6 (CentOS)'), ('Last-Modified', 'Tue, 07 May 2019 04:06:13 GMT'), ('ETag', '"25a2-588445673e1f1"'), ('Accept-Ranges', 'bytes'), ('Content-Length', '9634'), ('Connection', 'close'), ('Content-Type', 'text/html; charset=UTF-8')]
+>>>
+
+>>> html.getheader("Server")  #输出头部属性信息
+'Apache/2.4.6 (CentOS)'
+>>> 
+>>> html.status  #查看响应状态信息
+200
+获取当前网页的状态码 200代表成功，404网页未找到
+
+>>> html.getcode()  #查看响应状态信息
+200
+>>> html.geturl()   #查看响应 url 地址
+'http://127.0.0.1/'
+
+>>> html.readline()
+b'<!DOCTYPE html>\n'
+
+>>> html.readline()
+b'<!--STATUS OK-->\n'
+
+>>> html.readline()
+b'<html lang="zh-CN">\n'
+
+>>> html.readline()
+b' <head>\n'
+
+>>> html.readline()
+b'  <meta charset="UTF-8">\n'
+
+>>> html.readline()
+b'  <link rel="icon" href="./favicon.ico">\n'
+
+>>> html.readline().decode('utf-8')  #输出网页源码
+'  <title>Title标题</title>\n'
+>>> html.fileno()
+3
+>>> html.fileno()
+3
+>>> html.status
+200
+>>> html.close
+html.close(  html.closed  
+>>> html.close()  #关闭对象方法
+>>> html.status
+200
+>>> html.readline()
+b''
+
+#关于 timeout 参数
+timeout参数可以设置超时时间，单位为秒，
+意思就是如果请求超出了设置的这个时间还没有得到响应，
+就会抛出异常，
+如果不指定，就会使用全局默认时间。
+它支持 HTTP 、 HTTPS 、 FTP 请求
+>>> #设置这个超长时间来控制一个网页如果长时间未响应就跳过它的抓取
+>>> html = urllib.request.urlopen(request, timeout = 2)
+>>> 
+
+[root@room9pc01 urllib_paramiko]# vim  request_download2.py 
+[root@room9pc01 urllib_paramiko]# python3   request_download2.py
+__name__ is __main__
+============= download(url, fname) ===================
+
+============ search_url(fname, patt) ====================
+
+==============  urlimg(imglist, img_dir) ==================
+
+sys.argv is ['request_download2.py']
+/root/urllib_paramiko/Test/peris/e4cf65cdf3.jpg
+/root/urllib_paramiko/Test/peris/ca61s6.jpg
+.................
+
+[root@room9pc01 urllib_paramiko]# type  virt-manager 
+virt-manager 是 /usr/bin/virt-manager
+
+[root@room9pc01 urllib_paramiko]# rpm  -qf  /usr/bin/virt-manager 
+virt-manager-1.4.1-7.el7.noarch
+
+[root@room9pc01 urllib_paramiko]# virsh  start  V1
+域 V1 已开始
+
+[root@room9pc01 urllib_paramiko]# virsh  start  V2
+域 V2 已开始
+
+[root@room9pc01 urllib_paramiko]# virsh  list
+ Id    名称                         状态
+----------------------------------------------------
+ 1     V0                             running
+ 2     V1                             running
+ 3     V2                             running
+
+[root@room9pc01 urllib_paramiko]# 
+
+===============================
+
+[root@room9pc01 urllib_paramiko]# arp  -n  192.168.0.10
+Address                  HWtype  HWaddress           Flags Mask            Iface
+192.168.0.10             ether   52:54:00:fc:35:8b   C                     vbr
+
+[root@room9pc01 urllib_paramiko]# arp  -n  192.168.0.11
+Address                  HWtype  HWaddress           Flags Mask            Iface
+192.168.0.11             ether   52:54:00:b7:d2:89   C                     vbr
+
+[root@room9pc01 urllib_paramiko]# arp  -n  192.168.0.12
+Address                  HWtype  HWaddress           Flags Mask            Iface
+192.168.0.12             ether   52:54:00:b9:1a:9f   C                     vbr
+
+
+[root@room9pc01 urllib_paramiko]# arp  -n  192.168.0.10 |sed 1d
+
+192.168.0.10             ether   52:54:00:fc:35:8b   C                     vbr
+
+[root@room9pc01 urllib_paramiko]# arp  -n  192.168.0.10 |sed 1d |awk '{print  $3}'
+52:54:00:fc:35:8b
+
+
+[root@room9pc01 urllib_paramiko]# pip3  install  paramiko
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting paramiko
+  Downloading http://pypi.doubanio.com/packages/cf/.....................
+
+Installing collected packages: pycparser, cffi, six, pynacl, asn1crypto, cryptography, pyasn1, bcrypt, paramiko
+  Running setup.py install for pycparser ... done
+Successfully installed asn1crypto-0.24.0 bcrypt-3.1.6 cffi-1.12.3 cryptography-2.6.1 paramiko-2.4.2 pyasn1-0.4.5 pycparser-2.19 pynacl-1.3.0 six-1.12.0
+
+[root@room9pc01 urllib_paramiko]# pip3.6  freeze
+asn1crypto==0.24.0
+bcrypt==3.1.6
+certifi==2019.3.9
+cffi==1.12.3
+chardet==3.0.4
+cryptography==2.6.1
+Django==1.11.20
+idna==2.8
+paramiko==2.4.2
+pyasn1==0.4.5
+pycparser==2.19
+PyMySQL==0.9.3
+PyNaCl==1.3.0
+pytz==2019.1
+requests==2.21.0
+six==1.12.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+[root@room9pc01 urllib_paramiko]# 
+
+[root@V0 ~]# python3
+Python 3.6.7 (default, Apr 28 2019, 20:32:23) 
+[GCC 8.1.0] on linux    #注意这里的GCC 版本 [GCC 8.1.0]
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+
+[root@room9pc01 urllib_paramiko]# python3
+
+Python 3.6.7 (default, Apr 28 2019, 20:32:58) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux   #注意这里的GCC 版本4.8.5 
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import   paramiko
+>>> ssh = paramiko.SSHC
+paramiko.SSHClient(  paramiko.SSHConfig(  
+
+>>> ssh = paramiko.SSHClient()  #创建用于连接ssh服务器的实例
+>>> ssh
+<paramiko.client.SSHClient object at 0x7fd0964e4cf8>
+>>> type(ssh)
+<class 'paramiko.client.SSHClient'>
+
+>>> pkAP = paramiko.AutoAddPolicy()  设置自动添加主机密钥
+
+>>> pkAP
+<paramiko.client.AutoAddPolicy object at 0x7fd09655ed30>
+>>> type(pkAP)
+<class 'paramiko.client.AutoAddPolicy'>
+
+>>> ssh.set_missing_host_key_policy(pkAP) #回答yes
+>>> ssh.set_missing_host_key_policy('192.168.0.13',username='root', password='1')
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: set_missing_host_key_policy() got an unexpected keyword argument 'username'
+>>> 
+类型错误：set_missing_host_key_policy（）得到意外的关键字参数'username'
+>>> ssh.connect('192.168.0.13',username='root', password='1')
+..............
+    retry_on_signal(lambda: sock.connect(addr))
+TimeoutError: [Errno 110] Connection timed out
+>>> 
+
+[root@V3 ~]# echo 1 |passwd  --stdin  root
+更改用户 root 的密码 。
+passwd：所有的身份验证令牌已经成功更新。
+[root@V3 ~]# 
+
+[root@room9pc01 urllib_paramiko]# pip3 freeze >  freezepkg.txt
+[root@room9pc01 urllib_paramiko]# cat   freezepkg.txt
+asn1crypto==0.24.0
+bcrypt==3.1.6
+certifi==2019.3.9
+cffi==1.12.3
+chardet==3.0.4
+cryptography==2.6.1
+Django==1.11.20
+idna==2.8
+paramiko==2.4.2
+pyasn1==0.4.5
+pycparser==2.19
+PyMySQL==0.9.3
+PyNaCl==1.3.0
+pytz==2019.1
+requests==2.21.0
+six==1.12.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+[root@room9pc01 urllib_paramiko]# 
+
+
+import   paramiko
+ssh = paramiko.SSHClient()  #创建用于连接ssh服务器的实例
+ssh
+type(ssh)
+pkAP = paramiko.AutoAddPolicy()  #设置自动添加主机密钥
+pkAP
+type(pkAP)
+ssh.set_missing_host_key_policy(pkAP)
+ssh.connect('192.168.0.12',username='root', password='1')
+
+
+[root@room9pc01 urllib_paramiko]# python3
+Python 3.6.7 (default, Apr 28 2019, 20:32:58) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-16)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   paramiko
+>>> ssh = paramiko.SSHClient()  #创建用于连接ssh服务器的实例#创建sshclient
+>>> ssh
+<paramiko.client.SSHClient object at 0x7f79e1c77d30>
+>>> type(ssh)
+<class 'paramiko.client.SSHClient'>
+>>> pkAP = paramiko.AutoAddPolicy()  #设置自动添加主机密钥
+>>> pkAP
+<paramiko.client.AutoAddPolicy object at 0x7f79e1c015f8>
+>>> type(pkAP)
+<class 'paramiko.client.AutoAddPolicy'>
+
+#目的是接受不在本地Known_host文件下的主机。# ll  ~/.ssh/known_hosts 
+-rw-r--r-- 1 root root 2059 5月   7 18:05 /root/.ssh/known_hosts
+
+>>> ssh.set_missing_host_key_policy(pkAP)
+
+            #连接ssh服务器
+>>> ssh.connect('192.168.0.12',username='root', password='1')
+
+/usr/local/lib/python3.6/site-packages/paramiko/kex_ecdh_nist.py:39:
+
+ CryptographyDeprecationWarning: encode_point has been deprecated on EllipticCurvePublicNumbers and will be removed in a future version. Please use EllipticCurvePublicKey.public_bytes to obtain both compressed and uncompressed point encoding.
+密码预防警告：在ellipticcurvepublicNumbers上已弃用编码点，将在未来版本中删除。请使用ellipticcurvepublickey.public_字节获取压缩和未压缩的点编码。
+
+  m.add_string(self.Q_C.public_numbers().encode_point())
+
+/usr/local/lib/python3.6/site-packages/paramiko/kex_ecdh_nist.py:96:
+
+ CryptographyDeprecationWarning: Support for unsafe construction of public numbers from encoded data will be removed in a future version. Please use
+密码预防警告：将来版本中将删除对编码数据中公共编号不安全构造的支持。请使用
+
+ EllipticCurvePublicKey.from_encoded_point
+  self.curve, Q_S_bytes
+
+/usr/local/lib/python3.6/site-packages/paramiko/kex_ecdh_nist.py:111:
+
+ CryptographyDeprecationWarning: encode_point has been deprecated on EllipticCurvePublicNumbers and will be removed in a future version. Please use EllipticCurvePublicKey.public_bytes to obtain both compressed and uncompressed point encoding.
+:密码预防警告：Encode_Point已在EllipticCurvePublicNumbers上弃用，将在未来版本中删除。
+请使用ellipticcurvepublickey.public_bytes 获取压缩和未压缩的点编码。
+
+  hm.add_string(self.Q_C.public_numbers().encode_point())
+
+>>> 
+>>> ssh.exec_command('mkdir /root/newzidir')   #在ssh服务器上执行指定命令
+
+(<paramiko.ChannelFile from <paramiko.Channel 0 (open) window=2097152 -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 1 open channel(s))>>>, <paramiko.ChannelFile from <paramiko.Channel 0 (open) window=2097152 -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 1 open channel(s))>>>, <paramiko.ChannelFile from <paramiko.Channel 0 (open) window=2097152 -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 1 open channel(s))>>>)
+
+>>> 
+>>> result = ssh.exec_command('id lisi')
+>>> result
+(<paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>, <paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>, <paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>)
+>>> type(result)
+<class 'tuple'>
+>>> 
+
+
+[root@room9pc01 urllib_paramiko]# ssh  -X  192.168.0.12
+...................
+[root@V2 ~]# ls  -ld  newzidir/
+drwxr-xr-x 2 root root 6 5月   7 19:10 newzidir/
+
+import   paramiko
+ssh = paramiko.SSHClient()   #创建用于连接ssh服务器的实例#创建sshclient
+ssh
+type(ssh)
+pkAP = paramiko.AutoAddPolicy()  #设置自动添加主机密钥
+pkAP
+type(pkAP)
+ssh.set_missing_host_key_policy(pkAP)   #回答连接yes#接受不在本地 ~/.ssh/known_hosts文件下的主机ip地址
+
+ssh.connect('192.168.0.12',username='root', password='1')  #连接ssh服务器
+
+ ssh.exec_command('mkdir /root/newzidir')   #在ssh服务器上执行指定命令
+
+>>> result = ssh.exec_command('id lisi')   #在ssh服务器上执行指定命令
+>>> type(result)
+<class 'tuple'>
+>>> result = ssh.exec_command('id lisi')
+
+>>> result
+ #元组中的三项分别代表 标准输入, 标准输出, 标准错误, 都是 类文件对象
+(<paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>,
+
+ <paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>,
+
+ <paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>)
+>>> 
+]# ssh  -X  192.168.0.12
+[root@V2 ~]# id  lisi
+uid=1000(lisi) gid=1000(lisi) 组=1000(lisi)
+[root@V2 ~]# ls  -ld  newzidir/
+drwxr-xr-x 2 root root 6 5月   7 19:10 newzidir/
+
+>>> result[0]
+<paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>
+>>> result[1]
+<paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>
+
+>>> result[2]
+<paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>
+
+>>> type(result[2])    # 标准错误, 类文件对象
+<class 'paramiko.channel.ChannelStderrFile'>
+
+>>> type(result[1])     #标准输出 类文件对象
+<class 'paramiko.channel.ChannelFile'>
+
+>>> type(result[0])       #标准输入  类文件对象
+<class 'paramiko.channel.ChannelFile'>
+>>> 
+>>> result[1].read()
+b'uid=1000(lisi) gid=1000(lisi) \xe7\xbb\x84=1000(lisi)\n'
+>>>
+>>> 
+>>> len(result[1].read())
+0
+>>> result[1].read()
+b''
+>>> result = ssh.exec_command('id lisi')
+>>> xb = result[1].read()   #标准输出 类文件对象
+>>> xb
+b'uid=1000(lisi) gid=1000(lisi) \xe7\xbb\x84=1000(lisi)\n'
+>>> len(xb)
+45
+>>> result = ssh.exec_command('id peri')
+>>> xb = result[2].read()  # 标准错误, 类文件对象
+>>> xb
+b'id: peri: no such user\n'
+>>> len(xb)
+23
+>>> 
+>>> xb.decode('utf8')
+'id: peri: no such user\n'
+>>> 
+
+[root@room9pc01 ~]# \cp   -r   urllib_paramiko/  '/var/git/PYTHON/pythonScripts/urllib_paramiko' 
+
+
+
+
+

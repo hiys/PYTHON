@@ -896,28 +896,729 @@ __name__ is __main__
 TypeError: 'NoneType' object is not iterable
 
 
+<_sre.SRE_Match object; span=(15, 46), match='http://127.0.0.1/zidir/test.jpg'> <class '_sre.SRE_Match'>
+
+
+  File "<stdin>", line 7, in search_url
+TypeError: '_sre.SRE_Match' object is not iterable
+
+类型错误：“sre.sre_match”对象不可重复
 
 
 
+>>> if  match_objs:
+...   print(match_objs)
+... 
+<_sre.SRE_Match object; span=(110, 166), match='http://i1.whymtj.com/uploads/tu/201904/10352/c6a1>
+>>> for  m  in  match_objs:
+...   print(m)
+... 
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: '_sre.SRE_Match' object is not iterable
+>>> 
+
+类型错误：“sre.sre_match”对象不可重复
+>>> 
+
+iterable
+可迭代的;可重复的;迭代的
+
+
+import   re
+patt = 'http://[\w./-]+\.(jpg|jpeg|gif|png)'
+cpatt = re.compile(patt)
+
+line='<a href="http://www.umei.cc/meinvtupian/xingganmeinv/62014.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/10352/c6a1s6a.jpg" height="270" width="180"><div>岛国名模圣诞蜜穴丰满巨乳娇艳欲滴诱惑写真</div></a>'
+
+match_objs = cpatt.search(line)
+print(match_objs, type(match_objs))
+
+>>> import   re
+>>> patt = 'http://[\w./-]+\.(jpg|jpeg|gif|png)'
+>>> cpatt = re.compile(patt)
+>>> 
+>>> line='<a href="http://www.umei.cc/meinvtupian/xingganmeinv/62014.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/10352/c6a1s6a.xxxx" height="270" width="180"><div>岛国名模圣诞蜜穴丰满巨乳娇艳欲 滴诱惑写真</div></a>'
+
+>>> match_objs = cpatt.search(line)
+>>> print(match_objs, type(match_objs))
+None <class 'NoneType'>
+>>> 
+
+>>> line='<a href="http://www.umei.cc/meinvtupian/xingganmeinv/62014.htm" class="TypeBigPics" target="_blank"><img src="http://i1.whymtj.com/uploads/tu/201904/10352/c6a1s6a.jpg" height="270" width="180"><div>岛国名模圣诞蜜穴丰满巨乳娇艳欲滴诱惑写真</div></a>'
+>>> 
+>>> match_objs = cpatt.search(line)
+>>> print(match_objs, type(match_objs))
+<_sre.SRE_Match object; span=(110, 166), match='http://i1.whymtj.com/uploads/tu/201904/10352/c6a1> <class '_sre.SRE_Match'>
+>>> 
+>>> if  match_objs:
+...   print(match_objs)
+... 
+<_sre.SRE_Match object; span=(110, 166), match='http://i1.whymtj.com/uploads/tu/201904/10352/c6a1>
+>>> for  m  in  match_objs:
+...   print(m)
+... 
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: '_sre.SRE_Match' object is not iterable
+>>> 
+
+urllib.error.ContentTooShortError
+
+是ssl验证的问题，验证不同过就会报此错误，python3 Urllib的解决方法,导入ssl模块
+
+    import ssl
+    ssl._create_default_https_context = ssl._create_unverified_context
+
+ requests的解决方法
+
+res = requests.get('https://images.ptausercontent.com/16', verify=False)
+
+URLError和HTTPError混合使用
+
+    最后值得注意的一点是，如果想用HTTPError和URLError一起捕获异常，那么需要将HTTPError放在URLError的前面，因为HTTPError是URLError的一个子类。如果URLError放在前面，出现HTTP异常会先响应URLError，这样HTTPError就捕获不到错误信息了。
+
+如果不用上面的方法，也可以使用hasattr函数判断URLError含有的属性，如果含有reason属性表明是URLError，如果含有code属性表明是HTTPError。创建文件urllib_test08.py，编写代码如下：
+
+# -*- coding: UTF-8 -*-
+from urllib import request
+from urllib import error
+
+if __name__ == "__main__":
+    #一个不存在的连接
+    url = "http://www.douyu.com/Jack_Cui.html"
+    req = request.Request(url)
+    try:
+        responese = request.urlopen(req)
+    except error.URLError as e:
+        if hasattr(e, 'code')
+            print("HTTPError")
+            print(e.code)
+        elif hasattr(e, 'reason')
+            print("URLError")
+            print(e.reason)
+
+
+https://cloud.tencent.com/act/weapp?fromSource=gwzcw.2217730.2217730.2217730&utm_medium=cpc&utm_id=gwzcw.2217730.2217730.2217730&gclid=EAIaIQobChMIzte6id-I4gIViDNgCh3LxAmBEAEYASAAEgLQ7fD_BwE
+
+
+>>> import   urllib.error
+>>> urllib.error.
+urllib.error.ContentTooShortError(  urllib.error.URLError(
+urllib.error.HTTPError(             urllib.error.urllib
+>>> urllib.error.urllib.
+urllib.error.urllib.error     urllib.error.urllib.response
+>>> import  urllib.request
+>>> urllib.request.re
+urllib.request.re             urllib.request.request_host(
+>>> urllib.request.
+urllib.request.AbstractBasicAuthHandler(
+urllib.request.AbstractDigestAuthHandler(
+urllib.request.AbstractHTTPHandler(
+urllib.request.BaseHandler(
+urllib.request.CacheFTPHandler(
+urllib.request.ContentTooShortError(
+urllib.request.DataHandler(
+urllib.request.FTPHandler(
+urllib.request.FancyURLopener(
+urllib.request.FileHandler(
+urllib.request.HTTPBasicAuthHandler(
+urllib.request.HTTPCookieProcessor(
+urllib.request.HTTPDefaultErrorHandler(
+urllib.request.HTTPDigestAuthHandler(
+urllib.request.HTTPError(
+urllib.request.HTTPErrorProcessor(
+urllib.request.HTTPHandler(
+urllib.request.HTTPPasswordMgr(
+urllib.request.HTTPPasswordMgrWithDefaultRealm(
+urllib.request.HTTPPasswordMgrWithPriorAuth(
+urllib.request.HTTPRedirectHandler(
+urllib.request.HTTPSHandler(
+urllib.request.MAXFTPCACHE
+urllib.request.OpenerDirector(
+urllib.request.ProxyBasicAuthHandler(
+urllib.request.ProxyDigestAuthHandler(
+urllib.request.ProxyHandler(
+urllib.request.Request(
+urllib.request.URLError(
+urllib.request.URLopener(
+urllib.request.UnknownHandler(
+urllib.request.addclosehook(
+urllib.request.addinfourl(
+urllib.request.base64
+urllib.request.bisect
+urllib.request.build_opener(
+urllib.request.collections
+urllib.request.contextlib
+urllib.request.email
+urllib.request.ftpcache
+urllib.request.ftperrors(
+urllib.request.ftpwrapper(
+urllib.request.getproxies(
+urllib.request.getproxies_environment(
+urllib.request.hashlib
+urllib.request.http
+urllib.request.install_opener(
+urllib.request.io
+urllib.request.localhost(
+urllib.request.noheaders(
+urllib.request.os
+urllib.request.parse_http_list(
+urllib.request.parse_keqv_list(
+urllib.request.pathname2url(
+urllib.request.posixpath
+urllib.request.proxy_bypass(
+urllib.request.proxy_bypass_environment(
+urllib.request.quote(
+urllib.request.re
+urllib.request.request_host(
+urllib.request.socket
+urllib.request.splitattr(
+urllib.request.splithost(
+urllib.request.splitpasswd(
+urllib.request.splitport(
+urllib.request.splitquery(
+urllib.request.splittag(
+urllib.request.splittype(
+urllib.request.splituser(
+urllib.request.splitvalue(
+urllib.request.ssl
+urllib.request.string
+urllib.request.sys
+urllib.request.tempfile
+urllib.request.thishost(
+urllib.request.time
+urllib.request.to_bytes(
+urllib.request.unquote(
+urllib.request.unquote_to_bytes(
+urllib.request.unwrap(
+urllib.request.url2pathname(
+urllib.request.urlcleanup(
+urllib.request.urljoin(
+urllib.request.urlopen(
+urllib.request.urlparse(
+urllib.request.urlretrieve(
+urllib.request.urlsplit(
+urllib.request.urlunparse(
+urllib.request.warnings
+
+
+urllib.parse.urlencode()函数接受一个映射或序列集合,
+并返回一个ASCII文本字符串的格式。
+它应该在被用作数据参数之前，被编码为字节。
+
+
+直接使用 urllib.request 模块中的 urlopen方法获取页面，
+其中 page 数据类型为 bytes 类型，
+经过 decode 解码 转换成 string 类型。
+
+通过输出结果可以 urlopen 返回对象是 HTTPResposne 类型对象。
+
+urlopen 返回一个类文件对象，并提供了如下方法：
+
+read() , readline() , readlines() , 
+fileno() ,
+ close() ：
+这些方法的使用方式与文件对象完全一样; 
+
+info()：返回一个httplib.HTTPMessage对象，表示远程服务器返回的头信息；
+可以通过Quick Reference to Http Headers查看 Http Header 列表。 
+
+getcode()：返回Http状态码。
+如果是http请求，200表示请求成功完成;404表示网址未找到；
+
+ geturl()：返回获取页面的真实 URL。
+在 urlopen（或 opener 对象）可能带一个重定向时，此方法很有帮助。
+获取的页面 URL 不一定跟真实请求的 URL 相同。
 
 
 
+一. urlopen
+urllib.request.urlopen(
+         url, data=None, [timeout, ]*, cafile=None, capath=None, 
+         cadefault=False, context=None)
+
+urlopen(url, data=None, proxies=None)
+
+创建一个表示远程url的类文件对象，然后像本地文件一样操作这个类文件对象来获取远程数据。
+
+参数url表示远程数据的路径，一般是网址；
+参数data表示以post方式提交到url的数据(玩过web的人应该知道提交数据的两种方式：post与get)；
+参数proxies用于设置代理。
+
+Urllib
+1. Urllib.request.urlopen().read().decode()
+返回一个二进制的对象，对这个对象进行read()操作，
+可以得到一个包含网页的二进制字符串，然后用decode()解码成html源码
+2. urlretrieve()
+将一个网页爬取到本地
+3. urlclearup()
+清除 urlretrieve()所产生的缓存
+
+python中有两个异常处理的类：
+
+URLError与HttpError
+
+HttpError 是 URLError子类
+ HttpError 有异常状态码和异常原因
+ URLError 只有异常原因,没有异常状态码
+ 所以,在异常处理的时候,不能使用URLError来代替
+ 如果想要代替,必须要进行判断,判断是否有状态码属性
+ 
+ 会产生URLError的情况:
+  1.连接不上服务器
+  2.远程的url不存在
+  3.本地网络
+  4.HttpError(是子类,也会出发会产生URLError
+
+from urllib import error,request
+try: # 可能会出现异常的代码
+ 
+ data = request.urlopen("http://www.aliyu.com").read()
+ print(data)
+ 
+except error.URLError as e: # 进行异常的处理
+ 
+ if hasattr(e,"code"): # 判断是否有状态码
+ 
+  print(e.code) # 状态码
+ 
+ if hasattr(e,"reason"): # 判断是否有异常原因
+ 
+  print(e.reason) # 异常原因
+
+
+[root@room9pc01 urllib_paramiko]# pip3  install  paramiko
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting paramiko
+  Downloading http://pypi.doubanio.com/packages/cf/ae/94e70d49044ccc234bfdba20114fa947d7ba6eb68a2e452d89b920e62227/paramiko-2.4.2-py2.py3-none-any.whl (193kB)
+................................
+Collecting asn1crypto>=0.21.0 (from cryptography>=1.5->paramiko)
+  Downloading http://pypi.doubanio.com/packages/ea/..........................
+
+Installing collected packages: pycparser, cffi, six, pynacl, asn1crypto, cryptography, pyasn1, bcrypt, paramiko
+  Running setup.py install for pycparser ... done
+Successfully installed asn1crypto-0.24.0 bcrypt-3.1.6 cffi-1.12.3 cryptography-2.6.1 paramiko-2.4.2 pyasn1-0.4.5 pycparser-2.19 pynacl-1.3.0 six-1.12.0
+
+[root@room9pc01 urllib_paramiko]# pip3.6  freeze
+asn1crypto==0.24.0
+bcrypt==3.1.6
+certifi==2019.3.9
+cffi==1.12.3
+chardet==3.0.4
+cryptography==2.6.1
+Django==1.11.20
+idna==2.8
+paramiko==2.4.2
+pyasn1==0.4.5
+pycparser==2.19
+PyMySQL==0.9.3
+PyNaCl==1.3.0
+pytz==2019.1
+requests==2.21.0
+six==1.12.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+[root@room9pc01 urllib_paramiko]# 
 
 
 
+[root@room9pc01 urllib_paramiko]# ssh   -?
+unknown option -- ?
+usage: ssh [-1246AaCfGgKkMNnqsTtVvXxYy] [-b bind_address] [-c cipher_spec]
+           [-D [bind_address:]port] [-E log_file] [-e escape_char]
+           [-F configfile] [-I pkcs11] [-i identity_file]
+           [-J [user@]host[:port]] [-L address] [-l login_name] [-m mac_spec]
+           [-O ctl_cmd] [-o option] [-p port] [-Q query_option] [-R address]
+           [-S ctl_path] [-W host:port] [-w local_tun[:remote_tun]]
+           [user@]hostname [command]
+
+[root@room9pc01 urllib_paramiko]# vim  /etc/hosts
+[root@room9pc01 urllib_paramiko]# tail   -4  /etc/hosts
+192.168.0.11  V1
+192.168.0.12  V2
+192.168.0.13  V3
+[root@room9pc01 urllib_paramiko]# for i  in  V{0..2};do ssh -lroot  $i  pwd;done;
+root@v0's password: 
+/root
+root@v1's password: 
+/root
+root@v2's password: 
+/root
+
+[root@room9pc01 urllib_paramiko]# ssh  -lroot V0 "ifconfig |grep -A1 flags="
+root@v0's password: 
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.0.10  netmask 255.255.255.0  broadcast 192.168.0.255
+--
+eth1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.10  netmask 255.255.255.0  broadcast 192.168.1.255
+--
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+--
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+
+
+[root@room9pc01 urllib_paramiko]# echo 1 |clone-auto7 
+created rh7_node4					[Done]
+
+[root@room9pc01 urllib_paramiko]# virsh  start    V3
+域 V3 已开始
+
+[root@room9pc01 urllib_paramiko]# virsh  console   V3
+连接到域 V3
+换码符为 ^]
+
+
+Red Hat Enterprise Linux Server 7.4 (Maipo)
+Kernel 3.10.0-693.el7.x86_64 on an x86_64
+
+localhost login: root
+密码：123456
+Last login: Tue Jan 30 12:29:01 on :0
+
+[root@localhost ~]# nmtui
+nmtui           nmtui-connect   nmtui-edit      nmtui-hostname
+
+[root@localhost ~]# type  nmtui
+nmtui 是 /bin/nmtui
+
+[root@localhost ~]# rpm -qf  /bin/nmtui
+NetworkManager-tui-1.8.0-9.el7.x86_64
+
+[root@localhost ~]# nmtui
+
+                                ┌┤ 网络管理器 T ├┐
+                                │                │
+                                │ 请选择选项     │
+                                │                │
+                                │ 编辑连接 (点击) │
+                                │ 启用连接       │
+                                │ 设置系统主机名 │
+                                │                │
+                                │ 退出           │
+                                │                │
+                                │         <确定> │
+                                │                │
+                                └────────────────┘
+                          ┌───────────────────────────┐
+                          │                           │
+                          │ ┌─────────────┐           │
+                          │ │ 以太网    ↑ │ <添加>    │
+                          │ │   eth0    ▒ │           │(点击) 
+                          │ │ 桥接      ▒ │ <编辑...> │
+                          │ │   virbr0  ▒ │           │
+                          │ │           ▒ │ <删除>    │
+                          │ │           ▒ │           │
+                          │ │           ▒ │           │
+                          │ │           ▮ │           │
+                          │ │           ▒ │           │
+                          │ │           ▒ │           │
+                          │ │           ▒ │           │
+                          │ │           ▒ │           │
+                          │ │           ▒ │           │
+                          │ │           ▒ │           │
+                          │ │           ▒ │           │
+                          │ │           ↓ │ <返回>    │
+                          │ └─────────────┘           │
+                          │                           │
+                          └───────────────────────────┘
+
+     ┌───────────────────┤ 编辑连接 ├───────────┐
+     │                                                                      │
+     │          配置名称 eth0____________________________________           │
+     │              设备 eth0 (52:54:00:7E:DD:B8)________________           │
+     │                                                                      │
+     │ ═ 以太网                                                   <显示>    │
+     │                                                                      │
+     │ ═ IPv4 配置       <手动>(点击)                     <显示> (点击)    │
+     │ ═ IPv6 配置       <自动>                                   <显示>    │
+     │                                                                      │
+     │ [ ] 自动连接                                                         │
+     │ [X] 对所有用户有效                                                   │
+     │                                                                      │
+     │                                                        <取消> <确定> │
+     │                                                                      │
+     │                                                                      │
+     │                                                                      │
+     │                                                                      │
+     │                                                                      │
+     │                                                                      │
+     │                                                                      │
+     └───────────────────────────────────────────────┘
+
+     ┌─────────────────────────────┤ 编辑连接 ├─────────┐
+     │                                                                     ↑│
+     │          配置名称 eth0____________________________________          ▮│
+     │              设备 eth0 (52:54:00:7E:DD:B8)________________          ▒│
+     │                                                                     ▒│
+     │ ═ 以太网                                                   <显示>   ▒│
+     │                                                                     ▒│
+     │ ╤ IPv4 配置       <手动>    (点击)                                <隐藏>   ▒│
+     │ │            地址 <添加...>    (点击)                                      ▒│
+     │ │            网关 _________________________                         ▒│
+     │ │      DNS 服务器 <添加...>                                         ▒│
+     │ │          搜索域 <添加...>                                         ▒│
+     │ │                                                                   ▒│
+     │ │            路由 （没有自定义路由） <编辑...>                      ▒│
+     │ │ [ ] 始终不使用此网络于默认路由                                    ▒│
+     │ │ [ ] 忽略自动获取的路由                                            ▒│
+     │ │                                                                   ▒│
+     │ │ [ ] 需要 IPv4 地址完成这个连接                                    ▒│
+     │ └                                                                   ▒│
+     │                                                                     ▒│
+     │                                                                     ↓│
+     └──────────────────────────────────────┘
 
 
 
+     ┌─────────────────────────────┤ 编辑连接 ├─────────────────────────────┐
+     │                                                                     ↑│
+     │          配置名称 eth0____________________________________          ▮│
+     │              设备 eth0 (52:54:00:7E:DD:B8)________________          ▒│
+     │                                                                     ▒│
+     │ ═ 以太网                                                   <显示>   ▒│
+     │                                                                     ▒│
+     │ ╤ IPv4 配置       <手动>                                   <隐藏>   ▒│
+     │ │            地址 192.168.0.13/24__________ <移除>                  ▒│
+     │ │                 <添加...>                                         ▒│
+     │ │            网关 192.168.0.254____________                         ▒│
+     │ │      DNS 服务器 <添加...>    (点击)                                      ▒│
+     │ │          搜索域 <添加...>                                         ▒│
+     │ │                                                                   ▒│
+     │ │            路由 （没有自定义路由） <编辑...>                      ▒│
+     │ │ [ ] 始终不使用此网络于默认路由                                    ▒│
+     │ │ [ ] 忽略自动获取的路由                                            ▒│
+     │ │                                                                   ▒│
+     │ │ [ ] 需要 IPv4 地址完成这个连接                                    ▒│
+     │ └                                                                   ▒│
+     │                                                                     ↓│
+     └────────────────────────────────────────────┘
+
+
+     ┌─────────────────────────────┤ 编辑连接 ├─────────────────────────────┐
+     │                                                                     ↑│
+     │          配置名称 eth0____________________________________          ▮│
+     │              设备 eth0 (52:54:00:7E:DD:B8)________________          ▒│
+     │                                                                     ▒│
+     │ ═ 以太网                                                   <显示>   ▒│
+     │                                                                     ▒│
+     │ ╤ IPv4 配置       <手动>                                   <隐藏>   ▒│
+     │ │            地址 192.168.0.13/24__________ <移除>                  ▒│
+     │ │                 <添加...>                                         ▒│
+     │ │            网关 192.168.0.254____________                         ▒│
+     │ │      DNS 服务器 192.168.0.254____________ <移除>                  ▒│
+     │ │                 <添加...>                                         ▒│
+     │ │          搜索域 <添加...>                                         ▒│
+     │ │                                                                   ▒│
+     │ │            路由 （没有自定义路由） <编辑...>                      ▒│
+     │ │ [ ] 始终不使用此网络于默认路由                                    ▒│
+     │ │ [ ] 忽略自动获取的路由                                            ▒│
+     │ │                                                                   ▒│
+     │ │ [ ] 需要 IPv4 地址完成这个连接                                    ▒│
+     │                                                                     ↓│
+     └─────────────────────────────────────────────┘
 
 
 
+     ┌─────────────────────────────┤ 编辑连接 ├─────────────────────────────┐
+     │                                                                     ↑│
+     │ │            网关 192.168.0.254____________                         ▒│
+     │ │      DNS 服务器 192.168.0.254____________ <移除>                  ▒│
+     │ │                 <添加...>                                         ▒│
+     │ │          搜索域 <添加...>                                         ▒│
+     │ │                                                                   ▒│
+     │ │            路由 （没有自定义路由） <编辑...>                      ▒│
+     │ │ [ ] 始终不使用此网络于默认路由                                    ▒│
+     │ │ [ ] 忽略自动获取的路由                                            ▒│
+     │ │                                                                   ▒│
+     │ │ [ ] 需要 IPv4 地址完成这个连接                                    ▒│
+     │ └                                                                   ▒│
+     │                                                                     ▒│
+     │ ═ IPv6 配置       <自动>                                   <显示>   ▒│
+     │                                                                     ▒│
+     │ [ ] 自动连接                                                        ▒│
+     │ [X] 对所有用户有效                                                  ▒│
+     │                                                                     ▒│
+     │                                                        <取消> <确定>▮│ (点击)  
+     │                                                                     ↓│
+     └─────────────────────────────────────────────────┘
+
+                          
+                                ┌┤ 网络管理器 T ├┐
+                                │                │
+                                │ 请选择选项     │
+                                │                │
+                                │ 编辑连接       │
+                                │ 启用连接       │
+                                │ 设置系统主机名 │
+                                │                │
+                                │ 退出           │
+                                │                │
+                                │         <确定> │
+                                │                │
+                                └────────────────┘
+
+                         
+[root@localhost ~]# systemctl   restart   NetworkManager
+
+[root@localhost ~]# echo  V3 >/etc/hostname
+
+[root@localhost ~]# reboot
+Rebooting.
+[ 1181.683614] Restarting system.
+
+Red Hat Enterprise Linux Server 7.4 (Maipo)
+Kernel 3.10.0-693.el7.x86_64 on an x86_64
+
+V3 login: root
+密码：
+Last login: Tue May  7 17:26:59 on ttyS0
+
+[root@V3 ~]# echo 1 |passwd  --stdin  root
+更改用户 root 的密码 。
+passwd：所有的身份验证令牌已经成功更新。
+[root@V3 ~]# ifconfig 
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.0.13  netmask 255.255.255.0  broadcast 192.168.0.255
+        inet6 fe80::83:fc9d:c78e:1f9  prefixlen 64  scopeid 0x20<link>
+        ether 52:54:00:7e:dd:b8  txqueuelen 1000  (Ethernet)
+......................
+eth1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        ether 52:54:00:55:04:df  txqueuelen 1000  (Ethernet)
+.....................
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+....................
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+......................
+
+
+[root@V3 ~]# hostname
+V3
+[root@V3 ~]# cat  /etc/resolv.conf 
+# Generated by NetworkManager
+nameserver 192.168.0.254
+
+[root@V3 ~]# ip  route  show |grep  default
+default via 192.168.0.254 dev eth0 proto static metric 100 
+
+[root@V3 ~]# ping  -c2  192.168.0.10
+PING 192.168.0.10 (192.168.0.10) 56(84) bytes of data.
+64 bytes from 192.168.0.10: icmp_seq=1 ttl=64 time=0.237 ms
+64 bytes from 192.168.0.10: icmp_seq=2 ttl=64 time=0.575 ms
+.................
+[root@V3 ~]# ping  -c2  192.168.0.254
+PING 192.168.0.254 (192.168.0.254) 56(84) bytes of data.
+64 bytes from 192.168.0.254: icmp_seq=1 ttl=64 time=0.247 ms
+64 bytes from 192.168.0.254: icmp_seq=2 ttl=64 time=0.226 ms
+.....................
+[root@V3 ~]# 
 
 
 
+[root@V3 ~]# nmcli  device  status 
+设备        类型      状态    连接   
+virbr0      bridge    连接的  virbr0 
+eth0        ethernet  连接的  eth0   
+eth1        ethernet  已断开  --     
+lo          loopback  未托管  --     
+virbr0-nic  tun       未托管  --     
+[root@V3 ~]# nmcli  connection  show
+名称    UUID                                  类型            设备   
+eth0    4f5f8b5d-4b51-4e1c-98c7-40f0eb90f241  802-3-ethernet  eth0   
+virbr0  27da207f-2aa6-43c3-bd0c-16c86e00c704  bridge          virbr0 
+[root@V3 ~]# nmcli  connection  add  type  ethernet  \
+> con-name  eth1 ifname  eth1
+连接“eth1”(ce28556f-8812-49a4-a794-c3bd1365267f) 已成功添加。
+
+
+[root@V3 ~]# nmcli  connection  modify  eth1  ipv4.method  manual  ipv4.addresses 192.168.1.13/24  ipv4.gateway  192.168.0.254  ipv4.dns 192.168.1.254  connection.autoconnect  yes
+[root@V3 ~]# nmcli   connection  up   eth1
+
+[root@V3 ~]# ifconfig  |awk '/inet /{print $2}'
+192.168.0.13
+192.168.1.13
+127.0.0.1
+192.168.122.1
+[root@V3 ~]# cat  /etc/resolv.conf 
+# Generated by NetworkManager
+nameserver 192.168.0.254
+nameserver 192.168.1.254
+
+[root@V3 ~]# ip  route s
+default via 192.168.0.254 dev eth0 proto static metric 100 
+default via 192.168.0.254 dev eth1 proto static metric 101 
+192.168.0.0/24 dev eth0 proto kernel scope link src 192.168.0.13 metric 100 
+192.168.0.254 dev eth1 proto static scope link metric 100 
+192.168.1.0/24 dev eth1 proto kernel scope link src 192.168.1.13 metric 100 
+192.168.122.0/24 dev virbr0 proto kernel scope link src 192.168.122.1 
+[root@V3 ~]# 
+
+[root@room9pc01 urllib_paramiko]# ls  ~/.ssh/
+authorized_keys  id_rsa  id_rsa.pub  known_hosts
+
+[root@room9pc01 urllib_paramiko]# ll   ~/.ssh/authorized_keys 
+-rw-r--r--. 1 root root 404 3月  20 2018 /root/.ssh/authorized_keys
+
+[root@room9pc01 urllib_paramiko]# ll  ~/.ssh/known_hosts 
+-rw-r--r-- 1 root root 2059 5月   7 18:05 /root/.ssh/known_hosts
+
+
+[root@room9pc01 urllib_paramiko]# tail  -2   ~/.ssh/known_hosts
+192.168.0.13 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLbeZn0oixXQQEAEclKnr1zideN3MmtD9EfVZwn7NJu8qcJ/UJB4DnHsAfe+y0hOkv0bF+ek23RuH3YfeT4WWMY=
+192.168.1.13 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLbeZn0oixXQQEAEclKnr1zideN3MmtD9EfVZwn7NJu8qcJ/UJB4DnHsAfe+y0hOkv0bF+ek23RuH3YfeT4WWMY=
+[root@room9pc01 urllib_paramiko]#
 
 
 
+[root@room9pc01 urllib_paramiko]# ping  -c2   192.168.0.13
+PING 192.168.0.13 (192.168.0.13) 56(84) bytes of data.
 
+--- 192.168.0.13 ping statistics ---
+2 packets transmitted, 0 received, 100% packet loss, time 999ms
+
+[root@room9pc01 urllib_paramiko]# ssh  -X  192.168.0.13
+^C
+[root@room9pc01 urllib_paramiko]# tail   -5  /etc/hosts
+192.168.0.10  V0
+192.168.0.11  V1
+192.168.0.12  V2
+192.168.0.13  V3
+
+[root@room9pc01 urllib_paramiko]# ping  -c2   192.168.1.13
+PING 192.168.1.13 (192.168.1.13) 56(84) bytes of data.
+64 bytes from 192.168.1.13: icmp_seq=1 ttl=64 time=0.240 ms
+64 bytes from 192.168.1.13: icmp_seq=2 ttl=64 time=0.316 ms
+.......................
+[root@room9pc01 urllib_paramiko]# 
+
+
+import   paramiko
+ssh = paramiko.SSHClient()   #创建用于连接ssh服务器的实例#创建sshclient
+ssh
+type(ssh)
+pkAP = paramiko.AutoAddPolicy()  #设置自动添加主机密钥
+pkAP
+type(pkAP)
+ssh.set_missing_host_key_policy(pkAP)   #回答连接yes#接受不在本地 ~/.ssh/known_hosts文件下的主机ip地址
+
+ssh.connect('192.168.0.12',username='root', password='1')  #连接ssh服务器
+
+
+
+#目的是接受不在本地Known_host文件下的主机。# ll  ~/.ssh/known_hosts 
+-rw-r--r-- 1 root root 2059 5月   7 18:05 /root/.ssh/known_hosts
+
+>>> ssh.set_missing_host_key_policy(pkAP)
+
+            #连接ssh服务器
+>>> ssh.connect('192.168.0.12',username='root', password='1')
 
 
 
