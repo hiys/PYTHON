@@ -1,0 +1,785 @@
+
+
+安装paramiko模块
+•  本地安装
+#yum install  -y  gcc   gcc-c++   python-devel
+# tar  xzf  paramiko-1.15.4.tar.gz
+#python3  setup.py  install
+	
+网络安装
+#pip3 install  paramiko
+
+[root@room9pc01 urllib_paramiko]# pip3.6  freeze
+asn1crypto==0.24.0
+bcrypt==3.1.6
+certifi==2019.3.9
+cffi==1.12.3
+chardet==3.0.4
+cryptography==2.6.1
+Django==1.11.20
+idna==2.8
+paramiko==2.4.2
+pyasn1==0.4.5
+pycparser==2.19
+PyMySQL==0.9.3
+PyNaCl==1.3.0
+pytz==2019.1
+requests==2.21.0
+six==1.12.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+[root@room9pc01 urllib_paramiko]# 
+
+
+import   paramiko
+ssh = paramiko.SSHClient()   #创建用于连接ssh服务器的实例#创建sshclient
+ssh
+type(ssh)
+pkAP = paramiko.AutoAddPolicy()  #设置自动添加主机密钥
+pkAP
+type(pkAP)
+ssh.set_missing_host_key_policy(pkAP)   #回答连接yes#接受不在本地 ~/.ssh/known_hosts文件下的主机ip地址
+
+ssh.connect('192.168.0.12',username='root', password='1')  #连接ssh服务器
+
+ssh.exec_command('mkdir /root/newzidir')   #在ssh服务器上执行指定命令
+
+>>> result = ssh.exec_command('id lisi')   #在ssh服务器上执行指定命令
+>>> type(result)
+<class 'tuple'>
+>>> result = ssh.exec_command('id lisi')
+
+>>> result
+ #元组中的三项分别代表 标准输入, 标准输出, 标准错误, 都是 类文件对象
+(<paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>,
+
+ <paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>,
+
+ <paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>)
+>>> 
+]# ssh  -X  192.168.0.12
+[root@V2 ~]# id  lisi
+uid=1000(lisi) gid=1000(lisi) 组=1000(lisi)
+[root@V2 ~]# ls  -ld  newzidir/
+drwxr-xr-x 2 root root 6 5月   7 19:10 newzidir/
+
+>>> result[0]     #标准输入  类文件对象
+<paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>
+
+>>> result[1]   #标准输出 类文件对象
+<paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>
+
+>>> result[2]    # 标准错误, 类文件对象
+<paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>
+
+>>> type(result[2])    # 标准错误, 类文件对象
+<class 'paramiko.channel.ChannelStderrFile'>
+
+>>> type(result[1])     #标准输出 类文件对象
+<class 'paramiko.channel.ChannelFile'>
+
+>>> type(result[0])       #标准输入  类文件对象
+<class 'paramiko.channel.ChannelFile'>
+>>> 
+>>> result[1].read()
+b'uid=1000(lisi) gid=1000(lisi) \xe7\xbb\x84=1000(lisi)\n'
+>>>
+>>> 
+>>> len(result[1].read())
+0
+>>> result[1].read()
+b''
+>>> result = ssh.exec_command('id lisi')
+>>> xb = result[1].read()   #标准输出 类文件对象
+>>> xb
+b'uid=1000(lisi) gid=1000(lisi) \xe7\xbb\x84=1000(lisi)\n'
+>>> len(xb)
+45
+>>> result = ssh.exec_command('id peri')
+>>> xb = result[2].read()  # 标准错误, 类文件对象
+>>> xb
+b'id: peri: no such user\n'
+>>> len(xb)
+23
+>>> 
+>>> xb.decode('utf8')
+'id: peri: no such user\n'
+>>> 
+
+[root@room9pc01 ~]# \cp   -r   urllib_paramiko/  '/var/git/PYTHON/pythonScripts/urllib_paramiko' 
+
+[root@room9pc01 urllib_paramiko]# for  i   in  V{0..3};do
+> virsh  start  ${i};done;
+域 V0 已开始
+
+域 V1 已开始
+
+域 V2 已开始
+
+域 V3 已开始
+
+[root@room9pc01 urllib_paramiko]# watch  -n 1 -d  free  -m
+
+[root@room9pc01 urllib_paramiko]# free  -m
+              total        used        free      shared  buff/cache   available
+Mem:          15781        4977        8565         580        2238        9892
+Swap:             0           0           0
+[root@room9pc01 urllib_paramiko]#
+
+[root@room9pc01 urllib_paramiko]# python3
+...........................
+>>> import   paramiko
+
+>>> ssh = paramiko.SSHClient()
+
+>>> pkAP = paramiko.AutoAddPolicy()
+
+>>> type(pkAP)
+<class 'paramiko.client.AutoAddPolicy'>
+
+>>> ssh.set_missing_host_key_policy(pkAP)
+
+>>> ssh.connect('192.168.0.10', username='root', password='1')
+
+/usr/local/lib/python3.6/site-packages/paramiko/kex_ecdh_nist.py:39: .............................................
+ Please use EllipticCurvePublicKey.public_bytes to obtain both compressed and uncompressed point encoding.
+  m.add_string(self.Q_C.public_numbers().encode_point())
+
+........................ Please use EllipticCurvePublicKey.from_encoded_point
+  self.curve, Q_S_bytes
+
+........................ Please use EllipticCurvePublicKey.public_bytes to obtain both compressed and uncompressed point encoding.
+  hm.add_string(self.Q_C.public_numbers().encode_point())
+
+>>> ssh.exec_command('free -m')
+
+(<paramiko.ChannelFile from <paramiko.Channel 0 (open) window=2097152 -> <paramiko.Transport at 0xe84792e8 (cipher aes128-ctr, 128 bits) (active; 1 open channel(s))>>>, <paramiko.ChannelFile from <paramiko.Channel 0 (open) window=2097152 -> <paramiko.Transport at 0xe84792e8 (cipher aes128-ctr, 128 bits) (active; 1 open channel(s))>>>, <paramiko.ChannelFile from <paramiko.Channel 0 (open) window=2097152 -> <paramiko.Transport at 0xe84792e8 (cipher aes128-ctr, 128 bits) (active; 1 open channel(s))>>>)
+
+>>> result = ssh.exec_command('free -m')
+>>> type(result)
+<class 'tuple'>
+
+>>> result[1]
+<paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xe84792e8 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>
+
+>>> result[1].read().decode('utf8')
+'              total        used        free      shared  buff/cache   available\nMem:           1740         321        1086           9         331        1246\nSwap:          2047           0        2047\n'
+>>> 
+>>> ssh.connect('192.168.0.11', username='root', password='1')
+>>> ssh.exec_command('free -m')[1].read().decode('utf8')
+'              total        used        free      shared  buff/cache   available\nMem:           1740         332        1073           9         333        1235\nSwap:          2047           0        2047\n'
+
+>>> ssh.connect('192.168.0.12', username='root', password='1')
+>>> ssh.exec_command('free -m')[1].read().decode('utf8')
+
+'              total        used        free      shared  buff/cache   available\nMem:           1740         321        1089           8         329        1248\nSwap:          2047           0        2047\n'
+
+>>> ssh.connect('192.168.0.13', username='root', password='1')
+>>> ssh.exec_command('free -m')[1].read().decode('utf8')
+'              total        used        free      shared  buff/cache   available\nMem:           1740         116        1458           8         165        1448\nSwap:          2047           0        2047\n'
+
+>>> ssh.exec_command('hostname')[1].read().decode('utf8')
+'V3\n'
+
+>>> ssh.exec_command("ifconfig |awk '/inet /{print $2}'")[1].read().decode('utf8')
+
+'192.168.0.13\n192.168.1.13\n127.0.0.1\n192.168.122.1\n'
+>>> 
+[root@room9pc01 urllib_paramiko]# vim  paramiko_sshreturncmd.py
+
+
+[root@room9pc01 urllib_paramiko]# ssh  -l root V0 "ls  robot/"
+root@v0's password: 
+1.html
+favicon.ico
+request_parse_login.py
+.........
+[root@room9pc01 urllib_paramiko]# ssh  -l root V1 "ls  robot/"
+root@v1's password: 
+ls: 无法访问robot/: 没有那个文件或目录
+
+[root@room9pc01 urllib_paramiko]# python3  paramiko_sshreturncmd.py
+__name__ is __main__
+=================   ==================
+
+sys.argv is ['paramiko_sshreturncmd.py']
+/usr/local/lib/python3.6/site-packages/paramiko/kex_ecdh_nist.py:39: 
+.....................
+  m.add_string(self.Q_C.public_numbers().encode_point())
+......................
+  self.curve, Q_S_bytes
+.......................
+  hm.add_string(self.Q_C.public_numbers().encode_point())
+[V0] OUT:
+1.html
+favicon.ico
+request_parse_login.py
+request_parse_post2.py
+request_parse_post.py
+templates
+tornado_server.py
+urllib_request.py
+xshell6.png
+
+[V1] ERROR:
+ls: 无法访问robot/: 没有那个文件或目录
+
+[V2] OUT:
+2019年 05月 08日 星期三 11:51:19 CST
+
+[192.168.0.13] OUT:
+V3
+
+[root@room9pc01 urllib_paramiko]# 
+
+[root@room9pc01 urllib_paramiko]# vim   ipaddrs.txt
+
+[root@room9pc01 urllib_paramiko]# cat    ipaddrs.txt
+192.168.0.10
+192.168.0.11
+192.168.0.12
+192.168.0.13
+[root@room9pc01 urllib_paramiko]# vim  paramiko_sshreturncmd3.py
+
+===============================================
+
+
+https://www.foxmail.com/
+    Windows    Mac
+  你的邮件，现在有了新看法。
+
+Foxmail 7.2.9 (New)2017-11-03
+
+    新增：支持高清屏显示
+    新增：支持纯文本邮件格式
+    优化：修复部分bug
+
+Foxmail 7.2.8 2017-09-06
+
+
+阿里企业邮箱-阿里钉钉企业邮箱在线申请_完全免费
+https://www.dingtalk.com/
+https://www.dingtalk.com/
+钉钉正在为企业解决办公协同问题
+
+
+•  SMTP(Simple Mail Transfer Protocol)
+即简单邮件传输协议,使用TCP协议25端口
+•  它是一组用于由源地址到目的地址传送邮件的规则,
+由它来控制信件的中转方式
+•  python的smtplib提供了一种很方便的途径发送电子邮件。
+它对smtp协议进行了简单的封装
+
+SMTP对象
+•  Python发送邮件,第一步是创建SMTP对象
+import smtplib
+smtp_obj = smtplib.SMTP([host [, port [, local_hostname]]] )
+•  创建SMTP对象也可以不给定参数,
+之后再通过对象的其他方法进行绑定
+
+\cp   -r   urllib_paramiko/  '/var/git/PYTHON/pythonScripts/urllib_paramiko' 
+
+
+>>> import  urllib, ftplib, telnetlib, smtplib
+>>> import  urllib.request
+
+>>> ftplib.
+ftplib.B_CRLF        ftplib.MAXLINE       ftplib.error_temp(   ftplib.print_line(
+ftplib.CRLF          ftplib.MSG_OOB       ftplib.ftpcp(        ftplib.socket
+ftplib.Error(        ftplib.all_errors    ftplib.parse150(     ftplib.ssl
+ftplib.FTP(          ftplib.error_perm(   ftplib.parse227(     ftplib.sys
+ftplib.FTP_PORT      ftplib.error_proto(  ftplib.parse229(     ftplib.test(
+ftplib.FTP_TLS(      ftplib.error_reply(  ftplib.parse257(   
+  
+>>> smtplib.
+smtplib.CRLF                      smtplib.SMTP_SSL(
+smtplib.LMTP(                     smtplib.SMTP_SSL_PORT
+smtplib.LMTP_PORT                 smtplib.bCRLF
+smtplib.OLDSTYLE_AUTH             smtplib.base64
+smtplib.SMTP(                     smtplib.copy
+smtplib.SMTPAuthenticationError(  smtplib.datetime
+smtplib.SMTPConnectError(         smtplib.email
+smtplib.SMTPDataError(            smtplib.encode_base64(
+smtplib.SMTPException(            smtplib.hmac
+smtplib.SMTPHeloError(            smtplib.io
+smtplib.SMTPNotSupportedError(    smtplib.quoteaddr(
+smtplib.SMTPRecipientsRefused(    smtplib.quotedata(
+smtplib.SMTPResponseException(    smtplib.re
+smtplib.SMTPSenderRefused(        smtplib.socket
+smtplib.SMTPServerDisconnected(   smtplib.ssl
+smtplib.SMTP_PORT                 smtplib.sys
+>>> 
+
+>>> import   email.mime
+>>> email.mime.__
+email.mime.__cached__          email.mime.__loader__
+email.mime.__class__(          email.mime.__lt__(
+email.mime.__delattr__(        email.mime.__name__
+email.mime.__dict__            email.mime.__ne__(
+email.mime.__dir__(            email.mime.__new__(
+email.mime.__doc__             email.mime.__package__
+email.mime.__eq__(             email.mime.__path__
+email.mime.__file__            email.mime.__reduce__(
+email.mime.__format__(         email.mime.__reduce_ex__(
+email.mime.__ge__(             email.mime.__repr__(
+email.mime.__getattribute__(   email.mime.__setattr__(
+email.mime.__gt__(             email.mime.__sizeof__(
+email.mime.__hash__(           email.mime.__spec__
+email.mime.__init__(           email.mime.__str__(
+email.mime.__init_subclass__(  email.mime.__subclasshook__(
+email.mime.__le__(     
+        
+>>> import   email.mime.text
+
+>>> email.mime.text.
+email.mime.text.Charset(           email.mime.text.MIMEText(
+email.mime.text.MIMENonMultipart(  
+>>> 
+
+[root@room9pc01 devopsday04]# useradd -?
+useradd：无效选项 -- ?
+用法：useradd [选项] 登录
+      useradd -D
+      useradd -D [选项]
+
+选项：
+  -b, --base-dir BASE_DIR	新账户的主目录的基目录
+  -c, --comment COMMENT         新账户的 GECOS 字段
+  -d, --home-dir HOME_DIR       新账户的主目录
+  -D, --defaults		显示或更改默认的 useradd 配置
+ -e, --expiredate EXPIRE_DATE  新账户的过期日期
+  -f, --inactive INACTIVE       新账户的密码不活动期
+  -g, --gid GROUP		新账户主组的名称或 ID
+  -G, --groups GROUPS	新账户的附加组列表
+  -h, --help                    显示此帮助信息并推出
+  -k, --skel SKEL_DIR	使用此目录作为骨架目录
+  -K, --key KEY=VALUE           不使用 /etc/login.defs 中的默认值
+  -l, --no-log-init	不要将此用户添加到最近登录和登录失败数据库
+  -m, --create-home	创建用户的主目录
+  -M, --no-create-home		不创建用户的主目录
+  -N, --no-user-group	不创建同名的组
+  -o, --non-unique		允许使用重复的 UID 创建用户
+  -p, --password PASSWORD		加密后的新账户密码
+  -r, --system                  创建一个系统账户
+  -R, --root CHROOT_DIR         chroot 到的目录
+  -s, --shell SHELL		新账户的登录 shell
+  -u, --uid UID			新账户的用户 ID
+  -U, --user-group		创建与用户同名的组
+  -Z, --selinux-user SEUSER		为 SELinux 用户映射使用指定 SEUSER
+
+[root@room9pc01 devopsday04]# 
+
+
+  -M, --no-create-home		不创建用户的主目录
+[root@room9pc01 devopsday04]# useradd  -M  peri
+[root@room9pc01 devopsday04]# ls  /home/
+Student
+[root@room9pc01 devopsday04]# id  peri
+uid=1001(peri) gid=1001(peri) 组=1001(peri)
+[root@room9pc01 devopsday04]# grep  -n  peri  /etc/passwd
+45:peri:x:1001:1001::/home/peri:/bin/bash
+
+
+[root@room9pc01 ~]# mkdir   devopsday04
+[root@room9pc01 ~]# cd  devopsday04/
+
+
+[root@room9pc01 devopsday04]# grep  -n  Student  /etc/passwd
+41:Student:x:1000:1000::/home/Student:/bin/bash
+
+[root@room9pc01 devopsday04]# ls  /home/Student/
+Desktop
+[root@room9pc01 devopsday04]# ls  -ld  /home/Student/Desktop/
+drwxr-xr-x 2 Student Student 4096 4月   8 10:55 /home/Student/Desktop/
+[root@room9pc01 devopsday04]# id   Student
+uid=1000(Student) gid=1000(Student) 组=1000(Student)
+
+sendmail方法
+•  Python SMTP 对象使用 sendmail 方法发送邮件
+SMTP.sendmail(from_addr,to_addrs,msg[,mail_opPons,rcpt_opPons])
+
+•  sendmail方法三个必须的参数有:
+–  收件人
+–  发件人
+–  消息主体msg是一个字符串,表示邮件
+
+[root@room9pc01 devopsday04]# cat   /var/mail/peri 
+[root@room9pc01 devopsday04]# cat   /var/mail/Student
+
+[root@room9pc01 devopsday04]# ls  /var/spool/
+abrt  abrt-upload  anacron  at  cron  lpd  mail  plymouth  postfix
+
+[root@room9pc01 devopsday04]# ls  /var/spool/mail/
+peri  rpc  Student
+[root@room9pc01 devopsday04]# ll /var/spool/mail/
+总用量 0
+-rw-rw----  1 peri    mail 0 5月   8 16:10 peri
+-rw-rw----. 1 rpc     mail 0 3月  19 2018 rpc
+-rw-rw----. 1 Student mail 0 3月  20 2018 Student
+
+[root@room9pc01 devopsday04]# ls   /var/mail/
+peri  rpc  Student
+[root@room9pc01 devopsday04]# ll  /var/mail/
+总用量 0
+-rw-rw----  1 peri    mail 0 5月   8 16:10 peri
+-rw-rw----. 1 rpc     mail 0 3月  19 2018 rpc
+-rw-rw----. 1 Student mail 0 3月  20 2018 Student
+[root@room9pc01 devopsday04]# 
+
+[root@room9pc01 devopsday04]# vim    emailmimetextheader.py
+
+[root@room9pc01 devopsday04]# python3  emailmimetextheader.py 
+
+__name__ is __main__
+Content-Type: text/plain; charset="utf8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+
+CjxkaXY+CiDkuLvkvZPlhoXlrrk8L2JyPgog5Y+R6YCB6ICFU3R1ZGVudAogI+aOpeaUtuiAhXJv
+b3QKICPmjqXmlLbogIVyb290LCBwZXJpIOWcsOWdgAo8L2Rpdj4K
+ <class 'email.mime.text.MIMEText'>
+
+=================   ==================
+
+sys.argv is ['emailmimetextheader.py']
+您在 /var/spool/mail/root 中有新邮件
+
+[root@room9pc01 devopsday04]# mail  -u peri
+
+Heirloom Mail version 12.5 7/5/10.  Type ? for help.
+"/var/mail/peri": 1 message 1 new
+>N  1 =?utf-8?q?Student?=@  Wed May  8 16:59  19/761   "Subject邮件SMTP标题"
+& 1
+Message  1:
+From Student@qq.com  Wed May  8 16:59:17 2019
+Return-Path: <Student@qq.com>
+
+X-Original-To: peri@localhost
+
+Delivered-To: peri@localhost.tedu.cn
+
+Content-Type: text/plain; charset="utf8"
+
+From: Student@room9pc01.tedu.cn
+To: root@room9pc01.tedu.cn
+
+Subject: Subject邮件SMTP标题
+
+Date: Wed,  8 May 2019 16:59:17 +0800 (CST)
+Status: R
+
+
+<div>
+ 主体内容</br>
+ 发送者Student
+ #接收者root
+ #接收者root, peri 地址
+</div>
+& 
+At EOF
+& exit
+
+[root@room9pc01 devopsday04]# mail  -uroot
+Heirloom Mail version 12.5 7/5/10.  Type ? for help.
+"/var/mail/root": 1 message 1 new
+>N  1 =?utf-8?q?Student?=@  Wed May  8 16:59  19/761   "Subject邮件SMTP标题"
+& 1
+Message  1:
+From Student@qq.com  Wed May  8 16:59:17 2019
+Return-Path: <Student@qq.com>
+X-Original-To: root@localhost
+Delivered-To: root@localhost.tedu.cn
+Content-Type: text/plain; charset="utf8"
+From: Student@room9pc01.tedu.cn
+To: root@room9pc01.tedu.cn
+Subject: Subject邮件SMTP标题
+Date: Wed,  8 May 2019 16:59:17 +0800 (CST)
+Status: R
+
+
+<div>
+ 主体内容</br>
+ 发送者Student
+ #接收者root
+ #接收者root, peri 地址
+</div>
+& 
+At EOF
+& quit
+Held 1 message in /var/mail/root
+[root@room9pc01 devopsday04]# cat   /var/mail/root
+................
+Subject: =?utf-8?b?U3ViamVjdOmCruS7tlNNVFDmoIfpopg=?=
+Message-Id: <20190508085917.6AAA340112@room9pc01.tedu.cn>
+Date: Wed,  8 May 2019 16:59:17 +0800 (CST)
+Status: RO
+
+CjxkaXY+CiDkuLvkvZPlhoXlrrk8L2JyPgog5Y+R6YCB6ICFU3R1ZGVudAogI+aOpeaUtuiAhXJv
+b3QKICPmjqXmlLbogIVyb290LCBwZXJpIOWcsOWdgAo8L2Rpdj4K
+
+[root@room9pc01 devopsday04]# ====================
+
+> /var/mail/peri ; > /var/mail/root ; >/var/spool/mail/peri ; >/var/spool/mail/root 
+
+ll  /var/spool/mail/{peri,root};ll  /var/mail/{peri,root}
+
+
+[root@room9pc01 devopsday04]# ll  /var/spool/mail/{peri,root};ll  /var/mail/{peri,root}
+-rw-rw---- 1 peri mail 0 5月   8 17:23 /var/spool/mail/peri
+-rw------- 1 root mail 0 5月   8 17:23 /var/spool/mail/root
+-rw-rw---- 1 peri mail 0 5月   8 17:23 /var/mail/peri
+-rw------- 1 root mail 0 5月   8 17:23 /var/mail/root
+[root@room9pc01 devopsday04]#
+
+http://kf.qq.com/mini_info/18653.html
+QQ邮箱对应的pop3和smtp服务器地址为：
+pop3：pop.qq.com；
+smtp：smtp.qq.com。
+
+mail.qq.com
+https://mail.qq.com/cgi-bin/loginpage
+
+mail.163.com
+https://mail.163.com/
+
+163邮箱服务器地址
+
+https://reg.163.com/naq/findPassword#/verifyAccount
+https://help.mail.163.com/
+https://help.mail.163.com/faq.do
+邮件收发
+邮箱设置
+签名/电子名片
+邮箱自定义
+黑/白名单设置
+IMAP/POP3  (点击)
+收发信基本操作
+自动回复/转发
+邮箱安全
+手机服务
+
+什么是POP3、SMTP和IMAP?
+
+POP3
+      POP3是Post Office Protocol 3的简称，即邮局协议的第3个版本,
+它规定怎样将个人计算机连接到Internet的邮件服务器和下载电子邮件的电子协议。
+它是因特网电子邮件的第一个离线协议标准,
+POP3允许用户从服务器上把邮件存储到本地主机（即自己的计算机）上,
+同时删除保存在邮件服务器上的邮件，
+而POP3服务器则是遵循POP3协议的接收邮件服务器，用来接收电子邮件的。
+
+(IMAP和POP3有什么区别?)
+SMTP
+      SMTP 的全称是“Simple Mail Transfer Protocol”，即简单邮件传输协议。
+它是一组用于从源地址到目的地址传输邮件的规范，通过它来控制邮件的中转方式。
+SMTP 协议属于 TCP/IP 协议簇，它帮助每台计算机在发送或中转信件时找到下一个目的地。
+SMTP 服务器就是遵循 SMTP 协议的发送邮件服务器。 
+
+　　SMTP 认证，简单地说就是要求必须在提供了账户名和密码之后才可以登录 SMTP 服务器，
+这就使得那些垃圾邮件的散播者无可乘之机。 
+　　增加 SMTP 认证的目的是为了使用户避免受到垃圾邮件的侵扰。
+IMAP
+      IMAP全称是Internet Mail Access Protocol，
+即交互式邮件存取协议，它是跟POP3类似邮件访问标准协议之一。
+不同的是，开启了IMAP后，
+您在电子邮件客户端收取的邮件仍然保留在服务器上，
+同时在客户端上的操作都会反馈到服务器上，
+如：删除邮件，标记已读等，服务器上的邮件也会做相应的动作。
+所以无论从浏览器登录邮箱或者客户端软件登录邮箱，看到的邮件以及状态都是一致的。
+
+（IMAP和POP3有什么区别?）
+      网易163免费邮箱相关服务器信息：
+
+ 为了您的邮箱安全，网易邮箱默认关闭 IMAP 服务，
+需要您开启客户端授权码方可使用，
+如果需要开启可以通过以下方式开启：
+
+      请登录163邮箱，点击页面正上方的“设置”，
+再点击左侧上“POP3/SMTP/IMAP”，
+其中“开启SMTP服务”是系统默认勾选开启的。
+
+您可勾选图中另两个选项，
+
+点击确定，即可开启成功。
+
+不勾选图中两个选项，点击确定，可关闭成功。
+
+授权码
+授权码是用于登录第三方邮件客户端的专用密码。
+适用于登录以下服务: POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务。
+
+fxxxxxxj
+
+fooxxxxxeryin
+
+http://help.163.com/09/1224/17/5RAJ4LMH00753VB8.html
+
+smtplib.SMTPDataError: (554, b'DT:SPM 163 smtp9,
+
+•554 DT:SPM 发送的邮件内容包含了未被许可的信息，或被系统识别为垃圾邮件。请检查是否有用户发送病毒或者垃圾邮件；
+　　•554 DT:SUM 信封发件人和信头发件人不匹配；
+
+
+[root@room9pc01 devopsday04]# python3   emailmimetextheader3.py 
+__name__ is __main__
+sys.argv is ['emailmimetextheader3.py']
+Password: fxxxxxxj
+Content-Type: text/plain; charset="utf8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+
+CiAgPGRpdj4KICAg5Li75L2T5YaF5a65PC9icj4KICAg5Y+R6YCB6ICFJ20xMzUzMDUwMzYzMEAx
+NjMuY29tJwogICAj5aS06YOo5o6l5pS26ICFJzM0MjQ5NjkxMTBAcXEuY29tJwogICAj5o6l5pS2
+6ICFIOWcsOWdgOWIl+ihqFsnMzQyNDk2OTExMEBxcS5jb20nLCAnMjExOTc5MzEzOUBxcS5jb20n
+XQo8L2Rpdj4NCg==
+
+---------
+<class 'email.mime.text.MIMEText'>
+-------- message --------
+smtpobj =  <smtplib.SMTP object at 0x7f17bdf3c4a8> ======= smtpobj------
+<class 'smtplib.SMTP'>
+=====  smtpobj.login(sender, mail_pass) ====
+
+===== smtpobj.sendmail(sender, receivers, message.as_string()) ======
+
+
+---------------done well ! ----------
+[root@room9pc01 devopsday04]# cat  -n  emailmimetextheader3.py
+     1	#!/usr/bin/env  python3
+     2	#coding:UTF-8
+     3	#! -*- coding:utf8 -*-
+     4	"""#coding=UTF-8
+     5	[root@room9pc01 devopsday04]# grep  -n  Student  /etc/passwd
+     6	41:Student:x:1000:1000::/home/Student:/bin/bash
+     7	
+     8	[root@room9pc01 devopsday04]# ls  /home/Student/
+     9	Desktop
+    10	[root@room9pc01 devopsday04]# ls  -ld  /home/Student/Desktop/
+    11	drwxr-xr-x 2 Student Student 4096 4月   8 10:55 /home/Student/Desktop/
+    12	[root@room9pc01 devopsday04]# id   Student
+    13	uid=1000(Student) gid=1000(Student) 组=1000(Student)
+    14	#  -M, --no-create-home		不创建用户的主目录
+    15	[root@room9pc01 devopsday04]# useradd  -M  peri
+    16	[root@room9pc01 devopsday04]# echo  1 |passwd   --stdin   peri
+    17	>>> smtplib.
+    18	smtplib.CRLF                      smtplib.SMTP_SSL(
+    19	smtplib.LMTP(                     smtplib.SMTP_SSL_PORT
+    20	smtplib.LMTP_PORT                 smtplib.bCRLF
+    21	smtplib.OLDSTYLE_AUTH             smtplib.base64
+    22	smtplib.SMTP(                     smtplib.copy
+    23	smtplib.SMTPAuthenticationError(  smtplib.datetime
+    24	smtplib.SMTPConnectError(         smtplib.email
+    25	smtplib.SMTPDataError(            smtplib.encode_base64(
+    26	smtplib.SMTPException(            smtplib.hmac
+    27	smtplib.SMTPHeloError(            smtplib.io
+    28	smtplib.SMTPNotSupportedError(    smtplib.quoteaddr(
+    29	smtplib.SMTPRecipientsRefused(    smtplib.quotedata(
+    30	smtplib.SMTPResponseException(    smtplib.re
+    31	smtplib.SMTPSenderRefused(        smtplib.socket
+    32	smtplib.SMTPServerDisconnected(   smtplib.ssl
+    33	smtplib.SMTP_PORT                 smtplib.sys
+    34	>>> 
+    35	[root@room9pc01 devopsday04]# cat   /var/mail/Student 
+    36	[root@room9pc01 devopsday04]# cat   /var/spool/mail/Student 
+    37	[root@room9pc01 devopsday04]# cat   /var/spool/mail/peri 
+    38	[root@room9pc01 devopsday04]# > /var/mail/peri 
+    39	[root@room9pc01 devopsday04]# > /var/mail/root
+    40	[root@room9pc01 devopsday04]# >/var/spool/mail/peri 
+    41	[root@room9pc01 devopsday04]# >/var/spool/mail/root 
+    42	[root@room9pc01 devopsday04]# ll  /var/spool/mail/{peri,root}
+    43	-rw-rw---- 1 peri mail 0 5月   8 17:18 /var/spool/mail/peri
+    44	-rw------- 1 root mail 0 5月   8 17:18 /var/spool/mail/root
+    45	[root@room9pc01 devopsday04]# mail  -uroot
+    46	No mail for root
+    47	[root@room9pc01 devopsday04]# netstat  -npult |grep  :25 |column  -t
+    48	tcp   0  0  127.0.0.1:25  0.0.0.0:*  LISTEN  1181/master
+    49	tcp6  0  0  ::1:25        :::*       LISTEN  1181/master
+    50	>>>
+    51	"""
+    52	import  sys, smtplib, getpass
+    53	from   email.mime.text  import  MIMEText
+    54	from   email.header     import  Header
+    55	
+    56	sys.stdout.write('\033[32;46;1m__name__ is %s\n\033[0m' % __name__)
+    57	
+    58	def  send_mail(host163, mail_pass, sender, receivers, content, subject):
+    59	
+    60	  #plain 表示纯文本文件#message 信息对象（dict 对象）
+    61	  message = MIMEText(content, 'plain', 'utf8')
+    62	  #Content-Type: text/plain; charset="utf8"
+    63	  #MIME-Version: 1.0
+    64	  #Content-Transfer-Encoding: base64
+    65	  
+    66	  print(message, type(message), sep= '\n---------\n', end='\n-------- message --------\n')
+    67	
+    68	  message['From']= Header(sender, 'utf-8')  #头部中的发送者'm13530503630@163.com'
+    69	  message['To'] = Header(receivers[0], 'utf-8')  #头部中的接收者'3424969110@qq.com'
+    70	  #subject 头部中的主题信息
+    71	  message['Subject'] = Header(subject, 'utf-8')
+    72	  
+    73	  #smtp_obj = smtplib.SMTP([host [, port [, local_hostname]]])
+    74	  #创建SMTP对象也可以不给定参数,之后再通过对象的其他方法进行绑定
+    75	  #smtp_obj = smtplib.SMTP()
+    76	  #smtp_obj.connect(mail_host, 25)  #25为SMTP端口号
+    77	
+    78	  smtpobj = smtplib.SMTP(host163, 25)  #创建SMTP对象, 25是非SSL协议SMTP默认端口号
+    79	  print('smtpobj = ', smtpobj, end=' ======= smtpobj------\n')
+    80	  #
+    81	   
+    82	  print(type(smtpobj))
+    83	  #<class 'smtplib.SMTP'>
+    84	
+    85	  smtpobj.login(sender, mail_pass)
+    86	  print('=====  smtpobj.login(sender, mail_pass) ====\n')
+    87	
+    88	
+    89	  #sender 发送者'm13530503630@163.com' 发送地址
+    90	  #接收者 ['3424969110@qq.com', '2119793139@qq.com']  地址列表receivers  
+    91	  #smtplib.SMTP.sendmail(from_addr,to_addrs,msg[,mail_opPons,rcpt_opPons])
+    92	  smtpobj.sendmail(sender, receivers, message.as_string()) ## 发送邮件
+    93	
+    94	  print('===== smtpobj.sendmail(sender, receivers, message.as_string()) ======\n')
+    95	
+    96	
+    97	if __name__ == "__main__":
+    98	  sys.stdout.write('\033[31;47;1msys.argv is %s\n\033[0m' % sys.argv)
+    99	
+   100	  host163 = 'smtp.163.com'  #邮件服务器地址
+   101	  mailpasswd = getpass.getpass()
+   102	  sender = 'm13530503630@163.com'  #发送者邮件发送地址
+   103	  #接收者地址列表['3424969110@qq.com', '2119793139@qq.com']
+   104	#  receivers = ['3424969110@qq.com', '2119793139@qq.com']
+   105	  receivers = ['m13530503630@163.com']
+   106	  content = """
+   107	  <div>
+   108	   主体内容</br>
+   109	   发送者'm13530503630@163.com'
+   110	   #头部接收者'3424969110@qq.com'
+   111	   #接收者 地址列表['3424969110@qq.com', '2119793139@qq.com']
+   112	</div>\r\n"""
+   113	  subject = 'Subject邮件SMTP标题'         #头部中的主题信息
+   114	
+   115	  send_mail(host163, mailpasswd, sender, receivers, content, subject)
+   116	  print('\n---------------done well ! ----------')
+   117	
+   118	
+[root@room9pc01 devopsday04]# 
+
+
+[root@room9pc01 devopsday04]# cd
+[root@room9pc01 ~]# cp    devopsday04/*  '/var/git/PYTHON/pythonScripts/devops_day04' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
