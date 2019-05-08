@@ -1,0 +1,279 @@
+
+
+安装paramiko模块
+•  本地安装
+#yum install  -y  gcc   gcc-c++   python-devel
+# tar  xzf  paramiko-1.15.4.tar.gz
+#python3  setup.py  install
+	
+网络安装
+#pip3 install  paramiko
+
+[root@room9pc01 urllib_paramiko]# pip3.6  freeze
+asn1crypto==0.24.0
+bcrypt==3.1.6
+certifi==2019.3.9
+cffi==1.12.3
+chardet==3.0.4
+cryptography==2.6.1
+Django==1.11.20
+idna==2.8
+paramiko==2.4.2
+pyasn1==0.4.5
+pycparser==2.19
+PyMySQL==0.9.3
+PyNaCl==1.3.0
+pytz==2019.1
+requests==2.21.0
+six==1.12.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+[root@room9pc01 urllib_paramiko]# 
+
+
+import   paramiko
+ssh = paramiko.SSHClient()   #创建用于连接ssh服务器的实例#创建sshclient
+ssh
+type(ssh)
+pkAP = paramiko.AutoAddPolicy()  #设置自动添加主机密钥
+pkAP
+type(pkAP)
+ssh.set_missing_host_key_policy(pkAP)   #回答连接yes#接受不在本地 ~/.ssh/known_hosts文件下的主机ip地址
+
+ssh.connect('192.168.0.12',username='root', password='1')  #连接ssh服务器
+
+ssh.exec_command('mkdir /root/newzidir')   #在ssh服务器上执行指定命令
+
+>>> result = ssh.exec_command('id lisi')   #在ssh服务器上执行指定命令
+>>> type(result)
+<class 'tuple'>
+>>> result = ssh.exec_command('id lisi')
+
+>>> result
+ #元组中的三项分别代表 标准输入, 标准输出, 标准错误, 都是 类文件对象
+(<paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>,
+
+ <paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>,
+
+ <paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>)
+>>> 
+]# ssh  -X  192.168.0.12
+[root@V2 ~]# id  lisi
+uid=1000(lisi) gid=1000(lisi) 组=1000(lisi)
+[root@V2 ~]# ls  -ld  newzidir/
+drwxr-xr-x 2 root root 6 5月   7 19:10 newzidir/
+
+>>> result[0]     #标准输入  类文件对象
+<paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>
+
+>>> result[1]   #标准输出 类文件对象
+<paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>
+
+>>> result[2]    # 标准错误, 类文件对象
+<paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xd4956e80 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>
+
+>>> type(result[2])    # 标准错误, 类文件对象
+<class 'paramiko.channel.ChannelStderrFile'>
+
+>>> type(result[1])     #标准输出 类文件对象
+<class 'paramiko.channel.ChannelFile'>
+
+>>> type(result[0])       #标准输入  类文件对象
+<class 'paramiko.channel.ChannelFile'>
+>>> 
+>>> result[1].read()
+b'uid=1000(lisi) gid=1000(lisi) \xe7\xbb\x84=1000(lisi)\n'
+>>>
+>>> 
+>>> len(result[1].read())
+0
+>>> result[1].read()
+b''
+>>> result = ssh.exec_command('id lisi')
+>>> xb = result[1].read()   #标准输出 类文件对象
+>>> xb
+b'uid=1000(lisi) gid=1000(lisi) \xe7\xbb\x84=1000(lisi)\n'
+>>> len(xb)
+45
+>>> result = ssh.exec_command('id peri')
+>>> xb = result[2].read()  # 标准错误, 类文件对象
+>>> xb
+b'id: peri: no such user\n'
+>>> len(xb)
+23
+>>> 
+>>> xb.decode('utf8')
+'id: peri: no such user\n'
+>>> 
+
+[root@room9pc01 ~]# \cp   -r   urllib_paramiko/  '/var/git/PYTHON/pythonScripts/urllib_paramiko' 
+
+[root@room9pc01 urllib_paramiko]# for  i   in  V{0..3};do
+> virsh  start  ${i};done;
+域 V0 已开始
+
+域 V1 已开始
+
+域 V2 已开始
+
+域 V3 已开始
+
+[root@room9pc01 urllib_paramiko]# watch  -n 1 -d  free  -m
+
+[root@room9pc01 urllib_paramiko]# free  -m
+              total        used        free      shared  buff/cache   available
+Mem:          15781        4977        8565         580        2238        9892
+Swap:             0           0           0
+[root@room9pc01 urllib_paramiko]#
+
+[root@room9pc01 urllib_paramiko]# python3
+...........................
+>>> import   paramiko
+
+>>> ssh = paramiko.SSHClient()
+
+>>> pkAP = paramiko.AutoAddPolicy()
+
+>>> type(pkAP)
+<class 'paramiko.client.AutoAddPolicy'>
+
+>>> ssh.set_missing_host_key_policy(pkAP)
+
+>>> ssh.connect('192.168.0.10', username='root', password='1')
+
+/usr/local/lib/python3.6/site-packages/paramiko/kex_ecdh_nist.py:39: .............................................
+ Please use EllipticCurvePublicKey.public_bytes to obtain both compressed and uncompressed point encoding.
+  m.add_string(self.Q_C.public_numbers().encode_point())
+
+........................ Please use EllipticCurvePublicKey.from_encoded_point
+  self.curve, Q_S_bytes
+
+........................ Please use EllipticCurvePublicKey.public_bytes to obtain both compressed and uncompressed point encoding.
+  hm.add_string(self.Q_C.public_numbers().encode_point())
+
+>>> ssh.exec_command('free -m')
+
+(<paramiko.ChannelFile from <paramiko.Channel 0 (open) window=2097152 -> <paramiko.Transport at 0xe84792e8 (cipher aes128-ctr, 128 bits) (active; 1 open channel(s))>>>, <paramiko.ChannelFile from <paramiko.Channel 0 (open) window=2097152 -> <paramiko.Transport at 0xe84792e8 (cipher aes128-ctr, 128 bits) (active; 1 open channel(s))>>>, <paramiko.ChannelFile from <paramiko.Channel 0 (open) window=2097152 -> <paramiko.Transport at 0xe84792e8 (cipher aes128-ctr, 128 bits) (active; 1 open channel(s))>>>)
+
+>>> result = ssh.exec_command('free -m')
+>>> type(result)
+<class 'tuple'>
+
+>>> result[1]
+<paramiko.ChannelFile from <paramiko.Channel 1 (closed) -> <paramiko.Transport at 0xe84792e8 (cipher aes128-ctr, 128 bits) (active; 0 open channel(s))>>>
+
+>>> result[1].read().decode('utf8')
+'              total        used        free      shared  buff/cache   available\nMem:           1740         321        1086           9         331        1246\nSwap:          2047           0        2047\n'
+>>> 
+>>> ssh.connect('192.168.0.11', username='root', password='1')
+>>> ssh.exec_command('free -m')[1].read().decode('utf8')
+'              total        used        free      shared  buff/cache   available\nMem:           1740         332        1073           9         333        1235\nSwap:          2047           0        2047\n'
+
+>>> ssh.connect('192.168.0.12', username='root', password='1')
+>>> ssh.exec_command('free -m')[1].read().decode('utf8')
+
+'              total        used        free      shared  buff/cache   available\nMem:           1740         321        1089           8         329        1248\nSwap:          2047           0        2047\n'
+
+>>> ssh.connect('192.168.0.13', username='root', password='1')
+>>> ssh.exec_command('free -m')[1].read().decode('utf8')
+'              total        used        free      shared  buff/cache   available\nMem:           1740         116        1458           8         165        1448\nSwap:          2047           0        2047\n'
+
+>>> ssh.exec_command('hostname')[1].read().decode('utf8')
+'V3\n'
+
+>>> ssh.exec_command("ifconfig |awk '/inet /{print $2}'")[1].read().decode('utf8')
+
+'192.168.0.13\n192.168.1.13\n127.0.0.1\n192.168.122.1\n'
+>>> 
+[root@room9pc01 urllib_paramiko]# vim  paramiko_sshreturncmd.py
+
+
+[root@room9pc01 urllib_paramiko]# ssh  -l root V0 "ls  robot/"
+root@v0's password: 
+1.html
+favicon.ico
+request_parse_login.py
+.........
+[root@room9pc01 urllib_paramiko]# ssh  -l root V1 "ls  robot/"
+root@v1's password: 
+ls: 无法访问robot/: 没有那个文件或目录
+
+[root@room9pc01 urllib_paramiko]# python3  paramiko_sshreturncmd.py
+__name__ is __main__
+=================   ==================
+
+sys.argv is ['paramiko_sshreturncmd.py']
+/usr/local/lib/python3.6/site-packages/paramiko/kex_ecdh_nist.py:39: 
+.....................
+  m.add_string(self.Q_C.public_numbers().encode_point())
+......................
+  self.curve, Q_S_bytes
+.......................
+  hm.add_string(self.Q_C.public_numbers().encode_point())
+[V0] OUT:
+1.html
+favicon.ico
+request_parse_login.py
+request_parse_post2.py
+request_parse_post.py
+templates
+tornado_server.py
+urllib_request.py
+xshell6.png
+
+[V1] ERROR:
+ls: 无法访问robot/: 没有那个文件或目录
+
+[V2] OUT:
+2019年 05月 08日 星期三 11:51:19 CST
+
+[192.168.0.13] OUT:
+V3
+
+[root@room9pc01 urllib_paramiko]# 
+
+[root@room9pc01 urllib_paramiko]# vim   ipaddrs.txt
+
+[root@room9pc01 urllib_paramiko]# cat    ipaddrs.txt
+192.168.0.10
+192.168.0.11
+192.168.0.12
+192.168.0.13
+[root@room9pc01 urllib_paramiko]# vim  paramiko_sshreturncmd3.py
+
+•  SMTP(Simple Mail Transfer Protocol)
+即简单邮件传输协议,使用TCP协议25端口
+•  它是一组用于由源地址到目的地址传送邮件的规则,
+由它来控制信件的中转方式
+•  python的smtplib提供了一种很方便的途径发送电子邮件。
+它对smtp协议进行了简单的封装
+
+SMTP对象
+•  Python发送邮件,第一步是创建SMTP对象
+import smtplib
+smtp_obj = smtplib.SMTP(	[host [, port [, local_hostname]]] )
+•  创建SMTP对象也可以不给定参数,
+之后再通过对象的其他方法进行绑定
+
+\cp   -r   urllib_paramiko/  '/var/git/PYTHON/pythonScripts/urllib_paramiko' 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

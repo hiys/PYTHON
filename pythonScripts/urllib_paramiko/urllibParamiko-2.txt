@@ -933,6 +933,226 @@ b'id: peri: no such user\n'
 
 [root@room9pc01 ~]# \cp   -r   urllib_paramiko/  '/var/git/PYTHON/pythonScripts/urllib_paramiko' 
 
+>>> import  urllib, ftplib, telnetlib, smtplib
+>>> import  urllib.request
+
+>>> ftplib.
+ftplib.B_CRLF        ftplib.MAXLINE       ftplib.error_temp(   ftplib.print_line(
+ftplib.CRLF          ftplib.MSG_OOB       ftplib.ftpcp(        ftplib.socket
+ftplib.Error(        ftplib.all_errors    ftplib.parse150(     ftplib.ssl
+ftplib.FTP(          ftplib.error_perm(   ftplib.parse227(     ftplib.sys
+ftplib.FTP_PORT      ftplib.error_proto(  ftplib.parse229(     ftplib.test(
+ftplib.FTP_TLS(      ftplib.error_reply(  ftplib.parse257(   
+  
+>>> telnetlib.
+telnetlib.AO                   telnetlib.NOP
+telnetlib.AUTHENTICATION       telnetlib.OLD_ENVIRON
+telnetlib.AYT                  telnetlib.OUTMRK
+telnetlib.BINARY               telnetlib.PRAGMA_HEARTBEAT
+telnetlib.BM                   telnetlib.PRAGMA_LOGON
+telnetlib.BRK                  telnetlib.RCP
+telnetlib.CHARSET              telnetlib.RCTE
+telnetlib.COM_PORT_OPTION      telnetlib.RSP
+telnetlib.DEBUGLEVEL           telnetlib.SB
+telnetlib.DET                  telnetlib.SE
+telnetlib.DM                   telnetlib.SEND_URL
+telnetlib.DO                   telnetlib.SGA
+telnetlib.DONT                 telnetlib.SNDLOC
+telnetlib.EC                   telnetlib.SSPI_LOGON
+telnetlib.ECHO                 telnetlib.STATUS
+telnetlib.EL                   telnetlib.SUPDUP
+telnetlib.ENCRYPT              telnetlib.SUPDUPOUTPUT
+telnetlib.EOR                  telnetlib.SUPPRESS_LOCAL_ECHO
+telnetlib.EXOPL                telnetlib.TELNET_PORT
+telnetlib.FORWARD_X            telnetlib.TLS
+telnetlib.GA                   telnetlib.TM
+telnetlib.IAC                  telnetlib.TN3270E
+telnetlib.IP                   telnetlib.TSPEED
+telnetlib.KERMIT               telnetlib.TTYLOC
+telnetlib.LFLOW                telnetlib.TTYPE
+telnetlib.LINEMODE             telnetlib.TUID
+telnetlib.LOGOUT               telnetlib.Telnet(
+telnetlib.NAMS                 telnetlib.VT3270REGIME
+telnetlib.NAOCRD               telnetlib.WILL
+telnetlib.NAOFFD               telnetlib.WONT
+telnetlib.NAOHTD               telnetlib.X3PAD
+telnetlib.NAOHTS               telnetlib.XASCII
+telnetlib.NAOL                 telnetlib.XAUTH
+telnetlib.NAOLFD               telnetlib.XDISPLOC
+telnetlib.NAOP                 telnetlib.selectors
+telnetlib.NAOVTD               telnetlib.socket
+telnetlib.NAOVTS               telnetlib.sys
+telnetlib.NAWS                 telnetlib.test(
+telnetlib.NEW_ENVIRON          telnetlib.theNULL
+telnetlib.NOOPT
+                
+>>> smtplib.
+smtplib.CRLF                      smtplib.SMTP_SSL(
+smtplib.LMTP(                     smtplib.SMTP_SSL_PORT
+smtplib.LMTP_PORT                 smtplib.bCRLF
+smtplib.OLDSTYLE_AUTH             smtplib.base64
+smtplib.SMTP(                     smtplib.copy
+smtplib.SMTPAuthenticationError(  smtplib.datetime
+smtplib.SMTPConnectError(         smtplib.email
+smtplib.SMTPDataError(            smtplib.encode_base64(
+smtplib.SMTPException(            smtplib.hmac
+smtplib.SMTPHeloError(            smtplib.io
+smtplib.SMTPNotSupportedError(    smtplib.quoteaddr(
+smtplib.SMTPRecipientsRefused(    smtplib.quotedata(
+smtplib.SMTPResponseException(    smtplib.re
+smtplib.SMTPSenderRefused(        smtplib.socket
+smtplib.SMTPServerDisconnected(   smtplib.ssl
+smtplib.SMTP_PORT                 smtplib.sys
+>>> 
+
+>>> urllib.parse
+urllib.parse
+>>> urllib.parse.
+urllib.parse.DefragResult(       urllib.parse.splitport(
+urllib.parse.DefragResultBytes(  urllib.parse.splitquery(
+urllib.parse.MAX_CACHE_SIZE      urllib.parse.splittag(
+urllib.parse.ParseResult(        urllib.parse.splittype(
+urllib.parse.ParseResultBytes(   urllib.parse.splituser(
+urllib.parse.Quoter(             urllib.parse.splitvalue(
+urllib.parse.ResultBase(         urllib.parse.sys
+urllib.parse.SplitResult(        urllib.parse.to_bytes(
+urllib.parse.SplitResultBytes(   urllib.parse.unquote(
+urllib.parse.clear_cache(        urllib.parse.unquote_plus(
+urllib.parse.collections         urllib.parse.unquote_to_bytes(
+urllib.parse.namedtuple(         urllib.parse.unwrap(
+urllib.parse.non_hierarchical    urllib.parse.urldefrag(
+urllib.parse.parse_qs(           urllib.parse.urlencode(
+urllib.parse.parse_qsl(          urllib.parse.urljoin(
+urllib.parse.quote(              urllib.parse.urlparse(
+urllib.parse.quote_from_bytes(   urllib.parse.urlsplit(
+urllib.parse.quote_plus(         urllib.parse.urlunparse(
+urllib.parse.re                  urllib.parse.urlunsplit(
+urllib.parse.scheme_chars        urllib.parse.uses_fragment
+urllib.parse.splitattr(          urllib.parse.uses_netloc
+urllib.parse.splithost(          urllib.parse.uses_params
+urllib.parse.splitnport(         urllib.parse.uses_query
+urllib.parse.splitpasswd(        urllib.parse.uses_relative
+
+>>> urllib.request.
+urllib.request.AbstractBasicAuthHandler(
+urllib.request.AbstractDigestAuthHandler(
+urllib.request.AbstractHTTPHandler(
+urllib.request.BaseHandler(
+urllib.request.CacheFTPHandler(
+urllib.request.ContentTooShortError(
+urllib.request.DataHandler(
+urllib.request.FTPHandler(
+urllib.request.FancyURLopener(
+urllib.request.FileHandler(
+urllib.request.HTTPBasicAuthHandler(
+urllib.request.HTTPCookieProcessor(
+urllib.request.HTTPDefaultErrorHandler(
+urllib.request.HTTPDigestAuthHandler(
+urllib.request.HTTPError(
+urllib.request.HTTPErrorProcessor(
+urllib.request.HTTPHandler(
+urllib.request.HTTPPasswordMgr(
+urllib.request.HTTPPasswordMgrWithDefaultRealm(
+urllib.request.HTTPPasswordMgrWithPriorAuth(
+urllib.request.HTTPRedirectHandler(
+urllib.request.HTTPSHandler(
+urllib.request.MAXFTPCACHE
+urllib.request.OpenerDirector(
+urllib.request.ProxyBasicAuthHandler(
+urllib.request.ProxyDigestAuthHandler(
+urllib.request.ProxyHandler(
+urllib.request.Request(
+urllib.request.URLError(
+urllib.request.URLopener(
+urllib.request.UnknownHandler(
+urllib.request.addclosehook(
+urllib.request.addinfourl(
+urllib.request.base64
+urllib.request.bisect
+urllib.request.build_opener(
+urllib.request.collections
+urllib.request.contextlib
+urllib.request.email
+urllib.request.ftpcache
+urllib.request.ftperrors(
+urllib.request.ftpwrapper(
+urllib.request.getproxies(
+urllib.request.getproxies_environment(
+urllib.request.hashlib
+urllib.request.http
+urllib.request.install_opener(
+urllib.request.io
+urllib.request.localhost(
+urllib.request.noheaders(
+urllib.request.os
+urllib.request.parse_http_list(
+urllib.request.parse_keqv_list(
+urllib.request.pathname2url(
+urllib.request.posixpath
+urllib.request.proxy_bypass(
+urllib.request.proxy_bypass_environment(
+urllib.request.quote(
+urllib.request.re
+urllib.request.request_host(
+urllib.request.socket
+urllib.request.splitattr(
+urllib.request.splithost(
+urllib.request.splitpasswd(
+urllib.request.splitport(
+urllib.request.splitquery(
+urllib.request.splittag(
+urllib.request.splittype(
+urllib.request.splituser(
+urllib.request.splitvalue(
+urllib.request.ssl
+urllib.request.string
+urllib.request.sys
+urllib.request.tempfile
+urllib.request.thishost(
+urllib.request.time
+urllib.request.to_bytes(
+urllib.request.unquote(
+urllib.request.unquote_to_bytes(
+urllib.request.unwrap(
+urllib.request.url2pathname(
+urllib.request.urlcleanup(
+urllib.request.urljoin(
+urllib.request.urlopen(
+urllib.request.urlparse(
+urllib.request.urlretrieve(
+urllib.request.urlsplit(
+urllib.request.urlunparse(
+urllib.request.warnings
+>>> 
+
+https://www.foxmail.com/
+    Windows    Mac
+  你的邮件，现在有了新看法。
+
+Foxmail 7.2.9 (New)2017-11-03
+
+    新增：支持高清屏显示
+    新增：支持纯文本邮件格式
+    优化：修复部分bug
+
+Foxmail 7.2.8 2017-09-06
+
+
+阿里企业邮箱-阿里钉钉企业邮箱在线申请_完全免费
+https://www.dingtalk.com/
+https://www.dingtalk.com/
+钉钉正在为企业解决办公协同问题
+
+
+
+
+
+
+
+
+
+
+
 
 
 
