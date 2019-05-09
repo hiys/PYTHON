@@ -1,0 +1,987 @@
+
+
+[root@room9pc01 ~]# for  i  in  V{0..3};do  virsh start ${i};done;
+域 V0 已开始
+
+域 V1 已开始
+
+域 V2 已开始
+
+域 V3 已开始
+
+[root@room9pc01 ~]# ssh  -X   192.168.0.13
+
+json：可以在网络中传输各种数据类型的对象
+>>> import json
+>>> alist = [100, 200, 300]
+>>> json.dumps(alist)    # 将列表转换成json格式数据
+'[100, 200, 300]'
+>>> jdata = json.dumps(alist)
+>>> type(jdata)
+<class 'str'>
+>>> jdata
+'[100, 200, 300]'
+>>> json.loads(jdata)   # 将json字符转换为python数据类型
+[100, 200, 300]
+
+
+获取天气情况
+实况天气获取:http://www.weather.com.cn/data/sk/城市代码.html
+城市信息获取:http://www.weather.com.cn/data/cityinfo/城市代码.html
+详细指数获取:http://www.weather.com.cn/data/zs/城市代码.html
+百度搜索“中国天气网 城市代码”
+北京：
+http://www.weather.com.cn/data/sk/101010100.html
+>>> from urllib import request
+>>> import json
+>>> html = request.urlopen('http://www.weather.com.cn/data/sk/101010100.html')
+>>> data = html.read()
+>>> json.loads(data)
+>>> bj_weather = json.loads(data)
+>>> import pprint
+>>> pprint.pprint(bj_weather)
+>>> bj_weather['weatherinfo']['temp']
+
+天气图标地址：http://m.weather.com.cn/img/n1.gif
+
+
+requests
+1、安装
+# pip3 install requests
+2、应用
+>>> import requests
+>>> r = requests.get('http://www.sogou.com')
+>>> r.text    # 如果是文本内容使用text属性
+
+>>> r = requests.get('https://img30.360buyimg.com/n7/jfs/t1/10650/22/3705/309831/5c0745d2Ea9247815/d54de4e076dabb3d.jpg')
+>>> with open('/tmp/m.jpg', 'wb') as f:
+...     f.write(r.content)    # 如果是2进制文件采用content属性
+
+>>> r = requests.get('http://www.weather.com.cn/data/sk/101010100.html')
+>>> r.json()  # 如果是json格式就采用json方法
+>>> r.encoding    # 字符编码
+>>> r.encoding = 'utf8'   # 修改字符编码
+>>> r.json()
+
+3、传参
+获取https://www.sogou.com/web?query=人民币汇率  的内容
+>>> url = 'https://www.sogou.com/web'
+>>> param = {'query': '人民币汇率'}
+>>> r = requests.get(url, params=param)
+>>> with open('/tmp/sogou.html', 'w') as fobj:
+...     fobj.write(r.text)
+
+4、修改请求头
+>>> header = {'User-agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'}
+>>> r = requests.get('http://127.0.0.1/', headers=header)
+
+5、其他
+>>> r.status_code   # 返回的状态码
+>>> r = requests.get('http://127.0.0.1/abc')   # url不存在，没有异常
+>>> r.status_code
+404
+>>> r.raise_for_status()     # 触发异常
+
+6、post方法
+搜索钉钉机器人 开放平台  =>
+
+[电子书下载]
+http://down.51cto.com/
+
+
+
+zabbix:
+1、示例zabbix网址是http://192.168.4.2/zabbix/
+2、官方文档页：
+https://www.zabbix.com/documentation/4.0/zh/manual
+3、示例zabbix api的URL：http://192.168.4.2/zabbix/api_jsonrpc.php
+
+
+配置虚拟机上网
+1、virt-manager中  编辑=>连接详情=>虚拟网络=>default,勾选自动启动，点左下角的启动
+2、关闭虚拟机
+3、虚拟机控制台，点击灯泡图标，将第2块网卡连接到default网络
+4、开启虚拟机
+5、将虚拟机的virbr0网卡干掉
+[root@node2 ~]# ifconfig virbr0 down
+[root@node2 ~]# brctl delbr virbr0
+6、虚拟机eth1采用DHCP自动获取地址，即可上网
+
+
+•  JSON(JavaScript Object Notation) 
+是一种轻量级的数据交换格式
+•  易于人阅读和编写,同时也易于机器解析和生成
+•  基于JavaScript Programming Language
+•  JSON采用完全独立于语言的文本格式,
+但是也使用了类似于C语言家族的习惯
+(包括C, C++, C#, Java,JavaScript, Perl, Python等)
+•  这些特性使JSON成为理想的数据交换语言
+
+阿里企业邮箱-阿里钉钉企业邮箱在线申请_完全免费
+https://www.dingtalk.com/
+https://www.dingtalk.com/
+钉钉正在为企业解决办公协同问题
+
+
+•  SMTP(Simple Mail Transfer Protocol)
+即简单邮件传输协议,使用TCP协议25端口
+•  它是一组用于由源地址到目的地址传送邮件的规则,
+由它来控制信件的中转方式
+
+•  JSON主要有两种结构
+–  “键/值”对的集合:python中主要对应成字典
+–  值的有序列表:在大部分语言中,它被理解为数组
+Python        JSON
+dict          object
+list, tuple   array
+str           string
+int, float    number
+True          true
+False         false
+None          null
+
+
+>>> import   json
+>>> number = json.dumps(100) #对简单数据类型进行编码
+>>> json.loads(number)   #对编码后的json对象进行decode解码
+100
+>>> number    #json对象
+'100'
+>>> type(number)
+<class 'str'>
+
+>>> x = json.loads(number)
+>>> x
+100
+>>> type(x)
+<class 'int'>
+
+>>> number = json.dumps(100.23) #对简单数据类型进行编码
+>>> number   #json对象
+'100.23'
+>>> type(number)
+<class 'str'>
+>>> x = json.loads(number)   #对编码后的json对象进行decode解码
+>>> x
+100.23
+>>> type(x)
+<class 'float'>
+>>> 
+>>> tuplex = json.dumps((10,'bbb',True))
+>>> tuplex
+'[10, "bbb", true]'
+>>> type(tuplex)
+<class 'str'>
+
+>>> x = json.loads(tuplex)  #对编码后的json对象进行decode解码
+>>> x
+[10, 'bbb', True]
+>>> type(x)
+<class 'list'>
+>>> 
+
+>>> dictx = json.dumps({'k1':'v1', 22:False})
+>>> type(dictx)
+<class 'str'>
+>>> dictx
+'{"k1": "v1", "22": false}'
+
+>>> x = json.loads(dictx) #对编码后的json对象进行decode解码
+>>> x
+{'k1': 'v1', '22': False}
+>>> type(x)
+<class 'dict'>
+>>> 
+pickle      英 [ˈpɪkl]  美 [ˈpɪkl]  
+     n.泡菜;腌菜;菜酱
+     v.腌渍
+
+>>> import   pickle
+
+一个字典a，用pickle.dump()存储到本地文件，所存数据的格式就是字典，
+而普通的file.write()写入文件的是字符串。
+读取时，pickle.load()返回的是一个字典，
+file.read()返回的是一个字符串
+
+>>> a = {" name ": "Tom", "age": "40"}
+>>> with open('text.txt', 'wb') as file:
+...   pickle.dump(a, file)
+... 
+>>> with open('text.txt', 'rb') as file2:
+...   b = pickle.load(file2)
+... 
+>>> print(type(b))
+<class 'dict'>
+>>> print(b)
+{' name ': 'Tom', 'age': '40'}
+>>> 
+[root@room9pc01 devopsday04]# cat  text.txt && echo
+�}q(X name qXTomqXageqX40qu.  #编码后的json对象
+[root@room9pc01 devopsday04]# 
+
+
+a = {" name ": "Tom", "age": "40"}
+with open('text.txt', 'wb') as file:
+  pickle.dump(a, file)
+
+with open('text.txt', 'rb') as file2:
+  b = pickle.load(file2)
+
+print(type(b))
+print(b)
+
+
+http://m.weather.com.cn/d/town/index?lat=39.95933&lon=116.29845
+http://www.weather.com.cn/
+
+实况天气获取:http://www.weather.com.cn/data/sk/城市代码.html
+城市信息获取:http://www.weather.com.cn/data/cityinfo/城市代码.html
+详细指数获取:http://www.weather.com.cn/data/zs/城市代码.html
+百度搜索“中国天气网 城市代码”
+
+town     英 [taʊn]
+  n.镇;市镇;集镇;(某一市镇的)居民，市民;
+
+http://m.weather.com.cn/d/town/index?lat=39.95933&lon=116.29845
+
+http://www.weather.com.cn/
+2019年5月9日星期四农历四月初五
+
+
+•  搜索“中国天气网 城市代码查询”,查找城市代码
+•  城市天气情况接口
+–  实况天气获取:http://www.weather.com.cn/data/sk/城市代码.html
+–  城市信息获取:http://www.weather.com.cn/data/cityinfo/城市代码.html
+–  详细指数获取:http://www.weather.com.cn/data/zs/城市代码.html
+
+中国天气网城市代码 - 一默网络工作室 - 博客园
+2019年5月1日 - 中国天气网城市代码
+中国天气网城市代码
+101010100=北京 
+101010200=海淀 
+101010300=朝阳 
+............
+101280101=广州 
+101280102=番禺 
+101280103=从化 
+101280104=增城 
+101280105=花都 
+101280106=天河 
+101280201=韶关 
+
+http://www.weather.com.cn/data/sk/101280101.html  #广州 
+  实况天气获取:http://www.weather.com.cn/data/sk/城市代码.html
+
+http://www.weather.com.cn/data/sk/101280101.html
+
+dictx = '{"weatherinfo":{"city":"骞垮窞","cityid":"101280101","temp":"26.6","WD":"涓滃崡椋�","WS":"灏忎簬3绾�","SD":"83%","AP":"1001.4hPa","njd":"鏆傛棤瀹炲喌","WSE":"<3","time":"17:50","sm":"1.7","isRadar":"1","Radar":"JC_RADAR_AZ9200_JB"}}'
+
+x = json.loads(dictx)
+
+>>> dictx = '{"weatherinfo":{"city":"骞垮窞","cityid":"101280101","temp":"26.6","WD":"涓滃崡椋�","WS":"灏忎簬3绾�","SD":"83%","AP":"1001.4hPa","njd":"鏆傛棤瀹炲喌","WSE":"<3","time":"17:50","sm":"1.7","isRadar":"1","Radar":"JC_RADAR_AZ9200_JB"}}'
+>>> x = json.loads(dictx)
+>>> x
+{'weatherinfo': {'city': '骞垮窞', 'cityid': '101280101', 'temp': '26.6', 'WD': '涓滃崡椋�', 'WS': '灏忎簬3绾�', 'SD': '83%', 'AP': '1001.4hPa', 'njd': '鏆傛棤瀹炲喌', 'WSE': '<3', 'time': '17:50', 'sm': '1.7', 'isRadar': '1', 'Radar': 'JC_RADAR_AZ9200_JB'}}
+>>> type(x)
+<class 'dict'>
+>>> 
+[root@room9pc01 devopsday04]# cat  text.txt && echo
+�}q(X name qXTomqXageqX40qu.  #编码后的json对象
+[root@room9pc01 devopsday04]# 
+[root@room9pc01 devopsday04]# vim  weather.py
+
+
+
+import  urllib.request
+import  urllib.error
+import  urllib.parse
+import  sys, re, os
+
+sys.stdout.write('\033[32;46;1m__name__ is %s\n\033[0m' % __name__)
+
+def  download(url, fname):
+  header = {
+    'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+  }
+  request = urllib.request.Request(url,headers=header)
+  try:
+    html = urllib.request.urlopen(request, timeout = 1.5)
+  except  urllib.error.URLError as  er:
+    if hasattr(e,"code"):
+      print('状态码 e.code = ', e.code)
+    elif hasattr(e, "reason"):
+      print("异常原因e.reason = ", e.reason)
+  except  ConnectionResetError as ce:
+    print('连接被对等方重置 ce= ', ce)
+    
+  else:  #不发生异常才执行的语句
+    with  open(fname, 'wb') as  fobj:
+      while True:
+        data = html.read(1024)
+        if  not data:
+          break
+        fobj.write(data)
+  finally:    #不管是否异常都会执行的finally 语句
+    html.close() #关闭对象方法
+
+print('============= download(url, fname) ===================\n')
+
+
+
+  File "weather.py", line 30, in download
+    request = request.Request(url,headers=header)
+UnboundLocalError: local variable 'request' referenced before assignment
+UnboundLocalError:分配前引用了本地变量“request”
+
+[root@room9pc01 devopsday04]# python3  weather.py
+
+__name__ is __main__
+
+<http.client.HTTPResponse object at 0x7f384281ac18> <class 'http.client.HTTPResponse'>
+--- weather ---
+#查看远程服务器的 头部信息  [('Date', 'Thu, 09 May 2019 04:00:31 GMT'), ('Content-Type', 'text/html'), ('Transfer-Encoding', 'chunked'), ('Connection', 'close'), ('Server', 'nginx'), ('Age', '1514221'), ('X-Via', '1.1 jszjsx49:5 (Cdn Cache Server V2.0), 1.1 PSjsyzdx5rv60:8 (Cdn Cache Server V2.0), 1.1 PSgddgdx5kx62:7 (Cdn Cache Server V2.0)')]
+#查看响应 url 地址  http://www.weather.com.cn/data/sk/101280101.html
+"{\"weatherinfo\":{\"city\":\"\u5e7f\u5dde\",\"cityid\":\"101280101\",\"temp\":\"26.6\",\"WD\":\"\u4e1c\u5357\u98ce\",\"WS\":\"\u5c0f\u4e8e3\u7ea7\",\"SD\":\"83%\",\"AP\":\"1001.4hPa\",\"njd\":\"\u6682\u65e0\u5b9e\u51b5\",\"WSE\":\"<3\",\"time\":\"17:50\",\"sm\":\"1.7\",\"isRadar\":\"1\",\"Radar\":\"JC_RADAR_AZ9200_JB\"}}"
+""
+#查看响应状态信息  200
+============= download(url, fname) ===================
+
+sys.argv is ['weather.py']
+[root@room9pc01 devopsday04]# ll  weather
+weathergz.html  weather.py      
+[root@room9pc01 devopsday04]# ll  weathergz.html 
+-rw-r--r-- 1 root root 232 5月   9 12:00 weathergz.html
+
+[root@room9pc01 devopsday04]# cat   weathergz.html
+{"weatherinfo":{"city":"广州","cityid":"101280101","temp":"26.6","WD":"东南风","WS":"小于3级","SD":"83%","AP":"1001.4hPa","njd":"暂无实况","WSE":"<3","time":"17:50","sm":"1.7","isRadar":"1","Radar":"JC_RADAR_AZ9200_JB"}}[root@room9pc01 devopsday04]# 
+
+[root@room9pc01 devopsday04]# vim  weather3.py 
+    url = 'http://www.weather.com.cn/data/cityinfo/101280101.html'
+    ^
+IndentationError: unexpected indent
+意外缩进
+
+  File "weather3.py", line 46, in download
+    dumpstr = json.dumps(html.decode('utf8')) ##对简单数据类型进行编码
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xe5 in position 1023: unexpected end of data
+unicodedecode错误：“utf-8”编解码器无法在位置1023处解码字节0xE5:意外的数据结尾
+
+response = opener.open('http://2019.ip138.com/ic.asp').read()
+page = response.decode('gb18030')
+
+    with  open(fname, 'wb') as  fobj:
+      while True:
+        html = xiangy.read(1024)
+        print('二进制编码',html)
+        dumpstr = json.dumps(html.decode('gb18030') ##对简单数据类型进行编码
+
+
+[root@room9pc01 devopsday04]# pip3  install  wget
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting wget
+  Downloading http://pypi.doubanio.com/packages/47/6a/62e288da7bcda82b935ff0c6cfe542970f04e29c756b0e147251b2fb251f/wget-3.2.zip
+Installing collected packages: wget
+  Running setup.py install for wget ... done
+Successfully installed wget-3.2
+
+[root@room9pc01 devopsday04]# pip3  freeze
+asn1crypto==0.24.0
+bcrypt==3.1.6
+certifi==2019.3.9
+cffi==1.12.3
+chardet==3.0.4
+cryptography==2.6.1
+Django==1.11.20
+idna==2.8
+paramiko==2.4.2
+pyasn1==0.4.5
+pycparser==2.19
+PyMySQL==0.9.3
+PyNaCl==1.3.0
+pytz==2019.1
+requests==2.21.0
+six==1.12.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+wget==3.2
+[root@room9pc01 devopsday04]# 
+
+>>> import  wget
+>>> help(wget)
+
+DESCRIPTION
+      python -m wget <URL>
+      python wget.py <URL>
+    
+    Downloads: http://pypi.python.org/pypi/wget/
+    Development: http://bitbucket.org/techtonik/python-wget/
+
+FUNCTIONS
+    bar_adaptive(current, total, width=80)
+.....................
+    detect_filename(url=None, out=None, headers=None, default='download.wget')
+        Return filename for saving file. If no filename is detected from output
+        argument, url or headers, return default (download.wget)
+    
+    download(url, out=None, bar=<function bar_adaptive at 0x7f44d4879f28>)
+        High level function, which downloads URL into tmp file in current
+        directory and then renames it to filename autodetected from either URL
+        or HTTP headers.
+
+>>> wget.download(url='http://i1.whymtj.com/uploads/tu/201903/61/7ae8dba93b_2.jpg', out='imgx1.jpg')
+...........
+urllib.error.URLError: <urlopen error [Errno 110] Connection timed out>
+>>> 
+
+>>> wget.download(url='http://i1.whymtj.com/uploads/tu/201901/9999/9168c36446.jpg', out='imgx1.jpg')
+100% [................................................................] 570371 / 570371'imgx1.jpg'
+>>> 
+
+>>> import  wget
+>>> wget.download(url='http://pi.weather.com.cn/i//product/pic/s/sevp_nsmc_wxbl_fy4a_etcc_achn_lno_py_20190509021900000.jpg', out='imgx1.jpg')
+100% [..................................................................] 12424 / 12424'imgx1.jpg'
+>>> 
+[root@room9pc01 devopsday04]# eog   imgx1.jpg 
+
+图片格式是计算机存储图片的格式，常见的存储的格式有bmp,jpg,png,tif,gif,pcx,tga,exif,fpx,svg,psd,cdr,pcd,dxf,ufo,eps,ai,raw,WMF,webp等。
+
+[root@room9pc01 devopsday04]# wget   http://i1.whymtj.com/uploads/tu/201901/9999/9168c36446.jpg  -O   imgx1.jpeg
+............................................
+2019-05-09 14:46:23 (6.57 MB/s) - 已保存 “imgx1.jpeg” [570371/570371])
+
+[root@room9pc01 devopsday04]# eog    imgx1.jpeg 
+^C
+[root@room9pc01 devopsday04]# eog     xshell6.png 
+^C
+[root@room9pc01 devopsday04]# eog    favicon.ico 
+
+[root@room9pc01 devopsday04]# cp   -r    /var/www/html/   .
+[root@room9pc01 devopsday04]# ls
+emailmimetextheader2.py  gzzs.html        SendEmail.py    weatherjs.py
+emailmimetextheader3.py  html             text.txt        weather.py
+emailmimetextheader.py   imgx1.jpg        weather2.py     xshell6.png
+favicon.ico              index.html       weather3.py
+gzcityinfo.html          SendEmail163.py  weathergz.html
+[root@room9pc01 devopsday04]#
+
+[root@room9pc01 html]# vim  index.html 
+
+  <div>
+   <a  href="./xshell6.png" target="_blank">_blank点击xshell6.png</a>
+   <a  href="javascript:alert('这是弹出对话框的内容');">点击链接</a>
+   </hr>
+  </div>
+  <form action="/zidir" method="post">
+   <input type="text"  name="username">姓名
+   <input name="password">密码
+   <button type="submit">提交submit</button>
+  </form>
+  <form action="http://www.baidu.com/s"  target="_blank">
+   <input type="text"  name="wd">关键字
+   <input type="submit" value="百度搜索" />
+  </form>
+http://127.0.0.1/
+http://127.0.0.1/zidir/
+https://www.baidu.com/s?wd=python3
+
+[root@room9pc01 html]# cat  zidir/index.html 
+hello I am  zidir
+[root@room9pc01 html]# 
+
+satisfied
+英 [ˈsætɪsfaɪd]   美 [ˈsætɪsfaɪd]  
+adj.
+满意的;满足的;欣慰的;确信的;信服的
+v.
+使满意;使满足;满足(要求、需要等);向…证实;使确信
+satisfy的过去分词和过去式
+
+[root@room9pc01 html]# cat  zidir/index.html 
+hello I am  zidir
+[root@room9pc01 html]# pip3  install  requests
+Looking in indexes: http://pypi.doubanio.com/simple/
+Requirement already satisfied: requests in /usr/local/lib/python3.6/site-packages (2.21.0)
+Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.6/site-packages (from requests) (2019.3.9)
+Requirement already satisfied: chardet<3.1.0,>=3.0.2 in /usr/local/lib/python3.6/site-packages (from requests) (3.0.4)
+Requirement already satisfied: urllib3<1.25,>=1.21.1 in /usr/local/lib/python3.6/site-packages (from requests) (1.24.3)
+Requirement already satisfied: idna<2.9,>=2.5 in /usr/local/lib/python3.6/site-packages (from requests) (2.8)
+[root@room9pc01 html]# pip3  freeze
+asn1crypto==0.24.0
+bcrypt==3.1.6
+certifi==2019.3.9
+cffi==1.12.3
+chardet==3.0.4
+cryptography==2.6.1
+Django==1.11.20
+idna==2.8
+paramiko==2.4.2
+pyasn1==0.4.5
+pycparser==2.19
+PyMySQL==0.9.3
+PyNaCl==1.3.0
+pytz==2019.1
+requests==2.21.0
+six==1.12.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+wget==3.2
+
+[root@room9pc01 html]# pwd
+/var/www/html
+[root@room9pc01 html]# python3
+.............
+>>> import  requests
+>>> params = {'wd': 'centos7'}
+>>> rq = requests.get('http://www.baidu.com/s',params=params)
+>>> type(rq)
+<class 'requests.models.Response'>
+>>> rq
+<Response [200]>
+>>> 
+
+  <form action="/zidir" method="post">
+   <input type="text"  name="username">姓名
+   <input name="password">密码
+   <button type="submit">提交submit</button>
+  </form>
+
+[root@room9pc01 devopsday04]# vim  requestshtml.py
+
+payload = {'username': 'centos7', 'password':'1234'}
+rq = requests.get('http://127.0.0.1/',params=payload)
+print(rq)
+
+[root@room9pc01 devopsday04]# python3  requestshtml.py
+__name__ is __main__
+<Response [200]>
+sys.argv is ['requestshtml.py']
+
+[root@room9pc01 devopsday04]# tail  -1  /var/log/httpd/access_log
+127.0.0.1 - - [09/May/2019:16:13:58 +0800] "GET /?username=centos7&password=1234 HTTP/1.1" 200 9818 "-" "python-requests/2.21.0"
+
+[root@room9pc01 devopsday04]# python3  requestshtml.py
+__name__ is __main__
+<Response [200]>
+
+----------------------------------------------
+
+header = {
+    'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+  }
+url = 'http://127.0.0.1/'
+payload = {'username': 'centos7', 'password':'1234'}
+rq = requests.get(url, headers = header, params = payload)
+print(rq)
+
+[root@room9pc01 devopsday04]# tail  -1  /var/log/httpd/access_log
+127.0.0.1 - - [09/May/2019:16:25:44 +0800] "GET /?username=centos7&password=1234 HTTP/1.1" 200 9818 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+
+
+[root@room9pc01 html]# >  /var/log/httpd/access_log
+
+payload = {'username': 'centos88', 'password':'12333'}
+url = 'http://127.0.0.1/'
+header = {
+ 'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+}
+datawd = {'wd':'valuex'}
+rq = requests.post(url=url, data=datawd,params = payload, headers = header, cookies={})
+rq
+
+>>> payload = {'username': 'centos88', 'password':'12333'}
+>>> url = 'http://127.0.0.1/'
+>>> header = {
+...  'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+... }
+>>> datawd = {'wd':'valuex'}
+>>> rq = requests.post(url=url, data=datawd,params = payload, headers = header, cookies={})
+>>> rq
+<Response [200]>
+>>> 
+
+[root@room9pc01 html]# cat   /var/log/httpd/access_log
+
+127.0.0.1 - - [09/May/2019:16:56:19 +0800] "POST /?username=centos88&password=12333 HTTP/1.1" 200 9818 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+
+[root@room9pc01 html]#
+
+>>> import  requests
+>>> r =  requests.get('http://127.0.0.1/')
+>>> data = r.text
+>>> type(data)
+<class 'str'>
+>>> data
+'<!DOCTYPE html>\n<!--STATUS OK-->\n<html lang="zh-CN">\n <head>\n  <meta charset="UTF-8">\n  <link rel="icon" href="./favicon.ico">\n  <title>Title标题</title>\n </head>\n <body>\n ...............
+>>> r.encoding
+'UTF-8'
+>>> 
+>>> rq =  requests.get('http://www.baidu.com/')
+>>> rq.encoding
+'ISO-8859-1'
+>>> 
+>>> rq.encoding = 'utf8'
+
+>>> data = rq.text
+>>> data
+'<!DOCTYPE html>\r\n<!--STATUS OK--><html> <head><meta http-equiv=content-type content=text/html;charset=utf-8><meta http-equiv=X-UA-Compatible content=IE=Edge><meta content=always name=referrer><link rel=stylesheet type=text/css href=http://s1.bdstatic.com/r/www/cache/bdorz/baidu.min.css><title>百度一下，你就知道</title></head> .........................
+
+>>> c = rq.content  #用字节的方式访问请求响应体,尤其是非文本请求(如图片)
+>>> type(c)
+<class 'bytes'>
+>>> c
+b'<!DOCTYPE html>\r\n<!--STATUS OK--><html> <head><meta http-equiv=content-type content=text/html;charset=utf-8><meta http-equiv=X-UA-Compatible content=IE=Edge><meta content=always name=referrer><link rel=stylesheet type=text/css href=http://s1.bdstatic.com/r/www/cache/bdorz/baidu.min.css><title>\xe7\x99\xbe\xe5\xba\xa6\xe4\xb8\x80\xe4\xb8\x8b\xef\xbc\x8c\xe4\xbd\xa0\xe5\xb0\xb1\xe7\x9f\xa5\xe9\x81\x93</title></head> <body .....................
+
+>>> import  requests
+>>> rq =  requests.get('http://127.0.0.1/zidir/x2.jpg')
+>>> rq
+<Response [200]>
+
+>>> rq.content   #用字节的方式访问请求响应体,尤其是非文本请求(如图片)
+b'\xff\xd8\xff\xe0\x00\x10JFIF\x00\x01\x01\x01\x00`\............
+1\x1fu\x04\'tY)\xa0\x17\x10\xff\xd9'
+>>> 
+>>> with  open('newx2.jpg', 'wb')  as  fobj:
+...  fobj.write(rq.content)
+... 
+227704
+>>> 
+[root@room9pc01 html]# ll  newx2.jpg 
+-rw-r--r-- 1 root root 227704 5月   9 17:42 newx2.jpg
+[root@room9pc01 html]# eog   newx2.jpg
+^C
+
+url = 'http://www.weather.com.cn/data/sk/101280101.html'
+header = {
+  'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+}
+rq = requests.get(url, headers = header)
+rq
+rq.text
+rq.encoding
+rq.json()
+
+>>> url = 'http://www.weather.com.cn/data/sk/101280101.html'
+>>> header = {
+...   'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+... }
+>>> rq = requests.get(url, headers = header)
+>>> rq
+<Response [200]>
+>>> rq.text
+'{"weatherinfo":{"city":"å¹¿å·\x9e","cityid":"101280101","temp":"26.6","WD":"ä¸\x9cå\x8d\x97é£\x8e","WS":"å°\x8fäº\x8e3çº§","SD":"83%","AP":"1001.4hPa","njd":"æ\x9a\x82æ\x97\xa0å®\x9eå\x86µ","WSE":"<3","time":"17:50","sm":"1.7","isRadar":"1","Radar":"JC_RADAR_AZ9200_JB"}}'
+>>> rq.encoding
+'ISO-8859-1'
+>>> 
+>>> rq.encoding = 'utf8'
+
+>>> rq.encoding
+'utf8'
+>>> rq.json()
+{'weatherinfo': {'city': '广州', 'cityid': '101280101', 'temp': '26.6', 'WD': '东南风', 'WS': '小于3级', 'SD': '83%', 'AP': '1001.4hPa', 'njd': '暂无实况', 'WSE': '<3', 'time': '17:50', 'sm': '1.7', 'isRadar': '1', 'Radar': 'JC_RADAR_AZ9200_JB'}}
+>>> 
+
+
+
+myurl = 'http://127.0.0.1/'
+header = {
+ 'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+}
+rq=requests.get(url=myurl,headers = header, stream=True)
+rq.raw
+print(rq)
+
+
+>>> myurl = 'http://127.0.0.1/'
+>>> header = {
+...  'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+... }
+                                    #确保在初始请求中设置了 stream=True
+>>> rq=requests.get(url=myurl,headers = header, stream=True)
+
+>>> rq.raw   #获取来自服务器的原始套接字响应,访问 rq.raw
+
+<urllib3.response.HTTPResponse object at 0x7f840b664f98>
+
+>>> print(rq)
+<Response [200]>
+>>> rq.ra
+rq.raise_for_status(  rq.raw                
+>>>
+>>> rq.raw.
+rq.raw.CONTENT_DECODERS         rq.raw.msg
+rq.raw.REDIRECT_STATUSES        rq.raw.read(
+rq.raw.chunk_left               rq.raw.read_chunked(
+rq.raw.chunked                  rq.raw.readable(
+rq.raw.close(                   rq.raw.readinto(
+..............
+>>> rq.raw.status
+200
+>>> rq.raw.read(20)
+b''
+>>> rq.status_code
+200
+>>> 
+
+
+myurl = 'http://127.0.0.1/xx'
+header = {
+ 'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+}
+rq=requests.get(url=myurl,headers = header)
+rq.status_code
+
+
+
+>>> rq.raw.status
+200
+>>> rq.raw.read(20)
+b''
+>>> rq.status_code
+200
+>>> 
+>>> myurl = 'http://127.0.0.1/xx'
+>>> header = {
+...  'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+... }
+>>> rq=requests.get(url=myurl,headers = header)
+>>> rq.status_code
+404
+
+>>> requests.codes.O
+requests.codes.OK     requests.codes.OKAY   requests.codes.OTHER
+>>> requests.codes.OK
+200
+>>>
+>>> requests.codes.forbidden
+403
+>>> requests.codes.not_found
+404
+>>> 
+>>> rq.status_code
+404
+>>> rq.status_code == requests.codes.not_found
+True
+>>> rq.status_code == requests.codes.OK
+False
+>>> 
+>>> rq.raise_for_status()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 940, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 404 Client Error: Not Found for url: http://127.0.0.1/xx
+>>> 
+raise     英 [reɪz]   美 [reɪz]  
+       v.提升;举起;提起;(使)直立，站立;增加，提高(数量、水平等)
+       n.高地;上升;加薪
+
+expire   英 [ɪkˈspaɪə(r)] 
+    v.(因到期而)失效，终止;到期;届满
+
+
+•  当前可使用的Cookie规范有两个版本:
+Cookie版本0
+和Cookie版本1
+
+•  Cookie版本1是对Cookie版本0的扩展,
+版本1可以和版本0互操作
+但是Cookie版本0 的使用范围更广泛
+
+•  版本0定义了Set-Cookie响应首部、Cookie请求首部
+•  Set-Cookie响应首部,
+其实就是服务端返回的
+Cookie信息,
+具体的语法如下:
+
+Set-Cookie:key=value;expires=date;domain=domain;path=path;secure	
+	
+key/value:
+在服务端可跟踪、可识别的用户信息
+
+expires:
+Cookie结束日期,
+如果没指定会在用户退出浏览器时过期
+
+domain:
+告诉浏览器这个Cookie可以被发送到哪个域名,
+如果没指定,
+默认为产生Cookie的服务器主机名,
+浏览器会存储很多不同网站的Cookie,
+浏览器会根据domain的值
+将Cookie发送到对应的域名下
+
+path:
+指定Cookie对哪些请求路径生效,
+如果没指定,
+默认为产生Cookie的URL路径
+
+secure:在使用SSL安全连接时才发送Cookie,
+若没设置secure,则没限制	
+
+•  版本0定义了Set-Cookie响应首部、Cookie请求首部
+•  Set-Cookie响应首部,
+其实就是服务端返回的Cookie信息
+
+
+
+myurl = 'http://www.baidu.com'
+header = {
+ 'User-Agent' : "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+}
+rq=requests.get(url=myurl,headers = header)
+rq.status_code
+
+rq.cookies
+rq1 = requests.get(myurl, cookies=rq.cookies)
+
+
+[root@room9pc01 devopsday04]# '/var/git/Cloud_linux/nsdTarena(pdf)/SECURITY/SECURITY-day05.pdf' 
+
+
+Linux下常用的系统监控软件有Nagios、Cacti、Zabbix、Monit等，
+这些开源的软件，可以帮助我们更好的管理机器，在第一时间内发现，并警告系统维护人员。
+
+使用Zabbix的目的，是为了能够更好的监控mysql数据库服务器，并且能够生成图形报表，
+虽然Nagios也能够生成图形报表，但没有Zabbix这么强大
+
+：一.Zabbix简介
+zabbix是一个基于WEB界面的提供分布式系统监视以及网络监视功能的企业级的开源解决方案。
+zabbix由zabbixserver与可选组件zabbixagent两部门组成。
+zabbixserver可以通过SNMP，zabbixagent，ping，端口监视等方法
+提供对远程服务器/网络状态的监视。
+
+zabbixagent需要安装在被监视的目标服务器上，
+它主要完成对硬件信息或与操作系统有关的内存，CPU等信息的收集。
+
+zabbix的主要特点：
+学习成本低-支持多语言（包括中文）-开源-自动发现服务器与网络设备-分布式监视
+以及WEB集中管理功能-
+可以无agent监视-用户安全认证和柔软的授权方式-
+通过WEB界面设置或查看监视结果-email等通知功能等等
+
+Zabbix主要功能：-CPU负荷-内存使用-磁盘使用-网络状况-端口监视-日志监视
+
+官方也提供了安装资料：
+二.Zabbix安装
+
+zabbixWEB环境搭建
+zabbix的安装需要LAMP或者LNMP环境。
+
+需要其它的软件包yum  install  mysql-devel gcc net-snmp-devel curl-devel perl-DBI
+ php-gd php-mysql  php-bcmathphp-mbstringphp-xm
+
+zabbix数据库设置zabbix数据库可以和zabbix服务器分离，
+采用用专门的mysql服务器存储数据，
+此时要给zabbix数据库受相应的权限。
+grant all privileges on zabbix.* to zabbix_user@'ip' identified by'123456';
+
+注：ip为zabbix服务器的IP地址。
+关于数据库的安装，可以查看Mysql安装。
+
+启动数据库/usr/local/mysql/bin/mysqld_safe --user=mysql& 
+登录数据库，创建帐号和设置权限：
+mysql>use   mysql;
+mysql>createdatabasezabbixcharactersetutf8;
+mysql>grant all privileges on zabbix.* to  zabbix_user@'192.168.10.197' identified by'123456';
+
+安装zabbix服务增加zabbix用户和组
+#group add zabbix
+#useradd -g zabbix -m zabbix 
+官网下载解压软件包。
+下载地址：
+#wget#tar -zxvf zabbix-2.0.3.tar.gz
+#cd  zabbix-2.203
+导入数据库表
+#cd  zabbix-2.0.3/database/mysql
+
+#mysql -uroot -pmysql zabbix 
+
+ 开源运维监控产品篇
+
+Zabbix
+
+推荐星级：★★★★★
+
+Zabbix是一个基于WEB界面的提供分布式系统监控以及网络监控功能的企业级开源运维平台，
+也是目前国内互联网用户中使用最广的监控软件，
+云智慧遇到的 85% 以上 用户在使用Zabbix做监控解决方案。
+
+ 缺点：
+
+1. 项目批量修改不方便
+
+2. 社区虽然成熟，但是中文资料相对较少，服务支持有限;
+
+3. 入门容易，能实现基础的监控，但是深层次需求需要非常熟悉Zabbix并进行大量的二次定制开发，难度较大;
+
+4. 系统级别报警设置相对比较多，如果不筛选的话报警邮件会很多;并且自定义的项目报警需要自己设置，过程比较繁琐;
+
+5. 缺少数据汇总功能，如无法查看一组服务器平均值，需进行二次开发;
+
+6. 数据报表需要特殊二次开发定义;
+
+
+
+阿里云监控
+
+推荐星级：★★★★☆
+
+阿里云监控是一款免费网站监控产品，可监控站点和服务器，并提供多种告警方式：短信，旺旺，邮件。
+
+ 用户群：阿里云用户
+
+优点：
+
+与阿里云服务捆绑紧密，允许用户自定义数据监控
+
+阿里云多IDC间内网数据传输，不占用客户公网资源
+
+支持对业务数据的通用统计，从各个角度反应服务的运行情况
+
+常用的17个运维监控系统
+1. Zabbix
+Zabbix 作为企业级的网络监控工具，通过从服务器，
+虚拟机和网络设备收集的数据提供实时监控，
+自动发现，映射和可扩展等功能。
+
+Zabbix的企业级监控软件为用户提供内置的Java应用服务器监控，
+硬件监控，VMware监控和CPU，内存，网络，磁盘空间性能监控。
+
+该企业级网络监控工具能够每分钟进行 3,000,000 次检查，
+具有更高的安全性和数据中心监控功能。
+
+
+2. Nagios
+
+https://blog.csdn.net/lction/article/details/80789855
+【搭建LAMP环境与部署zabbix服务】
+
+https://github.com/hiys/Cloud_linux/blob/master/nsdTarena(pdf)/SECURITY/SECURITY-day05.pdf
+
+
+[root@room9pc01 ~]# \cp    devopsday04/*  /var/git/PYTHON/pythonScripts/devops_day04/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

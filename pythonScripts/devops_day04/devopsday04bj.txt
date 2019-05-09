@@ -107,6 +107,8 @@ b'id: peri: no such user\n'
 'id: peri: no such user\n'
 >>> 
 
+page = response.decode('gb18030')
+
 [root@room9pc01 ~]# \cp   -r   urllib_paramiko/  '/var/git/PYTHON/pythonScripts/urllib_paramiko' 
 
 [root@room9pc01 urllib_paramiko]# for  i   in  V{0..3};do
@@ -769,6 +771,361 @@ smtpobj =  <smtplib.SMTP object at 0x7f17bdf3c4a8> ======= smtpobj------
 
 [root@room9pc01 devopsday04]# cd
 [root@room9pc01 ~]# cp    devopsday04/*  '/var/git/PYTHON/pythonScripts/devops_day04' 
+
+
+
+======================================
+
+
+>>> import    _pickle
+>>> _pickle.
+_pickle.PickleError(      _pickle.Unpickler(        _pickle.dumps(
+_pickle.Pickler(          _pickle.UnpicklingError(  _pickle.load(
+_pickle.PicklingError(    _pickle.dump(             _pickle.loads(
+
+>>> import   pickle
+
+>>> pickle.
+pickle.ADDITEMS            pickle.NONE
+pickle.APPEND              pickle.OBJ
+pickle.APPENDS             pickle.PERSID
+pickle.BINBYTES            pickle.POP
+pickle.BINBYTES8           pickle.POP_MARK
+pickle.BINFLOAT            pickle.PROTO
+pickle.BINGET              pickle.PUT
+pickle.BININT              pickle.PickleError(
+pickle.BININT1             pickle.Pickler(
+pickle.BININT2             pickle.PicklingError(
+pickle.BINPERSID           pickle.PyStringMap
+pickle.BINPUT              pickle.REDUCE
+pickle.BINSTRING           pickle.SETITEM
+pickle.BINUNICODE          pickle.SETITEMS
+pickle.BINUNICODE8         pickle.SHORT_BINBYTES
+pickle.BUILD               pickle.SHORT_BINSTRING
+pickle.DEFAULT_PROTOCOL    pickle.SHORT_BINUNICODE
+pickle.DICT                pickle.STACK_GLOBAL
+pickle.DUP                 pickle.STOP
+pickle.EMPTY_DICT          pickle.STRING
+pickle.EMPTY_LIST          pickle.TRUE
+pickle.EMPTY_SET           pickle.TUPLE
+pickle.EMPTY_TUPLE         pickle.TUPLE1
+pickle.EXT1                pickle.TUPLE2
+pickle.EXT2                pickle.TUPLE3
+pickle.EXT4                pickle.UNICODE
+pickle.FALSE               pickle.Unpickler(
+pickle.FLOAT               pickle.UnpicklingError(
+pickle.FRAME               pickle.bytes_types
+pickle.FROZENSET           pickle.codecs
+pickle.FunctionType(       pickle.compatible_formats
+pickle.GET                 pickle.decode_long(
+pickle.GLOBAL              pickle.dispatch_table
+pickle.HIGHEST_PROTOCOL    pickle.dump(
+pickle.INST                pickle.dumps(
+pickle.INT                 pickle.encode_long(
+pickle.LIST                pickle.format_version
+pickle.LONG                pickle.io
+pickle.LONG1               pickle.islice(
+pickle.LONG4               pickle.load(
+pickle.LONG_BINGET         pickle.loads(
+pickle.LONG_BINPUT         pickle.maxsize
+pickle.MARK                pickle.pack(
+pickle.MEMOIZE             pickle.partial(
+pickle.NEWFALSE            pickle.re
+pickle.NEWOBJ              pickle.sys
+pickle.NEWOBJ_EX           pickle.unpack(
+pickle.NEWTRUE             pickle.whichmodule(
+>>> 
+
+pickle模块中常用的函数：
+
+pickle.dump(obj, file, [,protocol])
+含义：pickle.dump（对象，文件，[使用协议]）
+将要持久化的数据“对象”，保存到“文件”中，使用有3种协议，索引0为ASCII，1为旧式二进制，2为新式二进制协议，不同之处在于2要更高效一些。
+默认dump方法使用0做协议
+pickle.load(file)
+含义：pickle.load(文件)，将file中的对象序列化读出。
+从“文件”中读取字符串，将他们反序列化转换为python的数据对象，可以像操作数据类型的这些方法来操作它们；　　
+pickle.dumps(obj[, protocol])
+函数的功能：将obj对象序列化为string形式，而不是存入文件中。
+obj：想要序列化的obj对象。
+protocal：如果该项省略，则默认为0。如果为负值或HIGHEST_PROTOCOL，则使用最高的协议版本。
+pickle.loads(string)
+函数的功能：从string中读出序列化前的obj对象。
+string：文件名称。
+
+python3中cPickle模块已经更名为_pickle,
+所以在python3中导入时可以使用：
+import _pickle as cPickle
+
+cPickle 是 python2 的库，
+到 python3，改名为 pickle 了
+
+import pickle
+在python3中，直接使用pickle模块更为方便。
+
+  在罕见的情况下,
+你可能想获取来自服务器的原始套接字响应,那么你可以访问 r.raw
+•  如果你确实想这么干,那请你确保在初始请求中设置了 stream=True
+>>>r=requests.get('haps://api.github.com/events',	stream=True)
+>>>r.raw
+<requests.packages.urllib3.response.HTTPResponse	object at	
+0x101194810>	
+>>>r.raw.read(10)
+
+
+>>> requests.codes.
+Display all 247 possibilities? (y or n)
+requests.codes.-O-
+requests.codes.-o-
+requests.codes./o\
+requests.codes.ACCEPTED
+requests.codes.ALL_GOOD
+requests.codes.ALL_OK
+requests.codes.ALL_OKAY
+requests.codes.ALREADY_REPORTED
+requests.codes.BAD
+requests.codes.BAD_GATEWAY
+requests.codes.BAD_REQUEST
+requests.codes.BANDWIDTH
+requests.codes.BANDWIDTH_LIMIT_EXCEEDED
+requests.codes.BLOCKED_BY_WINDOWS_PARENTAL_CONTROLS
+requests.codes.CHECKPOINT
+requests.codes.CLIENT_CLOSED_REQUEST
+requests.codes.CONFLICT
+requests.codes.CONTINUE
+requests.codes.CREATED
+requests.codes.DEPENDENCY
+requests.codes.EXPECTATION_FAILED
+requests.codes.FAILED_DEPENDENCY
+requests.codes.FIELDS_TOO_LARGE
+requests.codes.FORBIDDEN
+requests.codes.FOUND
+requests.codes.GATEWAY_TIMEOUT
+requests.codes.GONE
+requests.codes.HEADER_FIELDS_TOO_LARGE
+requests.codes.HTTP_VERSION
+requests.codes.HTTP_VERSION_NOT_SUPPORTED
+requests.codes.IM_A_TEAPOT
+requests.codes.IM_USED
+requests.codes.INSUFFICIENT_STORAGE
+requests.codes.INTERNAL_SERVER_ERROR
+requests.codes.I_AM_A_TEAPOT
+requests.codes.LEGAL_REASONS
+requests.codes.LENGTH_REQUIRED
+requests.codes.LOCKED
+requests.codes.MEDIA_TYPE
+requests.codes.METHOD_NOT_ALLOWED
+requests.codes.MISDIRECTED_REQUEST
+requests.codes.MOVED
+requests.codes.MOVED_PERMANENTLY
+requests.codes.MULTIPLE_CHOICES
+requests.codes.MULTIPLE_STATI
+requests.codes.MULTIPLE_STATUS
+requests.codes.MULTI_STATI
+requests.codes.MULTI_STATUS
+requests.codes.NETWORK_AUTH
+requests.codes.NETWORK_AUTHENTICATION
+requests.codes.NETWORK_AUTHENTICATION_REQUIRED
+requests.codes.NONE
+requests.codes.NON_AUTHORITATIVE_INFO
+requests.codes.NON_AUTHORITATIVE_INFORMATION
+requests.codes.NOT_ACCEPTABLE
+requests.codes.NOT_ALLOWED
+requests.codes.NOT_EXTENDED
+requests.codes.NOT_FOUND
+requests.codes.NOT_IMPLEMENTED
+requests.codes.NOT_MODIFIED
+requests.codes.NO_CONTENT
+requests.codes.NO_RESPONSE
+requests.codes.OK
+requests.codes.OKAY
+requests.codes.OTHER
+requests.codes.PARENTAL_CONTROLS
+requests.codes.PARTIAL
+requests.codes.PARTIAL_CONTENT
+requests.codes.PAYMENT
+requests.codes.PAYMENT_REQUIRED
+requests.codes.PERMANENT_REDIRECT
+requests.codes.PRECONDITION
+requests.codes.PRECONDITION_FAILED
+requests.codes.PRECONDITION_REQUIRED
+requests.codes.PROCESSING
+requests.codes.PROXY_AUTH
+requests.codes.PROXY_AUTHENTICATION
+requests.codes.PROXY_AUTHENTICATION_REQUIRED
+requests.codes.RANGE_NOT_SATISFIABLE
+requests.codes.REQUESTED_RANGE
+requests.codes.REQUESTED_RANGE_NOT_SATISFIABLE
+requests.codes.REQUEST_ENTITY_TOO_LARGE
+requests.codes.REQUEST_TIMEOUT
+requests.codes.REQUEST_URI_TOO_LARGE
+requests.codes.REQUEST_URI_TOO_LONG
+requests.codes.RESET
+requests.codes.RESET_CONTENT
+requests.codes.RESUME
+requests.codes.RESUME_INCOMPLETE
+requests.codes.RETRY
+requests.codes.RETRY_WITH
+requests.codes.SEE_OTHER
+requests.codes.SERVER_ERROR
+requests.codes.SERVICE_UNAVAILABLE
+requests.codes.SWITCHING_PROTOCOLS
+requests.codes.SWITCH_PROXY
+requests.codes.TEAPOT
+requests.codes.TEMPORARY
+requests.codes.TEMPORARY_MOVED
+requests.codes.TEMPORARY_REDIRECT
+requests.codes.TIMEOUT
+requests.codes.TOO_MANY
+requests.codes.TOO_MANY_REQUESTS
+requests.codes.UNAUTHORIZED
+requests.codes.UNAVAILABLE
+requests.codes.UNAVAILABLE_FOR_LEGAL_REASONS
+requests.codes.UNORDERED
+requests.codes.UNORDERED_COLLECTION
+requests.codes.UNPROCESSABLE
+requests.codes.UNPROCESSABLE_ENTITY
+requests.codes.UNSUPPORTED_MEDIA
+requests.codes.UNSUPPORTED_MEDIA_TYPE
+requests.codes.UPGRADE
+requests.codes.UPGRADE_REQUIRED
+requests.codes.URI_TOO_LONG
+requests.codes.USE_PROXY
+requests.codes.VARIANT_ALSO_NEGOTIATES
+requests.codes.\o-
+requests.codes.\o/
+requests.codes.accepted
+requests.codes.all_good
+requests.codes.all_ok
+requests.codes.all_okay
+requests.codes.already_reported
+requests.codes.bad
+requests.codes.bad_gateway
+requests.codes.bad_request
+requests.codes.bandwidth
+requests.codes.bandwidth_limit_exceeded
+requests.codes.blocked_by_windows_parental_controls
+requests.codes.checkpoint
+requests.codes.clear(
+requests.codes.client_closed_request
+requests.codes.conflict
+requests.codes.continue
+requests.codes.copy(
+requests.codes.created
+requests.codes.dependency
+requests.codes.expectation_failed
+requests.codes.failed_dependency
+requests.codes.fields_too_large
+requests.codes.forbidden
+requests.codes.found
+requests.codes.fromkeys(
+requests.codes.gateway_timeout
+requests.codes.get(
+requests.codes.gone
+requests.codes.header_fields_too_large
+requests.codes.http_version
+requests.codes.http_version_not_supported
+requests.codes.i_am_a_teapot
+requests.codes.im_a_teapot
+requests.codes.im_used
+requests.codes.insufficient_storage
+requests.codes.internal_server_error
+requests.codes.items(
+requests.codes.keys(
+requests.codes.legal_reasons
+requests.codes.length_required
+requests.codes.locked
+requests.codes.media_type
+requests.codes.method_not_allowed
+requests.codes.misdirected_request
+requests.codes.moved
+requests.codes.moved_permanently
+requests.codes.multi_stati
+requests.codes.multi_status
+requests.codes.multiple_choices
+requests.codes.multiple_stati
+requests.codes.multiple_status
+requests.codes.name
+requests.codes.network_auth
+requests.codes.network_authentication
+requests.codes.network_authentication_required
+requests.codes.no_content
+requests.codes.no_response
+requests.codes.non_authoritative_info
+requests.codes.non_authoritative_information
+requests.codes.none
+requests.codes.not_acceptable
+requests.codes.not_allowed
+requests.codes.not_extended
+requests.codes.not_found
+requests.codes.not_implemented
+requests.codes.not_modified
+requests.codes.ok
+requests.codes.okay
+requests.codes.other
+requests.codes.parental_controls
+requests.codes.partial
+requests.codes.partial_content
+requests.codes.payment
+requests.codes.payment_required
+requests.codes.permanent_redirect
+requests.codes.pop(
+requests.codes.popitem(
+requests.codes.precondition
+requests.codes.precondition_failed
+requests.codes.precondition_required
+requests.codes.processing
+requests.codes.proxy_auth
+requests.codes.proxy_authentication
+requests.codes.proxy_authentication_required
+requests.codes.range_not_satisfiable
+requests.codes.request_entity_too_large
+requests.codes.request_timeout
+requests.codes.request_uri_too_large
+requests.codes.request_uri_too_long
+requests.codes.requested_range
+requests.codes.requested_range_not_satisfiable
+requests.codes.reset
+requests.codes.reset_content
+requests.codes.resume
+requests.codes.resume_incomplete
+requests.codes.retry
+requests.codes.retry_with
+requests.codes.see_other
+requests.codes.server_error
+requests.codes.service_unavailable
+requests.codes.setdefault(
+requests.codes.switch_proxy
+requests.codes.switching_protocols
+requests.codes.teapot
+requests.codes.temporary
+requests.codes.temporary_moved
+requests.codes.temporary_redirect
+requests.codes.timeout
+requests.codes.too_many
+requests.codes.too_many_requests
+requests.codes.unauthorized
+requests.codes.unavailable
+requests.codes.unavailable_for_legal_reasons
+requests.codes.unordered
+requests.codes.unordered_collection
+requests.codes.unprocessable
+requests.codes.unprocessable_entity
+requests.codes.unsupported_media
+requests.codes.unsupported_media_type
+requests.codes.update(
+requests.codes.upgrade
+requests.codes.upgrade_required
+requests.codes.uri_too_long
+requests.codes.use_proxy
+requests.codes.values(
+requests.codes.variant_also_negotiates
+requests.codes.✓
+requests.codes.✗
+>>> 
+
+
+
 
 
 
