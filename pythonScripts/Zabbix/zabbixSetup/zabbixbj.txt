@@ -1,0 +1,1429 @@
+import requests
+import json
+
+url = 'http://192.168.4.2/zabbix/api_jsonrpc.php'
+headers = {'Content-Type':	'application/json-rpc'}
+# 获取zabbix版本信息
+# data = {
+#     "jsonrpc": "2.0",    # 固定的，zabbix使用的jsonrpc的版本
+#     "method": "apiinfo.version",   # 方法
+#     "params": [],   # 参数
+#     "id": 1    # 随便写上一个整数，表示事件ID
+# }
+#############################################
+# 获取用户令牌。因为很多操作需要权限，令牌是用户的身份信息
+# data = {
+#     "jsonrpc": "2.0",
+#     "method": "user.login",
+#     "params": {
+#         "user": "Admin",
+#         "password": "zabbix"
+#     },
+#     "id": 1
+# }
+# 'result': 'ae10101387ba2ef5b224beb18fd5732a'
+#############################################
+# 查询所有的用户
+# data = {
+#     "jsonrpc": "2.0",
+#     "method": "user.get",
+#     "params": {
+#         "output": "extend"
+#     },
+#     "auth": "ae10101387ba2ef5b224beb18fd5732a",
+#     "id": 1
+# }
+#############################################
+# 获取所有的主机组信息
+# data = {
+#     "jsonrpc": "2.0",
+#     "method": "hostgroup.get",
+#     "params": {
+#         "output": "extend",
+#         # "filter": {
+#         #     "name": [
+#         #         "Zabbix servers",
+#         #         "Linux servers"
+#         #     ]
+#         # }
+#     },
+#     "auth": "ae10101387ba2ef5b224beb18fd5732a",
+#     "id": 1
+# }
+# {'groupid': '2', 'name': 'Linux servers', 'internal': '0', 'flags': '0'}
+#############################################
+# 获取模板信息
+# data = {
+#     "jsonrpc": "2.0",
+#     "method": "template.get",
+#     "params": {
+#         "output": "extend",
+#         "filter": {
+#             "host": [
+#                 "Template OS Linux",
+#             ]
+#         }
+#     },
+#     "auth": "ae10101387ba2ef5b224beb18fd5732a",
+#     "id": 1
+# }
+# 'templateid': '10001'
+#############################################
+# 创建名为webserver1的主机，它在Linux servers组中，应用Template OS Linux模板
+data = {
+    "jsonrpc": "2.0",
+    "method": "host.create",
+    "params": {
+        "host": "Zabbix Server",
+        "interfaces": [   # 接口，采用什么方式监控webserver1
+            {
+                "type": 1,   # 采用zabbix agent方式监控
+                "main": 1,
+                "useip": 1,
+                "ip": "192.168.4.2",   # webserver1的IP
+                "dns": "",
+                "port": "10050"
+            }
+        ],
+        "groups": [
+            {
+                "groupid": "2"
+            }
+        ],
+        "templates": [
+            {
+                "templateid": "10001"
+            }
+        ],
+        "inventory_mode": 0,   # 主机资产记录
+        "inventory": {
+            "macaddress_a": "01234a32254",
+            "macaddress_b": "567682342zj"
+        }
+    },
+    "auth": "ae10101387ba2ef5b224beb18fd5732a",
+    "id": 1
+}
+
+
+r = requests.post(url, headers=headers, data=json.dumps(data))
+print(r.json())
+
+
+============================================
+6、post方法
+搜索钉钉机器人 开放平台  =>
+
+[电子书下载]
+http://down.51cto.com/
+
+
+
+zabbix:
+1、示例zabbix网址是http://192.168.4.2/zabbix/
+2、官方文档页：
+https://www.zabbix.com/documentation/4.0/zh/manual
+3、示例zabbix api的URL：http://192.168.4.2/zabbix/api_jsonrpc.php
+
+
+配置虚拟机上网
+1、virt-manager中  编辑=>连接详情=>虚拟网络=>default,勾选自动启动，点左下角的启动
+2、关闭虚拟机
+3、虚拟机控制台，点击灯泡图标，将第2块网卡连接到default网络
+4、开启虚拟机
+5、将虚拟机的virbr0网卡干掉
+[root@node2 ~]# ifconfig virbr0 down
+[root@node2 ~]# brctl delbr virbr0
+6、虚拟机eth1采用DHCP自动获取地址，即可上网
+================================================
+
+[root@room9pc01 ~]# for  i  in   V{0..3};do virsh start $i;done;
+
+[root@room9pc01 ~]# service  iptables status
+Redirecting to /bin/systemctl status iptables.service
+Unit iptables.service could not be found.
+[root@room9pc01 ~]# systemctl  is-active  firewalld
+unknown
+[root@room9pc01 ~]# firewall
+firewall-cmd          firewalld             
+firewall-config       firewall-offline-cmd  
+[root@room9pc01 ~]# getenforce 
+Disabled
+
+[root@room9pc01 ~]# cat  /etc/yum.repos.d/rhel7.repo 
+[rhel7]
+name = rhel-server-7.4
+baseurl = ftp://127.0.0.1/rhel7
+gpgcheck = 0
+enabled = 1
+
+[root@room9pc01 ~]#  yum clean all > /dev/null ;yum repolist |tail -5
+Determining fastest mirrors
+源标识                           源名称                                    状态
+rhel7                            rhel-server-7.4                           4,986
+rpm                              rpm                                          23
+repolist: 5,009
+
+[root@room9pc01 ~]# ls  /var/ftp/
+pub  rhel7  share
+
+[root@room9pc01 ~]# ls  /var/ftp/rhel7/
+addons            GPL       media.repo               RPM-GPG-KEY-redhat-release
+EFI               images    Packages                 TRANS.TBL
+EULA              isolinux  repodata
+extra_files.json  LiveOS    RPM-GPG-KEY-redhat-beta
+
+[root@room9pc01 ~]# systemctl  is-enabled  vsftpd
+enabled
+
+[root@room9pc01 ~]# yum -y install elinks   telnet   httpd-tools \
+> gcc  pcre-devel  openssl-devel   mariadb-devel mariadb mariadb-server  \
+>  memcached php-pecl-memcache php php-mysql 
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/php-fpm-5.4.16-46.el7.x86_64.rpm
+                                                   php-fpm-5.4.16-42.el7.x86_64.rpm
+
+已安装:
+  memcached.x86_64 0:1.4.15-10.el7_3.1  php.x86_64 0:5.4.16-42.el7             
+  php-mysql.x86_64 0:5.4.16-42.el7      php-pecl-memcache.x86_64 0:3.0.8-4.el7 
+
+作为依赖被安装:
+  libzip.x86_64 0:0.10.1-8.el7           php-cli.x86_64 0:5.4.16-42.el7         
+  php-common.x86_64 0:5.4.16-42.el7      php-pdo.x86_64 0:5.4.16-42.el7         
+  php-pear.noarch 1:1.9.4-21.el7         php-process.x86_64 0:5.4.16-42.el7     
+  php-xml.x86_64 0:5.4.16-42.el7        
+
+完毕！
+[root@room9pc01 ~]# uname  -r
+3.10.0-693.el7.x86_64
+   
+[root@room9pc01 ~]# cat  /etc/redhat-release 
+CentOS Linux release 7.4.1708 (Core) 
+
+[root@room9pc01 ~]# tail  -1  /etc/fstab 
+/var/lib/libvirt/images/iso/rhel-server-7.4-x86_64-dvd.iso  /var/ftp/rhel7 iso9660 defaults 0 0
+
+[root@room9pc01 ~]# mv  '/root/下载/php-fpm-5.4.16-46.el7.x86_64.rpm'  /var/ftp/
+
+[root@room9pc01 ~]# ls   /var/ftp/
+php-fpm-5.4.16-46.el7.x86_64.rpm  pub  rhel7  share
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/
+
+参数： --nodeps 忽略依赖，建议在卸载时不要用rpm去卸载有依赖关系的包，应该用yum
+[root@xuegod63 ~]# rpm -e --nodeps lrzsz
+
+
+[root@room9pc01 ~]# yum  -y install   /var/ftp/php-fpm-5.4.16-46.el7.x86_64.rpm
+..................
+--> 解决依赖关系完成
+错误：软件包：php-fpm-5.4.16-46.el7.x86_64 (/php-fpm-5.4.16-46.el7.x86_64)
+          需要：php-common(x86-64) = 5.4.16-46.el7
+          已安装: php-common-5.4.16-42.el7.x86_64 (@rhel7)
+              php-common(x86-64) = 5.4.16-42.el7
+ 您可以尝试添加 --skip-broken 选项来解决该问题
+ 您可以尝试执行：rpm -Va --nofiles --nodigest
+[root@room9pc01 ~]# 
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/php-common-5.4.16-46.el7.x86_64.rpm
+http://mirrors.163.com/centos/7/os/x86_64/Packages/php-fpm-5.4.16-46.el7.x86_64.rpm
+
+[root@room9pc01 ~]# mv   '/root/下载/php-common-5.4.16-46.el7.x86_64.rpm'  /var/ftp/
+[root@room9pc01 ~]# yum  -y install   /var/ftp/php-fpm-5.4.16-46.el7.x86_64.rpm   /var/ftp/php-common-5.4.16-46.el7.x86_64.rpm 
+
+
+http://mirrors.163.com/centos/7.4.1708/
+
+
+[root@room9pc01 ~]# yum  -y  install  \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/php-common-5.4.16-46.el7.x86_64.rpm \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/php-fpm-5.4.16-46.el7.x86_64.rpm
+...................
+错误：软件包：php-cli-5.4.16-42.el7.x86_64 (@rhel7)
+          需要：php-common(x86-64) = 5.4.16-42.el7
+          正在删除: php-common-5.4.16-42.el7.x86_64 (@rhel7)
+              php-common(x86-64) = 5.4.16-42.el7
+          更新，由: php-common-5.4.16-46.el7.x86_64 (/php-common-5.4.16-46.el7.x86_64)
+              php-common(x86-64) = 5.4.16-46.el7
+ 您可以尝试添加 --skip-broken 选项来解决该问题
+ 您可以尝试执行：rpm -Va --nofiles --nodigest
+[root@room9pc01 ~]# 
+
+
+[root@V3 ~]# ping  -I  eth0  -c2  www.baidu.com
+PING www.a.shifen.com (14.215.177.39) from 192.168.0.13 eth0: 56(84) bytes of data.
+64 bytes from 14.215.177.39 (14.215.177.39): icmp_seq=1 ttl=54 time=7.86 ms
+64 bytes from 14.215.177.39 (14.215.177.39): icmp_seq=2 ttl=54 time=7.69 ms
+
+--- www.a.shifen.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 7.693/7.778/7.864/0.122 ms
+
+[root@V3 ~]# ping  -I  eth1  -c3  www.baidu.com
+
+PING www.a.shifen.com (14.215.177.39) from 192.168.1.13 eth1: 56(84) bytes of data.
+64 bytes from 14.215.177.39 (14.215.177.39): icmp_seq=1 ttl=52 time=10.8 ms
+64 bytes from 14.215.177.39 (14.215.177.39): icmp_seq=2 ttl=52 time=7.37 ms
+64 bytes from 14.215.177.39 (14.215.177.39): icmp_seq=3 ttl=52 time=7.62 ms
+
+--- www.a.shifen.com ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 7.375/8.609/10.833/1.578 ms
+
+[root@V3 ~]# cat  /etc/resolv.conf
+# Generated by NetworkManager
+nameserver 192.168.0.254
+
+[root@V3 ~]# ip  route  show  |grep  default
+default via 192.168.0.254 dev eth0 
+default via 192.168.1.254 dev eth1 proto static metric 100 
+
+[root@V3 ~]# vim    /etc/sysconfig/network-scripts/ifcfg-eth1
+
+[root@V3 ~]# tail  -3  /etc/sysconfig/network-scripts/ifcfg-eth1
+PREFIX=24
+#GATEWAY=192.168.1.254
+DNS1=192.168.0.254
+[root@V3 ~]# systemctl  restart   NetworkManager
+[root@V3 ~]# systemctl  restart   network
+
+[root@V3 ~]# ip  route  show  |grep  default
+default via 192.168.0.254 dev eth0 
+
+
+(1)find命令是根据文件的属性进行查找，如文件名，文件大小，所有者，所属组，是否为空，访问时间，修改时间等。 
+
+(2)grep是根据文件的内容进行查找，会对文件的每一行按照给定的模式(patter)进行匹配查找。 
+
+(3)find命令把匹配到的文件传递给xargs命令，
+而xargs命令每次只获取一部分文 件而不是全部，不 像-exec选项那样。
+
+这样它可以先处理最先获取的一部分文件，然后是下一批，并如此继续下去。
+
+使用xargs命令则只有一个进程。
+另外，在使用xargs命令时，究竟是一次获取所有的参数，还 是分批取得参数，
+以及每一次获取参数的数目 都会
+根据 该命令的选项 及系统内核中相应的可调参数 来确定。
+
+[root@V3 ~]# scp   root@192.168.0.254:/var/ftp/php-{common-5.4.16-46.el7.x86_64.rpm,fpm-5.4.16-46.el7.x86_64.rpm}  zabbix/
+
+ssh: connect to host 192.168.0.254 port 22: Connection refused
+................
+
+[root@room9pc01 ~]# systemctl  is-active   sshd
+unknown
+[root@room9pc01 ~]# systemctl  start   sshd   &&  systemctl  enable  sshd
+Created symlink from /etc/systemd/system/multi-user.target.wants/sshd.service to /usr/lib/systemd/system/sshd.service.
+
+[root@room9pc01 ~]# grep  Port  /etc/ssh/sshd_config 
+#Port 22
+#GatewayPorts no
+
+[root@V3 ~]# scp   root@192.168.0.254:/var/ftp/php-{common-5.4.16-46.el7.x86_64.rpm,fpm-5.4.16-46.el7.x86_64.rpm}  zabbix/
+...........................................
+Are you sure you want to continue connecting (yes/no)? yes
+............
+root@192.168.0.254's password: 
+...............
+[root@V3 ~]# ls   zabbix/
+php-common-5.4.16-46.el7.x86_64.rpm  php-fpm-5.4.16-46.el7.x86_64.rpm
+
+[root@V3 ~]# find  /root/zabbix/  -type  f -iname "*fpm*.rpm" 
+
+/root/zabbix/php-fpm-5.4.16-46.el7.x86_64.rpm
+
+[root@V3 ~]# mkdir  -p  zabbix/zidir/suntest
+
+[root@V3 ~]# echo  "test\nzidirtxt\nabc123456" > zabbix/zidir/zitxt.txt
+[root@V3 ~]# echo  "test\nzidirtxt\nabc123456" > zabbix/zidir/suntest/sunt.txt
+
+[root@V3 ~]# ls  zabbix/
+php-common-5.4.16-46.el7.x86_64.rpm  php-fpm-5.4.16-46.el7.x86_64.rpm  zidir
+
+[root@V3 ~]# ls  zabbix/zidir/
+suntest  zitxt.txt
+
+[root@V3 ~]# ls  zabbix/zidir/suntest/
+sunt.txt
+
+[root@V3 ~]# echo  -e  "test\nzidirtxt\nabc123456\nxSUNx" > zabbix/zidir/suntest/sunt.txt 
+
+[root@V3 ~]# cat   zabbix/zidir/suntest/sunt.txttest
+zidirtxt
+abc123456
+xSUNx
+[root@V3 ~]# find  /root/zabbix/  -type  f  |xargs grep  -lri  sun #查找包含关键字sun的文件
+/root/zabbix/php-fpm-5.4.16-46.el7.x86_64.rpm
+/root/zabbix/zidir/suntest/sunt.txt
+
+[root@V3 ~]# ls  zabbix/
+php-common-5.4.16-46.el7.x86_64.rpm  php-fpm-5.4.16-46.el7.x86_64.rpm  zidir
+
+[root@V3 ~]# ls  zabbix/zidir/
+suntest  zitxt.txt
+
+[root@V3 ~]# ls  zabbix/zidir/suntest/
+sunt.txt
+
+[root@V3 ~]# find  /root/zabbix/  -type  f  |xargs ls  #显示目录下的所有文件(不显示目录)
+
+/root/zabbix/php-common-5.4.16-46.el7.x86_64.rpm
+/root/zabbix/php-fpm-5.4.16-46.el7.x86_64.rpm
+/root/zabbix/zidir/suntest/sunt.txt
+/root/zabbix/zidir/zitxt.txt
+
+--------------------------------------- 递归删除  名为 "*sun*" 的目录 -----------
+
+[root@V3 ~]# find  /root/zabbix/  -type d -iname "*sun*" |xargs  rm  -r
+[root@V3 ~]# echo  $?
+0
+[root@V3 ~]# ls  zabbix/
+php-common-5.4.16-46.el7.x86_64.rpm  php-fpm-5.4.16-46.el7.x86_64.rpm  zidir
+
+[root@V3 ~]# ls  zabbix/zidir/
+zitxt.txt
+
+grep全称是
+Global Regular Expression Print，
+
+表示全局正则表达式版本，它的使用权限是所有用户
+格式
+grep [options]
+主要参数
+[options]主要参数：
+ -r 或 --recursive   此参数的效果和指定“-d recurse”参数相同。
+
+正则表达式选择与解释:
+  -E, --extended-regexp     PATTERN 是一个可扩展的正则表达式(缩写为 ERE)
+  -P, --perl-regexp         PATTERN 是一个 Perl 正则表达式
+  -e, --regexp=PATTERN      用 PATTERN 来进行匹配操作
+  -i, --ignore-case         忽略大小写
+  -v, --invert-match        select non-matching lines
+
+  -V, --version             display version information and exit
+      --help                display this help text and exit
+
+输出控制:
+  -d, --directories=ACTION  how to handle directories;
+                            ACTION is 'read', 'recurse', or 'skip'
+                      如何处理目录；操作为“read”、“recurse”或“skip”
+  -r, --recursive           like --directories=recurse
+  -l, --files-with-matches  print only names of FILEs containing matches
+                                    仅打印包含匹配项的文件名
+
+recurse     递归;递回
+
+recursive    英 [rɪˈkɜːsɪv]
+    adj.递归的;循环的
+
+[root@V3 ~]# echo  -e  "test\nzidirtxt\nabc123456\SUNxxx" >zabbix/zidir/zitxt.txt
+[root@V3 ~]# cat  zabbix/zidir/zitxt.txt
+test
+zidirtxt
+abc123456\SUNxxx
+[root@V3 ~]# grep   -iv  sun  zabbix/zidir/zitxt.txt
+test
+zidirtxt
+
+
+[root@V3 ~]# ls  /etc/yum.repos.d/
+
+[root@V3 ~]# tail -2  /etc/fstab 
+
+UUID=5d6c8afe-b75a-4e6b-9de1-1a3eeeaf23d9 /boot    xfs     defaults    0 0
+/dev/mapper/rhel-swap   swap     swap    defaults        0 0
+[root@V3 ~]# 
+
+[root@V3 ~]# type  rpm  
+rpm 是 /usr/bin/rpm
+[root@V3 ~]# rpm  -qf  /usr/bin/rpm
+rpm-4.11.3-25.el7.x86_64
+
+[root@V3 ~]# ll  /usr/bin/rpm
+-rwxr-xr-x. 1 root root 16120 3月  17 2017 /usr/bin/rpm
+
+[root@V3 ~]# rpm   -qa  |grep  yum
+yum-3.4.3-154.el7.noarch
+yum-langpacks-0.4.2-7.el7.noarch
+yum-utils-1.1.31-42.el7.noarch
+PackageKit-yum-1.1.5-1.el7.x86_64
+yum-metadata-parser-1.1.4-10.el7.x86_64
+yum-rhn-plugin-2.0.1-9.el7.noarch
+
+[root@V3 ~]# rpm   -qa  |grep  python-iniparse
+python-iniparse-0.4-9.el7.noarch
+
+[root@V3 ~]# uname   -r
+3.10.0-693.el7.x86_64
+
+[root@V3 ~]# ll   /etc/redhat-release 
+-rw-r--r--. 1 root root 52 6月  29 2017 /etc/redhat-release
+
+[root@V3 ~]# cat   /etc/redhat-release
+Red Hat Enterprise Linux Server release 7.4 (Maipo)
+
+[root@V3 ~]# rpm   -qa  |grep  yum
+yum-3.4.3-154.el7.noarch
+yum-langpacks-0.4.2-7.el7.noarch
+yum-utils-1.1.31-42.el7.noarch
+PackageKit-yum-1.1.5-1.el7.x86_64
+yum-metadata-parser-1.1.4-10.el7.x86_64
+yum-rhn-plugin-2.0.1-9.el7.noarch
+[root@V3 ~]#  rpm   -qa  |grep  python-iniparse
+python-iniparse-0.4-9.el7.noarch
+[root@V3 ~]# uname  -r
+3.10.0-693.el7.x86_64
+[root@V3 ~]# cat    /etc/redhat-release 
+Red Hat Enterprise Linux Server release 7.4 (Maipo)
+
+[root@V3 ~]# vim   /etc/yum.conf 
+8:gpgcheck=0
+
+[root@V3 ~]# grep  -Evn  "^#|^$"   /etc/yum.conf
+1:[main]
+2:cachedir=/var/cache/yum/$basearch/$releasever
+3:keepcache=0
+4:debuglevel=2
+5:logfile=/var/log/yum.log
+6:exactarch=1
+7:obsoletes=1
+8:gpgcheck=0
+9:plugins=1
+10:installonly_limit=3
+
+
+linux 下重新安装yum
+
+http://mirrors.163.com/.help/centos.html
+下载对应版本repo文件, 放入/etc/yum.repos.d/(操作前请做好相应备份)
+CentOS7  (点击)http://mirrors.163.com/.help/CentOS7-Base-163.repo
+CentOS6
+CentOS5
+
+http://mirrors.163.com/.help/CentOS7-Base-163.repo
+
+运行以下命令生成缓存
+yum clean all
+yum makecache
+
+相关链接
+
+官方主页: http://www.centos.org/
+邮件列表: http://www.centos.org/modules/tinycontent/index.php?id=16
+论坛: http://www.centos.org/modules/newbb/
+文档: http://www.centos.org/docs/
+
+redhat 配置yum源(配置163 yum repo) - 一个人默默潜行 - 博客园
+https://www.cnblogs.com/ppp1314520818/p/10398469.html
+
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/
+
+针对RHEL7.4版本的最新rpm包：
+需要下载的软件包的主要包括，针对RHEL7.4版本的最新rpm包：
+
+http://mirrors.163.com/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-3.4.3-161.el7.centos.noarch.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-metadata-parser-1.1.4-10.el7.x86_64.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/python-iniparse-0.4-9.el7.noarch.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-updateonboot-1.1.31-50.el7.noarch.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/rpm-4.11.3-35.el7.x86_64.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/python-urlgrabber-3.10-9.el7.noarch.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/rpm-libs-4.11.3-35.el7.x86_64.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/rpm-python-4.11.3-35.el7.x86_64.rpm
+
+
+[root@V3 ~]# type  rpm
+rpm 已被哈希 (/usr/bin/rpm)
+[root@V3 ~]# rpm  -qf  /usr/bin/rpm
+rpm-4.11.3-25.el7.x86_64
+
+
+[root@V3 ~]# type  wget #注意卸载之前必须安装好 工具wget### wget-1.14-15.el7.x86_64
+wget 是 /usr/bin/wget
+
+[root@V3 ~]# rpm  -qf  /usr/bin/wget 
+wget-1.14-15.el7.x86_64
+
+[root@V3 ~]# rpm  -q   wget
+wget-1.14-15.el7.x86_64
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/wget-1.14-18.el7.x86_64.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-3.4.3-161.el7.centos.noarch.rpm
+
+
+删除redhat自带的yum包
+参数： --nodeps 忽略依赖，建议在卸载时不要用rpm去卸载有依赖关系的包，应该用yum
+
+[root@V3 ~]# ls  /etc/yum.repos.d/
+
+[root@V3 ~]# rpm  -qa |grep yum |xargs  rpm  -e --nodeps   #删除redhat自带的yum包
+
+警告：/etc/yum/pluginconf.d/langpacks.conf 已另存为 /etc/yum/pluginconf.d/langpacks.conf.rpmsave
+警告：/etc/yum.conf 已另存为 /etc/yum.conf.rpmsave
+
+[root@V3 ~]# echo  $?
+0
+[root@V3 ~]# rpm  -qa |grep yum
+       ------------------   (无信息显示表示已经卸载完成。)
+
+[root@V3 ~]# type  yum
+-bash: type: yum: 未找到
+
+/********
+[root@room9pc01 ~]# type  yum
+yum 已被哈希 (/usr/bin/yum)
+[root@room9pc01 ~]# rpm   -qf  /usr/bin/yum
+yum-3.4.3-154.el7.centos.noarch
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-3.4.3-161.el7.centos.noarch.rpm
+
+*************/
+
+[root@V3 ~]# cat   /etc/yum.conf
+cat: /etc/yum.conf: 没有那个文件或目录
+
+[root@V3 ~]# ls  /etc/yum.repos.d/
+ls: 无法访问/etc/yum.repos.d/: 没有那个文件或目录
+
+[root@V3 ~]#  grep  -Evn  "^#|^$"  /etc/yum.conf.rpmsave
+1:[main]
+2:cachedir=/var/cache/yum/$basearch/$releasever
+3:keepcache=0
+4:debuglevel=2
+5:logfile=/var/log/yum.log
+6:exactarch=1
+7:obsoletes=1
+8:gpgcheck=0
+9:plugins=1
+10:installonly_limit=3
+[root@V3 ~]# 
+
+----------------- 下载新的yum包，从网易镜像站下载
+
+[root@V3 ~]# type  wget 
+wget 是 /usr/bin/wget
+
+[root@V3 ~]# rpm  -qf  /usr/bin/wget 
+wget-1.14-15.el7.x86_64
+
+[root@V3 ~]# mkdir  newyumdir
+[root@V3 ~]# cd   newyumdir/
+[root@V3 newyumdir]# ls
+
+[root@V3 newyumdir]# wget  \
+> http://mirrors.163.com/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7  \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-3.4.3-161.el7.centos.noarch.rpm \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm  \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-metadata-parser-1.1.4-10.el7.x86_64.rpm  \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/python-iniparse-0.4-9.el7.noarch.rpm \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-updateonboot-1.1.31-50.el7.noarch.rpm  \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/rpm-4.11.3-35.el7.x86_64.rpm  \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/python-urlgrabber-3.10-9.el7.noarch.rpm  
+................
+FINISHED --2019-05-10 13:57:15--
+Total wall clock time: 1.4s
+Downloaded: 8 files, 2.6M in 0.9s (3.08 MB/s)
+
+[root@V3 newyumdir]# ls
+
+python-iniparse-0.4-9.el7.noarch.rpm
+python-urlgrabber-3.10-9.el7.noarch.rpm
+rpm-4.11.3-35.el7.x86_64.rpm
+RPM-GPG-KEY-CentOS-7
+yum-3.4.3-161.el7.centos.noarch.rpm
+yum-metadata-parser-1.1.4-10.el7.x86_64.rpm
+yum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm
+yum-updateonboot-1.1.31-50.el7.noarch.rpm
+
+[root@V3 newyumdir]# 
+[root@V3 ~]# ls  zabbix/
+php-common-5.4.16-46.el7.x86_64.rpm  zidir
+php-fpm-5.4.16-46.el7.x86_64.rpm
+
+安装yum软件包，为了兼顾依懒性，直接用命令：rpm -ivh yum-*
+如果出现依赖包的问题或者包冲突的问题，
+可以添加以下两个参数，进行强迫安装。
+或下载对应的包
+--force 即使覆盖属于其它包的文件也强迫安装
+--nodeps 如果该RPM包的安装依赖其它包，即使其它包没装，也强迫安装。
+rpm -ivh --force --nodeps yum* 最终的强制安装指令
+
+[root@V3 newyumdir]# rpm   -ivh  yum-*
+警告：yum-3.4.3-161.el7.centos.noarch.rpm: 头V3 RSA/SHA256 Signature, 密钥 ID f4a80eb5: NOKEY
+准备中...                                                            (################################# [100%]
+正在升级/安装...
+   1:yum-metadata-parser-1.1.4-10.el7                                 ################################# [ 25%]
+   2:yum-plugin-fastestmirror-1.1.31-5                                ################################# [ 50%]
+   3:yum-3.4.3-161.el7.centos                                         ################################# [ 75%]
+   4:yum-updateonboot-1.1.31-50.el7                                   ################################# [100%]
+
+[root@V3 newyumdir]# rpm   -Uvh  rpm-4.11.3-35.el7.x86_64.rpm 
+
+警告：rpm-4.11.3-35.el7.x86_64.rpm: 头V3 RSA/SHA256 Signature, 密钥 ID f4a80eb5: NOKEY
+错误：依赖检测失败：
+	rpm = 4.11.3-25.el7 被 (已安裝) rpm-libs-4.11.3-25.el7.x86_64 需要
+	rpm = 4.11.3-25.el7 被 (已安裝) rpm-python-4.11.3-25.el7.x86_64 需要
+
+
+[root@V3 newyumdir]# rpm  -Uvh  python-urlgrabber-3.10-9.el7.noarch.rpm   #安装python包
+
+警告：python-urlgrabber-3.10-9.el7.noarch.rpm: 头V3 RSA/SHA256 Signature, 密钥 ID f4a80eb5: NOKEY
+准备中...                                                            (################################# [100%]
+正在升级/安装...
+   1:python-urlgrabber-3.10-9.el7                                     ################################# [ 50%]
+正在清理/删除...
+   2:python-urlgrabber-3.10-8.el7                                     ################################# [100%]
+[root@V3 newyumdir]# 
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/rpm-libs-4.11.3-35.el7.x86_64.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/rpm-python-4.11.3-35.el7.x86_64.rpm
+
+
+[root@V3 newyumdir]# wget \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/rpm-libs-4.11.3-35.el7.x86_64.rpm
+....................
+[root@V3 newyumdir]# wget  \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/rpm-python-4.11.3-35.el7.x86_64.rpm
+..............................
+
+2019-05-10 14:15:09 (958 KB/s) - 已保存 “rpm-python-4.11.3-35.el7.x86_64.rpm” [84560/84560])
+
+[root@V3 newyumdir]# ls
+python-iniparse-0.4-9.el7.noarch.rpm
+python-urlgrabber-3.10-9.el7.noarch.rpm
+rpm-4.11.3-35.el7.x86_64.rpm
+RPM-GPG-KEY-CentOS-7
+rpm-libs-4.11.3-35.el7.x86_64.rpm
+rpm-python-4.11.3-35.el7.x86_64.rpm
+yum-3.4.3-161.el7.centos.noarch.rpm
+yum-metadata-parser-1.1.4-10.el7.x86_64.rpm
+yum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm
+yum-updateonboot-1.1.31-50.el7.noarch.rpm
+
+[root@V3 newyumdir]# rpm   -Uvh  rpm-4.11.3-35.el7.x86_64.rpm 
+
+警告：rpm-4.11.3-35.el7.x86_64.rpm: 头V3 RSA/SHA256 Signature, 密钥 ID f4a80eb5: NOKEY
+错误：依赖检测失败：
+	rpm = 4.11.3-25.el7 被 (已安裝) rpm-libs-4.11.3-25.el7.x86_64 需要
+	rpm = 4.11.3-25.el7 被 (已安裝) rpm-python-4.11.3-25.el7.x86_64 需要
+
+
+[root@V3 newyumdir]# rpm   -ivh  rpm-4.11.3-35.el7.x86_64.rpm 
+
+
+警告：rpm-4.11.3-35.el7.x86_64.rpm: 头V3 RSA/SHA256 Signature, 密钥 ID f4a80eb5: NOKEY
+准备中...                                                            (################################# [100%]
+	file /bin/rpm from install of rpm-4.11.3-35.el7.x86_64 conflicts with file from package rpm-4.11.3-25.el7.x86_64
+	file /usr/bin/rpm2cpio from install of rpm-4.11.3-35.el7.x86_64 conflicts with file from package rpm-4.11.3-25.el7.x86_64
+	file /usr/bin/rpmdb from install of rpm-4.11.3-35.el7.x86_64 conflicts with file from package rpm-4.11.3-25.el7.x86_64
+	file /usr/bin/rpmkeys from install of rpm-4.11.3-35.el7.x86_64 conflicts with file from package rpm-4.11.3-25.el7.x86_64
+	file /usr/share/man/man8/rpm.8.gz from install of rpm-4.11.3-35.el7.x86_64 conflicts with file from package rpm-4.11.3-25.el7.x86_64
+
+[root@V3 newyumdir]# type  rpm
+rpm 已被哈希 (/usr/bin/rpm)
+
+[root@V3 newyumdir]# rpm  -qf  /usr/bin/rpm
+rpm-4.11.3-25.el7.x86_64
+
+[root@V3 newyumdir]# 
+[root@V3 newyumdir]# ls
+python-iniparse-0.4-9.el7.noarch.rpm
+python-urlgrabber-3.10-9.el7.noarch.rpm
+rpm-4.11.3-35.el7.x86_64.rpm
+RPM-GPG-KEY-CentOS-7
+rpm-libs-4.11.3-35.el7.x86_64.rpm
+rpm-python-4.11.3-35.el7.x86_64.rpm
+yum-3.4.3-161.el7.centos.noarch.rpm
+yum-metadata-parser-1.1.4-10.el7.x86_64.rpm
+yum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm
+yum-updateonboot-1.1.31-50.el7.noarch.rpm
+
+
+[root@V3 newyumdir]# rpm   -qa  |grep  yum
+
+yum-updateonboot-1.1.31-50.el7.noarch
+yum-metadata-parser-1.1.4-10.el7.x86_64
+yum-plugin-fastestmirror-1.1.31-50.el7.noarch
+yum-3.4.3-161.el7.centos.noarch
+
+
+[root@V3 newyumdir]# rpm   -qa  |grep  python
+
+python-hwdata-1.7.3-4.el7.noarch
+gnome-python2-gnomevfs-2.28.1-14.el7.x86_64
+policycoreutils-python-2.5-17.1.el7.x86_64
+libxml2-python-2.9.1-6.el7_2.3.x86_64
+python-dateutil-1.5-7.el7.noarch
+python-smbc-1.0.13-7.el7.x86_64
+libstoragemgmt-python-1.4.0-3.el7.noarch
+python-IPy-0.75-6.el7.noarch
+python-kitchen-1.1.1-5.el7.noarch
+python-firewall-0.4.4.4-6.el7.noarch
+python-schedutils-0.4-6.el7.x86_64
+python-setuptools-0.9.8-7.el7.noarch
+python-deltarpm-3.6-3.el7.x86_64
+cryptsetup-python-1.7.4-3.el7.x86_64
+python-2.7.5-58.el7.x86_64
+python-decorator-3.4.0-3.el7.noarch
+python-ethtool-0.8-5.el7.x86_64
+gnome-python2-canvas-2.28.1-14.el7.x86_64
+audit-libs-python-2.7.6-3.el7.x86_64
+python-ntplib-0.3.2-1.el7.noarch
+rpm-python-4.11.3-25.el7.x86_64
+dbus-python-1.1.1-9.el7.x86_64
+python-iniparse-0.4-9.el7.noarch
+python-dmidecode-3.12.2-1.el7.x86_64
+python-chardet-2.2.1-1.el7_1.noarch
+systemd-python-219-42.el7.x86_64
+python-pwquality-1.2.3-4.el7.x86_64
+python-meh-0.25.2-1.el7.noarch
+python-slip-0.4.0-2.el7.noarch
+python-pyblock-0.53-6.el7.x86_64
+python-di-0.3-2.el7.noarch
+python-inotify-0.9.4-4.el7.noarch
+python-backports-1.0-8.el7.x86_64
+python-urllib3-1.10.2-3.el7.noarch
+speech-dispatcher-python-0.7.1-15.el7.x86_64
+python2-caribou-0.4.21-1.el7.noarch
+python-rhsm-certificates-1.19.9-1.el7.x86_64
+libuser-python-0.60-7.el7_1.x86_64
+python-pycurl-7.19.0-19.el7.x86_64
+python-gobject-base-3.22.0-1.el7.x86_64
+libselinux-python-2.5-11.el7.x86_64
+python-lxml-3.2.1-4.el7.x86_64
+python-pyudev-0.15-9.el7.noarch
+python-gobject-3.22.0-1.el7.x86_64
+python-six-1.9.0-2.el7.noarch
+python-javapackages-3.4.1-11.el7.noarch
+python-slip-dbus-0.4.0-2.el7.noarch
+libpeas-loader-python-1.20.0-1.el7.x86_64
+liblouis-python-2.5.2-10.el7.noarch
+python-configobj-4.7.2-7.el7.noarch
+python-magic-5.11-33.el7.noarch
+abrt-addon-python-2.1.11-48.el7.x86_64
+python-backports-ssl_match_hostname-3.4.0.2-4.el7.noarch
+python-requests-2.6.0-1.el7_1.noarch
+gnome-python2-gnome-2.28.1-14.el7.x86_64
+gnome-python2-2.28.1-14.el7.x86_64
+python-meh-gui-0.25.2-1.el7.noarch
+python-nss-0.16.0-3.el7.x86_64
+redhat-support-lib-python-0.9.7-6.el7.noarch
+python-brlapi-0.6.0-15.el7.x86_64
+python-libs-2.7.5-58.el7.x86_64
+libsemanage-python-2.5-8.el7.x86_64
+newt-python-0.52.15-4.el7.x86_64
+langtable-python-0.0.31-3.el7.noarch
+python-gudev-147.2-7.el7.x86_64
+python-linux-procfs-0.4.9-3.el7.noarch
+abrt-python-2.1.11-48.el7.x86_64
+python-perf-3.10.0-693.el7.x86_64
+gnome-python2-bonobo-2.28.1-14.el7.x86_64
+python-urlgrabber-3.10-9.el7.noarch
+libreport-python-2.1.11-38.el7.x86_64
+python-rhsm-1.19.9-1.el7.x86_64
+python-blivet-0.61.15.65-1.el7.noarch
+libstoragemgmt-python-clibs-1.4.0-3.el7.x86_64
+python-augeas-0.5.0-2.el7.noarch
+python-cups-1.9.63-6.el7.x86_64
+python-coverage-3.6-0.5.b3.el7.x86_64
+
+
+[root@V3 newyumdir]# rpm   -qa  |grep  rpm
+
+deltarpm-3.6-3.el7.x86_64
+rpm-libs-4.11.3-25.el7.x86_64
+python-deltarpm-3.6-3.el7.x86_64
+rpm-python-4.11.3-25.el7.x86_64
+rpm-build-libs-4.11.3-25.el7.x86_64
+rpm-4.11.3-25.el7.x86_64
+
+[root@V3 newyumdir]# 
+[root@V3 newyumdir]# ls  -ld  /etc/yum
+yum/              yum.conf.rpmsave  
+yum.conf          yum.repos.d/
+   
+[root@V3 newyumdir]# ls  -ld  /etc/yum.repos.d/
+drwxr-xr-x. 2 root root 6 11月  5 2018 /etc/yum.repos.d/
+
+[root@V3 newyumdir]# ls   /etc/yum.repos.d/
+
+[root@V3 newyumdir]# ll   /etc/yum.conf
+-rw-r--r--. 1 root root 970 11月  5 2018 /etc/yum.conf
+
+[root@V3 newyumdir]# vim   /etc/yum.conf
+8:gpgcheck=0
+
+[root@V3 newyumdir]# grep  -Evn  '^#|^$'   /etc/yum.conf
+1:[main]
+2:cachedir=/var/cache/yum/$basearch/$releasever
+3:keepcache=0
+4:debuglevel=2
+5:logfile=/var/log/yum.log
+6:exactarch=1
+7:obsoletes=1
+8:gpgcheck=0
+9:plugins=1
+10:installonly_limit=5
+11:bugtracker_url=http://bugs.centos.org/set_project.php?project_id=23&ref=http://bugs.centos.org/bug_report_page.php?category=yum
+12:distroverpkg=centos-release
+
+[root@V3 newyumdir]# ls
+
+python-iniparse-0.4-9.el7.noarch.rpm
+python-urlgrabber-3.10-9.el7.noarch.rpm
+rpm-4.11.3-35.el7.x86_64.rpm
+RPM-GPG-KEY-CentOS-7
+rpm-libs-4.11.3-35.el7.x86_64.rpm
+rpm-python-4.11.3-35.el7.x86_64.rpm
+yum-3.4.3-161.el7.centos.noarch.rpm
+yum-metadata-parser-1.1.4-10.el7.x86_64.rpm
+yum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm
+yum-updateonboot-1.1.31-50.el7.noarch.rpm
+
+
+[root@V3 newyumdir]# ls  /etc/pki/rpm-gpg/
+RPM-GPG-KEY-redhat-beta            RPM-GPG-KEY-redhat-legacy-rhx
+RPM-GPG-KEY-redhat-legacy-former   RPM-GPG-KEY-redhat-release
+RPM-GPG-KEY-redhat-legacy-release
+
+GPG在Linux上的应用主要是实现官方发布的包的签名机制。
+GPG分为公钥及私钥。
+公钥：顾名思意，即可共享的密钥，
+主要用于验证私钥加密的数据及签名要发送给私钥方的数据。
+私钥：由本地保留的密钥，
+用于签名本地数据及验证用公钥签名的数据。
+
+----------------------- GPG密钥 导入到RPM ------------
+
+[root@V3 newyumdir]# rpm  --import  RPM-GPG-KEY-CentOS-7   ## 导入公钥
+
+[root@V3 newyumdir]# echo  $?
+0
+[root@V3 newyumdir]# ll   RPM-GPG-KEY-CentOS-7 
+-rw-r--r--. 1 root root 1690 12月 10 2015 RPM-GPG-KEY-CentOS-7
+
+[root@V3 newyumdir]# cp    RPM-GPG-KEY-CentOS-7   /etc/pki/rpm-gpg/
+
+[root@V3 newyumdir]# ls   /etc/pki/rpm-gpg/
+RPM-GPG-KEY-CentOS-7
+RPM-GPG-KEY-redhat-beta
+RPM-GPG-KEY-redhat-legacy-former
+RPM-GPG-KEY-redhat-legacy-release
+RPM-GPG-KEY-redhat-legacy-rhx
+RPM-GPG-KEY-redhat-release
+
+[root@V3 newyumdir]# rpm  -V   python-urlgrabber  #RPM验证方法
+[root@V3 newyumdir]# rpm   -V  rpm-python  #如果文件没有被修改过，则不输出任何信息
+[root@V3 newyumdir]# 
+[root@V3 newyumdir]# rpm  -K  rpm-python-4.11.3-35.el7.x86_64.rpm   #验证签名
+rpm-python-4.11.3-35.el7.x86_64.rpm: rsa sha1 (md5) pgp md5 确定
+
+/**************************没有导入公钥之前 对比 **************
+[root@V3 newyumdir]# rpm   -Uvh  rpm-4.11.3-35.el7.x86_64.rpm 
+
+警告：rpm-4.11.3-35.el7.x86_64.rpm: 头V3 RSA/SHA256 Signature, 密钥 ID f4a80eb5: NOKEY
+错误：依赖检测失败：
+	rpm = 4.11.3-25.el7 被 (已安裝) rpm-libs-4.11.3-25.el7.x86_64 需要
+	rpm = 4.11.3-25.el7 被 (已安裝) rpm-python-4.11.3-25.el7.x86_64 需要
+*************************/
+
+[root@V3 newyumdir]# rpm   -Uvh  rpm-4.11.3-35.el7.x86_64.rpm 
+错误：依赖检测失败：
+	rpm = 4.11.3-25.el7 被 (已安裝) rpm-libs-4.11.3-25.el7.x86_64 需要
+	rpm = 4.11.3-25.el7 被 (已安裝) rpm-python-4.11.3-25.el7.x86_64 需要
+[root@V3 newyumdir]# ls  rpm*
+rpm-4.11.3-35.el7.x86_64.rpm
+rpm-libs-4.11.3-35.el7.x86_64.rpm
+rpm-python-4.11.3-35.el7.x86_64.rpm
+[root@V3 newyumdir]#
+
+[root@V3 newyumdir]# cd  /etc/yum.repos.d/
+
+[root@V3 yum.repos.d]# 
+
+下载对应版本repo文件, 放入/etc/yum.repos.d/(操作前请做好相应备份)
+CentOS7  (点击)http://mirrors.163.com/.help/CentOS7-Base-163.repo
+CentOS6
+CentOS5
+
+http://mirrors.163.com/.help/CentOS7-Base-163.repo
+
+运行以下命令生成缓存
+yum clean all
+yum makecache
+
+----------------------------------使用网易的开源软件镜像站点下载地址 ---------------
+
+[root@V3 yum.repos.d]# wget  http://mirrors.163.com/.help/CentOS7-Base-163.repo
+
+--2019-05-10 14:59:26--  http://mirrors.163.com/.help/CentOS7-Base-163.repo
+正在解析主机 mirrors.163.com (mirrors.163.com)... 59.111.0.251
+.......................
+2019-05-10 14:59:28 (66.8 MB/s) - 已保存 “CentOS7-Base-163.repo” [1572/1572])
+
+[root@V3 yum.repos.d]# ls
+CentOS7-Base-163.repo
+
+[root@V3 yum.repos.d]# grep  -Env '^#|^$'  /etc/yum.conf
+1:[main]
+2:cachedir=/var/cache/yum/$basearch/$releasever
+3:keepcache=0
+4:debuglevel=2
+5:logfile=/var/log/yum.log
+6:exactarch=1
+7:obsoletes=1
+8:gpgcheck=0
+9:plugins=1
+10:installonly_limit=5
+11:bugtracker_url=http://bugs.centos.org/set_project.php?project_id=23&ref=http://bugs.centos.org/bug_report_page.php?category=yum
+12:distroverpkg=centos-release
+[root@V3 yum.repos.d]# 
+
+[root@V3 yum.repos.d]# vim   CentOS7-Base-163.repo 
+
+修改repo文件内容，将文件中的“$releasever”改为“7”，
+“RPM-GPG-KEY-CentOS-6”改为“RPM-GPG-KEY-CentOS-7”，使用以下命令进行全局替换。
+
+:%s/$releasever/7/ge
+:%s/RPM-GPG-KEY-CentOS-6/RPM-GPG-KEY-CentOS-7/ge
+
+:wq 
+----------------------------------------------
+
+:%s /$releasever/7/g
+:%s /$releasever/7/g
+
+[root@V3 yum.repos.d]# ls
+CentOS7-Base-163.repo
+[root@V3 yum.repos.d]# vim   CentOS7-Base-163.repo 
+
+[root@V3 yum.repos.d]# grep  -nEv '^#|^$'  CentOS7-Base-163.repo
+12:[base]
+13:name=CentOS-7 - Base - 163.com
+15:baseurl=http://mirrors.163.com/centos/7/os/$basearch/
+16:gpgcheck=1
+17:gpgkey=http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7
+18:enabled=1
+21:[updates]
+22:name=CentOS-7 - Updates - 163.com
+24:baseurl=http://mirrors.163.com/centos/7/updates/$basearch/
+25:gpgcheck=1
+26:gpgkey=http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7
+27:enabled=1
+30:[extras]
+31:name=CentOS-7 - Extras - 163.com
+33:baseurl=http://mirrors.163.com/centos/7/extras/$basearch/
+34:gpgcheck=1
+35:gpgkey=http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7
+36:enabled=1
+39:[centosplus]
+40:name=CentOS-7 - Plus - 163.com
+41:baseurl=http://mirrors.163.com/centos/7/centosplus/$basearch/
+42:gpgcheck=1
+43:enabled=1
+44:gpgkey=http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7
+
+[root@V3 yum.repos.d]# 
+
+[root@V3 newyumdir]# yum  clean  all && yum   makecache  #建立缓存
+
+已加载插件：fastestmirror, product-id, search-disabled-repos,
+          : subscription-manager
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+正在清理软件源： base centosplus extras updates
+已加载插件：fastestmirror, product-id, search-disabled-repos,
+          : subscription-manager
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+Determining fastest mirrors
+base                                       | 3.6 kB     00:00     
+centosplus                                 | 3.4 kB     00:00     
+extras                                     | 3.4 kB     00:00     
+updates                                    | 3.4 kB     00:00     
+(1/16): base/x86_64/group_gz                 | 166 kB   00:00     
+(2/16): base/x86_64/primary_db               | 6.0 MB   00:01     
+(3/16): base/x86_64/filelists_db             | 7.1 MB   00:01     
+(4/16): centosplus/x86_64/prestodelta        |  24 kB   00:00     
+(5/16): centosplus/x86_64/primary_db         | 2.0 MB   00:00     
+(6/16): centosplus/x86_64/other_db           |  36 kB   00:00     
+(7/16): extras/x86_64/prestodelta            |  62 kB   00:00     
+(8/16): extras/x86_64/filelists_db           | 243 kB   00:00     
+(9/16): extras/x86_64/other_db               | 126 kB   00:00     
+(10/16): updates/x86_64/prestodelta          | 632 kB   00:00     
+(11/16): extras/x86_64/primary_db            | 201 kB   00:00     
+(12/16): updates/x86_64/filelists_db         | 3.4 MB   00:01     
+(13/16): updates/x86_64/primary_db           | 4.2 MB   00:01     
+(14/16): updates/x86_64/other_db             | 573 kB   00:00     
+(15/16): centosplus/x86_64/filelists_db      | 926 kB   00:02     
+(16/16): base/x86_64/other_db                | 2.6 MB   00:02     
+元数据缓存已建立
+
+[root@V3 newyumdir]# yum  repolist 
+
+已加载插件：fastestmirror, product-id, search-disabled-repos,
+          : subscription-manager
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+Loading mirror speeds from cached hostfile
+源标识                  源名称                              状态
+base/x86_64             CentOS-7 - Base - 163.com           10,019
+centosplus/x86_64       CentOS-7 - Plus - 163.com               59
+extras/x86_64           CentOS-7 - Extras - 163.com            413
+updates/x86_64          CentOS-7 - Updates - 163.com         1,862
+repolist: 12,353
+[root@V3 newyumdir]# 
+
+[root@V3 yum.repos.d]# scp   CentOS7-Base-163.repo  root@192.168.0.254:'/var/git/PYTHON/pythonScripts/Zabbix' 
+
+[root@V3 yum.repos.d]# ls  /var/cache/yum/
+x86_64
+[root@V3 yum.repos.d]# ls  /var/cache/yum/x86_64/
+$releasever
+[root@V3 yum.repos.d]# ls  /var/cache/yum/$basearch
+x86_64
+[root@V3 yum.repos.d]# ls  /var/cache/yum/$basearch/$releasever
+x86_64
+
+[root@V3 yum.repos.d]# ll  /var/cache/yum/$basearch/$releasever
+总用量 0
+drwxr-xr-x. 3 root root 25 5月  10 15:20 x86_64
+
+[root@V3 yum.repos.d]# ls     /var/cache/
+abrt-di  cups  fontconfig  gdm  ibus  ldconfig  libvirt  man  PackageKit  realmd  yum
+
+[root@V3 yum.repos.d]# ls     /var/cache/yum/
+x86_64
+
+[root@V3 yum.repos.d]# ls     /var/cache/yum/x86_64/
+$releasever
+
+[root@V3 yum.repos.d]# ls     /var/cache/yum/x86_64/\$releasever/
+base  centosplus  extras  timedhosts  timedhosts.txt  updates
+
+[root@V3 yum.repos.d]# ls     /var/cache/yum/x86_64/\$releasever/base/
+6614b3605d961a4aaec45d74ac4e5e713e517debb3ee454a1c91097955780697-primary.sqlite.bz2
+a0ec5a4708a1026db100d4799c404c9ed48a9371a4bab234a1355f86628a244a-filelists.sqlite.bz2
+bc140c8149fc43a5248fccff0daeef38182e49f6fe75d9b46db1206dc25a6c1c-c7-x86_64-comps.xml.gz
+cachecookie
+fbebcd3de05e22bd1cd526e594f235968401471d4a9aef3c1ad356b6d1965365-other.sqlite.bz2
+gen
+packages
+repomd.xml
+
+[root@V3 yum.repos.d]# ls     /var/cache/yum/x86_64/\$releasever/updates/
+8e05cef272c3fa9d207a3a7aa9e680c83fb26c44b1043bfc4331ae4eb9dca694-primary.sqlite.bz2
+a9e3a1b318a19c5c0fe3f56bafb0180aa086ba67ce5bfa5de4ace87a95fcdeef-other.sqlite.bz2
+c146969d2246df6743efc203bae6abb5efcc18dc22acc26d36b2df289cca5cb1-prestodelta.xml.gz
+cachecookie
+e9af001581829f50c651499e594254dcc3b58c47129af41633df69f04ece90e4-filelists.sqlite.bz2
+gen
+packages
+repomd.xml
+
+[root@V3 yum.repos.d]# ll  /var/cache/yum/x86_64/\$releasever/timedhosts
+-rw-r--r--. 1 root root 37 5月  10 15:20 /var/cache/yum/x86_64/$releasever/timedhosts
+
+[root@V3 yum.repos.d]# cat   /var/cache/yum/x86_64/\$releasever/timedhosts
+
+mirrors.163.com 3788854 0 1557472841
+[root@V3 yum.repos.d]# 
+
+
+yum  -y  install  elinks    telnet   httpd-tools \
+gcc  pcre-devel  openssl-devel   mariadb-devel  mariadb  mariadb-server  \
+memcached  php-pecl-memcache   php    php-mysql  \
+http://mirrors.163.com/centos/7/os/x86_64/Packages/php-fpm-5.4.16-46.el7.x86_64.rpm
+
+
+[root@Web2 ~]# yum -y install elinks telnet httpd-tools gcc \
+> pcre-devel openssl-devel mariadb-devel mariadb \
+> mariadb-server memcached php-pecl-memcache php \
+> php-mysql /root/lnmp_soft/php-fpm-5.4.16-42.el7.x86_64.rpm |tail  -7;
+
+[root@V3 yum.repos.d]# yum  -y  install  elinks    telnet   httpd-tools \
+> gcc  pcre-devel  openssl-devel   mariadb-devel  mariadb  mariadb-server  \
+> memcached  php-pecl-memcache   php    php-mysql  \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/php-fpm-5.4.16-46.el7.x86_64.rpm
+..............................
+已安装:
+  elinks.x86_64 0:0.12-0.37.pre6.el7.0.1      gcc.x86_64 0:4.8.5-36.el7_6.2              
+  httpd-tools.x86_64 0:2.4.6-89.el7.centos    mariadb.x86_64 1:5.5.60-1.el7_5            
+  mariadb-devel.x86_64 1:5.5.60-1.el7_5       mariadb-server.x86_64 1:5.5.60-1.el7_5     
+  memcached.x86_64 0:1.4.15-10.el7_3.1        openssl-devel.x86_64 1:1.0.2k-16.el7_6.1   
+  pcre-devel.x86_64 0:8.32-17.el7             php.x86_64 0:5.4.16-46.el7                 
+  php-fpm.x86_64 0:5.4.16-46.el7              php-mysql.x86_64 0:5.4.16-46.el7           
+  php-pecl-memcache.x86_64 0:3.0.8-4.el7      telnet.x86_64 1:0.17-64.el7                
+
+作为依赖被安装:
+  apr.x86_64 0:1.4.8-3.el7_4.1              apr-util.x86_64 0:1.5.2-6.el7               
+  cpp.x86_64 0:4.8.5-36.el7_6.2             glibc-devel.x86_64 0:2.17-260.el7_6.5       
+  glibc-headers.x86_64 0:2.17-260.el7_6.5   httpd.x86_64 0:2.4.6-89.el7.centos          
+  js.x86_64 1:1.8.5-20.el7                  kernel-headers.x86_64 0:3.10.0-957.12.1.el7 
+  keyutils-libs-devel.x86_64 0:1.5.8-3.el7  krb5-devel.x86_64 0:1.15.1-37.el7_6         
+  libcom_err-devel.x86_64 0:1.42.9-13.el7   libkadm5.x86_64 0:1.15.1-37.el7_6           
+  libmpc.x86_64 0:1.0.1-3.el7               libselinux-devel.x86_64 0:2.5-14.1.el7      
+  libsepol-devel.x86_64 0:2.5-10.el7        libverto-devel.x86_64 0:0.2.5-4.el7         
+  libzip.x86_64 0:0.10.1-8.el7              mailcap.noarch 0:2.1.41-2.el7               
+  nss_compat_ossl.x86_64 0:0.9.6-8.el7      perl-DBD-MySQL.x86_64 0:4.023-6.el7         
+  php-cli.x86_64 0:5.4.16-46.el7            php-common.x86_64 0:5.4.16-46.el7           
+  php-pdo.x86_64 0:5.4.16-46.el7            php-pear.noarch 1:1.9.4-21.el7              
+  php-process.x86_64 0:5.4.16-46.el7        php-xml.x86_64 0:5.4.16-46.el7              
+  zlib-devel.x86_64 0:1.2.7-18.el7         
+
+作为依赖被升级:
+  e2fsprogs.x86_64 0:1.42.9-13.el7           e2fsprogs-libs.x86_64 0:1.42.9-13.el7      
+  glibc.x86_64 0:2.17-260.el7_6.5            glibc-common.x86_64 0:2.17-260.el7_6.5     
+  krb5-libs.x86_64 0:1.15.1-37.el7_6         libcom_err.x86_64 0:1.42.9-13.el7          
+  libgcc.x86_64 0:4.8.5-36.el7_6.2           libgomp.x86_64 0:4.8.5-36.el7_6.2          
+  libselinux.x86_64 0:2.5-14.1.el7           libselinux-python.x86_64 0:2.5-14.1.el7    
+  libselinux-utils.x86_64 0:2.5-14.1.el7     libsepol.x86_64 0:2.5-10.el7               
+  libss.x86_64 0:1.42.9-13.el7               mariadb-libs.x86_64 1:5.5.60-1.el7_5       
+  openssl.x86_64 1:1.0.2k-16.el7_6.1         openssl-libs.x86_64 1:1.0.2k-16.el7_6.1    
+  zlib.x86_64 0:1.2.7-18.el7                
+
+完毕！
+[root@V3 yum.repos.d]#
+
+rpm    -q     elinks    telnet   httpd-tools   gcc  \
+pcre-devel   openssl-devel   mariadb-devel   mariadb \
+mariadb-server  memcached    php-pecl-memcache   php  \
+php-mysql  php-fpm
+
+[root@V3 yum.repos.d]# rpm    -q     elinks    telnet   httpd-tools   gcc  \
+> pcre-devel   openssl-devel   mariadb-devel   mariadb \
+> mariadb-server  memcached    php-pecl-memcache   php  \
+> php-mysql  php-fpm
+
+elinks-0.12-0.37.pre6.el7.0.1.x86_64
+telnet-0.17-64.el7.x86_64
+httpd-tools-2.4.6-89.el7.centos.x86_64
+gcc-4.8.5-36.el7_6.2.x86_64
+pcre-devel-8.32-17.el7.x86_64
+openssl-devel-1.0.2k-16.el7_6.1.x86_64
+mariadb-devel-5.5.60-1.el7_5.x86_64
+mariadb-5.5.60-1.el7_5.x86_64
+mariadb-server-5.5.60-1.el7_5.x86_64
+memcached-1.4.15-10.el7_3.1.x86_64
+php-pecl-memcache-3.0.8-4.el7.x86_64
+php-5.4.16-46.el7.x86_64
+php-mysql-5.4.16-46.el7.x86_64
+php-fpm-5.4.16-46.el7.x86_64
+
+[root@V3 yum.repos.d]# 
+
+[root@V3 yum.repos.d]# ls  /etc/pki/rpm-gpg/
+RPM-GPG-KEY-CentOS-7              RPM-GPG-KEY-redhat-legacy-release
+RPM-GPG-KEY-redhat-beta           RPM-GPG-KEY-redhat-legacy-rhx
+RPM-GPG-KEY-redhat-legacy-former  RPM-GPG-KEY-redhat-release
+
+[root@V3 yum.repos.d]# scp  /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7  root@192.168.0.254:/etc/pki/rpm-gpg/
+
+[root@room9pc01 ~]# ll  /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-*
+
+-rw-r--r--. 1 root root 1690 5月  10 15:58 /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+-rw-r--r--. 1 root root 1004 8月  30 2017 /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-Debug-7
+-rw-r--r--. 1 root root 1690 8月  30 2017 /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-Testing-7
+
+[root@room9pc01 ~]# grep   -Env  '^#|^$'  /etc/yum.conf
+1:[main]
+2:cachedir=/var/cache/yum/$basearch/$releasever
+3:keepcache=0
+4:debuglevel=2
+5:logfile=/var/log/yum.log
+6:exactarch=1
+7:obsoletes=1
+8:gpgcheck=0
+9:plugins=1
+10:installonly_limit=5
+11:bugtracker_url=http://bugs.centos.org/set_project.php?project_id=23&ref=http://bugs.centos.org/bug_report_page.php?category=yum
+12:distroverpkg=centos-release
+[root@room9pc01 ~]# 
+
+
+----------------------- GPG密钥 导入到RPM ------------
+
+]# rpm  --import  RPM-GPG-KEY-CentOS-7   ## 导入公钥
+
+[root@V0 ~]# vim   /etc/yum.conf 
+[root@V0 ~]# grep  -n  gpgcheck  /etc/yum.conf
+8:gpgcheck=0
+
+[root@V0 ~]# ll  /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-*
+-rw-r--r-- 1 root root 1690 5月  10 15:58 /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
+[root@V0 ~]# rpm  --import   /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7   ## 导入公钥
+
+[root@V0 ~]# vim   /etc/yum.conf 
+[root@V0 ~]# grep  -n  gpgcheck  /etc/yum.conf
+8:gpgcheck=0
+[root@V0 ~]# ls  /etc/pki/rpm-gpg/
+RPM-GPG-KEY-CentOS-7     RPM-GPG-KEY-redhat-legacy-former   RPM-GPG-KEY-redhat-legacy-rhx
+RPM-GPG-KEY-redhat-beta  RPM-GPG-KEY-redhat-legacy-release  RPM-GPG-KEY-redhat-release
+
+[root@V1 ~]# ll  /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-*
+-rw-r--r-- 1 root root 1690 5月  10 15:58 /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
+[root@V1 ~]# rpm  --import   /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7   ## 导入公钥
+[root@V1 ~]# vim   /etc/yum.conf
+[root@V1 ~]# grep  -n  gpgcheck  /etc/yum.conf
+8:gpgcheck=0
+[root@V1 ~]#
+
+[root@V2 ~]# ll  /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-*
+-rw-r--r-- 1 root root 1690 5月  10 15:59 /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
+[root@V2 ~]# rpm  --import   /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7   ## 导入公钥
+
+[root@V2 ~]#  vim   /etc/yum.conf
+[root@V2 ~]# grep  -n  gpgcheck  /etc/yum.conf
+8:gpgcheck=0
+
+[root@V3 ~]# 
+  236  ls  /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 
+  237  scp  /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7  root@192.168.0.254:/etc/pki/rpm-gpg/
+  238  scp  /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7  root@192.168.0.10:/etc/pki/rpm-gpg/
+  239  scp  /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7  root@192.168.0.11:/etc/pki/rpm-gpg/
+  240  scp  /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7  root@192.168.0.12:/etc/pki/rpm-gpg/
+[root@V3 yum.repos.d]# 
+
+[root@V3 yum.repos.d]# scp   CentOS7-Base-163.repo  root@192.168.0.254:/var/git/PYTHON/pythonScripts/Zabbix
+root@192.168.0.254's password: 
+CentOS7-Base-163.repo                                  100% 1492   753.9KB/s   00:00    
+[root@V3 yum.repos.d]# scp  /etc/yum.conf    root@192.168.0.254:/var/git/PYTHON/pythonScripts/Zabbix
+
+[root@V3 yum.repos.d]# vim   /etc/hosts
+
+[root@V3 yum.repos.d]# tail  -5   /etc/hosts
+192.168.0.10  V0
+192.168.0.11  V1
+192.168.0.12  V2
+192.168.0.13  V3
+192.168.0.254 room9pc01.tedu.cn
+
+[root@V3 yum.repos.d]# ping -c2  room9pc01.tedu.cn
+
+PING room9pc01.tedu.cn (192.168.0.254) 56(84) bytes of data.
+64 bytes from room9pc01.tedu.cn (192.168.0.254): icmp_seq=1 ttl=64 time=0.151 ms
+64 bytes from room9pc01.tedu.cn (192.168.0.254): icmp_seq=2 ttl=64 time=0.112 ms
+..............
+[root@V3 yum.repos.d]# scp   /etc/hosts  root@192.168.0.10:/etc/
+................. 
+[root@V3 yum.repos.d]# scp   /etc/hosts  root@192.168.0.11:/etc/
+.........
+[root@V3 yum.repos.d]# scp   /etc/hosts  root@192.168.0.12:/etc/
+
+[root@V3 yum.repos.d]# for  i  in V{0..2};do  scp   CentOS7-Base-163.repo  root@$i:/etc/yum.repos.d/;done
+
+[root@V3 yum.repos.d]# scp  CentOS7-Base-163.repo   root@192.168.0.254:/etc/yum.repos.d/
+root@192.168.0.254's password: 
+................
+
+[root@room9pc01 ~]# grep   -Env  '^#|^$'  /etc/yum.conf
+1:[main]
+2:cachedir=/var/cache/yum/$basearch/$releasever
+3:keepcache=0
+4:debuglevel=2
+5:logfile=/var/log/yum.log
+6:exactarch=1
+7:obsoletes=1
+8:gpgcheck=0
+9:plugins=1
+10:installonly_limit=5
+11:bugtracker_url=http://bugs.centos.org/set_project.php?project_id=23&ref=http://bugs.centos.org/bug_report_page.php?category=yum
+12:distroverpkg=centos-release
+
+
+[root@room9pc01 ~]# ls  /etc/yum.repos.d/
+CentOS7-Base-163.repo  packagekit-media.repo  rhel7.repo
+NSD-2018-1-12.tar.gz   repo                   rpm.repo
+
+[root@room9pc01 ~]# yum  clean  all && yum   makecache |tail -5  #建立缓存
+
+已加载插件：fastestmirror, langpacks
+正在清理软件源： base centosplus extras rhel7 rpm updates
+Cleaning up everything
+Maybe you want: rm -rf /var/cache/yum, to also free up space taken by orphaned data from disabled or removed repos
+Cleaning up list of fastest mirrors
+已加载插件：fastestmirror, langpacks
+Determining fastest mirrors
+元数据缓存已建立
+
+[root@room9pc01 ~]# yum   repolist 
+
+已加载插件：fastestmirror, langpacks
+Loading mirror speeds from cached hostfile
+源标识                              源名称                                         状态
+base/x86_64                         CentOS-7 - Base - 163.com                      10,019
+centosplus/x86_64                   CentOS-7 - Plus - 163.com                          59
+extras/x86_64                       CentOS-7 - Extras - 163.com                       413
+rhel7                               rhel-server-7.4                                 4,986
+rpm                                 rpm                                                23
+updates/x86_64                      CentOS-7 - Updates - 163.com                    1,862
+repolist: 17,362
+[root@room9pc01 ~]# 
+
+
+[root@V2 ~]# ls  /etc/yum.repos.d/
+CentOS7-Base-163.repo  local.repo  redhat.repo
+[root@V2 ~]# 
+[root@V2 ~]# yum  clean  all && yum   makecache |tail -5  #建立缓存
+................
+[root@V2 ~]# yum   repolist 
+.....................
+源标识                              源名称                                           状态
+base/x86_64                         CentOS-7 - Base - 163.com                        10,019
+centosplus/x86_64                   CentOS-7 - Plus - 163.com                            59
+extras/x86_64                       CentOS-7 - Extras - 163.com                         413
+rhel7                               rhel-server-7.4-x86_64-dvd.iso                    4,986
+updates/x86_64                      CentOS-7 - Updates - 163.com                      1,862
+repolist: 17,339
+
+[root@V2 ~]# cat  /etc/yum.repos.d/local.repo 
+[rhel7]
+name=rhel-server-7.4-x86_64-dvd.iso
+baseurl=ftp://192.168.0.254/rhel7
+enabled=1
+gpgcheck=0
+[root@V2 ~]# 
+[root@V1 ~]# yum   repolist  |tail  -7
+源标识                        源名称                                      状态
+base/x86_64                   CentOS-7 - Base - 163.com                   10,019
+centosplus/x86_64             CentOS-7 - Plus - 163.com                       59
+extras/x86_64                 CentOS-7 - Extras - 163.com                    413
+rhel7                         rhel-server-7.4-x86_64-dvd.iso               4,986
+updates/x86_64                CentOS-7 - Updates - 163.com                 1,862
+repolist: 17,339
+[root@V1 ~]# 
+  519  rpm  --import   /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7   ## 导入公钥
+  520  vim   /etc/yum.conf
+  521  grep  -n  gpgcheck  /etc/yum.conf
+  522  tail  -3  /etc/hosts
+  523  yum  clean  all && yum   makecache |tail -5  #建立缓存
+  525  yum   repolist  |tail  -7
+-------------------------------------------------------
+  253  cat  /etc/sysconfig/network-scripts/ifcfg-eth0
+  254  cat  /etc/sysconfig/network-scripts/ifcfg-eth1
+  255  ll  /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-*
+  257  rpm  --import   /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 
+  258  vim   /etc/yum.conf 
+  259  grep  -n  gpgcheck  /etc/yum.conf
+  260  ls  /etc/pki/rpm-gpg/
+  262  yum  clean  all && yum   makecache |tail -5  #建立缓存
+  263  yum   repolist 
+[root@V0 ~]# 
+
+
+
+
+

@@ -1,0 +1,1445 @@
+
+yum常用问题解决
+1、如果网速慢的话可以通过增加yum的超时时间，这样就不会总是因为超时而退出。
+#vi /etc/yum.conf
+#加上这么一句
+timeout=120
+
+https://github.com/hiys/PYTHON/blob/master/yum-http.txt
+
+[root@room9pc01 ~]# uname  -a
+Linux room9pc01.tedu.cn 3.10.0-693.el7.x86_64 #1 SMP Tue Aug 22 21:09:27 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+
+
+怎样知道系统是32 位还是64 位？
+使用uname -a命令，32位系统会显示i686 i686 i386 GNU/Linux；
+  64位会显示x86_64 x86_64 x86_64 GNU/Linux.
+
+键盘 ---->
+将屏幕截图 保存到 图片目录  Print (直接点击 Print键)
+将窗口截图 保存到 图片目录  Alt + Print (选中浏览器窗口,然后点击  Alt + Print键)
+将选区截图 保存到 图片目录  Shift + Print 
+(点击 Shift + Print键 , 等鼠标变成 "+' 的形式后,移动鼠标选中截图区域位置)
+Esc退出
+
+将选区截图 保存到 图片目录  Shift + Print 
+(点击 Shift + Print键 , 等鼠标变成 "+' 的形式后,移动鼠标选中截图区域位置)
+
+
+[root@room9pc01 ~]# ssh  -X  192.168.0.13
+root@192.168.0.13's password: 
+Last login: Fri May 10 17:52:38 2019 from 192.168.1.254
+
+[root@V3 ~]# systemctl  is-enabled  httpd
+enabled
+
+[root@V3 ~]# ll  /etc/php.ini 
+-rw-r--r--. 1 root root 64945 10月 31 2018 /etc/php.ini
+
+
+[root@V3 ~]# vim   /etc/php.ini
+
+ 671 ; http://php.net/post-max-size
+ 672 post_max_size = 8M   #把 8M 改成 32M # 672 post_max_size = 32M
+ 673 
+ 382 ; http://php.net/max-execution-time
+ 383 ; Note: This directive is hardcoded to 0 for the CLI SAPI
+ 384 max_execution_time = 30 #把 30改成 300 # 384 max_execution_time = 300
+ 385 
+
+ 393 ; http://php.net/max-input-time
+ 394 max_input_time = 60 #把 60改成 300 # 394 max_input_time = 300
+ 395 
+
+ 877 ; http://php.net/date.timezone
+ 878 ;date.timezone =  #取消注释";"改成 # 878 date.timezone = Asia/Shanghai
+ 879 
+
+[root@V3 ~]# grep  -Env  '^;|^$'   /etc/php.ini
+1:[PHP]
+197:engine = On
+211:short_open_tag = Off
+215:asp_tags = Off
+219:precision = 14
+243:output_buffering = 4096
+270:zlib.output_compression = Off
+288:implicit_flush = Off
+296:unserialize_callback_func =
+301:serialize_precision = 17
+314:disable_functions =
+320:disable_classes =
+352:zend.enable_gc = On
+375:expose_php = On
+384:max_execution_time = 300   #把 30改成 300
+394:max_input_time = 300       #把 60改成 300
+405:memory_limit = 128M
+461:error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT
+478:display_errors = Off
+489:display_startup_errors = Off
+499:log_errors = On
+504:log_errors_max_len = 1024
+509:ignore_repeated_errors = Off
+515:ignore_repeated_source = Off
+521:report_memleaks = On
+533:track_errors = Off
+550:html_errors = On
+621:variables_order = "GPCS"
+634:request_order = "GP"
+649:register_argc_argv = Off
+657:auto_globals_jit = On
+672:post_max_size = 32M      #已经把 8M 改成 32M了
+676:auto_prepend_file =
+680:auto_append_file =
+688:default_mimetype = "text/html"
+719:doc_root =
+724:user_dir =
+736:enable_dl = Off
+791:file_uploads = On
+800:upload_max_filesize = 2M
+803:max_file_uploads = 20
+811:allow_url_fopen = On
+815:allow_url_include = Off
+828:default_socket_timeout = 60
+871:[CLI Server]
+873:cli_server.color = On
+875:[Date]
+878:date.timezone = Asia/Shanghai  #取消注释";"改成 = Asia/Shanghai
+892:[filter]
+899:[iconv]
+904:[intl]
+911:[sqlite]
+915:[sqlite3]
+918:[Pcre]
+930:[Pdo]
+937:[Pdo_mysql]
+940:pdo_mysql.cache_size = 2000
+945:pdo_mysql.default_socket=
+947:[Phar]
+956:[mail function]
+959:SMTP = localhost
+961:smtp_port = 25
+969:sendmail_path = /usr/sbin/sendmail -t -i
+977:mail.add_x_header = On
+983:[SQL]
+985:sql.safe_mode = Off
+987:[ODBC]
+1003:odbc.allow_persistent = On
+1007:odbc.check_persistent = On
+1011:odbc.max_persistent = -1
+1015:odbc.max_links = -1
+1020:odbc.defaultlrl = 4096
+1026:odbc.defaultbinmode = 1
+1030:[Interbase]
+1032:ibase.allow_persistent = 1
+1035:ibase.max_persistent = -1
+1038:ibase.max_links = -1
+1053:ibase.timestampformat = "%Y-%m-%d %H:%M:%S"
+1056:ibase.dateformat = "%Y-%m-%d"
+1059:ibase.timeformat = "%H:%M:%S"
+1061:[MySQL]
+1064:mysql.allow_local_infile = On
+1068:mysql.allow_persistent = On
+1072:mysql.cache_size = 2000
+1076:mysql.max_persistent = -1
+1080:mysql.max_links = -1
+1087:mysql.default_port =
+1092:mysql.default_socket =
+1096:mysql.default_host =
+1100:mysql.default_user =
+1108:mysql.default_password =
+1112:mysql.connect_timeout = 60
+1117:mysql.trace_mode = Off
+1119:[MySQLi]
+1123:mysqli.max_persistent = -1
+1131:mysqli.allow_persistent = On
+1135:mysqli.max_links = -1
+1139:mysqli.cache_size = 2000
+1146:mysqli.default_port = 3306
+1151:mysqli.default_socket =
+1155:mysqli.default_host =
+1159:mysqli.default_user =
+1167:mysqli.default_pw =
+1170:mysqli.reconnect = Off
+1172:[mysqlnd]
+1176:mysqlnd.collect_statistics = On
+1181:mysqlnd.collect_memory_statistics = Off
+1192:[OCI8]
+1245:[PostgreSQL]
+1248:pgsql.allow_persistent = On
+1253:pgsql.auto_reset_persistent = Off
+1257:pgsql.max_persistent = -1
+1261:pgsql.max_links = -1
+1266:pgsql.ignore_notice = 0
+1271:pgsql.log_notice = 0
+1273:[Sybase-CT]
+1276:sybct.allow_persistent = On
+1280:sybct.max_persistent = -1
+1284:sybct.max_links = -1
+1288:sybct.min_server_severity = 10
+1292:sybct.min_client_severity = 10
+1312:[bcmath]
+1315:bcmath.scale = 0
+1317:[browscap]
+1321:[Session]
+1324:session.save_handler = files
+1361:session.use_cookies = 1
+1371:session.use_only_cookies = 1
+1375:session.name = PHPSESSID
+1379:session.auto_start = 0
+1383:session.cookie_lifetime = 0
+1387:session.cookie_path = /
+1391:session.cookie_domain =
+1395:session.cookie_httponly =
+1399:session.serialize_handler = php
+1411:session.gc_probability = 1
+1425:session.gc_divisor = 1000
+1430:session.gc_maxlifetime = 1440
+1454:session.bug_compat_42 = Off
+1463:session.bug_compat_warn = Off
+1469:session.referer_check =
+1487:session.cache_limiter = nocache
+1491:session.cache_expire = 180
+1503:session.use_trans_sid = 0
+1513:session.hash_function = 0
+1525:session.hash_bits_per_character = 5
+1536:url_rewriter.tags = "a=href,area=href,frame=src,input=src,form=fakeentry"
+1583:[MSSQL]
+1585:mssql.allow_persistent = On
+1588:mssql.max_persistent = -1
+1591:mssql.max_links = -1
+1594:mssql.min_error_severity = 10
+1597:mssql.min_message_severity = 10
+1600:mssql.compatability_mode = Off
+1623:mssql.secure_connection = Off
+1635:[Assertion]
+1657:[mbstring]
+1714:[gd]
+1721:[exif]
+1745:[Tidy]
+1754:tidy.clean_output = Off
+1756:[soap]
+1759:soap.wsdl_cache_enabled=1
+1763:soap.wsdl_cache_dir="/tmp"
+1768:soap.wsdl_cache_ttl=86400
+1771:soap.wsdl_cache_limit = 5
+1773:[sysvshm]
+1777:[ldap]
+1779:ldap.max_links = -1
+1781:[mcrypt]
+1792:[dba]
+[root@V3 ~]# 
+
+[root@V3 ~]# vim   /etc/php.ini
+ 672 post_max_size = 8M   #把 8M 改成 32M # 672 post_max_size = 32M
+
+编辑zabbix的web配置文件中的时区，此文件是安装时自动生成的
+
+[root@V3 conf]# cat  -n  /etc/httpd/conf.d/zabbix.conf
+
+     5	Alias /zabbix /usr/share/zabbix
+     6	
+     7	<Directory "/usr/share/zabbix">
+     8	    Options FollowSymLinks
+     9	    AllowOverride None
+    10	    Require all granted
+    11	
+    12	    <IfModule mod_php5.c>
+    13	        php_value max_execution_time 300
+    14	        php_value memory_limit 128M
+    15	        php_value post_max_size 16M     #注意这行将要修改,把16M 改成32M
+    16	        php_value upload_max_filesize 2M
+    17	        php_value max_input_time 300
+    18	        php_value max_input_vars 10000
+    19	        php_value always_populate_raw_post_data -1
+    20	        php_value date.timezone Asia/Shanghai
+    21	    </IfModule>
+    22	</Directory>
+
+
+[root@V3 ~]# ll  /etc/httpd/conf.d/zabbix.conf 
+-rw-r--r--. 1 root root 870 5月  10 21:13 /etc/httpd/conf.d/zabbix.conf
+
+[root@V3 ~]# vim   /etc/httpd/conf.d/zabbix.conf
+
+ 15         php_value post_max_size 16M  #把16M 改成 32M # 15         php_value post_max_size 32M
+ 16         php_value upload_max_filesize 2M
+ 17         php_value max_input_time 300
+ 18         php_value max_input_vars 10000
+ 19         php_value always_populate_raw_post_data -1
+ 20         php_value date.timezone Asia/Shanghai
+
+[root@V3 ~]# grep  -Env  '^#|^$'  /etc/httpd/conf.d/zabbix.conf
+5:Alias /zabbix /usr/share/zabbix
+7:<Directory "/usr/share/zabbix">
+8:    Options FollowSymLinks
+9:    AllowOverride None
+10:    Require all granted
+12:    <IfModule mod_php5.c>
+13:        php_value max_execution_time 300
+14:        php_value memory_limit 128M
+15:        php_value post_max_size 32M
+16:        php_value upload_max_filesize 2M
+17:        php_value max_input_time 300
+18:        php_value max_input_vars 10000
+19:        php_value always_populate_raw_post_data -1
+20:        php_value date.timezone Asia/Shanghai
+21:    </IfModule>
+22:</Directory>
+24:<Directory "/usr/share/zabbix/conf">
+25:    Require all denied
+26:</Directory>
+28:<Directory "/usr/share/zabbix/app">
+29:    Require all denied
+30:</Directory>
+32:<Directory "/usr/share/zabbix/include">
+33:    Require all denied
+34:</Directory>
+36:<Directory "/usr/share/zabbix/local">
+37:    Require all denied
+38:</Directory>
+[root@V3 ~]# ll  /etc/httpd/conf.d/zabbix.conf
+-rw-r--r-- 1 root root 870 5月  11 11:39 /etc/httpd/conf.d/zabbix.conf
+
+重启httpd服务，
+
+[root@V3 ~]# systemctl   restart   httpd
+[root@V3 ~]# 
+访问http://SERVER-IP/zabbix会跳转到zabbix的安装界面，
+点击下一步查看所有环境准备项目OK就可以继续了。
+
+zabbix默认管理用户是admin密码zabbix
+
+
+http://192.168.0.13/zabbix
+------------------- 会跳转到zabbix的安装界面 ---------------
+
+http://192.168.0.13/zabbix/setup.php
+
+[root@V3 ~]# yum   makecache  |tail  -5
+
+已加载插件：fastestmirror, product-id, search-disabled-repos, subscription-manager
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+Loading mirror speeds from cached hostfile
+元数据缓存已建立
+
+[root@V3 ~]# yum  repolist  |tail  -8
+
+源标识                      源名称                                        状态
+base/x86_64                 CentOS-7 - Base - 163.com                     10,019
+centosplus/x86_64           CentOS-7 - Plus - 163.com                         59
+extras/x86_64               CentOS-7 - Extras - 163.com                      413
+updates/x86_64              CentOS-7 - Updates - 163.com                   1,862
+zabbix/x86_64               Zabbix Official Repository - x86_64              236
+zabbix-non-supported/x86_64 Zabbix Official Repository non-supported - x8      4
+repolist: 12,593
+
+[root@V3 ~]# yum  -y  install   gd
+................
+软件包 gd-2.0.35-26.el7.x86_64 已安装并且是最新版本
+无须任何处理
+[root@V3 ~]# rpm   -q    gd
+gd-2.0.35-26.el7.x86_64
+
+[root@V3 ~]# rpm   -q    gd
+gd-2.0.35-26.el7.x86_64
+[root@V3 ~]# yum   -y   install   gd-devel
+...........................
+正在解决依赖关系
+--> 正在检查事务
+---> 软件包 gd-devel.x86_64.0.2.0.35-26.el7 将被 安装
+--> 正在处理依赖关系 libjpeg-devel，它被软件包 gd-devel-2.0.35-26.el7.x86_64 需要
+--> 正在处理依赖关系 libXpm-devel，它被软件包 gd-devel-2.0.35-26.el7.x86_64 需要
+--> 正在检查事务
+---> 软件包 libXpm-devel.x86_64.0.3.5.12-1.el7 将被 安装
+---> 软件包 libjpeg-turbo-devel.x86_64.0.1.2.90-6.el7 将被 安装
+--> 正在处理依赖关系 libjpeg-turbo(x86-64) = 1.2.90-6.el7，它被软件包 libjpeg-turbo-devel-1.2.90-6.el7.x86_64 需要
+--> 正在检查事务
+---> 软件包 libjpeg-turbo.x86_64.0.1.2.90-5.el7 将被 升级
+---> 软件包 libjpeg-turbo.x86_64.0.1.2.90-6.el7 将被 更新
+--> 解决依赖关系完成
+
+依赖关系解决
+
+================================================================================
+ Package                   架构         版本                   源          大小
+================================================================================
+正在安装:
+ gd-devel                  x86_64       2.0.35-26.el7          base        79 k
+为依赖而安装:
+ libXpm-devel              x86_64       3.5.12-1.el7           base        36 k
+ libjpeg-turbo-devel       x86_64       1.2.90-6.el7           base        99 k
+为依赖而更新:
+ libjpeg-turbo             x86_64       1.2.90-6.el7           base       134 k
+
+事务概要
+================================================================================
+安装  1 软件包 (+2 依赖软件包)
+升级           ( 1 依赖软件包)
+
+总下载量：348 k
+Downloading packages:
+No Presto metadata available for base
+(1/4): libXpm-devel-3.5.12-1.el7.x86_64.rpm                |  36 kB   00:00     
+(2/4): gd-devel-2.0.35-26.el7.x86_64.rpm                   |  79 kB   00:00     
+(3/4): libjpeg-turbo-devel-1.2.90-6.el7.x86_64.rpm         |  99 kB   00:00     
+(4/4): libjpeg-turbo-1.2.90-6.el7.x86_64.rpm               | 134 kB   00:00     
+--------------------------------------------------------------------------------
+总计                                               507 kB/s | 348 kB  00:00     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  正在安装    : libXpm-devel-3.5.12-1.el7.x86_64                            1/5 
+  正在更新    : libjpeg-turbo-1.2.90-6.el7.x86_64                           2/5 
+  正在安装    : libjpeg-turbo-devel-1.2.90-6.el7.x86_64                     3/5 
+  正在安装    : gd-devel-2.0.35-26.el7.x86_64                               4/5 
+  清理        : libjpeg-turbo-1.2.90-5.el7.x86_64                           5/5 
+  验证中      : libjpeg-turbo-devel-1.2.90-6.el7.x86_64                     1/5 
+  验证中      : gd-devel-2.0.35-26.el7.x86_64                               2/5 
+  验证中      : libjpeg-turbo-1.2.90-6.el7.x86_64                           3/5 
+  验证中      : libXpm-devel-3.5.12-1.el7.x86_64                            4/5 
+  验证中      : libjpeg-turbo-1.2.90-5.el7.x86_64                           5/5 
+
+已安装:
+  gd-devel.x86_64 0:2.0.35-26.el7                                               
+
+作为依赖被安装:
+  libXpm-devel.x86_64 0:3.5.12-1.el7  libjpeg-turbo-devel.x86_64 0:1.2.90-6.el7 
+
+作为依赖被升级:
+  libjpeg-turbo.x86_64 0:1.2.90-6.el7                                           
+
+完毕！
+[root@V3 ~]# rpm   -q    gd-devel
+gd-devel-2.0.35-26.el7.x86_64
+
+[root@V3 ~]# yum   -y   install   php-gd
+.....................
+Loading mirror speeds from cached hostfile
+软件包 php-gd-5.4.16-46.el7.x86_64 已安装并且是最新版本
+无须任何处理
+
+[root@V3 ~]# rpm   -q   php-gd
+php-gd-5.4.16-46.el7.x86_64
+
+[root@V3 ~]# yum   -y  install   php-xml   php-ldap
+.................
+Loading mirror speeds from cached hostfile
+软件包 php-xml-5.4.16-46.el7.x86_64 已安装并且是最新版本
+软件包 php-ldap-5.4.16-46.el7.x86_64 已安装并且是最新版本
+无须任何处理
+[root@V3 ~]# rpm  -q    php-xml    php-ldap
+php-xml-5.4.16-46.el7.x86_64
+php-ldap-5.4.16-46.el7.x86_64
+
+[root@V3 ~]# systemctl   restart   httpd
+[root@V3 ~]# hostname
+V3
+[root@V3 ~]# ifconfig eth0 |head  -2
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.0.13  netmask 255.255.255.0  broadcast 192.168.0.255
+[root@V3 ~]# 
+
+http://192.168.0.13/zabbix/setup.php
+
+Zabbix server details
+Zabbix服务器详细信息
+Please enter the host name or host IP address and port number of the Zabbix server, as well as the name of the installation (optional).
+请输入zabbix服务器的主机名或主机IP地址和端口号，以及安装的名称（可选）。 
+    Host  V3
+    Port  10051
+    Name  V3
+
+
+http://192.168.0.13/zabbix/setup.php
+
+Pre-installation summary
+安装前总结
+Please check configuration parameters. If all is correct, press "Next step" button, or "Back" button to change configuration parameters.
+请检查配置参数。如果全部正确，请按“下一步”按钮或“后退”按钮更改配置参数。
+    Database type
+    MySQL
+    Database server
+    localhost
+    Database port
+    default
+    Database name
+    zabbix
+    Database user
+    zabbix
+    Database password
+    ******
+     
+    Zabbix server
+    V3
+    Zabbix server port
+    10051
+    Zabbix server name
+    V3
+
+http://192.168.0.13/zabbix/setup.php
+Install
+Congratulations! You have successfully installed Zabbix frontend.
+祝贺你！您已成功安装Zabbix前端。
+Configuration file "/etc/zabbix/web/zabbix.conf.php" created.
+已创建配置文件“/etc/zabbix/web/zabbix.conf.php”。
+
+[root@V3 ~]# ll   /etc/zabbix/web/zabbix.conf.php 
+
+-rw-r--r-- 1 apache apache 410 5月  11 12:25 /etc/zabbix/web/zabbix.conf.php
+
+[root@V3 ~]# cat  -n  /etc/zabbix/web/zabbix.conf.php
+     1	<?php
+     2	// Zabbix GUI configuration file.
+     3	global $DB;
+     4	
+     5	$DB['TYPE']     = 'MYSQL';
+     6	$DB['SERVER']   = 'localhost';
+     7	$DB['PORT']     = '0';
+     8	$DB['DATABASE'] = 'zabbix';
+     9	$DB['USER']     = 'zabbix';
+    10	$DB['PASSWORD'] = 'zabbix';
+    11	
+    12	// Schema name. Used for IBM DB2 and PostgreSQL.
+    13	$DB['SCHEMA'] = '';
+    14	
+    15	$ZBX_SERVER      = 'V3';
+    16	$ZBX_SERVER_PORT = '10051';
+    17	$ZBX_SERVER_NAME = 'V3';
+    18	
+    19	$IMAGE_FORMAT_DEFAULT = IMAGE_FORMAT_PNG;
+[root@V3 ~]# 
+
+zabbix默认管理用户是admin密码zabbix
+登录页面，默认的登录账号：admin密码：zabbix
+
+http://192.168.0.13/zabbix/index.php
+
+Username  admin
+Password  zabbix
+Remember me for 30 days
+
+---------------------------- 创建数据库和zabbix用户并授权 --------------------
+
+[root@V3 zabbix]# mysql  -uroot  -p123  -e "
+> grant  all  on  zabbix.* to  zabbix@'%' identified by'zabbix';
+> show  grants  for   zabbix@'%';"
++-------------------------------------------------------------------------------------------------------+
+| Grants for zabbix@%       |
++-------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'zabbix'@'%' IDENTIFIED BY PASSWORD '*DEEF4D7D88CD046ECA02A80393B7780A63E7E789' |
+| GRANT ALL PRIVILEGES ON `zabbix`.* TO 'zabbix'@'%'   |
++-------------------------------------------------------------------------------------------------------+
+[root@V3 zabbix]# 
+---------------------------- 导入数据库 ----------------------------------
+
+zcat create.sql.gz |mysql  -uroot -p123  zabbix 
+
+
+
+http://192.168.0.13/zabbix/zabbix.php?action=dashboard.view
+
+Zabbix server is  not running:the  information  displayed may not be current
+Zabbix服务器未运行：显示的信息可能不是最新的
+
+[root@V3 ~]# netstat   -npult  |grep   10051
+[root@V3 ~]# getenforce 
+Disabled
+
+修改配置文件，给服务授权、启动Zabbix Server服务
+
+[root@V3 ~]# ll    /etc/zabbix/zabbix_server.conf 
+-rw-r-----. 1 root zabbix 15529 5月  10 20:50 /etc/zabbix/zabbix_server.conf
+
+[root@V3 ~]# vim     /etc/zabbix/zabbix_server.conf
+
+ 38 LogFile=/var/log/zabbix/zabbix_server.log
+ 49 LogFileSize=0
+ 72 PidFile=/var/run/zabbix/zabbix_server.pid
+ 82 SocketDir=/var/run/zabbix
+ 91 DBHost=localhost
+100 DBName=zabbix
+116 DBUser=zabbix
+124 DBPassword=zabbix
+329 SNMPTrapperFile=/var/log/snmptrap/snmptrap.log
+446 Timeout=4
+488 AlertScriptsPath=/usr/lib/zabbix/alertscripts
+498 ExternalScripts=/usr/lib/zabbix/externalscripts
+534 LogSlowQueries=3000
+
+[root@V3 ~]# grep   -Env  '^#|^$'   /etc/zabbix/zabbix_server.conf
+
+38:LogFile=/var/log/zabbix/zabbix_server.log
+49:LogFileSize=0
+72:PidFile=/var/run/zabbix/zabbix_server.pid
+82:SocketDir=/var/run/zabbix
+91:DBHost=localhost
+100:DBName=zabbix
+116:DBUser=zabbix
+124:DBPassword=zabbix
+329:SNMPTrapperFile=/var/log/snmptrap/snmptrap.log
+446:Timeout=4
+488:AlertScriptsPath=/usr/lib/zabbix/alertscripts
+498:ExternalScripts=/usr/lib/zabbix/externalscripts
+534:LogSlowQueries=3000
+
+[root@V3 ~]# ls     /etc/zabbix/
+web  zabbix_agentd.conf  zabbix_agentd.d  zabbix_server.conf
+
+备注：记得先备份 cp /etc/zabbix/zabbix_server.conf  /etc/zabbix/zabbix_server.conf.bak 
+
+[root@V3 ~]# cp     /etc/zabbix/zabbix_server.conf   /etc/zabbix/zabbix_server.conf.bak
+
+[root@V3 ~]# ls    /etc/zabbix/
+web  zabbix_agentd.conf  zabbix_agentd.d  zabbix_server.conf  zabbix_server.conf.bak
+
+[root@V3 ~]# ls  -ld   /etc/zabbix/
+drwxr-xr-x. 4 root root 122 5月  11 13:16 /etc/zabbix/
+
+[root@V3 ~]# grep  -n   zabbix  /etc/passwd
+45:zabbix:x:990:985:Zabbix Monitoring System:/var/lib/zabbix:/sbin/nologin
+
+
+[root@V3 ~]# chown  -R  zabbix:zabbix   /etc/zabbix/  #给服务授权
+
+[root@V3 ~]# chmod   -R  755  /etc/zabbix/        #给服务授权
+
+[root@V3 ~]# ls  -l     /etc/zabbix/
+总用量 44
+drwxr-xr-x. 2 zabbix zabbix    56 5月  11 12:25 web
+-rwxr-xr-x. 1 zabbix zabbix 10632 11月 12 18:55 zabbix_agentd.conf
+drwxr-xr-x. 2 zabbix zabbix    38 5月  10 20:17 zabbix_agentd.d
+-rwxr-xr-x. 1 zabbix zabbix 15529 5月  10 20:50 zabbix_server.conf
+-rwxr-xr-x  1 zabbix zabbix 15529 5月  11 13:16 zabbix_server.conf.bak
+[root@V3 ~]# 
+
+----------------------- 启动Zabbix Server服务
+
+[root@V3 ~]# !net
+netstat   -npult  |grep   10050
+
+[root@V3 ~]# netstat   -npult  |grep   10051
+
+[root@V3 ~]# systemctl   start   zabbix-
+zabbix-agent.service   zabbix-server.service  
+
+---------------------------- 启动zabbix-server服务 设置zabbix-server服务自启动 -----------------------
+
+[root@V3 ~]# systemctl   start   zabbix-server   &&  systemctl   enable   zabbix-server
+
+Created symlink from /etc/systemd/system/multi-user.target.wants/zabbix-server.service to /usr/lib/systemd/system/zabbix-server.service.
+
+[root@V3 ~]# netstat   -npult  |grep   10051
+tcp        0      0 0.0.0.0:10051           0.0.0.0:*               LISTEN      27303/zabbix_server 
+tcp6       0      0 :::10051                :::*                    LISTEN      27303/zabbix_server 
+[root@V3 ~]# 
+/************
+备注：这里会有一个坑，就是在启动zabbix服务会失败，
+Job for zabbix-server.service failed. 
+See 'systemctl status zabbix-server.service' and 'journalctl -xn' for details.
+查了一下原因是gnutls-3.3的高版本问题，
+解决办法是;
+1,先卸载这个高版本的gnutls-3.3,
+命令：rpm -e gnutls-3.3.24-1.el7.x86_64 --nodeps2，
+然后去网上下载一个gnutls-3.1的版本，
+然后使用命令rpm -Uvh --force gnutls-3.1.18-8.el7.x86_64.rpm
+*************/
+
+--------------------------------------- 编辑Zabbix前端的PHP配置 -------------------------
+
+[root@V3 ~]# ll   /etc/httpd/conf.d/zabbix.conf 
+-rw-r--r-- 1 root root 870 5月  11 11:39 /etc/httpd/conf.d/zabbix.conf
+
+[root@V3 ~]# vim   /etc/httpd/conf.d/zabbix.conf
+
+[root@V3 ~]# cat    -n   /etc/httpd/conf.d/zabbix.conf
+     1	#
+     2	# Zabbix monitoring system php web frontend
+     3	#
+     4	
+     5	Alias /zabbix /usr/share/zabbix
+     6	
+     7	<Directory "/usr/share/zabbix">
+     8	    Options FollowSymLinks
+     9	    AllowOverride None
+    10	    Require all granted
+    11	
+    12	    <IfModule mod_php5.c>
+    13	        php_value max_execution_time 300
+    14	        php_value memory_limit 128M
+    15	        php_value post_max_size 32M
+    16	        php_value upload_max_filesize 2M
+    17	        php_value max_input_time 300
+    18	        php_value max_input_vars 10000
+    19	        php_value always_populate_raw_post_data -1
+    20	        php_value date.timezone Asia/Shanghai
+    21	    </IfModule>
+    22	</Directory>
+    23	
+    24	<Directory "/usr/share/zabbix/conf">
+    25	    Require all denied
+    26	</Directory>
+    27	
+    28	<Directory "/usr/share/zabbix/app">
+    29	    Require all denied
+    30	</Directory>
+    31	
+    32	<Directory "/usr/share/zabbix/include">
+    33	    Require all denied
+    34	</Directory>
+    35	
+    36	<Directory "/usr/share/zabbix/local">
+    37	    Require all denied
+    38	</Directory>
+
+[root@V3 ~]# systemctl   restart   httpd
+---------------------------------------------------- 启动apache服务，并设置开机自启
+
+----------------------------- 登录网页客户端操作添加一台Linux机器
+
+访问ip：http://192.168.0.13/zabbix/index.php
+
+zabbix默认
+管理用户是admin
+密码     zabbix
+登录页面，
+默认的登录账号：admin密码：zabbix
+
+http://192.168.0.13/zabbix/index.php
+
+Username  admin
+Password  zabbix
+Remember me for 30 days
+
+以后自动跳转此页面
+http://192.168.0.13/zabbix/zabbix.php?action=dashboard.view
+
+[root@V3 ~]# netstat   -npult  |grep   10051
+tcp        0      0 0.0.0.0:10051           0.0.0.0:*               LISTEN      27303/zabbix_server 
+tcp6       0      0 :::10051                :::*                    LISTEN      27303/zabbix_server 
+[root@V3 ~]# systemctl  stop   zabbix-server
+[root@V3 ~]# netstat   -npult  |grep   10051
+[root@V3 ~]# 
+
+http://192.168.0.13/zabbix/zabbix.php?action=dashboard.view
+
+Zabbix server is  not running:the  information  displayed may not be current
+Zabbix服务器未运行：显示的信息可能不是最新的
+
+[root@V3 ~]# systemctl   restart   zabbix-server.service 
+[root@V3 ~]# 
+
+-------------------------- http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/
+------------ https://www.zabbix.com/documentation/3.4/zh/manual
+https://www.zabbix.com/documentation/3.4/zh/manual
+
+https://www.zabbix.com/manuals
+
+
+https://www.zabbix.com/documentation/current/zh/manual
+This topic does not exist yet
+You've followed a link to a topic that doesn't exist yet.
+Login
+You are currently not logged in! 
+Enter your authentication credentials below to log in. 
+You need to have cookies enabled to log in.
+此主题尚不存在
+您已跟踪到一个尚未存在的主题的链接。
+登录
+您当前没有登录！
+在下面输入您的身份验证凭据以登录。
+您需要启用cookie才能登录。
+
+http://192.168.0.13/zabbix/api_jsonrpc.php
+
+状态码 412 Precondition  Failed
+
+precondition    英 [ˌpriːkənˈdɪʃn]
+    n.先决条件;前提
+
+[root@V3 ~]# find   /   -type  f  -iname  "*api_jsonrpc.php" -exec ls -l {} \;
+-rw-r--r--. 1 root root 2327 11月 12 18:50 /usr/share/zabbix/api_jsonrpc.php
+
+[root@V3 ~]# grep  -Env  '^(\*|$)'  /usr/share/zabbix/api_jsonrpc.php
+1:<?php
+2:/*
+22:header('Access-Control-Allow-Origin: *');
+23:header('Access-Control-Allow-Headers: Content-Type');
+24:header('Access-Control-Allow-Methods: POST');
+25:header('Access-Control-Max-Age: 1000');
+27:if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+28:	return;
+29:}
+31:require_once dirname(__FILE__).'/include/func.inc.php';
+32:require_once dirname(__FILE__).'/include/classes/core/CHttpRequest.php';
+34:$allowed_content = [
+35:	'application/json-rpc' => 'json-rpc',
+36:	'application/json' => 'json-rpc',
+37:	'application/jsonrequest' => 'json-rpc',
+38:];
+39:$http_request = new CHttpRequest();
+40:$content_type = $http_request->header('Content-Type');
+41:$content_type = explode(';', $content_type);
+42:$content_type = $content_type[0];
+44:if (!isset($allowed_content[$content_type])) {
+45:	header('HTTP/1.0 412 Precondition Failed');
+46:	return;
+47:}
+49:require_once dirname(__FILE__).'/include/classes/core/Z.php';
+51:header('Content-Type: application/json');
+52:$data = $http_request->body();
+54:try {
+55:	Z::getInstance()->run(ZBase::EXEC_MODE_API);
+57:	$apiClient = API::getWrapper()->getClient();
+59:	// unset wrappers so that calls between methods would be made directly to the services
+60:	API::setWrapper();
+62:	$jsonRpc = new CJsonRpc($apiClient, $data);
+63:	echo $jsonRpc->execute();
+64:}
+65:catch (Exception $e) {
+66:	// decode input json request to get request's id
+67:	$jsonData = CJs::decodeJson($data);
+69:	$response = [
+70:		'jsonrpc' => '2.0',
+71:		'error' => [
+72:			'code' => 1,
+73:			'message' => $e->getMessage(),
+74:			'data' => ''
+75:		],
+76:		'id' => (isset($jsonData['id']) ? $jsonData['id'] : null)
+77:	];
+79:	echo CJs::encodeJson($response);
+80:}
+[root@V3 ~]# 
+
+•  请求的 Content-Type 头部必须设置为以下值之一:
+–  application/json-rpc
+–  application/json
+–  application/jsonrequest
+
+31:require_once dirname(__FILE__).'/include/func.inc.php';
+32:require_once dirname(__FILE__).'/include/classes/core/CHttpRequest.php';
+34:$allowed_content = [
+35:	'application/json-rpc' => 'json-rpc',
+36:	'application/json' => 'json-rpc',
+37:	'application/jsonrequest' => 'json-rpc',
+38:];
+
+[root@V3 ~]# ll    /usr/share/zabbix/include/func.inc.php 
+-rw-r--r--. 1 root root 61760 11月 12 18:50 /usr/share/zabbix/include/func.inc.php
+[root@V3 ~]# ls   /usr/share/zabbix/include/ |wc  -l
+45
+[root@V3 ~]# ls   /usr/share/zabbix/ |wc  -l
+98
+[root@V3 ~]# ll    /usr/share/zabbix/api_jsonrpc.php 
+-rw-r--r--. 1 root root 2327 11月 12 18:50 /usr/share/zabbix/api_jsonrpc.php
+
+[root@V3 ~]# cd  zabbix/
+[root@V3 zabbix]# ls
+php-common-5.4.16-46.el7.x86_64.rpm  php-fpm-5.4.16-46.el7.x86_64.rpm  zidir
+
+[root@V3 zabbix]# ll  php-common-5.4.16-46.el7.x86_64.rpm 
+-rw-r--r--. 1 root root 578648 5月  10 11:43 php-common-5.4.16-46.el7.x86_64.rpm
+[root@V3 zabbix]# rm   -f  php-*
+[root@V3 zabbix]# rm   -r  zidir/
+
+
+[root@V3 zabbix]# ls
+
+[root@V3 zabbix]# vim   zabbixrequests.py
+
+[root@V3 zabbix]# python3  zabbixrequests.py
+
+__name__ is __main__
+<class 'str'>
+{"jsonrpc": "2.0", "method": "apiinfo.version", "id": 1, "auth": null, "params": {}}---------datajs
+{'jsonrpc': '2.0', 'result': '3.4.15', 'id': 1}
+sys.argv is ['zabbixrequests.py']
+
+[root@V3 zabbix]# cat  -n   zabbixrequests.py
+     1	#/usr/bin/env    python3
+     2	#coding:UTF-8
+     3	#! -*- coding:utf8 -*-
+     4	"""#coding=UTF-8
+     5	https://www.zabbix.com/documentation/3.4/zh/manual
+     6	Zabbix 手册
+     7	欢迎使用Zabbix 3.4软件使用手册，
+     8	本手册可以帮助用户利用Zabbix实现对从简单到复杂的监控任务的高效管理。
+     9	
+    10	"""
+    11	import  requests, json, sys
+    12	
+    13	sys.stdout.write('\033[32;46;1m__name__ is %s\n\033[0m' % __name__)
+    14	
+    15	url = 'http://192.168.0.13/zabbix/api_jsonrpc.php'
+    16	header = {'Content-Type' : 'application/json-rpc'}
+    17	
+    18	data = {
+    19	  "jsonrpc": "2.0",    #jsonrpc协议版本号
+    20	  "method": "apiinfo.version",       #zabbix手册上查询版本号
+    21	  'id': 1,              #随便写的数字,测试操作使用
+    22	  'auth': None,         #不需要身份验证
+    23	  "params": {}          #没有额外的参数
+    24	}
+    25	
+    26	datajs = json.dumps(data)  #转成 json 格式
+    27	print(type(datajs), datajs, sep='\n', end='---------datajs\n')
+    28	
+    29	response = requests.post(url, headers=header, data=datajs)
+    30	print(response.json())    #zabbix返回 json格式的数据
+    31	
+    32	
+    33	
+    34	
+    35	if __name__ == "__main__":
+    36	  sys.stdout.write('\033[31;47;1msys.argv is %s\n\033[0m' % sys.argv)
+    37	
+    38	
+    39	
+[root@V3 zabbix]# 
+
+https://www.zabbix.com/documentation/3.4/zh/manual/api/reference/apiinfo/version
+来源
+CAPIInfo::version() in frontends/php/include/classes/api/services/CAPIInfo.php.
+
+[root@V3 zabbix]# ls   /usr/share/zabbix/include/classes/api/services/
+CAction.php          CHostBase.php       CScreenItem.php
+CAlert.php           CHostGeneral.php    CScreen.php
+CAPIInfo.php         CHostGroup.php      CScript.php
+CApplication.php     CHostInterface.php  CService.php
+CConfiguration.php   CHost.php           CTemplate.php
+CCorrelation.php     CHostPrototype.php  CTemplateScreenItem.php
+CDashboard.php       CHttpTest.php       CTemplateScreen.php
+CDCheck.php          CIconMap.php        CTrend.php
+CDHost.php           CImage.php          CTriggerGeneral.php
+CDiscoveryRule.php   CItemGeneral.php    CTrigger.php
+CDRule.php           CItem.php           CTriggerPrototype.php
+CDService.php        CItemPrototype.php  CUserGroup.php
+CEvent.php           CMaintenance.php    CUserMacro.php
+CGraphGeneral.php    CMapElement.php     CUserMedia.php
+CGraphItem.php       CMap.php            CUser.php
+CGraph.php           CMediatype.php      CValueMap.php
+
+\w 匹配字母或数字或下划线 
+\s 匹配任意的空白符 
+\d 匹配数字    等价于[0-9]
+
+[root@V3 zabbix]# grep  -Pnv  '^(\s*)(\*|\/|$)'   /usr/share/zabbix/include/classes/api/services/CAPIInfo.php
+1:<?php
+25:class CAPIInfo extends CApiService {
+32:	public function version() {
+33:		return ZABBIX_API_VERSION;
+34:	}
+35:}
+[root@V3 zabbix]#
+
+https://www.zabbix.com/documentation/3.4/zh/manual/api/reference/user/login
+
+Source
+CUser::login() in frontends/php/include/classes/api/services/CUser.php.
+
+[root@V3 zabbix]# ll  /usr/share/zabbix/include/classes/api/services/CUser.php 
+-rw-r--r--. 1 root root 48227 11月 12 18:50 /usr/share/zabbix/include/classes/api/services/CUser.php
+
+[root@V3 zabbix]# grep  -Pnv  '^(\s*)(\*|\/|$)'   /usr/share/zabbix/include/classes/api/services/CUser.php 
+
+
+zabbix默认管理用户是admin密码zabbix
+
+Examples
+
+Authenticating a user
+Authenticate a user.
+对用户进行身份验证
+验证用户身份。
+
+Request:
+{
+    "jsonrpc": "2.0",
+    "method": "user.login",
+    "params": {
+        "user": "Admin",
+        "password": "zabbix"
+    },
+    "id": 1
+}
+
+Response:
+{
+    "jsonrpc": "2.0",
+    "result": "0424bd59b807674191e7d77572075f33",
+    "id": 1
+}
+
+
+[root@V3 zabbix]# vim    zabbixrequests.py
+[root@V3 zabbix]# python3    zabbixrequests.py
+__name__ is __main__
+<class 'str'>
+{"jsonrpc": "2.0", "method": "apiinfo.version", "id": 1, "auth": null, "params": {}}---------datajs
+{'jsonrpc': '2.0', 'result': '3.4.15', 'id': 1}  -----1
+*-*-*-*-*-*-*-*-*-*-
+
+<class 'str'>
+{"jsonrpc": "2.0", "method": "user.login", "params": {"user": "admin", "password": "zabbix"}, "id": 1}---------datajs
+{'jsonrpc': '2.0', 'result': '3e3a43c642d776e22f9ebed8c0d19c5d', 'id': 1}  -----2admin
+*-**-**-**-**-**-**-**-**-**-*
+
+<class 'str'>
+{"jsonrpc": "2.0", "method": "user.login", "params": {"user": "Admin", "password": "zabbix"}, "id": 2}---------datajs
+{'jsonrpc': '2.0', 'result': 'b8df3102cb88beefa0b13ccb5e20eec7', 'id': 2}  -----3Admin
+$-$-$-$-$-$-$-$-$-$-
+
+<class 'str'>
+{"jsonrpc": "2.0", "method": "user.login", "params": {"user": "root", "password": "zabbix"}, "id": 1}---------datajs
+{'jsonrpc': '2.0', 'error': {'code': -32602, 'message': 'Invalid params.', 'data': 'Login name or password is incorrect.'}, 'id': 1}  -----4root
+sys.argv is ['zabbixrequests.py']
+[root@V3 zabbix]# 
+
+[root@V3 zabbix]# scp   zabbixrequests.py  root@192.168.0.254:/var/git/PYTHON/pythonScripts/Zabbix/
+
+https://www.zabbix.com/documentation/3.4/zh/manual/api/reference/user/login
+[root@V3 zabbix]# grep  -Pnv  '^(\s*)(\*|\/|$)'   /usr/share/zabbix/include/classes/api/services/CUser.php 
+
+
+https://www.zabbix.com/documentation/3.4/zh/manual/api/reference/host/get
+See also 参见
+
+Host group
+Template
+User macro
+Host interface
+Source 来源
+CHost::get() in frontends/php/include/classes/api/services/CHost.php.
+
+[root@V3 ~]# grep  -Pnv  '^(\s*)(\*|\/|$)'   /usr/share/zabbix/include/classes/api/services/CHost.php
+
+https://www.zabbix.com/documentation/3.4/zh/manual/api/reference/host/get
+范例
+根据名称检索数据
+
+Retrieve all data about two hosts named “Zabbix server” and “Linux server”.
+检索所有关于主机名为“Zabbix server”和“Linux server”的数据。
+
+Request:
+
+{
+    "jsonrpc": "2.0",
+    "method": "host.get",
+    "params": {
+        "output": "extend",
+        "filter": {
+            "host": [
+                "Zabbix server",
+                "Linux server"
+            ]
+        }
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 1
+}
+
+https://www.zabbix.com/documentation/3.4/zh/manual/api/reference/host/get
+host.get
+Description 说明
+integer/array host.get(object parameters)
+此方法允许根据指定的参数获取主机。
+
+Parameters参数
+(object) 定义期望输出的参数
+该方法支持以下参数。
+参数            类型            说明
+filter	object	仅返回完全匹配指定筛选后的结果。
+接受一个数组，其键值为属性名，其值要么是一个单一的值，要么是一个匹配的数组值。 
+Allows filtering by interface properties.允许通过接口属性筛选。
+
+
+----检索所有的主机 -------------------
+
+{"jsonrpc": "2.0", 
+ "method": "host.get",
+ "params": {"output": "extend",
+            "filter": {"host": ["Zabbix server", "Linux server"]}},
+ "auth": "3e3a43c642d776e22f9ebed8c0d19c5d", "id": 1}---------datajs
+
+{'jsonrpc': '2.0',
+ 'result': [{'hostid': '10084',    #主机id号
+       'proxy_hostid': '0',        #代理id号
+               'host': 'Zabbix server',  #zabbix主机名
+             'status': '1',     #1 代表web端停止使用,没有启动web客户端服务
+      'disable_until': '0',
+              'error': '',
+          'available': '0',
+        'errors_from': '0',
+         'lastaccess': '0',
+      'ipmi_authtype': '-1',
+     'ipmi_privilege': '2',
+      'ipmi_username': '',
+      'ipmi_password': '',
+ 'ipmi_disable_until': '0',
+     'ipmi_available': '0',
+ 'snmp_disable_until': '0',
+     'snmp_available': '0',
+      'maintenanceid': '0',
+ 'maintenance_status': '0',
+   'maintenance_type': '0',
+   'maintenance_from': '0',
+   'ipmi_errors_from': '0',
+   'snmp_errors_from': '0',
+         'ipmi_error': '',
+         'snmp_error': '',
+  'jmx_disable_until': '0',
+      'jmx_available': '0',
+    'jmx_errors_from': '0',
+          'jmx_error': '',
+               'name': 'Zabbix server',
+              'flags': '0',
+         'templateid': '0',
+        'description': '',
+        'tls_connect': '1',
+         'tls_accept': '1',
+         'tls_issuer': '',
+        'tls_subject': '',
+   'tls_psk_identity': '',
+            'tls_psk': ''}], 'id': 1}  -----5Zabbix server
+
+
+http://192.168.0.13/zabbix/hosts.php?form=update&hostid=10084&groupid=0
+
+agent代理程序的接口
+     IP地址         DNS名称        连接到          端口        默认
+     127.0.0.1                IP地址  DNS   10050     ()(移除键)
+
+			
+SNMP接口  可以连接路由器,监听路由器
+
+JMX接口
+JMX（Java Management Extensions，即Java管理扩展）
+是一个为应用程序、设备、系统等植入管理功能的框架。
+JMX可以跨越一系列异构操作系统平台、系统体系结构和网络传输协议，
+灵活开发无缝集成的系统、网络和服务管理应用。
+
+IPMI接口 
+主要是用来监控cpu，风扇的信息。
+外带服务器的意思就是有一个类似的客户端可以查看这些信息，也可以进行开关机的操作。
+这个客户端不需要安装在浏览器中就可以访问，
+前提是你的主板有IPMI接口并在BIOS中配置了这个功能，
+然后登陆浏览器输入用户名与密码就能看到了。
+
+
+JMX体系结构分为以下四个层次：
+设备层
+设备层（Instrumentation Level）：主要定义了信息模型。
+在JMX中，各种管理对象以管理构件的形式存在，
+需要管理时，向MBean服务器进行注册。
+该层还定义了通知机制以及一些辅助元数据类。
+
+代理层
+代理层（Agent Level）：主要定义了各种服务以及通信模型。
+该层的核心是一个MBean服务器，所有的管理构件都需要向它注册，才能被管理。
+注册在MBean服务器上管理构件并不直接和远程应用程序进行通信，
+它们通过协议适配器和连接器进行通信。
+而协议适配器和连接器也以管理构件的形式向MBean服务器注册才能提供相应的服务。
+
+分布服务层
+分布服务层（Distributed Service Level）：
+主要定义了能对代理层进行操作的管理接口和构件，这样管理者就可以操作代理。
+然而，当前的JMX规范并没有给出这一层的具体规范。
+
+附加管理协议API
+定义的API主要用来支持当前已经存在的网络管理协议，如SNMP、TMN、CIM/WBEM等。
+
+
+[root@V3 zabbix]# rpm  -q  net-snmp
+net-snmp-5.7.2-37.el7.x86_64
+[root@V3 zabbix]# rpm  -q  net-snmp-devel
+net-snmp-devel-5.7.2-37.el7.x86_64
+
+
+Retrieving host groups 检索主机组
+
+Retrieve names of the groups host “Zabbix server” is member of, but no host details themselves. 
+检索主机“Zabbix server”隶属于的组名，但是不检索主机本身的详情。
+
+Request:
+
+{
+    "jsonrpc": "2.0",
+    "method": "host.get",
+    "params": {
+        "output": ["hostid"],
+        "selectGroups": "extend",
+        "filter": {
+            "host": [
+                "Zabbix server"
+            ]
+        }
+    },
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+    "id": 2
+}
+
+https://www.zabbix.com/documentation/3.4/zh/manual/api/reference/hostgroup/get
+
+hostgroup.get
+Description 说明
+integer/array hostgroup.get(object parameters)
+The method allows to retrieve host groups according to the given parameters.
+该方法允许根据给定的参数检索主机组。
+
+Parameters 参数
+(object) Parameters defining the desired output. 
+  定义所需输出的参数。
+
+Examples 示例
+
+Retrieving data by name按名称检索数据
+
+Retrieve all data about two host groups named “Zabbix servers” and “Linux servers”.检索有关名为“Zabbix服务器”和“Linux服务器”的两个主机组的所有数据。
+
+Request:
+
+{
+    "jsonrpc": "2.0",
+    "method": "hostgroup.get",
+    "params": {
+        "output": "extend",
+        "filter": {
+            "name": [
+                "Zabbix servers",
+                "Linux servers"
+            ]
+        }
+    },
+    "auth": "6f38cddc44cfbb6c1bd186f9a220b5a0",
+    "id": 1
+}
+
+
+https://www.zabbix.com/documentation/3.4/zh/manual/api/reference/template/get
+template.get
+Description说明
+integer/array template.get(object parameters)
+The method allows to retrieve templates according to the given parameters
+该方法允许根据指定的参数检索模板.
+
+Parameters参数
+(object) Parameters defining the desired output
+定义所需输出的参数.
+The method supports the following parameters
+该方法支持以下参数.
+
+Parameter参数	Type类型	Description说明
+templateids	string/array	Return only templates with the given template IDs只返回具有给定模板ID的模板.
+
+
+
+
+------------- 根据指定的参数检索模板 ----------
+
+{"jsonrpc": "2.0", "method": "template.get", "params": {"output": "extend"}, "auth": "021f5a16485203b03a956b3c0891b66c", "id": 1}---------datajs
+
+{'jsonrpc': '2.0', 
+  'result': [{'proxy_hostid': '0', 
+'host': 'Template OS Linux',
+ 'status': '3', 
+'disable_until': '0', 
+'error': '',
+ 'available': '0', 
+'errors_from': '0', 
+'lastaccess': '0',
+ 'ipmi_authtype': '-1',
+ 'ipmi_privilege': '2',
+ 'ipmi_username': '',
+ 'ipmi_password': '',
+ 'ipmi_disable_until': '0',
+ 'ipmi_available': '0',
+ 'snmp_disable_until': '0',
+ 'snmp_available': '0',
+ 'maintenanceid': '0',
+ 'maintenance_status': '0',
+ 'maintenance_type': '0',
+ 'maintenance_from': '0',
+ 'ipmi_errors_from': '0',
+ 'snmp_errors_from': '0',
+ 'ipmi_error': '',
+ 'snmp_error': '',
+ 'jmx_disable_until': '0',
+ 'jmx_available': '0',
+ 'jmx_errors_from': '0',
+ 'jmx_error': '',
+ 'name': 'Template OS Linux',
+ 'flags': '0',
+ 'templateid': '10001',
+ 'description': '', 
+'tls_connect': '1',
+ 'tls_accept': '1',
+ 'tls_issuer': '',
+ 'tls_subject': '',
+ 'tls_psk_identity': '',
+ 'tls_psk': ''},
+
+ {'proxy_hostid': '0', 'host': 'Template App Zabbix Server', 'status': '3', 
+......................
+
+[root@V3 zabbix]# python3   zabbixrequestshostgroup.py 
+__name__ is __main__
+<class 'str'>
+{"jsonrpc": "2.0", "method": "apiinfo.version", "id": 1, "auth": null, "params": {}}---------datajs
+{'jsonrpc': '2.0', 'result': '3.4.15', 'id': 1}  -----1apiinfo.version
+*-*-*-*-*-*-*-*-*-*-
+
+<class 'str'>
+{"jsonrpc": "2.0", "method": "user.login", "params": {"user": "admin", "password": "zabbix"}, "id": 1}---------datajs
+
+{'jsonrpc': '2.0', 'result': 'bed47a37d44d8f0c95551b3d485f1d5f', 'id': 1}  -----2admin
+$-$-$-$-$-$-$-$-$-$-
+
+<class 'str'>
+{"jsonrpc": "2.0", "method": "user.login", "params": {"user": "root", "password": "zabbix"}, "id": 1}---------datajs
+
+{'jsonrpc': '2.0', 'error': {'code': -32602, 'message': 'Invalid params.', 'data': 'Login name or password is incorrect.'}, 'id': 1}  -----3root
+$-$$-$$-$$-$$-$$-$$-$$-$$-$$-$
+
+
+-----------根据给定的参数检索主机组---------------
+
+{"jsonrpc": "2.0", "method": "hostgroup.get", "params": {"output": "extend"}, "auth": "021f5a16485203b03a956b3c0891b66c", "id": 1}---------datajs
+
+1 Templates
+2 Linux servers
+4 Zabbix servers
+5 Discovered hosts
+6 Virtual machines
+7 Hypervisors
+8 Templates/Modules
+9 Templates/Network Devices
+10 Templates/Operating Systems
+11 Templates/Servers Hardware
+12 Templates/Applications
+13 Templates/Databases
+14 Templates/Virtualization
+
+------------- 根据指定的参数检索模板 ----------
+
+
+
+
+10001 Template OS Linux
+10047 Template App Zabbix Server
+10048 Template App Zabbix Proxy
+10050 Template App Zabbix Agent
+10074 Template OS OpenBSD
+10075 Template OS FreeBSD
+10076 Template OS AIX
+10077 Template OS HP-UX
+10078 Template OS Solaris
+10079 Template OS Mac OS X
+10081 Template OS Windows
+10093 Template App FTP Service
+10094 Template App HTTP Service
+10095 Template App HTTPS Service
+10096 Template App IMAP Service
+10097 Template App LDAP Service
+10098 Template App NNTP Service
+10099 Template App NTP Service
+10100 Template App POP Service
+10101 Template App SMTP Service
+10102 Template App SSH Service
+10103 Template App Telnet Service
+10168 Template App Apache Tomcat JMX
+10169 Template App Generic Java JMX
+10170 Template DB MySQL
+10171 Template Server Intel SR1530 IPMI
+10172 Template Server Intel SR1630 IPMI
+10173 Template VM VMware
+10174 Template VM VMware Guest
+10175 Template VM VMware Hypervisor
+10182 Template Module EtherLike-MIB SNMPv1
+10183 Template Module EtherLike-MIB SNMPv2
+10184 Template Module HOST-RESOURCES-MIB SNMPv1
+10185 Template Module HOST-RESOURCES-MIB SNMPv2
+10186 Template Module ICMP Ping
+10187 Template Module Interfaces Simple SNMPv1
+10188 Template Module Interfaces Simple SNMPv2
+10189 Template Module Interfaces SNMPv1
+10190 Template Module Interfaces SNMPv2
+10192 Template Module Interfaces Windows SNMPv2
+10203 Template Module Generic SNMPv1
+10204 Template Module Generic SNMPv2
+10207 Template Net Alcatel Timetra TiMOS SNMPv2
+10208 Template Net Brocade FC SNMPv2
+10209 Template Module Brocade_Foundry Performance SNMPv2
+10210 Template Net Brocade_Foundry Nonstackable SNMPv2
+10211 Template Net Brocade_Foundry Stackable SNMPv2
+10212 Template Module Cisco CISCO-MEMORY-POOL-MIB SNMPv2
+10213 Template Module Cisco CISCO-PROCESS-MIB SNMPv2
+10215 Template Module Cisco OLD-CISCO-CPU-MIB SNMPv2
+10216 Template Module Cisco Inventory SNMPv2
+10217 Template Module Cisco CISCO-ENVMON-MIB SNMPv2
+10218 Template Net Cisco IOS SNMPv2
+10220 Template Net Cisco IOS prior to 12.0_3_T SNMPv2
+10221 Template Net Dell Force S-Series SNMPv2
+10222 Template Net D-Link DES 7200 SNMPv2
+10223 Template Net D-Link DES_DGS Switch SNMPv2
+10224 Template Net Extreme EXOS SNMPv2
+10225 Template Net Network Generic Device SNMPv1
+10226 Template Net Network Generic Device SNMPv2
+10227 Template Net HP Comware HH3C SNMPv2
+10229 Template Net Huawei VRP SNMPv2
+10230 Template Net Intel_Qlogic Infiniband SNMPv2
+10231 Template Net Juniper SNMPv2
+10233 Template Net Mikrotik SNMPv2
+10234 Template Net Netgear Fastpath SNMPv2
+10235 Template Net QTech QSW SNMPv2
+10236 Template Net TP-LINK SNMPv2
+10237 Template Net Ubiquiti AirOS SNMPv1
+10248 Template OS Linux SNMPv2
+10249 Template OS Windows SNMPv2
+10250 Template Net HP Enterprise Switch SNMPv2
+10251 Template Net Mellanox SNMPv2
+10252 Template Module Cisco CISCO-PROCESS-MIB IOS versions 12.0_3_T-12.2_3.5 SNMPv2
+10253 Template Net Cisco IOS versions 12.0_3_T-12.2_3.5 SNMPv2
+
+
+
+[root@V3 zabbix]# find   /  -type  f  -iname "*api.php"
+/usr/share/zabbix/include/classes/api/API.php
+[root@V3 zabbix]# find   /  -type  f  -iname "*index.php"
+/usr/share/zabbix/index.php
+
+
+[root@V3 zabbix]# ls    /etc/httpd/conf.d/zabbix.conf    /etc/php.ini   /etc/zabbix/web/zabbix.conf.php    /etc/zabbix/zabbix_server.conf   /usr/share/zabbix/index.php     /usr/share/zabbix/include/classes/api/API.php
+
+/etc/httpd/conf.d/zabbix.conf    /etc/zabbix/zabbix_server.conf
+/etc/php.ini                     /usr/share/zabbix/include/classes/api/API.php
+/etc/zabbix/web/zabbix.conf.php  /usr/share/zabbix/index.php
+[root@V3 zabbix]# 
+
+[root@V3 zabbix]# scp    /etc/httpd/conf.d/zabbix.conf    /etc/php.ini   /etc/zabbix/web/zabbix.conf.php    /etc/zabbix/zabbix_server.conf   /usr/share/zabbix/index.php     /usr/share/zabbix/include/classes/api/API.php   root@192.168.0.254:/var/git/PYTHON/pythonScripts/Zabbix/zabbixSetup/
+root@192.168.0.254's password: 
+zabbix.conf                                      100%  870     1.0MB/s   00:00    
+php.ini                                          100%   63KB  28.7MB/s   00:00    
+zabbix.conf.php                                  100%  410   627.6KB/s   00:00    
+zabbix_server.conf                               100%   15KB  12.2MB/s   00:00    
+index.php                                        100% 3984     5.9MB/s   00:00    
+API.php                                          100% 7292     8.3MB/s   00:00    
+[root@V3 zabbix]# 
+
+[root@V3 ~]# scp   zabbix/*    root@192.168.0.254:/var/git/PYTHON/pythonScripts/Zabbix/
+root@192.168.0.254's password: 
+zabbixrequests2.py                               100% 8449     2.2MB/s   00:00    
+zabbixrequestshostgroup.py                       100% 8526     6.1MB/s   00:00    
+zabbixrequests.py                                100% 3903     4.0MB/s   00:00    
+zabbixrequests.py.txt                            100% 1304     1.3MB/s   00:00    
+[root@V3 ~]# 
+
+
+
+
+
+
+
+
+
+
