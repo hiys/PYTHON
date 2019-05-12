@@ -1,0 +1,528 @@
+
+
+{
+    "jsonrpc": "2.0",
+    "method": "host.create",
+
+
+
+
+    "params": {
+        "host": "Linux server",
+
+
+        "interfaces": [
+            {
+                "type": 1,
+                "main": 1,
+                "useip": 1,
+                "ip": "192.168.3.1",
+                "dns": "",
+                "port": "10050"
+            }
+        ],
+
+
+        "groups": [
+            {
+                "groupid": "50"
+            }
+        ],
+
+
+        "templates": [
+            {
+                "templateid": "20045"
+            }
+        ],
+
+
+        "inventory_mode": 0,
+
+
+        "inventory": {
+            "macaddress_a": "01234",
+            "macaddress_b": "56768"
+        }
+    },
+
+
+
+    "auth": "038e1d7b1735c6a5436ee9eae095879e",
+
+    "id": 1
+}
+
+[root@room9pc01 ~]# ssh  -X  192.168.0.13
+...................
+[root@V3 ~]#  cd  zabbix/
+[root@V3 zabbix]# vim     zabbixrequeststest.py 
+
+[root@V3 zabbix]# yum  makecache 
+
+已加载插件：fastestmirror, product-id, search-disabled-repos, subscription-manager
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+Loading mirror speeds from cached hostfile
+base                                                                  | 3.6 kB  00:00:00     
+centosplus                                                            | 3.4 kB  00:00:00     
+extras                                                                | 3.4 kB  00:00:00     
+updates                                                               | 3.4 kB  00:00:00     
+zabbix                                                                | 2.9 kB  00:00:00     
+zabbix-non-supported                                                  |  951 B  00:00:00     
+元数据缓存已建立
+[root@V3 zabbix]# systemctl  is-enabled  zabbix-server
+enabled
+[root@V3 zabbix]# yum  -y  install   zabbix-agent
+.........................
+软件包 zabbix-agent-3.4.15-1.el7.x86_64 已安装并且是最新版本
+无须任何处理
+[root@V3 zabbix]# rpm   -q    zabbix-agent
+zabbix-agent-3.4.15-1.el7.x86_64
+[root@V3 zabbix]# vim     /etc/zabbix/zabbix_agentd.
+zabbix_agentd.conf  zabbix_agentd.d/   
+
+[root@V3 zabbix]# vim     /etc/zabbix/zabbix_agentd.conf
+
+
+ 97 Server=127.0.0.1  #本身同时是服务端,不需要改写ip地址
+138 ServerActive=127.0.0.1
+149 Hostname=Zabbix server
+
+[root@V3 zabbix]# grep    -Env  '^(#|$)'   /etc/zabbix/zabbix_agentd.conf
+
+13:PidFile=/var/run/zabbix/zabbix_agentd.pid
+32:LogFile=/var/log/zabbix/zabbix_agentd.log
+43:LogFileSize=0
+97:Server=127.0.0.1
+138:ServerActive=127.0.0.1
+149:Hostname=Zabbix server  #如果服务器主机名改变,这里要写相同的hostname命令显示的主机名
+267:Include=/etc/zabbix/zabbix_agentd.d/*.conf
+
+[root@V3 zabbix]# systemctl   start   zabbix-agent.service   && \
+> systemctl   enable   zabbix-agent
+Created symlink from /etc/systemd/system/multi-user.target.wants/zabbix-agent.service to
+ /usr/lib/systemd/system/zabbix-agent.service.
+
+[root@V3 zabbix]# netstat   -npult  |grep  1005
+tcp        0      0 0.0.0.0:10050           0.0.0.0:*               LISTEN      6941/zabbix_agentd  
+tcp        0      0 0.0.0.0:10051           0.0.0.0:*               LISTEN      1394/zabbix_server  
+tcp6       0      0 :::10050                :::*                    LISTEN      6941/zabbix_agentd  
+tcp6       0      0 :::10051                :::*                    LISTEN      1394/zabbix_server  
+[root@V3 zabbix]#
+
+[root@V3 zabbix]# vim    /etc/zabbix/zabbix_agentd.conf
+[root@V3 zabbix]# grep    -Env  '^(#|$)'   /etc/zabbix/zabbix_agentd.conf
+13:PidFile=/var/run/zabbix/zabbix_agentd.pid
+32:LogFile=/var/log/zabbix/zabbix_agentd.log
+43:LogFileSize=0
+97:Server=127.0.0.1          #填写zabbix服务器IP地址
+138:ServerActive=127.0.0.1     #填写zabbix服务器IP地址
+149:Hostname=127.0.0.1    #zabbix_agent客户端计算机名 (被监控主机) #本身同时是服务端,不需要改写ip地址
+267:Include=/etc/zabbix/zabbix_agentd.d/*.conf
+
+[root@V3 zabbix]# systemctl   restart   zabbix-agent.service
+[root@V3 zabbix]# echo  $?
+0
+============= 默认情况下zabbix监控自己的状态是disable，所以需要我们手动开启 ===========
+        配置——主机---停用（点击启用）
+
+=================================================================
+
+[root@V3 zabbix]# netstat   -npult  |grep  1005tcp        0      0 0.0.0.0:10050           0.0.0.0:*               LISTEN      8089/zabbix_agentd  
+tcp        0      0 0.0.0.0:10051           0.0.0.0:*               LISTEN      1394/zabbix_server  
+tcp6       0      0 :::10050                :::*                    LISTEN      8089/zabbix_agentd  
+tcp6       0      0 :::10051                :::*                    LISTEN      1394/zabbix_server  
+[root@V3 zabbix]# 
+
+
+
+
+ Linux上安装Zabbix客户端
+
+
+[root@V1 ~]#  ls   /etc/yum.repos.d/
+CentOS7-Base-163.repo  local.repo  redhat.repo
+[root@V1 ~]# rpm   -ivh   --force  http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm
+获取http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm
+警告：/var/tmp/rpm-tmp.PozcSU: 头V4 RSA/SHA512 Signature, 密钥 ID a14fe591: NOKEY
+准备中...                          ################################# [100%]
+正在升级/安装...
+   1:zabbix-release-3.4-2.el7         ################################# [100%]
+[root@V1 ~]#  ls   /etc/yum.repos.d/
+CentOS7-Base-163.repo  local.repo  redhat.repo  zabbix.repo
+[root@V1 ~]# yum     makecache 
+已加载插件：langpacks, product-id, search-disabled-repos, subscription-manager
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+base                                                                  | 3.6 kB  00:00:00     
+centosplus                                                            | 3.4 kB  00:00:00     
+extras                                                                | 3.4 kB  00:00:00     
+rhel7                                                                 | 4.1 kB  00:00:00     
+updates                                                               | 3.4 kB  00:00:00     
+zabbix                                                                | 2.9 kB  00:00:00     
+zabbix-non-supported                                                  |  951 B  00:00:00     
+(1/3): zabbix/x86_64/filelists_db                                     |  87 kB  00:00:01     
+(2/3): zabbix/x86_64/other_db                                         | 102 kB  00:00:03     
+(3/3): zabbix/x86_64/primary_db                                       | 118 kB  00:00:06     
+(1/3): zabbix-non-supported/x86_64/primary                            | 1.6 kB  00:00:00     
+(2/3): zabbix-non-supported/x86_64/filelists                          |  660 B  00:00:00     
+(3/3): zabbix-non-supported/x86_64/other                              | 1.5 kB  00:00:00     
+zabbix-non-supported                                                                     4/4
+zabbix-non-supported                                                                     4/4
+zabbix-non-supported                                                                     4/4
+元数据缓存已建立
+[root@V1 ~]# 
+
+[root@V1 ~]# yum  repolist  |tail  -9
+源标识                      源名称                                        状态
+base/x86_64                 CentOS-7 - Base - 163.com                     10,019
+centosplus/x86_64           CentOS-7 - Plus - 163.com                         59
+extras/x86_64               CentOS-7 - Extras - 163.com                      413
+rhel7                       rhel-server-7.4-x86_64-dvd.iso                 4,986
+updates/x86_64              CentOS-7 - Updates - 163.com                   1,862
+zabbix/x86_64               Zabbix Official Repository - x86_64              236
+zabbix-non-supported/x86_64 Zabbix Official Repository non-supported - x8      4
+repolist: 17,579
+
+[root@V1 ~]# yum    -y  install   zabbix-agent
+.....................
+从 file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591 检索密钥
+导入 GPG key 0xA14FE591:
+ 用户ID     : "Zabbix LLC <packager@zabbix.com>"
+ 指纹       : a184 8f53 52d0 22b9 471d 83d0 082a b56b a14f e591
+ 软件包     : zabbix-release-3.4-2.el7.noarch (installed)
+ 来自       : /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+警告：RPM 数据库已被非 yum 程序修改。
+  正在安装    : zabbix-agent-3.4.15-1.el7.x86_64                                         1/1 
+  验证中      : zabbix-agent-3.4.15-1.el7.x86_64                                         1/1 
+
+已安装:
+  zabbix-agent.x86_64 0:3.4.15-1.el7                                                         
+
+完毕！
+[root@V1 ~]# rpm   -q     zabbix-agent
+zabbix-agent-3.4.15-1.el7.x86_64
+
+[root@V1 ~]# id  zabbix
+uid=991(zabbix) gid=986(zabbix) 组=986(zabbix)
+
+[root@V1 ~]# grep   -n zabbix   /etc/group
+71:zabbix:x:986:
+[root@V1 ~]# grep   -n zabbix   /etc/passwd
+44:zabbix:x:991:986:Zabbix Monitoring System:/var/lib/zabbix:/sbin/nologin
+
+
+[root@V1 ~]# ls   /etc/zabbix/
+zabbix_agentd.conf  zabbix_agentd.d
+
+[root@V1 ~]# cp   /etc/zabbix/zabbix_agentd.conf    /etc/zabbix/zabbix_agentd.conf.bak
+
+[root@V1 ~]# ls   /etc/zabbix/
+zabbix_agentd.conf  zabbix_agentd.conf.bak  zabbix_agentd.d
+
+[root@V1 ~]# hostname  -I
+192.168.0.11 192.168.1.11 192.168.122.1 
+
+[root@V1 ~]# vim    /etc/zabbix/zabbix_agentd.conf
+
+ 97 Server=192.168.0.13     #填写zabbix服务器IP地址
+138 ServerActive=192.168.0.13   #填写zabbix服务器IP地址
+149 Hostname=192.168.0.11  192.168.1.11   #zabbix_agent客户端计算机名 (被监控主机)
+
+[root@V1 ~]# grep   -nEv  '^(#|$)'    /etc/zabbix/zabbix_agentd.conf
+13:PidFile=/var/run/zabbix/zabbix_agentd.pid
+32:LogFile=/var/log/zabbix/zabbix_agentd.log
+43:LogFileSize=0
+97:Server=192.168.0.13
+138:ServerActive=192.168.0.13
+149:Hostname=192.168.0.11  192.168.1.11
+267:Include=/etc/zabbix/zabbix_agentd.d/*.conf
+
+[root@V1 ~]# systemctl   start   zabbix-agent   &&  systemctl   enable   zabbix-agent
+
+Created symlink from /etc/systemd/system/multi-user.target.wants/zabbix-agent.service to /usr/lib/systemd/system/zabbix-agent.service.
+
+[root@V1 ~]# netstat   -npult |grep  1005
+tcp        0      0 0.0.0.0:10050           0.0.0.0:*               LISTEN      4806/zabbix_agentd  
+tcp6       0      0 :::10050                :::*                    LISTEN      4806/zabbix_agentd  
+[root@V1 ~]# 
+
+[root@V3 zabbix]# vim    /etc/zabbix/zabbix_agentd.conf
+[root@V3 zabbix]# grep    -Env  '^(#|$)'   /etc/zabbix/zabbix_agentd.conf
+13:PidFile=/var/run/zabbix/zabbix_agentd.pid
+32:LogFile=/var/log/zabbix/zabbix_agentd.log
+43:LogFileSize=0
+97:Server=127.0.0.1          #填写zabbix服务器IP地址
+138:ServerActive=127.0.0.1     #填写zabbix服务器IP地址
+149:Hostname=127.0.0.1    #zabbix_agent客户端计算机名 (被监控主机) #本身同时是服务端,不需要改写ip地址
+267:Include=/etc/zabbix/zabbix_agentd.d/*.conf
+
+[root@V3 zabbix]# systemctl   restart   zabbix-agent.service
+[root@V3 zabbix]# echo  $?
+0
+============= 默认情况下zabbix监控自己的状态是disable，所以需要我们手动开启 ===========
+        配置——主机---停用（点击启用）
+
+=================================================================
+
+
+
+[root@V3 zabbix]# vim     zabbixrequeststest.py
+[root@V3 zabbix]# python3   zabbixrequeststest.py
+__name__ is __main__
+<class 'str'>
+{"jsonrpc": "2.0", "method": "apiinfo.version", "id": 1, "auth": null, "params": {}}---------datajs
+{'jsonrpc': '2.0', 'result': '3.4.15', 'id': 1}  -----1
+*-*-*-*-*-*-*-*-*-*-
+
+<class 'str'>
+{"jsonrpc": "2.0", "method": "user.login", "params": {"user": "admin", "password": "zabbix"}, "id": 1}---------datajs
+{'jsonrpc': '2.0', 'result': '36d49a0611d8a6b1863be1d42e7e25d6', 'id': 1}  -----2admin
+*-**-**-**-**-**-**-**-**-**-*
+
+
+-----------根据给定的参数检索主机组---------------
+
+
+{"jsonrpc": "2.0", "method": "hostgroup.get", "params": {"output": "extend"}, "auth": "4346c3a31c14a2349bbb964b782550f1", "id": 1}---------datajs
+
+1 Templates
+2 Linux servers
+4 Zabbix servers
+5 Discovered hosts
+6 Virtual machines
+7 Hypervisors
+8 Templates/Modules
+9 Templates/Network Devices
+10 Templates/Operating Systems
+11 Templates/Servers Hardware
+12 Templates/Applications
+13 Templates/Databases
+14 Templates/Virtualization
+
+
+------------- 根据指定的参数检索模板 ----------
+
+
+{"jsonrpc": "2.0", "method": "template.get", "params": {"output": "extend"}, "auth": "4346c3a31c14a2349bbb964b782550f1", "id": 1}---------datajs
+
+10001 Template OS Linux
+10047 Template App Zabbix Server
+10048 Template App Zabbix Proxy
+10050 Template App Zabbix Agent
+10074 Template OS OpenBSD
+10075 Template OS FreeBSD
+10076 Template OS AIX
+10077 Template OS HP-UX
+10078 Template OS Solaris
+10079 Template OS Mac OS X
+10081 Template OS Windows
+10093 Template App FTP Service
+10094 Template App HTTP Service
+10095 Template App HTTPS Service
+10096 Template App IMAP Service
+10097 Template App LDAP Service
+10098 Template App NNTP Service
+10099 Template App NTP Service
+10100 Template App POP Service
+10101 Template App SMTP Service
+10102 Template App SSH Service
+10103 Template App Telnet Service
+10168 Template App Apache Tomcat JMX
+10169 Template App Generic Java JMX
+10170 Template DB MySQL
+10171 Template Server Intel SR1530 IPMI
+10172 Template Server Intel SR1630 IPMI
+10173 Template VM VMware
+10174 Template VM VMware Guest
+10175 Template VM VMware Hypervisor
+10182 Template Module EtherLike-MIB SNMPv1
+10183 Template Module EtherLike-MIB SNMPv2
+10184 Template Module HOST-RESOURCES-MIB SNMPv1
+10185 Template Module HOST-RESOURCES-MIB SNMPv2
+10186 Template Module ICMP Ping
+10187 Template Module Interfaces Simple SNMPv1
+10188 Template Module Interfaces Simple SNMPv2
+10189 Template Module Interfaces SNMPv1
+10190 Template Module Interfaces SNMPv2
+10192 Template Module Interfaces Windows SNMPv2
+10203 Template Module Generic SNMPv1
+10204 Template Module Generic SNMPv2
+10207 Template Net Alcatel Timetra TiMOS SNMPv2
+10208 Template Net Brocade FC SNMPv2
+10209 Template Module Brocade_Foundry Performance SNMPv2
+10210 Template Net Brocade_Foundry Nonstackable SNMPv2
+10211 Template Net Brocade_Foundry Stackable SNMPv2
+10212 Template Module Cisco CISCO-MEMORY-POOL-MIB SNMPv2
+10213 Template Module Cisco CISCO-PROCESS-MIB SNMPv2
+10215 Template Module Cisco OLD-CISCO-CPU-MIB SNMPv2
+10216 Template Module Cisco Inventory SNMPv2
+10217 Template Module Cisco CISCO-ENVMON-MIB SNMPv2
+10218 Template Net Cisco IOS SNMPv2
+10220 Template Net Cisco IOS prior to 12.0_3_T SNMPv2
+10221 Template Net Dell Force S-Series SNMPv2
+10222 Template Net D-Link DES 7200 SNMPv2
+10223 Template Net D-Link DES_DGS Switch SNMPv2
+10224 Template Net Extreme EXOS SNMPv2
+10225 Template Net Network Generic Device SNMPv1
+10226 Template Net Network Generic Device SNMPv2
+10227 Template Net HP Comware HH3C SNMPv2
+10229 Template Net Huawei VRP SNMPv2
+10230 Template Net Intel_Qlogic Infiniband SNMPv2
+10231 Template Net Juniper SNMPv2
+10233 Template Net Mikrotik SNMPv2
+10234 Template Net Netgear Fastpath SNMPv2
+10235 Template Net QTech QSW SNMPv2
+10236 Template Net TP-LINK SNMPv2
+10237 Template Net Ubiquiti AirOS SNMPv1
+10248 Template OS Linux SNMPv2
+10249 Template OS Windows SNMPv2
+10250 Template Net HP Enterprise Switch SNMPv2
+10251 Template Net Mellanox SNMPv2
+10252 Template Module Cisco CISCO-PROCESS-MIB IOS versions 12.0_3_T-12.2_3.5 SNMPv2
+10253 Template Net Cisco IOS versions 12.0_3_T-12.2_3.5 SNMPv2
+
+
+-------- 创建一个具有IP接口的Linux Server 主机，将其添加到主机组中，链接一个模板并且把MAC地址设置到主机资产清单里  ----------
+
+
+#2 Linux servers主机组 ----- #10001 Template OS Linux模板
+
+---创建名为myLinux1的主机，它在Linux servers组中，应用Template OS Linux模板----
+
+
+{"jsonrpc": "2.0", "method": "host.create", "params": {"host": "myLinux1", "interfaces": [{"type": 1, "main": 1, "useip": 1, "ip": "192.168.0.11", "dns": "V1", "port": "10050"}], "groups": [{"groupid": "2"}], "templates": [{"templateid": "10001"}], "inventory_mode": 0, "inventory": {"macaddress_a": "52:54:00:b7:d2:89", "macaddress_b": "52:54:00:c8:ca:e0"}}, "auth": "4346c3a31c14a2349bbb964b782550f1", "id": 1}---------datajs
+
+
+--------info ---------
+{'jsonrpc': '2.0', 'result': {'hostids': ['10254']}, 'id': 1} ---END
+
+sys.argv is ['zabbixrequeststest.py']
+[root@V3 zabbix]# 
+
+[root@V1 ~]# scp   /etc/zabbix/zabbix_agentd.conf  root@192.168.0.254:/var/git/PYTHON/pythonScripts/Zabbix/zabbixSetup/
+
+[root@V3 zabbix]# scp   /etc/zabbix/zabbix_agentd.conf  root@192.168.0.254:/var/git/PYTHON/pythonScripts/Zabbix/zabbixSetup/zabbix_agentd_conf_fuwuduan.txt
+
+
+[root@V3 zabbix]# scp   zabbixrequeststest.py  root@192.168.0.254:/var/git/PYTHON/pythonScripts/Zabbix/zabbixSetup/
+
+
+[root@V3 zabbix]# scp   zabbixrequeststest.py  root@192.168.0.254:/var/git/PYTHON/pythonScripts/Zabbix/
+
+
+
+https://pypi.org/project/py-zabbix/
+
+适用于Python的Zabbix模块
+安装
+您可以使用pip为Python安装Zabbix模块：
+
+
+作者：DevinZhang
+链接：https://www.jianshu.com/p/63bcdecdd387
+https://github.com/zhuifengshen/DingtalkChatbot
+https://github.com/zhuifengshen/DingtalkChatbot/tree/master/dingtalkchatbot
+
+
+平时自动化项目的使用，周末花了点时间用Python语言对各种消息类型进行了一一封装，代码已开源在GitHub上，同时也上传了PyPI。
+1、项目源码地址如下：DingtalkChatbot
+2、安装命令如下：
+pip install DingtalkChatbot
+
+3、支持功能如下：
+
+支持Text消息；
+支持Link消息；
+支持Markdown消息；
+支持ActionCard消息；
+支持消息发送失败时自动通知；
+支持Python2、Python3；
+支持钉钉官方消息发送频率限制限制：每个机器人每分钟最多发送20条；
+
+
+from dingtalkchatbot.chatbot import DingtalkChatbot
+# WebHook地址
+webhook = 'https://oapi.dingtalk.com/robot/send?access_token=这里填写自己钉钉群自定义机器人的token'
+# 初始化机器人小丁
+xiaoding = DtalkChatbot(webhook)
+# Text消息@所有人
+xiaoding.send_text(msg='我就是小丁，小丁就是我！', is_at_all=True)
+
+http://www.51cto.com/
+https://blog.51cto.com/m51cto/2051945
+python之钉钉机器人zabbix报警
+
+
+python之钉钉机器人zabbix报警
+首先在钉钉群聊里添加一个自定义的机器人
+
+并复制webhook的内容
+
+https://oapi.dingtalk.com/robot/send?access_token=37e23308d1b84eb4ac34566e03c4c4e74b7eedecbcc002exxxxxxxxxxxxxxx
+
+创建脚本
+
+可以直接克隆我的git
+
+
+git clone https://github.com/donxan/zabbix.git
+
+在zabbix服务端的alertscripts目录下新建一个python脚本，内容：
+
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+# Author: aiker@gdedu.ml
+# My blog http://m51cto.51cto.blog.com 
+import requests
+import json
+import sys
+import os
+ 
+headers = {'Content-Type': 'application/json;charset=utf-8'}
+api_url = "https://oapi.dingtalk.com/robot/send?access_token=37e23308d1b84eb4ac34566e03c4c4e74bxxxxxxxxxxxxxx"
+ 
+def msg(text):
+    json_text= {
+     "msgtype": "text",
+        "at": {
+            "atMobiles": [
+                "13xxxxxxx80"
+            ],
+            "isAtAll": False
+        },
+        "text": {
+            "content": text
+        }
+    }
+    print requests.post(api_url,json.dumps(json_text),headers=headers).content
+     
+if __name__ == '__main__':
+    text = sys.argv[1]
+    msg(text)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
