@@ -1,0 +1,1850 @@
+
+Linux系统下安装Gitlab - 老包子 - 博客园
+2019年4月1日 - Linux系统下安装Gitlab 一、简介 GitLab是利用 Ruby on Rails 一个开源的版本管理系统,实现一个自托管的Git项目仓库,可通过Web界面进行访问公开的或者...
+
+https://www.cnblogs.com/laobaozi/p/6638334.html
+
+Linux系统下安装Gitlab
+
+一、简介
+
+GitLab是利用 Ruby on Rails 一个开源的版本管理系统，
+实现一个自托管的Git项目仓库，可通过Web界面进行访问公开的或者私人项目。
+它拥有与Github类似的功能，能够浏览源代码，管理缺陷和注释。
+可以管理团队对仓库的访问，它非常易于浏览提交过的版本并提供一个文件历史库。
+团队成员可以利用内置的简单聊天程序(Wall)进行交流。
+它还提供一个代码片段收集功能可以轻松实现代码复用，
+便于日后有需要的时候进行查找。
+
+二、安装
+
+1）apt-get方式
+
+curl -s https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
+sudo apt-get install gitlab-ce
+sudo gitlab-ctl reconfigure
+
+
+CI/CD：持续集成、持续交付(部署)
+
+配置JENKINS环境
+1、启动gitlab服务器      192.168.4.1
+2、配置jenkins          eth0:192.168.4.3   eth1连接default
+[root@node3 ~]# ifconfig virbr0 down
+[root@node3 ~]# brctl delbr virbr0
+3、安装
+将jenkins/目录下的RPM包拷贝到192.168.4.3上安装
+[root@node3 ~]# rpm -ihv jenkins-2.138.2-1.1.noarch.rpm
+[root@node3 ~]# systemctl start jenkins
+4、配置
+通过浏览器访问http://192.168.4.3:8080/
+安装插件时，选择自定义，不安装任何插件
+
+5、通过镜像站点安装插件
+https://blog.csdn.net/you227/article/details/81076032
+把插件地址改为清华大学的镜像站点地址
+在“可选插件”中找到“git parameter”，直接安装
+
+
+模拟开发部开发软件
+[root@room8pc16 jenkins]# git init /tmp/myweb
+[root@room8pc16 jenkins]# cd /tmp/myweb
+[root@room8pc16 myweb]# echo '<h1>my web site</h1>' > index.html
+[root@room8pc16 myweb]# git add .
+[root@room8pc16 myweb]# git commit -m "myweb site init"
+[root@room8pc16 myweb]# git tag 1.0   # 把当前状态标记为1.0版本
+[root@room8pc16 myweb]# echo '<h2>new line</h2>' >> index.html
+[root@room8pc16 myweb]# git add .
+[root@room8pc16 myweb]# git commit -m "mysite version 2.0"
+[root@room8pc16 myweb]# git tag 2.0    # 把当前状态标记为2.0版本
+[root@room8pc16 myweb]# git tag        # 查看所有的版本
+
+[root@room8pc16 myweb]# cat index.html
+<h1>my web site</h1>
+<h2>new line</h2>
+[root@room8pc16 myweb]# git checkout 1.0
+[root@room8pc16 myweb]# cat index.html
+<h1>my web site</h1>
+[root@room8pc16 myweb]# git checkout master
+[root@room8pc16 myweb]# cat index.html
+<h1>my web site</h1>
+<h2>new line</h2>
+
+
+上传代码到gitlab
+1、gitlab服务器配置参见PPT
+2、上传代码到gitlab，采用http的方式
+cd /tmp/myweb
+git remote rename origin old-origin
+以下错误忽略 error: 不能重命名配置小节 'remote.origin' 到 'remote.old-origin'
+git remote add origin http://192.168.4.1/devops/myweb_1808.git
+git push -u origin --all
+git push -u origin --tags
+
+
+通过jenkins下载gitlab上指定版本的源码
+[root@node3 ~]# ls /var/lib/jenkins/
+下载的代码，将地存储到该目录的workspace中
+在jenkins中构建一个自由风格的项目，参数化构建git parameter => webver
+URL => http://192.168.4.1/devops/myweb_1808.git
+源码管理 => git => Branches to Build : $webver
+
+增加Additional Behaviours =>
+    Checkout to a sub-directory => mysite_$webver
+
+在jenkins上安装httpd，将gitlab上下载的代码放到httpd的文档目录，以便于
+其他应用服务器进行下载
+[root@node3 ~]# yum install -y httpd
+[root@node3 ~]# systemctl start httpd
+[root@node3 ~]# systemctl enable httpd
+
+配置jenkins，将下载的代码拷贝到/var/www/html/下，并且打包
+/var/www/html/deploy/packages/  -> 存放软件压缩包和md5值
+/var/www/html/deploy/  -> 存放版本文件
+[root@node3 ~]# mkdir -p /var/www/html/deploy/packages
+[root@node3 ~]# chown -R jenkins.jenkins /var/www/html/deploy
+
+增加构建步骤 => 执行shell
+deploy_dir=/var/www/html/deploy
+cp -r mysite_$webver $deploy_dir/packages
+cd $deploy_dir/packages
+rm -rf mysite_$webver/.git    # 删除版本库文件
+tar czf mysite_${webver}.tar.gz mysite_$webver
+md5sum mysite_${webver}.tar.gz | awk '{print $1}' > mysite_${webver}.tar.gz.md5
+rm -rf mysite_$webver
+[ -f $deploy_dir/live_version ] && cat $deploy_dir/live_version > $deploy_dir/last_version
+echo $webver > $deploy_dir/live_version
+
+
+应用服务器自动下载并部署最新版本
+/var/www/download/  -> 用于保存下载的压缩包和版本文件
+/var/www/deploy/    -> 解压软件到该目录
+/var/www/html/nsd1808  -> 是最新版本的软链接
+
+1、判断是否有最新版本
+2、如果有新版本则下载
+3、判断下载的软件包是否是完整的
+4、如果软件包完整，则解压缩并部署
+
+[root@V3 devops05]# ls
+boy2.c  boy3.c  boy.c  boyiostream.c
+[root@V3 devops05]# cat  boy.c
+#include   <stdio.h>       /*加载标准输入输出函数原型*/
+
+int  main()
+{
+  printf("Hello boy well go !\n");    //puts函数打印一个字符串
+}
+[root@V3 devops05]# gcc   -o  boy  boy.c       # C程序 编译
+[root@V3 devops05]# echo  $?
+0
+[root@V3 devops05]# ls
+boy  boy2.c  boy3.c  boy.c  boyiostream.c
+[root@V3 devops05]# ll  boy
+-rwxr-xr-x 1 root root 8512 5月  13 12:29 boy
+[root@V3 devops05]# ./boy 
+Hello boy well go !
+[root@V3 devops05]# echo  $?
+20
+[root@V3 devops05]# cat  boy2.c 
+#include   <stdio.h>       /*加载标准输入输出函数原型*/
+
+int  main(void)
+{
+  printf("Hello boy2 well done!\n");    //puts函数打印一个字符串
+  exit(100);
+}
+[root@V3 devops05]# gcc  -o  boy2  boy2.c   #使用gcc 编译器编译源代码生成可执行文件boy2.c: 在函数‘main’中:
+boy2.c:6:3: 警告：隐式声明与内建函数‘exit’不兼容 [默认启用]
+   exit(100);
+   ^
+[root@V3 devops05]# echo  $?
+0
+[root@V3 devops05]# ls
+boy  boy2  boy2.c  boy3.c  boy.c  boyiostream.c
+[root@V3 devops05]# ./boy2
+Hello boy2 well done!
+[root@V3 devops05]# echo  $?
+100
+[root@V3 devops05]# 
+[root@V3 devops05]# cat  boy3.c 
+#include   <stdio.h>       /*加载标准输入输出函数原型*/
+
+int  main()
+{
+  printf("Hello boy well go !\n");    //puts函数打印一个字符串
+  return   1000;         //给操作系统返回码1000
+}
+[root@V3 devops05]# 
+[root@V3 devops05]# gcc  -g  -Wall  -o   boy3  boy3.c   # C程序 编译
+
+[root@V3 devops05]# echo  $?
+0
+[root@V3 devops05]# ls
+boy  boy2  boy2.c  boy3  boy3.c  boy.c  boyiostream.c
+
+[root@V3 devops05]# ./boy3
+Hello boy well go !
+[root@V3 devops05]# echo  $?
+232
+[root@V3 devops05]# 
+[root@V3 devops05]# cat    boyiostream.c 
+
+#include   <iostream>       /*加载函数原型*/
+using    namespace   std;
+int  main()
+{
+  cout<<"Hello  iostream  not  stdio.h !\n";    //函数打印一个字符串
+}
+[root@V3 devops05]# type  gcc
+gcc 已被哈希 (/usr/bin/gcc)
+[root@V3 devops05]# type  g++
+g++ 是 /usr/bin/g++
+
+
+[root@V3 devops05]# rpm   -qf   /usr/bin/gcc   /usr/bin/g++
+gcc-4.8.5-36.el7_6.2.x86_64
+gcc-c++-4.8.5-36.el7_6.2.x86_64
+
+[root@V3 devops05]# g++  -o   boyio.out   boyiostream.c    #C++程序编译
+
+[root@V3 devops05]# echo  $?
+0
+[root@V3 devops05]# ls
+boy  boy2  boy2.c  boy3  boy3.c  boy.c  boyio.out  boyiostream.c
+
+[root@V3 devops05]# ./boyio.out      #证明C++程序编译成功,也说明linux C++ 开发环境搭建完毕
+
+Hello  iostream  not  stdio.h !
+
+[root@V3 devops05]# echo  $?
+0
+[root@V3 devops05]# ll
+总用量 64
+-rwxr-xr-x 1 root root 8512 5月  13 12:29 boy
+-rwxr-xr-x 1 root root 8560 5月  13 12:31 boy2
+-rw-r--r-- 1 root root  176 5月  13 10:12 boy2.c
+-rwxr-xr-x 1 root root 9512 5月  13 12:32 boy3
+-rw-r--r-- 1 root root  213 5月  13 10:24 boy3.c
+-rw-r--r-- 1 root root  157 5月  13 10:07 boy.c
+-rwxr-xr-x 1 root root 8968 5月  13 12:35 boyio.out
+-rw-r--r-- 1 root root  171 5月  13 10:39 boyiostream.c
+
+[root@V3 devops05]# ls   boy{,2,3,iostream}.c
+
+boy2.c  boy3.c  boy.c  boyiostream.c
+
+[root@V3 devops05]# scp    boy{,2,3,iostream}.c   root@192.168.0.254:/var/git/PYTHON/pythonScripts/devops_day05/
+
+[root@V3 devops05]# ls
+boy  boy2  boy2.c  boy3  boy3.c  boy.c  boyio.out  boyiostream.c
+[root@V3 devops05]# rm  -f  *
+[root@V3 devops05]# ls
+
+
+
+Jenkins概述
+•  Jenkins是由java编写的一款开源软件
+•  作为一款非常流行的CI(持续集成)工作,用于构建
+和测试各种项目
+•  Jenkins 的主要功能是监视重复工作的执行,例如软
+件工程的构建或在 cron下设置的 jobs
+
+Linux系统下安装Gitlab - 老包子 - 博客园
+2019年4月1日 - Linux系统下安装Gitlab 
+一、简介 GitLab是利用 Ruby on Rails 一个开源的版本管理系统,
+实现一个自托管的Git项目仓库,可通过Web界面进行访问公开的或者...
+
+
+
+
+https://www.w3cschool.cn/jenkins/
+Jenkins中文文档
+
+[root@V3 devops05]# ls  /etc/yum.repos.d/
+CentOS7-Base-163.repo  redhat.repo  root@V0  root@V1  root@V2  zabbix.repo
+[root@V3 devops05]# yum   makecache 
+.......................
+Loading mirror speeds from cached hostfile
+base                                                          | 3.6 kB  00:00:00     
+centosplus                                                    | 3.4 kB  00:00:00     
+extras                                                        | 3.4 kB  00:00:00     
+updates                                                       | 3.4 kB  00:00:00     
+zabbix                                                        | 2.9 kB  00:00:00     
+zabbix-non-supported                                          |  951 B  00:00:00     
+元数据缓存已建立
+
+[root@V3 devops05]# yum  repolist  |tail -9
+
+Loading mirror speeds from cached hostfile
+源标识                      源名称                                        状态
+base/x86_64                 CentOS-7 - Base - 163.com                     10,019
+centosplus/x86_64           CentOS-7 - Plus - 163.com                         59
+extras/x86_64               CentOS-7 - Extras - 163.com                      413
+updates/x86_64              CentOS-7 - Updates - 163.com                   1,862
+zabbix/x86_64               Zabbix Official Repository - x86_64              236
+zabbix-non-supported/x86_64 Zabbix Official Repository non-supported - x8      4
+repolist: 12,593
+
+[root@V3 devops05]# yum  search  jenkins
+..................
+Loading mirror speeds from cached hostfile
+警告：没有匹配 jenkins 的软件包
+No matches found
+
+[root@V3 devops05]# free  -m
+              total        used        free      shared  buff/cache   available
+Mem:           2340         390        1475           9         474        1751
+Swap:          2047           0        2047
+
+
+jenkins-2.121-1.1.noarch.rpm
+
+https://blog.csdn.net/lijing742180/article/details/81127409
+linux安装、卸载、自定义配置 jenkins
+
+https://pkg.jenkins.io/redhat-stable/
+
+RedHat Linux RPM packages for Jenkins
+
+To use this repository, run the following command:
+Jenkins的RedHat Linux RPM包
+
+要使用此存储库，请运行以下命令：
+要使用此存储库，请运行以下命令：
+
+sudo wget -O  /etc/yum.repos.d/jenkins.repo  https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+如果您以前从Jenkins导入了密钥，那么“rpm --import”将失败，因为您已经有了密钥。请忽略它并继续前进。
+
+您将需要显式安装Java运行时环境，
+因为Oracle的Java RPM 不正确
+并且无法注册为提供Java依赖项。
+因此，在Java上添加显式依赖性要求会强制安装OpenJDK JVM。
+
+2.54（2017-04）和更新版本：Java 8
+1.612（2015-05）及更新版本：Java 7
+有了这个设置，Jenkins包可以安装：
+yum  -y   install   jenkins
+
+现在基本上linux为了避免版权问题都会默认的为你安装开源的openjdk，而不是jdk 。
+有些时候需要运行一些环境需要用到jdk的环境变量
+
+[root@V3 devops05]# type  java
+java 是 /usr/bin/java
+
+[root@V3 devops05]# ls  -lrt  /usr/bin/java
+lrwxrwxrwx. 1 root root 22 1月  30 2018 /usr/bin/java -> /etc/alternatives/java
+
+[root@V3 devops05]# ls  -lrt  /etc/alternatives/java
+
+lrwxrwxrwx. 1 root root 72 1月  30 2018 /etc/alternatives/java ->
+ /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/jre/bin/java
+
+
+[root@V3 devops05]# ls   /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/
+
+jre
+
+[root@V3 devops05]# ls   /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/jre/
+
+bin  lib
+
+[root@V3 devops05]# ls   /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/jre/bin/
+
+java  keytool  pack200     rmid         servertool  unpack200
+jjs   orbd     policytool  rmiregistry  tnameserv
+
+[root@V3 devops05]# ll   /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/jre/bin/java 
+
+-rwxr-xr-x. 1 root root 7304 6月  14 2017 /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/jre/bin/java
+
+
+[root@V3 devops05]# ls   /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64/jre/lib/
+
+amd64                     hijrah-config-umalqura.properties  net.properties
+applet                    images                             psfontj2d.properties
+calendars.properties      jce.jar                            psfont.properties.ja
+charsets.jar              jexec                              resources.jar
+classlist                 jsse.jar                           rt.jar
+cmm                       jvm.hprof.txt                      security
+content-types.properties  logging.properties                 sound.properties
+currency.data             management                         tzdb.dat
+ext                       management-agent.jar
+flavormap.properties      meta-index
+
+[root@V3 devops05]# 
+
+OpenJDK 源码的目录结构
+
+openjdk 
+—— corba：不流行的多语言、分布式通讯接口 
+Corba
+全称 Common Object Request Broker Architecture，
+通用对象请求代理架构，是基于 对象-服务 机制设计得。
+
+—— hotspot：Java 虚拟机 
+Hotspot
+全称 Java HotSpot Performance Engine，
+是 Java 虚拟机的一个实现，包含了服务器版和桌面应用程序版。
+利用 JIT 及自适应优化技术（自动查找性能热点并进行动态优化）来提高性能。
+
+—— jaxp：XML 处理 
+jaxp
+
+全称 Java API for XML Processing，处理 XML 的Java API，是 Java XML 程序设计的应用程序接口之一，它提供解析和验证XML文档的能力。 
+jaxp 提供了处理 xml 文件的三种接口：
+
+DOM 接口（文档对象模型解析），位于 \openjdk\jaxp\src\org\w3c\dom
+SAX 接口（xml 简单 api 解析），位于 \openjdk\jaxp\src\org\xml\sax
+StAX 接口（xml 流 api），位于 \openjdk\jaxp\src\javax\xml
+
+
+—— jaxws：一组 XML web services 的 Java API 
+JaxWS
+
+全称 Java API for Web Services，JAX-WS 允许开发者选择 RPC-oriented（面向 RPC）
+ 或者 message-oriented（消息通信，erlang 使用的就是消息通信，不过 Java 内存模型是内存共享）
+来实现自己的web services。
+
+
+—— jdk：java 开发工具包 
+JDK
+全称 Java Development Kit。
+
+—— —— 针对操作系统的部分 
+—— —— share：与平台无关的实现 
+share
+classes 目录里的是 Java 的实现，
+native 目录里的是 C++ 的实现，两部分基本对应。
+这两个目录里的结构与 java 的包也是对应
+
+—— langtools：Java 语言工具 
+LangTools
+Java 语言支持工具
+
+—— nashorn：JVM 上的 JavaScript 运行时
+Nashorn 项目的目的是基于 Java 在 JVM 上实现一个轻量级高性能的 JavaScript 运行环境。
+基于 JSR-223 协议，
+Java 程序员可在 Java 程序中嵌入 JavaScript 代码。 
+
+为了让大家易于理解，有所简化了结构。
+
+目前，通用的远程过程调用协议是
+ SOAP（Simple Object Access Protocol，简单对象访问协议），
+消息格式是 XML-RPC（存在 Json-RPC）
+
+使用 java -version 可以查看 Hotspot 的版本
+
+[root@V3 devops05]# java  -version
+
+openjdk version "1.8.0_131"
+OpenJDK Runtime Environment (build 1.8.0_131-b12)
+OpenJDK 64-Bit Server VM (build 25.131-b12, mixed mode)
+
+[root@V3 devops05]# find  /  -type  d  -iname "*openjdk*"
+
+/var/lib/yum/yumdb/j/e4a5ecc5033c0a954a57c102d48c6c6f943ac70a-java-1.8.0-openjdk-1.8.0.131-11.b12.el7-x86_64
+/var/lib/yum/yumdb/j/bfb9992724e811cc213f38a7b3a77d098fbd09cc-java-1.8.0-openjdk-headless-1.8.0.131-11.b12.el7-x86_64
+/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64
+/usr/lib/jvm-exports/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64
+/usr/lib/jvm-private/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64
+/usr/lib/jvm-private/java-1.8.0-openjdk-1.8.0.131-11.b12.el7.x86_64-debug
+/usr/share/doc/java-1.8.0-openjdk-headless-1.8.0.131
+
+[root@V3 devops05]# ls   /usr/share/doc/java-1.8.0-openjdk-headless-1.8.0.131/
+ASSEMBLY_EXCEPTION  LICENSE  THIRD_PARTY_README
+
+----- https://www.cnblogs.com/lcmlyj/p/9958781.html 编译的是openJDK 1.7，jdk也是用的1.7；
+rpm  -q  build-essential \
+gawk  \
+ m4   \
+libasound2-dev \
+libcups-dev \
+libxrender-dev \
+xorg-dev \
+xutils-dev \
+ x11proto-print-dev \
+binutils \
+ libmotif3 \
+libmotif-dev \
+ ant
+[root@V3 devops05]# rpm  -q  build-essential \
+> gawk  \
+>  m4   \
+> libasound2-dev \
+> libcups-dev \
+> libxrender-dev \
+> xorg-dev \
+> xutils-dev \
+>  x11proto-print-dev \
+> binutils \
+>  libmotif3 \
+> libmotif-dev \
+>  ant
+未安装软件包 build-essential 
+gawk-4.0.2-4.el7_3.1.x86_64
+未安装软件包 m4 
+未安装软件包 libasound2-dev 
+未安装软件包 libcups-dev 
+未安装软件包 libxrender-dev 
+未安装软件包 xorg-dev 
+未安装软件包 xutils-dev 
+未安装软件包 x11proto-print-dev 
+binutils-2.25.1-31.base.el7.x86_64
+未安装软件包 libmotif3 
+未安装软件包 libmotif-dev 
+未安装软件包 ant 
+
+配置环境变量：vim /etc/profile
+复制代码
+#语言选择，必须配置
+export LANG=C
+
+#编译过程所依赖的jdk
+export ALT_BOOTDIR=/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.191-2.6.15.4.el7_5.x86_64
+
+#允许自动下载依赖
+export ALLOW_DOWNLOADS=true 
+
+#并行编译的线程数
+#export HOTSPOT_BUILD_JOBS=6
+#export ALT_PARALLEL_COMPILE=6
+
+#使用预编译头文件，编译更快
+export USE_PRECOMPILED_HEADER=true
+
+#要编译的内容
+export BUILD_LANGTOOLS=true
+#export BUILD_JAXP=false
+#export BUILD_JAWS=false
+#export BUILD_CORBA=false
+export BUILD_HOTSPOT=true
+export BUILD_JDK=true
+
+#避免Javaws和Java插件之类的build
+BUILD_DEPLOY=false
+
+#避免build出安装包
+BUILD_INSTALL=false
+
+#编译结果的路径
+export ALT_OUTPUTDIR=/usr/local/openjdk/jdk-9b8c96f96a0f/build
+
+#另外，这两个必须配置上
+unset JAVA_HOME
+unset CLASSPATH
+复制代码
+配置好之后输入make sanity来检验是否正确
+
+编译
+ 输入"make"指令，需要一定的时间，最终编译出的源码在上面配置的ALT_OUTPUTDIR中。
+----------- https://www.cnblogs.com/lcmlyj/p/9958781.html
+=======================================================
+
+
+jenkins-2.121-1.1.noarch.rpm
+https://pkg.jenkins.io/redhat-stable/jenkins-2.121.1-1.1.noarch.rpm
+
+https://blog.csdn.net/lijing742180/article/details/81127409
+linux安装、卸载、自定义配置 jenkins
+
+https://pkg.jenkins.io/redhat-stable/
+
+RedHat Linux RPM packages for Jenkins
+
+To use this repository, run the following command:
+Jenkins的RedHat Linux RPM包
+
+要使用此存储库，请运行以下命令：
+要使用此存储库，请运行以下命令：
+
+sudo wget -O  /etc/yum.repos.d/jenkins.repo  https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+如果您以前从Jenkins导入了密钥，那么“rpm --import”将失败，因为您已经有了密钥。请忽略它并继续前进。
+
+您将需要显式安装Java运行时环境，
+因为Oracle的Java RPM 不正确
+并且无法注册为提供Java依赖项。
+因此，在Java上添加显式依赖性要求会强制安装OpenJDK JVM。
+
+2.54（2017-04）和更新版本：Java 8
+1.612（2015-05）及更新版本：Java 7
+有了这个设置，Jenkins包可以安装：
+yum  -y   install   jenkins
+
+现在基本上linux为了避免版权问题都会默认的为你安装开源的openjdk，而不是jdk 。
+有些时候需要运行一些环境需要用到jdk的环境变量
+
+个人包下载
+如果您需要特定版本的* .rpm，请使用这些。
+
+[root@V3 devops05]# wget   https://pkg.jenkins.io/redhat-stable/jenkins-2.121.1-1.1.noarch.rpm
+
+--2019-05-13 13:47:18--  https://pkg.jenkins.io/redhat-stable/jenkins-2.121.1-1.1.noarch.rpm
+正在解析主机 pkg.jenkins.io (pkg.jenkins.io)... 52.202.51.185
+正在连接 pkg.jenkins.io (pkg.jenkins.io)|52.202.51.185|:443... 已连接。
+已发出 HTTP 请求，正在等待回应... 302 Found
+位置：https://prodjenkinsreleases.blob.core.windows.net/redhat-stable/jenkins-2.121.1-1.1.noarch.rpm [跟随至新的 URL]
+--2019-05-13 13:47:20--  https://prodjenkinsreleases.blob.core.windows.net/redhat-stable/jenkins-2.121.1-1.1.noarch.rpm
+正在解析主机 prodjenkinsreleases.blob.core.windows.net (prodjenkinsreleases.blob.core.windows.net)... 104.208.128.30
+正在连接 prodjenkinsreleases.blob.core.windows.net (prodjenkinsreleases.blob.core.windows.net)|104.208.128.30|:443... 已连接。
+已发出 HTTP 请求，正在等待回应... 200 OK
+长度：74547473 (71M) [application/x-redhat-package-manager]
+正在保存至: “jenkins-2.121.1-1.1.noarch.rpm”
+
+100%[======================================>] 74,547,473   417KB/s 用时 4m 25s 
+
+2019-05-13 13:51:46 (275 KB/s) - 已保存 “jenkins-2.121.1-1.1.noarch.rpm” [74547473/74547473])
+
+[root@V3 devops05]# ls
+jenkins-2.121.1-1.1.noarch.rpm
+
+[root@V3 devops05]# du   -sh  jenkins-2.121.1-1.1.noarch.rpm 
+72M	jenkins-2.121.1-1.1.noarch.rpm
+
+-------------------------------- 这一条命令即可安装完成 -----------------------
+[root@V3 devops05]# rpm  -ivh   https://pkg.jenkins.io/redhat-stable/jenkins-2.121.1-1.1.noarch.rpm
+
+获取https://pkg.jenkins.io/redhat-stable/jenkins-2.121.1-1.1.noarch.rpm
+警告：/var/tmp/rpm-tmp.kvcoXO: 头V4 DSA/SHA1 Signature, 密钥 ID d50582e6: NOKEY
+准备中...                          ################################# [100%]
+正在升级/安装...
+   1:jenkins-2.121.1-1.1              ################################# [100%]
+[root@V3 devops05]# ls   /etc/yum.repos.d/
+CentOS7-Base-163.repo  redhat.repo  root@V0  root@V1  root@V2  zabbix.repo
+
+
+[root@V3 devops05]# wget -O  /etc/yum.repos.d/jenkins.repo   https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+--2019-05-13 13:50:59--  https://pkg.jenkins.io/redhat-stable/jenkins.repo
+正在解析主机 pkg.jenkins.io (pkg.jenkins.io)... 52.202.51.185
+正在连接 pkg.jenkins.io (pkg.jenkins.io)|52.202.51.185|:443... 已连接。
+已发出 HTTP 请求，正在等待回应... 200 OK
+长度：85
+正在保存至: “/etc/yum.repos.d/jenkins.repo”
+
+100%[=============================================>] 85          --.-K/s 用时 0s      
+
+2019-05-13 13:51:00 (11.0 MB/s) - 已保存 “/etc/yum.repos.d/jenkins.repo” [85/85])
+
+[root@V3 devops05]# ls   /etc/yum.repos.d/
+
+CentOS7-Base-163.repo  redhat.repo  root@V1  zabbix.repo
+jenkins.repo           root@V0      root@V2
+
+[root@V3 devops05]# vim    /etc/yum.repos.d/jenkins.repo 
+
+[root@V3 devops05]# cat    /etc/yum.repos.d/jenkins.repo
+[jenkins]
+name=Jenkins-stable
+baseurl=http://pkg.jenkins.io/redhat-stable
+gpgcheck=1
+enable=1
+
+
+[root@V3 devops05]# ls  /etc/pki/
+CA/              entitlement/     nss-legacy/      rpm-gpg/         
+ca-trust/        java/            product/         rsyslog/         
+consumer/        nssdb/           product-default/ tls/             
+
+[root@V3 devops05]# ls  /etc/pki/rpm-gpg/
+RPM-GPG-KEY-CentOS-7               RPM-GPG-KEY-redhat-legacy-rhx
+RPM-GPG-KEY-redhat-beta            RPM-GPG-KEY-redhat-release
+RPM-GPG-KEY-redhat-legacy-former   RPM-GPG-KEY-ZABBIX
+RPM-GPG-KEY-redhat-legacy-release  RPM-GPG-KEY-ZABBIX-A14FE591
+[root@V3 devops05]# 
+[root@V3 devops05]# rpm   --import   https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+[root@V3 devops05]# cd   /etc/pki/rpm-gpg/
+
+[root@V3 rpm-gpg]# wget    https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+
+--2019-05-13 13:59:21--  https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+正在解析主机 pkg.jenkins.io (pkg.jenkins.io)... 52.202.51.185
+正在连接 pkg.jenkins.io (pkg.jenkins.io)|52.202.51.185|:443... 已连接。
+已发出 HTTP 请求，正在等待回应... 200 OK
+长度：9132 (8.9K) [application/pgp-keys]
+正在保存至: “jenkins.io.key”
+
+100%[=============================================>] 9,132       11.2KB/s 用时 0.8s   
+
+2019-05-13 13:59:23 (11.2 KB/s) - 已保存 “jenkins.io.key” [9132/9132])
+
+[root@V3 rpm-gpg]# ls  /etc/pki/rpm-gpg/
+jenkins.io.key                     RPM-GPG-KEY-redhat-legacy-rhx
+RPM-GPG-KEY-CentOS-7               RPM-GPG-KEY-redhat-release
+RPM-GPG-KEY-redhat-beta            RPM-GPG-KEY-ZABBIX
+RPM-GPG-KEY-redhat-legacy-former   RPM-GPG-KEY-ZABBIX-A14FE591
+RPM-GPG-KEY-redhat-legacy-release
+
+[root@V3 devops05]# cat    /etc/yum.repos.d/zabbix.repo
+[zabbix]
+name=Zabbix Official Repository - $basearch
+baseurl=http://repo.zabbix.com/zabbix/3.4/rhel/7/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591
+
+[zabbix-non-supported]
+name=Zabbix Official Repository non-supported - $basearch 
+baseurl=http://repo.zabbix.com/non-supported/rhel/7/$basearch/
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
+gpgcheck=1
+
+[root@V3 devops05]# vim    /etc/yum.repos.d/jenkins.repo 
+
+[root@V3 devops05]# cat    /etc/yum.repos.d/jenkins.repo
+[jenkins]
+name=Jenkins-stable
+baseurl=http://pkg.jenkins.io/redhat-stable
+gpgcheck=1
+enable=1
+gpgkey=file:///etc/pki/rpm-gpg/jenkins.io.key
+
+[root@V3 devops05]# ll   /etc/pki/rpm-gpg/jenkins.io.key 
+-rw-r--r-- 1 root root 9132 11月  9 2016 /etc/pki/rpm-gpg/jenkins.io.key
+
+[root@V3 devops05]# rpm   --import    /etc/pki/rpm-gpg/jenkins.io.key
+
+[root@V3 devops05]# echo  $?
+0
+[root@V3 devops05]# yum    makecache 
+.........................
+base                                                            | 3.6 kB  00:00:00     
+centosplus                                                      | 3.4 kB  00:00:00     
+extras                                                          | 3.4 kB  00:00:00     
+jenkins                                                         | 2.9 kB  00:00:00     
+updates                                                         | 3.4 kB  00:00:00     
+zabbix                                                          | 2.9 kB  00:00:00     
+zabbix-non-supported                                            |  951 B  00:00:00     
+(1/3): jenkins/filelists_db                                     |  18 kB  00:00:00     
+(2/3): jenkins/primary_db                                       |  28 kB  00:00:00     
+(3/3): jenkins/other_db                                         |  37 kB  00:00:00     
+元数据缓存已建立
+
+[root@V3 devops05]# yum  repolist  |tail  -9
+源标识                      源名称                                        状态
+base/x86_64                 CentOS-7 - Base - 163.com                     10,019
+centosplus/x86_64           CentOS-7 - Plus - 163.com                         59
+extras/x86_64               CentOS-7 - Extras - 163.com                      413
+jenkins                     Jenkins-stable                                    88
+updates/x86_64              CentOS-7 - Updates - 163.com                   1,862
+zabbix/x86_64               Zabbix Official Repository - x86_64              236
+zabbix-non-supported/x86_64 Zabbix Official Repository non-supported - x8      4
+repolist: 12,681
+
+[root@V3 devops05]# yum   -y  install  jenkins
+........................
+--> 正在检查事务
+---> 软件包 jenkins.noarch.0.2.121.1-1.1 将被 升级
+---> 软件包 jenkins.noarch.0.2.164.3-1.1 将被 更新
+--> 解决依赖关系完成
+
+依赖关系解决
+
+================================================================================
+ Package          架构            版本                   源                大小
+================================================================================
+正在更新:
+ jenkins          noarch          2.164.3-1.1            jenkins           74 M
+
+事务概要
+================================================================================
+升级  1 软件包
+
+总下载量：74 M
+Downloading packages:
+No Presto metadata available for jenkins
+jenkins-2.164.3-1.1.noarch.rpm                             |  74 MB   00:25     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+警告：RPM 数据库已被非 yum 程序修改。
+** 发现 3 个已存在的 RPM 数据库问题， 'yum check' 输出如下：
+PackageKit-1.1.5-1.el7.x86_64 有缺少的需求 PackageKit-backend
+anaconda-core-21.48.22.121-1.el7.x86_64 有缺少的需求 yum-utils >= ('0', '1.1.11', '3')
+rhn-check-2.0.2-17.el7.noarch 有缺少的需求 yum-rhn-plugin >= ('0', '1.6.4', '1')
+  正在更新    : jenkins-2.164.3-1.1.noarch                                  1/2 
+  清理        : jenkins-2.121.1-1.1.noarch                                  2/2 
+  验证中      : jenkins-2.164.3-1.1.noarch                                  1/2 
+  验证中      : jenkins-2.121.1-1.1.noarch                                  2/2 
+
+更新完毕:
+  jenkins.noarch 0:2.164.3-1.1                                                  
+
+完毕！
+[root@V3 devops05]# rpm  -q    jenkins
+jenkins-2.164.3-1.1.noarch
+
+[root@V3 devops05]# systemctl   start    jenkins    &&  systemctl  enable   jenkins
+
+jenkins.service is not a native service, redirecting to /sbin/chkconfig.
+Executing /sbin/chkconfig jenkins on
+jenkins.service不是本机服务，正在重定向到/sbin/chkconfig。
+执行/sbin/chkconfig jenkins on
+
+[root@V3 devops05]# /sbin/chkconfig   jenkins   on
+
+[root@V3 devops05]# systemctl  is-active   jenkins
+active
+
+[root@V3 devops05]# systemctl  is-enabled   jenkins
+jenkins.service is not a native service, redirecting to /sbin/chkconfig.
+Executing /sbin/chkconfig jenkins --level=5
+enabled
+
+[root@V3 devops05]# ll /sbin/chkconfig
+-rwxr-xr-x. 1 root root 41184 6月   6 2017 /sbin/chkconfig
+
+[root@V3 devops05]# file   /sbin/chkconfig
+/sbin/chkconfig: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=32578a2f014bfbbcc4222e27d3036f187d461c4f, stripped
+
+[root@V3 devops05]# /sbin/chkconfig   jenkins   on
+
+[root@V3 devops05]# systemctl  is-active   jenkins
+active
+
+[root@V3 devops05]# systemctl  is-enabled   jenkins
+
+jenkins.service is not a native service, redirecting to /sbin/chkconfig.
+Executing /sbin/chkconfig jenkins --level=5
+enabled
+
+[root@V3 devops05]# type  chkconfig 
+chkconfig 是 /usr/sbin/chkconfig
+
+[root@V3 devops05]# ll  /usr/sbin/chkconfig 
+-rwxr-xr-x. 1 root root 41184 6月   6 2017 /usr/sbin/chkconfig
+
+[root@V3 devops05]# chkconfig   --add   jenkins   #添加为自动启动
+
+[root@V3 devops05]# echo  $?
+0
+
+[root@V3 devops05]# chkconfig   --list   jenkins  #查看 jenkins 服务状态
+
+注：该输出结果只显示 SysV 服务，并不包含
+原生 systemd 服务。SysV 配置数据
+可能被原生 systemd 配置覆盖。 
+
+      要列出 systemd 服务，请执行 'systemctl list-unit-files'。
+      查看在具体 target 启用的服务请执行
+      'systemctl list-dependencies [target]'。
+
+jenkins        	0:关	1:关	2:开	3:开	4:开	5:开	6:关
+
+[root@V3 devops05]# chkconfig   jenkins  --level=5    #指定运行级别
+[root@V3 devops05]# echo  $?
+0
+
+看自动启动状态
+httpd 0:off 1:off 2:off 3:on 4:on 5:on 6:off
+0~6是指运行级别，一般服务器都运行在3这个级别上。
+
+[root@V3 devops05]# chkconfig   --list   #查看全部服务状态
+
+注：该输出结果只显示 SysV 服务，并不包含
+原生 systemd 服务。SysV 配置数据
+可能被原生 systemd 配置覆盖。 
+
+      要列出 systemd 服务，请执行 'systemctl list-unit-files'。
+      查看在具体 target 启用的服务请执行
+      'systemctl list-dependencies [target]'。
+
+jenkins        	0:关	1:关	2:开	3:开	4:开	5:开	6:关
+netconsole     	0:关	1:关	2:关	3:关	4:关	5:关	6:关
+network        	0:关	1:关	2:开	3:开	4:开	5:开	6:关
+rhnsd          	0:关	1:关	2:开	3:开	4:开	5:开	6:关
+yum-updateonboot	0:关	1:关	2:关	3:关	4:关	5:关	6:关
+[root@V3 devops05]# 
+*******************************************
+添加为自动启动
+chkconfig --add httpd
+或者指定运行级别
+chkconfig --level 345 httpd on
+
+
+停止自动启动
+chkconfig --del httpd
+或指定运行级别
+chkconfig --level 345 httpd off
+
+
+使用语法：
+chkconfig [--add][--del][--list][系统服务] 或 chkconfig [--level <等级代号>][系统服务][on/off/reset]
+
+chkconfig在没有参数运行时，显示用法。
+如果加上服务名，那么就检查这个服务是否在当前运行级启动。
+如果是，返回true，否则返回false。
+
+如果在服务名后面指定了on，off或者reset，
+那么chkconfig 会改变指定服务的启动信息。
+on和off分别指服务被启动和停止，
+reset指重置服务的启动信息，
+无论有问题的初始化脚本指定了什么。
+
+on和off开关，系统默认只对运行级3，4，5有效，但是reset可以对所有运行级有效。
+
+参数用法：
+   --add 　增加所指定的系统服务，让chkconfig指令得以管理它，并同时在系统启动的叙述文件内增加相关数据。
+   --del 　删除所指定的系统服务，不再由chkconfig指令管理，并同时在系统启动的叙述文件内删除相关数据。
+   --level<等级代号> 　指定读系统服务要在哪一个执行等级中开启或关毕。
+      等级0表示：表示关机
+      等级1表示：单用户模式
+      等级2表示：无网络连接的多用户命令行模式
+      等级3表示：有网络连接的多用户命令行模式
+      等级4表示：不可用
+      等级5表示：带图形界面的多用户模式
+      等级6表示：重新启动
+      需要说明的是，level选项可以指定要查看的运行级而不一定是当前运行级。
+对于每个运行级，只能有一个启动脚本或者停止脚本。
+当切换运行级时，init不会重新启动已经启动的服务，
+也不会再次去停止已经停止的服务。
+
+    chkconfig --list [name]：
+显示所有运行级系统服务的运行状态信息（on或off）。
+如果指定了name，那么只显示指定的服务在不同运行级的状态。
+
+    chkconfig --add name：
+增加一项新的服务。chkconfig确保每个运行级有一项启动(S)或者杀死(K)入口。
+如有缺少，则会从缺省的init脚本自动建立。
+
+    chkconfig --del name：
+删除服务，并把相关符号连接从/etc/rc[0-6].d删除。
+
+    chkconfig [--level levels] name：
+设置某一服务在指定的运行级是被启动，停止还是重置。
+http://www.cnblogs.com/qmfsun/p/3847459.html
+
+35表示操作只在等级3和5执行，
+on表示启动，off表示关闭
+chkconfig mysqld on        #设定mysqld在各等级为on，“各等级”包括2、3、4、5等级
+
+如何增加一个服务：
+1.服务脚本必须存放在/etc/ini.d/目录下；
+2.chkconfig --add servicename
+    在chkconfig工具服务列表中增加此服务，
+此时服务会被在/etc/rc.d/rcN.d中赋予K/S入口了；
+
+3.chkconfig --level 35 mysqld on
+    修改服务的默认启动等级。
+
+*******************************************
+service命令只支持基本的lsb操作
+（start、stop、restart、try restart、reload、force reload、status）。
+对于其他操作，请尝试使用SystemCtl。
+
+[root@V1 devopsday05]# systemctl  is-active    httpd
+active
+[root@V1 devopsday05]# service   httpd   status
+
+Redirecting to /bin/systemctl status httpd.service
+● httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; vendor preset: disabled)
+   Active: active (running) since 一 2019-05-13 09:06:27 CST; 5h 25min ago
+...................
+
+[root@V3 devops05]# service    jenkins   status
+
+● jenkins.service - LSB: Jenkins Automation Server
+   Loaded: loaded (/etc/rc.d/init.d/jenkins; bad; vendor preset: disabled)
+
+   Active: active (running) since 一 2019-05-13 14:11:32 CST; 21min ago
+
+     Docs: man:systemd-sysv-generator(8)
+   CGroup: /system.slice/jenkins.service
+           └─11854 /etc/alternatives/java -Dcom.sun.akuma.Daemon=daemonized -...
+
+5月 13 14:11:31 V3 systemd[1]: Starting LSB: Jenkins Automation Server...
+5月 13 14:11:31 V3 runuser[11838]: pam_unix(runuser:session): session open...0)
+5月 13 14:11:32 V3 jenkins[11833]: Starting Jenkins [  确定  ]
+5月 13 14:11:32 V3 systemd[1]: Started LSB: Jenkins Automation Server.
+Hint: Some lines were ellipsized, use -l to show in full.
+
+--------------------------------- 开机自启动 ------------------------
+
+[root@V3 devops05]# chkconfig  jenkins  on   #设定 jenkins 在各等级为on，“各等级”包括2、3、4、5等级
+[root@V3 devops05]# echo  $?
+0
+[root@V3 devops05]# chkconfig   --list   jenkins
+
+注：该输出结果只显示 SysV 服务，并不包含
+原生 systemd 服务。SysV 配置数据
+可能被原生 systemd 配置覆盖。 
+
+      要列出 systemd 服务，请执行 'systemctl list-unit-files'。
+      查看在具体 target 启用的服务请执行
+      'systemctl list-dependencies [target]'。
+
+jenkins        	0:关	1:关	2:开	3:开	4:开	5:开	6:关
+----------------- #设定 jenkins 在各等级为on，“各等级”包括2、3、4、5等级 --------------
+
+[root@V3 devops05]# systemctl    is-enabled   jenkins
+jenkins.service is not a native service, redirecting to /sbin/chkconfig.
+Executing /sbin/chkconfig jenkins --level=5
+enabled
+[root@V3 devops05]# systemctl    is-active   jenkins
+active
+[root@V3 devops05]# 
+
+
+[root@V3 devops05]# elinks   -dump    http://127.0.0.1 |tail  -2
+  72. http://www.umei.cc/meinvtupian/xingganmeinv/193658.htm
+  73. http://www.umei.cc/meinvtupian/xingganmeinv/193658.htm
+
+
+[root@V3 devops05]# elinks   -dump    http://127.0.0.1:8080/
+   Refresh: [1]/login?from=%2F
+   Authentication required
+
+References
+
+   Visible links
+   1. http://127.0.0.1:8080/login?from=%2F
+[root@V3 devops05]# 
+
+[root@V3 devops05]# rpm  -ql  jenkins 
+/etc/init.d/jenkins
+/etc/logrotate.d/jenkins
+/etc/sysconfig/jenkins
+/usr/lib/jenkins
+/usr/lib/jenkins/jenkins.war
+/usr/sbin/rcjenkins
+/var/cache/jenkins
+/var/lib/jenkins
+/var/log/jenkins
+[root@V3 devops05]# ll   /etc/sysconfig/jenkins 
+-rw------- 1 root root 3116 5月  11 01:16 /etc/sysconfig/jenkins
+
+[root@V3 devops05]# grep  -En  'JENKINS_HOME|JENKINS_USER'  /etc/sysconfig/jenkins 
+
+10:JENKINS_HOME="/var/lib/jenkins"      #默认安装目录
+27:# permissions of $JENKINS_HOME and /var/log/jenkins.
+29:JENKINS_USER="jenkins"
+36:# $JENKINS_HOME location. Do not enable this, "true", unless
+
+[root@V3 devops05]# ls   /var/lib/jenkins/
+config.xml                           jobs              secret.key.not-so-secret
+hudson.model.UpdateCenter.xml        logs              secrets
+identity.key.enc                     nodeMonitors.xml  updates
+jenkins.CLI.xml                      nodes             userContent
+jenkins.install.UpgradeWizard.state  plugins           users
+jenkins.telemetry.Correlator.xml     secret.key
+
+usermod：
+usermod [options] user_name
+usermod 命令修改系统帐户文件来反映通过命令行指定的变化
+选项(options)
+-a|--append  ##把用户追加到某些组中，仅与-G选项一起使用 
+-c|--comment ##修改/etc/passwd文件第五段comment 
+-d|--home    ##修改用户的家目录通常和-m选项一起使用 
+-e|--expiredate  ##指定用户帐号禁用的日期，格式YY-MM-DD 
+-f|--inactive    ##用户密码过期多少天后采用就禁用该帐号，0表示密码已过期就禁用帐号，-1表示禁用此功能，默认值是-1 
+-g|--gid     ##修改用户的gid，改组一定存在
+-G|--groups  ##把用户追加到某些组中，仅与-a选项一起使用 
+-l|--login   ##修改用户的登录名称, 修改用户名
+#usermod -l urchin(新用户名称)  test(原来用户名称) 
+
+-L|--lock    ##锁定用户的密码 
+-m|--move-home   ##修改用户的家目录通常和-d选项一起使用 
+-s|--shell   ##修改用户的shell 
+-u|--uid     ##修改用户的uid，该uid必须唯一 
+-U|--unlock  ##解锁用户的密码 
+
+[root@V3 devops05]# grep  -n  jenkins  /etc/passwd
+46:jenkins:x:989:984:Jenkins Automation Server:/var/lib/jenkins:/bin/false
+[root@V3 devops05]# 
+
+[root@V3 devops05]# grep  -n  root  /etc/passwd
+1:root:x:0:0:root:/root:/bin/bash
+10:operator:x:11:0:operator:/root:/sbin/nologin
+
+[root@V3 devops05]# usermod   -s  /bin/bash  jenkins 
+
+[root@V3 devops05]# grep  -n  jenkins  /etc/passwd
+46:jenkins:x:989:984:Jenkins Automation Server:/var/lib/jenkins:/bin/bash
+
+[root@V3 devops05]# 
+[root@V3 devops05]# ls  /var/www/html/
+favicon.ico  index.html  test.php  xshell6.png  zidir
+
+http://192.168.0.13:8080/第一次自动跳转网页
+http://192.168.0.13:8080/login?from=%2F
+
+[root@V3 devops05]# ll  /var/lib/jenkins/secrets/initialAdminPassword 
+-rw-r----- 1 jenkins jenkins 33 5月  13 14:11 /var/lib/jenkins/secrets/initialAdminPassword
+
+[root@V3 devops05]# cat   /var/lib/jenkins/secrets/initialAdminPassword
+351a5b2c043943339486fb0775c6ed46
+
+[root@V3 devops05]# ls   /var/lib/jenkins/secrets/
+filepath-filters.d
+initialAdminPassword
+jenkins.model.Jenkins.crumbSalt
+master.key
+org.jenkinsci.main.modules.instance_identity.InstanceIdentity.KEY
+slave-to-master-security-kill-switch
+whitelisted-callables.d
+[root@V3 devops05]# 
+
+[root@V3 devops05]# ifconfig |grep  -EA1 flags=
+
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.0.13  netmask 255.255.255.0  broadcast 192.168.0.255
+--
+eth1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.13  netmask 255.255.255.0  broadcast 192.168.1.255
+--
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+--
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+
+[root@V3 devops05]# ifconfig |grep  virbr0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+[root@V3 devops05]#  ifconfig   virbr0  down
+[root@V3 devops05]# ifconfig |grep  -EA1 flags=
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.0.13  netmask 255.255.255.0  broadcast 192.168.0.255
+--
+eth1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.13  netmask 255.255.255.0  broadcast 192.168.1.255
+--
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+
+[root@V3 devops05]# 
+[root@room9pc01 ~]# virsh  net-list  --all
+ 名称               状态     自动开始  持久
+----------------------------------------------------------
+ default              不活跃  否           是
+ private1             活动     是           是
+ private2             活动     是           是
+ public1              活动     是           是
+ public2              活动     是           是
+ rhce                 活动     是           是
+ vbr                  活动     是           是
+ vbr1                 活动     是           是
+
+[root@room9pc01 ~]# ls  /etc/libvirt/qemu/
+networks  V0.xml  V1.xml  V2.xml  V3.xml  win2008.xml
+
+[root@room9pc01 ~]# ls  /etc/libvirt/qemu/networks/
+autostart    private1.xml  public1.xml  rhce.xml  vbr.xml
+default.xml  private2.xml  public2.xml  vbr1.xml
+
+[root@room9pc01 ~]# ls  /etc/libvirt/qemu/networks/autostart/
+private1.xml  private2.xml  public1.xml  public2.xml  rhce.xml  vbr1.xml  vbr.xml
+
+[root@V3 devops05]# find  /etc/sysconfig/network-scripts/ |xargs grep  -lr "192.168."
+/etc/sysconfig/network-scripts/ifup-aliases
+/etc/sysconfig/network-scripts/network-functions-ipv6
+/etc/sysconfig/network-scripts/ifcfg-eth1
+/etc/sysconfig/network-scripts/ifcfg-eth0
+
+[root@V3 devops05]# 
+[root@room9pc01 ~]# virsh  net-list --all |grep default
+ default       不活跃      否           是
+[root@room9pc01 ~]# virsh  net-list --all |head -1
+ 名称               状态     自动开始     持久
+
+[root@room9pc01 ~]# ls  /etc/libvirt/qemu/networks/
+autostart    private1.xml  public1.xml  rhce.xml  vbr.xml
+default.xml  private2.xml  public2.xml  vbr1.xml
+
+[root@room9pc01 ~]# grep  -n  "192.168"  /etc/libvirt/qemu/networks/default.xml
+14:  <ip address='192.168.122.1' netmask='255.255.255.0'>
+16:      <range start='192.168.122.2' end='192.168.122.254'/>
+
+[root@room9pc01 ~]# cat  -n   /etc/libvirt/qemu/networks/default.xml
+     1	<!--
+     2	WARNING: THIS IS AN AUTO-GENERATED FILE. CHANGES TO IT ARE LIKELY TO BE
+     3	OVERWRITTEN AND LOST. Changes to this xml configuration should be made using:
+     4	  virsh net-edit default
+     5	or other application using the libvirt API.
+     6	-->
+     7	
+     8	<network>
+     9	  <name>default</name>
+    10	  <uuid>5bd0383d-d2db-4189-a9da-469810561abf</uuid>
+    11	  <forward mode='nat'/>
+    12	  <bridge name='virbr0' stp='on' delay='0'/>
+    13	  <mac address='52:54:00:c8:58:d3'/>
+    14	  <ip address='192.168.122.1' netmask='255.255.255.0'>
+    15	    <dhcp>
+    16	      <range start='192.168.122.2' end='192.168.122.254'/>
+    17	    </dhcp>
+    18	  </ip>
+    19	</network>
+[root@room9pc01 ~]# 
+[root@room9pc01 ~]# cat   -n   /etc/libvirt/qemu/networks/vbr.xml 
+     1	<!--
+     2	WARNING: THIS IS AN AUTO-GENERATED FILE. CHANGES TO IT ARE LIKELY TO BE
+     3	OVERWRITTEN AND LOST. Changes to this xml configuration should be made using:
+     4	  virsh net-edit vbr
+     5	or other application using the libvirt API.
+     6	-->
+     7	
+     8	<network>
+     9	  <name>vbr</name>
+    10	  <uuid>5ab0090d-ba5d-42be-97c1-a379adad45d2</uuid>
+    11	  <forward mode='nat'/>
+    12	  <bridge name='vbr' stp='on' delay='0'/>
+    13	  <mac address='52:54:00:0d:94:ce'/>
+    14	  <domain name='vbr'/>
+    15	  <ip address='192.168.0.254' netmask='255.255.255.0'>
+    16	    <dhcp>
+    17	      <range start='192.168.0.100' end='192.168.0.200'/>
+    18	    </dhcp>
+    19	  </ip>
+    20	</network>
+[root@room9pc01 ~]# 
+
+[root@V1 devopsday05]# ls   /proc/sys/net/ipv4/route/
+error_burst    gc_interval         gc_timeout   mtu_expires
+error_cost     gc_min_interval     max_size     redirect_load
+flush          gc_min_interval_ms  min_adv_mss  redirect_number
+gc_elasticity  gc_thresh           min_pmtu     redirect_silence
+[root@V1 devopsday05]# 
+
+[root@V3 devops05]# usermod   -s  /bin/false   jenkins 
+
+[root@V3 devops05]# grep  -n  jenkins  /etc/passwd
+46:jenkins:x:989:984:Jenkins Automation Server:/var/lib/jenkins:/bin/false
+
+Credentials are only available to the user they belong to
+凭据仅对其所属的用户可用
+
+[root@V3 devops05]# cat   /var/lib/jenkins/secrets/initialAdminPassword
+351a5b2c043943339486fb0775c6ed46
+[root@V3 devops05]# 
+
+Please confirm the password by typing it twice
+请输入两次Abc123确认密码
+Abc123
+
+
+
+[root@V1 devopsday05]# type   brctl
+brctl 是 /usr/sbin/brctl
+[root@V1 devopsday05]# rpm  -qf  /usr/sbin/brctl
+bridge-utils-1.5-9.el7.x86_64
+
+[root@V1 devopsday05]# brctl  show  virbr0
+bridge name	bridge id		STP enabled	interfaces
+virbr0		8000.52540062a090	yes		virbr0-nic
+
+[root@V1 devopsday05]# ifconfig  virbr0 |head -2
+virbr0: flags=4098<BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+
+[root@V1 devopsday05]# brctl   delbr    virbr0
+
+[root@V1 devopsday05]# echo  $?
+0
+[root@V1 devopsday05]# ifconfig  virbr0 |head -2
+virbr0: error fetching interface information: Device not found
+
+[root@V1 devopsday05]# ifconfig  |grep -A1 flags=
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.0.11  netmask 255.255.255.0  broadcast 192.168.0.255
+--
+eth1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.11  netmask 255.255.255.0  broadcast 192.168.1.255
+--
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+
+[root@V1 devopsday05]# reboot
+
+[root@room9pc01 ~]# tail  -12    /etc/libvirt/qemu/networks/default.xml 
+<network>
+  <name>default</name>
+  <uuid>5bd0383d-d2db-4189-a9da-469810561abf</uuid>
+  <forward mode='nat'/>
+  <bridge name='virbr0' stp='on' delay='0'/>
+  <mac address='52:54:00:c8:58:d3'/>
+  <ip address='192.168.122.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.122.2' end='192.168.122.254'/>
+    </dhcp>
+  </ip>
+</network>
+[root@room9pc01 ~]#
+[root@room9pc01 ~]# tail  -14    /etc/libvirt/qemu/networks/vbr.xml 
+
+<network>
+  <name>vbr</name>
+  <uuid>5ab0090d-ba5d-42be-97c1-a379adad45d2</uuid>
+  <forward mode='nat'/>
+  <bridge name='vbr' stp='on' delay='0'/>
+  <mac address='52:54:00:0d:94:ce'/>
+  <domain name='vbr'/>
+  <ip address='192.168.0.254' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.0.100' end='192.168.0.200'/>
+    </dhcp>
+  </ip>
+</network>
+[root@V3 devops05]# cat  /etc/sysconfig/network-scripts/ifcfg-eth0
+NAME="eth0"
+DEVICE="eth0"
+ONBOOT=yes
+NM_CONTROLLED="no"
+TYPE=Ethernet
+IPV6INIT=no
+IPV4_FAILURE_FATAL="no"
+BOOTPROTO="static"
+IPADDR="192.168.0.13"
+NETMASK="255.255.255.0"
+GATEWAY="192.168.0.254"
+[root@V3 devops05]# 
+======================================
+
+ifup 和 ifdown
+
+　　实时地手动修改一些网络接口参数，可以利用 ifconfig 来实现，
+如果是要直接以配置文件，亦即是在 /etc/sysconfig/network-scripts 里面的
+ ifcfg-ethx 等文件的设置参数来启动的话，
+那就得要通过 ifdown 或 ifup 来实现了。
+
+[root@linux ~]# ifup {interface} 
+[root@linux ~]# ifdown {interface}
+
+[root@linux ~]# ifup eth0
+
+ifup 与 ifdown 真是太简单了。这两个程序其实是 script 而已，它会直接到 /etc/ sysconfig/network-scripts 目录下搜索对应的配置文件，例如 ifup eth0，它会找出 ifcfg-eth0 这个文件的内容，然后加以设置。
+
+[root@V1 ~]# type  brctl
+brctl 是 /usr/sbin/brctl
+[root@V1 ~]# rpm  -qf  /usr/sbin/brctl
+bridge-utils-1.5-9.el7.x86_64
+
+[root@V1 ~]# brctl  show  virbr0
+bridge name	bridge id		STP enabled	interfaces
+virbr0		8000.52540062a090	yes		virbr0-nic
+
+[root@V1 ~]# ifconfig  virbr0 |head -2
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+
+[root@V1 ~]# brctl   delbr   virbr0
+bridge virbr0 is still up; can't delete it
+
+[root@V1 ~]# ifdown     virbr0
+用法：ifdown <设备名>
+
+[root@V1 ~]# ifconfig   virbr0   down
+[root@V1 ~]# echo  $?
+0
+[root@V1 ~]# brctl   delbr   virbr0
+[root@V1 ~]# echo  $?
+0
+[root@V1 ~]# ifconfig  virbr0 
+virbr0: error fetching interface information: Device not found
+[root@V1 ~]# 
+[root@V1 ~]# ll  /etc/sysconfig/network-scripts/ifcfg-eth
+ifcfg-eth0  ifcfg-eth1  
+[root@V1 ~]# ifconfig |awk '/inet /{print  $2}'
+192.168.0.11
+192.168.1.11
+127.0.0.1
+[root@V1 ~]# 客户端  V1  ; -----  jenkins V3; -------  github 真机;
+
+
+http://192.168.0.13:8080/pluginManager/installed
+
+[root@V3 devops05]# ifconfig  virbr0 |head  -2
+virbr0: flags=4098<BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+
+[root@V3 devops05]# ifconfig  virbr0  down
+
+[root@V3 devops05]# brctl  show  virbr0
+bridge name	bridge id		STP enabled	interfaces
+virbr0		8000.52540062a090	yes		virbr0-nic
+
+[root@V3 devops05]# brctl    delbr   virbr0
+
+[root@V3 devops05]# echo  $?
+0
+[root@V3 devops05]# brctl  show  virbr0
+bridge name	bridge id		STP enabled	interfaces
+virbr0		can't get info No such device
+
+[root@V3 devops05]# ifconfig  virbr0
+virbr0: error fetching interface information: Device not found
+
+[root@V3 devops05]# ifconfig |awk '/inet /{print  $2}'
+192.168.0.13
+192.168.1.13
+127.0.0.1
+[root@V3 devops05]# # 客户端  V1  ; -----  jenkins V3; -------  github 真机;
+
+[root@room9pc01 ~]# yum  -y install  git
+...................................
+正在解决依赖关系
+--> 正在检查事务
+---> 软件包 git.x86_64.0.1.8.3.1-11.el7 将被 升级
+--> 正在处理依赖关系 git = 1.8.3.1-11.el7，它被软件包 perl-Git-1.8.3.1-11.el7.noarch 需要
+---> 软件包 git.x86_64.0.1.8.3.1-20.el7 将被 更新
+--> 正在检查事务
+---> 软件包 perl-Git.noarch.0.1.8.3.1-11.el7 将被 升级
+---> 软件包 perl-Git.noarch.0.1.8.3.1-20.el7 将被 更新
+--> 解决依赖关系完成
+
+依赖关系解决
+
+===================================================================================================
+ Package               架构                版本                         源                    大小
+===================================================================================================
+正在更新:
+ git                   x86_64              1.8.3.1-20.el7               updates              4.4 M
+为依赖而更新:
+ perl-Git              noarch              1.8.3.1-20.el7               updates               55 k
+
+事务概要
+===================================================================================================
+升级  1 软件包 (+1 依赖软件包)
+
+总计：4.4 M
+Downloading packages:
+警告：/var/cache/yum/x86_64/7/updates/packages/perl-Git-1.8.3.1-20.el7.noarch.rpm: 头V3 RSA/SHA256 Signature, 密钥 ID f4a80eb5: NOKEY
+从 http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7 检索密钥
+导入 GPG key 0xF4A80EB5:
+ 用户ID     : "CentOS-7 Key (CentOS 7 Official Signing Key) <security@centos.org>"
+ 指纹       : 6341 ab27 53d7 8a78 a7c2 7bb1 24c6 a8a7 f4a8 0eb5
+ 来自       : http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  正在更新    : git-1.8.3.1-20.el7.x86_64                                                      1/4 
+  正在更新    : perl-Git-1.8.3.1-20.el7.noarch                                                 2/4 
+  清理        : git-1.8.3.1-11.el7.x86_64                                                      3/4 
+  清理        : perl-Git-1.8.3.1-11.el7.noarch                                                 4/4 
+  验证中      : perl-Git-1.8.3.1-20.el7.noarch                                                 1/4 
+  验证中      : git-1.8.3.1-20.el7.x86_64                                                      2/4 
+  验证中      : git-1.8.3.1-11.el7.x86_64                                                      3/4 
+  验证中      : perl-Git-1.8.3.1-11.el7.noarch                                                 4/4 
+
+更新完毕:
+  git.x86_64 0:1.8.3.1-20.el7                                                                      
+
+作为依赖被升级:
+  perl-Git.noarch 0:1.8.3.1-20.el7                                                                 
+
+完毕！
+[root@room9pc01 ~]# rpm  -q   git
+git-1.8.3.1-20.el7.x86_64
+
+[root@room9pc01 ~]# rpm  -qa  |grep  git
+lockdev-1.0.4-0.13.20111007git.el7.x86_64
+ipxe-roms-qemu-20170123-1.git4e85b27.el7.noarch
+crontabs-1.11-6.20121102git.el7.noarch
+lldpad-1.0.1-3.git036e314.el7.x86_64
+squashfs-tools-4.3-0.21.gitaae0aff4.el7.x86_64
+numad-0.5-17.20150602git.el7.x86_64
+xdg-utils-1.1.0-0.17.20120809git.el7.noarch
+linux-firmware-20170606-56.gitc990aae.el7.noarch
+xorg-x11-drv-ati-7.7.1-3.20160928git3fc839ff.el7.x86_64
+lm_sensors-libs-3.4.0-4.20160601gitf9185e5.el7.x86_64
+git-1.8.3.1-20.el7.x86_64
+net-tools-2.0-0.22.20131004git.el7.x86_64
+taglib-1.8-7.20130218git.el7.x86_64
+
+[root@room9pc01 ~]# 
+
+[root@V1 ~]# 客户端  V1  ; -----  jenkins V3; -------  github 真机;
+[root@V1 ~]# ifconfig |awk '/inet /{print  $2}'
+192.168.0.11
+192.168.1.11
+127.0.0.1
+[root@V1 ~]# 
+
+
+[root@V3 devops05]# rpm  -ql  jenkins 
+/etc/init.d/jenkins
+/etc/logrotate.d/jenkins
+/etc/sysconfig/jenkins
+/usr/lib/jenkins
+/usr/lib/jenkins/jenkins.war
+/usr/sbin/rcjenkins
+/var/cache/jenkins
+/var/lib/jenkins
+/var/log/jenkins
+[root@V3 devops05]# ll   /etc/sysconfig/jenkins 
+-rw------- 1 root root 3116 5月  11 01:16 /etc/sysconfig/jenkins
+
+[root@V3 devops05]# grep  -En  'JENKINS_HOME|JENKINS_USER'  /etc/sysconfig/jenkins 
+
+10:JENKINS_HOME="/var/lib/jenkins"
+27:# permissions of $JENKINS_HOME and /var/log/jenkins.
+29:JENKINS_USER="jenkins"
+36:# $JENKINS_HOME location. Do not enable this, "true", unless
+
+
+[root@V3 devops05]# ls   /var/lib/jenkins/
+config.xml                           jobs              secret.key.not-so-secret
+hudson.model.UpdateCenter.xml        logs              secrets
+identity.key.enc                     nodeMonitors.xml  updates
+jenkins.CLI.xml                      nodes             userContent
+jenkins.install.UpgradeWizard.state  plugins           users
+jenkins.telemetry.Correlator.xml     secret.key
+
+[root@V3 devops05]# grep  -n  jenkins  /etc/passwd
+46:jenkins:x:989:984:Jenkins Automation Server:/var/lib/jenkins:/bin/false
+
+[root@V3 devops05]# grep  -n  root  /etc/passwd
+1:root:x:0:0:root:/root:/bin/bash
+10:operator:x:11:0:operator:/root:/sbin/nologin
+
+[root@V3 devops05]# usermod   -s  /bin/bash  jenkins 
+
+[root@V3 devops05]# grep  -n  jenkins  /etc/passwd
+46:jenkins:x:989:984:Jenkins Automation Server:/var/lib/jenkins:/bin/bash
+
+[root@V3 devops05]# usermod   -s  /bin/false   jenkins 
+
+[root@V3 devops05]# grep  -n  jenkins  /etc/passwd
+46:jenkins:x:989:984:Jenkins Automation Server:/var/lib/jenkins:/bin/false
+[root@V3 devops05]# 
+
+[root@V3 devops05]# ifconfig |awk '/inet /{print  $2}'
+192.168.0.13
+192.168.1.13
+127.0.0.1
+[root@V3 devops05]# 
+
+[root@room9pc01 ~]# git    init
+[root@room9pc01 ~]# git  config  --global  user.name  "hiys"
+[root@room9pc01 ~]# git  config  --global  user.email "3424969110@qq.com"
+
+[root@room9pc01 ~]# cat  .gitconfig
+[user]
+	name = hiys
+	email = 3424969110@qq.com
+
+[root@room9pc01 ~]# ls  PYTHON/.git/
+branches  description  hooks  info  objects      refs
+config    HEAD         index  logs  packed-refs
+
+
+[root@room9pc01 ~]# cat   PYTHON/.git/config
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = https://github.com/hiys/PYTHON
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[root@room9pc01 ~]# 
+[root@room9pc01 ~]# mkdir   MyProject
+
+[root@room9pc01 ~]# cd    MyProject/
+
+[root@room9pc01 MyProject]# git    init
+
+初始化空的 Git 版本库于 /root/MyProject/.git/
+
+[root@room9pc01 MyProject]# echo  'Hello  World!' > index.html
+
+[root@room9pc01 MyProject]# git  add   ./
+
+[root@room9pc01 MyProject]# git  commit  -m  "First virsion 1"
+
+[master（根提交） cb66fe6] First virsion 1
+ Committer: root <root@room9pc01.tedu.cn>
+您的姓名和邮件地址基于登录名和主机名进行了自动设置。请检查它们正确
+与否。您可以通过下面的命令对其进行明确地设置以免再出现本提示信息：
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+设置完毕后，您可以用下面的命令来修正本次提交所使用的用户身份：
+
+    git commit --amend --reset-author
+
+ 1 file changed, 1 insertion(+)
+ create mode 100644 index.html
+
+[root@room9pc01 MyProject]# ls  -a
+.  ..  .git  index.html
+
+[root@room9pc01 MyProject]# ll   .git/config 
+-rw-r--r-- 1 root root 92 5月  13 18:17 .git/config
+
+[root@room9pc01 MyProject]# cat   .git/config
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[root@room9pc01 MyProject]# git  config  --global  user.name  "hiys"
+[root@room9pc01 MyProject]# git  config  --global  user.email "3424969110@qq.com"
+[root@room9pc01 MyProject]# git commit    --amend    --reset-author
+
+First virsion 1
+
+# 请为您的变更输入提交说明。以 '#' 开始的行将被忽略，而一个空的提交
+# 说明将会终止提交。
+# 位于分支 master
+#
+# 初始提交
+#
+# 要提交的变更：
+#   （使用 "git rm --cached <file>..." 撤出暂存区）
+#
+#       新文件：    index.html
+#
+First test 1提交测试
+~                                                                                        
+~                                                                                        
+-- INSERT --
+
+按键 Esc
+First test 1提交测试
+~                                                                                        
+~                                                                                        
+:wq
+[root@room9pc01 MyProject]# git commit    --amend    --reset-author
+[master 2299f26] First virsion 1:
+ 1 file changed, 1 insertion(+)
+ create mode 100644 index.html
+[root@room9pc01 MyProject]# 
+[root@room9pc01 MyProject]# echo  -e  "\nHello  World and peri!" >> index.html
+bash: !": event not found
+[root@room9pc01 MyProject]# echo  $?
+0
+[root@room9pc01 MyProject]# cat    index.html 
+Hello  World!
+[root@room9pc01 MyProject]# echo  -e  '\nHello  World and peri!'  >>  index.html
+[root@room9pc01 MyProject]# echo  $?
+0
+[root@room9pc01 MyProject]# cat    index.html 
+Hello  World!
+
+Hello  World and peri!
+[root@room9pc01 MyProject]# ls
+index.html
+
+[root@room9pc01 MyProject]# git   add   ./
+
+[root@room9pc01 MyProject]# git   commit   -m  "第二次 提交second"
+[master 4a529df] 第二次 提交second
+ 1 file changed, 2 insertions(+)
+
+[root@room9pc01 MyProject]# 
+
+[root@room9pc01 MyProject]# git  tag  1.0   #相当于设置自己开发的软件的版本号
+[root@room9pc01 MyProject]# echo  $?
+0
+[root@room9pc01 MyProject]# echo   "2nd version add" >> index.html 
+
+[root@room9pc01 MyProject]# git   add   ./
+
+
+[root@room9pc01 MyProject]# git  status
+# 位于分支 master
+# 要提交的变更：
+#   （使用 "git reset HEAD <file>..." 撤出暂存区）
+#
+#	修改：      index.html
+#
+[root@room9pc01 MyProject]# git   commit   -m  "第二次erer 提交second 2"
+[master 440d5c8] 第二次erer 提交second 2
+ 1 file changed, 1 insertion(+)
+
+[root@room9pc01 MyProject]# git  status
+# 位于分支 master
+无文件要提交，干净的工作区
+
+[root@room9pc01 MyProject]# git    tag   2.0   #相当于设置自己开发的软件的版本号
+[root@room9pc01 MyProject]# echo  $?
+0
+
+[root@room9pc01 MyProject]# git    tag
+1.0
+2.0
+[root@room9pc01 MyProject]# git  checkout   1.0 
+Note: checking out '1.0'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+你处于“超然”状态。你可以四处看看，做实验
+更改并提交它们，您可以放弃在此过程中所做的任何提交。
+通过执行另一个签出，在不影响任何分支的情况下进行状态。
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+如果要创建一个新分支以保留创建的提交，可以
+通过再次将-b与checkout命令一起使用来执行此操作（现在或以后）。例子：
+
+  git checkout -b new_branch_name
+
+HEAD 目前位于 4a529df... 第二次 提交second
+[root@room9pc01 MyProject]# cat   index.html 
+Hello  World!
+
+Hello  World and peri!
+[root@room9pc01 MyProject]# git  checkout    master
+
+之前的 HEAD 位置是 4a529df... 第二次 提交second
+切换到分支 'master'
+
+[root@room9pc01 MyProject]# cat   index.html 
+Hello  World!
+
+Hello  World and peri!
+2nd version add
+[root@room9pc01 MyProject]# 
+
+
+
+https://github.com/account/organizations/new
+
+https://github.com/account/organizations/ 自动跳转网页--->
+---->https://github.com/settings/organizations
+
+https://github.com/account 自动跳转网页--->
+---> https://github.com/settings/profile
+
+https://github.com/settings/organizations
+
+organization     英 [ˌɔːɡənaɪˈzeɪʃn] 
+         n.组织;团体;机构;组织工作;筹备工作;安排;配置;分配
+
+dashboard
+英 [ˈdæʃbɔːd]   美 [ˈdæʃbɔːrd]  
+n.
+(汽车上的)仪表板
+
+默认情况下组员是没有权限进行push操作的,
+因为没有修改权限我们可以在项目主页
+(https://github.com/组名)
+找到Settings->Member privileges 
+把Default repository permission
+设置为Write 保存即可 ,
+这样组员就可以对仓库文件进行push操作了 
+
+https://github.com/Ctojava
+https://github.com/orgs/ctojava/people/hiys
+
+https://github.com/orgs/hiysgroup/dashboard
+https://github.com/hiysgroup/
+https://github.com/hiysgroup/PYTHON
+
+https://github.com/settings/profile
+
+https://github.com/organizations/ctojava/settings/member_privileges
+
+https://github.com/orgs/hiysgroup/dashboard
+
+
+https://blog.csdn.net/mssora/article/details/53800777
+[root@room9pc01 MyProject]# ll   /root/.ssh/id_rsa
+-rw-r--r--. 1 root root 1679 3月  20 2018 /root/.ssh/id_rsa
+
+
+
+[root@room9pc01 MyProject]# ll   /root/.ssh/id_rsa
+-rw-r--r--. 1 root root 1679 3月  20 2018 /root/.ssh/id_rsa
+
+
+
+[root@room9pc01 MyProject]#  git  remote  add  origin  git@github.com:hiys/MyProject.git[root@room9pc01 MyProject]# echo  $?
+0
+
+[root@room9pc01 MyProject]#  git  remote  add  origin  git@github.com:hiys/MyProject
+fatal: 远程 origin 已经存在。
+
+此时只需要将远程配置删除，重新添加即可；
+git remote rm origin
+[root@room9pc01 MyProject]# git  remote   rm   origin
+[root@room9pc01 MyProject]# echo  $?
+0
+[root@room9pc01 MyProject]#  git  remote  add  origin  git@github.com:hiys/MyProject
+[root@room9pc01 MyProject]# echo  $?
+0
+[root@room9pc01 MyProject]# git  remote  rm  origin
+
+[root@room9pc01 MyProject]# git remote add  upstream https://github.com/hiys/MyProject.git
+[root@room9pc01 MyProject]# echo  $?
+0
+[root@room9pc01 MyProject]# git  remote   -v
+upstream	https://github.com/hiys/MyProject.git (fetch)
+upstream	https://github.com/hiys/MyProject.git (push)
+
+[root@room9pc01 MyProject]# git   push  -u  origin  --all
+
+fatal: 'origin' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+致命：“origin”似乎不是Git存储库
+致命：无法从远程存储库中读取。
+
+请确保您拥有正确的访问权限
+存储库存在。
+[root@room9pc01 MyProject]# 
+
+[root@room9pc01 MyProject]# git remote  add  origin  git@github://github.com/hiys/MyProject.git
+[root@room9pc01 MyProject]# echo  $?
+0
+[root@room9pc01 MyProject]# git   push  -u  origin  --allfatal: I don't handle protocol 'git@github'
+
+致命：我不处理协议“git@github”
+
+ git push --set-upstream origin master
+
+[root@room9pc01 MyProject]# git  remote   add  origin   git@github.com:hiys/MyProject.git
+fatal: 远程 origin 已经存在。
+[root@room9pc01 MyProject]# git  remote  rm  origin
+[root@room9pc01 MyProject]# echo  $?
+0
+[root@room9pc01 MyProject]# git  remote   add  origin   git@github.com:hiys/MyProject.git
+[root@room9pc01 MyProject]# echo  $?
+0
+[root@room9pc01 MyProject]# git  push   -u  origin  mastyer
+Warning: Permanently added the RSA host key for IP address '13.229.188.59' to the list of known hosts.
+ERROR: Permission to hiys/MyProject.git denied to jameszyli.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists
+
+警告：已将IP地址“13.229.188.59”的RSA主机密钥永久添加到已知主机列表中
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

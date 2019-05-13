@@ -1,0 +1,769 @@
+
+
+[root@V3 devops05]# ls
+boy.c
+[root@V3 devops05]# cat   boy.c 
+#include   <stdio.h>       /*加载标准输入输出函数原型*/
+
+main(void)
+{
+  printf('Hello boy well go !\n');    //puts函数打印一个字符串
+}
+[root@V3 devops05]# gcc  -o   boy   boy.c
+boy.c: 在函数‘main’中:
+boy.c:5:10: 警告：字符常量大小超出其类型 [默认启用]
+   printf('Hello boy well go !\n');    //puts函数打印一个字符串
+          ^
+boy.c:5:3: 警告：传递‘printf’的第 1 个参数时将整数赋给指针，未作类型转换 [默认启用]
+   printf('Hello boy well go !\n');    //puts函数打印一个字符串
+   ^
+In file included from boy.c:1:0:
+/usr/include/stdio.h:362:12: 附注：需要类型‘const char * __restrict__’，但实参的类型为‘int’
+ extern int printf (const char *__restrict __format, ...);
+            ^
+[root@V3 devops05]# ls
+boy  boy.c
+[root@V3 devops05]# ./boy 
+段错误(吐核)
+
+[root@V1 devopsday05]# ls
+[root@V1 devopsday05]# vim    boy.c
+[root@V1 devopsday05]# cat    boy.c
+#include   <stdio.h>       /*加载标准输入输出函数原型*/
+
+int  main()
+{
+  printf('Hello boy well go !\n');    //puts函数打印一个字符串
+}
+
+[root@V1 devopsday05]# gcc   -o  boy   boy.c 
+boy.c: 在函数‘main’中:
+boy.c:5:10: 警告：字符常量大小超出其类型 [默认启用]
+   printf('Hello boy well go !\n');    //puts函数打印一个字符串
+          ^
+boy.c:5:3: 警告：传递‘printf’的第 1 个参数时将整数赋给指针，未作类型转换 [默认启用]
+   printf('Hello boy well go !\n');    //puts函数打印一个字符串
+   ^
+In file included from boy.c:1:0:
+/usr/include/stdio.h:362:12: 附注：需要类型‘const char * __restrict__’，但实参的类型为‘int’
+ extern int printf (const char *__restrict __format, ...);
+            ^
+[root@V1 devopsday05]# ls
+boy  boy.c
+[root@V1 devopsday05]# ./boy 
+段错误(吐核)
+
+
+用GCC编译C++ 的文件CC出现了一堆错误。可是C++程序没有错误
+
+编译C++，应该用g++ .
+默认编译 g++   2.cc
+高级编译  g++  2.cc -o  Y.out
+
+
+[root@V1 devopsday05]# vim     boy2.c
+[root@V1 devopsday05]# cat    boy2.c
+#include   <iostream>       /*加载函数原型*/
+using   namespace   std;
+int  main()
+{
+  cout<<'Hello boy well go !\n';    //函数打印一个字符串
+}
+
+[root@V1 devopsday05]# type   g++
+g++ 是 /usr/bin/g++
+[root@V1 devopsday05]# ll    /usr/bin/g++
+-rwxr-xr-x 4 root root 772704 6月   2 2017 /usr/bin/g++
+[root@V1 devopsday05]# rpm   -qf   /usr/bin/g++
+gcc-c++-4.8.5-16.el7.x86_64
+
+[root@V1 devopsday05]# rpm  -qa  |grep   gcc-c++
+gcc-c++-4.8.5-16.el7.x86_64
+
+[root@V1 devopsday05]# g++  -o  boy2.out   boy2.c 
+
+boy2.c:5:9: 警告：字符常量大小超出其类型 [默认启用]
+   cout<<'Hello boy well go !\n';    //函数打印一个字符串
+         ^
+[root@V1 devopsday05]# ls
+boy  boy2.c  boy2.out  boy.c
+
+[root@V1 devopsday05]# ./boy2.out 
+1864376586[root@V1 devopsday05]# 
+[root@V1 devopsday05]# 
+
+=========================================
+
+[root@V3 devops05]# ls
+boy.c
+[root@V3 devops05]# cat  boy.c 
+#include   <stdio.h>       /*加载标准输入输出函数原型*/
+
+int  main()
+{
+  printf("Hello boy well go !\n");    //puts函数打印一个字符串
+}
+[root@V3 devops05]# gcc  -o  boy   boy.c   #使用 gcc 编译器编译源代码生成可执行文件
+
+[root@V3 devops05]# echo  $?
+0
+[root@V3 devops05]# ls
+boy  boy.c
+[root@V3 devops05]# ./boy 
+Hello boy well go !
+[root@V3 devops05]# cp  boy.c    boy2.c
+-------------------------------------------------------------------------------------------------------------
+[root@V3 devops05]# vim    boy2.c
+
+[root@V3 devops05]# cat    boy2.c
+#include   <stdio.h>       /*加载标准输入输出函数原型*/
+
+int  main(void)
+{
+  printf("Hello boy2 well done!\n");    //puts函数打印一个字符串
+  exit(100);
+}
+[root@V3 devops05]# gcc  -o  boy2  boy2.c     #使用 gcc 编译器编译源代码生成可执行文件
+
+boy2.c: 在函数‘main’中:
+boy2.c:6:3: 警告：隐式声明与内建函数‘exit’不兼容 [默认启用]
+   exit(100);
+   ^
+[root@V3 devops05]# ls
+boy  boy2  boy2.c  boy.c
+
+[root@V3 devops05]# ./boy2 
+Hello boy2 well done!
+
+[root@V3 devops05]# echo   $?
+100
+[root@V3 devops05]# 
+------------------------------------------------------------------------------------------------------------
+
+[root@V3 devops05]# vim    boy3.c
+[root@V3 devops05]# cat     boy3.c
+#include   <stdio.h>       /*加载标准输入输出函数原型*/
+
+int  main()
+{
+  printf("Hello boy well go !\n");    //puts函数打印一个字符串
+  return   1000;         //给操作系统返回码1000
+}
+[root@V3 devops05]# gcc  -g  -Wall  -o   boy3  boy3.c
+
+[root@V3 devops05]# echo  $?
+0
+[root@V3 devops05]# ls
+boy  boy2  boy2.c  boy3  boy3.c  boy.c
+
+[root@V3 devops05]# ./boy3
+Hello boy well go !
+[root@V3 devops05]# echo  $?
+232
+
+[root@V3 devops05]# varx="xxxx"
+[root@V3 devops05]# echo  varx
+varx
+[root@V3 devops05]# echo  $varx
+xxxx
+
+[root@V3 devops05]# ll    boy3
+-rwxr-xr-x 1 root root 9512 5月  13 10:26 boy3
+[root@V3 devops05]# varx=$(./boy3)
+[root@V3 devops05]# echo  $?
+232
+[root@V3 devops05]# echo  $varx
+Hello boy well go !
+
+[root@V3 devops05]# 
+
+
+------------------------------------------------------------------------------------------------------------
+
+[root@V3 devops05]# ls
+boy  boy2  boy2.c  boy3  boy3.c  boy.c
+
+[root@V3 devops05]# cp  boy3.c    boyiostream.c
+
+[root@V3 devops05]# vim     boyiostream.c
+
+[root@V3 devops05]# cat     boyiostream.c
+
+#include   <iostream>       /*加载函数原型*/
+using    namespace   std;
+int  main()
+{
+  cout<<"Hello  iostream  not  stdio.h !\n";    //函数打印一个字符串
+}
+
+[root@V3 devops05]# g++   -o  boyio.out  boyiostream.c
+
+[root@V3 devops05]# echo  $?
+0
+[root@V3 devops05]# ls
+boy  boy2  boy2.c  boy3  boy3.c  boy.c  boyio.out  boyiostream.c
+
+
+[root@V3 devops05]# ll  boyio.out 
+-rwxr-xr-x 1 root root 8968 5月  13 10:40 boyio.out
+
+[root@V3 devops05]# ./boyio.out    #证明C++程序编译成功,也说明linux C++ 开发环境搭建完毕
+Hello  iostream  not  stdio.h !
+
+[root@V3 devops05]# echo  $?
+0
+
+关于linux指令，还有linuxC/C++编程， 关注传智播客的视频
+------------------------------------------------------------------------------------------------------------
+
+MySQL的特性
+使用C和C++编写，并使用了多种编译器进行測试，保证源码的可移植性。
+为多种编程语言提供了API。
+这些编程语言包含C、C++、C#、Delphi、Eiffel、
+Java、Perl、PHP、Python、Ruby和Tcl等。
+
+
+========================================
+
+https://www.cnblogs.com/mingforyou/p/4118066.html
+
+linux搭建C开发环境
+
+GCC建议我们将一个版本的GCC安装在一个单独的目录下。
+这样做的好处是将来不需要它的时候可以方便地删除整个目录即可
+（因为GCC没有uninstall功能）；
+并且在安装完成后，仍然能够使用原来低版本的GCC编译器，
+即一个系统上可以同时存在并使用多个版本的GCC编译器。
+缺点是
+在安装完成后要做一些设置工作才能使编译器工作正常。
+
+下载GCC
+到官方网站http://gcc.gnu.org或官方FTP站ftp://ftp.gnu.org/gnu（
+建议使用FlashFXP下载工具）可以查找到下载资源
+可供下载的文件一般有两种形式：
+gcc-4.5.1.tar.gz和gcc-4.5.1.tar.bz2，
+只是压缩格式不一样，内容完全一致，下载其中一种即可
+
+
+2019年5月1日
+一个完整的C开发环境包括以下三个组成： 
+ 
+　　 1、函数库: glibc 
+ 
+　　 要构架一个完整的C开发环境，Glibc是必不可少的，它是Linux下C的主要函数库。
+Glibc有两种安装方式： 
+ 
+　　 A.安装成测试用的函数库 
+　　　 在编译程序时用不同的选项来试用新的函数库 
+　　 B.安装成主要的C函数库 
+　　　 所有新编译程序均用的函数库 
+
+Glibc是必不可少的，它是Linux下C的主要函数库。Glibc有两种安装方式：
+A、安装成测试用的函数库——在编译程序时用不同的选项来试用新的函数库
+B、安装成主要的C函数库——所有新编译程序均用的函数库
+Glibc含几个附加包：LinuxThreads、locale和crypt，
+通常它们的文件名随版本不同而类似于下列文件名：
+glibc-2.06.tar.gz
+glibc-linuxthreads-2.0.6.tar.gz
+glibc-localedate-2.0.6.tar.gz
+glibc-crypt-2.0.6.tar.gz
+
+ 
+Glibc2含几个附加包：
+LinuxThreads、locale和crypt，通常它们的文件名随版本不同而类似于下列文件名： 
+ 
+　　 glibc-2.06.tar.gz 
+　　 glibc-linuxthreads-2.0.6.tar.gz 
+　　 glibc-localedate-2.0.6.tar.gz 
+　　 glibc-crypt-2.0.6.tar.gz 
+ 
+　　 2、编译器：gcc 
+compiler      英 [kəmˈpaɪlə(r)]
+      n.编纂者;汇编者;编著者;编译程序
+c compiler     美 [siː kəmˈpaɪlər] 
+      C语言 编译器;编译器;
+
+　　 gcc(GNU CCompiler)是GNU推出的功能强大、性能优越的多平台编译器，
+gcc编译器能将C、C++语言源程序、汇程式化序和目标程序编译、连接成可执行文件，
+以下是gcc支持编译的一些源文件的后缀及其解释： 
+ 
+　　 .c为后缀的文件，C语言源代码文件； 
+　　 .a为后缀的文件，是由目标文件构成的档案库文件； 
+　　 .C，.cc或.cxx 为后缀的文件，是C++源代码文件； 
+
+　　 .h为后缀的文件，是程序所包含的头文件； 
+
+　　 .i 为后缀的文件，是已经预处理过的C源代码文件； 
+　　 .ii为后缀的文件，是已经预处理过的C++源代码文件； 
+　　 .m为后缀的文件，是Objective-C源代码文件； 
+　　 .o为后缀的文件，是编译后的目标文件； 
+　　 .s为后缀的文件，是汇编语言源代码文件； 
+　　 .S为后缀的文件，是经过预编译的汇编语言源代码文件。
+3、系统头文件：glibc_header 
+ 
+　　 缺少了系统头文件的话，很多用到系统功能的C程序将无法编译。 
+ 
+　　 假如用户在安装过程中少装了这些包，就会无法编译C源程序。
+虽然从 tar包 来安装Linux的 C开发环境 对于初学者来说比较难，
+但是我们还是可以通过rpm包来迅速安装Linux的C开发环境的。
+下面以Red Hat 7.3为例，介绍如何安装Linux的C开发环境，
+如果是更高版本的Red Hat也可以参考，只是要注意软件版本的不同。 
+ 
+　　 由于gcc包需要依赖binutils和cpp包，另外make包也是在编译中常用的，所以一共需要8个包来完成安装，它们是： 
+ 
+　　 cpp-2.96-110.i386.rpm 
+　　 binutils-2.11.93.0.2-11.i386.rpm 
+　　 glibc-2.2.5-34.i386.rpm 
+　　 glibc-kernheaders-2.4-7.14.i386.rpm 
+　　 glibc-common-2.2.5-34 
+　　 glibc-devel-2.2.5-34.i386.rpm 
+　　 gcc-2.96-110.i386.rpm 
+　　 make-3.79.1-8.i386.rpm 
+
+ [root@V1 devopsday05]# rpm   -qa |grep  cpp
+abrt-addon-ccpp-2.1.11-48.el7.x86_64
+cpp-4.8.5-16.el7.x86_64
+[root@V1 devopsday05]# rpm   -qa |grep  binutils
+binutils-2.25.1-31.base.el7.x86_64
+[root@V1 devopsday05]# rpm   -qa |grep  glibc
+glibc-headers-2.17-196.el7.x86_64
+glibc-common-2.17-196.el7.x86_64
+glibc-devel-2.17-196.el7.x86_64
+glibc-2.17-196.el7.x86_64
+
+[root@V1 devopsday05]# rpm   -qa |grep  gcc
+gcc-4.8.5-16.el7.x86_64
+libgcc-4.8.5-16.el7.x86_64
+gcc-c++-4.8.5-16.el7.x86_64
+[root@V1 devopsday05]# rpm   -qa |grep  make
+make-3.82-23.el7.x86_64
+
+[root@V1 devopsday05]# rpm   -qa |grep  glibc-kernheaders
+[root@V1 devopsday05]# uname   -a
+Linux V1 3.10.0-693.el7.x86_64 #1 SMP Thu Jul 6 19:56:57 EDT 2017 x86_64 x86_64 x86_64 GNU/Linux
+
+[root@V1 devopsday05]# uname   -r
+3.10.0-693.el7.x86_64
+
+[root@V1 devopsday05]# cat  /etc/redhat-release 
+Red Hat Enterprise Linux Server release 7.4 (Maipo)
+
+[root@V1 devopsday05]# ll  /etc/redhat-release
+-rw-r--r--. 1 root root 52 6月  29 2017 /etc/redhat-release
+[root@V1 devopsday05]# file   /etc/redhat-release
+/etc/redhat-release: ASCII text
+
+[root@room9pc01 ~]# cat   /etc/redhat-release 
+CentOS Linux release 7.4.1708 (Core) 
+[root@room9pc01 ~]# ll   /etc/redhat-release
+lrwxrwxrwx. 1 root root 14 3月  19 2018 /etc/redhat-release -> centos-release
+
+[root@room9pc01 ~]# cat    /etc/centos-release
+CentOS Linux release 7.4.1708 (Core) 
+
+[root@room9pc01 ~]# ll   /etc/centos-release
+-rw-r--r--. 1 root root 38 8月  30 2017 /etc/centos-release
+
+系统上已有GCC的安装源码形式的GCC，
+系统上本来就没有gcc，所以不能安装源码形式的gcc
+解决方法
+安装二进制形式的GCC（.rpm）
+下面介绍安装二进制形式的gcc
+
+[root@V1 devopsday05]# rpm    -qa  |grep  gcc
+gcc-4.8.5-16.el7.x86_64
+libgcc-4.8.5-16.el7.x86_64
+gcc-c++-4.8.5-16.el7.x86_64
+
+[root@V1 devopsday05]# rpm    -qa  |grep  glibc
+glibc-headers-2.17-196.el7.x86_64
+glibc-common-2.17-196.el7.x86_64
+glibc-devel-2.17-196.el7.x86_64
+glibc-2.17-196.el7.x86_64
+
+[root@V1 devopsday05]# yum   makecache 
+.................
+base                                                     | 3.6 kB     00:00     
+centosplus                                               | 3.4 kB     00:00     
+extras                                                   | 3.4 kB     00:00     
+rhel7                                                    | 4.1 kB     00:00     
+updates                                                  | 3.4 kB     00:00     
+zabbix                                                   | 2.9 kB     00:00     
+zabbix-non-supported                                     |  951 B     00:00     
+元数据缓存已建立
+[root@V1 devopsday05]# rpm   -qa  |grep   glibc-kernheaders
+
+[root@V1 devopsday05]# yum   -y   install   glibc-kernheaders
+..................
+正在解决依赖关系
+--> 正在检查事务
+---> 软件包 kernel-headers.x86_64.0.3.10.0-693.el7 将被 升级
+---> 软件包 kernel-headers.x86_64.0.3.10.0-957.12.1.el7 将被 更新
+--> 解决依赖关系完成
+
+依赖关系解决
+
+================================================================================
+ Package             架构        版本                        源            大小
+================================================================================
+正在更新:
+ kernel-headers      x86_64      3.10.0-957.12.1.el7         updates      8.0 M
+
+事务概要
+================================================================================
+升级  1 软件包
+
+总下载量：8.0 M
+Downloading packages:
+kernel-headers-3.10.0-957.12.1.el7.x86_64.rpm              | 8.0 MB   00:02     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  正在更新    : kernel-headers-3.10.0-957.12.1.el7.x86_64                   1/2 
+  清理        : kernel-headers-3.10.0-693.el7.x86_64                        2/2 
+  验证中      : kernel-headers-3.10.0-957.12.1.el7.x86_64                   1/2 
+  验证中      : kernel-headers-3.10.0-693.el7.x86_64                        2/2 
+
+更新完毕:
+  kernel-headers.x86_64 0:3.10.0-957.12.1.el7                                   
+
+完毕！
+[root@V1 devopsday05]# rpm   -qa  |grep   glibc-kernheaders
+
+[root@V1 devopsday05]# rpm   -qa  |grep   kernel-headers
+kernel-headers-3.10.0-957.12.1.el7.x86_64
+
+
+[root@V3 devops05]# rpm   -qa  |grep   kernel-headers
+kernel-headers-3.10.0-957.12.1.el7.x86_64
+
+[root@room9pc01 ~]# rpm   -qa  |grep   kernel-headers
+kernel-headers-3.10.0-693.el7.x86_64
+
+
+[root@room9pc01 ~]# rpm   -qa  |grep   kernel-headers
+kernel-headers-3.10.0-693.el7.x86_64
+
+[root@room9pc01 ~]# rpm   -qa  |grep   gcc
+gcc-c++-4.8.5-16.el7.x86_64
+libgcc-4.8.5-16.el7.x86_64
+gcc-4.8.5-16.el7.x86_64
+
+[root@room9pc01 ~]# rpm   -qa  |grep   glibc
+glibc-common-2.17-196.el7.x86_64
+glibc-devel-2.17-196.el7.x86_64
+glibc-headers-2.17-196.el7.x86_64
+glibc-2.17-196.el7.x86_64
+
+[root@room9pc01 ~]# rpm   -qa  |grep   libgomp
+libgomp-4.8.5-16.el7.x86_64
+
+[root@room9pc01 ~]# gcc   -v
+使用内建 specs。
+COLLECT_GCC=gcc
+COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/4.8.5/lto-wrapper
+目标：x86_64-redhat-linux
+配置为：../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++,objc,obj-c++,java,fortran,ada,go,lto --enable-plugin --enable-initfini-array --disable-libgcj --with-isl=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/isl-install --with-cloog=/builddir/build/BUILD/gcc-4.8.5-20150702/obj-x86_64-redhat-linux/cloog-install --enable-gnu-indirect-function --with-tune=generic --with-arch_32=x86-64 --build=x86_64-redhat-linux
+线程模型：posix
+gcc 版本 4.8.5 20150623 (Red Hat 4.8.5-16) (GCC) 
+
+[root@room9pc01 ~]# rpm    -q    gcc
+gcc-4.8.5-16.el7.x86_64
+
+[root@room9pc01 ~]# type  gcc
+gcc         gcc-ar      gcc-nm      gcc-ranlib  
+[root@room9pc01 ~]# 
+
+
+
+如果连在internet上的话，可以直接从internet上安装，命令依次如下： 
+ 
+
+最基本的C开发环境，在这个C开发环境中，可以编译多数的C写的应用程序。
+而对于一个C程序来说，安装完成后通常可以分成三个组成： 
+ 
+　　 1.可执行文件 
+　　 2.包含文件 
+　　 3.库文件 
+ 
+　　 可执行文件就是最终运行的命令，
+包含文件是该C程序include的一些定义文件，
+库文件则是该C程序自定义的库。
+
+比如对于用RPM安装的MySQL：
+可执行文件放在/usr/bin下，
+包含文件放在/usr/include/mysql下，
+库文件在/usr/lib/mysql下。
+只有系统可以找到程序对应的包含文件和库文件，程序可执行文件才能正常运行。 
+
+http://gcc.gnu.org/
+
+
+GCC，GNU编译器集合
+
+
+GNU Compiler Collection包括C， C ++，Objective-C，Fortran，Ada，Go
+和D的前端 ，以及这些语言的库（libstdc ++，...）。
+GCC最初是作为GNU操作系统的编译器编写的。
+GNU系统被开发为100％免费软件，在尊重用户自由的意义上是免费的。
+
+[root@V1 devopsday05]# rpm   -qa  |grep   gcc
+gcc-4.8.5-16.el7.x86_64
+libgcc-4.8.5-16.el7.x86_64
+gcc-c++-4.8.5-16.el7.x86_64
+
+[root@V1 devopsday05]# rpm  -q  gcc
+gcc-4.8.5-16.el7.x86_64
+
+[root@V1 devopsday05]# gcc  -v 
+使用内建 specs。
+COLLECT_GCC=gcc
+COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/4.8.5/lto-wrapper
+目标：x86_64-redhat-linux
+配置为：../configure ...................
+线程模型：posix
+gcc 版本 4.8.5 20150623 (Red Hat 4.8.5-16) (GCC) 
+
+[root@V1 devopsday05]#
+
+
+
+[root@V3 devops05]# rpm   -qa  |grep   kernel-headers
+kernel-headers-3.10.0-957.12.1.el7.x86_64
+
+[root@V3 devops05]# rpm  -q  gcc
+gcc-4.8.5-36.el7_6.2.x86_64
+
+[root@V3 devops05]# gcc  -v
+...................
+线程模型：posix
+gcc 版本 4.8.5 20150623 (Red Hat 4.8.5-36) (GCC) 
+[root@V3 devops05]# 
+
+链接
+gcc、g 、gcj的设置。要想使用GCC的gcc等命令，
+简单的方法就是用符号链接的方式把它链接到/user/bin 目录下：
+[root@localhost gcc-build]# cd  /usr/bin
+[root@localhost bin]# ln -s /opt/gcc-4.5.1/bin/gcc gcc
+[root@localhost bin]# ln -s /opt/gcc-4.5.1/bin/g g
+[root@localhost bin]# ln -s /opt/gcc-4.5.1/bin/gcj gcj
+这样，就可以分别使用gcc、g、gcj命令来分别快速编C、C++ 、JAVA的程序了。
+
+
+rpm   --nodeps就是安装时不检查依赖关系，比如你这个rpm需要A，但是你没装A，这样你的包就装不上，
+用了--nodeps你就能装上了。--force就是强制安装，比如你装过这个rpm的版本1，如果你想装这个rpm的版本2，就需要用--force强制安装
+
+-a：查询所有套件；
+-b<完成阶段><套件档>+或-t <完成阶段><套件档>+：设置包装套件的完成阶段，并指定套件档的文件名称；
+-c：只列出组态配置文件，本参数需配合"-l"参数使用；
+-d：只列出文本文件，本参数需配合"-l"参数使用；
+-e<套件档>或--erase<套件档>：删除指定的套件；
+-f<文件>+：查询拥有指定文件的套件；
+-h或--hash：套件安装时列出标记；
+-i：显示套件的相关信息；
+-i<套件档>或--install<套件档>：安装指定的套件档；
+-l：显示套件的文件列表；
+-p<套件档>+：查询指定的RPM套件档；
+-q：使用询问模式，当遇到任何问题时，rpm指令会先询问用户；
+-R：显示套件的关联性信息；
+-s：显示文件状态，本参数需配合"-l"参数使用；
+-U<套件档>或--upgrade<套件档>：升级指定的套件档；
+-v：显示指令执行过程；
+-vv：详细显示指令执行过程，便于排错。
+
+linux 系统安装 升级glibc库2.14
+
+下载glibc2.14 rpm 安装包：
+
+ rpm -Uvh glibc-2.14.1-6.x86_64.rpm --nodeps
+ rpm -Uvh glibc-common-2.14.1-6.x86_64.rpm  --nodeps
+ rpm -Uvh glibc-devel-2.14.1-6.x86_64.rpm --nodeps
+ rpm -Uvh glibc-headers-2.14.1-6.x86_64.rpm
+ rpm -Uvh glibc-static-2.14.1-6.x86_64.rpm
+ rpm -Uvh glibc-utils-2.14.1-6.x86_64.rpm
+ rpm -Uvh glibc-utils-2.14.1-6.x86_64.rpm --nodeps
+ rpm -Uvh nscd-2.14.1-6.x86_64.rpm --nodeps
+
+[root@V1 devopsday05]# rpm   -qa  |grep   glibc
+glibc-headers-2.17-196.el7.x86_64
+glibc-common-2.17-196.el7.x86_64
+glibc-devel-2.17-196.el7.x86_64
+glibc-2.17-196.el7.x86_64
+[root@V1 devopsday05]# 
+
+
+
+首先到http://vault.centos.org/6.5/os/x86_64/Packages/下载用到的rpm包，
+亲测包都有，包括：
+cloog-ppl-0.15.7-1.2.el6.x86_64.rpm
+cpp-4.4.7-4.el6.x86_64.rpm
+gcc-4.4.7-4.el6.x86_64.rpm
+gcc-c++-4.4.7-4.el6.x86_64.rpm
+glibc-devel-2.12-1.132.el6.x86_64.rpm
+glibc-headers-2.12-1.132.el6.x86_64.rpm
+kernel-headers-2.6.32-431.el6.x86_64.rpm
+libstdc++-devel-4.4.7-4.el6.x86_64.rpm
+mpfr-2.4.1-6.el6.x86_64.rpm
+ppl-0.10.2-11.el6.x86_64.rpm
+
+http://vault.centos.org/7.4.1708/storage/x86_64/ceph-hammer/
+
+http://vault.centos.org/7.4.1708/os/x86_64/RPM-GPG-KEY-CentOS-7
+http://vault.centos.org/7.4.1708/os/x86_64/Packages/
+
+http://vault.centos.org/7.4.1708/os/x86_64/Packages/cpp-4.8.5-16.el7.x86_64.rpm
+
+
+http://vault.centos.org/7.4.1708/os/x86_64/Packages/createrepo-0.9.9-28.el7.noarch.rpm
+
+http://vault.centos.org/7.4.1708/os/x86_64/Packages/yum-NetworkManager-dispatcher-1.1.31-42.el7.noarch.rpm
+
+[root@room9pc01 ~]# rpm   -qa  |grep  NetworkManager
+NetworkManager-1.8.0-9.el7.x86_64
+NetworkManager-glib-1.8.0-9.el7.x86_64
+NetworkManager-team-1.8.0-9.el7.x86_64
+NetworkManager-libreswan-1.2.4-2.el7.x86_64
+NetworkManager-libreswan-gnome-1.2.4-2.el7.x86_64
+NetworkManager-libnm-1.8.0-9.el7.x86_64
+NetworkManager-tui-1.8.0-9.el7.x86_64
+NetworkManager-wifi-1.8.0-9.el7.x86_64
+[root@room9pc01 ~]# 
+
+http://vault.centos.org/7.4.1708/os/x86_64/Packages/yum-updateonboot-1.1.31-42.el7.noarch.rpm
+
+===================================
+
+更新完毕:
+  kernel-headers.x86_64 0:3.10.0-957.12.1.el7                                   
+
+完毕！
+[root@V1 devopsday05]# rpm   -qa  |grep   glibc-kernheaders
+
+[root@V1 devopsday05]# rpm   -qa  |grep   kernel-headers
+kernel-headers-3.10.0-957.12.1.el7.x86_64
+
+
+内核的头文件有两个用途：
+1.定义内核组件之间的接口
+2.定义内核和用户空间之间的接口
+
+内部模块
+
+模块之间的内部接口在 linux/include 或者 linux/arch/*/include 处定义。
+
+
+用户空间程序
+
+一般而言，用户空间程序使用发行版提供的头文件来构建，
+典型的是由一个叫做glibc-devel，glibc-kernheaders
+或者linux-libc-dev的软件包提供。
+
+这些头文件经常是一个老版本内核的头文件，
+如果这些头文件被替换了，
+而不重新构建你的glibc，那将会是不安全的。
+
+
+给一个发行版设置正确内核头文件的方式是
+在你的内核代码树中
+运行 make headers_install命令，
+这会把头文件放置于/usr/include中，
+并且重新构建C库，
+以解决对指定版本内核头文件的依赖问题。
+
+
+虽然内核开发者强烈推荐使用
+发行版提供的"经过净化的"内核头文件，
+但是 Glibc 的开发者却不买账，
+他们推荐使用"未净化"的"原始"内核头文件来编译 Glibc 
+
+内核开发组认为应当由发行版的制作者提供，
+而 Glibc 开发组认为应当由内核开发组提供。
+两个开发组在应当由谁提供内核头文件的问题上意见也不一致
+
+   危机时刻总会有英雄的出现，就在一片恐慌之际，
+一个叫"linux-libc-headers"项目组诞生了！
+他们向我们这些"凡人"们提供了安全的、普遍适用的、"经过净化的"内核头文件
+
+从 2.6.18 版本开始，内核开发组担负起了维护一份
+统一的、"经过净化的"内核头文件的职责。
+现在获取"经过净化的"内核头文件又变得简单起来，
+只要在内核源码树中使用
+ make headers_install 即可，
+而且不用再担心更新问题。
+
+内核头文件的作用主要有两个：
+1）定义内核组件间的接口
+2）定义内核与用户空间的接口
+       内部模块：
+模块间的内部接口在linux/include/ 或 linux/arch/*/include/ 下都有定义。
+一个单独模块的源文件间的接口应该同模块源码置于同一目录下，
+避免污染全局头文件空间。
+
+       外部模块：
+传统的内核源码安装在/usr/src/linux下，
+这不再支持外部模块的编译。
+相反，你的Makefile应该指向
+/lib/modules/${kver}/build，
+其中${kver}是内核确切的版本字符串，
+例如：对于当前正在运行的内核，就是“uname -r”的输出。
+
+        用户空间程序：
+一般来说，用户空间程序是针对发行版提供的头文件编译的，
+通常源于glibc-devel、glibc-kernheaders 
+或 linux-libc-dev。
+这些头文件通常来源于旧版内核，
+并不能安全地在不重新编译glibc的情况下被替换。
+特别地，作为一个到
+/usr/src/linux/include或/lib/modules/*/build/include/linux的符号链接
+/usr/include/linux，
+是极不推荐使用的。
+
+因为它经常使重新编译的应用程序损坏。
+例如，
+旧内核使用include/asm-${arch}存放架构特定的头文件，
+而不是现在的arch/${arch}/include/asm ，
+且没有符号链接到架构特定的目录。
+
+https://gcc.gnu.org/gcc-7/
+2018年12月6日
+
+在GNU项目和GCC开发者很高兴地宣布GCC 7.4的版本。
+
+此版本是一个错误修复版本，包含与GCC之前版本相关的GCC 7.3中的回归修复。
+
+发布历史
+
+GCC 7.4
+2018年12月6日（变更， 文件）
+GCC 7.3
+2018年1月25日（更改， 文档）
+GCC 7.2
+2017年8月14日（变更， 文件）
+GCC 7.1
+2017年5月2日（更改， 文档）
+有关GCC的其他信息，请参阅 GCC项目网站或联系 GCC开发邮件列表。
+
+要获得GCC，请使用我们的镜像站点 或我们的SVN服务器。
+
+https://gcc.gnu.org/mirrors.html
+
+Our releases are available on the GNU FTP server and its mirrors.
+ The following sites mirror the gcc.gnu.org FTP site (Phoenix, Arizona, USA) directly:
+我们的版本可以在 GNU FTP服务器及其镜像上找到。
+以下站点直接反映了gcc.gnu.org FTP站点（凤凰城，亚利桑那州，美国）：
+
+http://mirrors.nju.edu.cn/gnu/gcc/gcc-4.8.5/gcc-4.8.5.tar.gz
+http://mirrors.nju.edu.cn/gnu/gcc/gcc-7.4.0/
+http://mirrors.nju.edu.cn/gnu/gcc/gcc-7.4.0/gcc-7.4.0.tar.gz
+http://mirrors.nju.edu.cn/gnu/gcc/gcc-7.4.0/gcc-7.4.0.tar.xz
+
+
+
+
+
+
+
+
+
+
