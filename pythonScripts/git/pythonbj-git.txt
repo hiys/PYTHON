@@ -1,0 +1,1293 @@
+
+
+[root@room9pc01 ~]# which python3
+/usr/local/bin/python3
+
+[root@room9pc01 ~]# ls  /var/git/python/PyScript/
+hello.py  venv
+[root@room9pc01 ~]# cd  /var/git/python/PyScript/
+[root@room9pc01 PyScript]# ls  venv/
+bin  include  lib  pip-selfcheck.json
+[root@room9pc01 PyScript]# ls  venv/bin/
+activate       activate_this.py  pip     python     python-config
+activate.csh   easy_install      pip3    python3    wheel
+activate.fish  easy_install-3.6  pip3.6  python3.6
+
+[root@room9pc01 PyScript]# cat /etc/resolv.conf 
+nameserver  176.121.0.100
+
+[root@room9pc01 PyScript]# cd
+
+[root@room9pc01 ~]# ls  /etc/yum.repos.d/
+NSD-2018-1-12.tar.gz  packagekit-media.repo  repo  rhel7.repo
+
+[root@room9pc01 ~]# cat  /etc/yum.repos.d/rhel7.repo 
+[rhel7]
+name=rhel7.4
+baseurl=ftp://127.0.0.1/rhel7
+enabled=1
+gpgcheck=0
+[root@room9pc01 ~]# ls  /var/ftp/rhel7/
+addons            GPL       media.repo               RPM-GPG-KEY-redhat-release
+EFI               images    Packages                 TRANS.TBL
+EULA              isolinux  repodata
+extra_files.json  LiveOS    RPM-GPG-KEY-redhat-beta
+
+[root@room9pc01 ~]# tail  -1  /etc/fstab 
+/var/lib/libvirt/images/iso/rhel-server-7.4-x86_64-dvd.iso  /var/ftp/rhel7 iso9660 defaults 0 0
+[root@room9pc01 ~]# du  -sh   /var/lib/libvirt/images/iso/rhel-server-7.4-x86_64-dvd.iso 
+3.8G	/var/lib/libvirt/images/iso/rhel-server-7.4-x86_64-dvd.iso
+
+[root@room9pc01 ~]# systemctl is-enabled  vsftpd
+enabled
+[root@room9pc01 ~]# rpm  -qa |grep vsftpd
+vsftpd-3.0.2-22.el7.x86_64
+
+[root@room9pc01 ~]# ll  /etc/vsftpd/vsftpd.conf 
+lrwxrwxrwx 1 root root 35 3月  19 2018 /etc/vsftpd/vsftpd.conf -> /var/lib/libvirt/images/vsftpd.conf
+
+[root@room9pc01 ~]# grep -Env "^#|^$"  /etc/vsftpd/vsftpd.conf
+12:anonymous_enable=YES    #匿名用户登录
+15:local_enable=YES
+18:write_enable=YES
+22:local_umask=022
+27:anon_upload_enable=YES
+31:anon_mkdir_write_enable=YES
+32:anon_other_write_enable=YES
+33:anon_umask=022
+37:dirmessage_enable=YES
+41:xferlog_enable=YES
+44:connect_from_port_20=YES
+58:xferlog_std_format=YES
+112:listen=YES
+119:pam_service_name=vsftpd
+120:userlist_enable=YES
+121:tcp_wrappers=YES
+[root@room9pc01 ~]# getenforce 
+Disabled
+[root@room9pc01 ~]# firewall-cmd  --state
+not running
+
+[root@room9pc01 ~]# service  iptables  status
+Redirecting to /bin/systemctl status iptables.service
+Unit iptables.service could not be found.
+
+[root@room9pc01 ~]# service  network  status
+已配置设备：
+lo enp1s0
+当前活跃设备：
+lo enp1s0 vbr1 public2 rhce public1 public1-nic vbr private2 private1 vnet0 vnet1 vnet2 vnet3 vnet4 vnet5
+
+[root@room9pc01 ~]# yum clean  all  >/dev/null && yum repolist |tail -3
+源标识                               源名称                                状态
+rhel7                                rhel7.4                               4,986
+repolist: 4,986
+
+
+Git 官方中文手册 https://git-scm.com/book/zh/v2
+https://github.com/git/git
+
+下载适用于Linux和Unix
+使用Linux发行版的首选软件包管理器在Linux上安装Git是最简单的。如果您更喜欢从源代码构建，可以在kernel.org上找到tarball 。
+
+于Debian / Ubuntu
+有关Debian / Ubuntu发行版的最新稳定版本
+
+# apt-get install git
+对于Ubuntu，这个PPA提供了最新的稳定上游Git版本
+
+# add-apt-repository ppa:git-core/ppa # apt update; apt install git
+Fedora的
+# yum install git（由Fedora 21决定）
+# dnf install git（Fedora 22及更高版本）
+Gentoo的
+# emerge --ask --verbose dev-vcs/git
+Arch Linux
+# pacman -S git
+openSUSE的
+# zypper install git
+Mageia
+# urpmi git
+尼克斯/ NixOS
+# nix-env -i git
+FreeBSD的
+# pkg install git
+Solaris 9/10/11（OpenCSW）
+# pkgutil -i git
+Solaris 11 Express
+# pkg install developer/versioning/git
+OpenBSD系统
+# pkg_add git
+高山
+$ apk add git
+红帽企业Linux，Oracle Linux，CentOS，Scientific Linux等。
+RHEL和衍生产品通常都会发布旧版本的git。您可以从源代码下载tarball并构建，或使用第三方存储库（如IUS社区项目）来获取更新版本的git。
+
+Slitaz里
+$ tazpkg get-install git
+
+https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git
+
+
+[root@room9pc01 git]# yum list |egrep  "expat-devel|gettext-devel|curl-devel|perl-ExtUtils-CBuilder"
+expat-devel.i686                       2.1.0-10.el7_3                  rhel7    
+expat-devel.x86_64                     2.1.0-10.el7_3                  rhel7    
+gettext-devel.i686                     0.19.8.1-2.el7                  rhel7    
+gettext-devel.x86_64                   0.19.8.1-2.el7                  rhel7    
+libcurl-devel.i686                     7.29.0-42.el7                   rhel7    
+libcurl-devel.x86_64                   7.29.0-42.el7                   rhel7    
+perl-ExtUtils-CBuilder.noarch          1:0.28.2.6-292.el7              rhel7    
+[root@room9pc01 git]# 
+
+安装git依赖
+
+# yum -y install    zlib-devel    openssl-devel     cpio     expat-devel
+      gettext-devel  curl-devel   perl-ExtUtils-CBuilder 
+     perl-ExtUtils-MakeMaker
+
+[root@room9pc01 ~]# yum  -y install  git
+...........
+软件包 git-1.8.3.1-11.el7.x86_64 已安装并且是最新版本
+无须任何处理
+[root@room9pc01 ~]# rpm  -q   git
+git-1.8.3.1-11.el7.x86_64
+
+[root@room9pc01 ~]# git  --version   #查看版本
+git version 1.8.3.1
+
+[root@room9pc01 ~]# mkdir   /git
+[root@room9pc01 ~]# cd /git/
+[root@room9pc01 git]# pwd
+/git
+
+Git相关的配置文件有三个
+
+1. /etc/gitconfig：包含了适用于系统所有用户和所有项目的值----> # git config --system 
+
+2.~/.gitconfig：只适用于当前登录用户的配置----> # git config  --global 
+
+3. 位于git项目目录中的.git/config：适用于特定git项目的配置 ----> # git config  --local
+
+对于同一配置项，三个配置文件的优先级是1<2<3
+
+----------------------------------  当前用户（global）配置  ----------------------
+
+[root@room9pc01 git]# git  config  --global  user.name  "hiys"  #设置用户信息
+[root@room9pc01 git]# echo $?
+0
+[root@room9pc01 git]# git  config  --global  user.email  "3424969110@qq.com"
+[root@room9pc01 git]# echo $?
+0
+---------------------------  设置默认编译器为vim -------------
+
+[root@room9pc01 git]# git  config  --global  core.editor   vim
+[root@room9pc01 git]# echo $?
+0
+
+----------------------------  查看系统config  ---------------
+
+[root@room9pc01 git]# git  config  --system   --list
+fatal: unable to read config file '/etc/gitconfig': ?????????
+
+[root@room9pc01 git]# ls   /etc/gitconfig
+ls: 无法访问/etc/gitconfig: 没有那个文件或目录
+
+-----------------  查看当前用户（global）配置  ----------
+
+[root@room9pc01 git]# git  config  --global  --list
+user.name=hiys
+user.email=3424969110@qq.com
+core.editor=vim
+
+----------------------  查看当前仓库配置信息 ----------------
+
+[root@room9pc01 git]# git  config  --local  --list
+fatal: unable to read config file '.git/config': ?????????
+[root@room9pc01 git]# ls  -a
+.  ..
+[root@room9pc01 git]# 
+
+
+[root@room9pc01 git]# git  config  --list  #查看配置
+user.name=hiys
+user.email=3424969110@qq.com
+core.editor=vim
+
+[root@room9pc01 git]# ll   /root/.gitconfig 
+-rw-r--r-- 1 root root 68 3月  20 09:55 /root/.gitconfig
+[root@room9pc01 git]# cat   /root/.gitconfig
+[user]
+	name = hiys
+	email = 3424969110@qq.com
+[core]
+	editor = vim
+
+
+一. 配置文件的存储位置
+
+Git相关的配置文件有三个
+
+1. /etc/gitconfig：包含了适用于系统所有用户和所有项目的值----> # git config --system 
+
+2.~/.gitconfig：只适用于当前登录用户的配置----> # git config  --global 
+
+3. 位于git项目目录中的.git/config：适用于特定git项目的配置 ----> # git config  --local
+
+对于同一配置项，三个配置文件的优先级是1<2<3
+
+1. 列出当前配置项
+
+git config [--system | --global| --local] -l
+使用system, golbal, local时，分别列出对应一部分中的1，2，3三个文件之一的配置项。
+如果不加上述三个选项，则会按一部分中所说的优先级合并所有配置项并输出
+
+
+
+===================  git本地操作  ===============
+
+[root@room9pc01 git]# free  -m
+              total        used        free      shared  buff/cache   available
+Mem:          15781        3906        9701         376        2173       11169
+Swap:             0           0           0
+
+[root@room9pc01 git]# ls  -a
+.  ..
+[root@room9pc01 git]# git  init   #创建目录初始化
+初始化空的 Git 版本库于 /git/.git/
+
+[root@room9pc01 git]# ls  -a  #Git版本库/git/.git/
+.  ..  .git
+
+----------------------  查看当前仓库配置信息 ----------------
+
+[root@room9pc01 git]# git  config  --local  --list
+core.repositoryformatversion=0
+core.filemode=true
+core.bare=false
+core.logallrefupdates=true
+
+[root@room9pc01 git]# ls ./.git/
+branches  config  description  HEAD  hooks  info  objects  refs
+
+[root@room9pc01 git]# pwd
+/git
+[root@room9pc01 git]# ls  /git/.git/
+branches  config  description  HEAD  hooks  info  objects  refs
+
+一. 配置文件的存储位置
+
+Git相关的配置文件有三个
+
+1. /etc/gitconfig：包含了适用于系统所有用户和所有项目的值----> # git config --system 
+
+2.~/.gitconfig：只适用于当前登录用户的配置----> # git config  --global 
+
+3. 位于git项目目录中的.git/config：适用于特定git项目的配置 ----> # git config  --local
+
+对于同一配置项，三个配置文件的优先级是1<2<3
+
+[root@room9pc01 git]# cat   ./.git/config 
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+
+-------------------------------  1)添加指定文件 pythonbj-git.txt 到暂存区 -----------------
+
+[root@room9pc01 git]# cp   '/var/git/python/pythonbj-git.txt'  ./
+[root@room9pc01 git]# ls
+pythonbj-git.txt
+
+-----------------------------  1)添加指定文件 pythonbj-git.txt 到暂存区 -----------------
+
+[root@room9pc01 git]# git  add   pythonbj-git.txt
+
+[root@room9pc01 git]# git  status  # 查看 暂存区 状态
+# 位于分支 master
+#
+# 初始提交
+#
+# 要提交的变更：
+#   （使用 "git rm --cached <file>..." 撤出暂存区）
+#
+#	新文件：    pythonbj-git.txt     # 证明提交成功
+#
+[root@room9pc01 git]#  cp  /var/git/python/pythonbj*  .
+cp：是否覆盖"./pythonbj-git.txt"？ y
+
+[root@room9pc01 git]# ls
+pythonbj-1.txt  pythonbj2.txt  pythonbj-git.txt  pythonbj.txt
+
+------------------------------  添加 当前目录下的所有文件 到暂存区 ------------
+
+[root@room9pc01 git]# git  add   ./
+
+[root@room9pc01 git]# git  status   # 查看 暂存区 状态
+# 位于分支 master
+#
+# 初始提交
+#
+# 要提交的变更：
+#   （使用 "git rm --cached <file>..." 撤出暂存区）
+#
+#	新文件：    pythonbj-1.txt
+#	新文件：    pythonbj-git.txt
+#	新文件：    pythonbj.txt
+#	新文件：    pythonbj2.txt
+#
+[root@room9pc01 git]# git  status   -s
+A  pythonbj-1.txt      #大写字母 A 表示新增加的文件
+A  pythonbj-git.txt
+A  pythonbj.txt
+A  pythonbj2.txt
+
+-----------------------    #把暂存区所有内容提交到分支仓库 ---------------------
+[root@room9pc01 git]# git  commit   -m   "说明文字,添加文件"
+[master（根提交） cb458a4] 说明文字,添加文件
+ 4 files changed, 3331 insertions(+)
+ create mode 100755 pythonbj-1.txt
+ create mode 100755 pythonbj-git.txt
+ create mode 100755 pythonbj.txt
+ create mode 100755 pythonbj2.txt
+
+[root@room9pc01 git]# ll
+总用量 124
+-rwxr-xr-x 1 root root 53657 3月  20 11:17 pythonbj-1.txt
+-rwxr-xr-x 1 root root 14134 3月  20 11:17 pythonbj2.txt
+-rwxr-xr-x 1 root root 10189 3月  20 11:17 pythonbj-git.txt
+-rwxr-xr-x 1 root root 39361 3月  20 11:17 pythonbj.txt
+
+------------------  #实际文件产生新的编辑, 分支中对应的文件是旧的文件 -----------
+
+[root@room9pc01 git]# ll /var/git/python/pythonbj-git.txt 
+-rwxrwxrwx 1 root root 11657 3月  20 11:29 /var/git/python/pythonbj-git.txt
+
+[root@room9pc01 git]# git   status 
+# 位于分支 master
+无文件要提交，干净的工作区
+[root@room9pc01 git]# pwd    #当前目录/git就是工作区
+/git
+
+[root@room9pc01 git]# file   .git/index  #暂存区:英文叫stage, 或index
+.git/index: Git index, version 2, 4 entries
+
+[root@room9pc01 git]# file   /git/.git/index #暂存区有时也叫作索引
+/git/.git/index: Git index, version 2, 4 entries
+
+----  工作区/git 有一个隐藏目录/git/.git/ ,这个不算工作区,而是Git的版本库
+[root@room9pc01 git]# ls  -a  /git/.git/
+.   branches        config       HEAD   index  logs     refs
+..  COMMIT_EDITMSG  description  hooks  info   objects
+
+--------------------------- 覆盖 旧的文件 ---------------
+
+[root@room9pc01 git]# \cp  /var/git/python/pythonbj-git.txt   .
+
+[root@room9pc01 git]# ll  pythonbj-git.txt 
+-rwxr-xr-x 1 root root 12549 3月  20 11:48 pythonbj-git.txt
+
+[root@room9pc01 git]# git   status 
+# 位于分支 master
+# 尚未暂存以备提交的变更：
+#   （使用 "git add <file>..." 更新要提交的内容）
+#   （使用 "git checkout -- <file>..." 丢弃工作区的改动）
+#
+#	修改：      pythonbj-git.txt
+#
+修改尚未加入提交（使用 "git add" 和/或 "git commit -a"）
+------------------------------------
+
+[root@room9pc01 git]# git   status  -s
+
+ M pythonbj-git.txt       # 大写 M 表示 修改过的文件
+
+---- git commit -am 'string-xinxi'命令只能提交已经追踪过且修改了的文件
+
+[root@room9pc01 git]# git   commit   -am  "新修改的文件"
+[master bc1174c] 新修改的文件
+ 1 file changed, 60 insertions(+), 1 deletion(-)
+
+[root@room9pc01 git]# git   status 
+# 位于分支 master
+无文件要提交，干净的工作区
+
+------  git ls-files命令是用来查看暂存区中文件信息 -----------
+
+[root@room9pc01 git]# git  ls-files   # 查看(暂存区)文件
+pythonbj-1.txt
+pythonbj-git.txt
+pythonbj.txt
+pythonbj2.txt
+
+----  工作区/git 有一个隐藏目录/git/.git/ ,这个不算工作区,而是Git的版本库
+
+-----------  要从 Git 中移除某个文件,就必须要从已跟踪文件清单中移除,然后提交
+
+[root@room9pc01 git]# git  rm  pythonbj.txt #从已跟踪文件清单中移除某个文件
+rm 'pythonbj.txt'
+
+[root@room9pc01 git]# git   status   -s
+D  pythonbj.txt       #大写字母D 表示删除的文件
+
+[root@room9pc01 git]# git   status
+# 位于分支 master
+# 要提交的变更：
+#   （使用 "git reset HEAD <file>..." 撤出暂存区）
+#
+#	删除：      pythonbj.txt
+#
+------  git ls-files命令是用来查看暂存区中文件信息 -----------
+
+[root@room9pc01 git]# git  ls-files  
+pythonbj-1.txt
+pythonbj-git.txt
+pythonbj2.txt
+
+-------------------------------- #暂存区:英文叫stage, 或index -------------
+
+[root@room9pc01 git]# file   /git/.git/index #暂存区有时也叫作索引
+/git/.git/index: Git index, version 2, 3 entries
+
+[root@room9pc01 git]# git  reset  HEAD  pythonbj.txt #若还没有commit可以撤销操作reset
+重置后撤出暂存区的变更：
+D	pythonbj.txt
+
+[root@room9pc01 git]# git   status
+# 位于分支 master
+# 尚未暂存以备提交的变更：
+#   （使用 "git add/rm <file>..." 更新要提交的内容）
+#   （使用 "git checkout -- <file>..." 丢弃工作区的改动）
+#
+#	删除：      pythonbj.txt
+#
+修改尚未加入提交（使用 "git add" 和/或 "git commit -a"）
+
+
+---- #  git   status   -s, --short   以简洁的格式显示状态
+
+[root@room9pc01 git]# git   status  -s
+ D pythonbj.txt
+
+-----  工作区/git 有一个隐藏目录/git/.git/ ,这个不算工作区,而是Git的版本库
+
+------- 删错了，因为版本库里 pythonbj.txt 还存在, 所以可以把误删的文件恢复到最新版本 ----
+
+[root@room9pc01 git]# git  checkout  pythonbj.txt
+
+[root@room9pc01 git]# git  status 
+# 位于分支 master
+无文件要提交，干净的工作区
+
+[root@room9pc01 git]# file   /git/.git/index
+/git/.git/index: Git index, version 2, 4 entries
+
+------  git ls-files命令是用来查看暂存区中文件信息 -----------
+[root@room9pc01 git]# git  ls-files
+pythonbj-1.txt
+pythonbj-git.txt
+pythonbj.txt       #证明文件被恢复了
+pythonbj2.txt
+
+---------- git  checkout  -b <分支>   创建并检出一个新的分支
+---------- git  status    -b, --branch   显示分支信息
+
+[root@room9pc01 git]# git  status  -s  -b # -b 显示当前工作分支的名称
+## master
+
+======================
+=====================================
+
+
+[root@room9pc01 ~]# which python3
+/usr/local/bin/python3
+
+[root@room9pc01 ~]# ls  /var/git/python/PyScript/
+hello.py  venv
+[root@room9pc01 ~]# cd  /var/git/python/PyScript/
+
+[root@room9pc01 PyScript]# ls  venv/
+bin  include  lib  pip-selfcheck.json
+
+
+[root@room9pc01 PyScript]# ls  -a
+.  ..  hello.py  .idea  venv
+
+[root@room9pc01 PyScript]# git  init
+初始化空的 Git 版本库于 /var/git/python/PyScript/.git/
+
+
+-----  工作区/var/git/python/PyScript/有一个隐藏目录/var/git/python/PyScript/.git/ ,
+   这个目录/var/git/python/PyScript/.git/ 不算工作区, 而是Git的版本库
+
+[root@room9pc01 PyScript]# ls  -a   #注意Git的版本库 .git
+.  ..  .git  hello.py  .idea  venv
+
+---- git commit -am 'string-xinxi'命令只能提交已经追踪过且修改了的文件
+
+[root@room9pc01 PyScript]# git  commit  -am   "提交初始化"
+# 位于分支 master
+#
+# 初始提交
+#
+# 未跟踪的文件:
+#   （使用 "git add <file>..." 以包含要提交的内容）
+#
+#	.idea/   # Pycharm的缓存文件
+#	hello.py
+#	venv/
+提交为空，但是存在尚未跟踪的文件（使用 "git add" 建立跟踪）
+
+-------------------------------- #暂存区:英文叫stage, 或index -------------
+------ #注意还没有缓存区  /var/git/python/PyScript/.git/index文件 ------------
+------------  #暂存区有时也叫作索引 
+
+[root@room9pc01 PyScript]# ls  /var/git/python/PyScript/.git/ 
+
+branches  COMMIT_EDITMSG  config  description  HEAD  hooks  info  objects  refs
+
+
+[root@room9pc01 PyScript]# git  add   hello.py
+
+[root@room9pc01 PyScript]# git  status  -s  -b
+## 初始提交于 master
+A  hello.py
+?? .idea/
+?? venv/
+
+[root@room9pc01 PyScript]# git   commit  -m  "新加文件hello.py"
+[master（根提交） 3cdc39d] 新加文件hello.py
+ 1 file changed, 20 insertions(+)
+ create mode 100644 hello.py
+
+[root@room9pc01 PyScript]# ll  hello.py 
+-rw-r--r-- 1 root root 521 3月  19 20:39 hello.py
+
+------  git ls-files命令是用来查看暂存区中文件信息 -----------
+
+[root@room9pc01 PyScript]# git  ls-files  #查看暂存区中文件信息
+hello.py
+
+-------------------------------- #暂存区:英文叫stage, 或index -------------
+------ #注意生成了 缓存区  /var/git/python/PyScript/.git/index文件 ------------
+
+[root@room9pc01 PyScript]# ls  .git/
+branches        config       HEAD   index  logs     refs
+COMMIT_EDITMSG  description  hooks  info   objects
+
+-------------------------------- #暂存区:英文叫stage, 或index -------------
+--------------   #自动新产生的缓存区  /var/git/python/PyScript/.git/index文件
+
+[root@room9pc01 PyScript]# ll  .git/index  
+-rw-r--r-- 1 root root 104 3月  20 13:09 .git/index
+
+[root@room9pc01 PyScript]# file  .git/index   #暂存区有时也叫作索引 
+.git/index: Git index, version 2, 1 entries
+
+[root@room9pc01 PyScript]# 
+========================================
+
+一、新建代码库
+
+  # 在当前目录新建一个Git代码库
+
+  $ git init
+
+  # 新建一个目录，将其初始化为Git代码库
+
+  $ git init  [project-name]
+
+  # 下载一个项目和它的整个代码历史
+
+  $ git clone [url]
+
+下载代码
+命令：$ git clone <版本库的网址> <本地目录名>
+
+版本库的网址：若有用户名、密码，则：http//:用户名@版本库的网址
+
+本地目录名：若不填写此属性则用远程代码仓库名为目录名称；如果填写则用填写名称为本地目录名称。
+
+pull        英 [pʊl]   美 [ pʊl]  
+     vt.& vi.拉;扯;拉过来;划（船）
+     vt.赢得;吸引异性;取消;（耍手腕）得逞
+     n.拖;爬;影响力
+
+
+更新远程代码
+命令: git pull -u origin master:master。
+
+这里的master是我的分支的名称，在使用的时候要换成你自己分支的名称；
+也可直接 git pull 更新默认分支
+
+
+
+[root@room9pc01 PYTHON]# pwd
+/var/git/PYTHON
+[root@room9pc01 PYTHON]# ls .git/  -a
+.   branches  description  hooks  info  objects      refs
+..  config    HEAD         index  logs  packed-refs
+
+[root@room9pc01 PYTHON]# git  status   #查看本地代码状态
+# 位于分支 master
+无文件要提交，干净的工作区
+
+[root@room9pc01 PYTHON]# git  branch     ## 列出所有本地分支
+* master
+[root@room9pc01 PYTHON]# git  branch  -r     # 列出所有远程分支
+  origin/HEAD -> origin/master
+  origin/master
+
+
+[root@room9pc01 PYTHON]# git  show   #  # 查看tag信息
+
+commit 02c4c3903e58a1a15d2bd3308f785185a2d8797a
+Author: hiys <43769085+hiys@users.noreply.github.com>
+Date:   Mon Apr 1 08:45:04 2019 -0500
+
+    Add files via upload
+
+diff --git a/day04/README b/day04/README
+new file mode 100644
+index 0000000..7dffb58
+--- /dev/null
++++ b/day04/README
+@@ -0,0 +1,5 @@
++# yum install -y sqlite-devel tk-devel tcl-devel readline-devel zlib-devel gcc 
++# tar xzf Python-3.6.7.tgz
++# cd Python-3.6.7
++# ./configure --prefix=/usr/local/
++# make && make install
+diff --git a/day04/environmentpython.txt b/day04/environmentpython.txt
+new file mode 100644
+index 0000000..bfdd8ef
+--- /dev/null
++++ b/day04/environmentpython.txt
+@@ -0,0 +1,397 @@
++
+[root@room9pc01 PYTHON]# 
+
+# 取回远程仓库的变化，并与本地分支合并
+
+  $ git pull[remote] [branch]
+
+git pull的作用是，从远程库中获取某个分支的更新，再与本地指定的分支进行自动merge。
+完整格式是：
+
+$ git pull <远程库名> <远程分支名>:<本地分支名>  
+
+
+如果是要与本地当前分支merge，则冒号后面的<本地分支名>可以不写。
+
+git pull origin develop  
+
+
+更新远程代码
+命令: git pull -u origin master:master。
+
+这里的master是我的分支的名称，在使用的时候要换成你自己分支的名称；
+也可直接 git pull 更新默认分支
+
+
+
+pull        英 [pʊl]   美 [ pʊl]  
+     vt.& vi.拉;扯;拉过来;划（船）
+     vt.赢得;吸引异性;取消;（耍手腕）得逞
+     n.拖;爬;影响力
+
+merge    英 [mɜ:dʒ]   美 [mɜ:rdʒ]  
+     vt.& vi.融入;（使）混合;相融;渐渐消失在某物中
+
+
+origin    英 [ˈɒrɪdʒɪn]   美 [ˈɔ:rɪdʒɪn]  
+   n.出身;起源，根源;[数]原点，起点;[解]（筋，神经的）起端
+
+
+[root@room9pc01 PYTHON]#  pwd
+/var/git/PYTHON
+[root@room9pc01 PYTHON]# git  pull   #更新默认分支
+
+remote: Enumerating objects: 29, done.
+remote: Counting objects: 100% (29/29), done.
+remote: Total 79 (delta 29), reused 29 (delta 29), pack-reused 50
+Unpacking objects: 100% (79/79), done.
+
+来自 https://github.com/hiys/PYTHON      ---------- #注意这是远程仓库网址
+   02c4c39..adeb1ee  master     -> origin/master
+更新 02c4c39..adeb1ee
+Fast-forward
+ day04/clocktime.py                               |   43 +
+................................
+ pythonScripts/day04/environmentpython.txt        |  397 +++++++
+ pythonScripts/day04/formatstring.py              |   34 +
+ pythonScripts/day04/python352.png                |  Bin 0 -> 163167 bytes
+ pythonScripts/day04/python_usyiyi_cn.png         |  Bin 0 -> 131273 bytes
+ pythonScripts/day04/pythonbj4-4.txt              |   26 +
+..............................
+ pythonScripts/day05/ospickleAccount.py           |  140 +++
+ pythonScripts/day05/pythonbj5-1.txt              | 1361 ++++++++++++++++++++++
+.............................
+ pythonScripts/day06/mathgame.py                  |   60 +
+ pythonScripts/day06/pythonbj6.txt                |  591 ++++++++++
+ pythonScripts/day06/testdef.py                   |  123 ++
+ 37 files changed, 11215 insertions(+)
+ create mode 100644 day04/clocktime.py
+ create mode 100644 day04/pythonbj4-4.txt
+ create mode 100644 pythonScripts/day04/README
+ create mode 100644 pythonScripts/day04/clocktime.py
+............................................
+ create mode 100644 pythonScripts/day06/testdef.py
+[root@room9pc01 PYTHON]# git  status 
+# 位于分支 master
+无文件要提交，干净的工作区
+[root@room9pc01 PYTHON]# git  status   -s
+[root@room9pc01 PYTHON]# 
+[root@room9pc01 PYTHON]# git  show    ## 查看tag信息
+
+commit adeb1eea400a28a3d76033945cb64981c80f02ac
+Author: hiys <43769085+hiys@users.noreply.github.com>
+Date:   Sun Apr 7 06:41:31 2019 -0500
+
+    Add files via upload
+
+diff --git a/pythonScripts/day06/mathgame.py b/pythonScripts/day06/mathgame.py
+new file mode 100644
+index 0000000..b125e12
+--- /dev/null
++++ b/pythonScripts/day06/mathgame.py
+@@ -0,0 +1,60 @@
++#!/usr/bin/env  python3
++import  sys, os, pickle, time, random
++"MoBan ------------ instruction"
++print('\033[31;47;1m__name__  is %s\033[0m' %  __name__)
++
++def  additive(x, y):  #[数]加法
++  return  x + y
++
++def  subtraction(x, y):  #减法
++  return  x - y
++
++def  exam():
+[root@room9pc01 PYTHON]# 
+
+
+
+
+
+
+
+=========================================
+===========================
+   ---------------------------  搭建本地gitlab服务器  -------------------------------------
+===============================
+
+[root@room9pc01 ~]# du  -sh  '/var/git/python/zzg_pypkgs.tar.gz'
+759M	/var/git/python/zzg_pypkgs.tar.gz
+
+[root@room9pc01 ~]# ll  '/var/git/python/zzg_pypkgs.tar.gz'
+-rwxrwxrwx 1 root root 795192400 3月  17 10:30 /var/git/python/zzg_pypkgs.tar.gz
+
+[root@room9pc01 ~]# scp  /var/git/python/zzg_pypkgs.tar.gz  root@192.168.0.20:/root/
+root@192.168.0.20's password: 
+zzg_pypkgs.tar.gz                             100%  758MB 140.4MB/s   00:05    
+[root@room9pc01 ~]# scp  /var/git/python/zzg_pypkgs.tar.gz  root@192.168.0.21:/root/
+root@192.168.0.21's password: 
+zzg_pypkgs.tar.gz                             100%  758MB 135.7MB/s   00:05 
+
+
+[root@room9pc01 ~]# ssh  -X  192.168.0.20
+..........
+[root@V20 ~]# file  zzg_pypkgs.tar.gz 
+zzg_pypkgs.tar.gz: gzip compressed data, from Unix, last modified: Fri Jan  4 10:48:34 2019
+
+[root@V20 ~]# free  -m
+              total        used        free      shared  buff/cache   available
+Mem:           1744         234        1210           8         299        1340
+Swap:          2047           0        2047
+
+  ---------------------------  搭建本地gitlab服务器  -------------------------------------
+-------- docker 需要占用 22 端口,需要先修改 ssh 默认端口 22  ------------------
+
+[root@V20 ~]# vim  /etc/ssh/sshd_config 
+[root@V20 ~]# grep  -n1 "^Port"  /etc/ssh/sshd_config
+17-#Port 22
+18:Port 2222
+19-#AddressFamily any
+[root@V20 ~]# systemctl  restart   sshd
+[root@V20 ~]# exit
+登出
+Connection to 192.168.0.20 closed.
+[root@room9pc01 ~]# ssh  -X  -p2222  192.168.0.20
+.............
+[root@V20 ~]# tar  -zxf   zzg_pypkgs.tar.gz 
+
+[root@V20 ~]# cd   zzg_pypkgs/docker/docker_pkgs/
+
+[root@V20 docker_pkgs]# ls
+
+container-selinux-2.42-1.gitad8f0f7.el7.noarch.rpm
+container-storage-setup-0.8.0-3.git1d27ecf.el7.noarch.rpm
+docker-1.13.1-53.git774336d.el7.centos.x86_64.rpm
+docker-client-1.13.1-53.git774336d.el7.centos.x86_64.rpm
+docker-common-1.13.1-53.git774336d.el7.centos.x86_64.rpm
+oci-register-machine-0-6.git2b44233.el7.x86_64.rpm
+oci-systemd-hook-0.1.15-2.gitc04483d.el7.x86_64.rpm
+oci-umount-2.3.3-3.gite3c9055.el7.x86_64.rpm
+skopeo-containers-0.1.28-1.git0270e56.el7.x86_64.rpm
+
+[root@V20 docker_pkgs]# yum  -y install   *.rpm
+...........
+
+已安装:
+  container-selinux.noarch 2:2.42-1.gitad8f0f7.el7                              
+  container-storage-setup.noarch 0:0.8.0-3.git1d27ecf.el7                       
+  docker.x86_64 2:1.13.1-53.git774336d.el7.centos                               
+  docker-client.x86_64 2:1.13.1-53.git774336d.el7.centos                        
+  docker-common.x86_64 2:1.13.1-53.git774336d.el7.centos                        
+  oci-register-machine.x86_64 1:0-6.git2b44233.el7                              
+  oci-systemd-hook.x86_64 1:0.1.15-2.gitc04483d.el7                             
+  oci-umount.x86_64 2:2.3.3-3.gite3c9055.el7                                    
+  skopeo-containers.x86_64 1:0.1.28-1.git0270e56.el7                            
+
+完毕！
+[root@V20 docker_pkgs]# systemctl  start   docker
+[root@V20 docker_pkgs]# systemctl  enable  docker
+Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /usr/lib/systemd/system/docker.service.
+
+[root@V20 docker_pkgs]# cd
+
+[root@V20 ~]# ls  /root/zzg_pypkgs/docker/images/gitlab_zh.tar 
+/root/zzg_pypkgs/docker/images/gitlab_zh.tar
+
+[root@V20 ~]# docker   load   <  /root/zzg_pypkgs/docker/images/gitlab_zh.tar
+
+a94e0d5a7c40: Loading layer 116.5 MB/116.5 MB
+88888b9b1b5b: Loading layer 15.87 kB/15.87 kB
+52f389ea437e: Loading layer 14.85 kB/14.85 kB
+52a7ea2bb533: Loading layer 5.632 kB/5.632 kB
+db584c622b50: Loading layer 3.072 kB/3.072 kB
+62786ff6a243: Loading layer 75.85 MB/75.85 MB
+71bc04f4b7c7: Loading layer 2.048 kB/2.048 kB
+26e083d332d8: Loading layer 2.048 kB/2.048 kB
+2c02e58e96b8: Loading layer 2.048 kB/2.048 kB
+589c7a23de2a: Loading layer 15.87 kB/15.87 kB
+44474d2cdcd1: Loading layer 1.359 GB/1.359 GB
+41c94e16b901: Loading layer 16.78 MB/16.78 MB
+04cafa6a1534: Loading layer   160 MB/160 MB
+Loaded image: gitlab_zh:latest
+
+[root@V20 ~]# shutdown  -h now    #节约内存
+
+[root@room9pc01 ~]# ssh  -X  -p2222  192.168.0.20
+...................
+[root@V20 ~]# systemctl  is-enabled  docker
+enabled
+[root@V20 ~]# docker image
+image   images  
+[root@V20 ~]# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+gitlab_zh           latest              1f71f185271a        12 months ago       1.63 GB
+
+[root@V20 ~]# systemctl  stop  docker
+[root@V20 ~]# systemctl  disable  docker.service 
+Removed symlink /etc/systemd/system/multi-user.target.wants/docker.service.
+
+[root@V20 ~]# vim   /etc/ssh/sshd_config 
+[root@V20 ~]# grep  -n  "^#Port"  /etc/ssh/sshd_config
+17:#Port 22
+18:#Port 2222
+
+[root@V20 ~]# systemctl  restart  sshd
+[root@V20 ~]# exit
+登出
+Connection to 192.168.0.20 closed.
+
+[root@room9pc01 ~]# ssh  -X  -p22  192.168.0.20
+...............
+[root@V20 ~]# 
+
+
+
+
+
+
+
+[root@room9pc01 ~]# ssh  -X  192.168.0.21
+................
+[root@V21 ~]#  file  zzg_pypkgs.tar.gz 
+zzg_pypkgs.tar.gz: gzip compressed data, from Unix, last modified: Fri Jan  4 10:48:34 2019
+
+[root@V21 ~]# free  -m
+              total        used        free      shared  buff/cache   available
+Mem:           2436         229        1907           8         299        2035
+Swap:          2047           0        2047
+
+  ---------------------------  搭建本地gitlab服务器  -------------------------------------
+-------- docker 需要占用 22 端口,需要先修改 ssh 默认端口 22  ------------------
+
+[root@V21 ~]# vim  /etc/ssh/sshd_config 
+[root@V21 ~]# grep  -n1 "^Port"  /etc/ssh/sshd_config
+17-#Port 22
+18:Port 2222
+19-#AddressFamily any
+
+[root@V21 ~]# systemctl  restart  sshd
+[root@V21 ~]# exit
+登出
+Connection to 192.168.0.21 closed.
+
+  ---------------------------  搭建本地gitlab服务器  -------------------------------------
+-------- docker 需要占用 22 端口,需要先修改 ssh 默认端口 2222  ------------------
+
+[root@room9pc01 ~]# ssh  -X  -p2222  192.168.0.21
+.........
+[root@V21 ~]# tar  -zxf   zzg_pypkgs.tar.gz 
+
+[root@V21 ~]# ls    zzg_pypkgs/
+ansible-cmdb_pkgs  dj_pkgs  matplotlib_pkgs  python3_pkg      wordcloud_pkgs
+ansible_pkg        docker   paramiko_pkgs    requests_pkgs    wordpress
+bootcss            jenkins  pymysql_pkgs     sqlalchemy_pkgs
+
+[root@V21 ~]# ls    zzg_pypkgs/docker/
+docker_pkgs  images
+
+[root@V21 ~]# ls    zzg_pypkgs/docker/docker_pkgs/
+
+container-selinux-2.42-1.gitad8f0f7.el7.noarch.rpm
+container-storage-setup-0.8.0-3.git1d27ecf.el7.noarch.rpm
+docker-1.13.1-53.git774336d.el7.centos.x86_64.rpm
+docker-client-1.13.1-53.git774336d.el7.centos.x86_64.rpm
+docker-common-1.13.1-53.git774336d.el7.centos.x86_64.rpm
+oci-register-machine-0-6.git2b44233.el7.x86_64.rpm
+oci-systemd-hook-0.1.15-2.gitc04483d.el7.x86_64.rpm
+oci-umount-2.3.3-3.gite3c9055.el7.x86_64.rpm
+skopeo-containers-0.1.28-1.git0270e56.el7.x86_64.rpm
+
+[root@V21 ~]# cd  zzg_pypkgs/docker/docker_pkgs/
+
+[root@V21 docker_pkgs]# yum  -y install  *.rpm
+................
+已安装:
+  container-selinux.noarch 2:2.42-1.gitad8f0f7.el7                              
+  container-storage-setup.noarch 0:0.8.0-3.git1d27ecf.el7                       
+  docker.x86_64 2:1.13.1-53.git774336d.el7.centos                               
+  docker-client.x86_64 2:1.13.1-53.git774336d.el7.centos                        
+  docker-common.x86_64 2:1.13.1-53.git774336d.el7.centos                        
+  oci-register-machine.x86_64 1:0-6.git2b44233.el7                              
+  oci-systemd-hook.x86_64 1:0.1.15-2.gitc04483d.el7                             
+  oci-umount.x86_64 2:2.3.3-3.gite3c9055.el7                                    
+  skopeo-containers.x86_64 1:0.1.28-1.git0270e56.el7                            
+
+完毕！
+[root@V21 docker_pkgs]# systemctl  start   docker
+[root@V21 docker_pkgs]# systemctl  enable  docker
+Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /usr/lib/systemd/system/docker.service.
+
+[root@V21 docker_pkgs]# cd
+[root@V21 ~]# ls  /root/zzg_pypkgs/docker/images/gitlab_zh.tar 
+
+/root/zzg_pypkgs/docker/images/gitlab_zh.tar
+
+[root@V21 ~]# docker  load  <  /root/zzg_pypkgs/docker/images/gitlab_zh.tar
+
+a94e0d5a7c40: Loading layer 116.5 MB/116.5 MB
+88888b9b1b5b: Loading layer 15.87 kB/15.87 kB
+52f389ea437e: Loading layer 14.85 kB/14.85 kB
+52a7ea2bb533: Loading layer 5.632 kB/5.632 kB
+db584c622b50: Loading layer 3.072 kB/3.072 kB
+62786ff6a243: Loading layer 75.85 MB/75.85 MB
+71bc04f4b7c7: Loading layer 2.048 kB/2.048 kB
+26e083d332d8: Loading layer 2.048 kB/2.048 kB
+2c02e58e96b8: Loading layer 2.048 kB/2.048 kB
+589c7a23de2a: Loading layer 15.87 kB/15.87 kB
+44474d2cdcd1: Loading layer 1.359 GB/1.359 GB
+41c94e16b901: Loading layer 16.78 MB/16.78 MB
+04cafa6a1534: Loading layer   160 MB/160 MB
+Loaded image: gitlab_zh:latest
+
+/*************************************************************
+  docker容器不保持任何数据
+重要数据请使用外部卷存储（数据持久化）
+容器可以挂载真实机目录或共享存储为卷
+
+##  -v  冒号前为宿主主机目录 : 冒号后为容器对应目录(可以有多层目录结构 :/filea/b/c/d )
+
+[root@Va2 ~]# docker  run  -td   -v  /var/www/html/:/filea/b/c/d  \ 
+>           192.168.0.11:5000/newcentos:latest  /bin/bash  ## 新建运行容器
+**************************/
+
+[root@V21 ~]# hostname
+V21
+
+docker images : 列出本地镜像。
+语法
+docker images [OPTIONS] [REPOSITORY[:TAG]]
+OPTIONS说明：
+-a :列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；
+-q :只显示镜像ID。
+
+[root@V21 ~]# docker  images   -a
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+gitlab_zh           latest              1f71f185271a        12 months ago       1.63 GB
+
+[root@V21 ~]# docker  images  #列出本地镜像
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+gitlab_zh           latest              1f71f185271a        12 months ago       1.63 GB
+
+[root@V21 ~]# docker  images   gitlab_zh:latest
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+gitlab_zh           latest              1f71f185271a        12 months ago       1.63 GB
+
+[root@V21 ~]# docker  images  -q  gitlab_zh:latest
+1f71f185271a
+
+[root@V21 ~]# docker  images  -aq
+1f71f185271a
+[root@V21 ~]# docker  images  -q
+1f71f185271a
+
+docker ps : 列出容器
+语法
+docker ps [OPTIONS]
+OPTIONS说明：
+-a :显示所有的容器，包括未运行的。
+-f :根据条件过滤显示的内容。
+-l :显示最近创建的容器。
+-n :列出最近创建的n个容器。
+-q :静默模式，只显示容器编号。
+
+[root@V21 ~]# docker  ps  -aq
+[root@V21 ~]# docker  ps  -q  #列出容器id
+
+[root@V21 ~]# vim  /etc/hosts
+[root@V21 ~]# cat  /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.0.20   V20
+192.168.0.21   V21
+192.168.0.22   V22
+
+[root@V21 ~]# docker  images   -a
+REPOSITORY   TAG      IMAGE ID        CREATED          SIZE
+gitlab_zh   latest   1f71f185271a    12 months ago     1.63 GB
+[root@V21 ~]# docker  ps  -a
+CONTAINER ID     IMAGE      COMMAND    CREATED     STATUS     PORTS     NAMES
+
+[root@V21 ~]# ls  /srv/
+[root@V21 ~]# ls  -ld  /srv/
+drwxr-xr-x. 2 root root 6 3月  10 2016 /srv/
+
+  -p, --publish=[]           指定容器暴露的端口 
+  -h, --hostname=""          指定容器的主机名  
+  -v, --volume=[]            给容器挂载存储卷，挂载到容器的某个目录 
+  --name=""                  指定容器名字，后续可以通过名字进行容器管理
+
+docker  run  -d  -h  V21  --name  gitlabrongqi   -p  443:443  -p  80:80  -p   22:22  --restart  always  -v  /srv/gitlab/config:/etc/gitlab  -v  /srv/gitlab/logs:/var/log/gitlab  -v  /srv/gitlab/data:/var/opt/gitlab   gitlab_zh:latest
+
+
+[root@V21 ~]# docker  run   -d   -h  V21     --name  gitlabrongqi       -p  443:443      -p  80:80     -p   22:22     --restart  always      -v  /srv/gitlab/config:/etc/gitlab     -v  /srv/gitlab/logs:/var/log/gitlab      -v  /srv/gitlab/data:/var/opt/gitlab     gitlab_zh:latest
+
+5f6aef1ad57b5a22ceb7181ded6cac09cf629dcf833b985ec2fa749853e7883c
+
+[root@V21 ~]# docker  ps  -a
+CONTAINER ID     IMAGE            COMMAND            CREATED         STATUS           PORTS         NAMES
+5f6aef1ad57b   gitlab_zh:latest  "/assets/wrapper"   8 seconds ago   Up 6 seconds (health: starting)  0.0.0.0:22->22/tcp, 0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp    gitlabrongqi
+
+[root@V21 ~]# 
+
+最基本的docker run命令的格式如下：
+$ sudo docker run [OPTIONS] IMAGE[:TAG] [COMMAND] [ARG...]
+在docker run后面追加-d=true或者-d，那么容器将会运行在后台模式
+
+可以通过执行docker attach来重新附着到该容器的会话中
+
+如果要进行交互式操作（例如Shell脚本），那我们必须使用 -i -t 参数同容器进行数据交互。
+但是当通过管道同容器进行交互时，就不需要使用-t参数，
+例如下面的命令：
+echo test | docker run -i busybox cat
+
+Usage: docker run [OPTIONS] IMAGE [COMMAND] [ARG...]  
+ 
+  -d, --detach=false         指定容器运行于前台还是后台，默认为false   
+  -i, --interactive=false   打开STDIN，用于控制台交互  
+  -t, --tty=false            分配tty设备，该可以支持终端登录，默认为false  
+  -u, --user=""              指定容器的用户  
+  -a, --attach=[]            登录容器（必须是以docker run -d启动的容器）
+  -w, --workdir=""           指定容器的工作目录 
+  -c, --cpu-shares=0        设置容器CPU权重，在CPU共享场景使用  
+  -e, --env=[]               指定环境变量，容器中可以使用该环境变量  
+  -m, --memory=""            指定容器的内存上限 
+ -p, --publish=[]           指定容器暴露的端口 
+  -h, --hostname=""          指定容器的主机名  
+  -v, --volume=[]            给容器挂载存储卷，挂载到容器的某个目录 
+ --name=""                  指定容器名字，后续可以通过名字进行容器管理，links特性需要使用名字  
+  --restart="no"             指定容器停止后的重启策略:
+				                no：容器退出时不重启  
+				                on-failure：容器故障退出（返回值非零）时重启 
+				                always：容器退出时总是重启
+
+
+当使用 -P 标记时，
+Docker 会随机映射一个 49000~49900 的端口到内部容器开放的网络端口
+
+-p（小写）则可以指定要映射的IP和端口，但是在一个指定端口上只可以绑定一个容器。
+支持的格式有 hostPort:containerPort、
+ip:hostPort:containerPort、
+ ip::containerPort。
+
+hostPort:containerPort（映射所有接口地址）
+将本地的 5000 端口映射到容器的 5000 端口，可以执行如下命令：
+$ sudo docker run -d -p 5000:5000  -v  /srv/gitlab/data:/var/opt/gitlab   gitlab_zh:latest 
+此时默认会绑定本地所有接口上的所有地址。
+
+/***************
+[root@V21 ~]# ls  /srv/
+[root@V21 ~]# ls  -ld  /srv/
+drwxr-xr-x. 2 root root 6 3月  10 2016 /srv/
+*********/
+----------------------------   注意 目录 前后的变化 -------------------------------
+
+[root@V21 ~]#   ls  -ld  /srv/
+drwxr-xr-x. 3 root root 20 3月  20 15:45 /srv/
+
+[root@V21 ~]# ls  /srv/
+gitlab
+[root@V21 ~]# ls  /srv/gitlab/
+config  data  logs
+[root@V21 ~]# ls  /srv/gitlab/config/
+gitlab.rb            ssh_host_ecdsa_key.pub    ssh_host_rsa_key
+gitlab-secrets.json  ssh_host_ed25519_key      ssh_host_rsa_key.pub
+ssh_host_ecdsa_key   ssh_host_ed25519_key.pub  trusted-certs
+[root@V21 ~]# ls  /srv/gitlab/data/
+backups       gitlab-monitor    nginx              redis
+bootstrapped  gitlab-rails      node-exporter      trusted-certs-directory-hash
+gitaly        gitlab-shell      postgres-exporter
+git-data      gitlab-workhorse  postgresql
+gitlab-ci     logrotate         prometheus
+[root@V21 ~]# ls  /srv/gitlab/logs/
+gitaly          gitlab-workhorse  postgres-exporter  redis           unicorn
+gitlab-monitor  logrotate         postgresql         redis-exporter
+gitlab-rails    nginx             prometheus         sidekiq
+gitlab-shell    node-exporter     reconfigure        sshd
+[root@V21 ~]# ls  -ld  /srv/gitlab/logs/
+drwxr-xr-x 19 libstoragemgmt root 314 3月  20 15:49 /srv/gitlab/logs/
+
+[root@V21 ~]# firefox   http://192.168.0.21
+
+[root@V21 ~]# free  -m
+              total        used        free      shared  buff/cache   available
+Mem:           2436        1917          77          18         441         227
+Swap:          2047          55        1992
+
+http://192.168.0.21/users/password/edit?reset_password_token=a3u8crUyyna3s5kyBHZL
+
+https://gitlab.com/users/sign_in?redirect_to_referer=yes&nav_source=navbar
+
+
+[root@V21 ~]# systemctl  stop   docker
+[root@V21 ~]# docker images
+Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+[root@V21 ~]# systemctl  disable  docker
+Removed symlink /etc/systemd/system/multi-user.target.wants/docker.service.
+
+[root@V21 ~]# vim  /etc/ssh/sshd_config 
+[root@V21 ~]# systemctl  restart   sshd
+
+[root@V21 ~]# grep  -n ^#Port   /etc/ssh/sshd_config
+17:#Port 22
+18:#Port 2222
+[root@V21 ~]# exit
+登出
+Connection to 192.168.0.21 closed.
+
+
+
+[root@room9pc01 ~]# ssh  -X  -p22  192.168.0.22
+............
+[root@V22 ~]# free  -m
+              total        used        free      shared  buff/cache   available
+Mem:           1444         247         884           8         312        1024
+Swap:          2047           0        2047
+
+[root@V22 ~]# vim   /etc/hosts
+[root@V22 ~]# cat  /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.0.20   V20
+192.168.0.21   V21
+192.168.0.22   V22
+
+
+
+=========================
+--------------------------------------------------------------------------------
+  815  cd   /var/git/pythonScripts/
+  816  ls
+  817  git  --version
+
+下载单个文件时，
+
+找到所需下载的文件，鼠标放到选项Raw上，右键，选择链接另存为即可下载
+                也可以 鼠标放到选项Raw上，右键，选择 复制链接地址后
+            命令行 # wget  +  链接地址
+  818  wget  https://github.com/hiys/PYTHON/raw/master/nsd1807/python1/pythonbj-1.txt
+
+
+https://github.com/hiys/PYTHON/blob/master/nsd1807/python1/pythonbj-git.txt
+
+[root@room9pc01 pythonScripts]# ls
+pythonbj-1.txt
+[root@room9pc01 pythonScripts]# pwd
+/var/git/pythonScripts
+[root@room9pc01 pythonScripts]# wget  https://github.com/hiys/PYTHON/raw/master/nsd1807/python1/pythonbj-git.txt
+
+--2019-03-23 09:02:16--  https://github.com/hiys/PYTHON/raw/master/nsd1807/python1/pythonbj-git.txt
+.....................
+
+100%[======================================>] 37,307      36.5KB/s 用时 1.0s   
+
+2019-03-23 09:02:18 (36.5 KB/s) - 已保存 “pythonbj-git.txt” [37307/37307])
+
+[root@room9pc01 pythonScripts]# ls
+pythonbj-1.txt  pythonbj-git.txt
+
+[root@room9pc01 pythonScripts]# wget  https://github.com/hiys/PYTHON/raw/master/nsd1807/python1/pythonbj.txt  
+..........
+
+（1）clear
+ 
+这个命令将会刷新屏幕，本质上只是让终端显示页向后翻了一页，
+如果向上滚动屏幕还可以看到之前的操作信息。一般都会用这个命令。
+ 
+（2）reset
+ 
+这个命令将完全刷新终端屏幕，之前的终端输入操作信息将都会被清空，
+这样虽然比较清爽，但整个命令过程速度有点慢，使用较少。
+
+
+vim编辑器-多行加注释与去注释
+
+在使用vim编辑器时，有时候需要对多行代码进行加注释或去注释
+方法一：块选择模式
+1. 插入注释
+（1）首先按键盘上的ESC进入命令行模式
+（2）再按Ctrl+V进入VISUAL BLOCK模式
+（3）利用上下左右键调整需要注释多少行以及行的宽度
+（4）再按Shift+i或s进入插入模式
+（5）输入代表注释的符号，比如#
+（6）再次按ESC键，这时就可完成多行注释（可能需要等上一会）
+2. 去注释
+前三步与加注释相同。
+（1）首先按键盘上的ESC进入命令行模式
+（2）再按Ctrl+V进入VISUAL BLOCK模式
+（3）利用上下左右键调整需要去注释多少行以及行的宽度
+（4）再按d即可完成去注释
+方法二：替换命令
+1.插入注释
+（1）首先按键盘上的ESC进入命令行模式
+（2）再在底行输入以下命令
+         :起始行号,结束行号s/^/注释符/g
+
+
+
+

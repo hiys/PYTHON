@@ -1,0 +1,1508 @@
+
+
+  231  yum  -y  install  elinks    telnet   httpd-tools gcc  pcre-devel  openssl-devel   mariadb-devel  mariadb  mariadb-server  memcached  php-pecl-memcache   php    php-mysql   http://mirrors.163.com/centos/7/os/x86_64/Packages/php-fpm-5.4.16-46.el7.x86_64.rpm
+  232  rpm  -q  install  elinks    telnet   httpd-tools gcc  pcre-devel  openssl-devel   mariadb-devel  mariadb  mariadb-server  memcached  php-pecl-memcache   php    php-mysql  php-fpm
+
+[root@V3 newyumdir]# ls
+python-iniparse-0.4-9.el7.noarch.rpm
+python-urlgrabber-3.10-9.el7.noarch.rpm
+rpm-4.11.3-35.el7.x86_64.rpm
+RPM-GPG-KEY-CentOS-7
+rpm-libs-4.11.3-35.el7.x86_64.rpm
+rpm-python-4.11.3-35.el7.x86_64.rpm
+yum-3.4.3-161.el7.centos.noarch.rpm
+yum-metadata-parser-1.1.4-10.el7.x86_64.rpm
+yum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm
+yum-updateonboot-1.1.31-50.el7.noarch.rpm
+[root@V3 newyumdir]# 
+
+------------------------------------------------- 搭建LAMP环境 --------------------
+
+[root@V3 yum.repos.d]# yum  -y  install  elinks    telnet   httpd-tools \
+> gcc  pcre-devel  openssl-devel   mariadb-devel  mariadb  mariadb-server  \
+> memcached  php-pecl-memcache   php    php-mysql  \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/php-fpm-5.4.16-46.el7.x86_64.rpm
+..............................
+已安装:
+  elinks.x86_64 0:0.12-0.37.pre6.el7.0.1      gcc.x86_64 0:4.8.5-36.el7_6.2              
+  httpd-tools.x86_64 0:2.4.6-89.el7.centos    mariadb.x86_64 1:5.5.60-1.el7_5            
+  mariadb-devel.x86_64 1:5.5.60-1.el7_5       mariadb-server.x86_64 1:5.5.60-1.el7_5     
+  memcached.x86_64 0:1.4.15-10.el7_3.1        openssl-devel.x86_64 1:1.0.2k-16.el7_6.1   
+  pcre-devel.x86_64 0:8.32-17.el7             php.x86_64 0:5.4.16-46.el7                 
+  php-fpm.x86_64 0:5.4.16-46.el7              php-mysql.x86_64 0:5.4.16-46.el7           
+  php-pecl-memcache.x86_64 0:3.0.8-4.el7      telnet.x86_64 1:0.17-64.el7                
+
+作为依赖被安装:
+  apr.x86_64 0:1.4.8-3.el7_4.1              apr-util.x86_64 0:1.5.2-6.el7               
+  cpp.x86_64 0:4.8.5-36.el7_6.2             glibc-devel.x86_64 0:2.17-260.el7_6.5       
+  glibc-headers.x86_64 0:2.17-260.el7_6.5   httpd.x86_64 0:2.4.6-89.el7.centos          
+  js.x86_64 1:1.8.5-20.el7                  kernel-headers.x86_64 0:3.10.0-957.12.1.el7 
+  keyutils-libs-devel.x86_64 0:1.5.8-3.el7  krb5-devel.x86_64 0:1.15.1-37.el7_6         
+  libcom_err-devel.x86_64 0:1.42.9-13.el7   libkadm5.x86_64 0:1.15.1-37.el7_6           
+  libmpc.x86_64 0:1.0.1-3.el7               libselinux-devel.x86_64 0:2.5-14.1.el7      
+  libsepol-devel.x86_64 0:2.5-10.el7        libverto-devel.x86_64 0:0.2.5-4.el7         
+  libzip.x86_64 0:0.10.1-8.el7              mailcap.noarch 0:2.1.41-2.el7               
+  nss_compat_ossl.x86_64 0:0.9.6-8.el7      perl-DBD-MySQL.x86_64 0:4.023-6.el7         
+  php-cli.x86_64 0:5.4.16-46.el7            php-common.x86_64 0:5.4.16-46.el7           
+  php-pdo.x86_64 0:5.4.16-46.el7            php-pear.noarch 1:1.9.4-21.el7              
+  php-process.x86_64 0:5.4.16-46.el7        php-xml.x86_64 0:5.4.16-46.el7              
+  zlib-devel.x86_64 0:1.2.7-18.el7         
+
+作为依赖被升级:
+  e2fsprogs.x86_64 0:1.42.9-13.el7           e2fsprogs-libs.x86_64 0:1.42.9-13.el7      
+  glibc.x86_64 0:2.17-260.el7_6.5            glibc-common.x86_64 0:2.17-260.el7_6.5     
+  krb5-libs.x86_64 0:1.15.1-37.el7_6         libcom_err.x86_64 0:1.42.9-13.el7          
+  libgcc.x86_64 0:4.8.5-36.el7_6.2           libgomp.x86_64 0:4.8.5-36.el7_6.2          
+  libselinux.x86_64 0:2.5-14.1.el7           libselinux-python.x86_64 0:2.5-14.1.el7    
+  libselinux-utils.x86_64 0:2.5-14.1.el7     libsepol.x86_64 0:2.5-10.el7               
+  libss.x86_64 0:1.42.9-13.el7               mariadb-libs.x86_64 1:5.5.60-1.el7_5       
+  openssl.x86_64 1:1.0.2k-16.el7_6.1         openssl-libs.x86_64 1:1.0.2k-16.el7_6.1    
+  zlib.x86_64 0:1.2.7-18.el7                
+
+完毕！
+[root@V3 yum.repos.d]#
+[root@V3 yum.repos.d]# rpm    -q     elinks    telnet   httpd-tools   gcc  \
+> pcre-devel   openssl-devel   mariadb-devel   mariadb \
+> mariadb-server  memcached    php-pecl-memcache   php  \
+> php-mysql  php-fpm
+
+elinks-0.12-0.37.pre6.el7.0.1.x86_64
+telnet-0.17-64.el7.x86_64
+httpd-tools-2.4.6-89.el7.centos.x86_64
+gcc-4.8.5-36.el7_6.2.x86_64
+pcre-devel-8.32-17.el7.x86_64
+openssl-devel-1.0.2k-16.el7_6.1.x86_64
+mariadb-devel-5.5.60-1.el7_5.x86_64
+mariadb-5.5.60-1.el7_5.x86_64
+mariadb-server-5.5.60-1.el7_5.x86_64
+memcached-1.4.15-10.el7_3.1.x86_64
+php-pecl-memcache-3.0.8-4.el7.x86_64
+php-5.4.16-46.el7.x86_64
+php-mysql-5.4.16-46.el7.x86_64
+php-fpm-5.4.16-46.el7.x86_64
+
+[root@V3 yum.repos.d]# 
+
+
+[root@room9pc01 ~]# 
+ 1010  grep   -Env  '^#|^$'  /etc/yum.conf
+ 1011  ls  /etc/yum.repos.d/
+ 1012  yum  clean  all && yum   makecache |tail -5  #建立缓存
+ 1013  yum   repolist 
+ 1014  history  |tail  -30
+[root@room9pc01 ~]# ls .pip/
+pip.conf
+[root@room9pc01 ~]# cat  .pip/pip.conf 
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+
+[root@V3 ~]# mkdir   .pip
+[root@V3 ~]# vim    .pip/pip.conf 
+[root@V3 ~]# cat   .pip/pip.conf
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+
+https://www.python.org/downloads/
+https://www.python.org/downloads/release/python-367/
+
+https://docs.python.org/3.6/whatsnew/changelog.html#python-3-6-7-final
+
+https://www.python.org/downloads/release/python-367/
+Files
+
+Version	Operating System	Description	MD5 Sum	File Size	GPG
+Gzipped source tarball(linux版本点击下载)  Source release   c83551d83bf015134b4b2249213f3f85   22969142  SIG
+
+https://www.python.org/ftp/python/3.6.7/Python-3.6.7.tgz
+
+[root@room9pc01 ~]# mv   '/root/下载/Python-3.6.7.tgz'  .
+[root@room9pc01 ~]# ll   Python-3.6.7.tgz 
+-rw-r--r-- 1 root root 22969142 5月  10 17:03 Python-3.6.7.tgz
+[root@room9pc01 ~]# md5sum   Python-3.6.7.tgz
+c83551d83bf015134b4b2249213f3f85  Python-3.6.7.tgz
+
+
+[root@V3 ~]# cat   .pip/pip.conf
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+[root@V3 ~]#   yum  -y  install  \
+>  sqlite-devel    tk-devel        tcl-devel       readline-devel   \
+>  zlib-devel      gcc             gcc-c++         openssl       openssl-devel \
+>  libffi-devel    libxml2-devel   libxslt-devel   mysql-devel  \
+>  mariadb-devel   mariadb-server  mariadb 
+....................
+软件包 zlib-devel-1.2.7-18.el7.x86_64 已安装并且是最新版本
+软件包 gcc-4.8.5-36.el7_6.2.x86_64 已安装并且是最新版本
+软件包 1:openssl-1.0.2k-16.el7_6.1.x86_64 已安装并且是最新版本
+软件包 1:openssl-devel-1.0.2k-16.el7_6.1.x86_64 已安装并且是最新版本
+软件包 1:mariadb-devel-5.5.60-1.el7_5.x86_64 已安装并且是最新版本
+软件包 1:mariadb-devel-5.5.60-1.el7_5.x86_64 已安装并且是最新版本
+软件包 1:mariadb-server-5.5.60-1.el7_5.x86_64 已安装并且是最新版本
+软件包 1:mariadb-5.5.60-1.el7_5.x86_64 已安装并且是最新版本
+
+
+已安装:
+  gcc-c++.x86_64 0:4.8.5-36.el7_6.2            libffi-devel.x86_64 0:3.0.13-18.el7      
+  libxml2-devel.x86_64 0:2.9.1-6.el7_2.3       libxslt-devel.x86_64 0:1.1.28-5.el7      
+  readline-devel.x86_64 0:6.2-10.el7           sqlite-devel.x86_64 0:3.7.17-8.el7       
+  tcl-devel.x86_64 1:8.5.13-8.el7              tk-devel.x86_64 1:8.5.13-6.el7           
+
+作为依赖被安装:
+  expat-devel.x86_64 0:2.1.0-10.el7_3                                                    
+  fontconfig-devel.x86_64 0:2.13.0-4.3.el7                                               
+  freetype-devel.x86_64 0:2.8-12.el7_6.1                                                 
+  libX11-devel.x86_64 0:1.6.5-2.el7                                                      
+  libXau-devel.x86_64 0:1.0.8-2.1.el7                                                    
+  libXft-devel.x86_64 0:2.3.2-2.el7                                                      
+  libXrender-devel.x86_64 0:0.9.10-1.el7                                                 
+  libgcrypt-devel.x86_64 0:1.5.3-14.el7                                                  
+  libgpg-error-devel.x86_64 0:1.12-3.el7                                                 
+  libpng-devel.x86_64 2:1.5.13-7.el7_2                                                   
+  libsmartcols.x86_64 0:2.23.2-59.el7_6.1                                                
+  libstdc++-devel.x86_64 0:4.8.5-36.el7_6.2                                              
+  libuuid-devel.x86_64 0:2.23.2-59.el7_6.1                                               
+  libxcb-devel.x86_64 0:1.13-1.el7                                                       
+  ncurses-devel.x86_64 0:5.9-14.20130511.el7_4                                           
+  tcl.x86_64 1:8.5.13-8.el7                                                              
+  tk.x86_64 1:8.5.13-6.el7                                                               
+  xorg-x11-proto-devel.noarch 0:2018.4-1.el7                                             
+  xz-devel.x86_64 0:5.2.2-1.el7                                                          
+
+作为依赖被升级:
+  fontconfig.x86_64 0:2.13.0-4.3.el7                                                     
+  freetype.x86_64 0:2.8-12.el7_6.1                                                       
+  libX11.x86_64 0:1.6.5-2.el7                                                            
+  libX11-common.noarch 0:1.6.5-2.el7                                                     
+  libblkid.x86_64 0:2.23.2-59.el7_6.1                                                    
+  libmount.x86_64 0:2.23.2-59.el7_6.1                                                    
+  libstdc++.x86_64 0:4.8.5-36.el7_6.2                                                    
+  libuuid.x86_64 0:2.23.2-59.el7_6.1                                                     
+  libxcb.x86_64 0:1.13-1.el7                                                             
+  ncurses.x86_64 0:5.9-14.20130511.el7_4                                                 
+  ncurses-base.noarch 0:5.9-14.20130511.el7_4                                            
+  ncurses-libs.x86_64 0:5.9-14.20130511.el7_4                                            
+  util-linux.x86_64 0:2.23.2-59.el7_6.1                                                  
+
+完毕！
+[root@V3 ~]# 
+[root@V3 ~]# scp  root@192.168.0.254:/root/Python-3.6.7.tgz  .
+
+root@192.168.0.254's password: 
+Python-3.6.7.tgz                                       100%   22MB 138.7MB/s   00:00    
+
+[root@V3 ~]# ll   Python-3.6.7.tgz 
+-rw-r--r--. 1 root root 22969142 5月  10 17:11 Python-3.6.7.tgz
+
+[root@V3 ~]# tar  -zxf   Python-3.6.7.tgz
+
+[root@V3 ~]# cd    Python-3.6.7/
+[root@V3 Python-3.6.7]# ls
+aclocal.m4    configure.ac  install-sh  Makefile.pre.in  Parser    pyconfig.h.in  Tools
+config.guess  Doc           Lib         Misc             PC        Python
+config.sub    Grammar       LICENSE     Modules          PCbuild   README.rst
+configure     Include       Mac         Objects          Programs  setup.py
+
+[root@V3 Python-3.6.7]# ./configure   --prefix=/usr/local/   #Python-3.6.7文件夹中生成了makefile文件
+
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-pc-linux-gnu
+checking for python3.6... no
+................
+creating Modules/Setup
+creating Modules/Setup.local
+creating Makefile
+
+
+If you want a release build with all stable optimizations active (PGO, etc),
+please run ./configure --enable-optimizations
+
+
+[root@V3 Python-3.6.7]# make   &&  make  install   #编译源码#执行安装
+....................
+fi
+Looking in links: /tmp/tmpz6vrd9ct
+Collecting setuptools
+Collecting pip
+Installing collected packages: setuptools, pip
+Successfully installed pip-10.0.1 setuptools-39.0.1
+
+[root@V3 Python-3.6.7]# pip3  --version
+pip 10.0.1 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
+
+[root@V3 Python-3.6.7]# python3  --version
+Python 3.6.7
+[root@V3 Python-3.6.7]# 
+
+[root@room9pc01 ~]# pip3   freeze
+asn1crypto==0.24.0
+bcrypt==3.1.6
+certifi==2019.3.9
+cffi==1.12.3
+chardet==3.0.4
+cryptography==2.6.1
+Django==1.11.20
+idna==2.8
+paramiko==2.4.2
+pyasn1==0.4.5
+pycparser==2.19
+PyMySQL==0.9.3
+PyNaCl==1.3.0
+pytz==2019.1
+requests==2.21.0
+six==1.12.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+wget==3.2
+[root@room9pc01 ~]# pip3   freeze  > pipenv.txt
+[root@room9pc01 ~]# scp    pipenv.txt   root@192.168.0.13:/root/
+root@192.168.0.13's password: 
+pipenv.txt                                             100%  301   414.7KB/s   00:00    
+[root@room9pc01 ~]# cp  pipenv.txt   '/var/git/PYTHON/pythonScripts/Zabbix'
+[root@room9pc01 ~]# 
+
+[root@V3 ~]# cat  .pip/pip.conf 
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+[root@V3 ~]# 
+
+[root@V3 ~]# cat   pipenv.txt 
+asn1crypto==0.24.0
+bcrypt==3.1.6
+certifi==2019.3.9
+cffi==1.12.3
+chardet==3.0.4
+cryptography==2.6.1
+Django==1.11.20
+idna==2.8
+paramiko==2.4.2
+pyasn1==0.4.5
+pycparser==2.19
+PyMySQL==0.9.3
+PyNaCl==1.3.0
+pytz==2019.1
+requests==2.21.0
+six==1.12.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+wget==3.2
+[root@V3 ~]# pip3  install  $(cat  pipenv.txt)
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting asn1crypto==0.24.0
+.................
+Successfully installed Django-1.11.20 PyMySQL-0.9.3 PyNaCl-1.3.0 SQLAlchemy-1.3.3 asn1crypto-0.24.0 bcrypt-3.1.6 certifi-2019.3.9 cffi-1.12.3 chardet-3.0.4 cryptography-2.6.1 idna-2.8 paramiko-2.4.2 pyasn1-0.4.5 pycparser-2.19 pytz-2019.1 requests-2.21.0 six-1.12.0 tornado-6.0.2 urllib3-1.24.3 wget-3.2
+You are using pip version 10.0.1, however version 19.1.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+
+[root@V3 ~]# pip3   install  --upgrade  pip
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting pip
+  Downloading http://pypi.doubanio.com/packages/5c/e0/be4..........
+Installing collected packages: pip
+  Found existing installation: pip 10.0.1
+    Uninstalling pip-10.0.1:
+      Successfully uninstalled pip-10.0.1
+Successfully installed pip-19.1.1
+
+[root@V3 ~]# pip3   --version
+
+pip 19.1.1 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
+
+[root@V3 ~]# pip3   freeze
+
+asn1crypto==0.24.0
+bcrypt==3.1.6
+certifi==2019.3.9
+cffi==1.12.3
+chardet==3.0.4
+cryptography==2.6.1
+Django==1.11.20
+idna==2.8
+paramiko==2.4.2
+pyasn1==0.4.5
+pycparser==2.19
+PyMySQL==0.9.3
+PyNaCl==1.3.0
+pytz==2019.1
+requests==2.21.0
+six==1.12.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+wget==3.2
+[root@V3 ~]# 
+
+[root@room9pc01 ~]# free  -m
+              total        used        free      shared  buff/cache   available
+Mem:          15781        7697        1926         749        6158        6941
+Swap:             0           0           0
+
+[root@V3 ~]# free   -m
+              total        used        free      shared  buff/cache   available
+Mem:           2340         122        2051           8         165        2041
+Swap:          2047           0        2047
+[root@V3 ~]#
+
+
+rpm -q  elinks telnet httpd-tools gcc pcre-devel \
+openssl-devel mariadb-devel mariadb  mariadb-server \
+memcached php-pecl-memcache php php-mysql php-fpm 
+
+rpm -q   net-snmp-devel   libcurl-devel   libevent-devel
+
+多数源码包都是需要依赖包的,zabbix也一样,源码编译前需要先安装相关依赖包。
+
+
+[root@V3 ~]# yum  -y  install   net-snmp-devel   libcurl-devel   libevent-devel
+........................
+
+已安装:
+  libcurl-devel.x86_64 0:7.29.0-51.el7        libevent-devel.x86_64 0:2.0.21-4.el7       
+  net-snmp-devel.x86_64 1:5.7.2-37.el7       
+
+作为依赖被安装:
+  elfutils-devel.x86_64 0:0.172-2.el7                                                    
+  elfutils-libelf-devel.x86_64 0:0.172-2.el7                                             
+  gdbm-devel.x86_64 0:1.10-8.el7                                                         
+  libdb-devel.x86_64 0:5.3.21-24.el7                                                     
+  lm_sensors-devel.x86_64 0:3.4.0-6.20160601gitf9185e5.el7                               
+  net-snmp.x86_64 1:5.7.2-37.el7                                                         
+  net-snmp-agent-libs.x86_64 1:5.7.2-37.el7                                              
+  perl-ExtUtils-Install.noarch 0:1.58-294.el7_6                                          
+  perl-ExtUtils-MakeMaker.noarch 0:6.68-3.el7                                            
+  perl-ExtUtils-Manifest.noarch 0:1.61-244.el7                                           
+  perl-ExtUtils-ParseXS.noarch 1:3.18-3.el7                                              
+  perl-Test-Harness.noarch 0:3.28-3.el7                                                  
+  perl-devel.x86_64 4:5.16.3-294.el7_6                                                   
+  popt-devel.x86_64 0:1.13-16.el7                                                        
+  pyparsing.noarch 0:1.5.6-9.el7                                                         
+  rpm-devel.x86_64 0:4.11.3-35.el7                                                       
+  systemtap-sdt-devel.x86_64 0:3.3-3.el7                                                 
+  tcp_wrappers-devel.x86_64 0:7.6-77.el7                                                 
+
+作为依赖被升级:
+  curl.x86_64 0:7.29.0-51.el7                                                            
+  elfutils.x86_64 0:0.172-2.el7                                                          
+  elfutils-libelf.x86_64 0:0.172-2.el7                                                   
+  elfutils-libs.x86_64 0:0.172-2.el7                                                     
+  libcurl.x86_64 0:7.29.0-51.el7                                                         
+  libdb.x86_64 0:5.3.21-24.el7                                                           
+  libdb-utils.x86_64 0:5.3.21-24.el7                                                     
+  lm_sensors-libs.x86_64 0:3.4.0-6.20160601gitf9185e5.el7                                
+  net-snmp-libs.x86_64 1:5.7.2-37.el7                                                    
+  nspr.x86_64 0:4.19.0-1.el7_5                                                           
+  nss.x86_64 0:3.36.0-7.1.el7_6                                                          
+  nss-pem.x86_64 0:1.0.3-5.el7_6.1                                                       
+  nss-softokn.x86_64 0:3.36.0-5.el7_5                                                    
+  nss-softokn-freebl.x86_64 0:3.36.0-5.el7_5                                             
+  nss-sysinit.x86_64 0:3.36.0-7.1.el7_6                                                  
+  nss-tools.x86_64 0:3.36.0-7.1.el7_6                                                    
+  nss-util.x86_64 0:3.36.0-1.1.el7_6                                                     
+  rpm.x86_64 0:4.11.3-35.el7                                                             
+  rpm-build-libs.x86_64 0:4.11.3-35.el7                                                  
+  rpm-libs.x86_64 0:4.11.3-35.el7                                                        
+  rpm-python.x86_64 0:4.11.3-35.el7                                                      
+
+完毕！
+[root@V3 ~]# rpm  -q   net-snmp-devel   libcurl-devel   libevent-devel
+net-snmp-devel-5.7.2-37.el7.x86_64
+libcurl-devel-7.29.0-51.el7.x86_64
+libevent-devel-2.0.21-4.el7.x86_64
+
+[root@V3 ~]# yum  -y  install  httpd  elinks |tail  -3
+软件包 httpd-2.4.6-89.el7.centos.x86_64 已安装并且是最新版本
+软件包 elinks-0.12-0.37.pre6.el7.0.1.x86_64 已安装并且是最新版本
+无须任何处理
+[root@V3 ~]# scp  -r root@192.168.0.254:/var/www/html/*  /var/www/html/
+root@192.168.0.254's password: 
+favicon.ico                                            100%   17KB 938.5KB/s   00:00    
+index.html                                             100% 9818   676.3KB/s   00:00    
+xshell6.png                                            100%   28KB  11.8MB/s   00:00    
+test.jpg                                               100%   69KB   6.3MB/s   00:00    
+x2.jpg                                                 100%  222KB  12.9MB/s   00:00    
+index.html                                             100%   18     4.9KB/s   00:00    
+x1.jpg                                                 100%   49KB  15.3MB/s   00:00    
+[root@V3 ~]# 
+[root@V3 ~]# ls  /var/www/html/
+favicon.ico  index.html  xshell6.png  zidir
+
+[root@V3 ~]# systemctl  start  httpd   && systemctl   enable httpd
+
+Created symlink from /etc/systemd/system/multi-user.target.wants/httpd.service to /usr/lib/systemd/system/httpd.service.
+
+[root@V3 ~]# elinks  -dump  192.168.0.13
+................
+[root@V3 ~]# scp   /etc/my.cnf  root@192.168.0.254:/var/git/PYTHON/pythonScripts/Zabbix
+.................
+[root@V3 ~]# systemctl   start  mariadb   &&  systemctl  enable  mariadb
+
+Created symlink from /etc/systemd/system/multi-user.target.wants/mariadb.service to /usr/lib/systemd/system/mariadb.service.
+
+------------------------ # mariadb 修改root密码方式一
+
+[root@V3 ~]# mysqladmin  -uroot  password  '123'
+
+[root@V3 ~]# mysql -uroot -p123   -P3306  -e  "select user();"
++----------------+
+| user()         |
++----------------+
+| root@localhost |
++----------------+
+[root@V3 ~]# 
+
+
+---给用户Raikon 授权查看,使用密码atenorth登陆数据库Contacts,可以查看所有的表
+
+MariaDB [mysql]> grant  select  on  Contacts.* to Raikon@localhost  identified  by 'atenorth';
+
+MariaDB [mysql]> show grants  for Raikon@localhost;
+
+----------------------------- 查看所有的授权用户的信息 (包含用户名 主机ip )-----------------------------------
+
+MariaDB [mysql]> select distinct concat('username:''',user,'''@''',host,''';') as
+    -> query from mysql.user;
+
+/************************ 在数据库(内部) 中 使用 source  导入 users.sql 文件
+
+登录并选择数据库（需要 提前 创建 好 空 数据库 Contacts ）
+进入到 数据库 Contacts 
+然后执行   source   /sql文件绝对路径;
+
+MariaDB [Contacts]> source  /root/users.sql; #导入 users.sql 文件
+
+
+MariaDB [mysql]> select  host,user,password,authentication_string from mysql.user;
+
+---------------------------- 查看 所有的 密码账号
+MariaDB [mysql]> select host,user,password  from mysql.user;
+
+---------------------------- 删除所有的空密码账号
+
+MariaDB [mysql]> delete  from  mysql.user  where  password='';
+
+[root@V3 ~]# mysql -uroot -p123  -P3306  -e  "
+> grant  all  on  *.* to  root@'%'  identified by'123';
+> show  grants  for  root@'%';"
++--------------------------------------------------------------------------------------------------------------+
+| Grants for root@%        |
++--------------------------------------------------------------------------------------------------------------+
+| GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257' |
++--------------------------------------------------------------------------------------------------------------+
+[root@V3 ~]#
+privilege   英 [ˈprɪvəlɪdʒ]   美 [ˈprɪvəlɪdʒ]  
+        n.特殊利益;优惠待遇;(有钱有势者的)特权，特殊待遇;荣幸;荣耀;光荣
+        v.给予特权;
+
+---------------------------   删除所有的空密码账号 ----------------
+
+[root@V3 ~]# mysql -uroot -p123  -P3306  -e  "
+delete  from  mysql.user  where  password='';
+> select  distinct concat('userName: ''',user,'''@''',host,'''Password: ''',password,''';')  as  queryalias  from  mysql.user;"
++------------------------------------------------------------------------------------+
+| queryalias      |
++------------------------------------------------------------------------------------+
+| userName: 'root'@'localhost'Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; |
+| userName: 'root'@'%'Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257';   |
++------------------------------------------------------------------------------------+
+[root@V3 ~]# 
+
+
+mysql -uroot -p123  -P3306  -e  "delete  from  mysql.user  where  password='';
+select  distinct concat('userName: ''',user,'''@''',host,'''Password: ''',password,''';')  as  queryalias  from  mysql.user;"
+
+
+[root@room9pc01 ~]# mysql -uroot -p123  -P3306  -e  "delete  from  mysql.user  where  password='';
+> select  distinct concat('userName: ''',user,'''@''',host,'''Password: ''',password,''';')  as  queryalias  from  mysql.user;"
+
++------------------------------------------------------------------------------------+
+| queryalias       |
++------------------------------------------------------------------------------------+
+| userName: 'root'@'localhost'Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; |
+| userName: 'root'@'%'Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257';         |
++------------------------------------------------------------------------------------+
+
+[root@room9pc01 ~]# mysql -uroot -p123 -h192.168.0.13  -P3306  -e  "select  distinct concat('userName: ''',user,'''@''',host,'''Password: ''',password,''';')  as  queryalias  from  mysql.user;"
+
++------------------------------------------------------------------------------------+
+| queryalias   |
++------------------------------------------------------------------------------------+
+| userName: 'root'@'localhost'Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; |
+| userName: 'root'@'%'Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257';         |
++------------------------------------------------------------------------------------+
+[root@room9pc01 ~]# 
+[root@room9pc01 ~]# mysql -uroot -p123 -h192.168.0.13  -P3306  -e  "
+> select  user();"
++------------------------+
+| user()                 |
++------------------------+
+| root@room9pc01.tedu.cn |
++------------------------+
+[root@room9pc01 ~]# 
+
+[root@V3 ~]# firewall-cmd   --state
+not running
+[root@V3 ~]# getenforce 
+Permissive           
+[root@V3 ~]# vim    /etc/selinux/config 
+[root@V3 ~]# grep  -n  ^SELINUX  /etc/selinux/config
+7:SELINUX=disabled
+12:SELINUXTYPE=targeted 
+
+[root@V3 ~]# systemctl  is-enabled   firewalld
+disabled
+
+[root@V3 ~]# vim   /var/www/html/test.php
+
+[root@V3 ~]# cat    /var/www/html/test.php
+
+<?php
+  echo "Hello World!\n";
+?>
+
+[root@V3 ~]# php
+php      php-cgi  php-fpm  phpize 
+  
+[root@V3 ~]# php   /var/www/html/test.php
+Hello World!
+[root@V3 ~]# elinks   -dump   http://192.168.0.13/test.php
+   Hello World!
+
+[root@V3 ~]# ls   /var/www/html/
+favicon.ico  index.html  test.php  xshell6.png  zidir
+
+
+[root@V3 ~]# rpm  -q   php-mysql  #将php和mysql关联
+php-mysql-5.4.16-46.el7.x86_64
+
+
+安装常用的php模块
+yum  -y   install \
+php-gd    php-ldap      php-odbc \
+php-pear   php-xml  php-xmlrpc  php-mbstring \
+php-snmp   php-soap   curl     libcurl-devel
+
+rpm   -q   php-gd    php-ldap      php-odbc \
+php-pear   php-xml  php-xmlrpc  php-mbstring \
+php-snmp   php-soap   curl     libcurl-devel
+
+
+Zabbix 通过C/S 模式采集数据，通过B/S模式在web 端展示和配置。
+
+被监控端：HOST通过安装agent 方式采集数据，
+网络设备通过SNMP 方式采集数据
+Server 端：通过收集SNMP 和agent 发送的数据，写入数据库（MySQL，PGSQL等），
+再通过php+apache 在web 前端展示。
+
+
+[root@room9pc01 ~]# yum list |grep curl-devel
+libcurl-devel.i686                          7.29.0-51.el7              base     
+libcurl-devel.x86_64                        7.29.0-51.el7              base  
+
+[root@V3 ~]# yum  -y   install \
+> php-gd    php-ldap      php-odbc \
+> php-pear   php-xml  php-xmlrpc  php-mbstring \
+> php-snmp   php-soap   curl     libcurl-devel
+
+已安装:
+  php-snmp.x86_64 0:5.4.16-46.el7             php-soap.x86_64 0:5.4.16-46.el7            
+
+完毕！
+[root@V3 ~]# rpm   -q   php-gd    php-ldap      php-odbc \
+> php-pear   php-xml  php-xmlrpc  php-mbstring \
+> php-snmp   php-soap   curl     libcurl-devel
+
+php-gd-5.4.16-46.el7.x86_64
+php-ldap-5.4.16-46.el7.x86_64
+php-odbc-5.4.16-46.el7.x86_64
+php-pear-1.9.4-21.el7.noarch
+php-xml-5.4.16-46.el7.x86_64
+php-xmlrpc-5.4.16-46.el7.x86_64
+php-mbstring-5.4.16-46.el7.x86_64
+php-snmp-5.4.16-46.el7.x86_64
+php-soap-5.4.16-46.el7.x86_64
+curl-7.29.0-51.el7.x86_64
+libcurl-devel-7.29.0-51.el7.x86_64
+
+[root@V3 ~]#
+---------------------- 重启apache服务
+
+[root@V3 ~]# systemctl   restart   httpd
+[root@V3 ~]# systemctl    is-enabled  httpd
+enabled
+
+-------------------- 安装部署zabbix环境 ----------------------
+https://www.zabbix.com/
+
+http://repo.zabbix.com/
+
+Index of /
+../
+non-supported/                                     23-Jan-2012 15:37                   -
+zabbix/                                            29-Mar-2019 14:31                   -
+RPM-GPG-KEY-ZABBIX                                 16-Aug-2016 10:46                1333
+RPM-GPG-KEY-ZABBIX-79EA5ED4                        16-Aug-2016 10:46                1333
+RPM-GPG-KEY-ZABBIX-A14FE591                        16-Aug-2016 10:46                1719
+RPM-GPG-KEY-ZABBIX-A14FE591-EL5                    14-Nov-2016 18:47                 954
+zabbix-official-repo.key                           13-Aug-2016 05:23                2938
+
+
+http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX
+
+http://repo.zabbix.com/zabbix-official-repo.key
+
+http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/
+
+
+zabbix简介与3.4.12版安装 | Linux运维部落
+
+2018年8月12日 - {www.zabbix.com:system.cpu.load[all,avg1].last...
+zabbix-release-3.4 /usr/share/doc/zabbix...zabbix会跳转到zabbix的安装界面,
+点击下一步查看所有...
+
+zabbix程序的组件：           
+zabbix_server：服务端守护进程；           
+zabbix_agentd：agent守护进程；           
+zabbix_proxy：代理服务器，可选组件；           
+zabbix_get：命令行工具，手动测试向agent发起数据采集请求；           
+zabbix_sender：命令行工具，运行于agent端，手动向server端发送数据；           
+zabbix_java_gateway: java网关；           
+zabbix_database：MySQL或PostgreSQL；           
+zabbix_web：Web GUI ;
+
+
+硬件监控 ：Zabbix IPMI Interface
+系统监控 ：Zabbix Agent Interface
+Java 监控：ZabbixJMX Interface
+网络设备监抟：Zabbix SNMP Interface
+应用服务监控：Zabbix Agent UserParameter
+MySQL 数据库监控：percona-monitoring-pldlgins
+URL监控：Zabbix Web监控
+
+主要术语说明
+
+主机组: host group           
+主机:host
+监控项(item) : key + parameter
+key：实现获取监控的目标上的数据的命令或脚本的名称；
+zabbix内建：                   
+​ type:    
+​ agent (server:pull) 
+​ agent(active) (agent:push) 
+​ snmp v1      … 
+
+用户自定义(UserParameter)
+如果命令本身就支持$1等参数，
+则用awk进一步处理信息的时候print awk的$N等需要写成$$N ，
+加逃逸符防止参数混乱。
+自定义Key注意监控指标单位换算 。
+采集到的数据的类型：               
+数值： 1整数   2浮点数               
+
+字符串: 1字符串  2文本                               
+
+存储的值：               
+As is：不对数据做任何处理;               
+Delta：（simple change)，本次采样减去前一次采样的值的结果;    
+
+
+Delta：（speed per second)，本次采样减去前一次采样的值，再除以经过的时长;           
+应用(application)：同一类监控项(item)的集合；           
+触发器(trigger)：界定某特定的item采集到的数据的非合理区间或非合理状态:逻辑表达式;
+逻辑表达式，阈值；通常用于定义数据的不合理区间；
+PROBLEM：非正常 状态 –> 表达式值为TRUE；
+OK：正常 状态 –> 表达式值为FALSE；
+触发器可调用的常见函数：
+nodata() ：未获取到数据
+
+事件(event)：四种事件源：trigger, discovery, auto registration, internal      
+动作(action)：由条件(condition)和操作(operation)组件；           
+媒介(media)：发送通知的通道，国内仅可用email与script方式；                               
+模板(template)：快速定义被监控主机的各监控项的预设项目集合；           
+图形(graph)：用于展示历史数据或趋势数据的图像；           
+屏幕(screen)：由多个graph组成；
+
+
+
+
+
+
+
+
+
+------------------------ zabbix简介与3.4.12版安装
+开始安装zabbix
+在监控主机上需要预先安装yum 源，
+安装官方一键包,节约自建repo文件的时间，注意使用 --force，
+不然会报nokey验证错误
+
+http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm
+
+http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-server-mysql-3.4.10-1.el7.x86_64.rpm
+
+http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-web-3.4.10-1.el7.noarch.rpm
+
+
+rpm -ivh --force 
+https://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm
+
+--------------------- （一）安装官方yum源 ----------------------
+
+[root@V3 ~]# rpm    -ivh  --force  \
+> http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm
+
+获取http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm
+警告：/var/tmp/rpm-tmp.fBUrA6: 头V4 RSA/SHA512 Signature, 密钥 ID a14fe591: NOKEY
+准备中...                          ################################# [100%]
+正在升级/安装...
+   1:zabbix-release-3.4-2.el7         ################################# [100%]
+[root@V3 ~]# echo  $?
+0
+[root@V3 ~]# ls  /etc/yum.repos.d/
+CentOS7-Base-163.repo  redhat.repo  root@V0  root@V1  root@V2  zabbix.repo
+
+[root@V3 ~]# ll  /etc/yum.repos.d/
+总用量 24
+-rw-r--r--. 1 root root 1492 5月  10 15:18 CentOS7-Base-163.repo
+-rw-r--r--. 1 root root  358 5月  10 15:20 redhat.repo
+-rw-r--r--. 1 root root 1492 5月  10 16:26 root@V0
+-rw-r--r--. 1 root root 1492 5月  10 16:26 root@V1
+-rw-r--r--. 1 root root 1492 5月  10 16:26 root@V2
+-rw-r--r--. 1 root root  410 8月  28 2017 zabbix.repo
+[root@V3 ~]# 
+------------------- 可以查看此软件包生成的文件，repo文件、文档、与key 
+
+[root@V3 ~]# rpm    -ql    zabbix-release
+
+/etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
+/etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591
+/etc/yum.repos.d/zabbix.repo
+/usr/share/doc/zabbix-release-3.4
+/usr/share/doc/zabbix-release-3.4/GPL
+
+[root@V3 ~]# rpm   -q    zabbix-release
+zabbix-release-3.4-2.el7.noarch
+
+------------------------- 查看zabbix.repo文件内容
+
+[root@V3 ~]# cat   /etc/yum.repos.d/zabbix.repo 
+[zabbix]
+name=Zabbix Official Repository - $basearch
+baseurl=http://repo.zabbix.com/zabbix/3.4/rhel/7/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591
+
+[zabbix-non-supported]
+name=Zabbix Official Repository non-supported - $basearch 
+baseurl=http://repo.zabbix.com/non-supported/rhel/7/$basearch/
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
+gpgcheck=1
+[root@V3 ~]# 
+
+[root@V3 ~]# yum  repolist   |tail  -8
+源标识                      源名称                                        状态
+base/x86_64                 CentOS-7 - Base - 163.com                     10,019
+centosplus/x86_64           CentOS-7 - Plus - 163.com                         59
+extras/x86_64               CentOS-7 - Extras - 163.com                      413
+updates/x86_64              CentOS-7 - Updates - 163.com                   1,862
+zabbix/x86_64               Zabbix Official Repository - x86_64              236
+zabbix-non-supported/x86_64 Zabbix Official Repository non-supported - x8      4
+repolist: 12,593
+[root@V3 ~]# 
+
+----------------------------- 安装zabbix 3.4服务器端
+（二）安装服务端软件及配置
+
+yum    -y   install \
+zabbix-server-mysql     zabbix-web-mysql   \
+zabbix-agent      zabbix-get    zabbix-sender  mariadb-server
+
+
+[root@V3 ~]# yum    -y   install \
+> zabbix-server-mysql     zabbix-web-mysql   \
+> zabbix-agent      zabbix-get    zabbix-sender  mariadb-server
+
+
+已加载插件：fastestmirror, product-id, search-disabled-repos, subscription-manager
+This system is not registered with an entitlement server. You can use subscription-manager to register.
+Loading mirror speeds from cached hostfile
+
+软件包 1:mariadb-server-5.5.60-1.el7_5.x86_64 已安装并且是最新版本
+
+正在解决依赖关系
+--> 正在检查事务
+---> 软件包 zabbix-agent.x86_64.0.3.4.15-1.el7 将被 安装
+---> 软件包 zabbix-get.x86_64.0.3.4.15-1.el7 将被 安装
+---> 软件包 zabbix-sender.x86_64.0.3.4.15-1.el7 将被 安装
+---> 软件包 zabbix-server-mysql.x86_64.0.3.4.15-1.el7 将被 安装
+--> 正在处理依赖关系 fping，它被软件包 zabbix-server-mysql-3.4.15-1.el7.x86_64 需要
+--> 正在处理依赖关系 libiksemel.so.3()(64bit)，它被软件包 zabbix-server-mysql-3.4.15-1.el7.x86_64 需要
+--> 正在处理依赖关系 libOpenIPMIposix.so.0()(64bit)，它被软件包 zabbix-server-mysql-3.4.15-1.el7.x86_64 需要
+--> 正在处理依赖关系 libOpenIPMI.so.0()(64bit)，它被软件包 zabbix-server-mysql-3.4.15-1.el7.x86_64 需要
+---> 软件包 zabbix-web-mysql.noarch.0.3.4.15-1.el7 将被 安装
+--> 正在处理依赖关系 zabbix-web = 3.4.15-1.el7，它被软件包 zabbix-web-mysql-3.4.15-1.el7.noarch 需要
+--> 正在检查事务
+---> 软件包 OpenIPMI-libs.x86_64.0.2.0.23-2.el7 将被 安装
+--> 正在处理依赖关系 OpenIPMI-modalias = 2.0.23-2.el7，它被软件包 OpenIPMI-libs-2.0.23-2.el7.x86_64 需要
+---> 软件包 fping.x86_64.0.3.10-1.el7 将被 安装
+---> 软件包 iksemel.x86_64.0.1.4-2.el7.centos 将被 安装
+---> 软件包 zabbix-web.noarch.0.3.4.15-1.el7 将被 安装
+--> 正在处理依赖关系 php-bcmath，它被软件包 zabbix-web-3.4.15-1.el7.noarch 需要
+--> 正在检查事务
+---> 软件包 OpenIPMI-modalias.x86_64.0.2.0.23-2.el7 将被 安装
+---> 软件包 php-bcmath.x86_64.0.5.4.16-46.el7 将被 安装
+--> 解决依赖关系完成
+
+依赖关系解决
+
+=========================================================================================
+ Package                 架构       版本                  源                        大小
+=========================================================================================
+正在安装:
+ zabbix-agent            x86_64     3.4.15-1.el7          zabbix                   369 k
+ zabbix-get              x86_64     3.4.15-1.el7          zabbix                   258 k
+ zabbix-sender           x86_64     3.4.15-1.el7          zabbix                   270 k
+ zabbix-server-mysql     x86_64     3.4.15-1.el7          zabbix                   2.0 M
+ zabbix-web-mysql        noarch     3.4.15-1.el7          zabbix                   7.2 k
+为依赖而安装:
+ OpenIPMI-libs           x86_64     2.0.23-2.el7          base                     521 k
+ OpenIPMI-modalias       x86_64     2.0.23-2.el7          base                      16 k
+ fping                   x86_64     3.10-1.el7            zabbix-non-supported      40 k
+ iksemel                 x86_64     1.4-2.el7.centos      zabbix-non-supported      49 k
+ php-bcmath              x86_64     5.4.16-46.el7         base                      58 k
+ zabbix-web              noarch     3.4.15-1.el7          zabbix                   2.6 M
+
+事务概要
+=========================================================================================
+安装  5 软件包 (+6 依赖软件包)
+
+总下载量：6.2 M
+安装大小：25 M
+Downloading packages:
+(1/11): OpenIPMI-modalias-2.0.23-2.el7.x86_64.rpm                 |  16 kB  00:00:00     
+(2/11): php-bcmath-5.4.16-46.el7.x86_64.rpm                       |  58 kB  00:00:00     
+(3/11): OpenIPMI-libs-2.0.23-2.el7.x86_64.rpm                     | 521 kB  00:00:00     
+warning: /var/cache/yum/x86_64/$releasever/zabbix-non-supported/packages/fping-3.10-1.el7.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 79ea5ed4: NOKEY
+fping-3.10-1.el7.x86_64.rpm 的公钥尚未安装
+(4/11): fping-3.10-1.el7.x86_64.rpm                               |  40 kB  00:00:00     
+(5/11): iksemel-1.4-2.el7.centos.x86_64.rpm                       |  49 kB  00:00:00     
+warning: /var/cache/yum/x86_64/$releasever/zabbix/packages/zabbix-agent-3.4.15-1.el7.x86_64.rpm: Header V4 RSA/SHA512 Signature, key ID a14fe591: NOKEY
+zabbix-agent-3.4.15-1.el7.x86_64.rpm 的公钥尚未安装
+(6/11): zabbix-agent-3.4.15-1.el7.x86_64.rpm                      | 369 kB  00:00:03     
+(7/11): zabbix-get-3.4.15-1.el7.x86_64.rpm                        | 258 kB  00:00:03     
+(8/11): zabbix-sender-3.4.15-1.el7.x86_64.rpm                     | 270 kB  00:00:00     
+(9/11): zabbix-web-3.4.15-1.el7.noarch.rpm                        | 2.6 MB  00:00:00     
+(10/11): zabbix-web-mysql-3.4.15-1.el7.noarch.rpm                 | 7.2 kB  00:00:00     
+(11/11): zabbix-server-mysql-3.4.15-1.el7.x86_64.rpm              | 2.0 MB  00:00:01     
+-----------------------------------------------------------------------------------------
+总计                                                        1.1 MB/s | 6.2 MB  00:05     
+从 file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591 检索密钥
+导入 GPG key 0xA14FE591:
+ 用户ID     : "Zabbix LLC <packager@zabbix.com>"
+ 指纹       : a184 8f53 52d0 22b9 471d 83d0 082a b56b a14f e591
+ 软件包     : zabbix-release-3.4-2.el7.noarch (installed)
+ 来自       : /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591
+从 file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX 检索密钥
+导入 GPG key 0x79EA5ED4:
+ 用户ID     : "Zabbix SIA <packager@zabbix.com>"
+ 指纹       : fbab d5fb 2025 5eca b22e e194 d13d 58e4 79ea 5ed4
+ 软件包     : zabbix-release-3.4-2.el7.noarch (installed)
+ 来自       : /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+警告：RPM 数据库已被非 yum 程序修改。
+** 发现 3 个已存在的 RPM 数据库问题， 'yum check' 输出如下：
+PackageKit-1.1.5-1.el7.x86_64 有缺少的需求 PackageKit-backend
+anaconda-core-21.48.22.121-1.el7.x86_64 有缺少的需求 yum-utils >= ('0', '1.1.11', '3')
+rhn-check-2.0.2-17.el7.noarch 有缺少的需求 yum-rhn-plugin >= ('0', '1.6.4', '1')
+  正在安装    : iksemel-1.4-2.el7.centos.x86_64                                     1/11 
+  正在安装    : php-bcmath-5.4.16-46.el7.x86_64                                     2/11 
+  正在安装    : zabbix-web-mysql-3.4.15-1.el7.noarch                                3/11 
+  正在安装    : zabbix-web-3.4.15-1.el7.noarch                                      4/11 
+  正在安装    : fping-3.10-1.el7.x86_64                                             5/11 
+  正在安装    : OpenIPMI-modalias-2.0.23-2.el7.x86_64                               6/11 
+  正在安装    : OpenIPMI-libs-2.0.23-2.el7.x86_64                                   7/11 
+  正在安装    : zabbix-server-mysql-3.4.15-1.el7.x86_64                             8/11 
+  正在安装    : zabbix-agent-3.4.15-1.el7.x86_64                                    9/11 
+  正在安装    : zabbix-sender-3.4.15-1.el7.x86_64                                  10/11 
+  正在安装    : zabbix-get-3.4.15-1.el7.x86_64                                     11/11 
+sed：无法读取 /etc/sysconfig/ipmi：没有那个文件或目录
+  验证中      : zabbix-server-mysql-3.4.15-1.el7.x86_64                             1/11 
+  验证中      : OpenIPMI-libs-2.0.23-2.el7.x86_64                                   2/11 
+  验证中      : zabbix-get-3.4.15-1.el7.x86_64                                      3/11 
+  验证中      : OpenIPMI-modalias-2.0.23-2.el7.x86_64                               4/11 
+  验证中      : zabbix-sender-3.4.15-1.el7.x86_64                                   5/11 
+  验证中      : fping-3.10-1.el7.x86_64                                             6/11 
+  验证中      : php-bcmath-5.4.16-46.el7.x86_64                                     7/11 
+  验证中      : iksemel-1.4-2.el7.centos.x86_64                                     8/11 
+  验证中      : zabbix-agent-3.4.15-1.el7.x86_64                                    9/11 
+  验证中      : zabbix-web-3.4.15-1.el7.noarch                                     10/11 
+  验证中      : zabbix-web-mysql-3.4.15-1.el7.noarch                               11/11 
+
+已安装:
+  zabbix-agent.x86_64 0:3.4.15-1.el7        zabbix-get.x86_64 0:3.4.15-1.el7            
+  zabbix-sender.x86_64 0:3.4.15-1.el7       zabbix-server-mysql.x86_64 0:3.4.15-1.el7   
+  zabbix-web-mysql.noarch 0:3.4.15-1.el7   
+
+作为依赖被安装:
+  OpenIPMI-libs.x86_64 0:2.0.23-2.el7       OpenIPMI-modalias.x86_64 0:2.0.23-2.el7      
+  fping.x86_64 0:3.10-1.el7                 iksemel.x86_64 0:1.4-2.el7.centos            
+  php-bcmath.x86_64 0:5.4.16-46.el7         zabbix-web.noarch 0:3.4.15-1.el7             
+
+完毕！
+[root@V3 ~]# 
+[root@V3 ~]# rpm   -q    zabbix-server-mysql     zabbix-web-mysql   
+zabbix-agent      zabbix-get    zabbix-sender    mariadb-server
+
+zabbix-server-mysql-3.4.15-1.el7.x86_64
+zabbix-web-mysql-3.4.15-1.el7.noarch
+zabbix-agent-3.4.15-1.el7.x86_64
+
+zabbix-get-3.4.15-1.el7.x86_64
+zabbix-sender-3.4.15-1.el7.x86_64
+mariadb-server-5.5.60-1.el7_5.x86_64
+[root@V3 ~]# 
+
+[root@V3 ~]# cd   /usr/share/doc/zabbix-
+zabbix-agent-3.4.15/        zabbix-release-3.4/         zabbix-server-mysql-3.4.15/
+zabbix-get-3.4.15/          zabbix-sender-3.4.15/       zabbix-web-3.4.15/
+
+导入数据库
+cd   /usr/share/doc/zabbix-server-mysql-3.4.12 
+
+[root@V3 ~]# cd   /usr/share/doc/zabbix-server-mysql-3.4.15/
+
+[root@V3 zabbix-server-mysql-3.4.15]# ls
+AUTHORS  ChangeLog  COPYING  create.sql.gz  NEWS  README
+
+[root@V3 ~]# ls   /usr/share/doc/zabbix-server-mysql-3.4.15/
+AUTHORS  ChangeLog  COPYING  create.sql.gz  NEWS  README
+
+[root@V3 ~]# file    /usr/share/doc/zabbix-server-mysql-3.4.15/create.sql.gz 
+/usr/share/doc/zabbix-server-mysql-3.4.15/create.sql.gz: gzip compressed data, was "create.sql", from Unix, last modified: Mon Nov 12 18:54:48 2018
+
+[root@V3 ~]# ll  /usr/share/doc/zabbix-server-mysql-3.4.15/create.sql.gz
+-rw-r--r--. 1 root root 1267039 11月 12 18:54 /usr/share/doc/zabbix-server-mysql-3.4.15/create.sql.gz
+[root@V3 ~]# ls   /usr/share/doc/ |wc  -l
+975
+
+
+[root@V3 zabbix-server-mysql-3.4.15]# type  zcat
+zcat 是 /usr/bin/zcat
+
+[root@V3 zabbix-server-mysql-3.4.15]# rpm  -qf  /usr/bin/zcat 
+gzip-1.5-9.el7.x86_64
+
+[root@V3 zabbix-server-mysql-3.4.15]# ll   /usr/bin/zcat
+-rwxr-xr-x. 1 root root 1941 2月  28 2017 /usr/bin/zcat
+
+[root@V3 zabbix-server-mysql-3.4.15]# file   /usr/bin/zcat
+/usr/bin/zcat: POSIX shell script, ASCII text executable
+
+
+创建数据库
+登录数据库：mysql -uzabbix -pzabbix
+创建数据库：create database zabbix character set utf8 collate utf8_bin;
+grant all privileges on zabbix.* to zabbix@localhost identified by 'zabbix';
+查看数据库：show databases;
+退出：quit
+
+
+[root@V3 zabbix-server-mysql-3.4.15]# mysql  -uroot -p123 -e "
+> create database  zabbix;show  databases;"
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| test               |
+| zabbix             |
++--------------------+
+
+---------------------------- 导入数据库  导入初始模板----------------------------------
+
+[root@V3 ~]# ll  /usr/share/doc/zabbix-server-mysql-3.4.15/create.sql.gz
+-rw-r--r--. 1 root root 1267039 11月 12 18:54 /usr/share/doc/zabbix-server-mysql-3.4.15/create.sql.gz
+
+zcat create.sql.gz |mysql  -uroot -p123  zabbix 
+
+[root@V3 zabbix-server-mysql-3.4.15]# zcat   create.sql.gz |mysql -uroot -p123  zabbix
+
+[root@V3 zabbix-server-mysql-3.4.15]# echo  $?
+0
+
+[root@V3 zabbix-server-mysql-3.4.15]# mysql  -uroot -p123  -D zabbix  -e  "
+> show tables;"
+
++----------------------------+
+| Tables_in_zabbix           |
++----------------------------+
+| acknowledges               |
+| actions                    |
+| alerts                     |
+| application_discovery      |
+| application_prototype      |
+| application_template       |
+| applications               |
+| auditlog                   |
+| auditlog_details           |
+| autoreg_host               |
+| conditions                 |
+| config                     |
+| corr_condition             |
+| corr_condition_group       |
+| corr_condition_tag         |
+| corr_condition_tagpair     |
+| corr_condition_tagvalue    |
+| corr_operation             |
+| correlation                |
+| dashboard                  |
+| dashboard_user             |
+| dashboard_usrgrp           |
+| dbversion                  |
+| dchecks                    |
+| dhosts                     |
+| drules                     |
+| dservices                  |
+| escalations                |
+| event_recovery             |
+| event_tag                  |
+| events                     |
+| expressions                |
+| functions                  |
+| globalmacro                |
+| globalvars                 |
+| graph_discovery            |
+| graph_theme                |
+| graphs                     |
+| graphs_items               |
+| group_discovery            |
+| group_prototype            |
+| groups                     |
+| history                    |
+| history_log                |
+| history_str                |
+| history_text               |
+| history_uint               |
+| host_discovery             |
+| host_inventory             |
+| hostmacro                  |
+| hosts                      |
+| hosts_groups               |
+| hosts_templates            |
+| housekeeper                |
+| httpstep                   |
+| httpstep_field             |
+| httpstepitem               |
+| httptest                   |
+| httptest_field             |
+| httptestitem               |
+| icon_map                   |
+| icon_mapping               |
+| ids                        |
+| images                     |
+| interface                  |
+| interface_discovery        |
+| item_application_prototype |
+| item_condition             |
+| item_discovery             |
+| item_preproc               |
+| items                      |
+| items_applications         |
+| maintenances               |
+| maintenances_groups        |
+| maintenances_hosts         |
+| maintenances_windows       |
+| mappings                   |
+| media                      |
+| media_type                 |
+| opcommand                  |
+| opcommand_grp              |
+| opcommand_hst              |
+| opconditions               |
+| operations                 |
+| opgroup                    |
+| opinventory                |
+| opmessage                  |
+| opmessage_grp              |
+| opmessage_usr              |
+| optemplate                 |
+| problem                    |
+| problem_tag                |
+| profiles                   |
+| proxy_autoreg_host         |
+| proxy_dhistory             |
+| proxy_history              |
+| regexps                    |
+| rights                     |
+| screen_user                |
+| screen_usrgrp              |
+| screens                    |
+| screens_items              |
+| scripts                    |
+| service_alarms             |
+| services                   |
+| services_links             |
+| services_times             |
+| sessions                   |
+| slides                     |
+| slideshow_user             |
+| slideshow_usrgrp           |
+| slideshows                 |
+| sysmap_element_trigger     |
+| sysmap_element_url         |
+| sysmap_shape               |
+| sysmap_url                 |
+| sysmap_user                |
+| sysmap_usrgrp              |
+| sysmaps                    |
+| sysmaps_elements           |
+| sysmaps_link_triggers      |
+| sysmaps_links              |
+| task                       |
+| task_acknowledge           |
+| task_close_problem         |
+| task_remote_command        |
+| task_remote_command_result |
+| timeperiods                |
+| trends                     |
+| trends_uint                |
+| trigger_depends            |
+| trigger_discovery          |
+| trigger_tag                |
+| triggers                   |
+| users                      |
+| users_groups               |
+| usrgrp                     |
+| valuemaps                  |
+| widget                     |
+| widget_field               |
++----------------------------+
+[root@V3 zabbix-server-mysql-3.4.15]# 
+
+[root@V3 zabbix-server-mysql-3.4.15]# useradd   zabbix
+useradd：用户“zabbix”已存在
+
+[root@V3 zabbix-server-mysql-3.4.15]# id   zabbix
+uid=990(zabbix) gid=985(zabbix) 组=985(zabbix)
+
+[root@V3 zabbix-server-mysql-3.4.15]# grep  -n zabbix   /etc/passwd
+
+45:zabbix:x:990:985:Zabbix Monitoring System:/var/lib/zabbix:/sbin/nologin
+
+[root@V3 zabbix-server-mysql-3.4.15]# ls
+AUTHORS  ChangeLog  COPYING  create.sql.gz  NEWS  README
+
+[root@V3 zabbix-server-mysql-3.4.15]# cat  README 
+Zabbix是免费软件，根据GNU通用公共许可证发布。
+（GPL）第2版。
+
+您可以根据GNU GPL的条款重新分配和/或修改它。
+自由软件基金会发布的版本2
+许可证，或（由您选择）任何更高版本。
+
+GPL的正式条款见
+http://www.fsf.org/licenses/ .
+
+这个程序是分发的，希望它会有用，
+但没有任何保证；甚至没有
+适销性或特定用途的适用性。看GNU
+更多详细信息，请参阅通用公共许可证。
+
+与openssl链接的异常
+
+另外，作为一个特殊的例外，我们允许链接代码
+使用openssl项目openssl库（或修改
+使用与OpenSSL库相同许可证的IT版本），以及
+分发链接的可执行文件。
+
+有关Zabbix的详细信息，请访问http://www.zabbix.com/。
+在线zabbix文档可在
+http://www.zabbix.com/documentation/3.4/manual/installation/install .
+
+ 
+[root@V3 zabbix-server-mysql-3.4.15]# pwd
+
+/usr/share/doc/zabbix-server-mysql-3.4.15
+
+[root@V3 zabbix-server-mysql-3.4.15]# ls
+AUTHORS  ChangeLog  COPYING  create.sql.gz  NEWS  README
+
+
+[root@V3 ~]# cd  /etc/zabbix/
+[root@V3 zabbix]# ls
+web  zabbix_agentd.conf  zabbix_agentd.d  zabbix_server.conf
+
+----------------------------- 编辑zabbix_server配置文件，使其可以连接数据库 
+
+[root@V3 zabbix]# vim   /etc/zabbix/zabbix_server.conf 
+
+ 91 DBHost=localhost
+100 DBName=zabbix
+116 DBUser=zabbix
+124 DBPassword=zabbix
+
+
+[root@V3 zabbix]# grep  -Env  '^#|^$'   /etc/zabbix/zabbix_server.conf
+
+38:LogFile=/var/log/zabbix/zabbix_server.log
+49:LogFileSize=0
+72:PidFile=/var/run/zabbix/zabbix_server.pid
+82:SocketDir=/var/run/zabbix
+91:DBHost=localhost
+100:DBName=zabbix
+116:DBUser=zabbix
+124:DBPassword=zabbix
+329:SNMPTrapperFile=/var/log/snmptrap/snmptrap.log
+446:Timeout=4
+488:AlertScriptsPath=/usr/lib/zabbix/alertscripts
+498:ExternalScripts=/usr/lib/zabbix/externalscripts
+534:LogSlowQueries=3000
+
+[root@V3 zabbix]# 
+
+创建数据库
+登录数据库：mysql -uzabbix -pzabbix
+创建数据库：create database zabbix character set utf8 collate utf8_bin;
+grant all privileges on zabbix.* to zabbix@localhost identified by 'zabbix';
+查看数据库：show databases;
+退出：quit
+
+[root@V3 zabbix]# mysql  -uroot  -p123  -e "
+> grant  all  on  zabbix.* to  zabbix@'%' identified by'zabbix';
+> show  grants  for   zabbix@'%';"
++-------------------------------------------------------------------------------------------------------+
+| Grants for zabbix@%       |
++-------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'zabbix'@'%' IDENTIFIED BY PASSWORD '*DEEF4D7D88CD046ECA02A80393B7780A63E7E789' |
+| GRANT ALL PRIVILEGES ON `zabbix`.* TO 'zabbix'@'%'   |
++-------------------------------------------------------------------------------------------------------+
+[root@V3 zabbix]# 
+
+[root@V3 zabbix]# mysql  -uroot  -p123  -e "
+show  grants  for   root@'%';"
++--------------------------------+
+| Grants for root@%     |
++--------------------------------------------------------------------------------------------------------------+
+| GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257' |
++------------------------------------------------------------------+
+
+[root@V3 zabbix]# 
+
+编辑zabbix_server配置文件，使其可以连接数据库
+ vim  /etc/zabbix/zabbix_server.conf 
+DBHost=127.0.0.1
+DBName=zabbix
+DBUser=zabbix
+DBPassword=zabbix
+
+
+vim  /etc/zabbix/zabbix_server.conf 
+DBHost=127.0.0.1
+DBName=zabbix
+DBUser=zabbix
+DBPassword=zabbix
+
+[root@V3 zabbix]# cd  /usr/share/zabbix/conf/
+[root@V3 conf]# pwd
+
+/usr/share/zabbix/conf
+
+[root@V3 conf]# ls
+zabbix.conf.php.example
+
+[root@V3 conf]# cp   zabbix.conf.php.example   zabbix.conf.php
+
+[root@V3 conf]# ls
+zabbix.conf.php  zabbix.conf.php.example
+
+[root@V3 conf]# vim  zabbix.conf.php
+
+  5 $DB['TYPE']                             = 'MYSQL';
+  6 $DB['SERVER']                   = 'localhost';
+  8 $DB['DATABASE']                 = 'zabbix';
+  7 $DB['PORT']                             = '0';   #修改成 '3306'
+  9 $DB['USER']                             = 'zabbix';
+ 10 $DB['PASSWORD']                 = '';      #修改成'zabbix'
+
+[root@V3 conf]# cat   -n  zabbix.conf.php
+     1	<?php
+     2	// Zabbix GUI configuration file.
+     3	global $DB, $HISTORY;
+     4	
+     5	$DB['TYPE']				= 'MYSQL';
+     6	$DB['SERVER']			= 'localhost';
+     7	$DB['PORT']				= '3306';
+     8	$DB['DATABASE']			= 'zabbix';
+     9	$DB['USER']				= 'zabbix';
+    10	$DB['PASSWORD']			= 'zabbix';
+    11	// Schema name. Used for IBM DB2 and PostgreSQL.
+    12	$DB['SCHEMA']			= '';
+    13	
+    14	$ZBX_SERVER				= 'localhost';
+    15	$ZBX_SERVER_PORT		= '10051';
+    16	$ZBX_SERVER_NAME		= '';
+    17	
+    18	$IMAGE_FORMAT_DEFAULT	= IMAGE_FORMAT_PNG;
+    19	
+    20	// Elasticsearch url (can be string if same url is used for all types).
+    21	$HISTORY['url']   = [
+    22			'uint' => 'http://localhost:9200',
+    23			'text' => 'http://localhost:9200'
+    24	];
+    25	// Value types stored in Elasticsearch.
+    26	$HISTORY['types'] = ['uint', 'text'];
+[root@V3 conf]# 
+[root@V3 conf]# scp   zabbix.conf.php   root@192.168.0.254:/var/git/PYTHON/pythonScripts/Zabbix
+
+[root@V3 conf]# scp    /etc/zabbix/zabbix_server.conf  root@192.168.0.254:/var/git/PYTHON/pythonScripts/Zabbix
+
+
+
+同样编辑/usr/share/zabbix/conf/zabbix.conf.php 其中的数据库参数保持一致
+
+[root@V3 conf]# ls  /etc/httpd/conf.d/
+autoindex.conf  php.conf  README  userdir.conf  welcome.conf  zabbix.conf
+
+[root@V3 conf]# ll   /etc/httpd/conf.d/zabbix.conf 
+-rw-r--r--. 1 root root 870 7月  30 2018 /etc/httpd/conf.d/zabbix.conf
+
+------------ 编辑zabbix的web配置文件中的时区，此文件是安装时自动生成的 ------------
+
+[root@V3 conf]# vim   /etc/httpd/conf.d/zabbix.conf
+
+ 20         # php_value date.timezone Europe/Riga  #修改成 
+ 20         php_value date.timezone Asia/Shanghai
+[root@V3 conf]# cat  -n  /etc/httpd/conf.d/zabbix.conf
+     1	#
+     2	# Zabbix monitoring system php web frontend
+     3	#
+     4	
+     5	Alias /zabbix /usr/share/zabbix
+     6	
+     7	<Directory "/usr/share/zabbix">
+     8	    Options FollowSymLinks
+     9	    AllowOverride None
+    10	    Require all granted
+    11	
+    12	    <IfModule mod_php5.c>
+    13	        php_value max_execution_time 300
+    14	        php_value memory_limit 128M
+    15	        php_value post_max_size 16M
+    16	        php_value upload_max_filesize 2M
+    17	        php_value max_input_time 300
+    18	        php_value max_input_vars 10000
+    19	        php_value always_populate_raw_post_data -1
+    20	        php_value date.timezone Asia/Shanghai
+    21	    </IfModule>
+    22	</Directory>
+    23	
+    24	<Directory "/usr/share/zabbix/conf">
+    25	    Require all denied
+    26	</Directory>
+    27	
+    28	<Directory "/usr/share/zabbix/app">
+    29	    Require all denied
+    30	</Directory>
+    31	
+    32	<Directory "/usr/share/zabbix/include">
+    33	    Require all denied
+    34	</Directory>
+    35	
+    36	<Directory "/usr/share/zabbix/local">
+    37	    Require all denied
+    38	</Directory>
+[root@V3 conf]# 
+
+[root@V3 conf]# ls  /etc/httpd/conf.d/
+autoindex.conf  php.conf  README  userdir.conf  welcome.conf  zabbix.conf
+
+[root@V3 conf]# scp    /etc/httpd/conf.d/*  root@192.168.0.254:/var/git/PYTHON/pythonScripts/Zabbix
+root@192.168.0.254's password: 
+autoindex.conf                                         100% 2926     3.3MB/s   00:00    
+php.conf                                               100%  691     1.0MB/s   00:00    
+README                                                 100%  366   276.9KB/s   00:00    
+userdir.conf                                           100% 1252     1.4MB/s   00:00    
+welcome.conf                                           100%  824     1.1MB/s   00:00    
+zabbix.conf                                            100%  870   496.7KB/s   00:00    
+[root@V3 conf]# 
+[root@V3 conf]# systemctl   restart   httpd
+
+[root@V3 conf]# ls  /var/www/html/
+favicon.ico  index.html  test.php  xshell6.png  zidir
+
+[root@V3 conf]# ll  /var/www/html/index.html 
+-rw-r--r--. 1 root root 9818 5月  10 17:51 /var/www/html/index.html
+
+
+编辑zabbix的web配置文件中的时区，此文件是安装时自动生成的
+vim /etc/httpd/conf.d/zabbix.conf
+php_value date.timezone Asia/Shanghai
+
+vim  /etc/httpd/conf.d/zabbix.conf
+php_value date.timezone Asia/Shanghai
+
+重启httpd服务，
+访问http://SERVER-IP/zabbix会跳转到zabbix的安装界面，
+点击下一步查看所有环境准备项目OK就可以继续了。
+
+zabbix默认管理用户是admin密码zabbix
+
+
+http://192.168.0.13/zabbix
+------------------- 会跳转到zabbix的安装界面 ---------------
+
+http://192.168.0.13/zabbix/setup.php
+
+    Welcome
+    Check of pre-requisites
+    Configure DB connection
+    Zabbix server details
+    Pre-installation summary
+    Install
+
+Welcome toZabbix 3.4
+
+Licensed under GPL v2
+Zabbix 3.4.15. © 2001–2018, Zabbix SIA
+
+
+
+【搭建LAMP环境与部署zabbix服务】
+https://blog.csdn.net/lction/article/details/80789855
+
+
+Zabbix3.4安装部署 操作过程手册
+https://blog.51cto.com/10981246/2087541
+
+
+Zabbix3.4安装详细步骤
+https://blog.51cto.com/hwg1227/2126342
+
+
+https://www.zabbix.com/documentation/3.4/zh/manual
+Zabbix 手册
+欢迎使用Zabbix 3.4软件使用手册，
+本手册可以帮助用户利用Zabbix实现对从简单到复杂的监控任务的高效管理。
+
+
+
+

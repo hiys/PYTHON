@@ -1,0 +1,764 @@
+
+
+
+﻿ 
+/etc/yum.conf 配置文件
+[main] 
+cachedir=/var/cache/yum  #yum缓存的目录，yum在此存储下载的rpm包和数据库
+--------------------
+yum使用
+注:当第一次使用yum或yum资源库有更新时,
+yum会自动下载所有所需的headers放置于/var/cache/yum目录下,所需时间可能较长.
+
+[root@room9pc01 ~]# ls  /var/cache/yum/
+x86_64
+[root@room9pc01 ~]# ls  /var/cache/yum/x86_64/
+7
+[root@room9pc01 ~]# ls  /var/cache/yum/x86_64/7/
+CentOS7  google-chrome  InstallMedia  rhel7  rpm  timedhosts  timedhosts.txt
+[root@room9pc01 ~]# ls  /var/cache/yum/x86_64/7/rpm/
+cachecookie                                                                          gen       repomd.xml
+f9c66a0890a219af9454f471ce1f31970de2a6a62fa484a704f61de074f82319-primary.sqlite.bz2  packages
+
+[root@room9pc01 ~]# ls  /var/cache/yum/x86_64/7/CentOS7/
+9346184be1deb727caf4b1ecf4a7949155da5da74af9b92c172687b290a773df-c7-x86_64-comps.xml.gz  gen
+cachecookie                                                                              packages
+f64ccdaf79da59bd21f7cf17f252ff62f2e56ea55bce5b4de16cf8ef1d13a7c8-primary.sqlite.bz2      repomd.xml
+
+[root@room9pc01 ~]# ls  /var/cache/yum/x86_64/7/rhel7/
+35b2bd4d785b1be1a4aa6ac9a2c89903f20a6e4fc428af1fdac6e4df3bd75048-primary.sqlite.bz2          gen
+9c36ffa7133f0a1d973e3f4a323fae9cdf9463d5a7eec37fbf3e3824ffd9c78c-comps-Server.x86_64.xml.gz  packages
+cachecookie                                                                                  repomd.xml
+
+*********/
+2.下载yum安装文件 
+
+http://mirrors.aliyun.com/centos/7/os/x86_64/
+
+Index of /centos/7/os/x86_64/
+
+../
+EFI/                                               25-Nov-2018 16:20                   -
+LiveOS/                                            25-Nov-2018 16:20                   -
+Packages/                                          25-Nov-2018 15:58                   -
+images/                                            25-Nov-2018 16:21                   -
+isolinux/                                          28-Nov-2018 01:15                   -
+repodata/                                          25-Nov-2018 16:31                   -
+CentOS_BuildTag                                    25-Nov-2018 16:01                  14
+EULA                                               30-Aug-2017 14:33                 227
+GPL                                                09-Dec-2015 22:35               18009
+RPM-GPG-KEY-CentOS-7                               09-Dec-2015 22:35                1690
+RPM-GPG-KEY-CentOS-Testing-7                       09-Dec-2015 22:35                1690
+
+
+http://mirrors.aliyun.com/centos/7/os/x86_64/Packages/
+
+
+
+
+系统更新(更新所有可以升级的rpm包,包括kernel)
+#yum -y update
+
+每天定期执行系统更新
+#chkconfig yum on
+#service yum start
+
+*rpm包的更新，检查可更新的rpm包
+#yum check-update
+
+更新所有的rpm包
+#yum update
+
+更新指定的rpm包,如更新kernel和kernel source
+#yum update kernel kernel-source
+
+大规模的版本升级,与yum update不同的是,连旧的淘汰的包也升级
+#yum upgrade
+
+清除暂存中旧的rpm头文件和包文件
+#yum clean 或#yum clean all
+注:相当于yum clean packages + yum clean oldheaders
+
+列出资源库中特定的可以安装或更新以及已经安装的rpm包的信息
+#yum info mozilla
+#yum info mozilla*
+注:可以在rpm包名中使用匹配符,如列出所有以mozilla开头的rpm包的信息
+
+列出资源库中所有可以更新的rpm包的信息
+#yum info updates
+
+列出已经安装的所有的rpm包的信息
+#yum info installed
+
+列出已经安装的但是不包含在资源库中的rpm包的信息
+#yum info extras
+注:通过其它网站下载安装的rpm包的信息
+
+*搜索rpm包
+搜索匹配特定字符的rpm包
+#yum search mozilla
+注:在rpm包名,包描述等中搜索
+
+搜索有包含特定文件名的rpm包
+#yum provides  /xxx/xxx/realplay
+------------------------
+------------------------------
+------------------------
+yum的配置文件/etc/yum.conf
+yum的一切配置信息都储存在一个叫/etc/yum.conf的配置文件中，
+通常位于/etc目 录下，这是整个yum系统的重中之重，
+进行说明。
+[main] 
+cachedir=/var/cache/yum  #yum缓存的目录，yum在此存储下载的rpm包和数据库
+
+debuglevel=2  #除错级别，0-10,默认是2
+logfile=/var/log/yum.log  #yum的日志文件
+
+pkgpolicy=newest 
+# 包的策略。一共有两个选项，newest和last，
+这个作用是如果你设置了多个repository，
+而同一软件在不同的repository中同时存在，yum应该安装哪一个，
+如果是newest，则yum会安装最新的那个版本。
+如果是last，则yum会将服务器id [serverid]
+( 例如[base]  #用于区别各个不同的yum源仓库名字id)
+以字母表排序，并选择最后的那个服务器上(yum源仓库id)的软件安装。
+一般都是选newest
+
+distroverpkg=redhat-release 
+#指定一个软件包，yum会根据这个包判断你的发行版本，默认是redhat-release，
+也可以是安装的任何针对自己发行版的rpm包。
+#$releasever，发行版的版本，从[main]部分的distroverpkg获取，
+如果没有，则根据redhat-release包进行判断
+---------------------------------
+/etc/yum.repos.d/CentOS-Base.repo
+
+[base]  #用于区别各个不同的repository(yum源仓库)，必须有一个独一无二的名称
+
+name=CentOS-$releasever - Base - mirrors.aliyun.com
+
+# name，是对repository的描述，支持像$releasever $basearch这样的变量
+
+#$releasever，发行版的版本，从[main]部分的distroverpkg获取，
+如果没有，则根据redhat-release包进行判断
+
+failovermethod=priority
+
+
+# failovermethode 有两个选项roundrobin和priority，
+意思分别是有多个url可供选择时，yum选择的次序.
+# roundrobin是随机选择，如果连接失 败则使用下一个，依次循环，
+# priority则根据url的次序从第一个开始。
+如果不指明，默认是roundrobin。
+# failover   n.
+[电脑][数据库]失效备援 
+（为系统备援能力的一种，当系统中其中一项设备失效而无法运作时，
+另一项设备即可自动接手原失效系统所执行的工作）
+
+baseurl=http://mirrors.aliyun.com/centos/$releasever/os/$basearch/
+     #  http://mirrors.aliyun.com/centos/7/os/x86_64/
+
+        http://mirrors.aliyuncs.com/centos/$releasever/os/$basearch/
+    
+      http://mirrors.cloud.aliyuncs.com/centos/$releasever/os/$basearch/
+
+#url支持的协议有 http:// ftp:// file://三种。
+baseurl后可以跟多个url，
+你可以自己改为速度比较快的镜像站，但baseurl只能有一个
+
+[root@room9pc01 ~]# cat /etc/yum.repos.d/rhel7.repo 
+[rhel7]
+name=rhel7.4
+baseurl=ftp://127.0.0.1/rhel7
+enabled=1
+gpgcheck=0
+[root@room9pc01 ~]# ls  /var/ftp/rhel7/
+addons  EULA              GPL     isolinux  media.repo  repodata  
+               RPM-GPG-KEY-redhat-release
+EFI     extra_files.json  images  LiveOS    Packages 
+   RPM-GPG-KEY-redhat-beta    TRANS.TBL
+
+/**********
+
+2.下载yum安装文件 
+
+baseurl=http://mirrors.aliyun.com/centos/$releasever/os/$basearch/
+             #  http://mirrors.aliyun.com/centos/7/os/x86_64/
+
+http://mirrors.aliyun.com/centos/7/os/x86_64/
+
+Index of /centos/7/os/x86_64/
+
+../
+EFI/                                               25-Nov-2018 16:20                   -
+LiveOS/                                            25-Nov-2018 16:20                   -
+Packages/                                          25-Nov-2018 15:58                   -
+images/                                            25-Nov-2018 16:21                   -
+isolinux/                                          28-Nov-2018 01:15                   -
+repodata/                                          25-Nov-2018 16:31                   -
+CentOS_BuildTag                                    25-Nov-2018 16:01                  14
+EULA                                               30-Aug-2017 14:33                 227
+GPL                                                09-Dec-2015 22:35               18009
+RPM-GPG-KEY-CentOS-7                               09-Dec-2015 22:35                1690
+RPM-GPG-KEY-CentOS-Testing-7                       09-Dec-2015 22:35                1690
+
+
+http://mirrors.aliyun.com/centos/7/os/x86_64/Packages/
+
+baseurl=http://mirrors.aliyun.com/centos/$releasever/os/$basearch/
+     #  http://mirrors.aliyun.com/centos/7/os/x86_64/
+
+*********/
+
+# url指向的目录必须是这个repository header目录的上一级，
+它也支持$releasever $basearch这样的变量
+
+# $basearch，cpu的基本体系组，
+如i686和athlon同属i386，alpha和alphaev6同属alpha
+
+gpgcheck=1
+
+# 有1和0两个选择，分别代表是否是否进行gpg校验，
+如果没有这一项，默认yum.conf全局性配置文件也是检查的
+但只对此服务器起作用
+
+gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+     # http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+     # http://mirrors.aliyun.com/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7
+
+
+exclude=gaim
+#exclude=，排除某些软件在升级名单之外，可以用通配符，
+列表中各个项目要用 空格 隔开，
+这个对于安装了诸如美化包，中文补丁的软件包特别有用
+但只对此服务器起作用
+
+------------
+---------------------------
+由于 redhat的yum在线更新是收费的，
+如果没有注册的话不能使用，
+如果要使用，需将redhat的yum卸载后，
+重启安装，再配置其他源，以下为详细过程： 
+
+[root@room9pc01 ~]# yum list |grep yum
+PackageKit-yum.x86_64                  1.1.5-1.el7.centos              @anaconda
+yum.noarch                             3.4.3-154.el7.centos            @anaconda
+yum-langpacks.noarch                   0.4.2-7.el7                     @anaconda
+yum-metadata-parser.x86_64             1.1.4-10.el7                    @anaconda
+yum-plugin-fastestmirror.noarch        1.1.31-42.el7                   @anaconda
+yum-utils.noarch                       1.1.31-42.el7                   @anaconda
+kabi-yum-plugins.noarch                1.0-3.el7                       rhel7    
+yum-plugin-aliases.noarch              1.1.31-42.el7                   rhel7    
+yum-plugin-changelog.noarch            1.1.31-42.el7                   rhel7    
+yum-plugin-ovl.noarch                  1.1.31-42.el7                   rhel7    
+yum-plugin-tmprepo.noarch              1.1.31-42.el7                   rhel7    
+yum-plugin-verify.noarch               1.1.31-42.el7                   rhel7    
+yum-plugin-versionlock.noarch          1.1.31-42.el7                   rhel7    
+yum-rhn-plugin.noarch                  2.0.1-9.el7                     rhel7  
+  
+[root@room9pc01 ~]# rpm  -qa  |grep  yum
+yum-plugin-fastestmirror-1.1.31-42.el7.noarch
+PackageKit-yum-1.1.5-1.el7.centos.x86_64
+yum-langpacks-0.4.2-7.el7.noarch
+yum-utils-1.1.31-42.el7.noarch
+yum-metadata-parser-1.1.4-10.el7.x86_64
+yum-3.4.3-154.el7.centos.noarch
+
+
+1.删除redhat原有的yum 
+rpm -aq|grep yum|xargs rpm -e --nodeps 
+
+
+#直接自己手工添加软件仓库配置文件
+复制代码
+vi /etc/yum.repos.d/epel.repo
+
+[epel]
+name=epel
+mirrorlist=http://mirrors.fedoraproject.org/
+mirrorlist?repo=epel-releasever&arch=releasever&arch=basearch
+
+
+baseurl=http://mirrors.aliyun.com/centos/$releasever/os/$basearch/
+     #  http://mirrors.aliyun.com/centos/7/os/x86_64/
+
+# $arch，cpu体系，如i686,athlon等
+# $basearch，cpu的基本体系组，
+如i686和athlon同属i386，alpha和alphaev6同属alpha。
+
+#$releasever，发行版的版本，从[main]部分的distroverpkg获取，
+如果没有，则根据redhat-release包进行判断
+
+******
+  # cat -n  /etc/yum.conf 
+  1:[main]
+ 12:distroverpkg=centos-release  
+   # redhat 或 CentOS 发行版本号文件(相对路径下的文件名/etc/centos-release )
+******** 获取 redhat 或 CentOS 发行版本号
+      ~]# cat   /etc/centos-release
+CentOS Linux release 7.4.1708 (Core)
+*********/
+# $arch，cpu体系，如i686,athlon等
+# $basearch，cpu的基本体系组，
+如i686和athlon同属i386，alpha和alphaev6同属alpha。
+
+enabled=1
+gpgcheck=0
+
+*********   ~]# find /var/git/Cloud/Cloud_linux/ |xargs  grep -lri  "\$arch"
+
+
+#首先卸载以前装的epel以免影响
+rpm -e epel-release
+
+1.删除redhat原有的yum 
+rpm -aq|grep yum|xargs rpm -e --nodeps 
+
+
+2.下载yum安装文件 
+
+http://mirrors.aliyun.com/centos/7/os/x86_64/
+
+Index of /centos/7/os/x86_64/
+
+../
+EFI/                                               25-Nov-2018 16:20                   -
+LiveOS/                                            25-Nov-2018 16:20                   -
+Packages/                                          25-Nov-2018 15:58                   -
+images/                                            25-Nov-2018 16:21                   -
+isolinux/                                          28-Nov-2018 01:15                   -
+repodata/                                          25-Nov-2018 16:31                   -
+CentOS_BuildTag                                    25-Nov-2018 16:01                  14
+EULA                                               30-Aug-2017 14:33                 227
+GPL                                                09-Dec-2015 22:35               18009
+RPM-GPG-KEY-CentOS-7                               09-Dec-2015 22:35                1690
+RPM-GPG-KEY-CentOS-Testing-7                       09-Dec-2015 22:35                1690
+
+http://mirrors.aliyun.com/centos/7/os/x86_64/Packages/
+
+# wget  http://mirrors.aliyun.com/centos/7/os/x86_64/Packages/yum-3.4.3-161.el7.centos.noarch.rpm
+
+# wget  http://mirrors.aliyun.com/centos/7/os/x86_64/Packages/yum-metadata-parser-1.1.4-10.el7.x86_64.rpm
+
+# wget   http://mirrors.aliyun.com/centos/7/os/x86_64/Packages/yum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm
+
+# wget   http://mirrors.aliyun.com/centos/7/os/x86_64/Packages/yum-utils-1.1.31-50.el7.noarch.rpm
+
+# wget  http://mirrors.aliyun.com/centos/7/os/x86_64/Packages/yum-langpacks-0.4.2-7.el7.noarch.rpm
+
+# wget  http://mirrors.aliyun.com/centos/7/os/x86_64/Packages/PackageKit-yum-1.1.10-1.el7.centos.x86_64.rpm
+
+# wget  http://mirrors.aliyun.com/centos/7/os/x86_64/Packages/python-iniparse-0.4-9.el7.noarch.rpm
+
+# wget  http://mirrors.aliyun.com/centos/7/os/x86_64/Packages/yum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm
+
+# wget  http://mirrors.aliyun.com/centos/7/os/x86_64/Packages/yum-plugin-priorities-1.1.31-50.el7.noarch.rpm
+
+
+3.进行安装yum 
+
+rpm -ivh python-iniparse-0.4-9.el7.noarch.rpm
+rpm -ivh yum-metadata-parser-1.1.4-10.el7.x86_64.rpm
+
+rpm -ivh yum-3.4.3-161.el7.centos.noarch.rpm   yum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm
+注意最后两个包必需同时安装，否则会相互依赖 
+
+
+[root@room9pc01 ~]# rpm  -qa |grep  python-iniparse
+python-iniparse-0.4-9.el7.noarch
+
+[root@room9pc01 ~]# rpm  -qa  |grep  yum
+
+yum-plugin-fastestmirror-1.1.31-42.el7.noarch
+
+PackageKit-yum-1.1.5-1.el7.centos.x86_64
+yum-langpacks-0.4.2-7.el7.noarch
+yum-utils-1.1.31-42.el7.noarch
+
+yum-metadata-parser-1.1.4-10.el7.x86_64
+yum-3.4.3-154.el7.centos.noarch
+
+
+
+yum = Yellow dog Updater, Modified
+4.更新repo文件
+
+[base]
+
+name=CentOS-$releasever - Base - mirrors.aliyun.com
+       # 对repository的描述，支持像$releasever $basearch这样的变量
+   # $releasever，发行版的版本，
+  从[main]部分的distroverpkg获取，如果没有，则根据redhat-release包进行判断。
+
+12:distroverpkg=centos-release  
+   # redhat 或 CentOS 发行版本号文件(相对路径下的文件名/etc/centos-release )
+******** 获取 redhat 或 CentOS 发行版本号
+      ~]# cat   /etc/centos-release
+CentOS Linux release 7.4.1708 (Core) 
+
+
+failovermethod=priority
+   # failovermethode 有两个选项roundrobin和priority，
+      意思分别是有多个url可供选择时，yum选择的次序，
+     roundrobin是随机选择，如果连接失 败则使用下一个，依次循环，
+     priority则根据url的次序从第一个开始。
+
+baseurl=http://mirrors.aliyun.com/centos/$releasever/os/$basearch/
+ 
+        http://mirrors.aliyuncs.com/centos/$releasever/os/$basearch/
+    
+      http://mirrors.cloud.aliyuncs.com/centos/$releasever/os/$basearch/
+
+  # baseurl后可以跟多个url，你可以自己改为速度比较快的镜像站，但baseurl只能有一个
+   # $arch，       cpu体系，如i686,athlon等
+   # $basearch，   cpu的基本体系组，如i686和athlon同属i386，alpha和alphaev6同属alpha
+
+priority=N(N是整数，范围从1-99，数字越小代表优先级越高,设置软件仓库的优先级)
+
+
+[root@room9pc01 ~]# cat /etc/yum.repos.d/rhel7.repo 
+[rhel7]
+name=rhel7.4
+baseurl=ftp://127.0.0.1/rhel7
+enabled=1
+gpgcheck=0
+[root@room9pc01 ~]# ls  /var/ftp/rhel7/
+addons  EULA              GPL     isolinux  media.repo  repodata  
+               RPM-GPG-KEY-redhat-release
+EFI     extra_files.json  images  LiveOS    Packages 
+   RPM-GPG-KEY-redhat-beta    TRANS.TBL
+   # url指向的目录必须是这个repository header目录的上一级，
+      它也支持$releasever $basearch这样的变量
+
+gpgcheck=1
+
+gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+ 
+
+#released updates 
+
+[root@room9pc01 ~]# grep  -Env "^#|^$"  /etc/yum.conf 
+1:[main]
+2:cachedir=/var/cache/yum/$basearch/$releasever 
+  yum缓存的目录，yum在此存储下载的rpm包和数据库，一般是/var/cache/yum
+/***********
+[root@room9pc01 ~]# ls  /var/cache/yum/
+x86_64
+[root@room9pc01 ~]# ls  /var/cache/yum/x86_64/
+7
+[root@room9pc01 ~]# ls  /var/cache/yum/x86_64/7/
+CentOS7  google-chrome  InstallMedia  rhel7  rpm  timedhosts  timedhosts.txt
+[root@room9pc01 ~]# ls  /var/cache/yum/x86_64/7/rpm/
+cachecookie                                                                          gen       repomd.xml
+f9c66a0890a219af9454f471ce1f31970de2a6a62fa484a704f61de074f82319-primary.sqlite.bz2  packages
+
+[root@room9pc01 ~]# ls  /var/cache/yum/x86_64/7/CentOS7/
+9346184be1deb727caf4b1ecf4a7949155da5da74af9b92c172687b290a773df-c7-x86_64-comps.xml.gz  gen
+cachecookie                                                                              packages
+f64ccdaf79da59bd21f7cf17f252ff62f2e56ea55bce5b4de16cf8ef1d13a7c8-primary.sqlite.bz2      repomd.xml
+
+
+
+3:keepcache=0
+4:debuglevel=2   
+   #除错级别，0-10,默认是2
+
+5:logfile=/var/log/yum.log
+  #yum的日志文件，默认是/var/log/yum.log
+********** ~]# ll  /var/log/yum.log
+-rw------- 1 root root 611 3月  15 20:00 /var/log/yum.log
+
+6:exactarch=1
+  #(有两个选项1和0, 1代表'是'),代表是否只升级和你安装软件包cpu体系一致的包
+
+7:obsoletes=1
+8:gpgcheck=1
+  # 有1和0两个选择，分别代表是否是否进行gpg校验，
+   如果没有这一项，默认也是检查的
+
+9:plugins=1
+10:installonly_limit=5
+11:bugtracker_url=http://bugs.centos.org/set_project.php?project_id=23&ref=http://bugs.centos.org/bug_report_page.php?category=yum
+
+12:distroverpkg=centos-release  
+   # redhat 或 CentOS 发行版本号文件(相对路径下的文件名/etc/centos-release )
+   #指定一个软件包，yum会根据这个包判断你的发行版本，默认是redhat-release，
+  也可以是安装的任何针对自己发行版的rpm包
+******** 获取 redhat 或 CentOS 发行版本号
+[root@room9pc01 ~]# cat  /etc/issue
+\S
+Kernel \r on an \m
+
+[root@room9pc01 ~]# cat  /etc/redhat-release 
+CentOS Linux release 7.4.1708 (Core) 
+
+[root@room9pc01 ~]# ll  /etc/redhat-release
+lrwxrwxrwx. 1 root root 14 3月  19 2018 /etc/redhat-release -> centos-release
+
+[root@room9pc01 ~]# cat   /etc/centos-release
+CentOS Linux release 7.4.1708 (Core) 
+
+如果网速慢的话可以通过增加yum的超时时间，这样就不会总是因为超时而退出。
+#vi /etc/yum.conf
+#加上这么一句
+timeout=120
+
+
+先安装fastestmirror，让系统yum的时候自动选择最快的镜像：
+
+#yum install yum-plugin-fastestmirror-1.1.31-42.el7.noarch  -y
+
+RPMForge是一个安全、稳定并且更新及时的软件仓库，
+通过安装RPMForge可以是CentOS在进行yum update的时候多一个选择，
+有时候甚至是唯一的选择，比如想要升级rsync到3.0.x版本，
+如果懒得自己编译安装，就得依靠RPMForge了。
+
+1、先安装priority这个yum的插件，这个插件用来设定安装软件时候软件仓库的优先级，
+一般是默认先从官方base或者镜像安装，
+然后从社区用户contribute的软件中安装，
+再从第三方软件仓库中安装。
+#yum  -y  install  yum-plugin-priorities
+
+
+2、手动编辑 /etc/yum.repos.d/ 目录中后缀为.repo的文件来设置软件仓库的优先级
+priority=N(N是整数，范围从1-99，数字越小代表优先级越高)
+
+
+7、Ubuntu开源软件镜像站：http://archive.ubuntu.com/
+
+8、Ubuntu开源软件镜像站：http://cdimage.ubuntu.com/
+
+9、USTC开源软件镜像站（ISO、apache、soft）：http://mirrors.ustc.edu.cn/
+
+10、Spring开源软件镜像站：http://repo.spring.io/release/
+
+11、Spring开源软件镜像站：http://repo.spring.io/libs-release-local/
+6   Repoforge开源软件镜像站：http://pkgs.repoforge.org/
+
+[root@room9pc01 ~]# host   pkgs.repoforge.org
+pkgs.repoforge.org has address 78.46.17.228
+
+ wget  http://repository.it4i.cz/mirrors/repoforge/redhat/el7/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el7.rf.x86_64.rpm
+
+
+RepoForge源可以做为Centos官方源及EPEL源的补充，这样Centos下常用软件基本都可使用yum安装了
+Centos6
+
+rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.i686.rpm
+
+rpm -ivh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+
+
+
+# 扩展你的rpm包
+ #  rpm -i rpmforge-release-0.3.6-1.el5.rf.*.rpm
+更改 /etc/yum.repos.d/xx.repo 配置文件，添加
+priority=1（或者2.3.4….）
+
+[root@room9pc01 ~]# find /var/git/Cloud/Cloud_linux/ |xargs  grep -lri  "\$arch"
+
+
+
+
+
+#下载新repo 到/etc/yum.repos.d/
+
+epel(RHEL 7)
+wget -O /etc/yum.repos.d/epel.repo 
+ http://mirrors.aliyun.com/repo/epel-7.repo
+
+CentOS6.5添加阿里云的EPEL源
+yum  -y localinstall --nogpgcheck 
+ http://mirrors.aliyun.com/epel/6/x86_64/epel-release-6-8.noarch.rpm
+ 安装阿里云EPEL源
+
+http://mirrors.aliyun.com/epel/7/x86_64/Packages
+/e/epel-release-7-11.noarch.rpm
+
+http://mirrors.aliyun.com/epel/
+
+RPM-GPG-KEY-EPEL-7 (文件---PGP公钥块)
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.4.11 (GNU/Linux)
+
+mQINB......
+qJWtGcA6wRS/wDzXJEN........qxS+ZVA/HGkyfiu4cpgV8VUnbql5eAZ+1Ll6Dw==
+=hdPa
+-----END PGP PUBLIC KEY BLOCK-----
+
+
+导入GPG KEY
+导入每个reposity的GPG key，
+yum可以使用gpg对包进行校验，确保下载包的完整性，
+先要到各个repository站点找到gpg key，一般都会放在首页的醒目位置，
+一些名字诸如 RPM-GPG-KEY.txt之类的纯文本文件，把它们下载，
+然后用rpm --import  /xxx/RPM-GPG-KEY 命令将它们导入，
+最好把发行版自带GPG-KEY也导入。
+rpm --import /usr/share/doc/redhat-release-*/RPM-GPG-KEY 
+官方软件升级用得上
+/*****
+[root@hiys ~]# ls /var/ftp/iso/RPM-GPG-KEY-CentOS-7 
+/var/ftp/iso/RPM-GPG-KEY-CentOS-7
+
+[root@H127 ~]# rpm  --import ftp://192.168.1.254/iso/RPM-GPG-KEY-CentOS-7  
+## 导入公钥 方式一
+[root@H127 ~]# echo $?
+0
+[root@H127 ~]# lftp 192.168.1.254      ## 导入公钥 方式 2
+lftp 192.168.1.254:/> cd iso/
+lftp 192.168.1.254:/iso> ls
+lftp 192.168.1.254:/iso> get  RPM-GPG-KEY-CentOS-7
+1690 bytes transferred
+lftp 192.168.1.254:/iso> exit
+[root@H127 ~]# rpm  --import  RPM-GPG-KEY-CentOS-7    ## 导入公钥 方式2
+
+****/
+yum常用问题解决
+1、如果网速慢的话可以通过增加yum的超时时间，这样就不会总是因为超时而退出。
+#vi /etc/yum.conf
+#加上这么一句
+timeout=120
+----------------------------
+------------------------------
+--------------------
+怎样知道系统是32 位还是64 位？
+
+使用uname -a命令，32位系统会显示i686 i686 i386 GNU/Linux；
+  64位会显示x86_64 x86_64 x86_64 GNU/Linux.
+
+[root@room9pc01 ~]# uname  -a
+Linux room9pc01.tedu.cn 3.10.0-693.el7.x86_64 
+#1 SMP Tue Aug 22 21:09:27 UTC 2017 x86_64 x86_64 x86_64 GNU/Linux
+
+
+
+
+
+
+[base]
+
+name=CentOS-$releasever - Base - mirrors.aliyun.com
+
+failovermethod=priority
+
+baseurl=http://mirrors.aliyun.com/centos/$releasever/os/$basearch/
+ 
+        http://mirrors.aliyuncs.com/centos/$releasever/os/$basearch/
+    
+      http://mirrors.cloud.aliyuncs.com/centos/$releasever/os/$basearch/
+
+gpgcheck=1
+
+gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+ 
+
+#released updates 
+
+[updates]
+
+name=CentOS-$releasever - Updates - mirrors.aliyun.com
+
+failovermethod=priority
+
+baseurl=http://mirrors.aliyun.com/centos/$releasever/updates/$basearch/
+
+        http://mirrors.aliyuncs.com/centos/$releasever/updates/$basearch/
+
+        http://mirrors.cloud.aliyuncs.com/centos/$releasever/updates/$basearch/
+
+gpgcheck=1
+
+gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+ 
+
+#additional packages that may be useful
+
+[extras]
+
+name=CentOS-$releasever - Extras - mirrors.aliyun.com
+
+failovermethod=priority
+
+baseurl=http://mirrors.aliyun.com/centos/$releasever/extras/$basearch/
+
+        http://mirrors.aliyuncs.com/centos/$releasever/extras/$basearch/
+
+        http://mirrors.cloud.aliyuncs.com/centos/$releasever/extras/$basearch/
+
+gpgcheck=1
+
+gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+ 
+
+#additional packages that extend functionality of existing packages
+
+[centosplus]
+
+name=CentOS-$releasever - Plus - mirrors.aliyun.com
+
+failovermethod=priority
+
+baseurl=http://mirrors.aliyun.com/centos/$releasever/centosplus/$basearch/
+
+        http://mirrors.aliyuncs.com/centos/$releasever/centosplus/$basearch/
+
+        http://mirrors.cloud.aliyuncs.com/centos/$releasever/centosplus/$basearch/
+
+gpgcheck=1
+
+enabled=0
+
+gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+ 
+
+#contrib - packages by Centos Users
+
+[contrib]
+
+name=CentOS-$releasever - Contrib - mirrors.aliyun.com
+
+failovermethod=priority
+
+baseurl=http://mirrors.aliyun.com/centos/$releasever/contrib/$basearch/
+
+        http://mirrors.aliyuncs.com/centos/$releasever/contrib/$basearch/
+
+        http://mirrors.cloud.aliyuncs.com/centos/$releasever/contrib/$basearch/
+
+gpgcheck=1
+
+enabled=0
+
+gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7
+
+
+#http://mirrors.aliyun.com/repo/Centos-7.repo
+
+http://mirrors.aliyun.com/repo/
+Index of /repo/
+
+../
+Centos-5.repo                                      15-Jun-2018 22:20                2960
+Centos-6.repo                                      15-Jun-2018 22:21                2523
+Centos-7.repo                                      15-Jun-2018 22:22                2523
+Centos-altarch-7.repo                              15-Mar-2018 07:52                1345
+Centos-openstack.repo                              24-Apr-2018 18:25                1033
+aliyun-5.repo                                      29-Jan-2015 10:01                2780
+debian6-lts.list                                   15-May-2015 03:11                 725
+debian7-lts.list                                   15-May-2015 01:53                 712
+epel-5-cloud.repo                                  11-May-2018 03:37                 688
+epel-5.repo                                        11-May-2018 03:34                 664
+epel-6-cloud.repo                                  11-May-2018 03:43                 688
+epel-6.repo                                        11-May-2018 03:34                 664
+epel-7-cloud.repo                                  11-May-2018 03:32                1084
+epel-7.repo                                        11-May-2018 03:35                 664
+epel-testing.repo                                  30-Dec-2013 08:46                1022
+epel.repo                                          10-Mar-2014 07:15                 923
+fedora-altarch-updates.repo                        15-Mar-2018 11:25                 993
+fedora-altarch.repo                                15-Mar-2018 11:24                1015
+fedora-updates.repo                                01-Jan-2014 15:45                1099
+fedora.repo                                        01-Jan-2014 15:45                1142
+ubuntu1204-lts.list                                15-May-2015 01:53                4389
+ubuntu1404-lts.list                                15-May-2015 01:53                4346
+version                                            13-Apr-2018 06:27              947790
+
+

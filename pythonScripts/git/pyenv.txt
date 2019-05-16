@@ -1,0 +1,1893 @@
+
+[student@room10pc15 ~]$ pwd
+/home/student
+[student@room10pc15 ~]$ echo  $HOME
+/home/student
+[student@room10pc15 ~]$ echo  $USER
+student
+[student@room10pc15 ~]$ echo  1 |passwd   --stdin  student 
+只有根用户才能进行此操作。
+
+[student@room10pc15 ~]$ tail  -1  /etc/fstab 
+/var/lib/libvirt/images/iso/CentOS7-1804.iso  /var/ftp/centos-1804 iso9660 defaults 0 0
+
+[student@room10pc15 ~]$ ll   /etc/fstab
+-rw-r--r-- 1 root root 431 1月  26 14:12 /etc/fstab
+
+[student@room10pc15 ~]$ ll   /var/lib/libvirt/images/iso/CentOS7-1804.iso 
+-rw-r--r-- 1 qemu qemu 9397338112 1月  24 15:15 /var/lib/libvirt/images/iso/CentOS7-1804.iso
+
+[student@room10pc15 ~]$ du  -sh  /var/lib/libvirt/images/iso/CentOS7-1804.iso
+8.8G	/var/lib/libvirt/images/iso/CentOS7-1804.iso
+
+[student@room10pc15 ~]$ ll   /var/ftp/centos-1804/
+总用量 1640
+-rw-rw-r-- 1 root root      14 5月   2 2018 CentOS_BuildTag
+drwxr-xr-x 3 root root    2048 5月   4 2018 EFI
+-rw-rw-r-- 1 root root     227 8月  30 2017 EULA
+-rw-rw-r-- 1 root root   18009 12月 10 2015 GPL
+drwxr-xr-x 3 root root    2048 5月   4 2018 images
+drwxr-xr-x 2 root root    2048 5月   4 2018 isolinux
+drwxr-xr-x 2 root root    2048 5月   4 2018 LiveOS
+drwxrwxr-x 2 root root 1640448 5月   3 2018 Packages
+drwxrwxr-x 2 root root    4096 5月   7 2018 repodata
+-rw-rw-r-- 1 root root    1690 12月 10 2015 RPM-GPG-KEY-CentOS-7
+-rw-rw-r-- 1 root root    1690 12月 10 2015 RPM-GPG-KEY-CentOS-Testing-7
+-r--r--r-- 1 root root    2883 5月   7 2018 TRANS.TBL
+[student@room10pc15 ~]$ systemctl  is-active   vsftpd
+active
+[student@room10pc15 ~]$ systemctl  is-enabled   vsftpd
+enabled
+
+[student@room10pc15 ~]$ grep   -Env  '^(#|$)'    /etc/yum.conf 
+1:[main]
+2:cachedir=/var/cache/yum/$basearch/$releasever
+3:keepcache=0
+4:debuglevel=2
+5:logfile=/var/log/yum.log
+6:exactarch=1
+7:obsoletes=1
+8:gpgcheck=1
+9:plugins=1
+10:installonly_limit=5
+11:bugtracker_url=http://bugs.centos.org/set_project.php?project_id=23&ref=http://bugs.centos.org/bug_report_page.php?category=yum
+12:distroverpkg=centos-release
+[student@room10pc15 ~]$ ll   /etc/yum.conf
+-rw-r--r--. 1 root root 970 4月  13 2018 /etc/yum.conf
+[student@room10pc15 ~]$ ls  /etc/yum.repos.d/
+CentOS.repo  repo
+[student@room10pc15 ~]$ cat    /etc/yum.repos.d/CentOS.repo 
+[CentOS7]
+name=CentOS 7
+baseurl=file:///var/ftp/centos-1804
+enabled=1
+gpgcheck=0
+
+
+[student@room10pc15 ~]$ yum  clean  all > /dev/null && yum  repolist |tail -3
+源标识                               源名称                                状态
+CentOS7                              CentOS 7                              9,911
+repolist: 9,911
+
+[student@room10pc15 ~]$ cat  /etc/redhat-release 
+CentOS Linux release 7.5.1804 (Core) 
+
+[student@room10pc15 ~]$ tail  -2  /etc/profile
+unset -f pathmunge
+#/bin/uftpd -D /public
+[student@room10pc15 ~]$ tail  -2  /etc/bashrc 
+/usr/sbin/ifconfig rhce:0 172.25.0.250 &> /dev/null
+
+
+[student@room10pc15 ~]$ ls /etc/libvirt/qemu/networks/
+autostart    private1.xml  public1.xml  rhce.xml
+default.xml  private2.xml  public2.xml  vbr.xml
+
+[student@room10pc15 ~]$ virsh  --help
+
+virsh [options]... [<command_string>]
+virsh [options]... <command> [args...]
+
+  options:
+    -c | --connect=URI      hypervisor connection URI
+
+    edit                           编辑某个域的 XML 配置
+
+  (使用 --help <command> 来获得这个命令的详细信息)
+
+[student@room10pc15 ~]$ ls     /etc/libvirt/qemu/networks/autostart/
+default.xml   private2.xml  public2.xml  vbr.xml
+private1.xml  public1.xml   rhce.xml
+
+[student@room10pc15 ~]$ virsh  net-list  --all
+ 名称               状态     自动开始  持久
+----------------------------------------------------------
+ default              活动     是           是
+ private1             活动     是           是
+ private2             活动     是           是
+ public1              活动     是           是
+ public2              活动     是           是
+ rhce                 活动     是           是
+ vbr                  活动     是           是
+
+[student@room10pc15 ~]$ ifconfig  |grep  -A1 flags=
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 176.121.210.84  netmask 255.255.255.0  broadcast 176.121.210.255
+--
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+--
+private1: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.4.254  netmask 255.255.255.0  broadcast 192.168.4.255
+--
+private2: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.2.254  netmask 255.255.255.0  broadcast 192.168.2.255
+--
+private2-nic: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        ether 52:54:00:f8:f9:d7  txqueuelen 1000  (Ethernet)
+--
+public1: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 201.1.1.254  netmask 255.255.255.0  broadcast 201.1.1.255
+--
+public2: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 201.1.2.254  netmask 255.255.255.0  broadcast 201.1.2.255
+--
+rhce: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.25.254.250  netmask 255.255.255.0  broadcast 172.25.254.255
+--
+rhce:0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.25.0.250  netmask 255.255.0.0  broadcast 172.25.255.255
+--
+vbr: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.1.254  netmask 255.255.255.0  broadcast 192.168.1.255
+--
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+
+[student@room10pc15 ~]$ systemctl  start  named
+[student@room10pc15 ~]$ systemctl   is-active  named
+active
+
+[student@room10pc15 ~]$ systemctl  enable   named
+
+Created symlink from /etc/systemd/system/multi-user.target.wants/named.service to /usr/lib/systemd/system/named.service.
+
+[student@room10pc15 ~]$ systemctl   is-enabled  named
+enabled
+
+[student@room10pc15 ~]$ cat    -n    /etc/named.conf 
+     1	//
+     2	// named.conf
+     3	//
+     4	// Provided by Red Hat bind package to configure the ISC BIND named(8) DNS
+     5	// server as a caching only nameserver (as a localhost DNS resolver only).
+     6	//
+     7	// See /usr/share/doc/bind*/sample/ for example named configuration files.
+     8	//
+     9	// See the BIND Administrator's Reference Manual (ARM) for details about the
+    10	// configuration located in /usr/share/doc/bind-{version}/Bv9ARM.html
+    11	
+    12	options {
+    13		listen-on port 53 { 127.0.0.1; };
+    14		listen-on-v6 port 53 { ::1; };
+    15		directory 	"/var/named";
+    16		dump-file 	"/var/named/data/cache_dump.db";
+    17		statistics-file "/var/named/data/named_stats.txt";
+    18		memstatistics-file "/var/named/data/named_mem_stats.txt";
+    19		allow-query     { localhost; };
+    20	
+    21		/* 
+    22		 - If you are building an AUTHORITATIVE DNS server, do NOT enable recursion.
+    23		 - If you are building a RECURSIVE (caching) DNS server, you need to enable 
+    24		   recursion. 
+    25		 - If your recursive DNS server has a public IP address, you MUST enable access 
+    26		   control to limit queries to your legitimate users. Failing to do so will
+    27		   cause your server to become part of large scale DNS amplification 
+    28		   attacks. Implementing BCP38 within your network would greatly
+    29		   reduce such attack surface 
+    30		*/
+    31		recursion yes;
+    32	
+    33		dnssec-enable yes;
+    34		dnssec-validation yes;
+    35	
+    36		/* Path to ISC DLV key */
+    37		bindkeys-file "/etc/named.iscdlv.key";
+    38	
+    39		managed-keys-directory "/var/named/dynamic";
+    40	
+    41		pid-file "/run/named/named.pid";
+    42		session-keyfile "/run/named/session.key";
+    43	};
+    44	
+    45	logging {
+    46	        channel default_debug {
+    47	                file "data/named.run";
+    48	                severity dynamic;
+    49	        };
+    50	};
+    51	
+    52	zone "." IN {
+    53		type hint;
+    54		file "named.ca";
+    55	};
+    56	
+    57	include "/etc/named.rfc1912.zones";
+    58	include "/etc/named.root.key";
+    59	
+[student@room10pc15 ~]$ ll   /etc/named.conf
+-rw-rw----. 1 root named 1705 3月  22 2016 /etc/named.conf
+
+
+[student@room10pc15 ~]$ ping  -c  2  www.baidu.com
+PING www.a.shifen.com (14.215.177.38) 56(84) bytes of data.
+64 bytes from 14.215.177.38 (14.215.177.38): icmp_seq=1 ttl=53 time=5.10 ms
+64 bytes from 14.215.177.38 (14.215.177.38): icmp_seq=2 ttl=53 time=4.18 ms
+
+--- www.a.shifen.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 4.183/4.644/5.106/0.466 ms
+
+[student@room10pc15 ~]$ cat  /etc/resolv.conf
+# Generated by NetworkManager
+search tedu.cn
+nameserver 202.96.128.86
+
+[student@room10pc15 ~]$ ip  route  show  |grep  default
+default via 176.121.210.1 dev eth0 proto dhcp metric 100 
+
+[student@room10pc15 ~]$ route  -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+0.0.0.0         176.121.210.1   0.0.0.0         UG    100    0        0 eth0
+..................
+
+[student@room10pc15 ~]$ echo  5 |clone-auto7 
+VM stu_node01 Create                                       [  确定  ]
+.....................
+
+[student@room10pc15 ~]$ ls   /var/lib/libvirt/images/
+content     stu_node01.img  stu_node04.img         tedu-wallpaper-2018.png
+iso         stu_node02.img  stu_node05.img         virt
+lost+found  stu_node03.img  tedu-wallpaper-01.png  win.img
+
+[student@room10pc15 ~]$ free  -m
+              total        used        free      shared  buff/cache   available
+Mem:          15941        3530       10874         363        1536       11699
+Swap:             0           0           0
+
+[student@room10pc15 ~]$ ls  /etc/libvirt/qemu/
+networks  V1.xml  V2.xml  V3.xml  V4.xml  V5.xml  win2008.xml
+
+[student@room10pc15 ~]$ ls  /etc/libvirt/qemu/networks/
+autostart    private1.xml  public1.xml  rhce.xml
+default.xml  private2.xml  public2.xml  vbr.xml
+
+[student@room10pc15 ~]$ ls  /etc/libvirt/qemu/networks/autostart/
+default.xml   private2.xml  public2.xml  vbr.xml
+private1.xml  public1.xml   rhce.xml
+
+[student@room10pc15 ~]$ ll  /etc/libvirt/qemu/networks/autostart/vbr.xml 
+lrwxrwxrwx 1 root root 34 1月  24 14:11 /etc/libvirt/qemu/networks/autostart/vbr.xml -> /etc/libvirt/qemu/networks/vbr.xml
+
+[student@room10pc15 ~]$ ll    /etc/libvirt/qemu/networks/vbr.xml
+-rw------- 1 root root 607 2月  21 20:28 /etc/libvirt/qemu/networks/vbr.xml
+
+[student@room10pc15 ~]$ cat   /etc/libvirt/qemu/networks/vbr.xml
+cat: /etc/libvirt/qemu/networks/vbr.xml: 权限不够
+
+[student@room10pc15 ~]$ cat    /etc/libvirt/qemu/V1.xml 
+cat: /etc/libvirt/qemu/V1.xml: 权限不够
+[student@room10pc15 ~]$ ll    /etc/libvirt/qemu/V1.xml
+-rw-------+ 1 root student 2590 5月  16 14:00 /etc/libvirt/qemu/V1.xml
+
+[student@room10pc15 ~]$ ifconfig     virbr0 |head  -2
+virbr0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+
+[student@room10pc15 ~]$ ifconfig     vbr   |head  -2
+vbr: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.254  netmask 255.255.255.0  broadcast 192.168.1.255
+
+
+[student@room10pc15 ~]$  virsh  net-dumpxml  default
+<network connections='5'>
+  <name>default</name>
+  <uuid>5bd0383d-d2db-4189-a9da-469810561abf</uuid>
+  <forward mode='nat'>
+    <nat>
+      <port start='1024' end='65535'/>
+    </nat>
+  </forward>
+  <bridge name='virbr0' stp='on' delay='0'/>
+  <mac address='52:54:00:c8:58:d3'/>
+  <ip address='192.168.122.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.122.2' end='192.168.122.254'/>
+    </dhcp>
+  </ip>
+</network>
+
+[student@room10pc15 ~]$  virsh  net-dumpxml  vbr
+<network connections='5'>
+  <name>vbr</name>
+  <uuid>bc8c51cf-34d7-4fa4-bde9-f55b7c025421</uuid>
+  <forward mode='nat'>
+    <nat>
+      <port start='1024' end='65535'/>
+    </nat>
+  </forward>
+  <bridge name='vbr' stp='on' delay='0'/>
+  <mac address='52:54:00:35:6e:56'/>
+  <domain name='localhost' localOnly='no'/>
+  <ip address='192.168.1.254' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.1.100' end='192.168.1.200'/>
+    </dhcp>
+  </ip>
+</network>
+
+
+
+[root@localhost ~]# vim  ip.sh
+[root@localhost ~]# cat     ip.sh
+#!/bin/bash
+x=$1
+ip=$2
+export LANG=en_US.UTF-8
+echo  1 |passwd  --stdin  root
+echo  V${x} > /etc/hostname
+echo  "LANG=\"en_US.UTF-8\"" >> /etc/sysconfig/i18n
+echo  "LANG=\"en_US.UTF-8\"" >>  /etc/rc.local
+chmod  a+x  /etc/rc.d/rc.local
+source   /etc/rc.local
+
+echo  "NAME=\"eth0\"
+DEVICE=\"eth0\"
+ONBOOT=yes
+NM_CONTROLLED=\"no\"
+TYPE=Ethernet
+IPV6INIT=no
+IPV4_FAILURE_FATAL=\"no\"
+BOOTPROTO=\"static\"
+IPADDR=\"192.168.1.${ip}\"
+NETMASK=\"255.255.255.0\"
+GATEWAY=\"192.168.1.254\""  > /etc/sysconfig/network-scripts/ifcfg-eth0
+
+echo  "NAME=\"eth1\"
+DEVICE=\"eth1\"
+ONBOOT=yes
+NM_CONTROLLED=\"no\"
+TYPE=Ethernet
+IPV6INIT=no
+IPV4_FAILURE_FATAL=\"no\"
+BOOTPROTO=\"static\"
+IPADDR=\"192.168.122.${ip}\"
+NETMASK=\"255.255.255.0\"
+GATEWAY=\"192.168.1.254\""  > /etc/sysconfig/network-scripts/ifcfg-eth1
+
+sed  -i  "7c SELINUX=disabled"  /etc/selinux/config
+
+systemctl  restart   NetworkManager
+
+[root@localhost ~]# . ip.sh   1    11   ## 主机名 V1    ip  11
+
+[root@localhost ~]# .  ip.sh   2   12
+
+Changing password for user root.
+passwd: all authentication tokens updated successfully.
+NOCHANGE: partition 1 is size 62912479. it cannot be grown
+meta-data=/dev/vda1              isize=512    agcount=61, agsize=131008 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=0 spinodes=0
+data     =                       bsize=4096   blocks=7864059, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+log      =internal               bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+[root@localhost ~]# reboot
+
+[root@V5 ~]# ping  -I  eth0   -c2  www.baidu.com
+
+PING www.a.shifen.com (14.215.177.38) from 192.168.1.15 eth0: 56(84) bytes of data.
+64 bytes from 14.215.177.38 (14.215.177.38): icmp_seq=1 ttl=54 time=8.54 ms
+64 bytes from 14.215.177.38 (14.215.177.38): icmp_seq=2 ttl=54 time=7.21 ms
+
+--- www.a.shifen.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 7.216/7.881/8.546/0.665 ms
+
+[root@V5 ~]# cat   /etc/resolv.conf 
+; generated by /usr/sbin/dhclient-script
+search vbr
+nameserver 192.168.1.254
+
+[root@V5 ~]# ip  route   show  |grep  default
+default via 192.168.1.254 dev eth0 
+
+[root@V5 ~]# cat  /etc/sysconfig/network-scripts/ifcfg-eth0
+NAME="eth0"
+DEVICE="eth0"
+ONBOOT=yes
+NM_CONTROLLED="no"
+TYPE=Ethernet
+IPV6INIT=no
+IPV4_FAILURE_FATAL="no"
+BOOTPROTO="static"
+IPADDR="192.168.1.15"
+NETMASK="255.255.255.0"
+GATEWAY="192.168.1.254"
+[root@V5 ~]# cat  /etc/sysconfig/network-scripts/ifcfg-eth1
+NAME="eth1"
+DEVICE="eth1"
+ONBOOT=yes
+NM_CONTROLLED="no"
+TYPE=Ethernet
+IPV6INIT=no
+IPV4_FAILURE_FATAL="no"
+BOOTPROTO="static"
+IPADDR="192.168.122.15"
+NETMASK="255.255.255.0"
+GATEWAY="192.168.1.254"
+[root@V5 ~]# 
+
+
+[student@room10pc15 ~]$ virsh  net-list
+ 名称               状态     自动开始  持久
+----------------------------------------------------------
+ default              活动     是           是
+ private1             活动     是           是
+ private2             活动     是           是
+ public1              活动     是           是
+ public2              活动     是           是
+ rhce                 活动     是           是
+ vbr                  活动     是           是
+
+[student@room10pc15 ~]$ ps  -ef  |grep   console
+student  14085 13353  0 14:49 pts/9    00:00:00 grep --color=auto console
+
+
+[root@localhost ~]# scp -P 7920 ip.sh student@192.168.1.254:/home/student
+Warning: Permanently added '[192.168.1.254]:7920' (ECDSA) to the list of known hosts.
+student@192.168.1.254's password: 
+ip.sh                                         100%  888   563.2KB/s   00:00  
+
+
+
+[student@room10pc15 ~]$ ls  /etc/yum.repos.d/
+CentOS.repo  repo
+[student@room10pc15 ~]$ cat   /etc/yum.repos.d/CentOS.repo 
+[CentOS7]
+name=CentOS 7
+baseurl=file:///var/ftp/centos-1804
+enabled=1
+gpgcheck=0
+[student@room10pc15 ~]$ ls
+bin  git  ip.sh  公共  模板  视频  图片  文档  下载  音乐  桌面
+[student@room10pc15 ~]$ tail  -1  /etc/fstab 
+/var/lib/libvirt/images/iso/CentOS7-1804.iso  /var/ftp/centos-1804 iso9660 defaults 0 0
+
+[student@room10pc15 ~]$ ls  /var/ftp/
+centos-1804  pub  share
+[student@room10pc15 ~]$ ls  /var/ftp/centos-1804/
+CentOS_BuildTag  GPL       LiveOS    RPM-GPG-KEY-CentOS-7
+EFI              images    Packages  RPM-GPG-KEY-CentOS-Testing-7
+EULA             isolinux  repodata  TRANS.TBL
+
+[student@room10pc15 ~]$ pwd
+/home/student
+[student@room10pc15 ~]$ vim   local.repo
+
+[student@room10pc15 ~]$ cat    local.repo
+
+[local]
+name=CentOS7-1804.iso
+baseurl=ftp://192.168.1.254/centos-1804
+enabled=1
+gpgcheck=0
+
+[student@room10pc15 ~]$ ll  /etc/hosts
+-rw-r--r-- 1 root root 477 1月  24 13:03 /etc/hosts
+[student@room10pc15 ~]$ for  i  in  192.168.1.1{1..6};do
+> scp   local.repo  root@${i}:/etc/yum.repos.d/;done;
+local.repo                                       100%   93    78.0KB/s   00:00    
+local.repo                                       100%   93    68.1KB/s   00:00    
+local.repo                                       100%   93    64.5KB/s   00:00    
+local.repo                                       100%   93    76.6KB/s   00:00    
+local.repo                                       100%   93   118.3KB/s   00:00    
+local.repo                                       100%   93    71.4KB/s   00:00    
+[student@room10pc15 ~]$ 
+
+
+[student@room10pc15 ~]$ ssh  -X  root@192.168.1.11
+
+[root@V1 ~]# echo  1 |passwd  --stdin root
+更改用户 root 的密码 。
+passwd：所有的身份验证令牌已经成功更新。
+
+[root@V1 ~]# yum  clean  all >/dev/null  &&  yum  repolist |tail  -3
+源标识                          源名称                                     状态
+local                           CentOS7-1804.iso                           9,911
+repolist: 9,911
+
+
+[root@V1 ~]# cat  /etc/yum.repos.d/local.repo 
+[local]
+name=CentOS7-1804.iso
+baseurl=ftp://192.168.1.254/centos-1804
+enabled=1
+gpgcheck=0
+[root@V1 ~]# ls   /etc/yum.repos.d/
+local.repo
+[root@V1 ~]# ifconfig |grep  -A2  flags=
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.11  netmask 255.255.255.0  broadcast 192.168.1.255
+        ether 52:54:00:7d:b2:95  txqueuelen 1000  (Ethernet)
+--
+eth1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.122.11  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:47:f9:c6  txqueuelen 1000  (Ethernet)
+--
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+[root@V1 ~]# 
+
+针对RHEL7.4版本的最新rpm包：
+需要下载的软件包的主要包括，针对RHEL7.4版本的最新rpm包：
+
+http://mirrors.163.com/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-3.4.3-161.el7.centos.noarch.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-metadata-parser-1.1.4-10.el7.x86_64.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/python-iniparse-0.4-9.el7.noarch.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-updateonboot-1.1.31-50.el7.noarch.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/rpm-4.11.3-35.el7.x86_64.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/python-urlgrabber-3.10-9.el7.noarch.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/rpm-libs-4.11.3-35.el7.x86_64.rpm
+
+http://mirrors.163.com/centos/7/os/x86_64/Packages/rpm-python-4.11.3-35.el7.x86_64.rpm
+
+[root@V1 ~]# vim   /etc/yum.conf 
+[root@V1 ~]# grep  -n  gpgcheck=  /etc/yum.conf
+8:gpgcheck=0
+[root@V1 ~]# uname  -a
+Linux V1 3.10.0-862.el7.x86_64 #1 SMP Fri Apr 20 16:44:24 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
+[root@V1 ~]# cat  /etc/centos-release
+CentOS Linux release 7.5.1804 (Core) 
+
+[root@V1 ~]# yum  repolist |tail  -3
+源标识                          源名称                                     状态
+local                           CentOS7-1804.iso                           9,911
+repolist: 9,911
+[root@V1 ~]# yum  -y install   rpm   wget
+．．．．．．．．．．．．．．．．．
+已安装:
+  wget.x86_64 0:1.14-15.el7_4.1                                                                       
+
+完毕！
+[root@V1 ~]# rpm  -q   rpm   wget 
+rpm-4.11.3-32.el7.x86_64
+wget-1.14-15.el7_4.1.x86_64
+
+
+wget  \
+http://mirrors.163.com/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7　　\
+http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-3.4.3-161.el7.centos.noarch.rpm  \
+http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm \
+http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-metadata-parser-1.1.4-10.el7.x86_64.rpm \
+http://mirrors.163.com/centos/7/os/x86_64/Packages/python-iniparse-0.4-9.el7.noarch.rpm  \
+http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-updateonboot-1.1.31-50.el7.noarch.rpm  \
+http://mirrors.163.com/centos/7/os/x86_64/Packages/rpm-4.11.3-35.el7.x86_64.rpm  \
+http://mirrors.163.com/centos/7/os/x86_64/Packages/python-urlgrabber-3.10-9.el7.noarch.rpm  \
+http://mirrors.163.com/centos/7/os/x86_64/Packages/rpm-libs-4.11.3-35.el7.x86_64.rpm  \
+http://mirrors.163.com/centos/7/os/x86_64/Packages/rpm-python-4.11.3-35.el7.x86_64.rpm
+
+
+[root@V1 ~]# rpm  -qa  |grep  yum
+yum-3.4.3-158.el7.centos.noarch
+yum-metadata-parser-1.1.4-10.el7.x86_64
+yum-plugin-fastestmirror-1.1.31-45.el7.noarch
+
+[root@V1 ~]# wget  \
+> http://mirrors.163.com/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7  \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-3.4.3-161.el7.centos.noarch.rpm  \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-metadata-parser-1.1.4-10.el7.x86_64.rpm \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/python-iniparse-0.4-9.el7.noarch.rpm  \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-updateonboot-1.1.31-50.el7.noarch.rpm  \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/rpm-4.11.3-35.el7.x86_64.rpm  \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/python-urlgrabber-3.10-9.el7.noarch.rpm  \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/rpm-libs-4.11.3-35.el7.x86_64.rpm  \
+> http://mirrors.163.com/centos/7/os/x86_64/Packages/rpm-python-4.11.3-35.el7.x86_64.rpm
+
+[root@V1 ~]# ls
+Desktop                                  rpm-libs-4.11.3-35.el7.x86_64.rpm
+ip.sh                                    rpm-python-4.11.3-35.el7.x86_64.rpm
+python-iniparse-0.4-9.el7.noarch.rpm     yum-3.4.3-161.el7.centos.noarch.rpm
+python-urlgrabber-3.10-9.el7.noarch.rpm  yum-metadata-parser-1.1.4-10.el7.x86_64.rpm
+rpm-4.11.3-35.el7.x86_64.rpm             yum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm
+RPM-GPG-KEY-CentOS-7                     yum-updateonboot-1.1.31-50.el7.noarch.rpm
+
+[root@V1 ~]#  rpm  --import  RPM-GPG-KEY-CentOS-7   ## 导入公钥
+[root@V1 ~]# echo  $?
+0
+[root@V1 ~]# ls  /etc/pki/
+CA  ca-trust  java  nssdb  nss-legacy  rpm-gpg  rsyslog  tls
+[root@V1 ~]# ls  /etc/pki/rpm-gpg/
+RPM-GPG-KEY-CentOS-7  RPM-GPG-KEY-CentOS-Debug-7  RPM-GPG-KEY-CentOS-Testing-7
+
+[root@V1 ~]# rpm  -V   python-urlgrabber  #RPM验证方法
+[root@V1 ~]#  rpm  -K  rpm-python-4.11.3-35.el7.x86_64.rpm   #验证签名
+rpm-python-4.11.3-35.el7.x86_64.rpm: rsa sha1 (md5) pgp md5 确定
+
+运行以下命令生成缓存
+yum clean all
+yum makecache
+
+----------------------------------使用网易的开源软件镜像站点下载地址 ---------------
+
+[root@V1 ~]# cd  /etc/yum.repos.d/
+
+[root@V1 yum.repos.d]# wget  http://mirrors.163.com/.help/CentOS7-Base-163.repo
+
+--2019-05-16 17:49:15--  http://mirrors.163.com/.help/CentOS7-Base-163.repo
+....................................
+100%[============================================================>] 1,572       --.-K/s 用时 0s      
+
+2019-05-16 17:49:15 (59.4 MB/s) - 已保存 “CentOS7-Base-163.repo” [1572/1572])
+
+[root@V1 yum.repos.d]# ls
+CentOS7-Base-163.repo  local.repo
+
+[root@V2 yum.repos.d]# vim   CentOS7-Base-163.repo 
+
+修改repo文件内容，将文件中的“$releasever”改为“7”，
+
+:%s  /$releasever/7/g
+11 次替换，共 11 行      
+
+[root@V1 yum.repos.d]# yum  makecache 
+
+已加载插件：fastestmirror
+Loading mirror speeds from cached hostfile
+base                                                                           | 3.6 kB  00:00:00     
+centosplus                                                                     | 3.4 kB  00:00:00     
+extras                                                                         | 3.4 kB  00:00:00     
+local                                                                          | 3.6 kB  00:00:00     
+updates                                                                        | 3.4 kB  00:00:00     
+(1/14): base/x86_64/primary_db                                                 | 6.0 MB  00:00:00     
+(2/14): centosplus/x86_64/prestodelta                                          |  31 kB  00:00:00     
+(3/14): base/x86_64/other_db                                                   | 2.6 MB  00:00:00     
+(4/14): centosplus/x86_64/filelists_db                                         | 1.0 MB  00:00:00     
+(5/14): extras/x86_64/prestodelta                                              |  62 kB  00:00:00     
+(6/14): extras/x86_64/other_db                                                 | 126 kB  00:00:00     
+(7/14): local/filelists_db                                                     | 6.9 MB  00:00:00     
+(8/14): centosplus/x86_64/other_db                                             |  58 kB  00:00:00     
+(9/14): extras/x86_64/filelists_db                                             | 243 kB  00:00:00     
+(10/14): local/other_db                                                        | 2.5 MB  00:00:00     
+(11/14): updates/x86_64/filelists_db                                           | 3.4 MB  00:00:00     
+(12/14): updates/x86_64/prestodelta                                            | 632 kB  00:00:00     
+(13/14): updates/x86_64/other_db                                               | 573 kB  00:00:00     
+(14/14): base/x86_64/filelists_db                                              | 7.1 MB  00:00:04     
+元数据缓存已建立
+
+[root@V1 yum.repos.d]# ls
+CentOS7-Base-163.repo  local.repo
+
+[root@V1 yum.repos.d]# yum  repolist  |tail  -8
+Loading mirror speeds from cached hostfile
+源标识                         源名称                                     状态
+base/x86_64                    CentOS-7 - Base - 163.com                  10,019
+centosplus/x86_64              CentOS-7 - Plus - 163.com                      70
+extras/x86_64                  CentOS-7 - Extras - 163.com                   413
+local                          CentOS7-1804.iso                            9,911
+updates/x86_64                 CentOS-7 - Updates - 163.com                1,862
+repolist: 22,275
+
+[root@V1 yum.repos.d]# cat   local.repo 
+[local]
+name=CentOS7-1804.iso
+baseurl=ftp://192.168.1.254/centos-1804
+enabled=1
+gpgcheck=0
+
+[root@V1 yum.repos.d]# grep   -nv   ^#  CentOS7-Base-163.repo 
+12:[base]
+13:name=CentOS-7 - Base - 163.com
+15:baseurl=http://mirrors.163.com/centos/7/os/$basearch/
+16:gpgcheck=1
+17:gpgkey=http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7
+18:enabled=1
+19:
+21:[updates]
+22:name=CentOS-7 - Updates - 163.com
+24:baseurl=http://mirrors.163.com/centos/7/updates/$basearch/
+25:gpgcheck=1
+26:gpgkey=http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7
+27:enabled=1
+28:
+30:[extras]
+31:name=CentOS-7 - Extras - 163.com
+33:baseurl=http://mirrors.163.com/centos/7/extras/$basearch/
+34:gpgcheck=1
+35:gpgkey=http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7
+36:enabled=1
+37:
+39:[centosplus]
+40:name=CentOS-7 - Plus - 163.com
+41:baseurl=http://mirrors.163.com/centos/7/centosplus/$basearch/
+42:gpgcheck=1
+43:enabled=1
+44:gpgkey=http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7
+[root@V1 yum.repos.d]# 
+
+[root@V1 yum.repos.d]# vim   /etc/hosts
+
+[root@V1 yum.repos.d]# cat   /etc/hosts
+# ::1		localhost localhost.localdomain localhost6 localhost6.localdomain6
+127.0.0.1	localhost localhost.localdomain localhost4 localhost4.localdomain4
+192.168.1.11   V1
+192.168.1.12   V2
+192.168.1.13   V3
+192.168.1.14   V4
+192.168.1.15   V5
+192.168.1.16   V6
+[root@V1 yum.repos.d]# for  i  in  V{2..6};do
+> scp   CentOS7-Base-163.repo  root@${i}:/etc/yum.repos.d/;
+> scp   /etc/hosts    root@${i}:/etc/;
+> done
+............
+[root@V1 yum.repos.d]# for  i  in V{2..6};do
+> ssh  -lroot  $i  "hostname";done;
+root@v2's password: 
+V2
+root@v3's password: 
+V3
+root@v4's password: 
+V4
+root@v5's password: 
+V5
+root@v6's password: 
+V6
+[root@V1 yum.repos.d]# 
+
+[root@V1 yum.repos.d]# for  i  in V{2..6};
+do ssh  -lroot  $i  "yum  makecache && yum  repolist  |tail  -8";done;
+
+[root@V1 yum.repos.d]# systemctl  set-default  graphical.target 
+
+Removed symlink /etc/systemd/system/default.target.
+Created symlink from /etc/systemd/system/default.target to /usr/lib/systemd/system/graphical.target.
+
+[root@V1 yum.repos.d]# systemctl  get-default 
+graphical.target
+
+
+-----------------------
+
+https://www.python.org/downloads/
+
+Looking for a specific release?
+Python releases by version number:
+
+Release version Release date   Click for more
+Python 2.7.16 March 4, 2019  Download Release Notes
+Python 3.7.2 Dec. 24, 2018  Download Release Notes
+Python 3.6.8 Dec. 24, 2018  Download Release Notes
+Python 3.5.5 Feb. 5, 2018  Download Release Notes
+Python 3.6.4 Dec. 19, 2017  Download(点击链接) Release Notes
+Python 3.6.7 Oct. 20, 2018  Download (点击链接)  Release Notes
+
+https://www.python.org/downloads/release/python-367/
+
+Version	Operating System	Description	MD5 Sum	File Size	GPG
+Gzipped source tarball( linux版本点击下载)	Source release		c83551d83bf015134b4b2249213f3f85	22969142	SIG
+XZ compressed source tarball	Source release		bb1e10f5cedf21fcf52d2c7e5b963c96	17178476	SIG
+
+https://www.python.org/ftp/python/3.6.7/Python-3.6.7.tgz
+
+[student@room10pc15 ~]$ wget   https://www.python.org/ftp/python/3.6.7/Python-3.6.7.tgz
+
+[student@room10pc15 ~]$ ll  Python-3.6.7.tgz 
+-rw-rw-r-- 1 student student 22969142 10月 20 2018 Python-3.6.7.tgz
+
+[student@room10pc15 ~]$ md5sum   Python-3.6.7.tgz
+c83551d83bf015134b4b2249213f3f85  Python-3.6.7.tgz
+
+[student@room10pc15 ~]$ for  i  in  192.168.1.1{1..6};do
+> scp   Python-3.6.7.tgz  root@${i}:/root/;done
+
+================================
+[root@hiys ~]# ssh -o  StrictHostKeyChecking=no   -X  192.168.1.12
+
+
+  yum  -y  install  \
+ sqlite-devel    tk-devel        tcl-devel       readline-devel   \
+ zlib-devel      gcc             gcc-c++         openssl       openssl-devel \
+ libffi-devel    libxml2-devel   libxslt-devel   mysql-devel  \
+ mariadb-devel   mariadb-server  mariadb 
+
+
+rpm  -q  \
+ sqlite-devel    tk-devel        tcl-devel       readline-devel   \
+ zlib-devel      gcc             gcc-c++         openssl       openssl-devel \
+ libffi-devel    libxml2-devel   libxslt-devel   mysql-devel  \
+ mariadb-devel   mariadb-server  mariadb 
+
+tar  -zxf  Python-3.6.7.tgz 
+
+cd  Python-3.6.7/
+
+./configure   --prefix=/usr/local/
+
+ make && make install
+
+
+[root@V1 ~]# yum  -y  install  \
+>  sqlite-devel    tk-devel        tcl-devel       readline-devel   \
+>  zlib-devel      gcc             gcc-c++         openssl       openssl-devel \
+>  libffi-devel    libxml2-devel   libxslt-devel   mysql-devel  \
+>  mariadb-devel   mariadb-server  mariadb 
+
+................
+
+已安装:
+  gcc.x86_64 0:4.8.5-36.el7_6.2                      gcc-c++.x86_64 0:4.8.5-36.el7_6.2               
+  libffi-devel.x86_64 0:3.0.13-18.el7                libxml2-devel.x86_64 0:2.9.1-6.el7_2.3          
+  libxslt-devel.x86_64 0:1.1.28-5.el7                mariadb.x86_64 1:5.5.60-1.el7_5                 
+  mariadb-devel.x86_64 1:5.5.60-1.el7_5              mariadb-server.x86_64 1:5.5.60-1.el7_5          
+  openssl-devel.x86_64 1:1.0.2k-16.el7_6.1           readline-devel.x86_64 0:6.2-10.el7              
+  sqlite-devel.x86_64 0:3.7.17-8.el7                 tcl-devel.x86_64 1:8.5.13-8.el7                 
+  tk-devel.x86_64 1:8.5.13-6.el7                     zlib-devel.x86_64 0:1.2.7-18.el7                
+
+作为依赖被安装:
+  cpp.x86_64 0:4.8.5-36.el7_6.2                      dejavu-fonts-common.noarch 0:2.33-6.el7          
+  dejavu-sans-fonts.noarch 0:2.33-6.el7              expat-devel.x86_64 0:2.1.0-10.el7_3              
+  fontconfig-devel.x86_64 0:2.13.0-4.3.el7           freetype-devel.x86_64 0:2.8-12.el7_6.1           
+  glibc-devel.x86_64 0:2.17-260.el7_6.5              glibc-headers.x86_64 0:2.17-260.el7_6.5          
+  kernel-headers.x86_64 0:3.10.0-957.12.1.el7        keyutils-libs-devel.x86_64 0:1.5.8-3.el7         
+  krb5-devel.x86_64 0:1.15.1-37.el7_6                libX11-devel.x86_64 0:1.6.5-2.el7                
+  libXau-devel.x86_64 0:1.0.8-2.1.el7                libXft-devel.x86_64 0:2.3.2-2.el7                
+  libXrender-devel.x86_64 0:0.9.10-1.el7             libaio.x86_64 0:0.3.109-13.el7                   
+  libcom_err-devel.x86_64 0:1.42.9-13.el7            libgcrypt-devel.x86_64 0:1.5.3-14.el7            
+  libgpg-error-devel.x86_64 0:1.12-3.el7             libkadm5.x86_64 0:1.15.1-37.el7_6                
+  libmpc.x86_64 0:1.0.1-3.el7                        libpng-devel.x86_64 2:1.5.13-7.el7_2             
+  libselinux-devel.x86_64 0:2.5-14.1.el7             libsepol-devel.x86_64 0:2.5-10.el7               
+  libsmartcols.x86_64 0:2.23.2-59.el7_6.1            libstdc++-devel.x86_64 0:4.8.5-36.el7_6.2        
+  libuuid-devel.x86_64 0:2.23.2-59.el7_6.1           libverto-devel.x86_64 0:0.2.5-4.el7              
+  libxcb-devel.x86_64 0:1.13-1.el7                   libxslt.x86_64 0:1.1.28-5.el7                    
+  mariadb-libs.x86_64 1:5.5.60-1.el7_5               mpfr.x86_64 0:3.1.1-4.el7                        
+  ncurses-devel.x86_64 0:5.9-14.20130511.el7_4       pcre-devel.x86_64 0:8.32-17.el7                  
+  perl-Compress-Raw-Bzip2.x86_64 0:2.061-3.el7       perl-Compress-Raw-Zlib.x86_64 1:2.061-4.el7      
+  perl-DBD-MySQL.x86_64 0:4.023-6.el7                perl-DBI.x86_64 0:1.627-4.el7                    
+  perl-Data-Dumper.x86_64 0:2.145-3.el7              perl-IO-Compress.noarch 0:2.061-2.el7            
+  perl-Net-Daemon.noarch 0:0.48-5.el7                perl-PlRPC.noarch 0:0.2020-14.el7                
+  tcl.x86_64 1:8.5.13-8.el7                          tk.x86_64 1:8.5.13-6.el7                         
+  xorg-x11-proto-devel.noarch 0:2018.4-1.el7         xz-devel.x86_64 0:5.2.2-1.el7                    
+
+更新完毕:
+  openssl.x86_64 1:1.0.2k-16.el7_6.1                                                                  
+
+作为依赖被升级:
+  e2fsprogs.x86_64 0:1.42.9-13.el7                  e2fsprogs-libs.x86_64 0:1.42.9-13.el7            
+  fontconfig.x86_64 0:2.13.0-4.3.el7                freetype.x86_64 0:2.8-12.el7_6.1                 
+  glibc.x86_64 0:2.17-260.el7_6.5                   glibc-common.x86_64 0:2.17-260.el7_6.5           
+  krb5-libs.x86_64 0:1.15.1-37.el7_6                libX11.x86_64 0:1.6.5-2.el7                      
+  libX11-common.noarch 0:1.6.5-2.el7                libblkid.x86_64 0:2.23.2-59.el7_6.1              
+  libcom_err.x86_64 0:1.42.9-13.el7                 libgcc.x86_64 0:4.8.5-36.el7_6.2                 
+  libgomp.x86_64 0:4.8.5-36.el7_6.2                 libmount.x86_64 0:2.23.2-59.el7_6.1              
+  libselinux.x86_64 0:2.5-14.1.el7                  libselinux-python.x86_64 0:2.5-14.1.el7          
+  libselinux-utils.x86_64 0:2.5-14.1.el7            libsepol.x86_64 0:2.5-10.el7                     
+  libss.x86_64 0:1.42.9-13.el7                      libstdc++.x86_64 0:4.8.5-36.el7_6.2              
+  libuuid.x86_64 0:2.23.2-59.el7_6.1                libxcb.x86_64 0:1.13-1.el7                       
+  openssl-libs.x86_64 1:1.0.2k-16.el7_6.1           util-linux.x86_64 0:2.23.2-59.el7_6.1            
+  zlib.x86_64 0:1.2.7-18.el7                       
+
+完毕！
+[root@V1 ~]#  
+[root@V1 ~]#  rpm  -q  \
+>  sqlite-devel    tk-devel        tcl-devel       readline-devel   \
+>  zlib-devel      gcc             gcc-c++         openssl       openssl-devel \
+>  libffi-devel    libxml2-devel   libxslt-devel   mysql-devel  \
+>  mariadb-devel   mariadb-server  mariadb 
+sqlite-devel-3.7.17-8.el7.x86_64
+tk-devel-8.5.13-6.el7.x86_64
+tcl-devel-8.5.13-8.el7.x86_64
+readline-devel-6.2-10.el7.x86_64
+zlib-devel-1.2.7-18.el7.x86_64
+gcc-4.8.5-36.el7_6.2.x86_64
+gcc-c++-4.8.5-36.el7_6.2.x86_64
+openssl-1.0.2k-16.el7_6.1.x86_64
+openssl-devel-1.0.2k-16.el7_6.1.x86_64
+libffi-devel-3.0.13-18.el7.x86_64
+libxml2-devel-2.9.1-6.el7_2.3.x86_64
+libxslt-devel-1.1.28-5.el7.x86_64
+未安装软件包 mysql-devel 
+mariadb-devel-5.5.60-1.el7_5.x86_64
+mariadb-server-5.5.60-1.el7_5.x86_64
+mariadb-5.5.60-1.el7_5.x86_64
+[root@V1 ~]# 
+
+
+[root@V1 ~]# tar  -zxf  Python-3.6.7.tgz 
+[root@V1 ~]# ls   Python-3.6.7
+aclocal.m4    configure.ac  install-sh  Makefile.pre.in  Parser    pyconfig.h.in  Tools
+config.guess  Doc           Lib         Misc             PC        Python
+config.sub    Grammar       LICENSE     Modules          PCbuild   README.rst
+configure     Include       Mac         Objects          Programs  setup.py
+[root@V1 ~]# cd   Python-3.6.7/
+[root@V1 Python-3.6.7]# ./configure   --prefix=/usr/local
+............
+configure: creating ./config.status
+config.status: creating Makefile.pre
+config.status: creating Modules/Setup.config
+config.status: creating Misc/python.pc
+config.status: creating Misc/python-config.sh
+config.status: creating Modules/ld_so_aix
+config.status: creating pyconfig.h
+creating Modules/Setup
+creating Modules/Setup.local
+creating Makefile
+
+
+If you want a release build with all stable optimizations active (PGO, etc),
+please run ./configure --enable-optimizations
+
+
+[root@V1 Python-3.6.7]# make   &&  make  install
+............
+	 ./python -E -m ensurepip \
+		$ensurepip --root=/ ; \
+fi
+Looking in links: /tmp/tmp7fsf_3po
+Collecting setuptools
+Collecting pip
+Installing collected packages: setuptools, pip
+Successfully installed pip-10.0.1 setuptools-39.0.1
+
+[root@V1 Python-3.6.7]# ls
+aclocal.m4     configure.ac     LICENSE          Objects         pyconfig.h.in     setup.py
+build          Doc              Mac              Parser          python            Tools
+config.guess   Grammar          Makefile         PC              Python
+config.log     Include          Makefile.pre     PCbuild         python-config
+config.status  install-sh       Makefile.pre.in  Programs        python-config.py
+config.sub     Lib              Misc             pybuilddir.txt  python-gdb.py
+configure      libpython3.6m.a  Modules          pyconfig.h      README.rst
+
+[root@V1 Python-3.6.7]# cd
+[root@V1 ~]# ls  /usr/local/
+bin  etc  games  include  lib  lib64  libexec  sbin  share  src
+
+[root@V1 ~]# ls  /usr/local/bin/
+2to3              eip      pip3    pydoc3.6   python3.6-config   python3-config  setip
+2to3-3.6          idle3    pip3.6  python3    python3.6m         pyvenv
+easy_install-3.6  idle3.6  pydoc3  python3.6  python3.6m-config  pyvenv-3.6
+[root@V1 ~]# 
+
+
+
+[student@room10pc15 ~]$ watch  -n1  -d  free  -m
+[student@room10pc15 ~]$ 
+[student@room10pc15 ~]$ top
+
+top - 19:03:34 up  6:36, 10 users,  load average: 8.92, 6.86, 4.81
+Tasks: 300 total,   3 running, 297 sleeping,   0 stopped,   0 zombie
+%Cpu(s): 93.3 us,  4.8 sy,  0.0 ni,  0.7 id,  0.8 wa,  0.0 hi,  0.4 si,  0.0 st
+KiB Mem : 16324192 total,   171532 free, 11824772 used,  4327888 buff/cache
+KiB Swap:        0 total,        0 free,        0 used.  3517880 avail Mem 
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND        
+ 9584 qemu      20   0 3672848   1.9g   9352 S  88.4 12.3   4:56.73 qemu-kvm       
+10299 qemu      20   0 3893112   1.8g   9352 S  82.4 11.4   4:57.27 qemu-kvm       
+18151 qemu      20   0 3705628   2.1g   9352 S  81.1 13.5   4:42.36 qemu-kvm       
+10534 qemu      20   0 3820376   2.1g   9348 S  76.7 13.3   4:52.09 qemu-kvm       
+ 9799 qemu      20   0 3533512   1.9g   9348 S  23.6 12.0   5:00.10 qemu-kvm       
+ 2636 student   20   0 3909316 255724  55772 S  11.0  1.6  23:56.69 gnome-shell    
+[student@room10pc15 ~]$ 
+
+[root@V2 ~]# wget    https://github.com/hiys/PYTHON/raw/master/pythonScripts/urllib_paramiko/urllib_paramiko/freezepkg.txt
+
+
+--2019-05-16 19:10:51--  https://github.com/hiys/PYTHON/raw/master/pythonScripts/urllib_paramiko/urllib_paramiko/freezepkg.txt
+正在解析主机 github.com (github.com)... 13.250.177.223
+正在连接 github.com (github.com)|13.250.177.223|:443... 已连接。
+已发出 HTTP 请求，正在等待回应... 302 Found
+位置：https://raw.githubusercontent.com/hiys/PYTHON/master/pythonScripts/urllib_paramiko/urllib_paramiko/freezepkg.txt [跟随至新的 URL]
+--2019-05-16 19:10:52--  https://raw.githubusercontent.com/hiys/PYTHON/master/pythonScripts/urllib_paramiko/urllib_paramiko/freezepkg.txt
+正在解析主机 raw.githubusercontent.com (raw.githubusercontent.com)... 151.101.108.133
+正在连接 raw.githubusercontent.com (raw.githubusercontent.com)|151.101.108.133|:443... 已连接。
+已发出 HTTP 请求，正在等待回应... 200 OK
+长度：291 [text/plain]
+正在保存至: “freezepkg.txt”
+
+100%[============================================================>] 291         --.-K/s 用时 0s      
+
+2019-05-16 19:10:53 (13.4 MB/s) - 已保存 “freezepkg.txt” [291/291])
+
+[root@V2 ~]# ls
+Desktop                                  RPM-GPG-KEY-CentOS-7
+freezepkg.txt                            rpm-libs-4.11.3-35.el7.x86_64.rpm
+ip.sh                                    rpm-python-4.11.3-35.el7.x86_64.rpm
+Python-3.6.7                             yum-3.4.3-161.el7.centos.noarch.rpm
+Python-3.6.7.tgz                         yum-metadata-parser-1.1.4-10.el7.x86_64.rpm
+python-iniparse-0.4-9.el7.noarch.rpm     yum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm
+python-urlgrabber-3.10-9.el7.noarch.rpm  yum-updateonboot-1.1.31-50.el7.noarch.rpm
+rpm-4.11.3-35.el7.x86_64.rpm
+
+[root@V2 ~]# cat  freezepkg.txt 
+asn1crypto==0.24.0
+bcrypt==3.1.6
+certifi==2019.3.9
+cffi==1.12.3
+chardet==3.0.4
+cryptography==2.6.1
+Django==1.11.20
+idna==2.8
+paramiko==2.4.2
+pyasn1==0.4.5
+pycparser==2.19
+PyMySQL==0.9.3
+PyNaCl==1.3.0
+pytz==2019.1
+requests==2.21.0
+six==1.12.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+
+[root@V2 ~]# for  i  in  V{2..6};do
+> scp   freezepkg.txt  root@${i}:/root/;done;
+
+Warning: Permanently added 'v2,192.168.1.12' (ECDSA) to the list of known hosts.
+root@v2's password: 
+.................
+[root@V2 ~]# type   pip3
+pip3 是 /usr/local/bin/pip3
+[root@V2 ~]# rpm  -qf  /usr/local/bin/pip3
+文件 /usr/local/bin/pip3 不属于任何软件包
+
+[root@V2 ~]# ll   /usr/local/bin/pip3
+-rwxr-xr-x 1 root root 224 5月  16 19:03 /usr/local/bin/pip3
+
+[root@V2 ~]# file   /usr/local/bin/pip3
+/usr/local/bin/pip3: Python script, ASCII text executable
+
+[root@V2 ~]# scp   freezepkg.txt  root@V1:/root/
+
+[root@V1 ~]# mkdir   .pip
+[root@V1 ~]# vim    .pip/pip.conf
+[root@V1 ~]# cat    .pip/pip.conf
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+[root@V1 ~]# for  i  in  V{2..6};do
+> scp  -r  .pip/  root@${i}:/root/;done
+............
+[root@V2 ~]# cat   .pip/pip.conf 
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+[root@V2 ~]# 
+
+[root@V1 ~]# cat  freezepkg.txt 
+asn1crypto==0.24.0
+bcrypt==3.1.6
+certifi==2019.3.9
+cffi==1.12.3
+chardet==3.0.4
+cryptography==2.6.1
+Django==1.11.20
+idna==2.8
+paramiko==2.4.2
+pyasn1==0.4.5
+pycparser==2.19
+PyMySQL==0.9.3
+PyNaCl==1.3.0
+pytz==2019.1
+requests==2.21.0
+six==1.12.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+[root@V1 ~]# pip3    install  $(cat   freezepkg.txt)
+....................
+[root@V1 ~]# pip3  install   --upgrade  pip
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting pip
+  Downloading http://pypi.doubanio.com/packages/5c/e0/be401c003291b56efc55aeba6a80ab790d3d4cece2778288d65323009420/pip-19.1.1-py2.py3-none-any.whl (1.4MB)
+    100% |████████████████████████████████| 1.4MB 3.6MB/s 
+Installing collected packages: pip
+  Found existing installation: pip 10.0.1
+    Uninstalling pip-10.0.1:
+      Successfully uninstalled pip-10.0.1
+Successfully installed pip-19.1.1
+
+
+[root@V1 ~]# python3  --version
+Python 3.6.7
+[root@V1 ~]# pip3    --version
+pip 19.1.1 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
+
+
+yum  -y  install \
+ elinks      telnet          httpd-tools     gcc  \
+ pcre-devel  openssl-devel   mariadb-devel  mariadb  mariadb-server  \
+ memcached   php-pecl-memcache   php      php-mysql  php-fpm
+
+rpm    -q     elinks    telnet   httpd-tools   gcc  \
+pcre-devel   openssl-devel   mariadb-devel   mariadb \
+mariadb-server  memcached    php-pecl-memcache   php  \
+php-mysql  php-fpm
+
+
+------------------------------------------------- 搭建LAMP环境 --------------------
+
+[root@V1 ~]# yum  -y  install \
+>  elinks      telnet          httpd-tools     gcc  \
+>  pcre-devel  openssl-devel   mariadb-devel  mariadb  mariadb-server  \
+>  memcached   php-pecl-memcache   php      php-mysql  php-fpm
+..................
+已安装:
+  elinks.x86_64 0:0.12-0.37.pre6.el7.0.1           httpd-tools.x86_64 0:2.4.6-89.el7.centos          
+  memcached.x86_64 0:1.4.15-10.el7_3.1             php.x86_64 0:5.4.16-46.el7                        
+  php-fpm.x86_64 0:5.4.16-46.el7                   php-mysql.x86_64 0:5.4.16-46.el7                  
+  php-pecl-memcache.x86_64 0:3.0.8-4.el7           telnet.x86_64 1:0.17-64.el7                       
+
+作为依赖被安装:
+  apr.x86_64 0:1.4.8-3.el7_4.1                     apr-util.x86_64 0:1.5.2-6.el7                     
+  httpd.x86_64 0:2.4.6-89.el7.centos               js.x86_64 1:1.8.5-20.el7                          
+  libevent.x86_64 0:2.0.21-4.el7                   libzip.x86_64 0:0.10.1-8.el7                      
+  mailcap.noarch 0:2.1.41-2.el7                    nss_compat_ossl.x86_64 0:0.9.6-8.el7              
+  php-cli.x86_64 0:5.4.16-46.el7                   php-common.x86_64 0:5.4.16-46.el7                 
+  php-pdo.x86_64 0:5.4.16-46.el7                   php-pear.noarch 1:1.9.4-21.el7                    
+  php-process.x86_64 0:5.4.16-46.el7               php-xml.x86_64 0:5.4.16-46.el7                    
+
+完毕！
+[root@V1 ~]# rpm    -q     elinks    telnet   httpd-tools   gcc  \
+> pcre-devel   openssl-devel   mariadb-devel   mariadb \
+> mariadb-server  memcached    php-pecl-memcache   php  \
+> php-mysql  php-fpm
+elinks-0.12-0.37.pre6.el7.0.1.x86_64
+telnet-0.17-64.el7.x86_64
+httpd-tools-2.4.6-89.el7.centos.x86_64
+gcc-4.8.5-36.el7_6.2.x86_64
+pcre-devel-8.32-17.el7.x86_64
+openssl-devel-1.0.2k-16.el7_6.1.x86_64
+mariadb-devel-5.5.60-1.el7_5.x86_64
+mariadb-5.5.60-1.el7_5.x86_64
+mariadb-server-5.5.60-1.el7_5.x86_64
+memcached-1.4.15-10.el7_3.1.x86_64
+php-pecl-memcache-3.0.8-4.el7.x86_64
+php-5.4.16-46.el7.x86_64
+php-mysql-5.4.16-46.el7.x86_64
+php-fpm-5.4.16-46.el7.x86_64
+[root@V1 ~]#  
+[root@V1 ~]#   yum   makecache |tail -3  #建立缓存
+已加载插件：fastestmirror
+Loading mirror speeds from cached hostfile
+元数据缓存已建立
+[root@V1 ~]# yum   repolist  |tail  -8
+Loading mirror speeds from cached hostfile
+源标识                         源名称                                     状态
+base/x86_64                    CentOS-7 - Base - 163.com                  10,019
+centosplus/x86_64              CentOS-7 - Plus - 163.com                      70
+extras/x86_64                  CentOS-7 - Extras - 163.com                   413
+local                          CentOS7-1804.iso                            9,911
+updates/x86_64                 CentOS-7 - Updates - 163.com                1,862
+repolist: 22,275
+[root@V1 ~]# 
+[root@V1 ~]# pip3  freeze
+asn1crypto==0.24.0
+bcrypt==3.1.6
+certifi==2019.3.9
+cffi==1.12.3
+chardet==3.0.4
+cryptography==2.6.1
+Django==1.11.20
+idna==2.8
+paramiko==2.4.2
+pyasn1==0.4.5
+pycparser==2.19
+PyMySQL==0.9.3
+PyNaCl==1.3.0
+pytz==2019.1
+requests==2.21.0
+six==1.12.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+[root@V1 ~]# 
+
+[root@V1 ~]#  yum  -y  install   net-snmp-devel   libcurl-devel   libevent-devel
+
+....................
+已安装:
+  libcurl-devel.x86_64 0:7.29.0-51.el7              libevent-devel.x86_64 0:2.0.21-4.el7             
+  net-snmp-devel.x86_64 1:5.7.2-37.el7             
+
+作为依赖被安装:
+  elfutils-devel.x86_64 0:0.172-2.el7                                                                 
+  elfutils-libelf-devel.x86_64 0:0.172-2.el7                                                          
+  gdbm-devel.x86_64 0:1.10-8.el7                                                                      
+  libdb-devel.x86_64 0:5.3.21-24.el7                                                                  
+  lm_sensors-devel.x86_64 0:3.4.0-6.20160601gitf9185e5.el7                                            
+  lm_sensors-libs.x86_64 0:3.4.0-6.20160601gitf9185e5.el7                                             
+  net-snmp.x86_64 1:5.7.2-37.el7                                                                      
+  net-snmp-agent-libs.x86_64 1:5.7.2-37.el7                                                           
+  net-snmp-libs.x86_64 1:5.7.2-37.el7                                                                 
+  perl-ExtUtils-Install.noarch 0:1.58-294.el7_6                                                       
+  perl-ExtUtils-MakeMaker.noarch 0:6.68-3.el7                                                         
+  perl-ExtUtils-Manifest.noarch 0:1.61-244.el7                                                        
+  perl-ExtUtils-ParseXS.noarch 1:3.18-3.el7                                                           
+  perl-Test-Harness.noarch 0:3.28-3.el7                                                               
+  perl-devel.x86_64 4:5.16.3-294.el7_6                                                                
+  popt-devel.x86_64 0:1.13-16.el7                                                                     
+  pyparsing.noarch 0:1.5.6-9.el7                                                                      
+  rpm-devel.x86_64 0:4.11.3-35.el7                                                                    
+  systemtap-sdt-devel.x86_64 0:3.3-3.el7                                                              
+  tcp_wrappers-devel.x86_64 0:7.6-77.el7                                                              
+
+作为依赖被升级:
+  curl.x86_64 0:7.29.0-51.el7                          elfutils-libelf.x86_64 0:0.172-2.el7           
+  elfutils-libs.x86_64 0:0.172-2.el7                   libcurl.x86_64 0:7.29.0-51.el7                 
+  nspr.x86_64 0:4.19.0-1.el7_5                         nss.x86_64 0:3.36.0-7.1.el7_6                  
+  nss-pem.x86_64 0:1.0.3-5.el7_6.1                     nss-softokn.x86_64 0:3.36.0-5.el7_5            
+  nss-softokn-freebl.x86_64 0:3.36.0-5.el7_5           nss-sysinit.x86_64 0:3.36.0-7.1.el7_6          
+  nss-tools.x86_64 0:3.36.0-7.1.el7_6                  nss-util.x86_64 0:3.36.0-1.1.el7_6             
+  rpm.x86_64 0:4.11.3-35.el7                           rpm-build-libs.x86_64 0:4.11.3-35.el7          
+  rpm-libs.x86_64 0:4.11.3-35.el7                      rpm-python.x86_64 0:4.11.3-35.el7              
+
+完毕！
+[root@V1 ~]# rpm   -q   net-snmp-devel   libcurl-devel   libevent-devel
+
+net-snmp-devel-5.7.2-37.el7.x86_64
+libcurl-devel-7.29.0-51.el7.x86_64
+libevent-devel-2.0.21-4.el7.x86_64
+[root@V1 ~]#  
+
+安装常用的php模块
+yum  -y   install \
+php-gd    php-ldap      php-odbc \
+php-pear   php-xml  php-xmlrpc  php-mbstring \
+php-snmp   php-soap   curl     libcurl-devel
+
+rpm   -q   php-gd    php-ldap      php-odbc \
+php-pear   php-xml  php-xmlrpc  php-mbstring \
+php-snmp   php-soap   curl     libcurl-devel
+
+
+Zabbix 通过C/S 模式采集数据，通过B/S模式在web 端展示和配置。
+
+
+[root@V1 ~]# yum  -y   install \
+> php-gd    php-ldap      php-odbc \
+> php-pear   php-xml  php-xmlrpc  php-mbstring \
+> php-snmp   php-soap   curl     libcurl-devel
+
+已安装:
+  php-gd.x86_64 0:5.4.16-46.el7                       php-ldap.x86_64 0:5.4.16-46.el7                
+  php-mbstring.x86_64 0:5.4.16-46.el7                 php-odbc.x86_64 0:5.4.16-46.el7                
+  php-snmp.x86_64 0:5.4.16-46.el7                     php-soap.x86_64 0:5.4.16-46.el7                
+  php-xmlrpc.x86_64 0:5.4.16-46.el7                  
+
+作为依赖被安装:
+  libXpm.x86_64 0:3.5.12-1.el7    libtool-ltdl.x86_64 0:2.4.2-22.el7_3  t1lib.x86_64 0:5.1.2-14.el7 
+  unixODBC.x86_64 0:2.3.1-11.el7 
+
+完毕！
+[root@V1 ~]# rpm   -q   php-gd    php-ldap      php-odbc \
+> php-pear   php-xml  php-xmlrpc  php-mbstring \
+> php-snmp   php-soap   curl     libcurl-devel
+php-gd-5.4.16-46.el7.x86_64
+php-ldap-5.4.16-46.el7.x86_64
+php-odbc-5.4.16-46.el7.x86_64
+php-pear-1.9.4-21.el7.noarch
+php-xml-5.4.16-46.el7.x86_64
+php-xmlrpc-5.4.16-46.el7.x86_64
+php-mbstring-5.4.16-46.el7.x86_64
+php-snmp-5.4.16-46.el7.x86_64
+php-soap-5.4.16-46.el7.x86_64
+curl-7.29.0-51.el7.x86_64
+libcurl-devel-7.29.0-51.el7.x86_64
+
+[root@V1 ~]# firewall-cmd   --state
+-bash: firewall-cmd: 未找到命令
+
+[root@V1 ~]#  systemctl  is-enabled   firewalld
+Failed to get unit file state for firewalld.service: No such file or directory
+
+[root@V1 ~]# echo  " 192.168.1.11  V1" >   /var/www/html/index.html
+
+[root@V1 ~]# systemctl  start  httpd  && systemctl   enable  httpd
+
+Created symlink from /etc/systemd/system/multi-user.target.wants/httpd.service to /usr/lib/systemd/system/httpd.service.
+
+
+
+[root@V1 ~]# elinks  -dump   192.168.1.11
+   192.168.1.11 V1
+
+[root@V1 ~]# vim    /var/www/html/test.php
+[root@V1 ~]# cat   /var/www/html/test.php
+<?php
+  echo "Hello  192.168.1.11 V1\n";
+?>
+[root@V1 ~]# php
+php      php-cgi  php-fpm  phpize   
+
+[root@V1 ~]# php   /var/www/html/test.php
+Hello  192.168.1.11 V1
+
+[root@V1 ~]# elinks  -dump   192.168.1.11/test.php
+   Hello 192.168.1.11 V1
+[root@V1 ~]# 
+[root@V1 ~]# systemctl   start  mariadb   &&  systemctl  enable  mariadb
+
+Created symlink from /etc/systemd/system/multi-user.target.wants/mariadb.service to /usr/lib/systemd/system/mariadb.service.
+
+[root@V1 ~]# mysqladmin  -uroot  password  '123'
+
+[root@V1 ~]# head   -5  /etc/my.cnf
+[client]
+default-character-set=utf8
+[mysqld]
+character-set-server=utf8
+datadir=/var/lib/mysql
+[root@V1 ~]# 
+
+
+mysql  -uroot  -p123  -e  "
+create database zabbix ;show  databases;
+show  create  database  zabbix;"
+
+[root@V1 ~]# mysql  -uroot  -p123  -e  "
+> create database zabbix ;show  databases;
+> show  create  database  zabbix;"
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| test               |
+| zabbix             |
++--------------------+
++----------+-----------------------------------------------------------------+
+| Database | Create Database                                                 |
++----------+-----------------------------------------------------------------+
+| zabbix   | CREATE DATABASE `zabbix` /*!40100 DEFAULT CHARACTER SET utf8 */ |
++----------+-----------------------------------------------------------------+
+[root@V1 ~]# 
+
+/************
+[root@V6 ~]# mysql  -uroot  -p123  -e  "
+create database zabbix character set utf8 collate utf8_bin;show  databases;
+> show  create  database  zabbix;"
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| test               |
+| zabbix             |
++--------------------+
++----------+----------------------------------------------------------------------------------+
+| Database | Create Database                                                                  |
++----------+----------------------------------------------------------------------------------+
+| zabbix   | CREATE DATABASE `zabbix` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin */ |
++----------+----------------------------------------------------------------------------------+
+[root@V6 ~]# 
+
+---------------------------- 创建数据库和zabbix用户并授权 --------------------
+
+ mysql  -uroot  -p123  -e  "
+grant  all  on  *.*  to  root@'%' identified  by'123';
+grant  all  on  zabbix.*  to  zabbix@'%'  identified   by'zabbix';
+delete  from  mysql.user  where  password='';
+show  grants  for  zabbix@'%';
+show  grants  for  root@'%';
+select distinct concat('userName:''',user,'''@''',host,''' Password: ''',password,''';')
+as  queryalias  from  mysql.user;"
+
+---------------------------   删除所有的空密码账号 ----------------
+
+
+[root@V1 ~]#  mysql  -uroot  -p123  -e  "
+> grant  all  on  *.*  to  root@'%' identified  by'123';
+> grant  all  on  zabbix.*  to  zabbix@'%'  identified   by'zabbix';
+> delete  from  mysql.user  where  password='';
+> show  grants  for  zabbix@'%';
+> show  grants  for  root@'%';
+> select distinct concat('userName:''',user,'''@''',host,''' Password: ''',password,''';')
+> as  queryalias  from  mysql.user;"
++-------------------------------------------------------------------------------------------------------+
+| Grants for zabbix@%                                                                                   |
++-------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'zabbix'@'%' IDENTIFIED BY PASSWORD '*DEEF4D7D88CD046ECA02A80393B7780A63E7E789' |
+| GRANT ALL PRIVILEGES ON `zabbix`.* TO 'zabbix'@'%'                                                    |
++-------------------------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------+
+| Grants for root@%                                                                                            |
++--------------------------------------------------------------------------------------------------------------+
+| GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257' |
++--------------------------------------------------------------------------------------------------------------+
++------------------------------------------------------------------------------------+
+| queryalias                                                                         |
++------------------------------------------------------------------------------------+
+| userName:'root'@'localhost' Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; |
+| userName:'root'@'%' Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257';         |
+| userName:'zabbix'@'%' Password: '*DEEF4D7D88CD046ECA02A80393B7780A63E7E789';       |
++------------------------------------------------------------------------------------+
+[root@V1 ~]# 
+[root@V1 ~]# grep  -n  ^SELINUX  /etc/selinux/config
+7:SELINUX=disabled
+12:SELINUXTYPE=targeted
+
+[root@V1 ~]# ls  /etc/yum.repos.d/
+CentOS7-Base-163.repo  local.repo
+
+
+-------------------- 安装部署zabbix环境 ----------------------
+https://www.zabbix.com/
+
+http://repo.zabbix.com/
+
+Index of /
+../
+non-supported/                                     23-Jan-2012 15:37                   -
+zabbix/                                            29-Mar-2019 14:31                   -
+RPM-GPG-KEY-ZABBIX                                 16-Aug-2016 10:46                1333
+RPM-GPG-KEY-ZABBIX-79EA5ED4                        16-Aug-2016 10:46                1333
+RPM-GPG-KEY-ZABBIX-A14FE591                        16-Aug-2016 10:46                1719
+RPM-GPG-KEY-ZABBIX-A14FE591-EL5                    14-Nov-2016 18:47                 954
+zabbix-official-repo.key                           13-Aug-2016 05:23                2938
+
+
+http://repo.zabbix.com/RPM-GPG-KEY-ZABBIX
+
+http://repo.zabbix.com/zabbix-official-repo.key
+
+http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/
+
+
+rpm -ivh --force 
+https://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm
+
+--------------------- （一）安装官方yum源 ----------------------
+
+[root@V1 ~]# rpm    -ivh  --force  \
+> http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm
+
+获取http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm
+警告：/var/tmp/rpm-tmp.VyBwMb: 头V4 RSA/SHA512 Signature, 密钥 ID a14fe591: NOKEY
+准备中...                          ################################# [100%]
+正在升级/安装...
+   1:zabbix-release-3.4-2.el7         ################################# [100%]
+
+[root@V1 ~]# ls  /etc/yum.repos.d/
+CentOS7-Base-163.repo  local.repo  zabbix.repo
+
+[root@V1 ~]# vim    /etc/yum.repos.d/zabbix.repo 
+
+[root@V1 ~]# cat    /etc/yum.repos.d/zabbix.repo
+
+[zabbix]
+name=Zabbix Official Repository - $basearch
+baseurl=http://repo.zabbix.com/zabbix/3.4/rhel/7/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591
+
+[zabbix-non-supported]
+name=Zabbix Official Repository non-supported - $basearch 
+baseurl=http://repo.zabbix.com/non-supported/rhel/7/$basearch/
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
+gpgcheck=1
+
+[root@V1 ~]# ls  /etc/pki/rpm-gpg/
+RPM-GPG-KEY-CentOS-7        RPM-GPG-KEY-CentOS-Testing-7  RPM-GPG-KEY-ZABBIX-A14FE591
+RPM-GPG-KEY-CentOS-Debug-7  RPM-GPG-KEY-ZABBIX
+
+
+[root@V1 ~]# ll  /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX*
+-rw-r--r-- 1 root root 1333 8月  16 2016 /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
+-rw-r--r-- 1 root root 1719 8月  16 2016 /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591
+[root@V1 ~]# 
+[root@V1 ~]# rpm   --import    /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
+[root@V1 ~]# echo  $?
+0
+[root@V1 ~]# rpm   --import    /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591 
+[root@V1 ~]# echo  $?
+0
+[root@V1 ~]# rpm  -ql  zabbix-release 
+/etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
+/etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591
+/etc/yum.repos.d/zabbix.repo
+/usr/share/doc/zabbix-release-3.4
+/usr/share/doc/zabbix-release-3.4/GPL
+
+[root@V1 ~]# rpm  -q  zabbix-release 
+zabbix-release-3.4-2.el7.noarch
+[root@V1 ~]#  
+
+----------------------------- 安装zabbix 3.4服务器端
+（二）安装服务端软件及配置
+
+yum    -y   install \
+zabbix-server-mysql     zabbix-web-mysql   \
+zabbix-agent      zabbix-get    zabbix-sender  mariadb-server
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[student@room10pc15 ~]$ ssh  -X  root@192.168.1.12
+
+[root@V2 ~]# cd  /etc/yum.repos.d/ && wget  http://mirrors.163.com/.help/CentOS7-Base-163.repo
+
+--2019-05-16 17:50:50--  http://mirrors.163.com/.help/CentOS7-Base-163.repo
+正在解析主机 mirrors.163.com (mirrors.163.com)... 59.111.0.251
+正在连接 mirrors.163.com (mirrors.163.com)|59.111.0.251|:80... 已连接。
+已发出 HTTP 请求，正在等待回应... 200 OK
+长度：1572 (1.5K) [application/octet-stream]
+正在保存至: “CentOS7-Base-163.repo”
+
+100%[============================================================>] 1,572       --.-K/s 用时 0s      
+
+2019-05-16 17:50:50 (27.7 MB/s) - 已保存 “CentOS7-Base-163.repo” [1572/1572])
+
+[root@V2 yum.repos.d]# ls
+CentOS7-Base-163.repo  local.repo
+
+[root@V2 yum.repos.d]# vim   CentOS7-Base-163.repo 
+
+修改repo文件内容，将文件中的“$releasever”改为“7”，
+
+
+[student@room10pc15 ~]$ ssh  -X  root@192.168.1.13
+
+
+[student@room10pc15 ~]$ ssh  -X  root@192.168.1.14
+
+
+[student@room10pc15 ~]$ ssh  -X  root@192.168.1.15
+
+
+[student@room10pc15 ~]$ ssh  -X  root@192.168.1.16
+[root@V6 ~]# ll   /etc/redhat-release 
+lrwxrwxrwx. 1 root root 14 1月  26 12:33 /etc/redhat-release -> centos-release
+[root@V6 ~]# ll  /etc/centos-release
+-rw-r--r--. 1 root root 38 4月  29 2018 /etc/centos-release
+
+[root@V6 ~]# cat  /etc/centos-release
+CentOS Linux release 7.5.1804 (Core) 
+
+[root@V6 ~]# uname   -a
+Linux V6 3.10.0-862.el7.x86_64 #1 SMP Fri Apr 20 16:44:24 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
+[root@V6 ~]# uname   -r
+3.10.0-862.el7.x86_64
+[root@V6 ~]#  wget  \
+> http://mirrors.163.com/centos/7/os/x86_64/RPM-GPG-KEY-CentOS-7
+
+[root@V6 ~]# wget  http://mirrors.163.com/centos/7/os/x86_64/Packages/yum-3.4.3-161.el7.centos.noarch.rpm
+.............
+[root@V6 ~]# rpm    -q     elinks    telnet   httpd-tools   gcc  \
+> pcre-devel   openssl-devel   mariadb-devel   mariadb \
+> mariadb-server  memcached    php-pecl-memcache   php  \
+> php-mysql  php-fpm
+elinks-0.12-0.37.pre6.el7.0.1.x86_64
+telnet-0.17-64.el7.x86_64
+httpd-tools-2.4.6-89.el7.centos.x86_64
+gcc-4.8.5-36.el7_6.2.x86_64
+pcre-devel-8.32-17.el7.x86_64
+openssl-devel-1.0.2k-16.el7_6.1.x86_64
+mariadb-devel-5.5.60-1.el7_5.x86_64
+mariadb-5.5.60-1.el7_5.x86_64
+mariadb-server-5.5.60-1.el7_5.x86_64
+memcached-1.4.15-10.el7_3.1.x86_64
+php-pecl-memcache-3.0.8-4.el7.x86_64
+php-5.4.16-46.el7.x86_64
+php-mysql-5.4.16-46.el7.x86_64
+php-fpm-5.4.16-46.el7.x86_64
+
+[root@V6 ~]# yum   makecache |tail -3  #建立缓存
+已加载插件：fastestmirror
+Loading mirror speeds from cached hostfile
+元数据缓存已建立
+[root@V6 ~]#  yum  -y  install   net-snmp-devel   libcurl-devel   libevent-devel
+....................
+
+已安装:
+  libcurl-devel.x86_64 0:7.29.0-51.el7              libevent-devel.x86_64 0:2.0.21-4.el7             
+  net-snmp-devel.x86_64 1:5.7.2-37.el7             
+
+作为依赖被安装:
+  elfutils-devel.x86_64 0:0.172-2.el7                                                                 
+  elfutils-libelf-devel.x86_64 0:0.172-2.el7                                                          
+  gdbm-devel.x86_64 0:1.10-8.el7                                                                      
+  libdb-devel.x86_64 0:5.3.21-24.el7                                                                  
+  lm_sensors-devel.x86_64 0:3.4.0-6.20160601gitf9185e5.el7                                            
+  lm_sensors-libs.x86_64 0:3.4.0-6.20160601gitf9185e5.el7                                             
+  net-snmp.x86_64 1:5.7.2-37.el7                                                                      
+  net-snmp-agent-libs.x86_64 1:5.7.2-37.el7                                                           
+  net-snmp-libs.x86_64 1:5.7.2-37.el7                                                                 
+  perl-ExtUtils-Install.noarch 0:1.58-294.el7_6                                                       
+  perl-ExtUtils-MakeMaker.noarch 0:6.68-3.el7                                                         
+  perl-ExtUtils-Manifest.noarch 0:1.61-244.el7                                                        
+  perl-ExtUtils-ParseXS.noarch 1:3.18-3.el7                                                           
+  perl-Test-Harness.noarch 0:3.28-3.el7                                                               
+  perl-devel.x86_64 4:5.16.3-294.el7_6                                                                
+  popt-devel.x86_64 0:1.13-16.el7                                                                     
+  pyparsing.noarch 0:1.5.6-9.el7                                                                      
+  rpm-devel.x86_64 0:4.11.3-35.el7                                                                    
+  systemtap-sdt-devel.x86_64 0:3.3-3.el7                                                              
+  tcp_wrappers-devel.x86_64 0:7.6-77.el7                                                              
+
+作为依赖被升级:
+  curl.x86_64 0:7.29.0-51.el7                          elfutils-libelf.x86_64 0:0.172-2.el7           
+  elfutils-libs.x86_64 0:0.172-2.el7                   libcurl.x86_64 0:7.29.0-51.el7                 
+  nspr.x86_64 0:4.19.0-1.el7_5                         nss.x86_64 0:3.36.0-7.1.el7_6                  
+  nss-pem.x86_64 0:1.0.3-5.el7_6.1                     nss-softokn.x86_64 0:3.36.0-5.el7_5            
+  nss-softokn-freebl.x86_64 0:3.36.0-5.el7_5           nss-sysinit.x86_64 0:3.36.0-7.1.el7_6          
+  nss-tools.x86_64 0:3.36.0-7.1.el7_6                  nss-util.x86_64 0:3.36.0-1.1.el7_6             
+  rpm.x86_64 0:4.11.3-35.el7                           rpm-build-libs.x86_64 0:4.11.3-35.el7          
+  rpm-libs.x86_64 0:4.11.3-35.el7                      rpm-python.x86_64 0:4.11.3-35.el7              
+
+完毕！
+[root@V6 ~]# rpm   -q   net-snmp-devel   libcurl-devel   libevent-devel
+net-snmp-devel-5.7.2-37.el7.x86_64
+libcurl-devel-7.29.0-51.el7.x86_64
+libevent-devel-2.0.21-4.el7.x86_64
+[root@V6 ~]# 
+[root@V6 ~]# firewall-cmd   --state
+-bash: firewall-cmd: 未找到命令
+[root@V6 ~]# systemctl  is-active  firewalld
+unknown
+
+
+
+[root@V6 ~]# yum  -y   install \
+> php-gd    php-ldap      php-odbc \
+> php-pear   php-xml  php-xmlrpc  php-mbstring \
+> php-snmp   php-soap   curl     libcurl-devel
+.....................
+已安装:
+  php-gd.x86_64 0:5.4.16-46.el7                       php-ldap.x86_64 0:5.4.16-46.el7                
+  php-mbstring.x86_64 0:5.4.16-46.el7                 php-odbc.x86_64 0:5.4.16-46.el7                
+  php-snmp.x86_64 0:5.4.16-46.el7                     php-soap.x86_64 0:5.4.16-46.el7                
+  php-xmlrpc.x86_64 0:5.4.16-46.el7                  
+
+作为依赖被安装:
+  libXpm.x86_64 0:3.5.12-1.el7    libtool-ltdl.x86_64 0:2.4.2-22.el7_3  t1lib.x86_64 0:5.1.2-14.el7 
+  unixODBC.x86_64 0:2.3.1-11.el7 
+
+完毕！
+[root@V6 ~]# rpm   -q   php-gd    php-ldap      php-odbc \
+> php-pear   php-xml  php-xmlrpc  php-mbstring \
+> php-snmp   php-soap   curl     libcurl-devel
+php-gd-5.4.16-46.el7.x86_64
+php-ldap-5.4.16-46.el7.x86_64
+php-odbc-5.4.16-46.el7.x86_64
+php-pear-1.9.4-21.el7.noarch
+php-xml-5.4.16-46.el7.x86_64
+php-xmlrpc-5.4.16-46.el7.x86_64
+php-mbstring-5.4.16-46.el7.x86_64
+php-snmp-5.4.16-46.el7.x86_64
+php-soap-5.4.16-46.el7.x86_64
+curl-7.29.0-51.el7.x86_64
+libcurl-devel-7.29.0-51.el7.x86_64
+
+[root@V6 ~]# echo  "192.168.1.16  V6" > /var/www/html/index.html
+
+[root@V6 ~]# cat    /var/www/html/index.html
+192.168.1.16  V6
+
+[root@V6 ~]# vim    /var/www/html/test.php
+
+[root@V6 ~]# php   /var/www/html/test.php
+
+Hello  192.168.1.16 --- V6
+
+[root@V6 ~]# systemctl  start  httpd  && systemctl   enable  httpd
+
+Created symlink from /etc/systemd/system/multi-user.target.wants/httpd.service to /usr/lib/systemd/system/httpd.service.
+
+[root@V6 ~]# elinks   -dump   192.168.1.16
+   192.168.1.16 V6
+[root@V6 ~]# elinks   -dump   192.168.1.16/test.php
+   Hello 192.168.1.16 --- V6
+
+[root@V6 ~]# elinks   -dump   192.168.1.11/test.php
+   Hello 192.168.1.11 V1
+[root@V6 ~]# elinks   -dump   192.168.1.11
+   192.168.1.11 V1
+
+[root@V6 ~]# vim   /etc/my.cnf
+[root@V6 ~]# head  -5   /etc/my.cnf
+[client]
+default-character-set=utf8
+[mysqld]
+character-set-server=utf8
+datadir=/var/lib/mysql
+
+
+[root@V6 ~]# scp   /etc/my.cnf  root@V1:/etc/
+
+[root@V6 ~]# systemctl   start  mariadb   &&  systemctl  enable  mariadb
+
+Created symlink from /etc/systemd/system/multi-user.target.wants/mariadb.service to /usr/lib/systemd/system/mariadb.service.
+[root@V6 ~]# mysqladmin  -uroot  password  '123'
+
+
+--------------------------- 创建数据库和zabbix用户并授权 --------------------
+
+
+collate
+英 [kəˈleɪt]   美 [kəˈleɪt]  
+v.
+核对，校勘，对照(不同来源的信息);整理(文件或书等)
+
+[root@V6 ~]# mysql  -uroot  -p123  -e  "
+create database zabbix character set utf8 collate utf8_bin;show  databases;
+> show  create  database  zabbix;"
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| test               |
+| zabbix             |
++--------------------+
++----------+----------------------------------------------------------------------------------+
+| Database | Create Database                                                                  |
++----------+----------------------------------------------------------------------------------+
+| zabbix   | CREATE DATABASE `zabbix` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin */ |
++----------+----------------------------------------------------------------------------------+
+[root@V6 ~]# 
+
+[root@V6 ~]# mysql  -uroot  -p123  -e  "
+grant  all  on  *.*  to  root@'%' identified  by'123';
+> grant  all  on  zabbix.*  to  zabbix@'%'  identified   by'zabbix';
+> delete  from  mysql.user  where  password='';
+> show  grants  for  zabbix@'%';
+> show  grants  for  root@'%';
+> select distinct concat('userName:''',user,'''@''',host,''' Password: ''',password,''';')
+>  as  queryalias  from  mysql.user;"
++-------------------------------------------------------------------------------------------------------+
+| Grants for zabbix@%                                                                                   |
++-------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'zabbix'@'%' IDENTIFIED BY PASSWORD '*DEEF4D7D88CD046ECA02A80393B7780A63E7E789' |
+| GRANT ALL PRIVILEGES ON `zabbix`.* TO 'zabbix'@'%'                                                    |
++-------------------------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------+
+| Grants for root@%                                                                                            |
++--------------------------------------------------------------------------------------------------------------+
+| GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY PASSWORD '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257' |
++--------------------------------------------------------------------------------------------------------------+
++------------------------------------------------------------------------------------+
+| queryalias                                                                         |
++------------------------------------------------------------------------------------+
+| userName:'root'@'localhost' Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; |
+| userName:'root'@'%' Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257';         |
+| userName:'zabbix'@'%' Password: '*DEEF4D7D88CD046ECA02A80393B7780A63E7E789';       |
++------------------------------------------------------------------------------------+
+[root@V6 ~]#  grep  -n  ^SELINUX  /etc/selinux/config
+7:SELINUX=disabled
+12:SELINUXTYPE=targeted
+
+[root@V6 ~]# rpm -ivh --force  \
+> https://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm
+
+
+获取https://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm
+警告：/var/tmp/rpm-tmp.ssqCSt: 头V4 RSA/SHA512 Signature, 密钥 ID a14fe591: NOKEY
+准备中...                          ################################# [100%]
+正在升级/安装...
+   1:zabbix-release-3.4-2.el7         ################################# [100%]
+
+[root@V6 ~]# ls  /etc/yum.repos.d/
+CentOS7-Base-163.repo  local.repo  zabbix.repo
+
+------------------------- 查看zabbix.repo文件内容
+
+[root@V6 ~]# cat   /etc/yum.repos.d/zabbix.repo 
+[zabbix]
+name=Zabbix Official Repository - $basearch
+baseurl=http://repo.zabbix.com/zabbix/3.4/rhel/7/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591
+
+[zabbix-non-supported]
+name=Zabbix Official Repository non-supported - $basearch 
+baseurl=http://repo.zabbix.com/non-supported/rhel/7/$basearch/
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
+gpgcheck=1
+
+
+[root@V6 ~]# ll    /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX*
+-rw-r--r-- 1 root root 1333 8月  16 2016 /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
+-rw-r--r-- 1 root root 1719 8月  16 2016 /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591
+
+[root@V6 ~]# rpm   --import    /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
+[root@V6 ~]# rpm   --import    /etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591 
+[root@V6 ~]# echo  $?
+0
+[root@V6 ~]#  rpm  -ql  zabbix-release 
+/etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX
+/etc/pki/rpm-gpg/RPM-GPG-KEY-ZABBIX-A14FE591
+/etc/yum.repos.d/zabbix.repo
+/usr/share/doc/zabbix-release-3.4
+/usr/share/doc/zabbix-release-3.4/GPL
+
+[root@V6 ~]#  rpm  -q  zabbix-release 
+zabbix-release-3.4-2.el7.noarch
+
+----------------------------- 安装zabbix 3.4服务器端
+（二）安装服务端软件及配置
+
+yum    -y   install \
+zabbix-server-mysql     zabbix-web-mysql   \
+zabbix-agent      zabbix-get    zabbix-sender  mariadb-server
+
+
+
+
+
+
+
+
+[student@room10pc15 ~]$ mkdir    git
+[student@room10pc15 ~]$ touch   git/pyenv.txt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
