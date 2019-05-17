@@ -1,0 +1,232 @@
+
+
+C:\Users\admin\AppData\Roaming\Microsoft\Windows\Network Shortcuts
+ftp://127.0.0.1:2121/sdcard/
+
+ftp://127.0.0.1:2121/sdcard/documents/HTML/
+
+C:\Users\admin\Desktop\Win10F12
+
+
+Windows 10中的自带截图工具叫Snipping，每个Windows系统都有的功能。
+我们只需要在Windows 10的搜索栏中输入“截图”这俩中文汉字，
+就可以找到这个功能的选项。
+
+这个工具打开后也有相应的快捷键，那就是
+Windows + Shift + S按下Windows + Shift + S后
+屏幕就会变暗，然后拖动你的鼠标就能随意捕捉你想要的截图了！
+
+保存下来的照片呢，你可以在
+我的文档——图片——Screenshots文件夹中找到。
+C:\Users\admin\Pictures\Saved Pictures
+
+
+C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories
+此电脑＞Ｗｉｎｄｏｗｓ１０（Ｃ：）＞　ProgramData　＞　Microsoft　＞　Windows　＞Start Menu　＞　Programs　＞　Ｗｉｎｄｏｗｓ附件＞截图工具
+C:\Windows\system32＼snmptrap.exe
+%windir%\system32\SnippingTool.exe
+
+Ｃｔｒｌ　＋　Ａｌｔ　＋　Ｓ
+自定义区域截图
+
+
+
+
+
+win 10禁用F1到F12热键/win10 把F1到F12多媒体键转变为功能键
+需要进入联想笔记本WIN10的BIOS设置，我们通过以下步骤来进入：
+
+1、右击开始菜单->设置->更新和安全->恢复 
+
+2、点击高级启动的 立即重新启动->点击疑难解答->高级选项->UEFI固件设置->重启 
+
+3、进入BIOS里面后，在BIOS 设置程序中，打开Configuration（配置）菜单，
+然后将HotKey Mode （热键模式）的设置从Enabled （启用）改变为Disabled （停用）。 
+
+4、进入Exit（退出）菜单，
+并选择Exit Saving Changes（退出并保存改变），即可完成更改操作。
+
+5、开机重启后，就关闭了热键服务了，回到原本的功能快捷键了
+
+
+======================================================================
+
+
+如何查看本机windows版本
+
+
+1、鼠标右击电脑桌面的空白区域，选择个性化。
+
+2、进入个性化界面，选择【主页】
+
+3、进入主页选择【系统】图标。
+
+4、点击【关于】，可以查看windows的版本与版次，设备规格（处理器、设备ID、产品ID）等详细信息。
+
+
+
+方法二：命令输入查看
+1、在桌面上使用快捷键win+r打开运行对话框，在里面输入cmd，按回车键确定。 
+
+2、在命令框输入winver， 按下Enter键；
+
+
+3、这样就能看到windows的版本信息了。
+
+
+
+
+方法三：从电脑属性上查看
+
+1、在Windows电脑桌面的“计算机”上鼠标右键，然后点击“属性”。
+
+
+2、接下就可以打开系统界面了，在这里就可以找到Windows版本。
+
+
+Windows Hotkey Explorer 这个工具可以查看所有的快捷键，
+下载地址   网页链接
+
+
+
+windows 键：
+
+win + l：lock，锁屏；
+win + d：老板键；
+win + tab：切换的效果很好；
+win + x：设置；
+
+
+
+库是一种中文别名，其原始的绝对路径对应于，家目录的概念。
+家目录对于 windows 系统而言，就是 C:\Users\Administrator>。
+
+
+图片：C:\Users\Administrator\Pictures
+
+视频：C:\Users\Administrator\Videos
+
+文档：C:\Users\Administrator\Documents
+
+下载：C:\Users\Administrator\Downloads
+
+
+
+控制面板\所有控制面板项
+
+
+　　win10控制面板在哪里
+
+　　1.首先进入win10系统桌面，鼠标右键此电脑图标，选择属性
+
+
+控制面板\所有控制面板项\系统
+
+C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Administrative Tools
+此电脑＞Ｗｉｎｄｏｗｓ１０（Ｃ：）＞　ProgramData　＞　Microsoft　＞　Windows　＞【开始】菜单　＞　程序　＞Ｗｉｎｄｏｗｓ管理工具
+
+
+C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories
+此电脑＞Ｗｉｎｄｏｗｓ１０（Ｃ：）＞　ProgramData　＞　Microsoft　＞　Windows　＞Start Menu　＞　Programs　＞　Ｗｉｎｄｏｗｓ附件＞截图工具
+C:\Windows\system32＼snmptrap.exe
+%windir%\system32\SnippingTool.exe
+
+Ｃｔｒｌ　＋　Ａｌｔ　＋　Ｓ
+自定义区域截图
+
+
+
+C:\WINDOWS里面的system32（Win2000/XP）下的*.cpl文件就是控制面板里的程序列表文件
+你搜索时把通配符*加上(*.cpl)，这样所有控制面板里的程序列表文件 就可看到了！
+
+C:\WINDOWS\system32下的*.cpl文件就是控制面板里的程序列表文件。
+
+
+控制面板的内容需要rundll来进行调用 具体方法如下
+winexec(Pchar('StrCommand'),sw_Show);
+其中"StrCommand"代表以下命令之一(使用Windows中的运行不要加引号)：
+"rundll32 shell32,Control_RunDLL" - 运行控制面板
+"rundll32 shell32,OpenAs_RunDLL" - 打开"打开方式"窗口
+"rundll32 shell32,ShellAboutA Info-Box" - 打开"关于"窗口
+
+
+
+使用方法：
+点击“开始－程式－Ms－Dos方式”，进入Dos视窗，然后键入"rundll32.exe
+user.exe,restartwindows"，再按下回车键，这时你将看到，机器被重启了！怎么样，是不是很有趣？
+
+当然，Rundll的功能绝不仅仅是重启你的机器。
+其实，Rundll者，顾名思义，执行Dll也，
+它的功能就是以命令列的方式呼叫Windows的动态链结库，
+Rundll32.exe与Rundll.exe的区别就在於前者是呼叫32位的链结库，
+而后者是运用於16位的链结库，
+
+它们的命令格式是：
+RUNDLL.EXE ，，
+这里要注意三点：
+1.Dll档案名中不能含有空格，
+比如该档案位於c:\Program　Files\目录，
+你要把这个路径改成c:\Progra～1\；
+2.Dll档案名与Dll入口点间的逗号不能少，否则程式将出错并且不会给出任何资讯！
+3.这是最重要的一点：
+Rundll不能用来呼叫含返回值参数的Dll，
+例如Win32API中的GetUserName(),GetTextFace()等。
+
+在Visual　Basic中，提供了一条执行外部程式的指令Shell,格式为：
+Shell “命令列”
+如果能配合Rundll32.exe用好Shell指令，会使您的VB程式拥有用其他方法难以甚至无法实现的效果：
+仍以重启为例，传统的方法需要你在VB工程中先建立一个模组，然后写入WinAPI的声明，最后才能在程式中呼叫。
+而现在只需一句:
+Shell “rundll32.exe
+user.exe,restartwindows”就搞定了！是不是方便多了？
+
+实际上，Rundll32.exe在呼叫各种Windows控制面板和系统选项方面有著独特的优势。
+下面，我就将本人在因特网上收集的有关Rundll的指令列举如下
+（很有用的，能省去你很多呼叫Windows
+API的时间！！），供大家在程式设计中引用：
+命令列: rundll32.exe shell32.dll,Control_RunDLL
+功能: 显示控制面板
+
+
+
+命令列: rundll32.exe shell32.dll,Control_RunDLL access.cpl,,1
+功能: 显示“控制面板－辅助选项－键盘”选项视窗
+
+
+命令列: rundll32.exe apwiz.cpl,NewLinkHere ％1
+功能:
+显示“建立快捷方式”的对话框，所建立的快捷方式的位置由％1参数决定。
+
+
+
+命令列: rundll32.exe shell32.dll,Control_RunDLL sysdm.cpl,,3
+功能: 显示“控制面板－系统属性－性能”属性视窗。
+
+命令列: rundll32.exe user.exe,restartwindows
+功能: 强行关闭所有程式并重启机器。
+
+命令列: rundll32.exe user.exe,exitwindows
+功能: 强行关闭所有程式并关机。
+
+命令列: rundll32.exe shell32.dll,Control_RunDLL telephon.cpl
+功能: 显示“拨号属性”选项视窗
+
+命令列: rundll32.exe shell32.dll,Control_RunDLL themes.cpl
+功能: 显示“桌面主旨”选项面板
+
+
+当然，不止是VisualBasic，象Delphi.VisualC＋＋等其他程式设计语言也可以
+通过呼叫外部命令的方法来使用Rundll的这些功能，
+具体方法这里就不再详细叙述了。
+灵活的使用Rundll,一定会使你的程式设计轻轻松松，达到事半功倍的效果
+
+
+
+
+
+
+
+
+
+
+

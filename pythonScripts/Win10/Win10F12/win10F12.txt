@@ -1,0 +1,53 @@
+
+
+C:\Users\admin\AppData\Roaming\Microsoft\Windows\Network Shortcuts
+ftp://127.0.0.1:2121/sdcard/
+
+ftp://127.0.0.1:2121/sdcard/documents/HTML/
+
+C:\Users\admin\Desktop\Win10F12
+
+
+Windows 10中的自带截图工具叫Snipping，每个Windows系统都有的功能。
+我们只需要在Windows 10的搜索栏中输入“截图”这俩中文汉字，
+就可以找到这个功能的选项。
+
+这个工具打开后也有相应的快捷键，那就是
+Windows + Shift + S按下Windows + Shift + S后
+屏幕就会变暗，然后拖动你的鼠标就能随意捕捉你想要的截图了！
+
+保存下来的照片呢，你可以在
+我的文档——图片——Screenshots文件夹中找到。
+C:\Users\admin\Pictures\Saved Pictures
+
+
+win 10禁用F1到F12热键/win10 把F1到F12多媒体键转变为功能键
+需要进入联想笔记本WIN10的BIOS设置，我们通过以下步骤来进入：
+
+1、右击开始菜单->设置->更新和安全->恢复 
+
+2、点击高级启动的 立即重新启动->点击疑难解答->高级选项->UEFI固件设置->重启 
+
+3、进入BIOS里面后，在BIOS 设置程序中，打开Configuration（配置）菜单，
+然后将HotKey Mode （热键模式）的设置从Enabled （启用）改变为Disabled （停用）。 
+
+4、进入Exit（退出）菜单，
+并选择Exit Saving Changes（退出并保存改变），即可完成更改操作。
+
+5、开机重启后，就关闭了热键服务了，回到原本的功能快捷键了
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
