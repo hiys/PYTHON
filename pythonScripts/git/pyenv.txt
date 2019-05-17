@@ -1526,12 +1526,601 @@ RPM-GPG-KEY-CentOS-Debug-7  RPM-GPG-KEY-ZABBIX
 zabbix-release-3.4-2.el7.noarch
 [root@V1 ~]#  
 
+
 ----------------------------- 安装zabbix 3.4服务器端
 （二）安装服务端软件及配置
 
 yum    -y   install \
 zabbix-server-mysql     zabbix-web-mysql   \
 zabbix-agent      zabbix-get    zabbix-sender  mariadb-server
+
+rpm   -q    zabbix-server-mysql     zabbix-web-mysql   \
+zabbix-agent      zabbix-get    zabbix-sender    mariadb-server
+
+[student@room10pc15 ~]$ for  i   in  V{1..6};do
+> virsh  start  ${i};done;
+错误：域已经活跃
+
+域 V2 已开始
+
+域 V3 已开始
+
+域 V4 已开始
+
+域 V5 已开始
+
+域 V6 已开始
+
+[student@room10pc15 ~]$ ssh  -X    root@192.168.1.11
+
+[root@V1 ~]# yum    makecache 
+.......................... 00:00:00     
+(1/5): updates/x86_64/prestodelta                                             | 677 kB  00:00:00     
+(2/5): updates/x86_64/other_db                                                | 584 kB  00:00:00     
+(3/5): updates/x86_64/filelists_db                                            | 3.6 MB  00:00:00     
+(4/5): zabbix/x86_64/filelists_db                                             |  87 kB  00:00:00     
+(5/5): zabbix/x86_64/other_db                                                 | 102 kB  00:00:00     
+(1/2): zabbix-non-supported/x86_64/filelists                                  |  660 B  00:00:00     
+(2/2): zabbix-non-supported/x86_64/other                                      | 1.5 kB  00:00:00     
+zabbix-non-supported                                                                             4/4
+zabbix-non-supported                                                                             4/4
+元数据缓存已建立
+[root@V1 ~]# yum  repolist |tail  -9
+源标识                      源名称                                        状态
+base/x86_64                 CentOS-7 - Base - 163.com                     10,019
+centosplus/x86_64           CentOS-7 - Plus - 163.com                         70
+extras/x86_64               CentOS-7 - Extras - 163.com                      413
+local                       CentOS7-1804.iso                               9,911
+updates/x86_64              CentOS-7 - Updates - 163.com                   1,928
+zabbix/x86_64               Zabbix Official Repository - x86_64              236
+zabbix-non-supported/x86_64 Zabbix Official Repository non-supported - x8      4
+repolist: 22,581
+[root@V1 ~]# 
+[root@V1 ~]# yum    -y   install \
+> zabbix-server-mysql     zabbix-web-mysql   \
+> zabbix-agent      zabbix-get    zabbix-sender  mariadb-server
+.............
+已安装:
+  zabbix-agent.x86_64 0:3.4.15-1.el7                                    
+  zabbix-get.x86_64 0:3.4.15-1.el7                                      
+  zabbix-sender.x86_64 0:3.4.15-1.el7                                   
+  zabbix-server-mysql.x86_64 0:3.4.15-1.el7                             
+  zabbix-web-mysql.noarch 0:3.4.15-1.el7                                
+
+作为依赖被安装:
+  OpenIPMI-libs.x86_64 0:2.0.23-2.el7                                   
+  OpenIPMI-modalias.x86_64 0:2.0.23-2.el7                               
+  fping.x86_64 0:3.10-1.el7                                             
+  iksemel.x86_64 0:1.4-2.el7.centos                                     
+  php-bcmath.x86_64 0:5.4.16-46.el7                                     
+  zabbix-web.noarch 0:3.4.15-1.el7                                      
+
+完毕！
+[root@V1 ~]# rpm   -q    zabbix-server-mysql     zabbix-web-mysql   \
+> zabbix-agent      zabbix-get    zabbix-sender    mariadb-server
+zabbix-server-mysql-3.4.15-1.el7.x86_64
+zabbix-web-mysql-3.4.15-1.el7.noarch
+zabbix-agent-3.4.15-1.el7.x86_64
+zabbix-get-3.4.15-1.el7.x86_64
+zabbix-sender-3.4.15-1.el7.x86_64
+mariadb-server-5.5.60-1.el7_5.x86_64
+[root@V1 ~]# 
+
+[root@V1 ~]# cd  /usr/share/doc/zabbix-server-mysql-3.4.15/
+
+[root@V1 zabbix-server-mysql-3.4.15]# ls
+
+AUTHORS  ChangeLog  COPYING  create.sql.gz  NEWS  README
+
+[root@V1 zabbix-server-mysql-3.4.15]# file   create.sql.gz 
+create.sql.gz: gzip compressed data, was "create.sql", from Unix, last modified: Mon Nov 12 18:54:48 2018
+
+[root@V1 zabbix-server-mysql-3.4.15]# rpm  -qf  /usr/bin/zcat 
+gzip-1.5-10.el7.x86_64
+[root@V1 zabbix-server-mysql-3.4.15]# systemctl  is-active   mariadb
+active
+[root@V1 zabbix-server-mysql-3.4.15]# systemctl  is-enabled   mariadb
+enabled
+
+--------------------  导入数据库
+---------------------------- 导入数据库  导入初始模板----------------------------------
+
+[root@V1 zabbix-server-mysql-3.4.15]# zcat   create.sql.gz |mysql -uroot -p123 -D zabbix
+
+[root@V1 zabbix-server-mysql-3.4.15]# echo  $?
+0
+[root@V1 zabbix-server-mysql-3.4.15]# mysql -uroot -p123 -D zabbix -e "show  tables;select database();"
++----------------------------+
+| Tables_in_zabbix           |
++----------------------------+
+| acknowledges               |
+| actions                    |
+| alerts                     |
+| application_discovery      |
+| application_prototype      |
+| application_template       |
+| applications               |
+| auditlog                   |
+| auditlog_details           |
+| autoreg_host               |
+| conditions                 |
+| config                     |
+| corr_condition             |
+| corr_condition_group       |
+| corr_condition_tag         |
+| corr_condition_tagpair     |
+| corr_condition_tagvalue    |
+| corr_operation             |
+| correlation                |
+| dashboard                  |
+| dashboard_user             |
+| dashboard_usrgrp           |
+| dbversion                  |
+| dchecks                    |
+| dhosts                     |
+| drules                     |
+| dservices                  |
+| escalations                |
+| event_recovery             |
+| event_tag                  |
+| events                     |
+| expressions                |
+| functions                  |
+| globalmacro                |
+| globalvars                 |
+| graph_discovery            |
+| graph_theme                |
+| graphs                     |
+| graphs_items               |
+| group_discovery            |
+| group_prototype            |
+| groups                     |
+| history                    |
+| history_log                |
+| history_str                |
+| history_text               |
+| history_uint               |
+| host_discovery             |
+| host_inventory             |
+| hostmacro                  |
+| hosts                      |
+| hosts_groups               |
+| hosts_templates            |
+| housekeeper                |
+| httpstep                   |
+| httpstep_field             |
+| httpstepitem               |
+| httptest                   |
+| httptest_field             |
+| httptestitem               |
+| icon_map                   |
+| icon_mapping               |
+| ids                        |
+| images                     |
+| interface                  |
+| interface_discovery        |
+| item_application_prototype |
+| item_condition             |
+| item_discovery             |
+| item_preproc               |
+| items                      |
+| items_applications         |
+| maintenances               |
+| maintenances_groups        |
+| maintenances_hosts         |
+| maintenances_windows       |
+| mappings                   |
+| media                      |
+| media_type                 |
+| opcommand                  |
+| opcommand_grp              |
+| opcommand_hst              |
+| opconditions               |
+| operations                 |
+| opgroup                    |
+| opinventory                |
+| opmessage                  |
+| opmessage_grp              |
+| opmessage_usr              |
+| optemplate                 |
+| problem                    |
+| problem_tag                |
+| profiles                   |
+| proxy_autoreg_host         |
+| proxy_dhistory             |
+| proxy_history              |
+| regexps                    |
+| rights                     |
+| screen_user                |
+| screen_usrgrp              |
+| screens                    |
+| screens_items              |
+| scripts                    |
+| service_alarms             |
+| services                   |
+| services_links             |
+| services_times             |
+| sessions                   |
+| slides                     |
+| slideshow_user             |
+| slideshow_usrgrp           |
+| slideshows                 |
+| sysmap_element_trigger     |
+| sysmap_element_url         |
+| sysmap_shape               |
+| sysmap_url                 |
+| sysmap_user                |
+| sysmap_usrgrp              |
+| sysmaps                    |
+| sysmaps_elements           |
+| sysmaps_link_triggers      |
+| sysmaps_links              |
+| task                       |
+| task_acknowledge           |
+| task_close_problem         |
+| task_remote_command        |
+| task_remote_command_result |
+| timeperiods                |
+| trends                     |
+| trends_uint                |
+| trigger_depends            |
+| trigger_discovery          |
+| trigger_tag                |
+| triggers                   |
+| users                      |
+| users_groups               |
+| usrgrp                     |
+| valuemaps                  |
+| widget                     |
+| widget_field               |
++----------------------------+
++------------+
+| database() |
++------------+
+| zabbix     |
++------------+
+[root@V1 zabbix-server-mysql-3.4.15]# id   zabbix
+uid=996(zabbix) gid=994(zabbix) 组=994(zabbix)
+[root@V1 zabbix-server-mysql-3.4.15]# grep  -n   zabbix  /etc/passwd
+24:zabbix:x:996:994:Zabbix Monitoring System:/var/lib/zabbix:/sbin/nologin
+
+[root@V1 zabbix-server-mysql-3.4.15]# pwd
+/usr/share/doc/zabbix-server-mysql-3.4.15
+[root@V1 zabbix-server-mysql-3.4.15]# cd
+
+----------------------------- 编辑zabbix_server配置文件，使其可以连接数据库 
+
+[root@V1 ~]# vim   /etc/zabbix/zabbix_server.conf 
+[root@V1 ~]# grep  -Env  '^(#|$)'   /etc/zabbix/zabbix_server.conf
+38:LogFile=/var/log/zabbix/zabbix_server.log
+49:LogFileSize=0
+72:PidFile=/var/run/zabbix/zabbix_server.pid
+82:SocketDir=/var/run/zabbix
+91:DBHost=localhost
+100:DBName=zabbix
+116:DBUser=zabbix
+124:DBPassword=zabbix
+329:SNMPTrapperFile=/var/log/snmptrap/snmptrap.log
+446:Timeout=4
+488:AlertScriptsPath=/usr/lib/zabbix/alertscripts
+498:ExternalScripts=/usr/lib/zabbix/externalscripts
+534:LogSlowQueries=3000
+[root@V1 ~]# 
+
+同样编辑/usr/share/zabbix/conf/zabbix.conf.php 其中的数据库参数保持一致
+
+[root@V1 ~]# cd  /usr/share/zabbix/conf/
+[root@V1 conf]# ls
+zabbix.conf.php.example
+[root@V1 conf]# cp   zabbix.conf.php.example  zabbix.conf.php
+[root@V1 conf]# ls
+zabbix.conf.php  zabbix.conf.php.example
+[root@V1 conf]# vim  zabbix.conf.php
+[root@V1 conf]# cat  -n   zabbix.conf.php
+     1	<?php
+     2	// Zabbix GUI configuration file.
+     3	global $DB, $HISTORY;
+     4	
+     5	$DB['TYPE']				= 'MYSQL';
+     6	$DB['SERVER']			= 'localhost';
+     7	$DB['PORT']				= '0';
+     8	$DB['DATABASE']			= 'zabbix';
+     9	$DB['USER']				= 'zabbix';
+    10	$DB['PASSWORD']			= 'zabbix';
+    11	// Schema name. Used for IBM DB2 and PostgreSQL.
+    12	$DB['SCHEMA']			= '';
+    13	
+    14	$ZBX_SERVER				= 'localhost';
+    15	$ZBX_SERVER_PORT		= '10051';
+    16	$ZBX_SERVER_NAME		= '';
+    17	
+    18	$IMAGE_FORMAT_DEFAULT	= IMAGE_FORMAT_PNG;
+    19	
+    20	// Elasticsearch url (can be string if same url is used for all types).
+    21	$HISTORY['url']   = [
+    22			'uint' => 'http://localhost:9200',
+    23			'text' => 'http://localhost:9200'
+    24	];
+    25	// Value types stored in Elasticsearch.
+    26	$HISTORY['types'] = ['uint', 'text'];
+[root@V1 conf]# 
+
+------------ 编辑zabbix的web配置文件中的时区，此文件是安装时自动生成的 ------------
+
+[root@V1 conf]#  vim   /etc/httpd/conf.d/zabbix.conf 
+[root@V1 conf]# cat   -n   /etc/httpd/conf.d/zabbix.conf
+     1	#
+     2	# Zabbix monitoring system php web frontend
+     3	#
+     4	
+     5	Alias /zabbix /usr/share/zabbix
+     6	
+     7	<Directory "/usr/share/zabbix">
+     8	    Options FollowSymLinks
+     9	    AllowOverride None
+    10	    Require all granted
+    11	
+    12	    <IfModule mod_php5.c>
+    13	        php_value max_execution_time 300
+    14	        php_value memory_limit 128M
+    15	        php_value post_max_size 32M   #注意这行将要修改,把16M 改成32M
+    16	        php_value upload_max_filesize 2M
+    17	        php_value max_input_time 300
+    18	        php_value max_input_vars 10000
+    19	        php_value always_populate_raw_post_data -1
+    20	        php_value date.timezone  Asia/Shanghai
+    21	    </IfModule>
+    22	</Directory>
+    23	
+    24	<Directory "/usr/share/zabbix/conf">
+    25	    Require all denied
+    26	</Directory>
+    27	
+    28	<Directory "/usr/share/zabbix/app">
+    29	    Require all denied
+    30	</Directory>
+    31	
+    32	<Directory "/usr/share/zabbix/include">
+    33	    Require all denied
+    34	</Directory>
+    35	
+    36	<Directory "/usr/share/zabbix/local">
+    37	    Require all denied
+    38	</Directory>
+[root@V1 conf]# 
+
+重启httpd服务，
+访问http://SERVER-IP/zabbix会跳转到zabbix的安装界面，
+点击下一步查看所有环境准备项目OK就可以继续了。
+
+zabbix默认管理用户是admin密码zabbix
+
+
+http://192.168.1.11/zabbix
+------------------- 会跳转到zabbix的安装界面 ---------------
+
+http://192.168.1.11/zabbix/setup.php
+
+
+
+[root@V1 conf]# vim   /etc/php.ini
+[root@V1 conf]# sed  -n  -e '384p;394p;672p;878p;'  /etc/php.ini 
+max_execution_time = 300
+max_input_time = 300
+post_max_size = 32M
+date.timezone = Asia/Shanghai
+[root@V1 conf]# 
+
+[root@V1 ~]# rpm  -q  gd  gd-devel   php-gd  php-xml  php-ldap
+未安装软件包 gd 
+未安装软件包 gd-devel 
+php-gd-5.4.16-46.el7.x86_64
+php-xml-5.4.16-46.el7.x86_64
+php-ldap-5.4.16-46.el7.x86_64
+[root@V1 ~]# yum  -y install   gd  gd-devel
+[root@V1 ~]# yum  -y install   gd  gd-devel  php-gd  php-xml  php-ldap
+..........
+已安装:
+  gd.x86_64 0:2.0.35-26.el7                       gd-devel.x86_64 0:2.0.35-26.el7                      
+
+作为依赖被安装:
+  libXpm-devel.x86_64 0:3.5.12-1.el7              libjpeg-turbo-devel.x86_64 0:1.2.90-6.el7             
+
+作为依赖被升级:
+  libjpeg-turbo.x86_64 0:1.2.90-6.el7                                                                   
+
+完毕！
+[root@V1 ~]#  rpm  -q  gd  gd-devel  php-gd  php-xml  php-ldap
+gd-2.0.35-26.el7.x86_64
+gd-devel-2.0.35-26.el7.x86_64
+php-gd-5.4.16-46.el7.x86_64
+php-xml-5.4.16-46.el7.x86_64
+php-ldap-5.4.16-46.el7.x86_64
+[root@V1 ~]# 
+
+重启httpd服务，
+zabbix默认管理用户是admin密码zabbix
+[root@V1 ~]# systemctl   restart   httpd
+
+http://192.168.1.11/zabbix/setup.php
+
+http://192.168.1.11/zabbix/hosts.php?ddreset=1
+
+[root@V1 ~]# ll  /etc/zabbix/web/zabbix.conf.php 
+-rw-r--r-- 1 apache apache 410 5月  17 11:22 /etc/zabbix/web/zabbix.conf.php
+[root@V1 ~]# cat   -n  /etc/zabbix/web/zabbix.conf.php
+     1	<?php
+     2	// Zabbix GUI configuration file.
+     3	global $DB;
+     4	
+     5	$DB['TYPE']     = 'MYSQL';
+     6	$DB['SERVER']   = 'localhost';
+     7	$DB['PORT']     = '0';
+     8	$DB['DATABASE'] = 'zabbix';
+     9	$DB['USER']     = 'zabbix';
+    10	$DB['PASSWORD'] = 'zabbix';
+    11	
+    12	// Schema name. Used for IBM DB2 and PostgreSQL.
+    13	$DB['SCHEMA'] = '';
+    14	
+    15	$ZBX_SERVER      = 'V1';
+    16	$ZBX_SERVER_PORT = '10051';
+    17	$ZBX_SERVER_NAME = 'V1';
+    18	
+    19	$IMAGE_FORMAT_DEFAULT = IMAGE_FORMAT_PNG;
+[root@V1 ~]# 
+
+修改配置文件，给服务授权、启动Zabbix Server服务
+
+[root@V1 ~]# vim    /etc/zabbix/zabbix_server.conf 
+
+[root@V1 ~]# ll   /etc/zabbix/zabbix_server.conf
+-rw-r----- 1 root zabbix 15529 5月  17 10:18 /etc/zabbix/zabbix_server.conf
+[root@V1 ~]# grep  -Env   '^(#|$)'    /etc/zabbix/zabbix_server.conf
+38:LogFile=/var/log/zabbix/zabbix_server.log
+49:LogFileSize=0
+72:PidFile=/var/run/zabbix/zabbix_server.pid
+82:SocketDir=/var/run/zabbix
+91:DBHost=localhost
+100:DBName=zabbix
+116:DBUser=zabbix
+124:DBPassword=zabbix
+329:SNMPTrapperFile=/var/log/snmptrap/snmptrap.log
+446:Timeout=4
+488:AlertScriptsPath=/usr/lib/zabbix/alertscripts
+498:ExternalScripts=/usr/lib/zabbix/externalscripts
+534:LogSlowQueries=3000
+[root@V1 ~]# 
+
+[root@V1 ~]# ls  -ld  /etc/zabbix/
+drwxr-xr-x 4 root root 92 5月  17 10:18 /etc/zabbix/
+[root@V1 ~]# chown  -R  zabbix:zabbix    /etc/zabbix/
+[root@V1 ~]# chmod  -R  755    /etc/zabbix/
+[root@V1 ~]# ll   /etc/zabbix/
+总用量 28
+drwxr-xr-x 2 zabbix zabbix    56 5月  17 11:22 web
+-rwxr-xr-x 1 zabbix zabbix 10632 11月 12 2018 zabbix_agentd.conf
+drwxr-xr-x 2 zabbix zabbix    38 5月  17 09:46 zabbix_agentd.d
+-rwxr-xr-x 1 zabbix zabbix 15529 5月  17 10:18 zabbix_server.conf
+
+----------------------- 启动Zabbix Server服务
+---------------------------- 启动zabbix-server服务 设置zabbix-server服务自启动 -----------------------
+
+[root@V1 ~]# netstat   -npult  |grep  10051
+[root@V1 ~]# systemctl   start  zabbix-server  &&  systemctl  enable  zabbix-server
+Created symlink from /etc/systemd/system/multi-user.target.wants/zabbix-server.service to /usr/lib/systemd/system/zabbix-server.service.
+[root@V1 ~]# netstat   -npult  |grep  10051
+tcp        0      0 0.0.0.0:10051           0.0.0.0:*               LISTEN      24222/zabbix_server 
+tcp6       0      0 :::10051                :::*                    LISTEN      24222/zabbix_server 
+[root@V1 ~]# 
+
+[root@V1 ~]# cat   -n  /etc/zabbix/web/zabbix.conf.php
+     1	<?php
+     2	// Zabbix GUI configuration file.
+     3	global $DB;
+     4	
+     5	$DB['TYPE']     = 'MYSQL';
+     6	$DB['SERVER']   = 'localhost';
+     7	$DB['PORT']     = '0';
+     8	$DB['DATABASE'] = 'zabbix';
+     9	$DB['USER']     = 'zabbix';
+    10	$DB['PASSWORD'] = 'zabbix';
+    11	
+    12	// Schema name. Used for IBM DB2 and PostgreSQL.
+    13	$DB['SCHEMA'] = '';
+    14	
+    15	$ZBX_SERVER      = 'V1';
+    16	$ZBX_SERVER_PORT = '10051';
+    17	$ZBX_SERVER_NAME = 'V1';
+    18	
+    19	$IMAGE_FORMAT_DEFAULT = IMAGE_FORMAT_PNG;
+[root@V1 ~]# ll  /etc/zabbix/web/zabbix.conf.php
+-rwxr-xr-x 1 zabbix zabbix 410 5月  17 11:22 /etc/zabbix/web/zabbix.conf.php
+[root@V1 ~]# scp    /etc/zabbix/web/zabbix.conf.php  root@192.168.1.16:/etc/zabbix/web/
+root@192.168.1.16's password: 
+zabbix.conf.php                                                       100%  410   421.5KB/s   00:00    
+[root@V1 ~]# 
+
+[root@V6 ~]# chown  -R  zabbix:zabbix   /etc/zabbix/
+[root@V6 ~]# ll  /etc/zabbix/web/
+总用量 8
+-rwxr-xr-x 1 zabbix zabbix 1036 11月 12 2018 maintenance.inc.php
+-rwxr-xr-x 1 zabbix zabbix  410 5月  17 12:04 zabbix.conf.php
+[root@V6 ~]# vim   /etc/zabbix/web/zabbix.conf.php 
+[root@V6 ~]# cat   -n   /etc/zabbix/web/zabbix.conf.php
+     1	<?php
+     2	// Zabbix GUI configuration file.
+     3	global $DB;
+     4	
+     5	$DB['TYPE']     = 'MYSQL';
+     6	$DB['SERVER']   = 'localhost';
+     7	$DB['PORT']     = '3306';
+     8	$DB['DATABASE'] = 'zabbix';
+     9	$DB['USER']     = 'zabbix';
+    10	$DB['PASSWORD'] = 'zabbix';
+    11	
+    12	// Schema name. Used for IBM DB2 and PostgreSQL.
+    13	$DB['SCHEMA'] = '';
+    14	
+    15	$ZBX_SERVER      = 'V6';
+    16	$ZBX_SERVER_PORT = '10051';
+    17	$ZBX_SERVER_NAME = 'V6';
+    18	
+    19	$IMAGE_FORMAT_DEFAULT = IMAGE_FORMAT_PNG;
+[root@V6 ~]# systemctl  restart  httpd
+
+
+---------------------------------------------------- 启动apache服务，并设置开机自启
+
+----------------------------- 登录网页客户端操作添加一台Linux机器
+
+访问ip：http://192.168.1.16/zabbix/index.php
+
+zabbix默认
+管理用户是admin
+密码     zabbix
+登录页面，
+默认的登录账号：admin密码：zabbix
+
+http://192.168.1.16/zabbix/index.php
+
+Username  Admin
+Password  zabbix
+Remember me for 30 days
+
+[root@V1 ~]# ll  /etc/zabbix/
+总用量 28
+drwxr-xr-x 2 zabbix zabbix    56 5月  17 11:22 web
+-rwxr-xr-x 1 zabbix zabbix 10632 11月 12 2018 zabbix_agentd.conf
+drwxr-xr-x 2 zabbix zabbix    38 5月  17 09:46 zabbix_agentd.d
+-rwxr-xr-x 1 zabbix zabbix 15529 5月  17 10:18 zabbix_server.conf
+[root@V1 ~]# vim    /etc/zabbix/zabbix_agentd.conf 
+
+ 97 Server=192.168.1.16   #服务器ip
+138 ServerActive=192.168.1.16
+149 Hostname=Zabbix server
+
+[root@V1 ~]# grep    -Env  '^(#|$)'   /etc/zabbix/zabbix_agentd.conf 
+13:PidFile=/var/run/zabbix/zabbix_agentd.pid
+32:LogFile=/var/log/zabbix/zabbix_agentd.log
+43:LogFileSize=0
+97:Server=192.168.1.16
+138:ServerActive=192.168.1.16
+149:Hostname=Zabbix server
+267:Include=/etc/zabbix/zabbix_agentd.d/*.conf
+[root@V1 ~]# 
+
+[root@V1 ~]# systemctl   start   zabbix-agent  &&  systemctl  enable  zabbix-agent
+
+Created symlink from /etc/systemd/system/multi-user.target.wants/zabbix-agent.service to /usr/lib/systemd/system/zabbix-agent.service.
+
+[root@V1 ~]# netstat  -npult |grep  1005
+tcp        0      0 0.0.0.0:10050           0.0.0.0:*               LISTEN      24673/zabbix_agentd 
+tcp        0      0 0.0.0.0:10051           0.0.0.0:*               LISTEN      24222/zabbix_server 
+tcp6       0      0 :::10050                :::*                    LISTEN      24673/zabbix_agentd 
+tcp6       0      0 :::10051                :::*                    LISTEN      24222/zabbix_server 
+[root@V1 ~]# 
+
 
 
 
@@ -1858,6 +2447,460 @@ yum    -y   install \
 zabbix-server-mysql     zabbix-web-mysql   \
 zabbix-agent      zabbix-get    zabbix-sender  mariadb-server
 
+[root@V6 ~]# yum  repolist |tail  -9
+源标识                      源名称                                        状态
+base/x86_64                 CentOS-7 - Base - 163.com                     10,019
+centosplus/x86_64           CentOS-7 - Plus - 163.com                         70
+extras/x86_64               CentOS-7 - Extras - 163.com                      413
+local                       CentOS7-1804.iso                               9,911
+updates/x86_64              CentOS-7 - Updates - 163.com                   1,928
+zabbix/x86_64               Zabbix Official Repository - x86_64              236
+zabbix-non-supported/x86_64 Zabbix Official Repository non-supported - x8      4
+repolist: 22,581
+
+[root@V6 ~]# yum    -y   install \
+> zabbix-server-mysql     zabbix-web-mysql   \
+> zabbix-agent      zabbix-get    zabbix-sender  mariadb-server
+..................
+软件包 1:mariadb-server-5.5.60-1.el7_5.x86_64 已安装并且是最新版本
+............................
+已安装:
+  zabbix-agent.x86_64 0:3.4.15-1.el7              zabbix-get.x86_64 0:3.4.15-1.el7                  
+  zabbix-sender.x86_64 0:3.4.15-1.el7             zabbix-server-mysql.x86_64 0:3.4.15-1.el7         
+  zabbix-web-mysql.noarch 0:3.4.15-1.el7         
+
+作为依赖被安装:
+  OpenIPMI-libs.x86_64 0:2.0.23-2.el7             OpenIPMI-modalias.x86_64 0:2.0.23-2.el7            
+  fping.x86_64 0:3.10-1.el7                       iksemel.x86_64 0:1.4-2.el7.centos                  
+  php-bcmath.x86_64 0:5.4.16-46.el7               zabbix-web.noarch 0:3.4.15-1.el7                   
+
+完毕！
+[root@V6 ~]# rpm   -q    zabbix-server-mysql     zabbix-web-mysql   \
+> zabbix-agent      zabbix-get    zabbix-sender    mariadb-server
+zabbix-server-mysql-3.4.15-1.el7.x86_64
+zabbix-web-mysql-3.4.15-1.el7.noarch
+zabbix-agent-3.4.15-1.el7.x86_64
+zabbix-get-3.4.15-1.el7.x86_64
+zabbix-sender-3.4.15-1.el7.x86_64
+mariadb-server-5.5.60-1.el7_5.x86_64
+[root@V6 ~]# 
+
+[root@V6 ~]# cd  /usr/share/doc/zabbix-
+zabbix-agent-3.4.15/        zabbix-release-3.4/         zabbix-server-mysql-3.4.15/
+zabbix-get-3.4.15/          zabbix-sender-3.4.15/       zabbix-web-3.4.15/
+
+[root@V6 ~]# cd  /usr/share/doc/zabbix-server-mysql-3.4.15/
+
+[root@V6 zabbix-server-mysql-3.4.15]# ls
+AUTHORS  ChangeLog  COPYING  create.sql.gz  NEWS  README
+
+[root@V6 zabbix-server-mysql-3.4.15]# file   create.sql.gz 
+create.sql.gz: gzip compressed data, was "create.sql", from Unix, last modified: Mon Nov 12 18:54:48 2018
+
+[root@V6 zabbix-server-mysql-3.4.15]# type  zcat 
+zcat 是 /usr/bin/zcat
+[root@V6 zabbix-server-mysql-3.4.15]# rpm  -qf  /usr/bin/zcat 
+gzip-1.5-10.el7.x86_64
+[root@V6 zabbix-server-mysql-3.4.15]# systemctl  is-enabled   mariadb
+enabled
+[root@V6 zabbix-server-mysql-3.4.15]# 
+
+
+------------ 导入数据库
+---------------------------- 导入数据库  导入初始模板----------------------------------
+
+[root@V6 zabbix-server-mysql-3.4.15]# mysql -uroot -p123 -D zabbix -e "show  tables;select database();"
++------------+
+| database() |
++------------+
+| zabbix     |
++------------+
+[root@V6 zabbix-server-mysql-3.4.15]# zcat   create.sql.gz |mysql -uroot -p123 -D zabbix
+[root@V6 zabbix-server-mysql-3.4.15]# echo  $?
+0
+[root@V6 zabbix-server-mysql-3.4.15]# mysql -uroot -p123 -D zabbix -e "show  tables;select database();"
++----------------------------+
+| Tables_in_zabbix           |
++----------------------------+
+| acknowledges               |
+| actions                    |
+| alerts                     |
+| application_discovery      |
+| application_prototype      |
+| application_template       |
+| applications               |
+| auditlog                   |
+| auditlog_details           |
+| autoreg_host               |
+| conditions                 |
+| config                     |
+| corr_condition             |
+| corr_condition_group       |
+| corr_condition_tag         |
+| corr_condition_tagpair     |
+| corr_condition_tagvalue    |
+| corr_operation             |
+| correlation                |
+| dashboard                  |
+| dashboard_user             |
+| dashboard_usrgrp           |
+| dbversion                  |
+| dchecks                    |
+| dhosts                     |
+| drules                     |
+| dservices                  |
+| escalations                |
+| event_recovery             |
+| event_tag                  |
+| events                     |
+| expressions                |
+| functions                  |
+| globalmacro                |
+| globalvars                 |
+| graph_discovery            |
+| graph_theme                |
+| graphs                     |
+| graphs_items               |
+| group_discovery            |
+| group_prototype            |
+| groups                     |
+| history                    |
+| history_log                |
+| history_str                |
+| history_text               |
+| history_uint               |
+| host_discovery             |
+| host_inventory             |
+| hostmacro                  |
+| hosts                      |
+| hosts_groups               |
+| hosts_templates            |
+| housekeeper                |
+| httpstep                   |
+| httpstep_field             |
+| httpstepitem               |
+| httptest                   |
+| httptest_field             |
+| httptestitem               |
+| icon_map                   |
+| icon_mapping               |
+| ids                        |
+| images                     |
+| interface                  |
+| interface_discovery        |
+| item_application_prototype |
+| item_condition             |
+| item_discovery             |
+| item_preproc               |
+| items                      |
+| items_applications         |
+| maintenances               |
+| maintenances_groups        |
+| maintenances_hosts         |
+| maintenances_windows       |
+| mappings                   |
+| media                      |
+| media_type                 |
+| opcommand                  |
+| opcommand_grp              |
+| opcommand_hst              |
+| opconditions               |
+| operations                 |
+| opgroup                    |
+| opinventory                |
+| opmessage                  |
+| opmessage_grp              |
+| opmessage_usr              |
+| optemplate                 |
+| problem                    |
+| problem_tag                |
+| profiles                   |
+| proxy_autoreg_host         |
+| proxy_dhistory             |
+| proxy_history              |
+| regexps                    |
+| rights                     |
+| screen_user                |
+| screen_usrgrp              |
+| screens                    |
+| screens_items              |
+| scripts                    |
+| service_alarms             |
+| services                   |
+| services_links             |
+| services_times             |
+| sessions                   |
+| slides                     |
+| slideshow_user             |
+| slideshow_usrgrp           |
+| slideshows                 |
+| sysmap_element_trigger     |
+| sysmap_element_url         |
+| sysmap_shape               |
+| sysmap_url                 |
+| sysmap_user                |
+| sysmap_usrgrp              |
+| sysmaps                    |
+| sysmaps_elements           |
+| sysmaps_link_triggers      |
+| sysmaps_links              |
+| task                       |
+| task_acknowledge           |
+| task_close_problem         |
+| task_remote_command        |
+| task_remote_command_result |
+| timeperiods                |
+| trends                     |
+| trends_uint                |
+| trigger_depends            |
+| trigger_discovery          |
+| trigger_tag                |
+| triggers                   |
+| users                      |
+| users_groups               |
+| usrgrp                     |
+| valuemaps                  |
+| widget                     |
+| widget_field               |
++----------------------------+
++------------+
+| database() |
++------------+
+| zabbix     |
++------------+
+
+
+[root@V6 zabbix-server-mysql-3.4.15]# id   zabbix
+uid=996(zabbix) gid=994(zabbix) 组=994(zabbix)
+[root@V6 zabbix-server-mysql-3.4.15]# grep  -n   zabbix  /etc/passwd
+24:zabbix:x:996:994:Zabbix Monitoring System:/var/lib/zabbix:/sbin/nologin
+
+----------------------------- 编辑zabbix_server配置文件，使其可以连接数据库 
+ 91 DBHost=localhost
+100 DBName=zabbix
+116 DBUser=zabbix
+124 DBPassword=zabbix
+
+[root@V6 zabbix-server-mysql-3.4.15]# vim   /etc/zabbix/zabbix_server.conf 
+[root@V6 zabbix-server-mysql-3.4.15]#  grep  -Env  '^(#|$)'   /etc/zabbix/zabbix_server.conf
+38:LogFile=/var/log/zabbix/zabbix_server.log
+49:LogFileSize=0
+72:PidFile=/var/run/zabbix/zabbix_server.pid
+82:SocketDir=/var/run/zabbix
+91:DBHost=localhost
+100:DBName=zabbix
+116:DBUser=zabbix
+124:DBPassword=zabbix
+329:SNMPTrapperFile=/var/log/snmptrap/snmptrap.log
+446:Timeout=4
+488:AlertScriptsPath=/usr/lib/zabbix/alertscripts
+498:ExternalScripts=/usr/lib/zabbix/externalscripts
+534:LogSlowQueries=3000
+[root@V6 zabbix-server-mysql-3.4.15]# pwd
+/usr/share/doc/zabbix-server-mysql-3.4.15
+
+[root@V6 zabbix-server-mysql-3.4.15]# cd
+[root@V6 ~]# 
+同样编辑/usr/share/zabbix/conf/zabbix.conf.php 其中的数据库参数保持一致
+
+[root@V6 ~]# cd  /usr/share/zabbix/conf/
+[root@V6 conf]# cp   zabbix.conf.php.example  zabbix.conf.php
+[root@V6 conf]# ls
+zabbix.conf.php  zabbix.conf.php.example
+[root@V6 conf]# vim  zabbix.conf.php
+[root@V6 conf]# cat   -n   zabbix.conf.php
+     1	<?php
+     2	// Zabbix GUI configuration file.
+     3	global $DB, $HISTORY;
+     4	
+     5	$DB['TYPE']				= 'MYSQL';
+     6	$DB['SERVER']			= 'localhost';
+     7	$DB['PORT']				= '3306';
+     8	$DB['DATABASE']			= 'zabbix';
+     9	$DB['USER']				= 'zabbix';
+    10	$DB['PASSWORD']			= 'zabbix';
+    11	// Schema name. Used for IBM DB2 and PostgreSQL.
+    12	$DB['SCHEMA']			= '';
+    13	
+    14	$ZBX_SERVER				= 'localhost';
+    15	$ZBX_SERVER_PORT		= '10051';
+    16	$ZBX_SERVER_NAME		= '';
+    17	
+    18	$IMAGE_FORMAT_DEFAULT	= IMAGE_FORMAT_PNG;
+    19	
+    20	// Elasticsearch url (can be string if same url is used for all types).
+    21	$HISTORY['url']   = [
+    22			'uint' => 'http://localhost:9200',
+    23			'text' => 'http://localhost:9200'
+    24	];
+    25	// Value types stored in Elasticsearch.
+    26	$HISTORY['types'] = ['uint', 'text'];
+[root@V6 conf]# 
+
+------------ 编辑zabbix的web配置文件中的时区，此文件是安装时自动生成的 ------------
+
+[root@V6 conf]# vim   /etc/httpd/conf.d/zabbix.conf 
+
+[root@V6 conf]# cat   -n  /etc/httpd/conf.d/zabbix.conf
+     1	#
+     2	# Zabbix monitoring system php web frontend
+     3	#
+     4	
+     5	Alias /zabbix /usr/share/zabbix
+     6	
+     7	<Directory "/usr/share/zabbix">
+     8	    Options FollowSymLinks
+     9	    AllowOverride None
+    10	    Require all granted
+    11	
+    12	    <IfModule mod_php5.c>
+    13	        php_value max_execution_time 300
+    14	        php_value memory_limit 128M
+    15	        php_value post_max_size 32M   #注意这行将要修改,把16M 改成32M
+    16	        php_value upload_max_filesize 2M
+    17	        php_value max_input_time 300
+    18	        php_value max_input_vars 10000
+    19	        php_value always_populate_raw_post_data -1
+    20	        php_value date.timezone  Asia/Shanghai
+    21	    </IfModule>
+    22	</Directory>
+    23	
+    24	<Directory "/usr/share/zabbix/conf">
+    25	    Require all denied
+    26	</Directory>
+    27	
+    28	<Directory "/usr/share/zabbix/app">
+    29	    Require all denied
+    30	</Directory>
+    31	
+    32	<Directory "/usr/share/zabbix/include">
+    33	    Require all denied
+    34	</Directory>
+    35	
+    36	<Directory "/usr/share/zabbix/local">
+    37	    Require all denied
+    38	</Directory>
+[root@V6 conf]# 
+
+重启httpd服务，
+访问http://SERVER-IP/zabbix会跳转到zabbix的安装界面，
+点击下一步查看所有环境准备项目OK就可以继续了。
+
+zabbix默认管理用户是admin密码zabbix
+
+
+http://192.168.1.11/zabbix
+------------------- 会跳转到zabbix的安装界面 ---------------
+
+http://192.168.1.11/zabbix/setup.php
+
+[root@V6 conf]# vim    /etc/php.ini
+
+ 384 max_execution_time = 300
+ 394 max_input_time = 300
+
+ 672 post_max_size = 32M
+ 878 date.timezone = Asia/Shanghai
+
+[root@V6 conf]# sed  -n  '384p;394p;672p;878p;'  /etc/php.ini
+max_execution_time = 300
+max_input_time = 300
+post_max_size = 32M
+date.timezone = Asia/Shanghai
+
+[root@V6 conf]# sed  -n  -e '384p;394p;672p;878p;'  /etc/php.ini 
+max_execution_time = 300
+max_input_time = 300
+post_max_size = 32M
+date.timezone = Asia/Shanghai
+
+[root@V6 ~]# yum  -y install   gd  gd-devel  php-gd  php-xml  php-ldap
+............
+已安装:
+  gd.x86_64 0:2.0.35-26.el7                       gd-devel.x86_64 0:2.0.35-26.el7                      
+
+作为依赖被安装:
+  libXpm-devel.x86_64 0:3.5.12-1.el7              libjpeg-turbo-devel.x86_64 0:1.2.90-6.el7             
+
+作为依赖被升级:
+  libjpeg-turbo.x86_64 0:1.2.90-6.el7                                                                   
+
+完毕！
+[root@V6 ~]# rpm  -q  gd  gd-devel  php-gd  php-xml  php-ldap
+gd-2.0.35-26.el7.x86_64
+gd-devel-2.0.35-26.el7.x86_64
+php-gd-5.4.16-46.el7.x86_64
+php-xml-5.4.16-46.el7.x86_64
+php-ldap-5.4.16-46.el7.x86_64
+[root@V6 ~]#  
+
+[root@V6 ~]# systemctl   restart   httpd
+
+[root@V6 ~]# ifconfig  |grep  -A1  flags=
+eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.1.16  netmask 255.255.255.0  broadcast 192.168.1.255
+--
+eth1: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.122.16  netmask 255.255.255.0  broadcast 192.168.122.255
+--
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+
+[root@V6 ~]# ls  -ld  /etc/zabbix/
+drwxr-xr-x 4 root root 92 5月  17 10:21 /etc/zabbix/
+
+[root@V6 ~]# chown   -R  zabbix:zabbix   /etc/zabbix/
+[root@V6 ~]# chmod  -R   755    /etc/zabbix/
+
+[root@V6 ~]# ll    /etc/zabbix/
+总用量 28
+drwxr-xr-x 2 zabbix zabbix    33 5月  17 09:51 web
+-rwxr-xr-x 1 zabbix zabbix 10632 11月 12 2018 zabbix_agentd.conf
+drwxr-xr-x 2 zabbix zabbix    38 5月  17 09:52 zabbix_agentd.d
+-rwxr-xr-x 1 zabbix zabbix 15529 5月  17 10:21 zabbix_server.conf
+
+----------------------- 启动Zabbix Server服务
+---------------------------- 启动zabbix-server服务 设置zabbix-server服务自启动 -----------------------
+
+[root@V6 ~]# systemctl  restart  httpd
+[root@V6 ~]# netstat   -npult  |grep  10051
+[root@V6 ~]#  systemctl   start  zabbix-server  &&  systemctl  enable  zabbix-server
+Created symlink from /etc/systemd/system/multi-user.target.wants/zabbix-server.service to /usr/lib/systemd/system/zabbix-server.service.
+[root@V6 ~]# netstat   -npult  |grep  10051
+tcp        0      0 0.0.0.0:10051           0.0.0.0:*               LISTEN      1321/zabbix_server  
+tcp6       0      0 :::10051                :::*                    LISTEN      1321/zabbix_server 
+
+[root@V6 ~]# yum  -y  install   zabbix-agent
+已加载插件：fastestmirror
+Loading mirror speeds from cached hostfile
+软件包 zabbix-agent-3.4.15-1.el7.x86_64 已安装并且是最新版本
+无须任何处理
+[root@V6 ~]# ll  /etc/zabbix/
+总用量 28
+drwxr-xr-x 2 zabbix zabbix    56 5月  17 12:07 web
+-rwxr-xr-x 1 zabbix zabbix 10632 11月 12 2018 zabbix_agentd.conf
+drwxr-xr-x 2 zabbix zabbix    38 5月  17 09:52 zabbix_agentd.d
+-rwxr-xr-x 1 zabbix zabbix 15529 5月  17 10:21 zabbix_server.conf
+
+[root@V6 ~]# vim    /etc/zabbix/zabbix_agentd.conf 
+[root@V6 ~]# grep  -Env  '^(#|$)'   /etc/zabbix/zabbix_agentd.conf
+
+13:PidFile=/var/run/zabbix/zabbix_agentd.pid
+32:LogFile=/var/log/zabbix/zabbix_agentd.log
+43:LogFileSize=0
+97:Server=192.168.1.11
+138:ServerActive=192.168.1.11
+149:Hostname=Zabbix server
+267:Include=/etc/zabbix/zabbix_agentd.d/*.conf
+
+[root@V6 ~]# systemctl   start   zabbix-agent  &&  systemctl  enable  zabbix-agent
+Created symlink from /etc/systemd/system/multi-user.target.wants/zabbix-agent.service to /usr/lib/systemd/system/zabbix-agent.service.
+[root@V6 ~]#  netstat  -npult |grep  1005
+tcp        0      0 0.0.0.0:10050           0.0.0.0:*               LISTEN      1496/zabbix_agentd  
+tcp        0      0 0.0.0.0:10051           0.0.0.0:*               LISTEN      1321/zabbix_server  
+tcp6       0      0 :::10050                :::*                    LISTEN      1496/zabbix_agentd  
+tcp6       0      0 :::10051                :::*                    LISTEN      1321/zabbix_server  
+[root@V6 ~]# 
 
 
 
@@ -1870,20 +2913,13 @@ zabbix-agent      zabbix-get    zabbix-sender  mariadb-server
 
 
 
+http://www.cnblogs.com/moontower/articles/9878646.html
 
+https://wx.qq.com/
 
+https://fanyi.baidu.com/
 
-
-
-
-
-
-
-
-
-
-
-
+https://github.com/hiys/PYTHON/
 
 
 
