@@ -1,0 +1,1422 @@
+
+
+https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+1.去官网下载jdk
+Java SE开发工具包8下载
+感谢您下载此版本的Java™平台标准版开发工具包（JDK™）。
+JDK是一个使用Java编程语言构建应用程序，applet和组件的开发环境。
+
+JDK包括用于开发和测试用Java编程语言编写并在Java平台上运行的程序的工具。
+
+JDK 8u211 校验和
+JDK 8u212 校验和
+ 
+https://www.oracle.com/webfolder/s/digest/8u211checksum.html
+https://www.oracle.com/webfolder/s/digest/8u212checksum.html
+
+
+ Java SE开发工具包8u211
+您必须接受Oracle Java SE的Oracle技术网络许可协议才能下载此软件。
+
+Linux x64	171.13 MB  	JDK-8u211-Linux的x64.rpm
+Linux x64	185.96 MB  	JDK-8u211-Linux的x64.tar.gz
+
+ Java SE开发工具包8u212
+您必须接受Oracle Java SE的Oracle技术网络许可协议才能下载此软件。
+
+提供Oracle账号仅用于jdk 下载
+1772885836@qq.com 
+OracleTest1234
+
+https://login.oracle.com/mysso/signon.jsp
+1772885836@qq.com 
+OracleTest1234
+
+
+https://www.cnblogs.com/hfultrastrong/p/8615680.html
+Java 注解
+
+
+
+[student@room10pc15 ~]$ sha
+sha1sum    sha224sum  sha256sum  sha384sum  sha512sum  sharesec   shasum
+
+
+[student@room10pc15 ~]$ type  sha256sum
+sha256sum 是 /usr/bin/sha256sum
+[student@room10pc15 ~]$ rpm  -qf  /usr/bin/sha256sum
+coreutils-8.22-21.el7.x86_64
+
+[student@room10pc15 ~]$ sha256sum   jdk-8u211-linux-x64.tar.gz 
+c0b7e45330c3f79750c89de6ee0d949ed4af946849592154874d22abc9c4668d  jdk-8u211-linux-x64.tar.gz
+[student@room10pc15 ~]$ ll  jdk-8u211-linux-x64.tar.gz
+-rw-rw-r-- 1 root student 194990602 5月  17 13:24 jdk-8u211-linux-x64.tar.gz
+[student@room10pc15 ~]$ du  -sh  jdk-8u211-linux-x64.tar.gz
+186M	jdk-8u211-linux-x64.tar.gz
+
+https://www.oracle.com/webfolder/s/digest/8u211checksum.html
+Filename                       Checksum
+jdk-8u211-linux-x64.tar.gz	sha256: c0b7e45330c3f79750c89de6ee0d949ed4af946849592154874d22abc9c4668d
+md5: e8fc44a4be6d6b5c9407b5e48853a3fb
+
+[student@room10pc15 ~]$ md5sum    jdk-8u211-linux-x64.tar.gz
+e8fc44a4be6d6b5c9407b5e48853a3fb  jdk-8u211-linux-x64.tar.gz
+
+https://www.oracle.com/webfolder/s/digest/8u211checksum.html
+
+ Java SE开发工具包8u211
+您必须接受Oracle Java SE的Oracle技术网络许可协议才能下载此软件。
+
+Linux x64	171.13 MB  	JDK-8u211-Linux的x64.rpm
+Linux x64	185.96 MB  	JDK-8u211-Linux的x64.tar.gz
+
+[student@room10pc15 ~]$ for i  in  192.168.1.1{1..6};do
+> scp   jdk-8u211-linux-x64.tar.gz  root@${i}:/root/;done
+jdk-8u211-linux-x64.tar.gz                    100%  186MB 134.8MB/s   00:01    
+jdk-8u211-linux-x64.tar.gz                    100%  186MB 188.2MB/s   00:00    
+jdk-8u211-linux-x64.tar.gz                    100%  186MB 171.3MB/s   00:01    
+jdk-8u211-linux-x64.tar.gz                    100%  186MB 167.6MB/s   00:01    
+jdk-8u211-linux-x64.tar.gz                    100%  186MB 169.9MB/s   00:01    
+jdk-8u211-linux-x64.tar.gz                    100%  186MB 186.0MB/s   00:01    
+[student@room10pc15 ~]$ 
+
+3.在usr目录下新建java目录：mkdir /usr/java，然后将上传的文件jdk-8u181-linux-x64.tar.gz复制到java目录下。
+
+[root@V1 ~]# mkdir  /usr/java
+[root@V1 ~]# cp    jdk-8u211-linux-x64.tar.gz   /usr/java/
+[root@V1 ~]# ll   /usr/java/
+总用量 190424
+-rw-r--r-- 1 root root 194990602 5月  17 13:35 jdk-8u211-linux-x64.tar.gz
+[root@V1 ~]# 
+
+4.解压 jdk-8u211-linux-x64.tar.gz，使用如下命令：
+
+tar -zxvf jdk-8u181-linux-x64.tar.gz
+
+[root@V1 ~]# cd   /usr/java/
+[root@V1 java]# ls
+jdk-8u211-linux-x64.tar.gz
+[root@V1 java]# type  java
+-bash: type: java: 未找到
+[root@V1 java]# type   tar
+tar 是 /usr/bin/tar
+[root@V1 java]# tar   -zxvf   jdk-8u211-linux-x64.tar.gz 
+
+jdk1.8.0_211/
+jdk1.8.0_211/lib/
+....................................
+
+jdk1.8.0_211/lib/visualvm/visualvm/config/
+jdk1.8.0_211/lib/visualvm/visualvm/config/Modules/
+.................................................
+jdk1.8.0_211/lib/visualvm/visualvm/core/
+.....................................
+........................................................
+jdk1.8.0_211/lib/visualvm/profiler/
+jdk1.8.0_211/lib/visualvm/profiler/lib/
+.......................................
+jdk1.8.0_211/lib/visualvm/profiler/VERSION.txt
+jdk1.8.0_211/lib/visualvm/profiler/.lastModified
+jdk1.8.0_211/lib/visualvm/profiler/modules/
+...................................................
+jdk1.8.0_211/lib/visualvm/profiler/config/
+jdk1.8.0_211/lib/visualvm/profiler/config/Modules/
+jdk1.8.0_211/lib/visualvm/profiler/config/Modules/org-netbeans-modules-profiler-heapwalker.xml
+....................................
+jdk1.8.0_211/lib/visualvm/profiler/update_tracking/
+jdk1.8.0_211/lib/visualvm/profiler/update_tracking/org-netbeans-modules-profiler-heapwalker.xml
+.....................................
+jdk1.8.0_211/lib/visualvm/platform/
+jdk1.8.0_211/lib/visualvm/platform/lib/
+jdk1.8.0_211/lib/visualvm/platform/lib/org-openide-util.jar
+................................
+jdk1.8.0_211/lib/visualvm/platform/lib/nbexec
+jdk1.8.0_211/lib/visualvm/platform/lib/boot.jar
+jdk1.8.0_211/lib/visualvm/platform/VERSION.txt
+..................................................
+jdk1.8.0_211/lib/visualvm/platform/modules/org-netbeans-swing-plaf.jar
+......................................................
+jdk1.8.0_211/lib/visualvm/platform/modules/locale/org-netbeans-modules-favorites_zh_CN.jar
+.......................
+jdk1.8.0_211/lib/visualvm/platform/config/
+..................................................
+jdk1.8.0_211/lib/visualvm/platform/config/Modules/org-netbeans-api-annotations-common.xml
+jdk1.8.0_211/lib/visualvm/platform/core/
+......................................
+jdk1.8.0_211/lib/visualvm/platform/update_tracking/org-netbeans-api-progress.xml
+..........................................
+jdk1.8.0_211/lib/visualvm/etc/
+..................................
+jdk1.8.0_211/lib/missioncontrol/features/
+...............................................
+jdk1.8.0_211/lib/missioncontrol/features/org.eclipse.ecf.filetransfer.httpclient4.ssl.feature_1.0.0.v20140827-1444/asl-v20.txt
+...........................................
+jdk1.8.0_211/lib/missioncontrol/plugins/com.jrockit.mc.rjmx_5.5.2.174165/icons/diagnostic-command-16.png
+jdk1.8.0_211/lib/missioncontrol/plugins/com.jrockit.mc.rjmx_5.5.2.174165/icons/date-span-16.png
+..........................................................
+jdk1.8.0_211/lib/missioncontrol/plugins/com.jrockit.mc.jdp_5.5.2.174165.jar
+....................................
+..............................................
+jdk1.8.0_211/jre/lib/locale/ko/
+..................................
+jdk1.8.0_211/jre/lib/amd64/libj2pcsc.so
+..........
+jdk1.8.0_211/jre/COPYRIGHT
+jdk1.8.0_211/include/
+.......................
+jdk1.8.0_211/release
+jdk1.8.0_211/THIRDPARTYLICENSEREADME-JAVAFX.txt
+jdk1.8.0_211/README.html
+jdk1.8.0_211/javafx-src.zip
+jdk1.8.0_211/LICENSE
+jdk1.8.0_211/man/
+jdk1.8.0_211/man/ja
+jdk1.8.0_211/man/ja_JP.UTF-8/
+......................................
+jdk1.8.0_211/THIRDPARTYLICENSEREADME.txt
+jdk1.8.0_211/COPYRIGHT
+[root@V1 java]# 
+[root@V1 java]# ls  jdk1.8.0_211/
+bin             jre      README.html                         THIRDPARTYLICENSEREADME.txt
+COPYRIGHT       lib      release
+include         LICENSE  src.zip
+javafx-src.zip  man      THIRDPARTYLICENSEREADME-JAVAFX.txt
+
+[root@V1 java]# ls  jdk1.8.0_211/jre/
+bin        lib      plugin  THIRDPARTYLICENSEREADME-JAVAFX.txt  Welcome.html
+COPYRIGHT  LICENSE  README  THIRDPARTYLICENSEREADME.txt
+
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/jre/
+bin        lib      plugin  THIRDPARTYLICENSEREADME-JAVAFX.txt  Welcome.html
+COPYRIGHT  LICENSE  README  THIRDPARTYLICENSEREADME.txt
+
+配置环境变量，使用如下命令：
+vim /etc/profile
+
+[root@V1 java]# vim   /etc/profile
+在文本的末尾添加如下内容：
+export  JAVA_HOME=/usr/java/jdk1.8.0_211
+export  JRE_HOME=/usr/java/jdk1.8.0_211/jre
+export  CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
+export  PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+
+[root@V1 java]# tail  -7   /etc/profile
+
+unset i
+unset -f pathmunge
+export  JAVA_HOME=/usr/java/jdk1.8.0_211
+export  JRE_HOME=/usr/java/jdk1.8.0_211/jre
+export  CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
+export  PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211    #JAVA_HOME
+bin             jre      README.html                         THIRDPARTYLICENSEREADME.txt
+COPYRIGHT       lib      release
+include         LICENSE  src.zip
+javafx-src.zip  man      THIRDPARTYLICENSEREADME-JAVAFX.txt
+
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/bin/   #$JAVA_HOME/bin
+appletviewer  javafxpackager  jdb      jrunscript    pack200      unpack200
+ControlPanel  javah           jdeps    jsadebugd     policytool   wsgen
+extcheck      javap           jhat     jstack        rmic         wsimport
+idlj          javapackager    jinfo    jstat         rmid         xjc
+jar           java-rmi.cgi    jjs      jstatd        rmiregistry
+jarsigner     javaws          jmap     jvisualvm     schemagen
+java          jcmd            jmc      keytool       serialver
+javac         jconsole        jmc.ini  native2ascii  servertool
+javadoc       jcontrol        jps      orbd          tnameserv
+[root@V1 java]# 
+
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/lib/     #$JAVA_HOME/lib
+
+amd64           ct.sym  ir.idl         jconsole.jar  missioncontrol  packager.jar  tools.jar
+ant-javafx.jar  dt.jar  javafx-mx.jar  jexec         orb.idl         sa-jdi.jar    visualvm
+
+
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/jre/        #JRE_HOME
+
+bin        lib      plugin  THIRDPARTYLICENSEREADME-JAVAFX.txt  Welcome.html
+COPYRIGHT  LICENSE  README  THIRDPARTYLICENSEREADME.txt
+
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/jre/lib/   #$JRE_HOME/lib
+
+amd64                               fontconfig.RedHat.6.properties.src  jvm.hprof.txt
+applet                              fontconfig.SuSE.10.bfc              locale
+calendars.properties                fontconfig.SuSE.10.properties.src   logging.properties
+charsets.jar                        fontconfig.SuSE.11.bfc              management
+classlist                           fontconfig.SuSE.11.properties.src   management-agent.jar
+cmm                                 fontconfig.Turbo.bfc                meta-index
+content-types.properties            fontconfig.Turbo.properties.src     net.properties
+currency.data                       fonts                               oblique-fonts
+deploy                              hijrah-config-umalqura.properties   plugin.jar
+deploy.jar                          images                              psfontj2d.properties
+desktop                             javafx.properties                   psfont.properties.ja
+ext                                 javaws.jar                          resources.jar
+flavormap.properties                jce.jar                             rt.jar
+fontconfig.bfc                      jexec                               security
+fontconfig.properties.src           jfr                                 sound.properties
+fontconfig.RedHat.5.bfc             jfr.jar                             tzdb.dat
+fontconfig.RedHat.5.properties.src  jfxswt.jar
+fontconfig.RedHat.6.bfc             jsse.jar
+[root@V1 java]# 
+
+---------------------------------------- $JRE_HOME/bin --------------
+
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/jre/bin/
+ControlPanel  javaws    jjs      orbd     policytool  rmiregistry  tnameserv
+java          jcontrol  keytool  pack200  rmid        servertool   unpack200
+[root@V1 java]# 
+
+
+6.添加完成后，使环境变量生效，使用如下命令：
+
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211 |wc  -l  #JAVA_HOME
+13
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/bin/ |wc  -l   #$JAVA_HOME/bin
+49
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/lib/ |wc  -l  #$JAVA_HOME/lib
+14
+
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/jre/ |wc  -l   #JRE_HOME
+9
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/jre/lib/ |wc  -l  #$JRE_HOME/lib
+52
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/jre/bin/ |wc  -l  #$JAVA_HOME/bin:$JRE_HOME/bin
+14
+[root@V1 java]# tail  -5  /etc/profile
+unset -f pathmunge
+export  JAVA_HOME=/usr/java/jdk1.8.0_211
+export  JRE_HOME=/usr/java/jdk1.8.0_211/jre
+export  CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
+export  PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+
+[root@V1 java]# ll    /etc/profile
+-rw-r--r-- 1 root root 2012 5月  17 14:18 /etc/profile
+
+[root@V1 java]# source   /etc/profile   #使环境变量生效
+
+[root@V1 java]# echo  $?
+0
+[root@V1 java]# type  java
+java 是 /usr/java/jdk1.8.0_211/bin/java
+[root@V1 java]# type  javac
+javac 是 /usr/java/jdk1.8.0_211/bin/javac
+
+[root@V1 java]# java  -version
+java version "1.8.0_211"
+Java(TM) SE Runtime Environment (build 1.8.0_211-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.211-b12, mixed mode)
+
+[root@V1 java]# 
+
+[root@V2 java]# ls  jdk1.8.0_211/
+bin             jre      README.html                         THIRDPARTYLICENSEREADME.txt
+COPYRIGHT       lib      release
+include         LICENSE  src.zip
+javafx-src.zip  man      THIRDPARTYLICENSEREADME-JAVAFX.txt
+[root@V2 java]# vim    /etc/profile
+[root@V2 java]# tail  -8   /etc/profile
+done
+
+unset i
+unset -f pathmunge
+export  JAVA_HOME=/usr/java/jdk1.8.0_211
+export  JRE_HOME=/usr/java/jdk1.8.0_211/jre
+export  CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
+export  PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+[root@V2 java]# .  /etc/profile
+[root@V2 java]# java  -version
+java version "1.8.0_211"
+Java(TM) SE Runtime Environment (build 1.8.0_211-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.211-b12, mixed mode)
+[root@V2 java]# 
+
+[root@V6 java]# tar  -xzf   jdk-8u211-linux-x64.tar.gz 
+
+[root@V6 java]# ls
+jdk1.8.0_211  jdk-8u211-linux-x64.tar.gz
+
+[root@V6 java]# vim    /etc/profile
+
+[root@V6 java]# .   /etc/profile
+
+[root@V6 java]# tail  -4   /etc/profile
+
+export  JAVA_HOME=/usr/java/jdk1.8.0_211
+export  JRE_HOME=/usr/java/jdk1.8.0_211/jre
+export  CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
+export  PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+
+[root@V6 java]# java  -version
+java version "1.8.0_211"
+Java(TM) SE Runtime Environment (build 1.8.0_211-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.211-b12, mixed mode)
+[root@V6 java]# 
+
+[root@V1 ~]# mkdir  Jenkins
+
+[root@V1 ~]# cd   Jenkins/
+
+[root@V1 Jenkins]# vim  testgcc.c
+
+[root@V1 Jenkins]# cat   testgcc.c
+
+#include  <iostream>   /*加载函数原型*/
+using   namespace   std;
+int  main() {
+  cout<<"Hello  iostream  not  stdio.h !\n"; //函数打印一个字符串
+}
+[root@V1 Jenkins]# type  gcc
+gcc 是 /usr/bin/gcc
+[root@V1 Jenkins]# type  g++
+g++ 是 /usr/bin/g++
+[root@V1 Jenkins]# g++  -o   test.out testgcc.c 
+
+[root@V1 Jenkins]# ls
+testgcc.c  test.out
+[root@V1 Jenkins]# ll  test.out 
+-rwxr-xr-x 1 root root 8888 5月  17 14:56 test.out
+
+[root@V1 Jenkins]# file   test.out
+test.out: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked (uses shared libs), for GNU/Linux 2.6.32, BuildID[sha1]=b9fe2b5d84ee007cc6f14d0bdf1ccf709207e3ed, not stripped
+
+[root@V1 Jenkins]# ./test.out 
+Hello  iostream  not  stdio.h !
+[root@V1 Jenkins]# 
+
+[root@V1 ~]# type    java
+java 已被哈希 (/usr/java/jdk1.8.0_211/bin/java)
+
+[root@V1 ~]# ls  -lrt   /usr/java/jdk1.8.0_211/bin/java
+-rwxr-xr-x 1 10 143 8464 4月   2 11:48 /usr/java/jdk1.8.0_211/bin/java
+
+[root@V1 ~]# ll /etc/alternatives/
+总用量 0
+lrwxrwxrwx. 1 root root 15 1月  26 12:34 ld -> /usr/bin/ld.bfd
+lrwxrwxrwx  1 root root 34 5月  16 19:52 libnssckbi.so.x86_64 -> /usr/lib64/pkcs11/p11-kit-trust.so
+lrwxrwxrwx  1 root root 15 5月  16 19:41 links -> /usr/bin/elinks
+lrwxrwxrwx  1 root root 31 5月  16 19:41 links-man -> /usr/share/man/man1/elinks.1.gz
+lrwxrwxrwx  1 root root 25 5月  16 18:42 mysqlbug -> /usr/lib64/mysql/mysqlbug
+lrwxrwxrwx  1 root root 29 5月  16 18:42 mysql_config -> /usr/lib64/mysql/mysql_config
+lrwxrwxrwx. 1 root root 17 1月  26 12:34 whois -> /usr/bin/whois.md
+lrwxrwxrwx. 1 root root 33 1月  26 12:34 whois-man -> /usr/share/man/man1/whois.md.1.gz
+lrwxrwxrwx  1 root root 29 5月  17 09:46 zabbix-server -> /usr/sbin/zabbix_server_mysql
+lrwxrwxrwx  1 root root 38 5月  17 09:46 zabbix-web-font -> /usr/share/fonts/dejavu/DejaVuSans.ttf
+[root@V1 ~]# 
+
+jenkins-2.121-1.1.noarch.rpm
+https://pkg.jenkins.io/redhat-stable/jenkins-2.121.1-1.1.noarch.rpm
+
+[root@V1 ~]# wget   https://pkg.jenkins.io/redhat-stable/jenkins-2.121.1-1.1.noarch.rpm
+...........
+[root@V1 ~]# ll  jenkins-2.121.1-1.1.noarch.rpm 
+-rw-r--r-- 1 root root 74547473 6月   8 2018 jenkins-2.121.1-1.1.noarch.rpm
+[root@V1 ~]# du   -sh   jenkins-2.121.1-1.1.noarch.rpm
+72M	jenkins-2.121.1-1.1.noarch.rpm
+[root@V1 ~]# md5sum    jenkins-2.121.1-1.1.noarch.rpm
+73e078a8d08c9c75ac00318321b207d3  jenkins-2.121.1-1.1.noarch.rpm
+
+-------------------------------- 这一条命令即可安装完成 -----------------------
+
+[root@V1 ~]# rpm  -ivh   jenkins-2.121.1-1.1.noarch.rpm 
+............
+正在升级/安装...
+   1:jenkins-2.121.1-1.1              ################################# [100%]
+
+[root@V1 ~]# ls  /etc/yum.repos.d/
+CentOS7-Base-163.repo  local.repo  zabbix.repo
+
+
+[root@V1 ~]# wget -O  /etc/yum.repos.d/jenkins.repo  https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+
+--2019-05-17 15:35:56--  https://pkg.jenkins.io/redhat-stable/jenkins.repo
+正在解析主机 pkg.jenkins.io (pkg.jenkins.io)... 52.202.51.185
+正在连接 pkg.jenkins.io (pkg.jenkins.io)|52.202.51.185|:443... 已连接。
+已发出 HTTP 请求，正在等待回应... 200 OK
+长度：85
+正在保存至: “/etc/yum.repos.d/jenkins.repo”
+
+100%[===========================================================>] 85          --.-K/s 用时 0s      
+
+2019-05-17 15:35:57 (20.0 MB/s) - 已保存 “/etc/yum.repos.d/jenkins.repo” [85/85])
+
+[root@V1 ~]# ls  /etc/yum.repos.d/
+CentOS7-Base-163.repo  jenkins.repo  local.repo  zabbix.repo
+
+[root@V1 ~]# cd  /etc/pki/rpm-gpg/
+[root@V1 rpm-gpg]# ls
+RPM-GPG-KEY-CentOS-7        RPM-GPG-KEY-CentOS-Testing-7  RPM-GPG-KEY-ZABBIX-A14FE591
+RPM-GPG-KEY-CentOS-Debug-7  RPM-GPG-KEY-ZABBIX
+
+
+[root@V1 rpm-gpg]# wget  https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+--2019-05-17 15:37:41--  https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+........................
+2019-05-17 15:37:43 (49.1 MB/s) - 已保存 “jenkins.io.key” [9132/9132])
+
+[root@V1 rpm-gpg]# ls
+jenkins.io.key        RPM-GPG-KEY-CentOS-Debug-7    RPM-GPG-KEY-ZABBIX
+RPM-GPG-KEY-CentOS-7  RPM-GPG-KEY-CentOS-Testing-7  RPM-GPG-KEY-ZABBIX-A14FE591
+
+[root@V1 rpm-gpg]# rpm   --import    jenkins.io.key 
+
+[root@V1 rpm-gpg]# echo  $?
+0
+
+[root@V1 rpm-gpg]# vim   /etc/yum.repos.d/jenkins.repo 
+[root@V1 rpm-gpg]# cat   /etc/yum.repos.d/jenkins.repo
+[jenkins]
+name=Jenkins-stable
+baseurl=http://pkg.jenkins.io/redhat-stable
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/jenkins.io.key
+[root@V1 rpm-gpg]# cd
+
+[root@V1 ~]# yum  makecache 
+......................
+base                                                                          | 3.6 kB  00:00:00     
+centosplus                                                                    | 3.4 kB  00:00:00     
+extras                                                                        | 3.4 kB  00:00:00     
+jenkins                                                                       | 2.9 kB  00:00:00     
+local                                                                         | 3.6 kB  00:00:00     
+updates                                                                       | 3.4 kB  00:00:00     
+zabbix                                                                        | 2.9 kB  00:00:00     
+zabbix-non-supported                                                          |  951 B  00:00:00     
+(1/3): jenkins/filelists_db                                                   |  18 kB  00:00:00     
+(2/3): jenkins/primary_db                                                     |  28 kB  00:00:01     
+(3/3): jenkins/other_db                                                       |  37 kB  00:00:00     
+元数据缓存已建立
+
+
+[root@V1 ~]# yum  repolist |tail  -10
+源标识                      源名称                                        状态
+base/x86_64                 CentOS-7 - Base - 163.com                     10,019
+centosplus/x86_64           CentOS-7 - Plus - 163.com                         70
+extras/x86_64               CentOS-7 - Extras - 163.com                      413
+jenkins                     Jenkins-stable                                    88
+local                       CentOS7-1804.iso                               9,911
+updates/x86_64              CentOS-7 - Updates - 163.com                   1,928
+zabbix/x86_64               Zabbix Official Repository - x86_64              236
+zabbix-non-supported/x86_64 Zabbix Official Repository non-supported - x8      4
+repolist: 22,669
+[root@V1 ~]# 
+[root@V1 ~]# rpm  -q    jenkins
+jenkins-2.121.1-1.1.noarch
+
+
+[root@V1 ~]# systemctl   start    jenkins    &&  systemctl  enable   jenkins
+Job for jenkins.service failed because the control process exited with error code. See "systemctl status jenkins.service" and "journalctl -xe" for details.
+
+[root@V1 ~]# yum   -y  install  jenkins
+........
+
+更新完毕:
+  jenkins.noarch 0:2.164.3-1.1                                                                       
+
+完毕！
+[root@V1 ~]# rpm  -q    jenkins
+jenkins-2.164.3-1.1.noarch
+[root@V1 ~]# systemctl   start    jenkins 
+Job for jenkins.service failed because the control process exited with error code. See "systemctl status jenkins.service" and "journalctl -xe" for details.
+
+Jenkins.Service的作业失败，因为控制进程退出，错误代码为。
+有关详细信息，请参阅“systemctl status jenkins.service”和“journalctl-xe”。
+
+[root@V1 ~]# ls  -ld   /var/cache/jenkins/   /var/lib/jenkins/  /var/log/jenkins/
+drwxr-x--- 2 jenkins jenkins 6 5月  11 01:16 /var/cache/jenkins/
+drwxr-xr-x 2 jenkins jenkins 6 5月  11 01:16 /var/lib/jenkins/
+drwxr-x--- 2 jenkins jenkins 6 5月  11 01:16 /var/log/jenkins/
+[root@V1 ~]# cat   /etc/yum.repos.d/jenkins.repo
+[jenkins]
+name=Jenkins-stable
+baseurl=http://pkg.jenkins.io/redhat-stable
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/jenkins.io.key
+
+[root@V1 ~]# chown  -R   root:root   /var/cache/jenkins/   /var/lib/jenkins/  /var/log/jenkins/
+
+[root@V1 ~]# ls  -ld   /var/cache/jenkins/   /var/lib/jenkins/  /var/log/jenkins/
+drwxr-x--- 2 root root 6 5月  11 01:16 /var/cache/jenkins/
+drwxr-xr-x 2 root root 6 5月  11 01:16 /var/lib/jenkins/
+drwxr-x--- 2 root root 6 5月  11 01:16 /var/log/jenkins/
+
+[root@V1 ~]# ll    /etc/pki/rpm-gpg/jenkins.io.key 
+-rw-r--r-- 1 root root 9132 11月  9 2016 /etc/pki/rpm-gpg/jenkins.io.key
+
+[root@V1 ~]# rpm    --import     /etc/pki/rpm-gpg/jenkins.io.key
+[root@V1 ~]# echo   $?
+0
+[root@V1 ~]# vim   /etc/sysconfig/jenkins 
+[root@V1 ~]# grep  -nE  "JENKINS_USER=|JENKINS_PORT="   /etc/sysconfig/jenkins
+29:JENKINS_USER="root"
+56:JENKINS_PORT="8080"
+[root@V1 ~]# grep  -n  jenkins  /etc/passwd
+25:jenkins:x:995:993:Jenkins Automation Server:/var/lib/jenkins:/bin/false
+[root@V1 ~]# type   java
+java 是 /usr/java/jdk1.8.0_211/bin/java
+[root@V1 ~]# ln   -s   /usr/java/jdk1.8.0_211/bin/java   /etc/alternatives/
+[root@V1 ~]# ll   /etc/alternatives/java 
+lrwxrwxrwx 1 root root 31 5月  17 17:42 /etc/alternatives/java -> /usr/java/jdk1.8.0_211/bin/java
+
+[root@V1 ~]# ln  -s   /usr/java/jdk1.8.0_211/bin/java   /usr/bin/
+[root@V1 ~]# ll   /usr/bin/java 
+lrwxrwxrwx 1 root root 31 5月  17 17:43 /usr/bin/java -> /usr/java/jdk1.8.0_211/bin/java
+
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211 |wc  -l  #JAVA_HOME
+13
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/bin/ |wc  -l   #$JAVA_HOME/bin
+49
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/lib/ |wc  -l  #$JAVA_HOME/lib
+14
+
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/jre/ |wc  -l   #JRE_HOME
+9
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/jre/lib/ |wc  -l  #$JRE_HOME/lib
+52
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/jre/bin/ |wc  -l  #$JRE_HOME/bin
+14
+[root@V1 ~]# ll    /usr/java/jdk1.8.0_211/jre/bin/java
+-rwxr-xr-x 1 10 143 8464 4月   2 11:48 /usr/java/jdk1.8.0_211/jre/bin/java
+
+[root@V1 ~]# ll    /usr/java/jdk1.8.0_211/bin/java
+-rwxr-xr-x 1 10 143 8464 4月   2 11:48 /usr/java/jdk1.8.0_211/bin/java
+
+[root@V1 ~]# ll   /etc/alternatives/java 
+lrwxrwxrwx 1 root root 31 5月  17 17:42 /etc/alternatives/java -> /usr/java/jdk1.8.0_211/bin/java
+[root@V1 ~]# ll   /usr/bin/java 
+lrwxrwxrwx 1 root root 31 5月  17 17:43 /usr/bin/java -> /usr/java/jdk1.8.0_211/bin/java
+
+[root@V1 ~]# vim   /etc/init.d/jenkins 
+ 74 candidates="
+ 75 /etc/alternatives/java
+ 76 /usr/java/jdk1.8.0_211/bin/java
+ 77 /usr/java/jdk1.8.0_211/jre/bin/java
+ 78 /usr/bin/java
+ 79 "
+ 80 for candidate in $candidates
+
+[root@V1 ~]# grep  -nA6  candidates=  /etc/init.d/jenkins 
+74:candidates="
+75-/etc/alternatives/java
+76-/usr/java/jdk1.8.0_211/bin/java
+77-/usr/java/jdk1.8.0_211/jre/bin/java
+78-/usr/bin/java
+79-"
+80-for candidate in $candidates
+[root@V1 ~]# 
+[root@V1 ~]# systemctl daemon-reload
+
+[root@V1 ~]# echo  $?
+0
+[root@V1 ~]# systemctl   restart   jenkins
+[root@V1 ~]# echo  $?
+0
+[root@V1 ~]# chkconfig    jenkins    on
+[root@V1 ~]# echo  $?
+0
+[root@V1 ~]# type   chkconfig 
+chkconfig 已被哈希 (/usr/sbin/chkconfig)
+[root@V1 ~]# chkconfig   --list     jenkins
+
+注：该输出结果只显示 SysV 服务，并不包含
+原生 systemd 服务。SysV 配置数据
+可能被原生 systemd 配置覆盖。 
+
+      要列出 systemd 服务，请执行 'systemctl list-unit-files'。
+      查看在具体 target 启用的服务请执行
+      'systemctl list-dependencies [target]'。
+
+jenkins        	0:关	1:关	2:开	3:开	4:开	5:开	6:关
+[root@V1 ~]# systemctl  is-active   jenkins.service 
+active
+[root@V1 ~]# systemctl  is-enabled   jenkins.service 
+jenkins.service is not a native service, redirecting to /sbin/chkconfig.
+Executing /sbin/chkconfig jenkins --level=5
+enabled
+[root@V1 ~]# 
+
+
+[root@V2 ~]# wget -O  /etc/yum.repos.d/jenkins.repo  https://pkg.jenkins.io/redhat-stable/jenkins.repo
+.................................
+2019-05-17 15:51:34 (4.35 MB/s) - 已保存 “/etc/yum.repos.d/jenkins.repo” [85/85])
+
+[root@V2 ~]# ls  /etc/yum.repos.d/
+CentOS7-Base-163.repo  jenkins.repo  local.repo
+
+[root@V2 ~]# cd  /etc/pki/rpm-gpg/
+
+[root@V2 rpm-gpg]#  wget  https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+--2019-05-17 15:52:31--  https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+正在解析主机 pkg.jenkins.io (pkg.jenkins.io)... 52.202.51.185
+正在连接 pkg.jenkins.io (pkg.jenkins.io)|52.202.51.185|:443... 已连接。
+已发出 HTTP 请求，正在等待回应... 200 OK
+长度：9132 (8.9K) [application/pgp-keys]
+正在保存至: “jenkins.io.key”
+
+100%[===========================================================>] 9,132       --.-K/s 用时 0s      
+
+2019-05-17 15:52:32 (200 MB/s) - 已保存 “jenkins.io.key” [9132/9132])
+
+[root@V2 rpm-gpg]#  ll   /etc/pki/rpm-gpg/jenkins.io.key 
+-rw-r--r-- 1 root root 9132 11月  9 2016 /etc/pki/rpm-gpg/jenkins.io.key
+
+[root@V2 rpm-gpg]# rpm  --import    /etc/pki/rpm-gpg/jenkins.io.key
+
+[root@V2 rpm-gpg]# vim   /etc/yum.repos.d/jenkins.repo 
+
+[root@V2 rpm-gpg]# cat   /etc/yum.repos.d/jenkins.repo
+[jenkins]
+name=Jenkins-stable
+baseurl=http://pkg.jenkins.io/redhat-stable
+gpgcheck=1
+enabled=1
+[root@V2 rpm-gpg]# vim   /etc/yum.repos.d/jenkins.repo 
+[root@V2 rpm-gpg]# cat   /etc/yum.repos.d/jenkins.repo
+[jenkins]
+name=Jenkins-stable
+baseurl=http://pkg.jenkins.io/redhat-stable
+gpgcheck=1
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/jenkins.io.key
+
+[root@V2 rpm-gpg]# 
+
+[root@V2 rpm-gpg]# yum  makecache 
+已加载插件：fastestmirror
+Loading mirror speeds from cached hostfile
+base                                                                          | 3.6 kB  00:00:00     
+centosplus                                                                    | 3.4 kB  00:00:00     
+extras                                                                        | 3.4 kB  00:00:00     
+jenkins                                                                       | 2.9 kB  00:00:00     
+local                                                                         | 3.6 kB  00:00:00     
+updates                                                                       | 3.4 kB  00:00:00     
+(1/3): jenkins/filelists_db                                                   |  18 kB  00:00:00     
+(2/3): jenkins/primary_db                                                     |  28 kB  00:00:00     
+(3/3): jenkins/other_db                                                       |  37 kB  00:00:00     
+元数据缓存已建立
+[root@V2 rpm-gpg]# yum  repolist  |tail -8
+源标识                         源名称                                     状态
+base/x86_64                    CentOS-7 - Base - 163.com                  10,019
+centosplus/x86_64              CentOS-7 - Plus - 163.com                      70
+extras/x86_64                  CentOS-7 - Extras - 163.com                   413
+jenkins                        Jenkins-stable                                 88
+local                          CentOS7-1804.iso                            9,911
+updates/x86_64                 CentOS-7 - Updates - 163.com                1,928
+repolist: 22,429
+[root@V2 rpm-gpg]# yum   -y  install  jenkins
+..................
+已安装:
+  jenkins.noarch 0:2.164.3-1.1                                                                       
+
+完毕！
+[root@V2 rpm-gpg]# rpm  -q   jenkins
+jenkins-2.164.3-1.1.noarch
+
+[root@V2 rpm-gpg]# systemctl   start    jenkins 
+Job for jenkins.service failed because the control process exited with error code. See "systemctl status jenkins.service" and "journalctl -xe" for details.
+
+[root@V2 rpm-gpg]# systemctl status jenkins.service
+
+● jenkins.service - LSB: Jenkins Automation Server
+   Loaded: loaded (/etc/rc.d/init.d/jenkins; bad; vendor preset: disabled)
+   Active: failed (Result: exit-code) since 五 2019-05-17 16:04:44 CST; 23s ago
+................
+5月 17 16:04:44 V2 systemd[1]: Failed to start LSB: Jenkins Automation Server.
+5月 17 16:04:44 V2 systemd[1]: Unit jenkins.service entered failed state.
+5月 17 16:04:44 V2 systemd[1]: jenkins.service failed.
+Hint: Some lines were ellipsized, use -l to show in full.
+
+[root@V2 rpm-gpg]# ll  /etc/sysconfig/jenkins 
+-rw------- 1 root root 3116 5月  11 01:16 /etc/sysconfig/jenkins
+[root@V2 rpm-gpg]# vim   /etc/sysconfig/jenkins
+ 29 JENKINS_USER="jenkins"     #设置所有者为root  29 JENKINS_USER="root"
+
+
+[root@V2 rpm-gpg]# id   jenkins
+uid=996(jenkins) gid=994(jenkins) 组=994(jenkins)
+[root@V2 rpm-gpg]# grep  -n   jenkins   /etc/passwd
+24:jenkins:x:996:994:Jenkins Automation Server:/var/lib/jenkins:/bin/false
+
+
+[root@V2 rpm-gpg]# ls  /var/log/jenkins/
+[root@V2 rpm-gpg]# ls  -ld  /var/log/jenkins/
+drwxr-x--- 2 jenkins jenkins 6 5月  11 01:16 /var/log/jenkins/
+
+[root@V2 rpm-gpg]# ls  /var/lib/jenkins/
+[root@V2 rpm-gpg]# ls  /var/cache/jenkins/
+[root@V2 rpm-gpg]# chown  -R   root:root   /var/cache/jenkins/   /var/lib/jenkins/  /var/log/jenkins/
+
+[root@V2 rpm-gpg]# ls  -ld    /var/cache/jenkins/   /var/lib/jenkins/  /var/log/jenkins/
+drwxr-x--- 2 root root 6 5月  11 01:16 /var/cache/jenkins/
+drwxr-xr-x 2 root root 6 5月  11 01:16 /var/lib/jenkins/
+drwxr-x--- 2 root root 6 5月  11 01:16 /var/log/jenkins/
+
+[root@V2 rpm-gpg]# ll  /etc/init.d/jenkins 
+-rwxr-xr-x 1 root root 6347 5月  11 01:16 /etc/init.d/jenkins
+
+[root@V2 rpm-gpg]# vim   /etc/init.d/jenkins
+
+[root@V2 ~]# ls  /etc/alternatives/
+ld                    links      mysqlbug      whois
+libnssckbi.so.x86_64  links-man  mysql_config  whois-man
+
+alternative     英 [ɔːlˈtɜːnətɪv]
+   n.可供选择的事物
+   adj.可供替代的;非传统的;另类的
+
+[root@V2 ~]# ll  /usr/java/jdk1.8.0_211/bin/java
+-rwxr-xr-x 1 10 143 8464 4月   2 11:48 /usr/java/jdk1.8.0_211/bin/java
+
+[root@V2 ~]# ln -s  /usr/java/jdk1.8.0_211/bin/java  /etc/alternatives/
+
+[root@V2 ~]# ls  /etc/alternatives/
+java  libnssckbi.so.x86_64  links-man  mysql_config  whois-man
+ld    links                 mysqlbug   whois
+
+
+[root@V2 ~]# ln   -s   /usr/java/jdk1.8.0_211/bin/java  /usr/bin/
+[root@V2 ~]# echo  $?
+0
+[root@V2 ~]# ll   /usr/bin/java
+lrwxrwxrwx 1 root root 31 5月  17 17:14 /usr/bin/java -> /usr/java/jdk1.8.0_211/bin/java
+[root@V2 ~]# 
+
+
+[root@V2 ~]# type  java
+java 是 /usr/java/jdk1.8.0_211/bin/java
+
+[root@V2 ~]# ls  -lrt   /etc/alternatives/java 
+lrwxrwxrwx 1 root root 31 5月  17 16:45 /etc/alternatives/java -> /usr/java/jdk1.8.0_211/bin/java
+[root@V2 ~]# vim   /etc/init.d/jenkins
+
+ 72 # Search usable Java as /usr/bin/java might not point to minimal version required by Jenkins.
+ 73 # see http://www.nabble.com/guinea-pigs-wanted-----Hudson-RPM-for-RedHat-Linux-td25673707.html
+搜索可用的/usr/bin/java可能不会指向Jenkins所需的最小版本。
+见http://www.nabble.com/guinea-pigs-wanted-----hudson-rpm-for-redhat-linux-td25673707.html
+
+ 75 /etc/alternatives/java
+ 76 /usr/lib/jvm/java-1.8.0/bin/java
+ 77 /usr/lib/jvm/jre-1.8.0/bin/java
+ 78 /usr/lib/jvm/java-1.7.0/bin/java
+ 79 /usr/lib/jvm/jre-1.7.0/bin/java
+ 80 /usr/bin/java
+
+candidate    英 [ˈkændɪdət]
+n.
+(竞选或求职的)候选人，申请人;投考者;应试者;
+参加考试的人;被认定适合者;被认定有某种结局者
+
+ 74 candidates="
+ 75 /etc/alternatives/java
+ 76 /usr/java/jdk1.8.0_211/bin/java
+ 77 /usr/java/jdk1.8.0_211/jre/bin/java
+ 78 /usr/bin/java
+ 79 "
+[root@V2 ~]# grep  -nA6  candidates=  /etc/init.d/jenkins
+74:candidates="
+75-/etc/alternatives/java
+76-/usr/java/jdk1.8.0_211/bin/java
+77-/usr/java/jdk1.8.0_211/jre/bin/java
+78-/usr/bin/java
+79-"
+80-for candidate in $candidates
+[root@V2 ~]# 
+[root@V2 ~]# grep  -n  JENKINS_PORT  /etc/sysconfig/jenkins 
+56:JENKINS_PORT="8080"
+
+
+Search usable Java as /usr/bin/java might not point to minimal version required by Jenkins.
+see http://www.nabble.com/guinea-pigs-wanted-----Hudson-RPM-for-RedHat-Linux-td25673707.html
+
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211 |wc  -l  #JAVA_HOME
+13
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/bin/ |wc  -l   #$JAVA_HOME/bin
+49
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/lib/ |wc  -l  #$JAVA_HOME/lib
+14
+
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/jre/ |wc  -l   #JRE_HOME
+9
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/jre/lib/ |wc  -l  #$JRE_HOME/lib
+52
+[root@V1 java]# ls   /usr/java/jdk1.8.0_211/jre/bin/ |wc  -l  #$JRE_HOME/bin
+14
+[root@V1 java]# tail  -5  /etc/profile
+unset -f pathmunge
+export  JAVA_HOME=/usr/java/jdk1.8.0_211
+export  JRE_HOME=/usr/java/jdk1.8.0_211/jre
+export  CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
+export  PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+
+停止自动启动
+chkconfig --del httpd
+或指定运行级别
+chkconfig --level 345 httpd off
+
+[root@V1 MyProject]# service    jenkins   status
+● jenkins.service - LSB: Jenkins Automation Server
+   Loaded: loaded (/etc/rc.d/init.d/jenkins; bad; vendor preset: disabled)
+   Active: active (running) since Fri 2019-05-17 17:54:34 CST; 1h 25min ago
+     Docs: man:systemd-sysv-generator(8)
+   CGroup: /system.slice/jenkins.service
+           └─1430 /etc/alternatives/java -Dcom.sun.akuma.Daemon=daemonized...
+
+May 17 17:54:32 V1 systemd[1]: Starting LSB: Jenkins Automation Server...
+May 17 17:54:32 V1 runuser[1414]: pam_unix(runuser:session): session ope...0)
+May 17 17:54:34 V1 jenkins[1409]: Starting Jenkins [  OK  ]
+May 17 17:54:34 V1 systemd[1]: Started LSB: Jenkins Automation Server.
+Hint: Some lines were ellipsized, use -l to show in full.
+[root@V1 MyProject]# 
+
+[root@V1 MyProject]# systemctl  is-enabled   httpd
+enabled
+[root@V1 MyProject]# elinks   -dump    http://127.0.0.1:8080/
+   Refresh: [1]/login?from=%2F
+   Authentication required
+
+References
+
+   Visible links
+   1. http://127.0.0.1:8080/login?from=%2F
+[root@V1 MyProject]# elinks   -dump    http://127.0.0.1:80
+   192.168.1.11 V1
+[root@V1 MyProject]# rpm  -ql  jenkins 
+/etc/init.d/jenkins
+/etc/logrotate.d/jenkins
+/etc/sysconfig/jenkins
+/usr/lib/jenkins
+/usr/lib/jenkins/jenkins.war
+/usr/sbin/rcjenkins
+/var/cache/jenkins
+/var/lib/jenkins
+/var/log/jenkins
+[root@V1 MyProject]# grep  -En  'JENKINS_HOME|JENKINS_USER'  /etc/sysconfig/jenkins 
+
+10:JENKINS_HOME="/var/lib/jenkins"
+27:# permissions of $JENKINS_HOME and /var/log/jenkins.
+29:JENKINS_USER="root"
+36:# $JENKINS_HOME location. Do not enable this, "true", unless
+
+[root@V1 MyProject]# ls   /var/lib/jenkins/
+config.xml                           nodes
+hudson.model.UpdateCenter.xml        plugins
+identity.key.enc                     secret.key
+jenkins.CLI.xml                      secret.key.not-so-secret
+jenkins.install.UpgradeWizard.state  secrets
+jenkins.telemetry.Correlator.xml     updates
+jobs                                 userContent
+logs                                 users
+nodeMonitors.xml
+[root@V1 MyProject]# 
+
+candidate    英 [ˈkændɪdət]
+n.
+(竞选或求职的)候选人，申请人;投考者;应试者;
+参加考试的人;被认定适合者;被认定有某种结局者
+
+amend      英 [əˈmend] 
+      v.修正，修订(法律文件、声明等)
+
+
+
+[root@V1 MyProject]# ll  /var/lib/jenkins/secrets/initialAdminPassword 
+-rw-r----- 1 root root 33 5月  17 17:54 /var/lib/jenkins/secrets/initialAdminPassword
+[root@V1 MyProject]# cat   /var/lib/jenkins/secrets/initialAdminPassword
+d738ded468e54f8abbb952400271dfdb
+
+[root@V1 MyProject]# cat   /var/lib/jenkins/secrets/initialAdminPassword
+d738ded468e54f8abbb952400271dfdb
+
+[root@V1 MyProject]# ls   /var/lib/jenkins/secrets/
+filepath-filters.d
+initialAdminPassword
+jenkins.model.Jenkins.crumbSalt
+master.key
+org.jenkinsci.main.modules.instance_identity.InstanceIdentity.KEY
+slave-to-master-security-kill-switch
+whitelisted-callables.d
+
+------------------  客户端  V1  ; -----  jenkins V1; -------  github 
+
+             输入amend命令重置用户信息
+[root@V1 MyProject]# git commit    --amend    --reset-author
+会出现commit 1的提交记录及注释内容，可进入INSERT模式修改注释，:wq退出。
+
+First virsion 1
+
+# 请为您的变更输入提交说明。以 '#' 开始的行将被忽略，而一个空的提交
+# 说明将会终止提交。
+# 位于分支 master
+#
+# 初始提交
+#
+# 要提交的变更：
+#   （使用 "git rm --cached <file>..." 撤出暂存区）
+#
+#       新文件：    index.html
+#
+First test 1提交测试
+~                                                                                        
+~                                                                                        
+-- INSERT --
+
+按键 Esc
+First test 1提交测试
+~           
+[root@V1 MyProject]# ls
+index.html  README.md
+[root@V1 MyProject]# cat  index.html 
+Hello  World!
+
+Hello  World and peri!
+2nd version add
+[root@V1 MyProject]# git  checkout   1.0 
+Note: checking out '1.0'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b new_branch_name
+
+HEAD 目前位于 c403c8a... 第1次 提交
+[root@V1 MyProject]# cat  index.html 
+Hello  World!
+
+Hello  World and peri!
+[root@V1 MyProject]# git  checkout    master
+之前的 HEAD 位置是 c403c8a... 第1次 提交
+切换到分支 'master'
+[root@V1 MyProject]# cat  index.html 
+Hello  World!
+
+Hello  World and peri!
+2nd version add
+[root@V1 MyProject]# 
+
+
+
+
+
+
+
+
+
+
+
+[root@V1 MyProject]# git  clone  https://github.com/hiys/MyProject
+正克隆到 'MyProject'...
+...................
+
+[root@V2 ~]# grep  -n  JENKINS_PORT  /etc/sysconfig/jenkins 
+56:JENKINS_PORT="8080"
+[root@V2 ~]# ls  -ld   /var/cache/jenkins/   /var/lib/jenkins/  /var/log/jenkins/
+drwxr-x--- 2 root root 6 5月  11 01:16 /var/cache/jenkins/
+drwxr-xr-x 2 root root 6 5月  11 01:16 /var/lib/jenkins/
+drwxr-x--- 2 root root 6 5月  11 01:16 /var/log/jenkins/
+[root@V2 ~]# grep   -n  JENKINS_USER   /etc/sysconfig/jenkins
+29:JENKINS_USER="root"
+
+[root@V2 ~]# systemctl   restart   jenkins
+Warning: jenkins.service changed on disk. Run 'systemctl daemon-reload' to reload units.
+
+[root@V2 ~]# systemctl daemon-reload
+
+[root@V2 ~]# systemctl   restart   jenkins
+[root@V2 ~]# echo  $?
+0
+[root@V2 ~]# systemctl   enable     jenkins
+jenkins.service is not a native service, redirecting to /sbin/chkconfig.
+Executing /sbin/chkconfig jenkins on
+
+[root@V2 ~]# systemctl  is-enabled    jenkins
+jenkins.service is not a native service, redirecting to /sbin/chkconfig.
+Executing /sbin/chkconfig jenkins --level=5
+enabled
+
+[root@V2 ~]# chkconfig    jenkins    on   #设定 jenkins 在各等级为on，“各等级”包括2、3、4、5等级
+[root@V2 ~]# echo   $?
+0
+[root@V2 ~]# chkconfig   --list     jenkins
+
+注：该输出结果只显示 SysV 服务，并不包含
+原生 systemd 服务。SysV 配置数据
+可能被原生 systemd 配置覆盖。 
+
+      要列出 systemd 服务，请执行 'systemctl list-unit-files'。
+      查看在具体 target 启用的服务请执行
+      'systemctl list-dependencies [target]'。
+
+jenkins        	0:关	1:关	2:开	3:开	4:开	5:开	6:关
+[root@V2 ~]# 
+停止自动启动
+chkconfig --del httpd
+或指定运行级别
+chkconfig --level 345 httpd off
+
+
+
+
+
+[root@V1 ~]# cat  /etc/redhat-release 
+CentOS Linux release 7.5.1804 (Core) 
+
+[root@V1 ~]# ll  /etc/redhat-release
+lrwxrwxrwx. 1 root root 14 1月  26 12:33 /etc/redhat-release -> centos-release
+[root@V1 ~]# ll   /etc/centos-release
+-rw-r--r--. 1 root root 38 4月  29 2018 /etc/centos-release
+
+[root@V1 ~]# cat  /etc/centos-release
+CentOS Linux release 7.5.1804 (Core) 
+
+[root@V1 ~]# uname  -a
+Linux V1 3.10.0-862.el7.x86_64 #1 SMP Fri Apr 20 16:44:24 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
+[root@V1 ~]# 
+
+
+
+[root@V1 ~]# mkdir  MyProject
+[root@V1 ~]# cd         MyProject/
+[root@V1 MyProject]# 
+[root@V1 MyProject]# yum  -y  install   \
+> zlib-devel    openssl-devel     cpio     expat-devel \
+> gettext-devel   curl-devel    perl-ExtUtils-CBuilder \
+> perl-ExtUtils-MakeMaker     git 
+
+yum  -y  install   \
+zlib-devel    openssl-devel     cpio     expat-devel \
+gettext-devel   libcurl-devel    perl-ExtUtils-CBuilder \
+perl-ExtUtils-MakeMaker     git 
+
+
+rpm  -q  \
+zlib-devel    openssl-devel     cpio     expat-devel \
+gettext-devel   libcurl-devel    perl-ExtUtils-CBuilder \
+perl-ExtUtils-MakeMaker     git 
+
+
+[root@V1 MyProject]# yum  -y  install   \
+> zlib-devel    openssl-devel     cpio     expat-devel \
+> gettext-devel   libcurl-devel    perl-ExtUtils-CBuilder \
+> perl-ExtUtils-MakeMaker     git 
+
+已加载插件：fastestmirror
+Loading mirror speeds from cached hostfile
+软件包 zlib-devel-1.2.7-18.el7.x86_64 已安装并且是最新版本
+软件包 1:openssl-devel-1.0.2k-16.el7_6.1.x86_64 已安装并且是最新版本
+软件包 cpio-2.11-27.el7.x86_64 已安装并且是最新版本
+软件包 expat-devel-2.1.0-10.el7_3.x86_64 已安装并且是最新版本
+软件包 gettext-devel-0.19.8.1-2.el7.x86_64 已安装并且是最新版本
+软件包 libcurl-devel-7.29.0-51.el7.x86_64 已安装并且是最新版本
+软件包 1:perl-ExtUtils-CBuilder-0.28.2.6-294.el7_6.noarch 已安装并且是最新版本
+软件包 perl-ExtUtils-MakeMaker-6.68-3.el7.noarch 已安装并且是最新版本
+软件包 git-1.8.3.1-20.el7.x86_64 已安装并且是最新版本
+无须任何处理
+[root@V1 MyProject]# 
+
+[root@V1 MyProject]# git  --version
+git version 1.8.3.1
+[root@V1 MyProject]# git  config   --global  user.name  "hiys"
+[root@V1 MyProject]# git  config   --global  user.email  "3424969110@qq.com"
+[root@V1 MyProject]# git  config  --global  core.editor   vim
+[root@V1 MyProject]# git  config  --global  --list
+user.name=hiys
+user.email=3424969110@qq.com
+core.editor=vim
+[root@V1 MyProject]# cat   ~/.gitconfig 
+[user]
+	name = hiys
+	email = 3424969110@qq.com
+[core]
+	editor = vim
+[root@V1 MyProject]# 
+
+[root@V1 MyProject]# ls  -a
+[root@V1 MyProject]# git  config   --global  user.email  "3424969110@qq.com"^C
+[root@V1 MyProject]# git  --version
+git version 1.8.3.1
+[root@V1 MyProject]# git  config   --global  user.name  "hiys"
+[root@V1 MyProject]# git  config   --global  user.email  "3424969110@qq.com"
+[root@V1 MyProject]# git  config  --global  core.editor   vim
+[root@V1 MyProject]# git  config  --global  --list
+user.name=hiys
+user.email=3424969110@qq.com
+core.editor=vim
+[root@V1 MyProject]# cat   ~/.gitconfig 
+[user]
+	name = hiys
+	email = 3424969110@qq.com
+[core]
+	editor = vim
+[root@V1 MyProject]# ls  -a
+.  ..
+[root@V1 MyProject]# git  init
+初始化空的 Git 版本库于 /root/MyProject/.git/
+[root@V1 MyProject]# echo  'Hello  World!' > index.html
+[root@V1 MyProject]# echo  -e  '\nHello  World and peri!'  >>  index.html
+[root@V1 MyProject]# cat   index.html
+Hello  World!
+
+Hello  World and peri!
+[root@V1 MyProject]# git   add   ./
+[root@V1 MyProject]# git   commit   -m  "第1次 提交"
+[master（根提交） c403c8a] 第1次 提交
+ 1 file changed, 3 insertions(+)
+ create mode 100644 index.html
+[root@V1 MyProject]# git  tag  1.0   #相当于设置自己开发的软件的版本号
+[root@V1 MyProject]# echo  $?
+0
+[root@V1 MyProject]# echo   "2nd version add" >> index.html 
+[root@V1 MyProject]# git   add   ./
+[root@V1 MyProject]# git   status
+# 位于分支 master
+# 要提交的变更：
+#   （使用 "git reset HEAD <file>..." 撤出暂存区）
+#
+#	修改：      index.html
+#
+[root@V1 MyProject]# git   commit   -m  "第二次erer 提交second 2"
+[master 77f4f8a] 第二次erer 提交second 2
+ 1 file changed, 1 insertion(+)
+[root@V1 MyProject]# git    tag   2.0   #相当于设置自己开发的软件的版本号
+[root@V1 MyProject]# file   .git/index 
+.git/index: Git index, version 2, 1 entries
+[root@V1 MyProject]# git   status  -s
+[root@V1 MyProject]# git  ls-files
+index.html
+[root@V1 MyProject]# cat   index.html 
+Hello  World!
+
+Hello  World and peri!
+2nd version add
+[root@V1 MyProject]# git  remote  add  origin  git@github.com:hiys/MyProject.git
+[root@V1 MyProject]# echo  $?
+0
+[root@V1 MyProject]# git  push   -u  origin  master
+Warning: Permanently added 'github.com,13.229.188.59' (RSA) to the list of known hosts.
+警告：已将IP地址“13.229.188.59”的RSA主机密钥永久添加到已知主机列表中
+Permission denied (publickey).
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+[root@V1 MyProject]# 
+
+[root@V1 MyProject]# ls  /root/.ssh/
+authorized_keys  known_hosts
+
+[root@V1 MyProject]# ll   /root/.ssh/authorized_keys 
+-rw------- 1 root root 407 4月   1 20:24 /root/.ssh/authorized_keys
+
+[root@V1 MyProject]# ssh-keygen   -t  rsa  -C  "hiys"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa): 直接回车
+Enter passphrase (empty for no passphrase): FE3630yj
+Enter same passphrase again: FE3630yj
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:c9TUJOR5RIKFpCmVJEgTcq6umSKv8S0qB81w0Wy1/pY hiys
+The key's randomart image is:
++---[RSA 2048]----+
+|  .+=+o.oo.=*++  |
+|  .+=. +.oo+ =.  |
+|   o. o o . + .  |
+|. .. . . .   .   |
+| =.   . S .      |
+|..o    . +       |
+|...     E        |
+|+*o.   .         |
+|X=o..            |
++----[SHA256]-----+
+[root@V1 MyProject]# ll   /root/.ssh/authorized_keys 
+-rw------- 1 root root 407 4月   1 20:24 /root/.ssh/authorized_keys
+[root@V1 MyProject]# ls  /root/.ssh/
+authorized_keys  id_rsa  id_rsa.pub  known_hosts
+[root@V1 MyProject]# ll   /root/.ssh/
+总用量 16
+-rw------- 1 root root  407 4月   1 20:24 authorized_keys
+-rw------- 1 root root 1766 5月  17 18:34 id_rsa
+-rw-r--r-- 1 root root  386 5月  17 18:34 id_rsa.pub
+-rw-r--r-- 1 root root 1650 5月  17 18:21 known_hosts
+[root@V1 MyProject]# 
+[root@V1 MyProject]# ll   /root/.ssh/id*
+-rw------- 1 root root 1766 5月  17 18:34 /root/.ssh/id_rsa
+-rw-r--r-- 1 root root  386 5月  17 18:34 /root/.ssh/id_rsa.pub
+
+id_rsa.pub 就是我们密钥的所在地，其中（id_rsa.pub ）就是我们要查看的密钥。
+
+[root@V1 MyProject]# ls   /root/.ssh/
+authorized_keys  id_rsa  id_rsa.pub  known_hosts
+
+[root@V1 MyProject]# cat  /root/.ssh/id_rsa.pub   #查看密钥
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDdsmaDBz3+bmB4IAL+RA5u2pq+sCt+rkR7IIpSAM21p5oV405i0is0kntjbUt1oZmrW3YIa3x022IPq+t2vNorlFIS/mdJr/DCl0L0Q+1wXiqAclidrHw2VnMvyWH3OUQqdGg64YFOsjRXAYjAhNGaujCJcgElQGIvYCshkM6ef6FaS2w5bEUrbc75p6ihiJAu6neJiR2v994BDUOT3PfOHoYVF/BivpxnPxOknoPnUrSPb+yMdFYSfHJOnS23Goni3ysfCjVv6M3a1ManRObLE9jsKL4lNzzGg6RAeW+z8j3H3vCFa5BgUdVi/PWdbG4U1ifrL0sqPzIC5t2RGHfn hiys
+[root@V1 MyProject]# 
+把这串字符添加到我们Github远程个人仓库中就可以完成了密钥的配对了。
+Deploy keys部署密钥
+添加密钥
+
+还需 要把密钥加载进来，所以需要下面的操作
+本地加载密钥：
+[root@V1 MyProject]# type  eval
+eval 是 shell 内嵌
+
+[root@V1 MyProject]# type  ssh-agent
+ssh-agent 是 /usr/bin/ssh-agent
+
+[root@V1 MyProject]# eval   "$(ssh-agent  -s)"
+Agent pid 1680
+[root@V1 MyProject]# echo  $?
+0
+[root@V1 MyProject]# ssh-add 
+
+Enter passphrase for /root/.ssh/id_rsa: FE3630yj
+Identity added: /root/.ssh/id_rsa (/root/.ssh/id_rsa)
+[root@V1 MyProject]# 
+
+[root@V1 MyProject]# cat  /root/.ssh/id_rsa
+-----BEGIN RSA PRIVATE KEY-----
+Proc-Type: 4,ENCRYPTED
+DEK-Info: AES-128-CBC,86F72336056BE496D454B2B3312DEAA1
+
+dOqfK4qak79X2If36CNT/5kjd4fLtKVsqbpek3gdjXkfWZVFChdkakFB0aK7nPOr
+................
+pDKJGQ/hwxIRKh9d45IbWRHu2DS5u7SYPzdqltvGRnLxPtx61pCuWEZELt9awUmR
+-----END RSA PRIVATE KEY-----
+[root@V1 MyProject]#  
+
+[root@V1 MyProject]# git  push   -u  origin  master
+Warning: Permanently added the RSA host key for IP address '13.250.177.223' to the list of known hosts.
+To git@github.com:hiys/MyProject.git
+ ! [rejected]        master -> master (fetch first)
+error: 无法推送一些引用到 'git@github.com:hiys/MyProject.git'
+提示：更新被拒绝，因为远程版本库包含您本地尚不存在的提交。这通常是因为另外
+提示：一个版本库已推送了相同的引用。再次推送前，您可能需要先合并远程变更
+提示：（如 'git pull'）。
+提示：详见 'git push --help' 中的 'Note about fast-forwards' 小节。
+[root@V1 MyProject]# 
+
+2.需先同步远程仓库文件到本地，再提交一次即可 
+
+[root@V1 MyProject]# git  pull
+
+warning: no common commits
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+来自 github.com:hiys/MyProject
+ * [新分支]          master     -> origin/master
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details
+
+    git pull <remote> <branch>
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/<branch> master
+
+[root@V1 MyProject]# ls
+index.html
+[root@V1 MyProject]# ls -a
+.  ..  .git  index.html
+[root@V1 MyProject]# ls  .git/
+branches        config       FETCH_HEAD  hooks  info  objects
+COMMIT_EDITMSG  description  HEAD        index  logs  refs
+[root@V1 MyProject]# 
+[root@V1 MyProject]#  git  pull     https://github.com/hiys/MyProject
+来自 https://github.com/hiys/MyProject
+ * branch            HEAD       -> FETCH_HEAD
+Merge made by the 'recursive' strategy.
+ README.md | 2 ++
+ 1 file changed, 2 insertions(+)
+ create mode 100644 README.md
+
+[root@V1 MyProject]# ls
+index.html  README.md
+
+[root@V1 MyProject]# git  push   origin  master
+Counting objects: 9, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (8/8), 808 bytes | 0 bytes/s, done.
+Total 8 (delta 0), reused 0 (delta 0)
+To git@github.com:hiys/MyProject.git
+   d65310c..d499ec3  master -> master
+[root@V1 MyProject]# echo $?
+0
+[root@V1 MyProject]# 
+
+[root@V2 ~]# yum  -y  install   httpd elinks
+已加载插件：fastestmirror
+Loading mirror speeds from cached hostfile
+软件包 httpd-2.4.6-89.el7.centos.x86_64 已安装并且是最新版本
+软件包 elinks-0.12-0.37.pre6.el7.0.1.x86_64 已安装并且是最新版本
+无须任何处理
+[root@V2 ~]# ls  /var/www/html/
+[root@V2 ~]# echo  "<h1>V2</h1><h5>192.168.1.12</h2>" > /var/www/html/index.html
+[root@V2 ~]# cat  /var/www/html/index.html
+<h1>V2</h1><h5>192.168.1.12</h2>
+
+[root@V2 ~]# systemctl   start   httpd  &&  systemctl   enable  httpd
+
+Created symlink from /etc/systemd/system/multi-user.target.wants/httpd.service to /usr/lib/systemd/system/httpd.service.
+[root@V2 ~]# elinks  -dump      192.168.1.12
+                                       V2
+
+      192.168.1.12
+[root@V2 ~]# elinks  -dump      192.168.1.11
+   192.168.1.11 V1
+[root@V2 ~]# 
+
+http://192.168.1.11:8080/
+[root@V1 ~]# cat   /var/lib/jenkins/secrets/initialAdminPassword
+d738ded468e54f8abbb952400271dfdb
+
+http://192.168.1.11:8080/login?from=%2F
+http://192.168.1.11:8080/
+
+
+http://192.168.1.12:8080/
+[root@V2 ~]# cat   /var/lib/jenkins/secrets/initialAdminPassword
+1e4adc161c60401ab010b2b413c775a8
+
+http://192.168.1.12:8080/login?from=%2F
+
+http://192.168.1.12:8080/pluginManager/
+http://192.168.1.12:8080/pluginManager/advanced
+
+http://192.168.1.12:8080/updateCenter/
+
+
+Notification URL
+ 		
+Help for feature: Notification URL
+		
+http://192.168.1.11:8080/user/admin/configure		
+密码
+ 	密码:	adminABC.123
+		
+ 	确认密码:adminABC.123
+		adminABC.123
+SSH Public Keys
+
+
+
+
+
+
+
+
+
+
