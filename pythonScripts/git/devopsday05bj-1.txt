@@ -818,6 +818,25 @@ n.
  77 /usr/java/jdk1.8.0_211/jre/bin/java
  78 /usr/bin/java
  79 "
+************************************
+有必要的话，检查一下/etc/init.d/jenkins
+
+candidates="
+/home/hsowan/server/jdk1.8.0_181/bin/java
+/home/hsowan/server/jdk1.8.0_181/jre/bin/java
+"
+for candidate in $candidates
+do
+  [ -x "$JENKINS_JAVA_CMD" ] && break
+  JENKINS_JAVA_CMD="$candidate"
+done
+--------------------- 
+作者：NCUCoder 
+来源：CSDN 
+原文：https://blog.csdn.net/ken1583096683/article/details/82585004 
+版权声明：本文为博主原创文章，转载请附上博文链接！
+
+
 [root@V2 ~]# grep  -nA6  candidates=  /etc/init.d/jenkins
 74:candidates="
 75-/etc/alternatives/java
@@ -1141,7 +1160,7 @@ core.editor=vim
 [root@V1 MyProject]# 
 
 [root@V1 MyProject]# ls  -a
-[root@V1 MyProject]# git  config   --global  user.email  "3424969110@qq.com"^C
+
 [root@V1 MyProject]# git  --version
 git version 1.8.3.1
 [root@V1 MyProject]# git  config   --global  user.name  "hiys"

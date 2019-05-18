@@ -1,0 +1,1044 @@
+
+
+[student@room10pc15 ~]$ git clone   https://github.com/hiys/PYTHON/
+正克隆到 'PYTHON'...
+remote: Enumerating objects: 37, done.
+remote: Counting objects: 100% (37/37), done.
+remote: Compressing objects: 100% (37/37), done.
+remote: Total 3200 (delta 10), reused 0 (delta 0), pack-reused 3163
+接收对象中: 100% (3200/3200), 99.97 MiB | 4.33 MiB/s, done.
+处理 delta 中: 100% (775/775), done.
+
+[student@room10pc15 ~]$ ls  PYTHON/
+20190217－方正证券－科技新基建系列深度报告之二：云计算的新一站，私有云混合云成为重要投入方向.pdf
+Cloud_project_end
+day04
+day05
+day06
+day07
+day08
+devops
+devweb
+nsd1807
+obs-linux.txt
+python1
+python2
+pythonbj-1.txt
+pythonbj2.txt
+pythonbj-git.txt
+pythonbj.txt
+pythonScripts
+README.md
+yum-http.txt
+[student@room10pc15 ~]$ 
+
+
+candidate      英 [ˈkændɪdət]   美 [ˈkændɪdət]  
+n.(竞选或求职的)候选人，申请人;投考者;应试者;参加考试的人;被认定适合者;被认定有某种结局者
+
+deploy        英 [dɪˈplɔɪ]   美 [dɪˈplɔɪ]  
+    v.部署，调度(军队或武器);有效地利用;调动
+
+deployment     英 [dɪˈplɔɪmənt]
+    n.(部队、资源或装备的)部署，调集
+
+delivery    英 [dɪˈlɪvəri]
+   n.传送;递送;交付;分娩;演讲方式;表演风格
+
+
+ Continuous Integration (CI)持续集成
+ Continuous Delivery (CD)持续交付
+
+启动装配线的过程称为“持续集成”（CI）
+确保质量的过程称为“持续测试”，
+将最终产品提供给用户的过程称为“持续部署”
+
+持续交付（CD）通常是指整个流程链（管道），
+它自动监测源代码变更并通过构建、测试、打包和相关操作运行它们以生成可部署的版本，基本上没有任何人为干预。
+
+持续交付在软件开发过程中的目标是自动化、效率、可靠性、可重复性和质量保障（通过持续测试）。
+
+持续部署（CD）是指能够自动提供持续交付管道中发布版本给最终用户使用的想法。
+根据用户的安装方式，可能是在云环境中
+自动部署、app 升级（如手机上的应用程序）、更新网站或只更新可用版本列表。
+
+语义版本号有三个部分：
+主要版本major、次要版本minor 和 补丁版本patch。
+（例如，1.4.3 反映了
+主要版本 1，次要版本 4 和补丁版本 3。）
+
+
+
+[root@V1 ~]# mkdir  MyProject
+[root@V1 ~]# cd         MyProject/
+
+[root@V1 MyProject]# yum  -y  install   \
+> zlib-devel    openssl-devel     cpio     expat-devel \
+> gettext-devel   libcurl-devel    perl-ExtUtils-CBuilder \
+> perl-ExtUtils-MakeMaker     git 
+.............
+
+
+
+[root@V1 MyProject]# git  config   --global  user.name  "hiys"
+[root@V1 MyProject]# git  config   --global  user.email  "3424969110@qq.com"
+[root@V1 MyProject]# git  config  --global  c[root@V1 MyProject]# ls
+index.html  README.md
+[root@V1 MyProject]# echo  "<h1>Test test2 test3</h1>" > test.html
+[root@V1 MyProject]# cat    test.html
+<h1>Test test2 test3</h1>
+[root@V1 MyProject]# git  add  ./
+[root@V1 MyProject]# git  status 
+# 位于分支 master
+# 要提交的变更：
+#   （使用 "git reset HEAD <file>..." 撤出暂存区）
+#
+#	新文件：    test.html
+#
+[root@V1 MyProject]# file   .git/index 
+.git/index: Git index, version 2, 3 entries
+[root@V1 MyProject]# git  commit   -m  "3333 commit"
+[master 0925c32] 3333 commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 test.html
+[root@V1 MyProject]# git  status
+# 位于分支 master
+无文件要提交，干净的工作区
+[root@V1 MyProject]# git  tag  2.1   #相当于设置自己开发的软件的版本号
+[root@V1 MyProject]# file   .git/index 
+.git/index: Git index, version 2, 3 entries
+[root@V1 MyProject]# git   ls-files
+README.md
+index.html
+test.html
+
+origin      英 [ˈɒrɪdʒɪn]
+    n.起源;源头;起因;身世;出身
+
+[root@V1 MyProject]# git  remote   add  origin   git@github.com:hiys/MyProject.git
+fatal: 远程 origin 已经存在。
+[root@V1 MyProject]# echo  $?
+128
+[root@V1 MyProject]# cat   .git/config 
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = git@github.com:hiys/MyProject.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[root@V1 MyProject]# git  push  -u  origin   master
+Warning: Permanently added the RSA host key for IP address '52.74.223.119' to the list of known hosts.
+Counting objects: 4, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 319 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To git@github.com:hiys/MyProject.git
+   d499ec3..0925c32  master -> master
+分支 master 设置为跟踪来自 origin 的远程分支 master。
+[root@V1 MyProject]# echo  $?
+0
+[root@V1 MyProject]# file   .git/index 
+.git/index: Git index, version 2, 3 entries
+[root@V1 MyProject]# git  pull     https://github.com/hiys/MyProject
+来自 https://github.com/hiys/MyProject
+ * branch            HEAD       -> FETCH_HEAD
+Already up-to-date.
+[root@V1 MyProject]# ls
+index.html  README.md  test.html
+[root@V1 MyProject]# 
+ore.editor   vim
+
+[root@V1 MyProject]# git  config  --global  --list
+user.name=hiys
+user.email=3424969110@qq.com
+core.editor=vim
+
+[root@V1 MyProject]# cat   ~/.gitconfig 
+[user]
+	name = hiys
+	email = 3424969110@qq.com
+[core]
+	editor = vim
+
+[root@V1 ~]# cat  .gitconfig 
+[user]
+	name = hiys
+	email = 3424969110@qq.com
+[core]
+	editor = vim
+
+[root@V1 ~]# cd  MyProject/
+[root@V1 MyProject]# git  --version
+git version 1.8.3.1
+
+[root@V1 MyProject]# ssh-keygen   -t  rsa  -C  "hiys"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa): 直接回车
+Enter passphrase (empty for no passphrase): FE3630yj
+Enter same passphrase again: FE3630yj
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:c9TUJOR5RIKFpCmVJEgTcq6umSKv8S0qB81w0Wy1/pY hiys
+The key's randomart image is:
++---[RSA 2048]----+
+|  .+=+o.oo.=*++  |
+|  .+=. +.oo+ =.  |
+|   o. o o . + .  |
+|. .. . . .   .   |
+| =.   . S .      |
+|..o    . +       |
+|...     E        |
+|+*o.   .         |
+|X=o..            |
++----[SHA256]-----+
+[root@V1 MyProject]# ll   /root/.ssh/authorized_keys 
+-rw------- 1 root root 407 4月   1 20:24 /root/.ssh/authorized_keys
+
+[root@V1 MyProject]# ls  -a
+.  ..  .git  index.html  README.md
+[root@V1 MyProject]# ls  .git/
+branches        config       FETCH_HEAD  hooks  info  objects    refs
+COMMIT_EDITMSG  description  HEAD        index  logs  ORIG_HEAD
+[root@V1 MyProject]# cat   .git/config 
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = git@github.com:hiys/MyProject.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[root@V1 MyProject]# 
+[root@V1 MyProject]# cat  /root/.ssh/id_rsa.pub   #查看密钥
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDdsmaDBz3+bmB4IAL+RA5u2pq+sCt+rkR7IIpSAM21p5oV405i0is0kntjbUt1oZmrW3YIa3x022IPq+t2vNorlFIS/mdJr/DCl0L0Q+1wXiqAclidrHw2VnMvyWH3OUQqdGg64YFOsjRXAYjAhNGaujCJcgElQGIvYCshkM6ef6FaS2w5bEUrbc75p6ihiJAu6neJiR2v994BDUOT3PfOHoYVF/BivpxnPxOknoPnUrSPb+yMdFYSfHJOnS23Goni3ysfCjVv6M3a1ManRObLE9jsKL4lNzzGg6RAeW+z8j3H3vCFa5BgUdVi/PWdbG4U1ifrL0sqPzIC5t2RGHfn hiys
+把这串字符添加到我们Github远程个人仓库中就可以完成了密钥的配对了。
+Deploy keys部署密钥
+添加密钥
+
+还需 要把密钥加载进来，所以需要下面的操作
+本地加载密钥：
+[root@V1 MyProject]# ls   /root/.ssh/
+authorized_keys  id_rsa  id_rsa.pub  known_hosts
+
+
+[root@V1 MyProject]# type  eval
+eval 是 shell 内嵌
+[root@V1 MyProject]# type    ssh-agent 
+ssh-agent 是 /usr/bin/ssh-agent
+
+还需 要把密钥加载进来，所以需要下面的操作
+本地加载密钥：
+[root@V1 MyProject]# eval   `ssh-agent  -s`
+Agent pid 3873
+[root@V1 MyProject]# type   ssh-add 
+ssh-add 是 /usr/bin/ssh-add
+
+[root@V1 MyProject]# ssh-add
+Enter passphrase for /root/.ssh/id_rsa: FE3630yj
+Identity added: /root/.ssh/id_rsa (/root/.ssh/id_rsa)
+[root@V1 MyProject]# 
+
+[root@V1 MyProject]# ls
+index.html  README.md
+[root@V1 MyProject]# echo  "<h1>Test test2 test3</h1>" > test.html
+[root@V1 MyProject]# cat    test.html
+<h1>Test test2 test3</h1>
+[root@V1 MyProject]# git  add  ./
+[root@V1 MyProject]# git  status 
+# 位于分支 master
+# 要提交的变更：
+#   （使用 "git reset HEAD <file>..." 撤出暂存区）
+#
+#	新文件：    test.html
+#
+[root@V1 MyProject]# file   .git/index 
+.git/index: Git index, version 2, 3 entries
+
+[root@V1 MyProject]# git  commit   -m  "3333 commit"
+
+[master 0925c32] 3333 commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 test.html
+
+[root@V1 MyProject]# git  status
+# 位于分支 master
+无文件要提交，干净的工作区
+
+[root@V1 MyProject]# git  tag  2.1   #相当于设置自己开发的软件的版本号
+
+[root@V1 MyProject]# git  tag
+1.0
+2.0
+2.1
+
+[root@V1 MyProject]# file   .git/index 
+.git/index: Git index, version 2, 3 entries
+
+[root@V1 MyProject]# git   ls-files
+README.md
+index.html
+test.html
+           在本地仓库添加一个远程仓库,并将本地的master分支跟踪到远程分支
+[root@V1 MyProject]# git  remote   add  origin   git@github.com:hiys/MyProject.git
+
+fatal: 远程 origin 已经存在。
+[root@V1 MyProject]# echo  $?
+128
+[root@V1 MyProject]# cat   .git/config 
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = git@github.com:hiys/MyProject.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+
+[root@V1 MyProject]# git  push  -u  origin   master
+
+Warning: Permanently added the RSA host key for IP address '52.74.223.119' to the list of known hosts.
+Counting objects: 4, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 319 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To git@github.com:hiys/MyProject.git
+   d499ec3..0925c32  master -> master
+分支 master 设置为跟踪来自 origin 的远程分支 master。
+
+[root@V1 MyProject]# echo  $?
+0
+[root@V1 MyProject]# file   .git/index 
+.git/index: Git index, version 2, 3 entries
+
+[root@V1 MyProject]# git  pull     https://github.com/hiys/MyProject
+
+来自 https://github.com/hiys/MyProject
+ * branch            HEAD       -> FETCH_HEAD
+Already up-to-date.
+
+[root@V1 MyProject]# ls
+index.html  README.md  test.html
+
+
+[root@V1 MyProject]# git  tag
+1.0
+2.0
+2.1
+[root@V1 MyProject]# ls  
+index.html  README.md  test.html
+
+[root@V1 MyProject]# git  checkout  1.0
+Note: checking out '1.0'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b new_branch_name
+
+HEAD 目前位于 c403c8a... 第1次 提交
+[root@V1 MyProject]# ls
+index.html
+
+[root@V1 MyProject]# git  tag
+1.0
+2.0
+2.1
+[root@V1 MyProject]# git  checkout  master 
+之前的 HEAD 位置是 c403c8a... 第1次 提交
+切换到分支 'master'
+[root@V1 MyProject]# ls
+index.html  README.md  test.html
+
+
+[root@V1 MyProject]# ls  /var/lib/jenkins/
+config.xml                                      nodeMonitors.xml
+hudson.model.UpdateCenter.xml                   nodes
+hudson.plugins.git.GitTool.xml                  plugins
+identity.key.enc                                queue.xml.bak
+jenkins.CLI.xml                                 secret.key
+jenkins.install.InstallUtil.installingPlugins   secret.key.not-so-secret
+jenkins.install.InstallUtil.lastExecVersion     secrets
+jenkins.install.UpgradeWizard.state             updates
+jenkins.model.JenkinsLocationConfiguration.xml  userContent
+jenkins.telemetry.Correlator.xml                users
+jobs                                            workflow-libs
+logs
+[root@V1 MyProject]# ls  /var/lib/jenkins/workflow-libs/
+[root@V1 MyProject]# ls  -ld /var/lib/jenkins/workflow-libs/
+drwxr-xr-x 2 root root 6 5月  17 20:28 /var/lib/jenkins/workflow-libs/
+[root@V1 MyProject]# 
+
+imperative　　　　英 [ɪmˈperətɪv] 美 [ɪmˈperətɪv]
+　　　adj.重要紧急的;迫切的;急需处理的;表示权威的;表示命令的;祈使的
+　　　n.重要紧急的事;必要的事;祈使语气;祈使语气动词
+
+Default Value is required. Example origin/master
+默认值是必需的。示例来源/主
+This value is returned when the list is empty or if an error occurs while retrieving data. 
+当列表为空或检索数据时发生错误时，返回此值。
+
+Specify the URL of this remote repository. 
+This uses the same syntax as your git clone command. 
+指定此远程存储库的URL。
+这与git clone命令使用相同的语法
+
+credentials    英 [krəˈdenʃlz]   美 [krəˈdenʃlz]  
+   n.资格;资历;资格证书;证明书;证件
+
+[root@V1 MyProject]# git   ls-remote  -h  https://github.com/hiys/MyProject.git
+0925c32e67652fe9a0fc59563ca54f8f45687c69	refs/heads/master
+------------------------- 查看远程版本库 ------------------------
+
+[root@V1 MyProject]# git   ls-remote  -h  -t  git@github.com:hiys/MyProject.git
+0925c32e67652fe9a0fc59563ca54f8f45687c69	refs/heads/master
+
+
+git ls-remote [--heads] [--tags] [--refs] [--upload-pack=<exec>]
+              [-q | --quiet] [--exit-code] [--get-url]
+              [--symref] [<repository> [<refs>…​]]
+
+显示远程存储库中可用的引用以及关联的提交 ID
+
+-h --heads -t --tags
+纠错
+仅限于 refs / heads 和 ref / tags。
+这些选项是not相互排斥的; 当同时给出时，将显示存储在 refs / heads 和 refs / tags 中的引用。
+
+
+[root@V1 MyProject]# git  remote
+origin
+[root@V1 MyProject]# git    remote  -v
+origin	git@github.com:hiys/MyProject.git (fetch)
+origin	git@github.com:hiys/MyProject.git (push)
+
+[root@V1 MyProject]# git   ls-remote  -h  -t  git@github.com:hiys/MyProject.git
+0925c32e67652fe9a0fc59563ca54f8f45687c69	refs/heads/master
+
+[root@V1 MyProject]# git  push  -u origin  --all
+
+分支 master 设置为跟踪来自 origin 的远程分支 master。
+Everything up-to-date
+
+[root@V1 MyProject]# git  push  -u origin  --tags
+
+Total 0 (delta 0), reused 0 (delta 0)
+To git@github.com:hiys/MyProject.git
+ * [new tag]         1.0 -> 1.0
+ * [new tag]         2.0 -> 2.0
+ * [new tag]         2.1 -> 2.1
+[root@V1 MyProject]# 
+
+
+
+Git Parameter
+ 	Name           mptag	　　　　　#注意mptag 在下面会被使用
+ 	Description	  MyProject  tag  not 　imperative
+                          [纯文本] 预览 
+ 	Parameter Type Branch  or Tag
+ 	Default Value  first01
+
+
+源码管理
+ Branches to build
+	Branch Specifier (blank for 'any')	 */master 改成 ${mptag}
+
+Additional Behaviours  Check out to a  sub-directory
+其他行为
+   	Local subdirectory for repo:  Myproject_${mptag}
+
+
+
+403 Forbidden 是HTTP协议中的一个状态码(Status Code)。可以简单的理解为没有权限访问此站
+
+HTTP错误403
+访问/job/Myproject_build/configSubmit时出现问题。原因：
+请求中未包含有效的crumb
+由Jetty:// 9.4.z-SNAPSHOT提供支持
+
+[root@V1 ~]#  ls  /var/lib/jenkins/
+config.xml                                      nodeMonitors.xml
+hudson.model.UpdateCenter.xml                   nodes
+hudson.plugins.git.GitTool.xml                  plugins
+identity.key.enc                                queue.xml.bak
+jenkins.CLI.xml                                 secret.key
+jenkins.install.InstallUtil.installingPlugins   secret.key.not-so-secret
+jenkins.install.InstallUtil.lastExecVersion     secrets
+jenkins.install.UpgradeWizard.state             updates
+jenkins.model.JenkinsLocationConfiguration.xml  userContent
+jenkins.telemetry.Correlator.xml                users
+jobs                                            workflow-libs
+logs
+[root@V1 ~]#  ls  /var/lib/jenkins/workflow-libs/
+[root@V1 ~]#  ls  /var/lib/jenkins/workspace
+ls: 无法访问/var/lib/jenkins/workspace: 没有那个文件或目录
+[root@V1 ~]# 
+
+[root@V1 MyProject]# yum  -y install  httpd
+.............   
+软件包 httpd-2.4.6-89.el7.centos.x86_64 已安装并且是最新版本
+无须任何处理
+[root@V1 MyProject]# systemctl  is-enabled  httpd
+enabled
+[root@V1 MyProject]# ls  /var/www/html/
+index.html  test.php
+[root@V1 MyProject]# elinks  -dump   127.0.0.1
+   192.168.1.11 V1
+
+[root@V1 MyProject]# grep  -n  jenkins  /etc/passwd
+25:jenkins:x:995:993:Jenkins Automation Server:/var/lib/jenkins:/bin/false
+
+[root@V1 MyProject]# mkdir  -pv  /var/www/html/deploy/packages
+
+mkdir: 已创建目录 "/var/www/html/deploy"
+mkdir: 已创建目录 "/var/www/html/deploy/packages"
+
+[root@V1 MyProject]# ls  /var/www/html/
+deploy  index.html  test.php
+
+[root@V1 ~]# grep  -nE  "JENKINS_USER=|JENKINS_PORT="   /etc/sysconfig/jenkins
+29:JENKINS_USER="root"
+56:JENKINS_PORT="8080"
+[root@V1 ~]# grep  -n  jenkins  /etc/passwd
+25:jenkins:x:995:993:Jenkins Automation Server:/var/lib/jenkins:/bin/false
+
+[root@V1 MyProject]# chown   -R  jenkins:jenkins   /var/www/html/deploy/
+
+[root@V1 MyProject]# ll    /var/www/html/deploy/
+总用量 0
+drwxr-xr-x 2 jenkins jenkins 6 5月  18 13:46 packages
+
+[root@V1 MyProject]# ls   /var/www/html/deploy/packages/
+[root@V1 MyProject]# 
+
+
+源码管理
+ Branches to build
+	Branch Specifier (blank for 'any')	 */master 改成 ${mptag}
+
+Additional Behaviours  Check out to a  sub-directory
+其他行为
+   	Local subdirectory for repo:  Myproject_${mptag}
+
+[root@V1 MyProject]# ls   /var/lib/jenkins/workspace
+ls: 无法访问/var/lib/jenkins/workspace: 没有那个文件或目录
+[root@V1 MyProject]# ls  -ld  /var/lib/jenkins/
+drwxr-xr-x 11 root root 4096 5月  18 10:50 /var/lib/jenkins/
+
+[root@V1 MyProject]# ls   /var/lib/jenkins/workspace/
+Myproject_build
+[root@V1 MyProject]# ls  -ld   /var/lib/jenkins/workspace/
+drwxr-xr-x 3 root root 29 5月  18 14:37 /var/lib/jenkins/workspace/
+
+[root@V1 MyProject]# ls  /var/lib/jenkins/workspace/Myproject_build/
+Myproject_1.0
+[root@V1 MyProject]# ls  /var/lib/jenkins/workspace/Myproject_build/Myproject_1.0/
+index.html
+
+[root@V1 MyProject]# cat   /var/lib/jenkins/workspace/Myproject_build/Myproject_1.0/index.html 
+Hello  World!
+
+Hello  World and peri!
+[root@V1 MyProject]# 
+
+[root@V1 MyProject]# ls  -a  /var/lib/jenkins/workspace/Myproject_build/Myproject_1.0/
+.  ..  .git  index.html
+
+[root@V1 MyProject]# ls  -a  /var/lib/jenkins/workspace/Myproject_build/Myproject_1.0/.git/
+.   branches  description  HEAD   index  logs     refs
+..  config    FETCH_HEAD   hooks  info   objects
+
+[root@V1 MyProject]# ls  -ld  /var/www/html/deploy/
+drwxr-xr-x 3 jenkins jenkins 22 5月  18 13:46 /var/www/html/deploy/
+[root@V1 MyProject]# ls  /var/www/html/
+deploy  index.html  test.php
+
+[root@V1 MyProject]# ls  -ld  /var/www/html/deploy/packages/
+drwxr-xr-x 2 jenkins jenkins 6 5月  18 13:46 /var/www/html/deploy/packages/
+
+[root@V1 MyProject]# ls   /var/www/html/deploy/packages/
+
+
+http://192.168.1.11:8080/job/Myproject_build/configure
+Jenkins    Myproject_build
+构建
+ 执行shell 命令
+deploy_dir=/var/www/html/deploy/packages/
+cp  -r   Myproject_${mptag}   $deploy_dir
+rm  -rf   $deploy_dir/Myproject_${mptag}/.git
+cd     $deploy_dir
+tar   czf    Myproject_${mptag}.tar.gz   Myproject_${mptag}
+rm   -rf    Myproject_${mptag}
+md5sum    Myproject_${mptag}.tar.gz |awk '{print $1}'> Myproject_${mptag}.tar.gz.md5
+
+
+Started by user admin
+Building in workspace /var/lib/jenkins/workspace/Myproject_build
+No credentials specified
+ > git rev-parse --is-inside-work-tree # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/hiys/MyProject.git # timeout=10
+Fetching upstream changes from https://github.com/hiys/MyProject.git
+ > git --version # timeout=10
+ > git fetch --tags --progress https://github.com/hiys/MyProject.git +refs/heads/*:refs/remotes/origin/*
+ > git rev-parse origin/1.0^{commit} # timeout=10
+ > git rev-parse 1.0^{commit} # timeout=10
+Checking out Revision c403c8a60f2810da7206f45831acf819dcca14e2 (1.0)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f c403c8a60f2810da7206f45831acf819dcca14e2
+Commit message: "第1次 提交"
+ > git rev-list --no-walk c403c8a60f2810da7206f45831acf819dcca14e2 # timeout=10
+[Myproject_build] $ /bin/sh -xe /tmp/jenkins5780963966881438536.sh
++ deploy_dir=/var/www/html/deploy/packages/
++ cp -r Myproject_1.0 /var/www/html/deploy/packages/
++ rm -rf /var/www/html/deploy/packages//Myproject_1.0/.git
++ cd /var/www/html/deploy/packages/
++ tar czf Myproject_1.0.tar.gz Myproject_1.0
++ rm -rf Myproject_1.0
++ md5sum Myproject_1.0.tar.gz
+Finished: SUCCESS
+
+
+
+[root@V1 MyProject]# ls   /var/www/html/deploy/packages/
+Myproject_1.0.tar.gz  Myproject_1.0.tar.gz.md5
+
+[root@V1 MyProject]# cat   /var/www/html/deploy/packages/Myproject_1.0.tar.gz.md5
+ 
+67f4c61f1523e99106418ef25d1379ba  Myproject_1.0.tar.gz
+
+[root@V1 MyProject]# ls  -l   /var/www/html/deploy/packages/
+总用量 8
+-rw-r--r-- 1 root root 190 5月  18 15:34 Myproject_1.0.tar.gz
+-rw-r--r-- 1 root root  55 5月  18 15:34 Myproject_1.0.tar.gz.md5
+
+[root@V1 MyProject]# ls  -ld  /var/www/html/deploy/packages/
+drwxr-xr-x 2 jenkins jenkins 66 5月  18 15:34 /var/www/html/deploy/packages/
+
+[root@V1 MyProject]# md5sum   index.html  
+84c82cef97cf43df17f9aa639de1b649  index.html
+
+[root@V1 MyProject]# md5sum   index.html  |awk '{print $NF}'
+index.html
+[root@V1 MyProject]# md5sum   index.html  |awk '{print $1}'
+84c82cef97cf43df17f9aa639de1b649
+
+[root@V1 MyProject]# cat   /var/www/html/deploy/packages/Myproject_1.0.tar.gz.md5 
+
+5bae1cf3cfc66e6d96d8c378473503ac
+
+[root@V1 MyProject]# ll  /var/www/html/deploy/packages/
+总用量 8
+-rw-r--r-- 1 root root 191 5月  18 15:56 Myproject_1.0.tar.gz
+-rw-r--r-- 1 root root  33 5月  18 15:56 Myproject_1.0.tar.gz.md5
+
+
+http://192.168.1.11:8080/job/Myproject_build/4/console
+成功控制台输出
+
+Started by user admin
+Building in workspace /var/lib/jenkins/workspace/Myproject_build
+No credentials specified
+Cloning the remote Git repository
+Cloning repository https://github.com/hiys/MyProject.git
+ > git init /var/lib/jenkins/workspace/Myproject_build/Myproject_2.1 # timeout=10
+Fetching upstream changes from https://github.com/hiys/MyProject.git
+ > git --version # timeout=10
+ > git fetch --tags --progress https://github.com/hiys/MyProject.git +refs/heads/*:refs/remotes/origin/*
+ > git config remote.origin.url https://github.com/hiys/MyProject.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url https://github.com/hiys/MyProject.git # timeout=10
+Fetching upstream changes from https://github.com/hiys/MyProject.git
+ > git fetch --tags --progress https://github.com/hiys/MyProject.git +refs/heads/*:refs/remotes/origin/*
+ > git rev-parse origin/2.1^{commit} # timeout=10
+ > git rev-parse 2.1^{commit} # timeout=10
+Checking out Revision 0925c32e67652fe9a0fc59563ca54f8f45687c69 (2.1)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 0925c32e67652fe9a0fc59563ca54f8f45687c69
+Commit message: "3333 commit"
+First time build. Skipping changelog.
+[Myproject_build] $ /bin/sh -xe /tmp/jenkins7645172170175470571.sh
++ deploy_dir=/var/www/html/deploy/packages/
++ cp -r Myproject_2.1 /var/www/html/deploy/packages/
++ rm -rf /var/www/html/deploy/packages//Myproject_2.1/.git
++ cd /var/www/html/deploy/packages/
++ tar czf Myproject_2.1.tar.gz Myproject_2.1
++ rm -rf Myproject_2.1
++ md5sum Myproject_2.1.tar.gz
++ awk '{print $1}'
+Finished: SUCCESS
+
+
+[root@V1 MyProject]# ll  /var/www/html/deploy/packages/总用量 16
+-rw-r--r-- 1 root root 191 5月  18 15:56 Myproject_1.0.tar.gz
+-rw-r--r-- 1 root root  33 5月  18 15:56 Myproject_1.0.tar.gz.md5
+-rw-r--r-- 1 root root 290 5月  18 16:01 Myproject_2.1.tar.gz
+-rw-r--r-- 1 root root  33 5月  18 16:01 Myproject_2.1.tar.gz.md5
+[root@V1 MyProject]# 
+
+
+http://192.168.1.11:8080/job/mp_live_version/1/console
+成功控制台输出
+
+Started by user admin
+Building in workspace /var/lib/jenkins/workspace/mp_live_version
+[mp_live_version] $ /bin/sh -xe /tmp/jenkins5866314295835522258.sh
++ echo 1.0
+Finished: SUCCESS
+
+
+[root@V1 MyProject]# ls  -ld  /var/www/html/deploy/
+drwxr-xr-x 3 jenkins jenkins 42 5月  18 16:51 /var/www/html/deploy/
+
+[root@V1 MyProject]# ls   /var/www/html/deploy/
+live_version  packages
+[root@V1 MyProject]# cat   /var/www/html/deploy/live_version 
+1.0
+[root@V1 MyProject]# ll  /var/www/html/deploy/live_version
+-rw-r--r-- 1 root root 4 5月  18 16:51 /var/www/html/deploy/live_version
+[
+
+http://192.168.1.11:8080/job/mp_last_version/configure
+构建
+ 执行shell 命令
+echo  ${last_ver} > /var/www/html/deploy/last_version
+
+[root@V1 MyProject]# ll  /var/www/html/deploy/
+总用量 8
+-rw-r--r-- 1 root    root      4 5月  18 17:12 last_version
+-rw-r--r-- 1 root    root      4 5月  18 16:51 live_version
+drwxr-xr-x 2 jenkins jenkins 126 5月  18 16:01 packages
+[root@V1 MyProject]# cat  /var/www/html/deploy/last_version 
+1.0
+[root@V1 MyProject]# cat  /var/www/html/deploy/live_version 
+1.0
+[root@V1 MyProject]# 
+
+[root@V1 MyProject]# rm  -f  /var/www/html/deploy/live_version
+[root@V1 MyProject]# ls   /var/www/html/deploy/live_version
+ls: 无法访问/var/www/html/deploy/live_version: 没有那个文件或目录
+[root@V1 MyProject]# rm  -f  /var/www/html/deploy/last_version 
+[root@V1 MyProject]# ls    /var/www/html/deploy/
+packages
+
+
+[-f  /var/www/html/deploy/live_version] && cat  /var/www/html/deploy/live_version  > /var/www/html/deploy/last_version
+echo  ${mypver} > /var/www/html/deploy/live_version
+
+
+* 字符串测试
+$ if test -n "not empty" ; then echo "YES" ; else echo "NO"; fi
+YES
+-n 测试字符串的长度不为零
+判断变量a为空最好的方法是：[  -z string ]
+
+[root@V1 ~]# type  test
+test 是 shell 内嵌
+[root@V1 ~]# if test -n "not empty" ; then echo "YES" ; else echo "NO"; fi;
+YES
+[root@V1 ~]# if test -n " " ; then echo "YES" ; else echo "NO"; fi;
+YES
+[root@V1 ~]# if test -n "" ; then echo "YES" ; else echo "NO"; fi;
+NO
+[root@V1 ~]# if test -n  null ; then echo "YES" ; else echo "NO"; fi;
+YES
+
+[root@V1 ~]# if [ -n  "xxx" ]; then echo "true xx" ; else echo "false xx"; fi;
+true xx
+[root@V1 ~]# if [ -n  "  " ]; then echo "true xx" ; else echo "false xx"; fi;
+true xx
+[root@V1 ~]# if [ -n  Null ]; then echo "true xx" ; else echo "false xx"; fi;
+true xx
+[root@V1 ~]# if [ -n  "" ]; then echo "true xx" ; else echo "false xx"; fi;
+false xx
+-------------------　注意空格的影响　－－－－－－－－－－－－－－－－－－
+[root@V1 ~]# if [ -n  ""]; then echo "true xx" ; else echo "false xx"; fi;
+true xx
+[root@V1 ~]# if [ -n  "" ]; then echo "true xx" ; else echo "false xx"; fi;
+false xx
+
+[root@V1 MyProject]# x="sss";if [ -n  $x ];then echo true;else echo  ${x}; fi;
+true
+[root@V1 MyProject]# if [ -n  NULL ];then echo true;else echo  "??"; fi;
+true
+
+
+[root@V1 MyProject]# x="xxx";if [ -z $x ];then echo true;else echo  ${x}; fi
+xxx
+[root@V1 MyProject]# x="";if [ -z $x ];then echo true;else echo  ${x}; fi
+true
+
+
+para1=  
+if [ ! -n "$para1" ]; then  
+  echo "IS NULL"  
+else  
+  echo "NOT NULL"  
+fi    
+
+${parameter:-default} -- 如果变量parameter没被设置, 那么就使用默认值.
+
+if [ "${1:-NULL}" = "A" ]; then fi
+这种写法在shell里叫参数替换
+$1是行参变量，也就是脚本执行时的第一个参数。
+${1:-NULL}意思是当$1为空时，自动将NULL替换成$1所要带入的变量值。
+
+补充: 用=或 == 判断两个字符串相等的方式也不能判断是不存在还是为空值
+a是存在的为空，b是不存在的。
+$[ "$a" == "" ] && echo YES || echo NO
+YES
+$[ "$b" == "" ] && echo YES || echo NO
+YES
+分不清也有分不清的好处，这样容错性倒是加强了，因为大多数不用管到底是不存在空还是存在空.
+
+
+
+　　环境变量     	                                                     描述                                                                          
+　　$HOME	当前用户的家目录
+　　$PATH	以冒号分隔的用来搜索命令的目录列表，决定了 shell 将到哪些目录中去寻找命令或程序
+　　$PS1	命令提示符，通常是 $ 字符，也可以自行设置
+　　$PS2	二级提示符，用来提示后续的输入，通常是 > 字符
+　　$IFS	输入域分隔符。当 shell 读取输入时，它给出用来分隔单词的一组字符，通常是空格、制表符和换行符
+　　$0	shell 脚本的名字
+　　$#	传递给脚本的参数个数
+　　$$	shell 脚本的进程号（PID），脚本程序通常会用它来生成一个唯一的临时文件，如 /tmp/tmpfile_$$
+
+
+[ -f  /var/www/html/deploy/live_version ] && cat  /var/www/html/deploy/live_version  > /var/www/html/deploy/last_version
+echo  ${mypver} > /var/www/html/deploy/live_version
+
+创建两个版本文件
+– live_version:表示当前使用版本
+– last_version:表示上一个版本
+
+
+[root@V1 MyProject]# x1="/var/www/html/deploy/";if [ -d  ${x1} ];then ls  ${x1};fi;
+packages
+
+[root@V1 MyProject]# x1="/var/www/html/deploy/";if [ -d  ${x1} ];then ls  ${x1}"live_version";fi;
+ls: 无法访问/var/www/html/deploy/live_version: 没有那个文件或目录
+
+[root@V1 MyProject]# x1="/var/www/html/deploy/";if [ -d  ${x1} ];then  ls  ${x1}packages;fi;
+Myproject_1.0.tar.gz      Myproject_2.1.tar.gz
+Myproject_1.0.tar.gz.md5  Myproject_2.1.tar.gz.md5
+
+[root@V1 MyProject]# x1="/var/www/html/deploy/";if [ -d  ${x1} ];then  ls  ${x1}+"packages";fi;
+ls: 无法访问/var/www/html/deploy/+packages: 没有那个文件或目录
+
+[root@V1 ~]# x1="/var/www/html/deploy/";
+[root@V1 ~]# ls  ${x1}
+packages
+[root@V1 ~]# ls  ${x1}"packages"
+Myproject_1.0.tar.gz      Myproject_2.1.tar.gz
+Myproject_1.0.tar.gz.md5  Myproject_2.1.tar.gz.md5
+[root@V1 ~]# ls  -l  ${x1}"packages/Myproject_2.1.tar.gz"
+-rw-r--r-- 1 root root 290 5月  18 16:01 /var/www/html/deploy/packages/Myproject_2.1.tar.gz
+[root@V1 ~]# cat   ${x1}"packages/Myproject_2.1.tar.gz.md5"
+2cd0e564d55de2286a4ce6a34d7e29d9
+
+[root@V1 ~]# cat   ${x1}packages/Myproject_2.1.tar.gz.md5
+2cd0e564d55de2286a4ce6a34d7e29d9
+
+[ -f  /var/www/html/deploy/live_version ] && cat  /var/www/html/deploy/live_version  > /var/www/html/deploy/last_version
+echo  ${mypver} > /var/www/html/deploy/live_version
+
+
+[root@V1 ~]# [ -f  ${x1}packages/Myproject_2.1.tar.gz.md5 ] && cat  ${x1}packages/Myproject_2.1.tar.gz.md5
+
+2cd0e564d55de2286a4ce6a34d7e29d9
+
+[root@V1 ~]# yy="testtest  tesetyy"
+[root@V1 ~]# echo  ${yy} >  ${x1}livexx
+[root@V1 ~]# ls  -l  ${x1}
+总用量 4
+-rw-r--r-- 1 root    root     17 5月  18 18:52 livexx
+drwxr-xr-x 2 jenkins jenkins 126 5月  18 16:01 packages
+
+
+[root@V1 ~]# x1="/var/www/html/deploy/";
+[root@V1 ~]# [ -f  ${x1}livexx ] &&  cat  ${x1}livexx
+testtest tesetyy
+
+[root@V1 ~]# [ -f  ${x1}livexx ] &&  cat  ${x1}livexx > ${x1}lastvv
+[root@V1 ~]# cat   ${x1}lastvv
+testtest tesetyy
+
+创建两个版本文件
+– live_version:表示当前使用版本
+– last_version:表示上一个版本
+
+
+http://192.168.1.11:8080/job/mp_live_version/configure
+构建
+    执行shell 命令
+
+x1="/var/www/html/deploy/"
+[ -f  ${x1}live_version ] && cat  ${x1}live_version  > ${x1}last_version
+echo  ${mypver} > /var/www/html/deploy/live_version
+
+
+[ -f  /var/www/html/deploy/live_version ] && cat  /var/www/html/deploy/live_version  > /var/www/html/deploy/last_version
+echo  ${mypver} > /var/www/html/deploy/live_version
+
+
+应用服务器可以查看live_version决定是不是要发布
+新版本
+• 如果新版本有问题,应用服务器可以根据
+last_version回滚到前一版本
+
+[root@V1 MyProject]# ls  /var/www/html/deploy/
+packages
+[root@V1 MyProject]# ls  /var/www/html/deploy/packages/
+Myproject_1.0.tar.gz      Myproject_2.1.tar.gz
+Myproject_1.0.tar.gz.md5  Myproject_2.1.tar.gz.md5
+
+
+
+http://192.168.1.11:8080/job/mp_live_version/2/console
+成功控制台输出
+
+Started by user admin
+Building in workspace /var/lib/jenkins/workspace/mp_live_version
+[mp_live_version] $ /bin/sh -xe /tmp/jenkins4821798399217408778.sh
++ x1=/var/www/html/deploy/
++ '[' -f /var/www/html/deploy/live_version ']'
++ echo 1.0
+Finished: SUCCESS
+
+-----------------------------------------
+
+http://192.168.1.11:8080/job/mp_live_version/3/console
+成功控制台输出
+
+Started by user admin
+Building in workspace /var/lib/jenkins/workspace/mp_live_version
+[mp_live_version] $ /bin/sh -xe /tmp/jenkins7107109034437301414.sh
++ x1=/var/www/html/deploy/
++ '[' -f /var/www/html/deploy/live_version ']'
++ cat /var/www/html/deploy/live_version
++ echo 2.0
+Finished: SUCCESS
+
+
+
+
+[root@V1 MyProject]# ls  /var/www/html/deploy/
+live_version  packages
+
+[root@V1 MyProject]# cat   /var/www/html/deploy/live_version 
+1.0
+[root@V1 MyProject]# ll  /var/www/html/deploy/live_version
+-rw-r--r-- 1 root root 4 5月  18 19:21 /var/www/html/deploy/live_version
+
+[root@V1 MyProject]# ls  /var/www/html/deploy/
+last_version  live_version  packages
+
+[root@V1 MyProject]# ll  /var/www/html/deploy/l*
+-rw-r--r-- 1 root root 4 5月  18 19:27 /var/www/html/deploy/last_version
+-rw-r--r-- 1 root root 4 5月  18 19:27 /var/www/html/deploy/live_version
+
+[root@V1 MyProject]# cat   /var/www/html/deploy/last_version 
+1.0
+[root@V1 MyProject]# cat   /var/www/html/deploy/live_version 
+2.0
+
+http://192.168.1.11/deploy/last_version
+1.0
+
+192.168.1.11/deploy/live_version
+2.0
+[root@V1 ~]# grep  -n  ^DocumentRoot /etc/httpd/conf/httpd.conf 
+119:DocumentRoot "/var/www/html"
+
+[root@V1 MyProject]# cat   /var/www/html/deploy/packages/Myproject_2.1.tar.gz.md5
+2cd0e564d55de2286a4ce6a34d7e29d9
+
+
+http://192.168.1.11/deploy/packages/
+
+Index of /deploy/packages
+[ICO]	Name	Last modified	Size	Description
+[PARENTDIR]	Parent Directory 	 	- 	 
+[ ]	Myproject_1.0.tar.gz 	2019-05-18 15:56 	191 	 
+[ ]	Myproject_1.0.tar.gz..>	2019-05-18 15:56 	33 	 
+[ ]	Myproject_2.1.tar.gz 	2019-05-18 16:01 	290 	 
+[ ]	Myproject_2.1.tar.gz..>	2019-05-18 16:01 	33 	 
+
+192.168.1.11/deploy/packages/Myproject_2.1.tar.gz.md5
+http://192.168.1.11/deploy/packages/Myproject_1.0.tar.gz.md5
+
+[root@V1 MyProject]# ls  /var/www/html/deploy/packages/
+Myproject_1.0.tar.gz      Myproject_2.1.tar.gz
+Myproject_1.0.tar.gz.md5  Myproject_2.1.tar.gz.md5
+
+[root@V1 MyProject]# cat  /var/www/html/deploy/packages/Myproject_1.0.tar.gz.md5 
+5bae1cf3cfc66e6d96d8c378473503ac
+
+[root@V1 MyProject]# md5sum   /var/www/html/deploy/packages/Myproject_1.0.tar.gz
+5bae1cf3cfc66e6d96d8c378473503ac  /var/www/html/deploy/packages/Myproject_1.0.tar.gz
+
+[student@room10pc15 ~]$ tar  -xJf  '/home/student/桌面/nsd_2018.tar.xz' 
+
+
+http://192.168.1.11/deploy/
+http://192.168.1.11/deploy/last_version
+1.0
+http://192.168.1.11/deploy/live_version
+2.0
+
+http://192.168.1.11/deploy/packages/
+http://192.168.1.11/deploy/packages/Myproject_1.0.tar.gz
+http://192.168.1.11/deploy/packages/Myproject_1.0.tar.gz.md5
+
+http://192.168.1.11/deploy/packages/Myproject_2.1.tar.gz
+http://192.168.1.11/deploy/packages/Myproject_2.1.tar.gz.md5
+
+[root@V1 ~]# ls  /var/www/html/deploy/
+last_version  live_version  packages
+[root@V1 ~]# ls  /var/www/html/deploy/packages/
+Myproject_1.0.tar.gz      Myproject_2.1.tar.gz
+Myproject_1.0.tar.gz.md5  Myproject_2.1.tar.gz.md5
+
+[root@V1 ~]# cat   /var/www/html/deploy/packages/Myproject_1.0.tar.gz.md5 
+5bae1cf3cfc66e6d96d8c378473503ac
+[root@V1 ~]# cat   /var/www/html/deploy/packages/Myproject_2.1.tar.gz.md5 
+2cd0e564d55de2286a4ce6a34d7e29d9
+"""
+import os, requests, wget, hashlib, tarfile, sys
+sys.stdout.write('\033[32;46;1m__name__ is %s\n\033[0m' % __name__)
+
+
+[root@V1 MyProject]# vim    deployjenkins.py
+
+[root@V1 MyProject]# python3  deployjenkins.py
+__name__ is __main__
+sys.argv is ['deployjenkins.py']
+<class 'requests.models.Response'>
+<Response [200]>
+
+
+ver = 2.0
+
+[root@V1 MyProject]# 
+
+
+[root@V1 MyProject]# scp  -P 7920  deployjenkins.py   student@192.168.1.254:'/home/student/git' 
+student@192.168.1.254's password: tedu
+deployjenkins.py                                100% 2124     4.9MB/s   00:00 
+
+
+
+
+
+
+
+
+
