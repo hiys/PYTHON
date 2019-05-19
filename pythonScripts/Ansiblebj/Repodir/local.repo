@@ -1,0 +1,5 @@
+[local]
+name=CentOS7-1804.iso
+baseurl=ftp://192.168.1.254/centos-1804
+enabled=1
+gpgcheck=0

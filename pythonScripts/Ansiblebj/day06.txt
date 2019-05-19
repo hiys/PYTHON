@@ -1,0 +1,179 @@
+ansible
+一、安装
+1、在线安装
+# pip3 install ansible
+2、使用本地包
+# cd ansible_pkg/
+# pip3 install *
+二、准备三台虚拟机，用于测试。配置IP地址和主机名
+[root@room8pc16 ~]# for i in {4..6}
+> do
+> virsh start rh7_node$i
+> done
+# 连接虚拟机控制台，退出时按ctrl+]
+[root@room8pc16 ~]# virsh console rh7_node4
+三、扫描远程服务器的密钥并存储
+[root@room8pc16 ~]# ssh-keyscan 192.168.4.{4..6} node{4..6} node{4..6}.tedu.cn >> /root/.ssh/known_hosts
+四、使用ansible
+1、创建工作目录
+[root@room8pc16 day06]# mkdir myansi
+[root@room8pc16 day06]# cd myansi
+2、创建配置文件
+[root@room8pc16 myansi]# vim ansible.cfg
+[defaults]
+inventory = hosts
+remote_user = root
+3、创建主机清单文件
+[root@room8pc16 myansi]# vim hosts
+[dbservers]
+node4.tedu.cn
+
+[webservers]
+node5.tedu.cn
+node6.tedu.cn
+4、配置名称解析
+[root@room8pc16 myansi]# for i in {1..254}
+> do
+> echo -e "192.168.4.$i\tnode$i.tedu.cn\tnode$i" >> /etc/hosts
+> done
+5、测试ansible
+[root@room8pc16 myansi]# ansible all -m ping -k
+6、ad-hoc临时命令
+# ansible 主机(组) -m 模块 -a 参数
+[root@room8pc16 myansi]# ansible webservers -m shell -a "id root" -k
+7、修改vim编辑器的行为
+[root@room8pc16 ~]# vim ~/.vimrc
+set ai
+set ts=4
+set et
+autocmd FileType yaml setlocal sw=2 ts=2 et ai
+8、ansible模块
+[root@room8pc16 myansi]# ansible-doc -l | wc -l
+[root@room8pc16 myansi]# ansible-doc -l | grep auth
+[root@room8pc16 myansi]# ansible-doc authorized_key
+9、通过playbook和authorized_key模块实现免密登陆
+[root@room8pc16 myansi]# vim ssh_key.yml
+---
+- name: upload ssh key
+  hosts: all
+  tasks:
+    - name: Set authorized key
+      authorized_key:
+        user: root
+        state: present
+        key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+[root@room8pc16 myansi]# ansible-playbook --syntax-check ssh_key.yml
+[root@room8pc16 myansi]# ansible-playbook ssh_key.yml -k
+[root@room8pc16 myansi]# ansible all -m ping
+10、通过playbook上传yum配置文件
+[root@room8pc16 myansi]# mkdir files
+[root@room8pc16 myansi]# vim files/server.repo
+[root@room8pc16 myansi]# vim yum_config.yml
+---
+- name: upload yum config file
+  hosts: all
+  tasks:
+    - name: copy server.repo to servers
+      copy:
+        src: files/server.repo
+        dest: /etc/yum.repos.d/server.repo
+[root@room8pc16 myansi]# ansible-playbook  yum_config.yml
+11、在webservers上安装httpd/php/php-mysql并启动httpd服务；
+在dbservers上安装mariadb-server并启动mariadb服务
+[root@room8pc16 myansi]# vim lamp.yml
+---
+- name: config webservers
+  hosts: webservers
+  tasks:
+    - name: install web pkgs
+      yum:
+        name: [httpd, php, php-mysql]
+        state: latest
+    - name: config web service
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+- name: config dbservers
+  hosts: dbservers
+  tasks:
+    - name: install db pkgs
+      yum:
+        name: mariadb-server
+        state: latest
+    - name: config db service
+      service:
+        name: mariadb
+        state: started
+        enabled: yes
+[root@room8pc16 myansi]# ansible-playbook  lamp.yml
+
+
+
+http://docs.ansible.com/ ->
+https://docs.ansible.com/ansible/latest/index.html
+搜索python api -> 找到python api后，把example中的代码复制到pycharm中
+
+命名元组：基于标准的元组，为每一个下标取名
+>>> from collections import namedtuple
+>>> Point = namedtuple('Point', ['x', 'y', 'z'])
+>>> a = Point(10, 15, 100)
+>>> type(a)
+<class '__main__.Point'>
+>>> a[0]
+10
+>>> a[1]
+15
+>>> a[:2]
+(10, 15)
+>>> a.x
+10
+>>> a.y
+15
+>>> a.z
+100
+
+
+编写ansible模块
+1、创建模块目录
+[root@room8pc16 day06]# mkdir ansi_mods
+2、设置环境变量
+[root@room8pc16 ansi_mods]# export ANSIBLE_LIBRARY=/var/ftp/nsd_2018/nsd1807/devops/day06/ansi_mods
+3、在环境变量目录下创建模块
+4、给模块加上可执行权限
+[root@room8pc16 day06]# chmod +x ansi_mods/remote_copy.py
+5、测试
+[root@room8pc16 day06]# cd myansi/
+[root@room8pc16 myansi]# ansible webservers -m remote_copy -a "yuan=/etc/hosts mubiao=/tmp/zhuji.doc"
+
+ansible-cmdb
+1、安装
+# cd ansible-cmdb_pkgs/
+# pip3 install *
+2、修改ansible-cmdb
+# vim /usr/local/bin/ansible-cmdb
+PY_BIN=$(which python3)
+3、收集远程服务器的信息
+[root@room8pc16 myansi]# ansible all -m setup --tree /tmp/out
+4、利用ansible-cmdb将服务器信息生成网页
+# ansible-cmdb /tmp/out/ > /tmp/hosts.html
+# firefox /tmp/hosts.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

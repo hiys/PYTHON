@@ -1,0 +1,1086 @@
+
+ansible
+一、安装
+1、在线安装
+# pip3 install ansible
+2、使用本地包
+# cd ansible_pkg/
+# pip3 install *
+二、准备三台虚拟机，用于测试。配置IP地址和主机名
+[root@room8pc16 ~]# for i in {4..6}
+> do
+> virsh start rh7_node$i
+> done
+# 连接虚拟机控制台，退出时按ctrl+]
+[root@room8pc16 ~]# virsh console rh7_node4
+三、扫描远程服务器的密钥并存储
+[root@room8pc16 ~]# ssh-keyscan 192.168.4.{4..6} node{4..6} node{4..6}.tedu.cn >> /root/.ssh/known_hosts
+四、使用ansible
+1、创建工作目录
+[root@room8pc16 day06]# mkdir myansi
+[root@room8pc16 day06]# cd myansi
+2、创建配置文件
+[root@room8pc16 myansi]# vim ansible.cfg
+[defaults]
+inventory = hosts
+remote_user = root
+3、创建主机清单文件
+[root@room8pc16 myansi]# vim hosts
+[dbservers]
+node4.tedu.cn
+
+[webservers]
+node5.tedu.cn
+node6.tedu.cn
+4、配置名称解析
+[root@room8pc16 myansi]# for i in {1..254}
+> do
+> echo -e "192.168.4.$i\tnode$i.tedu.cn\tnode$i" >> /etc/hosts
+> done
+5、测试ansible
+[root@room8pc16 myansi]# ansible all -m ping -k
+6、ad-hoc临时命令
+# ansible 主机(组) -m 模块 -a 参数
+[root@room8pc16 myansi]# ansible webservers -m shell -a "id root" -k
+7、修改vim编辑器的行为
+[root@room8pc16 ~]# vim ~/.vimrc
+set ai
+set ts=4
+set et
+autocmd FileType yaml setlocal sw=2 ts=2 et ai
+8、ansible模块
+[root@room8pc16 myansi]# ansible-doc -l | wc -l
+[root@room8pc16 myansi]# ansible-doc -l | grep auth
+[root@room8pc16 myansi]# ansible-doc authorized_key
+9、通过playbook和authorized_key模块实现免密登陆
+[root@room8pc16 myansi]# vim ssh_key.yml
+---
+- name: upload ssh key
+  hosts: all
+  tasks:
+    - name: Set authorized key
+      authorized_key:
+        user: root
+        state: present
+        key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+[root@room8pc16 myansi]# ansible-playbook --syntax-check ssh_key.yml
+[root@room8pc16 myansi]# ansible-playbook ssh_key.yml -k
+[root@room8pc16 myansi]# ansible all -m ping
+10、通过playbook上传yum配置文件
+[root@room8pc16 myansi]# mkdir files
+[root@room8pc16 myansi]# vim files/server.repo
+[root@room8pc16 myansi]# vim yum_config.yml
+---
+- name: upload yum config file
+  hosts: all
+  tasks:
+    - name: copy server.repo to servers
+      copy:
+        src: files/server.repo
+        dest: /etc/yum.repos.d/server.repo
+[root@room8pc16 myansi]# ansible-playbook  yum_config.yml
+11、在webservers上安装httpd/php/php-mysql并启动httpd服务；
+在dbservers上安装mariadb-server并启动mariadb服务
+[root@room8pc16 myansi]# vim lamp.yml
+---
+- name: config webservers
+  hosts: webservers
+  tasks:
+    - name: install web pkgs
+      yum:
+        name: [httpd, php, php-mysql]
+        state: latest
+    - name: config web service
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+- name: config dbservers
+  hosts: dbservers
+  tasks:
+    - name: install db pkgs
+      yum:
+        name: mariadb-server
+        state: latest
+    - name: config db service
+      service:
+        name: mariadb
+        state: started
+        enabled: yes
+[root@room8pc16 myansi]# ansible-playbook  lamp.yml
+
+
+
+http://docs.ansible.com/ ->
+https://docs.ansible.com/ansible/latest/index.html
+搜索python api -> 找到python api后，把example中的代码复制到pycharm中
+
+命名元组：基于标准的元组，为每一个下标取名
+>>> from collections import namedtuple
+>>> Point = namedtuple('Point', ['x', 'y', 'z'])
+>>> a = Point(10, 15, 100)
+>>> type(a)
+<class '__main__.Point'>
+>>> a[0]
+10
+>>> a[1]
+15
+>>> a[:2]
+(10, 15)
+>>> a.x
+10
+>>> a.y
+15
+>>> a.z
+100
+
+
+编写ansible模块
+1、创建模块目录
+[root@room8pc16 day06]# mkdir ansi_mods
+2、设置环境变量
+[root@room8pc16 ansi_mods]# export ANSIBLE_LIBRARY=/var/ftp/nsd_2018/nsd1807/devops/day06/ansi_mods
+3、在环境变量目录下创建模块
+4、给模块加上可执行权限
+[root@room8pc16 day06]# chmod +x ansi_mods/remote_copy.py
+5、测试
+[root@room8pc16 day06]# cd myansi/
+[root@room8pc16 myansi]# ansible webservers -m remote_copy -a "yuan=/etc/hosts mubiao=/tmp/zhuji.doc"
+
+ansible-cmdb
+1、安装
+# cd ansible-cmdb_pkgs/
+# pip3 install *
+2、修改ansible-cmdb
+# vim /usr/local/bin/ansible-cmdb
+PY_BIN=$(which python3)
+3、收集远程服务器的信息
+[root@room8pc16 myansi]# ansible all -m setup --tree /tmp/out
+4、利用ansible-cmdb将服务器信息生成网页
+# ansible-cmdb /tmp/out/ > /tmp/hosts.html
+# firefox /tmp/hosts.html
+
+
+[root@V1 ~]# mkdir  ansible
+[root@V1 ~]# cd   ansible/
+[root@V1 ansible]# 
+[root@V1 ansible]# python
+Python 2.7.5 (default, Apr 11 2018, 07:36:10) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-28)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+[root@V1 ansible]# python3
+Python 3.6.7 (default, May 16 2019, 19:00:38) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-36)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+[root@V1 ansible]# 
+
+注意：强烈建议升级python版本到2.6以上，不然运行会出错或者有些功能会没有，
+在编译安装其他包的时候也会因为兼容问题报错。
+
+https://www.python.org/
+Python  PSF   Docs  PyPI  Jobs   Community
+
+Donate  Search This Site 
+Search                  GO             Socialize
+
+https://www.python.org/ftp/python/
+Index of /ftp/python/
+
+../
+2.0/                                               14-Feb-2019 14:53                   -
+2.0.1/                                             06-Aug-2001 02:14                   -
+..............
+2.7.5/                                             23-Jul-2013 12:18                   -
+2.7.6/                                             10-Nov-2013 18:45                   -
+2.7.7/                                             02-Jul-2014 04:32                   -
+2.7.8/                                             02-Jul-2014 04:42                   -
+2.7.9/                                             10-Dec-2014 22:12                   -
+3.0/                                               20-Mar-2014 22:00                   -
+..................
+3.6.7/                                             20-Oct-2018 15:25                   -
+3.6.8/                                             24-Dec-2018 08:27                   -
+3.7.0/                                             27-Jun-2018 06:12                   -
+3.7.1/                                             20-Oct-2018 15:28                   -
+3.7.2/                                             09-Jan-2019 03:55                   -
+3.7.3/                                             25-Mar-2019 23:04                   -
+3.8.0/                                             07-May-2019 14:29                   -
+
+一月：Jan . 　　　一月：January
+二月：Feb. 　　　　二月：February
+三月：Mar. 　　　　三月：March
+四月：Apr. 　　　　四月：April
+五月：May. 　　　　五月：May
+六月：Jun. 　　　　六月：June
+七月：Jul. 　　　　七月：July
+八月：Aug. 　　　　八月：August
+九月：Sept.　　　　九月：September
+十月：Oct. 　　　　十月：October
+十一月：Nov. 　　十一月：November
+十二月：Dec．　　十二月：December
+
+一月 Jan. January	二月 Feb. February	三月 Mar. March	四月 Apr. April
+五月 May. May	六月 June. June	七月 July. July	八月 Aug. Aguest
+九月 Sept. September	十月 Oct. October	十一月 Nov. November	十二月 Dec. December
+缩写：正规的英语中六月、七月不缩写，九月的缩写是4个字母，其他月份3个字母。
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+
+[root@V1 ansible]# type      wget 
+wget 是 /usr/bin/wget
+
+[root@V1 ansible]# rpm  -qf  /usr/bin/wget 
+wget-1.14-15.el7_4.1.x86_64
+
+[root@V1 ansible]# type     gpg
+
+gpg 是 /usr/bin/gpg
+
+[root@V1 ansible]# rpm  -qf  /usr/bin/gpg
+gnupg2-2.0.22-4.el7.x86_64
+
+[root@V1 ansible]# ll   /usr/bin/gpg
+lrwxrwxrwx. 1 root root 4 1月  26 12:34 /usr/bin/gpg -> gpg2
+
+[root@V1 ansible]# ll   /usr/bin/gpg2
+-rwxr-xr-x. 1 root root 749928 11月  6 2016 /usr/bin/gpg2
+
+[root@V1 ansible]# ll   /usr/bin/wget
+-rwxr-xr-x 1 root root 418736 10月 27 2017 /usr/bin/wget
+
+[root@V1 ansible]# wget  https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz
+
+--2019-05-19 16:07:58--  https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz
+正在解析主机 www.python.org (www.python.org)... 151.101.228.223, 2a04:4e42:36::223
+..............................
+2019-05-19 16:09:11 (200 KB/s) - 已保存 “Python-2.7.8.tgz” [14846119/14846119])
+
+[root@V1 ansible]# wget  https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz.asc
+
+--2019-05-19 16:10:12--  https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz.asc
+...............................
+2019-05-19 16:10:14 (1.24 KB/s) - 已保存 “Python-2.7.8.tgz.asc” [836/836])
+
+
+[root@V1 ansible]# wget   https://www.python.org/static/files/pubkeys.txt
+
+--2019-05-19 16:37:40--  https://www.python.org/static/files/pubkeys.txt
+.............................
+2019-05-19 16:37:57 (48.7 KB/s) - 已保存 “pubkeys.txt” [750017/750017])
+
+[root@V1 ansible]# 
+
+
+
+https://www.python.org/ftp/python/2.7.8/
+Index of /ftp/python/2.7.8/
+
+../
+Python-2.7.8.tar.xz                                30-Jun-2014 02:41            10525244
+Python-2.7.8.tar.xz.asc                            30-Jun-2014 03:58                 836
+Python-2.7.8.tgz                                   30-Jun-2014 02:42            14846119
+Python-2.7.8.tgz.asc                               30-Jun-2014 03:58                 836
+
+asc文件　是一个文本文件，用来做数字签名的
+PGP是"PrettyGood Privacy"的缩写。
+是一个基于 RSA 公钥加密体系的邮件加密软件，它提出了公共钥匙或不对称文件加密和数字签名。
+PGP 成为目前几乎最流行的公钥加密软件包
+
+到你下载pcsc-lite-1.4.102.tar.bz2.asc文件的地方
+找到公钥并下载（一般为KEY），这是软件加密的公钥，
+
+然后使用gpg --import KEY导入公钥，
+然后使用gpg --verify pcsc-lite-1.4.102.tar.bz2.asc　 pcsc-lite-1.4.102.tar.bz2
+对pcsc-lite-1.4.102.tar.bz2文件进行验证，
+如果输出为gpg ok,
+则说明文件在传输的过程中没有篡改或者是传错。
+在使用gpg导入公钥和验证文件的时候，
+将文件所在目录作为当前工作目录，如果不是则指定文件的路径。
+
+https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tar.xz
+https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tar.xz.asc
+
+Python-2.7.8.tgz                                   30-Jun-2014 02:42            14846119
+Python-2.7.8.tgz.asc                               30-Jun-2014 03:58                 836
+
+https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz
+https://www.python.org/ftp/python/2.7.8/Python-2.7.8.tgz.asc
+
+[root@V1 ansible]# ll
+总用量 15240
+-rw-r--r-- 1 root root   750017 5月  14 23:30 pubkeys.txt
+-rw-r--r-- 1 root root 14846119 6月  30 2014 Python-2.7.8.tgz
+-rw-r--r-- 1 root root      836 6月  30 2014 Python-2.7.8.tgz.asc
+
+[root@V1 ansible]# file   Python-2.7.8.tgz.asc 
+Python-2.7.8.tgz.asc: PGP signature
+
+wget https://www.python.org/static/files/pubkeys.txt
+
+https://www.python.org/downloads/
+https://www.python.org/static/files/pubkeys.txt　#公钥
+https://www.python.org/static/files/pubkeys.txt
+
+You can import the release manager public keys by either downloading [the public key file from here 点击链接] and then running
+您可以通过下载[公钥文件从此处]导入发布管理器公钥，然后运行。 
+
+gpg --import pubkeys.txt
+
+or by grabbing the individual keys directly from the keyserver network by running this command:
+或者通过运行以下命令直接从keyserver网络获取各个密钥：
+
+gpg --recv-keys 10250568 6A45C816 36580288 7D9DC8D2 18ADD4FF A4135B38 A74B06BF EA5BBD71 E6DF025C AA65421D 6F5E1540 F73C700D 487034E5
+
+在特定于版本的下载页面上，您应该看到指向可下载文件和分离的签名文件的链接。
+要验证下载的真实性，请获取两个文件，然后运行以下命令：
+
+gpg --verify Python-3.6.2.tgz.asc
+
+请注意，您必须使用签名文件的名称，并且应该使用适合您正在验证的下载的名称。
+
+（这些指令面向gnupg和unix命令行用户。欢迎为其他平台和OpenPGP应用程序提供说明。）
+
+
+
+
+
+le]# gpg  --import   pubkeys.txt 
+[root@V1 ansible]# gpg  --import   pubkeys.txt 
+
+gpg: 已创建目录‘/root/.gnupg’
+gpg: 新的配置文件‘/root/.gnupg/gpg.conf’已建立
+gpg: 警告：在‘/root/.gnupg/gpg.conf’里的选项于此次运行期间未被使用
+gpg: 钥匙环‘/root/.gnupg/secring.gpg’已建立
+gpg: 钥匙环‘/root/.gnupg/pubring.gpg’已建立
+gpg: /root/.gnupg/trustdb.gpg：建立了信任度数据库
+gpg: 密钥 6F5E1540：公钥“Ned Deily <nad@acm.org>”已导入
+...................
+gpg: 密钥 6A45C816：公钥“Anthony Baxter <anthony@interlink.com.au>”已导入
+gpg: 合计被处理的数量：31
+gpg:           已导入：31  (RSA: 25)
+gpg: 没有找到任何绝对信任的密钥
+[root@V1 ansible]# echo  $?
+0
+[root@V1 ansible]# gpg --recv-keys 10250568 6A45C816 36580288 7D9DC8D2 18ADD4FF A4135B38 A74B06BF EA5BBD71 E6DF025C AA65421D 6F5E1540 F73C700D 487034E5
+
+gpg: 下载密钥‘10250568’，从 hkp 服务器 keys.gnupg.net
+.................
+gpg: 密钥 487034E5：“Totally Legit Signing Key <mallory@example.org>”未改变
+gpg: 合计被处理的数量：31
+gpg:           未改变：31
+[root@V1 ansible]# echo  $?
+0
+[root@V1 ansible]# ls
+pubkeys.txt  Python-2.7.8.tgz  Python-2.7.8.tgz.asc
+
+[root@V1 ansible]# file    Python-2.7.8.tgz
+
+Python-2.7.8.tgz: gzip compressed data, from Unix, last modified: Mon Jun 30 10:12:10 2014, max compression
+
+[root@V1 ansible]# file    Python-2.7.8.tgz.asc 
+
+Python-2.7.8.tgz.asc: PGP signature
+
+
+[root@V1 ansible]# gpg   --verify  Python-2.7.8.tgz.asc   Python-2.7.8.tgz
+
+gpg: 于 2014年06月30日 星期一 10时34分56秒 CST 创建的签名，使用 RSA，钥匙号 18ADD4FF
+gpg: 完好的签名，来自于“Benjamin Peterson <bp@benjamin.pe>”
+gpg:               亦即“Benjamin Peterson <bp@benjamin-peterson.org>”
+gpg:               亦即“Benjamin Peterson <benjamin@python.org>”
+gpg: 警告：这把密钥未经受信任的签名认证！
+gpg:       没有证据表明这个签名属于它所声称的持有者。
+主钥指纹： C01E 1CAD 5EA2 C4F0 B8E3  5715 04C3 67C2 18AD D4FF
+
+[root@V1 ansible]# echo  $?
+0
+[root@V1 ansible]# ls
+pubkeys.txt  Python-2.7.8.tgz  Python-2.7.8.tgz.asc
+
+[root@V1 ansible]# tar  xzvf   Python-2.7.8.tgz
+Python-2.7.8/
+Python-2.7.8/Grammar/
+Python-2.7.8/Grammar/Grammar
+Python-2.7.8/config.guess
+Python-2.7.8/RISCOS/
+.................
+Python-2.7.8/PC/
+Python-2.7.8/PC/make_versioninfo.c
+Python-2.7.8/PC/empty.c
+.............
+Python-2.7.8/Modules/
+Python-2.7.8/Modules/main.c
+.........
+Python-2.7.8/Misc/RPM/
+Python-2.7.8/Misc/RPM/README
+Python-2.7.8/Misc/RPM/python-2.7.spec
+Python-2.7.8/Misc/valgrind-python.supp
+Python-2.7.8/Misc/README.klocwork
+[root@V1 ansible]# 
+[root@V1 ansible]# ls
+pubkeys.txt  Python-2.7.8  Python-2.7.8.tgz  Python-2.7.8.tgz.asc
+[root@V1 ansible]# cd  Python-2.7.8/
+[root@V1 Python-2.7.8]# ls
+config.guess  Doc         LICENSE          Objects        Python
+config.sub    Grammar     Mac              Parser         README
+configure     Include     Makefile.pre.in  PC             RISCOS
+configure.ac  install-sh  Misc             PCbuild        setup.py
+Demo          Lib         Modules          pyconfig.h.in  Tools
+[root@V1 Python-2.7.8]# 
+
+[root@V1 Python-2.7.8]# ls  PC/
+bdist_wininst     getpathp.c          pyc.ico        VC6
+config.c          icons               pyconfig.h     VS7.1
+dllbase_nt.txt    icons.mak           pycon.ico      VS8.0
+dl_nt.c           icons.rc            py.ico         w9xpopen.c
+empty.c           import_nt.c         python_exe.rc  WinMain.c
+errmap.h          make_versioninfo.c  python.mk      _winreg.c
+errmap.mak        _msi.c              python_nt.rc   winsound.c
+example_nt        msvcrtmodule.c      readme.txt
+frozen_dllmain.c  os2emx              _subprocess.c
+generrmap.c       os2vacpp            testpy.py
+
+[root@V1 Python-2.7.8]# ll   PC/make_versioninfo.c 
+-rw-r--r-- 1 1000 1000 1252 6月  30 2014 PC/make_versioninfo.c
+
+
+[root@V1 Python-2.7.8]# cat    PC/make_versioninfo.c
+#include <stdio.h>
+#include "patchlevel.h"
+/*
+ * This program prints out an include file containing fields required to build
+.....................
+ */
+int main(int argc, char **argv)
+{
+    printf("/* This file created by make_versioninfo.exe */\n");
+    printf("#define FIELD3 %d\n",
+        PY_MICRO_VERSION*1000 + PY_RELEASE_LEVEL*10 + PY_RELEASE_SERIAL);
+    printf("#define MS_DLL_ID \"%d.%d\"\n",
+           PY_MAJOR_VERSION, PY_MINOR_VERSION);
+    printf("#ifndef _DEBUG\n");
+    printf("#define PYTHON_DLL_NAME \"python%d%d.dll\"\n",
+           PY_MAJOR_VERSION, PY_MINOR_VERSION);
+    printf("#else\n");
+    printf("#define PYTHON_DLL_NAME \"python%d%d_d.dll\"\n",
+           PY_MAJOR_VERSION, PY_MINOR_VERSION);
+    printf("#endif\n");
+    return 0;
+}
+[root@V1 Python-2.7.8]# 
+
+[root@V1 Python-2.7.8]# scp  -P 7920  PC/make_versioninfo.c   student@192.168.1.254:/home/student/Ansiblebj/
+
+student@192.168.1.254's password: tedu
+
+[root@V1 Python-2.7.8]# ls
+config.guess  Doc         LICENSE          Objects        Python
+config.sub    Grammar     Mac              Parser         README
+configure     Include     Makefile.pre.in  PC             RISCOS
+configure.ac  install-sh  Misc             PCbuild        setup.py
+Demo          Lib         Modules          pyconfig.h.in  Tools
+[root@V1 Python-2.7.8]# pwd
+/root/ansible/Python-2.7.8
+
+[root@V1 Python-2.7.8]# ./configure   --prefix=/usr/local^C
+make
+make install
+
+[root@V1 ansible]# ls  -ld  /usr/local/include/python3.6m/
+drwxr-xr-x 2 root root 4096 5月  16 19:03 /usr/local/include/python3.6m/
+
+将python头文件拷贝到标准目录，以避免编译ansible时，找不到所需的头文件
+cd /usr/local/include/python2.7
+cp -a ./* /usr/local/include/
+
+备份旧版本的python，并符号链接新版本的python
+cd /usr/bin
+mv python python.old
+ln -s /usr/local/bin/python2.7 /usr/local/bin/python
+
+rm -f /usr/bin/python && cp /usr/local/bin/python2.7 /usr/bin/python
+
+[root@V1 ansible]# ll  /usr/bin/python
+lrwxrwxrwx. 1 root root 7 1月  26 12:33 /usr/bin/python -> python2
+[root@V1 ansible]# ll  /usr/bin/python2
+lrwxrwxrwx. 1 root root 9 1月  26 12:33 /usr/bin/python2 -> python2.7
+[root@V1 ansible]# ll  /usr/bin/python2.7 
+-rwxr-xr-x. 1 root root 7216 4月  11 2018 /usr/bin/python2.7
+
+[root@V1 ansible]# ll  /usr/bin/yum 
+-rwxr-xr-x. 1 root root 801 4月  13 2018 /usr/bin/yum
+
+[root@V1 ansible]# head   -5    /usr/bin/yum
+#!/usr/bin/python
+import sys
+try:
+    import yum
+except ImportError:
+
+[root@V1 ansible]# tail   -5    /usr/bin/yum
+    import yummain
+    yummain.user_main(sys.argv[1:], exit_code=True)
+except KeyboardInterrupt, e:
+    print >> sys.stderr, "\n\nExiting on user cancel."
+    sys.exit(1)
+[root@V1 ansible]# ll  /usr/bin/yum 
+-rwxr-xr-x. 1 root root 801 4月  13 2018 /usr/bin/yum
+
+
+修改yum脚本，使其指向旧版本的python，以避免其无法运行
+vim /usr/bin/yum
+!/usr/bin/python --> #!/usr/bin/python2.4
+
+Tips :若python版本已经为2.6或以上，则不需要再重装python，
+只是还需要安装python开发包：python-dev(有的操作系统下为python-devel)
+yum install python-devel
+or
+yum install python-dev
+
+[root@V1 Python-2.7.8]# 注意　有许多细节需要考虑，暂时不升级python2版本了　！！！！
+=====================================================
+
+[root@V1 Python-2.7.8]# cd -
+/root/ansible
+[root@V1 ansible]# ls
+pubkeys.txt  Python-2.7.8  Python-2.7.8.tgz  Python-2.7.8.tgz.asc
+
+
+ansible安装
+https://releases.ansible.com/ansible/
+Index of /ansible
+
+Icon  Name                                 Last modified      Size  Description
+[PARENTDIR] Parent Directory                                          -   
+[DIR] rpm/                                 2017-09-08 10:45    -   
+[   ] ansible-1.1.tar.gz                   2013-06-10 20:02  294K  
+．．．．．．．．．．．．．．
+[   ] ansible-2.8.0rc2.tar.gz              2019-05-02 17:21   14M  
+[   ] ansible-2.8.0rc2.tar.gz.sha          2019-05-02 17:21   90   
+[   ] ansible-2.8.0rc3.tar.gz              2019-05-10 18:04   14M  
+[   ] ansible-2.8.0rc3.tar.gz.sha          2019-05-10 18:04   90   
+[   ] ansible-latest.tar.gz                2019-05-16 18:06   14M  
+[   ] ansible-latest.tar.gz.sha            2019-05-16 18:06   87   
+
+
+tar xvzf ansible-1.7.2.tar.gz
+
+cd ansible-1.7.2
+
+python setup.py install
+
+
+https://www.ansible.com/
+https://docs.ansible.com/
+
+1：安装ansible ，选择的是yum 安装，简单，ansible的管理端必须是Linux系统
+首先得安装EPRL源，然后才能安装ansible。
+EPEL是一个软件仓库项目，为RHEL和Centos提供它们默认提供的软件包
+      yum -y install epel-release
+      yum -y install ansible 
+
+[root@V1 ansible]# ls   /etc/yum.repos.d/
+CentOS7-Base-163.repo  jenkins.repo  local.repo  zabbix.repo
+
+[root@V1 ansible]# cat  /etc/yum.repos.d/CentOS7-Base-163.repo 
+# CentOS-Base.repo
+#
+# The mirror system uses the connecting IP address of the client and the
+# update status of each mirror to pick mirrors that are updated to and
+# geographically close to the client.  You should use this for CentOS updates
+# unless you are manually picking other mirrors.
+#
+# If the mirrorlist= does not work for you, as a fall back you can try the 
+# remarked out baseurl= line instead.
+#
+#
+[base]
+name=CentOS-7 - Base - 163.com
+#mirrorlist=http://mirrorlist.centos.org/?release=7&arch=$basearch&repo=os
+baseurl=http://mirrors.163.com/centos/7/os/$basearch/
+gpgcheck=1
+gpgkey=http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7
+enabled=1
+
+#released updates
+[updates]
+name=CentOS-7 - Updates - 163.com
+#mirrorlist=http://mirrorlist.centos.org/?release=7&arch=$basearch&repo=updates
+baseurl=http://mirrors.163.com/centos/7/updates/$basearch/
+gpgcheck=1
+gpgkey=http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7
+enabled=1
+
+#additional packages that may be useful
+
+[extras]         ########### 注意epel-release yum 源
+name=CentOS-7 - Extras - 163.com
+#mirrorlist=http://mirrorlist.centos.org/?release=7&arch=$basearch&repo=extras
+baseurl=http://mirrors.163.com/centos/7/extras/$basearch/
+gpgcheck=1
+gpgkey=http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7
+enabled=1
+
+#additional packages that extend functionality of existing packages
+[centosplus]
+name=CentOS-7 - Plus - 163.com
+baseurl=http://mirrors.163.com/centos/7/centosplus/$basearch/
+gpgcheck=1
+enabled=1
+gpgkey=http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7
+[root@V1 ansible]# 
+
+[root@V1 ansible]# rpm  -q  centos-release
+centos-release-7-5.1804.el7.centos.x86_64
+[root@V1 ansible]# rpm  -q  centos-release |awk -F "-" '{print $3}'
+7
+[root@V1 ansible]# yum  makecache 
+
+已加载插件：fastestmirror
+Loading mirror speeds from cached hostfile
+base                                              | 3.6 kB     00:00     
+centosplus                                        | 3.4 kB     00:00     
+extras                                            | 3.4 kB     00:00     
+jenkins                                           | 2.9 kB     00:00     
+local                                             | 3.6 kB     00:00     
+updates                                           | 3.4 kB     00:00     
+zabbix                                            | 2.9 kB     00:00     
+zabbix-non-supported                              |  951 B     00:00     
+(1/3): updates/x86_64/prestodelta                   | 681 kB   00:00     
+(2/3): updates/x86_64/other_db                      | 588 kB   00:00     
+(3/3): updates/x86_64/filelists_db                  | 3.7 MB   00:00     
+元数据缓存已建立
+
+[root@V1 ansible]# yum  repolist  |tail -10
+源标识                      源名称                                        状态
+base/x86_64                 CentOS-7 - Base - 163.com                     10,019
+centosplus/x86_64           CentOS-7 - Plus - 163.com                         70
+
+extras/x86_64               CentOS-7 - Extras - 163.com                      413
+
+jenkins                     Jenkins-stable                                    88
+local                       CentOS7-1804.iso                               9,911
+updates/x86_64              CentOS-7 - Updates - 163.com                   1,945
+zabbix/x86_64               Zabbix Official Repository - x86_64              236
+zabbix-non-supported/x86_64 Zabbix Official Repository non-supported - x8      4
+repolist: 22,686
+[root@V1 ansible]# 
+[root@V1 ansible]# yum  list  |grep  epel-release
+epel-release.noarch                       7-11                       extras 
+  
+[root@V1 ansible]# yum   search    epel-release
+已加载插件：fastestmirror
+Loading mirror speeds from cached hostfile
+========================== N/S matched: epel-release ===========================
+epel-release.noarch : Extra Packages for Enterprise Linux repository
+                    : configuration
+
+  名称和简介匹配 only，使用“search all”试试。
+
+[root@V1 ansible]# ls   /etc/yum.repos.d/
+CentOS7-Base-163.repo  jenkins.repo  local.repo  zabbix.repo
+
+[root@V1 ansible]# yum   -y install    epel-release
+.................
+
+已安装:
+  epel-release.noarch 0:7-11                                                    
+
+完毕！
+[root@V1 ansible]# ls  /etc/yum.repos.d/
+CentOS7-Base-163.repo  epel-testing.repo  local.repo
+epel.repo              jenkins.repo       zabbix.repo
+[root@V1 ansible]# ll   /etc/yum.repos.d/
+总用量 24
+-rw-r--r-- 1 root root 1492 5月  16 18:04 CentOS7-Base-163.repo
+-rw-r--r-- 1 root root  951 10月  3 2017 epel.repo
+-rw-r--r-- 1 root root 1050 10月  3 2017 epel-testing.repo
+-rw-r--r-- 1 root root  141 5月  17 15:56 jenkins.repo
+-rw-r--r-- 1 root root   91 5月  16 16:45 local.repo
+-rw-r--r-- 1 root root  410 8月  28 2017 zabbix.repo
+[root@V1 ansible]# 
+[root@V1 ansible]# vim    /etc/yum.repos.d/epel.repo 
+[root@V1 ansible]# cat    /etc/yum.repos.d/epel.repo
+[epel]
+name=Extra Packages for Enterprise Linux 7 - $basearch
+baseurl=http://download.fedoraproject.org/pub/epel/7/$basearch
+metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch
+failovermethod=priority
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+
+[epel-debuginfo]
+name=Extra Packages for Enterprise Linux 7 - $basearch - Debug
+baseurl=http://download.fedoraproject.org/pub/epel/7/$basearch/debug
+metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-debug-7&arch=$basearch
+failovermethod=priority
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+gpgcheck=1
+
+[epel-source]
+name=Extra Packages for Enterprise Linux 7 - $basearch - Source
+baseurl=http://download.fedoraproject.org/pub/epel/7/SRPMS
+metalink=https://mirrors.fedoraproject.org/metalink?repo=epel-source-7&arch=$basearch
+failovermethod=priority
+enabled=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+gpgcheck=1
+[root@V1 ansible]# 
+[root@V1 ansible]# ll   /etc/pki/rpm-gpg/
+总用量 36
+-rw-r--r--  1 root root 9132 11月  9 2016 jenkins.io.key
+-rw-r--r--. 1 root root 1690 4月  29 2018 RPM-GPG-KEY-CentOS-7
+-rw-r--r--. 1 root root 1004 4月  29 2018 RPM-GPG-KEY-CentOS-Debug-7
+-rw-r--r--. 1 root root 1690 4月  29 2018 RPM-GPG-KEY-CentOS-Testing-7
+-rw-r--r--  1 root root 1662 10月  3 2017 RPM-GPG-KEY-EPEL-7
+-rw-r--r--  1 root root 1333 8月  16 2016 RPM-GPG-KEY-ZABBIX
+-rw-r--r--  1 root root 1719 8月  16 2016 RPM-GPG-KEY-ZABBIX-A14FE591
+
+[root@V1 ansible]# vim    /etc/yum.repos.d/epel-testing.repo 
+
+[root@V1 ansible]# grep  -En  "baseurl=|enabled="   /etc/yum.repos.d/epel-testing.repo
+
+3:baseurl=http://download.fedoraproject.org/pub/epel/testing/7/$basearch
+6:enabled=1
+12:baseurl=http://download.fedoraproject.org/pub/epel/testing/7/$basearch/debug
+15:enabled=1
+21:baseurl=http://download.fedoraproject.org/pub/epel/testing/7/SRPMS
+24:enabled=1
+
+[root@V1 ansible]# grep  -En  "baseurl=|enabled="   /etc/yum.repos.d/epel.repo 
+
+3:baseurl=http://download.fedoraproject.org/pub/epel/7/$basearch
+6:enabled=1
+12:baseurl=http://download.fedoraproject.org/pub/epel/7/$basearch/debug
+15:enabled=1
+21:baseurl=http://download.fedoraproject.org/pub/epel/7/SRPMS
+24:enabled=1
+[root@V1 ansible]#
+[root@V1 ansible]# yum   makecache 
+已加载插件：fastestmirror
+Loading mirror speeds from cached hostfile
+epel/x86_64/metalink                                   | 5.9 kB     00:00     
+epel-debuginfo/x86_64/metalink                         | 6.1 kB     00:00     
+epel-source/x86_64/metalink                            | 5.9 kB     00:00     
+epel-testing/x86_64/metalink                           | 6.2 kB     00:00     
+epel-testing-debuginfo/x86_64/metalink                 | 6.3 kB     00:00     
+epel-testing-source/x86_64/metalink                    | 6.1 kB     00:00     
+ * epel: mirrors.aliyun.com
+ * epel-debuginfo: mirrors.aliyun.com
+ * epel-source: mirrors.aliyun.com
+ * epel-testing: mirrors.aliyun.com
+ * epel-testing-debuginfo: mirrors.aliyun.com
+ * epel-testing-source: mirrors.aliyun.com
+base                                                   | 3.6 kB     00:00     
+centosplus                                             | 3.4 kB     00:00     
+epel                                                   | 4.7 kB     00:00     
+epel-debuginfo                                         | 3.0 kB     00:00     
+epel-source                                            | 3.5 kB     00:00     
+epel-testing                                           | 4.7 kB     00:00     
+epel-testing-debuginfo                                 | 3.0 kB     00:00     
+epel-testing-source                                    | 3.5 kB     00:00     
+extras                                                 | 3.4 kB     00:00     
+jenkins                                                | 2.9 kB     00:00     
+local                                                  | 3.6 kB     00:00     
+updates                                                | 3.4 kB     00:00     
+zabbix                                                 | 2.9 kB     00:00     
+zabbix-non-supported                                   |  951 B     00:00     
+元数据缓存已建立
+[root@V1 ansible]# 
+[root@V1 ansible]# yum  repolist  |tail  -16
+源标识                         源名称                                     状态
+base/x86_64                    CentOS-7 - Base - 163.com                  10,019
+centosplus/x86_64              CentOS-7 - Plus - 163.com                      70
+*epel/x86_64                   Extra Packages for Enterprise Linux 7 - x8 13,195
+*epel-debuginfo/x86_64         Extra Packages for Enterprise Linux 7 - x8  2,904
+*epel-source/x86_64            Extra Packages for Enterprise Linux 7 - x8      0
+*epel-testing/x86_64           Extra Packages for Enterprise Linux 7 - Te    687
+*epel-testing-debuginfo/x86_64 Extra Packages for Enterprise Linux 7 - Te     96
+*epel-testing-source/x86_64    Extra Packages for Enterprise Linux 7 - Te      0
+extras/x86_64                  CentOS-7 - Extras - 163.com                   413
+jenkins                        Jenkins-stable                                 88
+local                          CentOS7-1804.iso                            9,911
+updates/x86_64                 CentOS-7 - Updates - 163.com                1,945
+zabbix/x86_64                  Zabbix Official Repository - x86_64           236
+zabbix-non-supported/x86_64    Zabbix Official Repository non-supported -      4
+repolist: 39,568
+[root@V1 ansible]# 
+[root@V1 ansible]# yum  list  |grep  ansible
+ansible.noarch                           2.8.0-2.el7              epel-testing  
+ansible-doc.noarch                       2.8.0-2.el7              epel-testing  
+ansible-inventory-grapher.noarch         2.4.4-1.el7              epel          
+ansible-lint.noarch                      3.5.1-1.el7              epel          
+ansible-openstack-modules.noarch         0-20140902git79d751a.el7 epel          
+ansible-review.noarch                    0.13.4-1.el7             epel          
+centos-release-ansible26.noarch          1-3.el7.centos           extras        
+kubernetes-ansible.noarch                0.6.0-0.2.gitd65ebd5.el7 epel-testing  
+python2-ansible-runner.noarch            1.0.1-1.el7              epel          
+python2-ansible-tower-cli.noarch         3.3.0-2.el7              epel  
+        
+[root@V1 ansible]# yum    search     ansible
+已加载插件：fastestmirror
+................
+python2-molecule.noarch : Molecule is designed to aid in the development and
+                        : testing of Ansible roles
+standard-test-roles.noarch : Standard Test Interface Ansible roles
+
+  名称和简介匹配 only，使用“search all”试试。
+
+[root@V1 ansible]# yum   -y  install   ansible
+.................
+已安装:
+  ansible.noarch 0:2.8.0-2.el7                                               
+
+作为依赖被安装:
+  PyYAML.x86_64 0:3.10-11.el7                                                
+  libtomcrypt.x86_64 0:1.17-26.el7                                           
+  libtommath.x86_64 0:0.42.0-6.el7                                           
+  libyaml.x86_64 0:0.1.4-11.el7_0                                            
+  python-babel.noarch 0:0.9.6-8.el7                                          
+  python-backports.x86_64 0:1.0-8.el7                                        
+  python-backports-ssl_match_hostname.noarch 0:3.5.0.1-1.el7                 
+  python-cffi.x86_64 0:1.6.0-5.el7                                           
+  python-enum34.noarch 0:1.0.4-1.el7                                         
+  python-httplib2.noarch 0:0.9.2-1.el7                                       
+  python-idna.noarch 0:2.4-1.el7                                             
+  python-ipaddress.noarch 0:1.0.16-2.el7                                     
+  python-jinja2.noarch 0:2.7.2-3.el7_6                                       
+  python-keyczar.noarch 0:0.71c-2.el7                                        
+  python-markupsafe.x86_64 0:0.11-10.el7                                     
+  python-paramiko.noarch 0:2.1.1-9.el7                                       
+  python-ply.noarch 0:3.4-11.el7                                             
+  python-pycparser.noarch 0:2.14-1.el7                                       
+  python-setuptools.noarch 0:0.9.8-7.el7                                     
+  python-six.noarch 0:1.9.0-2.el7                                            
+  python2-crypto.x86_64 0:2.6.1-16.el7                                       
+  python2-cryptography.x86_64 0:1.7.2-2.el7                                  
+  python2-jmespath.noarch 0:0.9.0-3.el7                                      
+  python2-pyasn1.noarch 0:0.1.9-7.el7                                        
+  sshpass.x86_64 0:1.06-2.el7                                                
+
+完毕！
+[root@V1 ansible]# rpm   -q    ansible
+ansible-2.8.0-2.el7.noarch
+[root@V1 ansible]# 
+
+[root@V1 ansible]# scp  -P 7920  -r  Repodir/   student@192.168.1.254:/home/student/Ansiblebj/
+[root@V1 ansible]# ll   /etc/pki/rpm-gpg/
+总用量 36
+-rw-r--r--  1 root root 9132 11月  9 2016 jenkins.io.key
+-rw-r--r--. 1 root root 1690 4月  29 2018 RPM-GPG-KEY-CentOS-7
+-rw-r--r--. 1 root root 1004 4月  29 2018 RPM-GPG-KEY-CentOS-Debug-7
+-rw-r--r--. 1 root root 1690 4月  29 2018 RPM-GPG-KEY-CentOS-Testing-7
+-rw-r--r--  1 root root 1662 10月  3 2017 RPM-GPG-KEY-EPEL-7
+-rw-r--r--  1 root root 1333 8月  16 2016 RPM-GPG-KEY-ZABBIX
+-rw-r--r--  1 root root 1719 8月  16 2016 RPM-GPG-KEY-ZABBIX-A14FE591
+[root@V1 ansible]# scp   -P 7920  -r   /etc/pki/rpm-gpg/ student@192.168.1.254:/home/student/Ansiblebj/Repodir/
+
+===================================
+
+[root@V2 ~]# ls  /etc/yum.repos.d/
+CentOS7-Base-163.repo  jenkins.repo  local.repo
+
+[root@V2 ~]# yum  makecache 
+............
+(1/3): updates/x86_64/prestodelta                       | 681 kB   00:00     
+(2/3): updates/x86_64/other_db                          | 588 kB   00:00     
+(3/3): updates/x86_64/filelists_db                      | 3.7 MB   00:00     
+元数据缓存已建立
+[root@V2 ~]# yum   -y  install  epel-release
+....................
+已安装:
+  epel-release.noarch 0:7-11                                                 
+
+完毕！
+[root@V2 ~]# rpm  -q    epel-release
+epel-release-7-11.noarch
+
+[root@V2 ~]# ls  /etc/yum.repos.d/
+CentOS7-Base-163.repo  epel-testing.repo  local.repo
+epel.repo              jenkins.repo
+
+[root@V2 ~]# vim    /etc/yum.repos.d/epel.repo 
+
+[root@V2 ~]#  grep  -En  "baseurl=|enabled="   /etc/yum.repos.d/epel.repo 
+
+3:baseurl=http://download.fedoraproject.org/pub/epel/7/$basearch
+6:enabled=1
+12:baseurl=http://download.fedoraproject.org/pub/epel/7/$basearch/debug
+15:enabled=1
+21:baseurl=http://download.fedoraproject.org/pub/epel/7/SRPMS
+24:enabled=1
+
+[root@V2 ~]# vim    /etc/yum.repos.d/epel-testing.repo 
+
+[root@V2 ~]# grep  -En  "baseurl=|enabled="   /etc/yum.repos.d/epel-testing.repo 
+
+3:baseurl=http://download.fedoraproject.org/pub/epel/testing/7/$basearch
+6:enabled=1
+12:baseurl=http://download.fedoraproject.org/pub/epel/testing/7/$basearch/debug
+15:enabled=1
+21:baseurl=http://download.fedoraproject.org/pub/epel/testing/7/SRPMS
+24:enabled=1
+
+
+[root@V2 ~]# yum  makecache 
+............
+base                                                  | 3.6 kB     00:00     
+centosplus                                            | 3.4 kB     00:00     
+epel                                                  | 4.7 kB     00:00     
+epel-debuginfo                                        | 3.0 kB     00:00     
+epel-source                                           | 3.5 kB     00:00     
+extras                                                | 3.4 kB     00:00     
+jenkins                                               | 2.9 kB     00:00     
+local                                                 | 3.6 kB     00:00     
+updates                                               | 3.4 kB     00:00     
+元数据缓存已建立
+[root@V2 ~]# yum    repolist  |tail   -14
+源标识                        源名称                                      状态
+base/x86_64                   CentOS-7 - Base - 163.com                   10,019
+centosplus/x86_64             CentOS-7 - Plus - 163.com                       70
+*epel/x86_64                  Extra Packages for Enterprise Linux 7 - x86 13,195
+*epel-debuginfo/x86_64        Extra Packages for Enterprise Linux 7 - x86  2,904
+*epel-source/x86_64           Extra Packages for Enterprise Linux 7 - x86      0
+epel-testing/x86_64           Extra Packages for Enterprise Linux 7 - Tes    689
+epel-testing-debuginfo/x86_64 Extra Packages for Enterprise Linux 7 - Tes     95
+epel-testing-source/x86_64    Extra Packages for Enterprise Linux 7 - Tes      0
+extras/x86_64                 CentOS-7 - Extras - 163.com                    413
+jenkins                       Jenkins-stable                                  88
+local                         CentOS7-1804.iso                             9,911
+updates/x86_64                CentOS-7 - Updates - 163.com                 1,945
+repolist: 39,329
+[root@V2 ~]#  
+[root@V2 ~]# ll   /etc/pki/rpm-gpg/
+总用量 28
+-rw-r--r--  1 root root 9132 11月  9 2016 jenkins.io.key
+-rw-r--r--. 1 root root 1690 4月  29 2018 RPM-GPG-KEY-CentOS-7
+-rw-r--r--. 1 root root 1004 4月  29 2018 RPM-GPG-KEY-CentOS-Debug-7
+-rw-r--r--. 1 root root 1690 4月  29 2018 RPM-GPG-KEY-CentOS-Testing-7
+-rw-r--r--  1 root root 1662 10月  3 2017 RPM-GPG-KEY-EPEL-7
+
+
+[root@V2 ~]# yum  list  |grep  ansible
+ansible.noarch                           2.8.0-2.el7              epel-testing  
+ansible-doc.noarch                       2.8.0-2.el7              epel-testing  
+ansible-inventory-grapher.noarch         2.4.4-1.el7              epel          
+ansible-lint.noarch                      3.5.1-1.el7              epel          
+ansible-openstack-modules.noarch         0-20140902git79d751a.el7 epel          
+ansible-review.noarch                    0.13.4-1.el7             epel          
+centos-release-ansible26.noarch          1-3.el7.centos           extras        
+kubernetes-ansible.noarch                0.6.0-0.2.gitd65ebd5.el7 epel-testing  
+python2-ansible-runner.noarch            1.0.1-1.el7              epel          
+python2-ansible-tower-cli.noarch         3.3.0-2.el7              epel 
+         
+[root@V2 ~]# yum   -y  install    ansible
+
+已加载插件：fastestmirror
+Loading mirror speeds from cached hostfile
+ * epel: mirrors.yun-idc.com
+ * epel-debuginfo: mirrors.yun-idc.com
+ * epel-source: mirrors.yun-idc.com
+ * epel-testing: mirrors.yun-idc.com
+ * epel-testing-debuginfo: mirrors.yun-idc.com
+ * epel-testing-source: mirrors.yun-idc.com
+..................
+
+已安装:
+  ansible.noarch 0:2.8.0-2.el7                                            
+
+作为依赖被安装:
+  PyYAML.x86_64 0:3.10-11.el7                                             
+  libtomcrypt.x86_64 0:1.17-26.el7                                        
+  libtommath.x86_64 0:0.42.0-6.el7                                        
+  libyaml.x86_64 0:0.1.4-11.el7_0                                         
+  python-babel.noarch 0:0.9.6-8.el7                                       
+  python-backports.x86_64 0:1.0-8.el7                                     
+  python-backports-ssl_match_hostname.noarch 0:3.5.0.1-1.el7              
+  python-cffi.x86_64 0:1.6.0-5.el7                                        
+  python-enum34.noarch 0:1.0.4-1.el7                                      
+  python-httplib2.noarch 0:0.9.2-1.el7                                    
+  python-idna.noarch 0:2.4-1.el7                                          
+  python-ipaddress.noarch 0:1.0.16-2.el7                                  
+  python-jinja2.noarch 0:2.7.2-3.el7_6                                    
+  python-keyczar.noarch 0:0.71c-2.el7                                     
+  python-markupsafe.x86_64 0:0.11-10.el7                                  
+  python-paramiko.noarch 0:2.1.1-9.el7                                    
+  python-ply.noarch 0:3.4-11.el7                                          
+  python-pycparser.noarch 0:2.14-1.el7                                    
+  python-setuptools.noarch 0:0.9.8-7.el7                                  
+  python-six.noarch 0:1.9.0-2.el7                                         
+  python2-crypto.x86_64 0:2.6.1-16.el7                                    
+  python2-cryptography.x86_64 0:1.7.2-2.el7                               
+  python2-jmespath.noarch 0:0.9.0-3.el7                                   
+  python2-pyasn1.noarch 0:0.1.9-7.el7                                     
+  sshpass.x86_64 0:1.06-2.el7                                             
+
+完毕！
+[root@V2 ~]#  rpm   -q   ansible
+ansible-2.8.0-2.el7.noarch
+[root@V2 ~]# ll   /etc/pki/rpm-gpg/
+总用量 28
+-rw-r--r--  1 root root 9132 11月  9 2016 jenkins.io.key
+-rw-r--r--. 1 root root 1690 4月  29 2018 RPM-GPG-KEY-CentOS-7
+-rw-r--r--. 1 root root 1004 4月  29 2018 RPM-GPG-KEY-CentOS-Debug-7
+-rw-r--r--. 1 root root 1690 4月  29 2018 RPM-GPG-KEY-CentOS-Testing-7
+-rw-r--r--  1 root root 1662 10月  3 2017 RPM-GPG-KEY-EPEL-7
+[root@V2 ~]# 
+[root@V2 ~]# type  ansible  
+ansible 是 /usr/bin/ansible
+
+[root@V2 ~]# ansible   --version
+ansible 2.8.0
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 2.7.5 (default, Apr 11 2018, 07:36:10) [GCC 4.8.5 20150623 (Red Hat 4.8.5-28)]
+[root@V2 ~]# 
+
+ansible安装
+https://releases.ansible.com/ansible/
+Index of /ansible
+
+Icon  Name                                 Last modified      Size  Description
+[PARENTDIR] Parent Directory                                          -   
+[DIR] rpm/                                 2017-09-08 10:45    -   
+[   ] ansible-1.1.tar.gz                   2013-06-10 20:02  294K  
+．．．．．．．．．．．．．．
+[   ] ansible-2.8.0rc2.tar.gz              2019-05-02 17:21   14M  
+[   ] ansible-2.8.0rc2.tar.gz.sha          2019-05-02 17:21   90   
+[   ] ansible-2.8.0rc3.tar.gz              2019-05-10 18:04   14M  
+[   ] ansible-2.8.0rc3.tar.gz.sha          2019-05-10 18:04   90   
+[   ] ansible-latest.tar.gz                2019-05-16 18:06   14M  
+[   ] ansible-latest.tar.gz.sha            2019-05-16 18:06   87   
+
+[root@V1 ansible]# ansible   --version
+ansible 2.8.0
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 2.7.5 (default, Apr 11 2018, 07:36:10) [GCC 4.8.5 20150623 (Red Hat 4.8.5-28)]
+[root@V1 ansible]# type    ansible
+ansible 已被哈希 (/usr/bin/ansible)
+[root@V1 ansible]# rpm  -qf  /usr/bin/ansible
+ansible-2.8.0-2.el7.noarch
+
+
+
+ansible命令执行的方式有两种
+      1）Ad-Hoc      相当于shell命令
+      2）Ansible-playbook   相当于脚本
+
+
+
+
+
+
+
+
+
+
+
+
