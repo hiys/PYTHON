@@ -112,6 +112,222 @@ if __name__ == "__main__":
   sys.stdout.write('\033[31;47;1msys.argv is %s\n\033[0m' % sys.argv)
 
 
+[root@V1 MyProject]# x1="/var/www/html/deploy/";x2="live_version";
+[root@V1 MyProject]# y=x1+x2;
+[root@V1 MyProject]# echo  $y
+x1+x2
+[root@V1 MyProject]# y=$x1+$x2;
+[root@V1 MyProject]# echo  $y
+/var/www/html/deploy/+live_version
+[root@V1 MyProject]# y=$x1$x2;
+[root@V1 MyProject]# echo  $y
+/var/www/html/deploy/live_version
+[root@V1 MyProject]# ll    $y
+-rw-r--r-- 1 root root 4 5月  18 19:27 /var/www/html/deploy/live_version
+
+[root@V1 MyProject]# ls  $x1
+last_version  live_version  packages
+
+[root@V1 MyProject]# ls   /download/
+Myproject_1.0.tar.gz
+[root@V1 MyProject]# cd   /download/
+[root@V1 download]# python3
+Python 3.6.7 (default, May 16 2019, 19:00:38) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-36)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   os
+>>> os.chdir('/download/')  #切换到部署应用的目录deploy_dir
+
+>>> import  tarfile
+>>> tar = tarfile.open('/download/Myproject_1.0.tar.gz', 'r:gz')
+>>> tar.extractall()  #解压下载的压缩包
+>>> tar.close()
+[root@V1 MyProject]# ls  /download/
+Myproject_1.0  Myproject_1.0.tar.gz
+----------------------------------------------------------------------------------
+>>> dest_path = '/var/www/html/mysite'
+>>> app_path = "/download/Myproject_1.0.tar.gz"
+>>> app_path = app_path.replace('.tar.gz', '')
+
+>>> os.symlink(app_path, dest_path)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+FileExistsError: [Errno 17] File exists: '/download/Myproject_1.0' -> '/var/www/html/mysite'
+>>> 
+>>> if os.path.exists(dest_path):
+...   print('------fileExists\n')
+...   os.unlink(dest_path)
+... 
+------fileExists
+
+Traceback (most recent call last):
+  File "<stdin>", line 3, in <module>
+IsADirectoryError: [Errno 21] Is a directory: '/var/www/html/mysite'
+
+>>> os.symlink(app_path, dest_path)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+FileExistsError: [Errno 17] File exists: '/download/Myproject_1.0' -> '/var/www/html/mysite'
+>>> 
+[root@V1 ~]# rm  -r   /var/www/html/mysite/
+rm：是否删除目录 "/var/www/html/mysite/"？y
+[root@V1 ~]# ls    /var/www/html/
+deploy  index.html  test.php
+
+>>> os.symlink(app_path, dest_path)
+
+[root@V1 ~]# ls    /var/www/html/
+deploy  index.html  mysite  test.php
+[root@V1 ~]# ls  /var/www/html/mysite/
+index.html
+#根据linux内核的实现来看，无法查看一个目录是否存在别的软链接链接到它。除非修改内核。
+
+
+
+[root@V1 MyProject]# ll   /var/www/html/mysite/
+总用量 12
+-rw-r--r-- 1 root root 54 5月  18 16:01 index.html
+-rw-r--r-- 1 root root 38 5月  18 16:01 README.md
+-rw-r--r-- 1 root root 26 5月  18 16:01 test.html
+
+[root@V1 MyProject]# ls  -ld  /var/www/html/mysite/
+drwxr-xr-x 2 root root 58 5月  18 16:01 /var/www/html/mysite/
+
+[root@V1 MyProject]# ls  -ld  /download/
+drwxr-xr-x 3 root root 55 5月  19 13:49 /download/
+
+[root@V1 MyProject]# ls   /download/
+Myproject_2.1  Myproject_2.1.tar.gz
+
+[root@V1 MyProject]# rm  -rf   /download/*
+[root@V1 MyProject]# ls   /download/
+
+[root@V1 MyProject]# rm  -f   /var/www/html/mysite/
+
+[root@V1 MyProject]# ls  /var/www/html/
+deploy  index.html  mysite  test.php
+
+[root@V1 MyProject]# ll   /var/www/html/mysite
+lrwxrwxrwx 1 root root 23 5月  19 13:52 /var/www/html/mysite -> /download/Myproject_2.1
+
+[root@V1 MyProject]# python3  deployjenkins.py
+__name__ is __main__
+sys.argv is ['deployjenkins.py']
+<class 'requests.models.Response'>
+<Response [200]>
+
+
+ver = 2.0
+
+http://192.168.1.11/deploy/packages/Myproject_2.1.tar.gz
+<urllib.request.Request object at 0x7fc32015b400> <class 'urllib.request.Request'>
+<http.client.HTTPResponse object at 0x7fc31442a908> <class 'http.client.HTTPResponse'>
+data  is  None ---- b''
+
+---------- download(url, fname) ---------------
+
+
+----- local_md5 = 2cd0e564d55de2286a4ce6a34d7e29d9
+
+<class 'requests.models.Response'>
+<Response [200]>
+
+
+remote_md5 = 2cd0e564d55de2286a4ce6a34d7e29d9
+
+
+ --------------------
+
+[root@V1 MyProject]# 
+[root@V1 MyProject]# ls  /download/
+Myproject_2.1  Myproject_2.1.tar.gz
+[root@V1 MyProject]# ls  -l  /download/
+总用量 4
+drwxr-xr-x 2 root root  58 5月  18 16:01 Myproject_2.1
+-rw-r--r-- 1 root root 290 5月  19 13:56 Myproject_2.1.tar.gz
+[root@V1 MyProject]# ls    /var/www/html/
+deploy  index.html  mysite  test.php
+
+[root@V1 MyProject]# ls   /var/www/html/mysite/
+index.html  README.md  test.html
+[root@V1 MyProject]# ls   -ld   /var/www/html/mysite/
+drwxr-xr-x 2 root root 58 5月  18 16:01 /var/www/html/mysite/
+
+[root@V1 MyProject]# rm  -rf   /var/www/html/mysite/
+
+[root@V1 MyProject]# ls    /var/www/html/
+deploy  index.html  mysite  test.php
+[root@V1 MyProject]# ll  /var/www/html/mysite/
+总用量 0
+[root@V1 MyProject]# rm  -rf   /var/www/html/mysite/
+[root@V1 MyProject]# ls  /var/www/html/mysite/
+[root@V1 MyProject]# ll  /var/www/html/mysite/
+总用量 0
+[root@V1 MyProject]# ls   /var/www/html/
+deploy  index.html  mysite  test.php
+
+[root@V1 MyProject]# rm  -rf   /download/*
+[root@V1 MyProject]# ls   /download/
+
+[root@V1 MyProject]# ls   /var/www/html/
+deploy  index.html  mysite  test.php
+
+[root@V1 MyProject]# ll  /var/www/html/mysite 
+lrwxrwxrwx 1 root root 23 5月  19 13:56 /var/www/html/mysite -> /download/Myproject_2.1
+[root@V1 MyProject]# rm  -f  /var/www/html/mysite
+[root@V1 MyProject]# ls   /var/www/html/
+deploy  index.html  test.php
+
+
+[root@V1 ~]# ls   /download/
+[root@V1 ~]# ls  /var/www/html/
+deploy  index.html  test.php
+[root@V1 ~]# 
+
+
+[root@V1 MyProject]# vim   deployjenkins.py 
+[root@V1 MyProject]# python3  deployjenkins.py
+__name__ is __main__
+sys.argv is ['deployjenkins.py']
+<class 'requests.models.Response'>
+<Response [200]>
+
+
+ver = 2.0
+
+http://192.168.1.11/deploy/packages/Myproject_2.1.tar.gz
+<urllib.request.Request object at 0x7f9f9df1d400> <class 'urllib.request.Request'>
+<http.client.HTTPResponse object at 0x7f9f921ec438> <class 'http.client.HTTPResponse'>
+data  is  None ---- b''
+
+---------- download(url, fname) ---------------
+
+
+----- local_md5 = 2cd0e564d55de2286a4ce6a34d7e29d9
+
+<class 'requests.models.Response'>
+<Response [200]>
+
+
+remote_md5 = 2cd0e564d55de2286a4ce6a34d7e29d9
+
+
+ --------------------
+
+[root@V1 MyProject]# ls  /download/
+Myproject_2.1  Myproject_2.1.tar.gz
+[root@V1 MyProject]# ls   /download/Myproject_2.1
+index.html  README.md  test.html
+[root@V1 MyProject]# ls   /var/www/html/
+deploy  index.html  mysite  test.php
+[root@V1 MyProject]# ls  /var/www/html/mysite/
+index.html  README.md  test.html
+[root@V1 MyProject]# 
+
+[root@V1 MyProject]# scp  -P 7920  deployjenkins.py  student@192.168.1.254:/home/student/git
+student@192.168.1.254's password: tedu
+
+
 
 
 
