@@ -1,0 +1,12 @@
+set  t_Co=256
+syntax enable  
+syntax on   
+set  background=dark
+set  ai
+set  ts=4
+set  et
+set  ic
+autocmd  FileType  yaml  setlocal  sw=2  ts=2  et  ai
+let  g:colors_name="nslib_color256"
+highlight Comment cterm=NONE  ctermfg=LightMagenta  ctermbg=DarkBlue
+hi        Error               ctermfg=LightRed      ctermbg=Black

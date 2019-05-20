@@ -1,0 +1,13 @@
+---
+- name: configure authorized key  annotation describe comment
+  hosts: all
+  tasks:
+  - name: root_key
+    authorized_key:
+      user: root
+      state: present
+      key: "{{ lookup('file','/root/.ssh/id_rsa.pub') }}"
+  - name: describe annotation comment lines ---- copy yum config file
+    copy:
+      src: files/local.repo   #本机当前目录下的子目录files/文件local.repo
+      dest: /etc/yum.repos.d/ #将要传达文件的目标位置

@@ -1,0 +1,19 @@
+"双引号在配置文件~/.vimrc 中表示注释
+"cterm   彩色终端的属性  ----- #term    黑白终端的属性
+"ctermfg 彩色终端前景色  -----#ctermbg  彩色终端背景色
+"Comment  注释    ----------- # Error    状态栏错误提示信息
+"设置shiftwidth 当行之间交错时使用2个空格 sw=2使用每层缩进的空格数为２个空格
+"set  t_Co=256        　"添加开启256颜色支持
+"syntax enable          "在编辑程序时高亮显示关键字
+"syntax on              "开启语法高亮显示
+"set  background=dark   "配置主题整体的色调dark和light(暗色调和亮色调)
+set  ai                 "设置自动缩进            ai  autoindent
+set  ts=4               "设置Tab键的宽度４个空格 ts  tabstop　４个空格
+set  et                 "设置把　Tab键　转成空格 et  expandtab
+set  ic                 "搜索忽略大小写          ic  ignorecase
+autocmd  FileType  yaml  setlocal  sw=2  ts=2  et  ai
+"主题名称是无参数调用 :colorscheme 时返回的信息，用于分辨不同主题
+"let  g:colors_name="nslib_color256"
+"hi是highlight命令的缩写，用于高亮配置；Type是要配色的元素名称；参数采用的是Key=Value的形式
+"highlight Comment cterm=NONE  ctermfg=LightMagenta  ctermbg=DarkBlue
+"hi        Error               ctermfg=LightRed      ctermbg=Black

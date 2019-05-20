@@ -1,0 +1,1818 @@
+
+
+[student@room10pc15 ~]$ ssh  -X  root@192.168.1.11
+..................
+[root@V1 ~]# cd   ansible/
+[root@V1 ansible]# rpm  -q   ansible 
+ansible-2.8.0-2.el7.noarch
+[root@V1 ansible]# cat   ~/.pip/pip.conf
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+
+[root@V1 ansible]# ls  /etc/yum.repos.d/
+CentOS7-Base-163.repo  epel-testing.repo  local.repo
+epel.repo              jenkins.repo       zabbix.repo
+[root@V1 ansible]# vim   /etc/yum.repos.d/epel.repo 
+
+[epel-source]
+enabled=0
+
+[root@V1 ansible]# grep  -En  '^\[|enabled='   /etc/yum.repos.d/epel.repo
+1:[epel]
+6:enabled=1
+10:[epel-debuginfo]
+15:enabled=1
+19:[epel-source]
+24:enabled=0
+
+[root@V1 ansible]# vim   /etc/yum.repos.d/epel-testing.repo 
+[root@V1 ansible]# grep  -En  '^\[|enabled='   /etc/yum.repos.d/epel-testing.repo 
+1:[epel-testing]
+6:enabled=1
+10:[epel-testing-debuginfo]
+15:enabled=1
+19:[epel-testing-source]
+24:enabled=0
+
+[root@V1 ansible]# yum    makecache 
+已加载插件：fastestmirror
+Loading mirror speeds from cached hostfile
+epel/x86_64/metalink                                        | 7.8 kB  00:00:00     
+epel-debuginfo/x86_64/metalink                              | 8.0 kB  00:00:00     
+epel-testing/x86_64/metalink                                | 7.8 kB  00:00:00     
+epel-testing-debuginfo/x86_64/metalink                      | 8.0 kB  00:00:00     
+ * epel: mirrors.aliyun.com
+ * epel-debuginfo: mirrors.aliyun.com
+ * epel-testing: mirrors.aliyun.com
+ * epel-testing-debuginfo: mirrors.aliyun.com
+base                                                        | 3.6 kB  00:00:00     
+centosplus                                                  | 3.4 kB  00:00:00     
+extras                                                      | 3.4 kB  00:00:00     
+jenkins                                                     | 2.9 kB  00:00:00     
+local                                                       | 3.6 kB  00:00:00     
+updates                                                     | 3.4 kB  00:00:00     
+zabbix                                                      | 2.9 kB  00:00:00     
+zabbix-non-supported                                        |  951 B  00:00:00     
+元数据缓存已建立
+[root@V1 ansible]# yum     repolist  |tail  -14
+源标识                        源名称                                      状态
+base/x86_64                   CentOS-7 - Base - 163.com                   10,019
+centosplus/x86_64             CentOS-7 - Plus - 163.com                       70
+epel/x86_64                   Extra Packages for Enterprise Linux 7 - x86 13,194
+epel-debuginfo/x86_64         Extra Packages for Enterprise Linux 7 - x86  2,904
+epel-testing/x86_64           Extra Packages for Enterprise Linux 7 - Tes    689
+epel-testing-debuginfo/x86_64 Extra Packages for Enterprise Linux 7 - Tes     95
+extras/x86_64                 CentOS-7 - Extras - 163.com                    413
+jenkins                       Jenkins-stable                                  88
+local                         CentOS7-1804.iso                             9,911
+updates/x86_64                CentOS-7 - Updates - 163.com                 1,945
+zabbix/x86_64                 Zabbix Official Repository - x86_64            236
+zabbix-non-supported/x86_64   Zabbix Official Repository non-supported -       4
+repolist: 39,568
+
+[root@V1 ansible]#  ls   /etc/yum.repos.d/
+CentOS7-Base-163.repo  epel-testing.repo  local.repo
+epel.repo              jenkins.repo       zabbix.repo
+
+[root@V1 ansible]# rpm   -q   ansible
+ansible-2.8.0-2.el7.noarch
+[root@V1 ansible]# vim    /etc/hosts
+[root@V1 ansible]# tail  -6    /etc/hosts
+192.168.1.11   V1
+192.168.1.12   V2
+192.168.1.13   V3
+192.168.1.14   V4
+192.168.1.15   V5
+192.168.1.16   V6
+
+
+
+
+[student@room10pc15 ~]$ ssh  -X  root@192.168.1.12
+..................
+[root@V2 ~]# cd   ansible/
+[root@V2 ansible]# rpm  -q   ansible 
+ansible-2.8.0-2.el7.noarch
+[root@V2 ansible]# cat   ~/.pip/pip.conf
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+[root@V2 ansible]#  vim   /etc/yum.repos.d/epel.repo 
+[root@V2 ansible]# grep  -En  '^\[|enabled='  /etc/yum.repos.d/epel.repo
+1:[epel]
+6:enabled=1
+10:[epel-debuginfo]
+15:enabled=1
+19:[epel-source]
+24:enabled=0
+[root@V2 ansible]# vim   /etc/yum.repos.d/epel-testing.repo 
+[root@V2 ansible]# grep  -En  '^\[|enabled='   /etc/yum.repos.d/epel-testing.repo 
+1:[epel-testing]
+6:enabled=1
+10:[epel-testing-debuginfo]
+15:enabled=1
+19:[epel-testing-source]
+24:enabled=0
+[root@V2 ansible]# yum  makecache  |tail  -3
+ * epel-testing: mirrors.aliyun.com
+ * epel-testing-debuginfo: mirrors.aliyun.com
+元数据缓存已建立
+[root@V2 ansible]# ls   /etc/yum.repos.d/
+CentOS7-Base-163.repo  epel.repo  epel-testing.repo  jenkins.repo  local.repo
+
+
+[root@V2 ansible]# yum    repolist  |tail  -12
+源标识                        源名称                                      状态
+base/x86_64                   CentOS-7 - Base - 163.com                   10,019
+centosplus/x86_64             CentOS-7 - Plus - 163.com                       70
+epel/x86_64                   Extra Packages for Enterprise Linux 7 - x86 13,194
+epel-debuginfo/x86_64         Extra Packages for Enterprise Linux 7 - x86  2,904
+epel-testing/x86_64           Extra Packages for Enterprise Linux 7 - Tes    689
+epel-testing-debuginfo/x86_64 Extra Packages for Enterprise Linux 7 - Tes     95
+extras/x86_64                 CentOS-7 - Extras - 163.com                    413
+jenkins                       Jenkins-stable                                  88
+local                         CentOS7-1804.iso                             9,911
+updates/x86_64                CentOS-7 - Updates - 163.com                 1,945
+repolist: 39,328
+[root@V2 ansible]# rpm   -q   ansible
+ansible-2.8.0-2.el7.noarch
+[root@V2 ansible]# tail  -6    /etc/hosts
+192.168.1.11   V1
+192.168.1.12   V2
+192.168.1.13   V3
+192.168.1.14   V4
+192.168.1.15   V5
+192.168.1.16   V6
+
+
+
+[student@room10pc15 ~]$ ssh  -X  root@192.168.1.13
+..................
+[root@V3 ~]# cd   ansible/
+[root@V3 ansible]# rpm  -q   ansible 
+未安装软件包 ansible
+[root@V3 ansible]# cat  ~/.pip/pip.conf
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+[root@V3 ansible]# pip3   --version
+pip 19.1.1 from /usr/local/lib/python3.6/site-packages/pip (python 3.6)
+[root@V3 ansible]# python   --version
+Python 2.7.5
+[root@V3 ansible]# python3   --version
+Python 3.6.7
+
+[root@V3 ansible]# yum  makecache  |tail  -3
+已加载插件：fastestmirror
+Loading mirror speeds from cached hostfile
+元数据缓存已建立
+
+[root@V3 ansible]# ls   /etc/yum.repos.d/
+CentOS7-Base-163.repo  local.repo
+
+[root@V3 ansible]# yum    repolist  |tail  -7
+源标识                         源名称                                     状态
+base/x86_64                    CentOS-7 - Base - 163.com                  10,019
+centosplus/x86_64              CentOS-7 - Plus - 163.com                      70
+extras/x86_64                  CentOS-7 - Extras - 163.com                   413
+local                          CentOS7-1804.iso                            9,911
+updates/x86_64                 CentOS-7 - Updates - 163.com                1,945
+repolist: 22,358
+[root@V3 ansible]# 
+[root@V3 ansible]# pip3   install    ansible
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting ansible
+  Downloading http://pypi.doubanio.com/packages/17/c9/d379b76ecaa42f4ee08b01c365e9ed1be0b302ff8a26eef120d481b144fa/ansible-2.8.0.tar.gz (14.3MB)
+     |████████████████████████████████| 14.3MB 10.2MB/s 
+Collecting jinja2 (from ansible)
+  Downloading http://pypi.doubanio.com/packages/1d/e7/fd8b501e7a6dfe492a433deb7b9d833d39ca74916fa8bc63dd1a4947a671/Jinja2-2.10.1-py2.py3-none-any.whl (124kB)
+     |████████████████████████████████| 133kB 2.1MB/s 
+Collecting PyYAML (from ansible)
+  Downloading http://pypi.doubanio.com/packages/9f/2c/9417b5c774792634834e730932745bc09a7d36754ca00acf1ccd1ac2594d/PyYAML-5.1.tar.gz (274kB)
+     |████████████████████████████████| 276kB 5.7MB/s 
+Requirement already satisfied: cryptography in /usr/local/lib/python3.6/site-packages (from ansible) (2.6.1)
+Collecting MarkupSafe>=0.23 (from jinja2->ansible)
+  Downloading http://pypi.doubanio.com/packages/b2/5f/23e0023be6bb885d00ffbefad2942bc51a620328ee910f64abe5a8d18dd1/MarkupSafe-1.1.1-cp36-cp36m-manylinux1_x86_64.whl
+Requirement already satisfied: asn1crypto>=0.21.0 in /usr/local/lib/python3.6/site-packages (from cryptography->ansible) (0.24.0)
+Requirement already satisfied: six>=1.4.1 in /usr/local/lib/python3.6/site-packages (from cryptography->ansible) (1.12.0)
+Requirement already satisfied: cffi!=1.11.3,>=1.8 in /usr/local/lib/python3.6/site-packages (from cryptography->ansible) (1.12.3)
+Requirement already satisfied: pycparser in /usr/local/lib/python3.6/site-packages (from cffi!=1.11.3,>=1.8->cryptography->ansible) (2.19)
+Installing collected packages: MarkupSafe, jinja2, PyYAML, ansible
+  Running setup.py install for PyYAML ... done
+  Running setup.py install for ansible ... done
+Successfully installed MarkupSafe-1.1.1 PyYAML-5.1 ansible-2.8.0 jinja2-2.10.1
+
+[root@V3 ansible]# pip3
+pip3    pip3.6  
+[root@V3 ansible]# pip3  freeze
+ansible==2.8.0
+asn1crypto==0.24.0
+bcrypt==3.1.6
+certifi==2019.3.9
+cffi==1.12.3
+chardet==3.0.4
+cryptography==2.6.1
+Django==1.11.20
+idna==2.8
+Jinja2==2.10.1
+MarkupSafe==1.1.1
+paramiko==2.4.2
+pyasn1==0.4.5
+pycparser==2.19
+PyMySQL==0.9.3
+PyNaCl==1.3.0
+pytz==2019.1
+PyYAML==5.1
+requests==2.21.0
+six==1.12.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+[root@V3 ansible]# rpm   -q   ansible
+未安装软件包 ansible 
+[root@V3 ansible]#  tail  -6    /etc/hosts
+192.168.1.11   V1
+192.168.1.12   V2
+192.168.1.13   V3
+192.168.1.14   V4
+192.168.1.15   V5
+192.168.1.16   V6
+
+
+[student@room10pc15 ~]$ for  i   in   V{1..6};do  virsh start  $i;done;
+错误：域已经活跃
+
+错误：域已经活跃
+
+错误：域已经活跃
+
+域 V4 已开始
+
+域 V5 已开始
+
+域 V6 已开始
+[student@room10pc15 ~]$ watch    -n2  -d   free  -m
+Every 2.0s: free -m                                    Mon May 20 10:29:37 2019
+
+              total        used        free	 shared  buff/cache   available
+Mem:          15941        7385        4922         617        3634	   7583
+Swap:             0           0           0
+
+[root@V1 ansible]# systemctl   is-active   jenkins
+active
+[root@V1 ansible]# chkconfig    jenkins   off
+[root@V1 ansible]# chkconfig    --list  jenkins
+
+注：该输出结果只显示 SysV 服务，并不包含
+原生 systemd 服务。SysV 配置数据
+可能被原生 systemd 配置覆盖。 
+
+      要列出 systemd 服务，请执行 'systemctl list-unit-files'。
+      查看在具体 target 启用的服务请执行
+      'systemctl list-dependencies [target]'。
+
+jenkins        	0:关	1:关	2:关	3:关	4:关	5:关	6:关
+[root@V1 ansible]# systemctl   is-active   jenkins
+active
+[root@V1 ansible]# systemctl   stop    jenkins
+[root@V1 ansible]# systemctl   is-active   jenkins
+unknown
+
+[root@V1 ansible]# systemctl   is-active    zabbix-server
+active
+[root@V1 ansible]# netstat  -npult  |grep  1005
+tcp        0      0 0.0.0.0:10050           0.0.0.0:*               LISTEN      835/zabbix_agentd   
+tcp        0      0 0.0.0.0:10051           0.0.0.0:*               LISTEN      1106/zabbix_server  
+tcp6       0      0 :::10050                :::*                    LISTEN      835/zabbix_agentd   
+tcp6       0      0 :::10051                :::*                    LISTEN      1106/zabbix_server  
+[root@V1 ansible]# systemctl   is-active    zabbix-agent
+active
+[root@V1 ansible]# systemctl   stop     zabbix-server.service 
+[root@V1 ansible]# systemctl   disable     zabbix-server.service 
+Removed symlink /etc/systemd/system/multi-user.target.wants/zabbix-server.service.
+[root@V1 ansible]# systemctl   disable     zabbix-agent.service 
+Removed symlink /etc/systemd/system/multi-user.target.wants/zabbix-agent.service.
+[root@V1 ansible]# systemctl   stop     zabbix-agent
+[root@V1 ansible]# netstat  -npult  |grep  1005
+[root@V1 ansible]# 
+
+
+[root@V2 ansible]# systemctl   is-active   jenkins
+active
+[root@V2 ansible]#  chkconfig    jenkins   off
+[root@V2 ansible]# systemctl   stop    jenkins
+[root@V2 ansible]# systemctl   is-active   jenkins
+unknown
+
+[root@V6 ~]# netstat  -npult  |grep  1005
+tcp        0      0 0.0.0.0:10050           0.0.0.0:*               LISTEN      831/zabbix_agentd   
+tcp        0      0 0.0.0.0:10051           0.0.0.0:*               LISTEN      1071/zabbix_server  
+tcp6       0      0 :::10050                :::*                    LISTEN      831/zabbix_agentd   
+tcp6       0      0 :::10051                :::*                    LISTEN      1071/zabbix_server  
+[root@V6 ~]#  systemctl   stop     zabbix-server.service 
+[root@V6 ~]# systemctl   stop     zabbix-agent
+[root@V6 ~]#  systemctl   disable     zabbix-server.service 
+Removed symlink /etc/systemd/system/multi-user.target.wants/zabbix-server.service.
+[root@V6 ~]# systemctl   disable     zabbix-agent.service 
+Removed symlink /etc/systemd/system/multi-user.target.wants/zabbix-agent.service.
+[root@V6 ~]# netstat  -npult  |grep  1005
+
+[student@room10pc15 ~]$ watch    -n3  -d   free  -m
+Every 3.0s: free -m                                    Mon May 20 10:45:50 2019
+
+              total        used        free	 shared  buff/cache   available
+Mem:          15941        7423        4665         620        3852	   7521
+Swap:             0           0           0
+
+
+[student@room10pc15 ~]$ free   -m
+              total        used        free      shared  buff/cache   available
+Mem:          15941        7420        4674         615        3846        7529
+Swap:             0           0           0
+
+[student@room10pc15 ~]$ 
+
+
+[student@room10pc15 ~]$ ssh  -X  root@192.168.1.14
+................
+[student@room10pc15 ~]$ ssh  -X  root@192.168.1.15
+................
+[student@room10pc15 ~]$ ssh  -X  root@192.168.1.16
+................
+[root@V6 ~]# tail  -6    /etc/hosts
+192.168.1.11   V1
+192.168.1.12   V2
+192.168.1.13   V3
+192.168.1.14   V4
+192.168.1.15   V5
+192.168.1.16   V6
+
+reset
+
+
+[root@V1 ansible]# sed  -n  '14p;71p;'  /etc/ansible/ansible.cfg 
+#inventory      = /etc/ansible/hosts
+#host_key_checking = False
+
+[root@V1 ansible]# ansible  --version
+ansible 2.8.0
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 2.7.5 (default, Apr 11 2018, 07:36:10) [GCC 4.8.5 20150623 (Red Hat 4.8.5-28)]
+
+
+Ansible配置文件查找顺序
+
+– 首先检测 ANSIBLE_CONFIG 变量定义的配置文件
+– 其次检查当前目彔下的 ./ansible.cfg 文件　　　（常用方式）
+– 再次检查当前用户家目彔下 ~/ansible.cfg 文件
+– 最后检查 /etc/ansible/ansible.cfg 文件
+
+
+[root@V1 ansible]# vim    /etc/ansible/ansible.cfg 
+[root@V1 ansible]# sed  -n  '14p;71p;'  /etc/ansible/ansible.cfg 
+inventory      = /etc/ansible/hosts
+host_key_checking = False
+
+[root@V1 ansible]# grep    -Env   '^(#|$)'   /etc/ansible/ansible.cfg
+
+10:[defaults]     //组名称
+14:inventory      = /etc/ansible/hosts    ## 指定组机分组列表的路径
+
+##  #开启ssh不验证yes，不检测主机的sshkey，在第一次连接的时候不用输入yes
+71:host_key_checking = False          ## 设置是否检查SSH主机的密钥
+
+327:[inventory]
+340:[privilege_escalation]
+346:[paramiko_connection]
+370:[ssh_connection]
+431:[persistent_connection]
+445:[accelerate]
+460:[selinux]
+469:[colors]
+485:[diff]
+[root@V1 ansible]#  ll   /etc/ansible/hosts 
+-rw-r--r-- 1 root root 1016 5月  18 03:15 /etc/ansible/hosts
+[root@V1 ansible]# 
+[root@V1 ansible]# ls  /root/.ansible/
+tmp
+[root@V1 ansible]# ls  /root/.ansible/tmp/
+[root@V1 ansible]# pwd
+/root/ansible
+[root@V1 ansible]# ls
+pubkeys.txt  Python-2.7.8  Python-2.7.8.tgz  Python-2.7.8.tgz.asc  Repodir
+[root@V1 ansible]# cd
+[root@V1 ~]# mkdir  myansi
+[root@V1 ~]# cd     myansi/
+
+[root@V1 myansi]# pwd
+/root/myansi
+[root@V1 myansi]# vim   ansible.cfg
+
+[root@V1 myansi]# cat   ansible.cfg
+[defaults]
+inventory      =  myhosts
+remote_user = root
+host_key_checking = False
+
+-----------------------------------------------------------------------------------
+
+[root@V6 ~]# systemctl   is-active   mariadb
+active
+[root@V6 ~]# mysql  -uroot  -p123  -e  "show  databases;"
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| test               |
+| zabbix             |
++--------------------+
+[root@V1 myansi]# systemctl   is-active   mariadb
+active
+[root@V1 myansi]# mysql  -uroot  -p123  -e  "show  databases;"
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| test               |
+| zabbix             |
++--------------------+
+
+[root@V1 myansi]# systemctl  is-active   httpd
+active
+[root@V1 myansi]# elinks   -dump  192.168.1.11
+   192.168.1.11 V1
+[root@V2 ansible]# systemctl  is-active   httpd
+active
+[root@V2 ansible]# elinks   -dump  192.168.1.12
+                                       V2
+
+      192.168.1.12
+[root@V6 ~]# elinks   -dump  192.168.1.16
+   192.168.1.16 V6
+
+-----------------------------------------------------------------------------------
+
+[root@V1 myansi]# cat    myhosts
+[dbservers]
+V1
+V6
+
+[webservers]
+V1
+V2
+V6
+
+[other]
+V[3:5]
+
+[app:children]
+webservers
+other
+
+[app:vars]
+ansible_ssh_user=root
+ansible_ssh_pass="1"
+
+[root@V1 myansi]# cat   ansible.cfg 
+[defaults]
+inventory      =  myhosts
+remote_user = root
+host_key_checking = False
+
+[root@V1 myansi]# ansible    all  -m  ping |grep  ^V[1-9]
+V2 | SUCCESS => {
+V4 | SUCCESS => {
+V3 | SUCCESS => {
+V1 | SUCCESS => {
+V6 | SUCCESS => {
+V5 | SUCCESS => {
+
+[root@V1 myansi]# ls  /root/.ssh/
+authorized_keys  id_rsa  id_rsa.pub  known_hosts
+
+[root@V1 myansi]# cat   /root/.ssh/known_hosts 
+
+[192.168.1.254]:7920 ecdsa-sha2-nistp256 AAAAE2Vj...........pTEODRXQ=
+v1,192.168.1.11 ecdsa-sha2-nistp256 AAAAE2Vj..............GgNX6CaDGY=
+v2,192.168.1.12 ecdsa-sha2-nistp256 AAAAE2V.................NX6CaDGY=
+v3,192.168.1.13 ecdsa-sha2-nistp256 AAAAE2VjZH.............gNX6CaDGY=
+v4,192.168.1.14 ecdsa-sha2-nistp256 AAAAE2VjZHN............gNX6CaDGY=
+v5,192.168.1.15 ecdsa-sha2-nistp256 AAAAE2Vj..............GgNX6CaDGY=
+v6,192.168.1.16 ecdsa-sha2-nistp256 AAAAE2VjZ.............GgNX6CaDGY=
+github.com,13.229.188.59 ssh-rsa AAAAB3N................FFAaQ==
+13.250.177.223 ssh-rsa AAAAB.................FFAaQ==
+52.74.223.119 ssh-rsa AAAA..........FAaQ==
+[root@V1 myansi]# 
+[root@V1 myansi]# type   ssh-keyscan 
+ssh-keyscan 是 /usr/bin/ssh-keyscan
+
+[root@V1 myansi]# rpm  -qf   /usr/bin/ssh-keyscan
+openssh-clients-7.4p1-16.el7.x86_64
+
+[root@V1 myansi]# ssh-keyscan    192.168.1.12
+
+# 192.168.1.12:22 SSH-2.0-OpenSSH_7.4
+192.168.1.12 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN+UL/j903euvgk+7XeRNsdwCbQXFsRrOLZMuRJjGtkb
+# 192.168.1.12:22 SSH-2.0-OpenSSH_7.4
+192.168.1.12 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDETTVM/sOnPSZEHwGibeX6uNIt4veIC+ZTBNga4/5jW8Nh7XZIgqde1uMGHLYFk3Sr8j228BxHwFbefevGXeNJ4D1DBF9m4oRjwyS5ZbPbg7xLNAHTz46417ZC1D3SYrn/QxUs3oYuyTRyYypPa/vx8L4ezUh0CTi4Bh/pIiGU8NPWmfqUNj7TT+/STNXJWHYq88fB7bAouHKdmf3kvYmadNBYtl/4GFFhn8BwKETfkKoi5HfeBlgvtr3JddB/ayOYAGcfMq8DZl3ihrbqCEeDqyFN+xGkddiS1s3tgclrbp//iUlx9CI+3kFl/lZ+PavPudqYMKjTzF1/CVoZUOwJ
+# 192.168.1.12:22 SSH-2.0-OpenSSH_7.4
+192.168.1.12 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDBs5eD/JYvXBi/9O2hLeCTVXkdjs+ox6qyDqkmLTTKlAuTy+RZkzIa8FQAQNm31N5b+G5nm8w+naGgNX6CaDGY=
+
+
+[root@V1 myansi]# ssh-keyscan    V2
+
+# V2:22 SSH-2.0-OpenSSH_7.4
+V2 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDETTVM/sOnPSZEHwGibeX6uNIt4veIC+ZTBNga4/5jW8Nh7XZIgqde1uMGHLYFk3Sr8j228BxHwFbefevGXeNJ4D1DBF9m4oRjwyS5ZbPbg7xLNAHTz46417ZC1D3SYrn/QxUs3oYuyTRyYypPa/vx8L4ezUh0CTi4Bh/pIiGU8NPWmfqUNj7TT+/STNXJWHYq88fB7bAouHKdmf3kvYmadNBYtl/4GFFhn8BwKETfkKoi5HfeBlgvtr3JddB/ayOYAGcfMq8DZl3ihrbqCEeDqyFN+xGkddiS1s3tgclrbp//iUlx9CI+3kFl/lZ+PavPudqYMKjTzF1/CVoZUOwJ
+# V2:22 SSH-2.0-OpenSSH_7.4
+V2 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDBs5eD/JYvXBi/9O2hLeCTVXkdjs+ox6qyDqkmLTTKlAuTy+RZkzIa8FQAQNm31N5b+G5nm8w+naGgNX6CaDGY=
+# V2:22 SSH-2.0-OpenSSH_7.4
+V2 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN+UL/j903euvgk+7XeRNsdwCbQXFsRrOLZMuRJjGtkb
+[root@V1 myansi]# 
+
+[root@V1 myansi]# tail  -6   /etc/hosts
+192.168.1.11   V1
+192.168.1.12   V2
+192.168.1.13   V3
+192.168.1.14   V4
+192.168.1.15   V5
+192.168.1.16   V6
+[root@V1 myansi]# ll    /root/.ssh/known_hosts 
+-rw-r--r-- 1 root root 2441 5月  18 10:00 /root/.ssh/known_hosts
+
+------------------------------------- 注意是　追加重定向　>>　实际生产环境，千万要注意！！　－－－－－－－－－－
+--------------------------　导入　所有的服务器　的　主机公钥　－－－－－－－－
+
+[root@V1 myansi]# ssh-keyscan   192.168.1.1{1..6}   V{1..6} > /root/.ssh/known_hosts 
+
+# 192.168.1.11:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.11:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.11:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.12:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.14:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.14:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.16:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.16:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.16:22 SSH-2.0-OpenSSH_7.4
+# V1:22 SSH-2.0-OpenSSH_7.4
+# V1:22 SSH-2.0-OpenSSH_7.4
+# V1:22 SSH-2.0-OpenSSH_7.4
+# V4:22 SSH-2.0-OpenSSH_7.4
+# V4:22 SSH-2.0-OpenSSH_7.4
+# V4:22 SSH-2.0-OpenSSH_7.4
+# V6:22 SSH-2.0-OpenSSH_7.4
+# V6:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.12:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.12:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.13:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.13:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.13:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.14:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.15:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.15:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.15:22 SSH-2.0-OpenSSH_7.4
+# V2:22 SSH-2.0-OpenSSH_7.4
+# V2:22 SSH-2.0-OpenSSH_7.4
+# V2:22 SSH-2.0-OpenSSH_7.4
+# V3:22 SSH-2.0-OpenSSH_7.4
+# V3:22 SSH-2.0-OpenSSH_7.4
+# V3:22 SSH-2.0-OpenSSH_7.4
+# V5:22 SSH-2.0-OpenSSH_7.4
+# V5:22 SSH-2.0-OpenSSH_7.4
+# V5:22 SSH-2.0-OpenSSH_7.4
+# V6:22 SSH-2.0-OpenSSH_7.4
+
+[root@V1 myansi]# ll    /root/.ssh/known_hosts
+-rw-r--r-- 1 root root 7764 5月  20 12:40 /root/.ssh/known_hosts
+
+[root@V1 myansi]# vim    /root/.ssh/known_hosts
+
+[root@V1 myansi]# head  -3   /root/.ssh/known_hosts
+192.168.1.11 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN+UL/j903euvgk+7XeRNsdwCbQXFsRrOLZMuRJjGtkb
+192.168.1.11 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDETTVM/sOnPSZEHwGibeX6uNIt4veIC+ZTBNga4/5jW8Nh7XZIgqde1uMGHLYFk3Sr8j228BxHwFbefevGXeNJ4D1DBF9m4oRjwyS5ZbPbg7xLNAHTz46417ZC1D3SYrn/QxUs3oYuyTRyYypPa/vx8L4ezUh0CTi4Bh/pIiGU8NPWmfqUNj7TT+/STNXJWHYq88fB7bAouHKdmf3kvYmadNBYtl/4GFFhn8BwKETfkKoi5HfeBlgvtr3JddB/ayOYAGcfMq8DZl3ihrbqCEeDqyFN+xGkddiS1s3tgclrbp//iUlx9CI+3kFl/lZ+PavPudqYMKjTzF1/CVoZUOwJ
+192.168.1.11 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDBs5eD/JYvXBi/9O2hLeCTVXkdjs+ox6qyDqkmLTTKlAuTy+RZkzIa8FQAQNm31N5b+G5nm8w+naGgNX6CaDGY=
+
+[root@V1 myansi]# tail    -1   /root/.ssh/known_hosts
+V6 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDBs5eD/JYvXBi/9O2hLeCTVXkdjs+ox6qyDqkmLTTKlAuTy+RZkzIa8FQAQNm31N5b+G5nm8w+naGgNX6CaDGY=
+
+[root@V1 myansi]# ssh   -l  root  -p22   192.168.1.11  "hostname"
+root@192.168.1.11's password: 
+V1
+[root@V1 myansi]# ssh   -l  root  -p22   192.168.1.16  "hostname"
+root@192.168.1.16's password: 
+V6
+[root@V1 myansi]# ssh   -l  root  -p22   V3   "hostname"
+root@v3's password: 
+V3
+
+[root@V1 myansi]# cat    myhosts
+[dbservers]
+V1
+V6
+
+[webservers]
+V1
+V2
+V6
+
+[other]
+V[3:5]
+
+[app:children]
+webservers
+other
+
+[app:vars]
+ansible_ssh_user=root
+ansible_ssh_pass="1"
+
+[root@V1 myansi]# cat   ansible.cfg 
+[defaults]
+inventory      =  myhosts
+remote_user = root
+host_key_checking = False
+
+[root@V1 myansi]# ansible    all  -m  ping |grep  ^V[1-9]
+V2 | SUCCESS => {
+V4 | SUCCESS => {
+V3 | SUCCESS => {
+V1 | SUCCESS => {
+V6 | SUCCESS => {
+V5 | SUCCESS => {
+
+
+[root@V2 ~]# mkdir  myansi
+[root@V2 ~]# cd      myansi/
+
+[root@V2 myansi]# ansible  --version
+ansible 2.8.0
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = [u'/root/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python2.7/site-packages/ansible
+  executable location = /usr/bin/ansible
+  python version = 2.7.5 (default, Apr 11 2018, 07:36:10) [GCC 4.8.5 20150623 (Red Hat 4.8.5-28)]
+
+[root@V2 myansi]# grep    -Env   '^(#|$)'    /etc/ansible/hosts
+[root@V2 myansi]# ll    /etc/ansible/hosts 
+-rw-r--r-- 1 root root 1016 5月  18 03:15 /etc/ansible/hosts
+
+
+[root@V2 myansi]# vim     /etc/ansible/ansible.cfg
+[root@V2 myansi]# grep    -Env   '^(#|$)'   /etc/ansible/ansible.cfg
+10:[defaults]
+14:inventory      = /etc/ansible/hosts
+71:host_key_checking = False
+327:[inventory]
+340:[privilege_escalation]
+346:[paramiko_connection]
+370:[ssh_connection]
+431:[persistent_connection]
+445:[accelerate]
+460:[selinux]
+469:[colors]
+485:[diff]
+[root@V2 myansi]# 
+[root@V1 myansi]# ls
+ansible.cfg  myhosts
+[root@V1 myansi]# scp   ansible.cfg   myhosts  root@V2:/root/myansi/
+................
+[root@V2 myansi]# ls
+ansible.cfg  myhosts
+
+[root@V2 myansi]# cat   ansible.cfg 
+[defaults]
+inventory      =  myhosts
+remote_user = root
+host_key_checking = False
+
+[root@V2 myansi]# cat    myhosts 
+[dbservers]
+V1
+V6
+
+[webservers]
+V1
+V2
+V6
+
+[other]
+V[3:5]
+
+[app:children]
+webservers
+other
+
+[app:vars]
+ansible_ssh_user=root
+ansible_ssh_pass="1"
+[root@V2 myansi]# ansible    all  -m  ping |grep  ^V[1-9]
+V1 | SUCCESS => {
+V2 | SUCCESS => {
+V3 | SUCCESS => {
+V6 | SUCCESS => {
+V4 | SUCCESS => {
+V5 | SUCCESS => {
+
+[root@V1 myansi]# ll  /root/.ssh/known_hosts 
+-rw-r--r-- 1 root root 7764 5月  20 12:40 /root/.ssh/known_hosts
+
+[root@V2 myansi]# ll  /root/.ssh/known_hosts 
+-rw-r--r-- 1 root root 1062 5月  16 19:16 /root/.ssh/known_hosts
+
+[root@V1 myansi]# head   -1  /root/.ssh/known_hosts
+192.168.1.11 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN+UL/j903euvgk+7XeRNsdwCbQXFsRrOLZMuRJjGtkb
+
+[root@V1 myansi]# tail  -1    /root/.ssh/known_hosts
+V6 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDBs5eD/JYvXBi/9O2hLeCTVXkdjs+ox6qyDqkmLTTKlAuTy+RZkzIa8FQAQNm31N5b+G5nm8w+naGgNX6CaDGY=
+
+
+[root@V2 myansi]# head  -1  /root/.ssh/known_hosts
+v2,192.168.1.12 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDBs5eD/JYvXBi/9O2hLeCTVXkdjs+ox6qyDqkmLTTKlAuTy+RZkzIa8FQAQNm31N5b+G5nm8w+naGgNX6CaDGY=
+
+[root@V2 myansi]# tail  -1  /root/.ssh/known_hosts
+v1,192.168.1.11 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDBs5eD/JYvXBi/9O2hLeCTVXkdjs+ox6qyDqkmLTTKlAuTy+RZkzIa8FQAQNm31N5b+G5nm8w+naGgNX6CaDGY=
+
+
+============================================
+
+[root@V1 myansi]# ansible    all  -m  ping |grep  ^V[1-9]
+V3 | SUCCESS => {
+V4 | SUCCESS => {
+V2 | SUCCESS => {
+V1 | SUCCESS => {
+V6 | SUCCESS => {
+V5 | SUCCESS => {
+
+[root@V1 myansi]# ansible    all  -m  ping  -k
+SSH password: 1
+V4 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "ping": "pong"
+}
+V6 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "ping": "pong"
+}
+V2 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "ping": "pong"
+}
+V1 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "ping": "pong"
+}
+V3 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "ping": "pong"
+}
+V5 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "ping": "pong"
+}
+[root@V1 myansi]# 
+
+ ~]# ansible-playbook -i /etc/ansible/hosts  -e  'nameadd="jinj2"  uid="1126"'  user2.yaml  
+             ##在命令行里面传参数 键值对 的方法 ,变量优先级命令行（-e 选项指定的变量）最高
+
+
+]# ansible  主机或分组列表 -m  模块名称 -a 模块的参数
+ansible 主机或组 -m 模块名 -a ‘模块参数’ 
+参数	说明
+-a	‘Arguments’, —args=’Arguments’ 命令行参数
+-m	NAME, —module-name=NAME 执行模块的名字，默认使用 command 模块，
+        所以如果是只执行单一命令可以不用 -m参数
+
+-i PATH,	—inventory=PATH 指定库存主机文件的路径,默认为/etc/ansible/hosts.
+-M MODULE_PATH,	—module-path=MODULE_PATH 要执行的模块的路径，默认为/usr/share/ansible/
+-o —one-line	压缩输出，摘要输出.尝试一切都在一行上输出。
+-e EXTRA_VARS,	—extra-vars=EXTRA_VARS 额外的变量设置为键=值或YAML / JSON
+-v	—verbose 详细信息
+-f	—forks=NUM 并行任务数。NUM被指定为一个整数,默认是5。 
+   #ansible testhosts -a “/sbin/reboot” -f 10 重启testhosts组的所有机器，每次重启10台
+
+-l	—list 显示所支持的所有模块
+
+============== 安装　httpd　软件包　=========
+
+[root@V1 myansi]# ansible   -i  myhosts   V5   -m  yum  -a \
+> 'name=httpd  state=present'  -k
+SSH password: 1
+V5 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    }, 
+    "changed": false, 
+    "msg": "", 
+    "rc": 0, 
+    "results": [
+        "httpd-2.4.6-89.el7.centos.x86_64 providing httpd is already installed"
+    ]
+}
+[root@V5 ~]# rpm  -q  httpd
+httpd-2.4.6-89.el7.centos.x86_64
+[root@V5 ~]# ls  /var/www/html/
+[root@V5 ~]# ls  -ld  /var/www/html/
+drwxr-xr-x 2 root root 6 6月  10 2014 /var/www/html/
+
+[root@V1 myansi]# vim    myhosts 
+[root@V1 myansi]# cat    myhosts
+[dbservers]
+V1
+V6
+
+[webservers]
+V[1:2]
+V[5:6]
+
+[other]
+V[3:4]
+
+[app:children]
+webservers
+other
+
+[app:vars]
+ansible_ssh_user=root
+ansible_ssh_pass="1"
+
+[root@V1 myansi]# ls
+ansible.cfg  myhosts
+
+[root@V1 myansi]# cat   ansible.cfg 
+[defaults]
+inventory      =  myhosts
+remote_user = root
+host_key_checking = False
+
+[root@V1 myansi]# ansible   -i  myhosts   webservers   -m   ping |grep  ^V[1-9]
+V5 | SUCCESS => {
+V1 | SUCCESS => {
+V6 | SUCCESS => {
+V2 | SUCCESS => {
+[root@V1 myansi]# ansible  -i  myhosts   webservers  -m  command  -a  "id apache"
+
+V1 | CHANGED | rc=0 >>
+uid=48(apache) gid=48(apache) 组=48(apache)
+
+V2 | CHANGED | rc=0 >>
+uid=48(apache) gid=48(apache) 组=48(apache)
+
+V6 | CHANGED | rc=0 >>
+uid=48(apache) gid=48(apache) 组=48(apache)
+
+V5 | CHANGED | rc=0 >>
+uid=48(apache) gid=48(apache) 组=48(apache)
+
+[root@V1 myansi]# ansible  -i  myhosts  all   -a  "free  -m"
+V5 | CHANGED | rc=0 >>
+              total        used        free      shared  buff/cache   available
+Mem:           1439         100        1073           8         265        1164
+Swap:             0           0           0
+
+V1 | CHANGED | rc=0 >>
+              total        used        free      shared  buff/cache   available
+Mem:           1839         339         864           8         635        1306
+Swap:             0           0           0
+
+V6 | CHANGED | rc=0 >>
+              total        used        free      shared  buff/cache   available
+Mem:           1839         213        1432           8         193        1450
+Swap:             0           0           0
+
+V2 | CHANGED | rc=0 >>
+              total        used        free      shared  buff/cache   available
+Mem:           1839         124        1177           8         537        1524
+Swap:             0           0           0
+
+V3 | CHANGED | rc=0 >>
+              total        used        free      shared  buff/cache   available
+Mem:           1447          64        1299           8          83        1257
+Swap:             0           0           0
+
+V4 | CHANGED | rc=0 >>
+              total        used        free      shared  buff/cache   available
+Mem:           1447          66        1297           8          83        1255
+Swap:             0           0           0
+
+[root@V1 myansi]# 
+
+YAML是"YAML Ain't a Markup Language"
+(YAML不是一种标记语言)的递归缩写。
+
+在开发的这种语言时，YAML 的意思其实是：
+"Yet Another Markup Language"（仍是一种标记语言）
+
+[root@Va1 ~]# cat  apache.yaml 
+# apache.yaml
+---
+- hosts: web
+  remote_user: root
+  tasks:
+    - name: tasks-zi-listname install the specific  version of Apache
+      yum:
+        name: httpd
+        state: present
+    - lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: "^Listen "
+        insertbefore: "^#Listen "
+        line: "Listen  80"
+      tags: conf_Listen   ##标记只执行特定指定的命令
+      notify:
+# zhuyi  hanshuming  yao  yizhi
+        - reload httpd
+    - lineinfile:
+        path: /etc/httpd/conf/httpd.conf
+        regexp: "^ServerName "
+        line: "ServerName  127.0.0.1"
+      notify: reload httpd
+    - copy:
+        src: /root/index.html
+        dest: /var/www/html/index.html
+        backup: yes
+        owner: apache
+        group: apache
+        mode: 0644
+      tags: conf_index   ##标记只执行特定指定的命令
+  handlers:
+# zhushi biaoshi lianjie hanshuming
+    - name: reload httpd
+      service:
+        name: httpd
+        state: restarted
+        enabled: yes
+
+[root@Va1 ~]# ansible-playbook   apache.yaml  --tags=conf_index
+.........................................................
+配置VIM
+•  Yaml的缩进不能使用tab键
+•  建议缩进为两个空格
+•  为了实现yml文件按tab键缩进两个空格,可以按以下方式
+对vim进行定制
+[root@bogon	myansi]#	cat	~/.vimrc	
+
+[root@V1 myansi]# cat  /root/.viminfo 
+
+# This viminfo file was generated by Vim 7.4.
+# You may edit it if you're careful!
+#此viminfo文件由vim 7.4生成。
+#如果你小心的话，你可以编辑它！
+
+# Value of 'encoding' when this file was written
+#写入此文件时的“encoding”值
+*encoding=utf-8
+
+
+# hlsearch on (H) or off (h):
+~H
+# Last Search Pattern:
+~MSle0~/host_key_checking
+
+# Last Substitute Search Pattern:
+~MSle0&$releasever
+
+# Last Substitute String:
+$7
+
+# Command Line History (newest to oldest):
+:wq
+:q
+:set  nu
+:set nu
+:WQ
+:%s  /$releasever/7/g
+..................
+
+－－－－－－－－－－－－－－－－－　linux vim 个性化设置(.vimrc)
+
+[root@V1 myansi]# ll   ~/.vimrc
+ls: 无法访问/root/.vimrc: 没有那个文件或目录
+
+[root@V1 myansi]# vim    ~/.vimrc
+
+Vim识别三种不同的终端：term，黑白终端；cterm，彩色终端；gui，Gvim窗口。
+
+cterm，可以用ctermfg设置前景色；
+用ctermbg设置背景色
+
+[root@V1 myansi]# cat    ~/.vimrc
+set  ai        #设置自动缩进   ai  autoindent
+set  ts=4　　  #设置Tab键的宽度ts  tabstop　４个空格
+set  et      ##设置把　Tab键　转成空格et  expandtab
+
+##---　设置shiftwidth 当行之间交错时使用2个空格 sw=2使用每层缩进的空格数为２个空格
+
+autocmd  FileType  yaml  setlocal  sw=2  ts=2  et  ai
+
+highlight Comment cterm=NONE  ctermfg=blue  ctermbg=gray
+
+[root@V1 myansi]# vim     /root/.vimrc
+[root@V1 myansi]# cat     /root/.vimrc
+set  ai
+set  ts=4
+set  et
+set  ic
+autocmd  FileType  yaml  setlocal  sw=2  ts=2  et  ai
+highlight Comment cterm=NONE  ctermfg=blue  ctermbg=gray
+[root@V1 myansi]# ls
+ansible.cfg  myhosts
+[root@V1 myansi]# vim    xxtest.yaml
+
+
+indent    英 [ɪnˈdent , ˈɪndent]
+   v.将(印刷或书写的行)缩进，缩格，缩排
+   n.订单;订购
+
+cyan
+英 [ˈsaɪən]   美 [ˈsaɪən]  
+n.
+蓝绿色，青色(用于印刷)
+
+magenta
+英 [məˈdʒentə]   美 [məˈdʒentə]  
+adj.
+紫红色的;洋红色的
+n.
+品红，洋红;品红染料
+
+
+
+
+set cindent    "（cindent是特别针对 C语言语法自动缩进）
+filetype on    "检测文件的类型  
+syntax on      "语法高亮度显示
+set cul        "高亮光标所在行 cul  cursorline
+autocmd InsertEnter * se cul   " 用浅色高亮当前行
+
+"自动保存
+set autowrite
+
+"搜索忽略大小写
+set ignorecase
+set shiftwidth =4    "设置当行之间交错时使用4个空格     
+
+:set  noic  #搜索区分大小写
+/ifmodule
+
+E486: 找不到模式: ifmodule   
+---------------------------------------------
+:set  ic   #搜索忽略大小写
+/ifmodule
+------------------------
+:set  cul   #高亮光标所在行
+
+取消编辑状态的下划线把这句注销就可以
+"autocmd InsertEnter * se cul //用浅色高亮当前行
+取消可视状态的下划线注释掉：
+"set cursorline
+
+Vim识别三种不同的终端：term，黑白终端；cterm，彩色终端；gui，Gvim窗口。
+
+cterm，可以用ctermfg设置前景色；
+用ctermbg设置背景色。
+例如以下命令，定义灰底蓝字并使用下划线来显示注释：
+:highlight Comment cterm=underline ctermfg=blue  ctermbg=gray
+
+gray    英 [ɡreɪ]
+   n.灰色，暗淡，灰暗
+adj.灰色的，灰白的，老的，老练的，阴沉的;
+
+由于不是所有终端都支持256色，因此使用一些安全色会使我们的主题更有移植性，
+而GUI可以支持所有颜色，不在考虑范围之内，
+vim文档给出的安全色如下：
+
+[plain] view plaincopy
+"0      Black    
+"1      DarkBlue    
+"2      DarkGreen          
+"3      DarkCyan   
+"4      DarkRed  
+"5      DarkMagenta          
+"6      Brown, DarkYellow              
+"7      LightGray, LightGrey, Gray, Grey                     
+"8      DarkGray, DarkGrey     
+"9      Blue, LightBlue       
+"10     Green, LightGreen            
+"11     Cyan, LightCyan                      
+"12     Red, LightRed                           
+"13     Magenta, LightMagenta   
+"14     Yellow, LightYellow     
+"15     White      
+
+hi是highlight命令的缩写，用于高亮配置；
+Type是要配色的元素名称；参数采用的是Key=Value的形式。
+元素列表
+
+配置颜色的语法非常简单， 下面将分类介绍常用的元素标签：
+
+状态栏提示信息
+hi StatusLine       状态栏
+hi StatusLineNC     非当前窗口的状态栏
+ErrorMsg            错误信息
+WarningMsg          警告信息
+ModeMsg             当前模式
+MoreMsg             其他文本
+Question            询问用户
+Error               错误
+
+C/C++语法
+
+[plain] view plaincopy
+Comment             注释  
+PreProc             预处理  
+Type                数据类型  
+Constant            常量  
+Statement           控制语句  
+Special             字符串中的中的特殊字符  
+String              字符串  
+cCppString          Cpp字符串  
+Number              数字  
+Todo                TODO、HACK、FIXME等标签  
+
+[root@V1 myansi]# vim     /root/.vimrc
+
+[root@V1 myansi]# cat     ~/.vimrc 
+
+set  t_Co=256     #添加开启256颜色支持
+syntax enable     #在编辑程序时高亮显示关键字
+syntax on         #开启语法高亮显示
+set  background=dark      #配置主题整体的色调dark和light（暗色调和亮色调）
+set  ai
+set  ts=4
+set  et
+set  ic
+autocmd  FileType  yaml  setlocal  sw=2  ts=2  et  ai
+let  g:colors_name="nslib_color256"
+
+                 #cterm   彩色终端的属性 ------ #term  黑白终端的属性
+   #ctermfg 彩色终端前景色  ---------   #ctermbg  彩色终端背景色
+   #Comment  注释    ------------------    # Error    状态栏错误提示信息
+
+highlight Comment cterm=NONE  ctermfg=LightMagenta  ctermbg=DarkBlue
+hi        Error               ctermfg=LightRed      ctermbg=Black
+
+[root@V1 myansi]# 
+[root@V1 myansi]# cat     /root/.vimrc 
+set  t_Co=256
+syntax enable  
+syntax on   
+set  background=dark
+set  ai
+set  ts=4
+set  et
+set  ic
+autocmd  FileType  yaml  setlocal  sw=2  ts=2  et  ai
+let  g:colors_name="nslib_color256"
+highlight Comment cterm=NONE  ctermfg=LightMagenta  ctermbg=DarkBlue
+hi        Error               ctermfg=LightRed      ctermbg=Black
+
+[root@V1 myansi]# scp  -P7920   vimrc.txt   student@192.168.1.254:/home/student/Ansiblebj
+
+[root@V1 myansi]# vim     /root/.vimrc[root@V1 myansi]# cat    /root/.vimrc
+"双引号在配置文件~/.vimrc 中表示注释
+"cterm   彩色终端的属性  ----- #term    黑白终端的属性
+"ctermfg 彩色终端前景色  -----#ctermbg  彩色终端背景色
+"Comment  注释    ----------- # Error    状态栏错误提示信息
+"设置shiftwidth 当行之间交错时使用2个空格 sw=2使用每层缩进的空格数为２个空格
+"set  t_Co=256        　"添加开启256颜色支持
+"syntax enable          "在编辑程序时高亮显示关键字
+"syntax on              "开启语法高亮显示
+"set  background=dark   "配置主题整体的色调dark和light(暗色调和亮色调)
+set  ai                 "设置自动缩进            ai  autoindent
+set  ts=4               "设置Tab键的宽度４个空格 ts  tabstop　４个空格
+set  et                 "设置把　Tab键　转成空格 et  expandtab
+set  ic                 "搜索忽略大小写          ic  ignorecase
+autocmd  FileType  yaml  setlocal  sw=2  ts=2  et  ai
+"主题名称是无参数调用 :colorscheme 时返回的信息，用于分辨不同主题
+"let  g:colors_name="nslib_color256"
+"hi是highlight命令的缩写，用于高亮配置；Type是要配色的元素名称；参数采用的是Key=Value的形式
+"highlight Comment cterm=NONE  ctermfg=LightMagenta  ctermbg=DarkBlue
+"hi        Error               ctermfg=LightRed      ctermbg=Black
+[root@V1 myansi]# 
+[root@V1 myansi]# scp  -P7920   /root/.vimrc    student@192.168.1.254:/home/student/Ansiblebj/vimrc
+
+[root@V1 myansi]# grep   -nv  ^\"   ~/.vimrc
+10:set  ai                 "设置自动缩进            ai  autoindent
+11:set  ts=4               "设置Tab键的宽度４个空格 ts  tabstop　４个空格
+12:set  et                 "设置把　Tab键　转成空格 et  expandtab
+13:set  ic                 "搜索忽略大小写          ic  ignorecase
+14:autocmd  FileType  yaml  setlocal  sw=2  ts=2  et  ai
+
+"设置shiftwidth 当行之间交错时使用2个空格 sw=2使用每层缩进的空格数为２个空格
+
+[root@V1 myansi]# 
+
+[root@V1 myansi]# ansible-doc  -l
+a10_server                                             Manage A10 Networks AX/...
+a10_server_axapi3                                      Manage A10 Networks AX/...
+a10_service_group                                      Manage A10 Networks AX/...
+a10_virtual_server                                     Manage A10 Networks AX/...
+..............................
+
+[root@V1 myansi]# 
+[root@V1 myansi]# ansible-doc   yum
+> YUM    (/usr/lib/python2.7/site-packages/ansible/modules/packaging/os/yum.py)
+
+        Installs, upgrade, downgrades, removes, and lists packages and
+        groups with the `yum' package manager. This module only works
+        on Python 2. If you require Python 3 support see the [dnf]
+        module.
+
+  * This module is maintained by The Ansible Core Team
+  * note: This module has a corresponding action plugin.
+
+OPTIONS (= is mandatory):
+
+- allow_downgrade
+..............
+
+[root@V1 myansi]# ansible-doc  -l |grep  -i   k8s_auth
+k8s_auth    Authenticate to Kubernetes clusters which require an explicit login step 
+               对需要显式登录步骤的kubernetes集群进行身份验证
+
+[root@V1 myansi]# ansible-doc  -l |grep  -i  'authorized_key'
+authorized_key            Adds or removes an SSH authorized key 
+
+
+YAML是"YAML Ain't a Markup Language"
+(YAML不是一种标记语言)的递归缩写。
+
+在开发的这种语言时，YAML 的意思其实是：
+"Yet Another Markup Language"（仍是一种标记语言）
+
+[root@V1 myansi]# ansible-doc    authorized_key
+> AUTHORIZED_KEY    (/usr/lib/python2.7/site-packages/ansible/modules/system/authoriz
+............
+EXAMPLES:
+
+- name: Set authorized key taken from file
+  authorized_key:
+    user: charlie
+    state: present
+    key: "{{ lookup('file', '/home/charlie/.ssh/id_rsa.pub') }}"
+................
+
+[root@V1 myansi]# vim   authorizedKeyx.yaml
+
+-------------------------- 检查语法问题　ansible-playbook  --syntax-check　－－－－－－－－－－－
+
+[root@V1 myansi]# ansible-playbook  --syntax-check   authorizedKeyx.yaml
+
+ERROR! 'task' is not a valid attribute for a Play
+
+The error appears to be in '/root/myansi/authorizedKeyx.yaml': line 2, column 3, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+---
+- name: configure authorized key
+  ^ here
+
+[root@V1 myansi]# 
+
+explanatory note
+英 [ɪkˈsplænətri nəʊt]  美 [ɪkˈsplænətɔːri noʊt]  
+（报表、凭证的）附注，注释
+
+annotation　　　　英 [ˌænəˈteɪʃn]
+　　　n.注解;评注;注文;释文
+
+describe    英 [dɪˈskraɪb]
+   v.描述;形容;把…称为;做…运动;画出…图形;
+
+comment    英 [ˈkɒment]
+   n.议论;评论;解释;批评;指责
+   v.表达意见
+
+[root@V1 myansi]# vim   authorizedKeyx.yaml
+
+[root@V1 myansi]# ansible-playbook  --syntax-check   authorizedKeyx.yaml
+
+playbook: authorizedKeyx.yaml
+[root@V1 myansi]# cat    authorizedKeyx.yaml
+---
+- name: configure authorized key  annotation describe comment
+  hosts: all
+  tasks:
+  - name: root_key
+    authorized_key:
+      user: root
+      state: present
+      key: "{{ lookup('file','/root/.ssh/id_rsa.pub') }}"
+
+[root@V1 myansi]# ls
+ansible.cfg  authorizedKeyx.yaml  myhosts  vimrc.txt
+
+-----------   -i PATH,	—inventory=PATH 指定库存主机文件的路径,默认为/etc/ansible/hosts
+
+[root@V1 myansi]# ansible-playbook  -i  myhosts  authorizedKeyx.yaml  -k
+SSH password: 
+
+PLAY [configure authorized key  annotation describe comment] *******************
+
+TASK [Gathering Facts] *********************************************************
+ok: [V5]
+ok: [V6]
+ok: [V2]
+ok: [V3]
+ok: [V1]
+ok: [V4]
+
+TASK [root_key] ****************************************************************
+changed: [V1]
+changed: [V2]
+changed: [V5]
+changed: [V3]
+changed: [V6]
+changed: [V4]
+
+PLAY RECAP *********************************************************************
+V1                         : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V2                         : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V3                         : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V4                         : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V5                         : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V6                         : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[root@V1 myansi]# ll  /root/.ssh/
+总用量 20
+-rw------- 1 root root  793 5月  20 18:04 authorized_keys
+-rw------- 1 root root 1766 5月  17 18:34 id_rsa
+-rw-r--r-- 1 root root  386 5月  17 18:34 id_rsa.pub
+-rw-r--r-- 1 root root 7946 5月  20 16:30 known_hosts
+
+
+[root@V1 myansi]# scp   /root/.vimrc  root@V2:/root/
+Enter passphrase for key '/root/.ssh/id_rsa': FE3630yj
+.vimrc                                   100% 1366   714.5KB/s   00:00 
+[root@V2 myansi]# ll  /root/.vimrc 
+-rw-r--r-- 1 root root 1366 5月  20 18:21 /root/.vimrc
+[root@V2 myansi]# head  -1   /root/.vimrc
+"双引号在配置文件~/.vimrc 中表示注释
+
+[root@V2 myansi]# scp   /root/.vimrc  root@V6:/root/
+root@v6's password: 1
+.vimrc                                   100% 1366     2.2MB/s   00:00 
+
+[root@V1 myansi]# rm  -f  /root/.ssh/*
+[root@V1 myansi]# ls   /root/.ssh/
+
+[root@V1 myansi]# ssh-keygen   -t  rsa   -C  "keyOwnerName"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa): 直接回车(确认默认路径)
+Enter passphrase (empty for no passphrase): 直接回车(空密码)
+Enter same passphrase again: 直接回车(空密码)
+Your identification has been saved in /root/.ssh/id_rsa.
+Your public key has been saved in /root/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:OnF8fgSCJnBhgUtDqbXxAiNJJNMVnmolO7NUDUSBG+k keyOwnerName
+The key's randomart image is:
++---[RSA 2048]----+
+|=*oO%=           |
+|*.%= + .         |
+|.B.O* + . .      |
+|. E*.o . . .     |
+|  B.  . S . .    |
+| o +   + o .     |
+|  .   o   . .    |
+|       .   .     |
+|                 |
++----[SHA256]-----+
+[root@V1 myansi]# ls   /root/.ssh/
+id_rsa  id_rsa.pub
+
+[root@V1 myansi]# file  /root/.ssh/id_rsa
+/root/.ssh/id_rsa: PEM RSA private key
+
+
+[root@V1 myansi]# file   /root/.ssh/id_rsa.pub 
+/root/.ssh/id_rsa.pub: OpenSSH RSA public key
+
+[root@V1 myansi]# tail  -1  /root/.ssh/id_rsa.pub
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDYYFh1blX/dIHu4Oc1Q0mM1r7gNSchjeSQZIxTuOKmLb2WHBmu7+6aHmM0XJEcvSuEYunAcQgbpxXhvLRkiOldhLnpQJPgc/y+f9LjSRk7NUDogYp6908ITAccuMobFx8+AJnLKVIUkpblMhNEUeSkBq1aospEhfOXb5wddyzUiJnortb1gsC3h4dUNmlK1OC83sm6Z5S3T9Q5fiEI7VZL/rKWDoQ7QC4gK4GT9LyuCT27FjHSOKHDkdOVZ3vMHnN8so2osojiitybA8Z/YKaPXZvs/1VUoqkpnJGu9TLVUqyidFbWej8f/YRZqeE8kem17hdBGWOtTu0pJRqpera9 keyOwnerName
+[root@V1 myansi]# 
+
+[root@V1 myansi]# ssh-keyscan     192.168.1.1{1..6}   V{1..6} > /root/.ssh/known_hosts 
+# 192.168.1.12:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.14:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.11:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.11:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.11:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.12:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.12:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.13:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.13:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.13:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.14:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.14:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.15:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.15:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.15:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.16:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.16:22 SSH-2.0-OpenSSH_7.4
+# 192.168.1.16:22 SSH-2.0-OpenSSH_7.4
+# V1:22 SSH-2.0-OpenSSH_7.4
+# V1:22 SSH-2.0-OpenSSH_7.4
+# V1:22 SSH-2.0-OpenSSH_7.4
+# V2:22 SSH-2.0-OpenSSH_7.4
+# V2:22 SSH-2.0-OpenSSH_7.4
+# V2:22 SSH-2.0-OpenSSH_7.4
+# V3:22 SSH-2.0-OpenSSH_7.4
+# V3:22 SSH-2.0-OpenSSH_7.4
+# V3:22 SSH-2.0-OpenSSH_7.4
+# V4:22 SSH-2.0-OpenSSH_7.4
+# V4:22 SSH-2.0-OpenSSH_7.4
+# V4:22 SSH-2.0-OpenSSH_7.4
+# V5:22 SSH-2.0-OpenSSH_7.4
+# V5:22 SSH-2.0-OpenSSH_7.4
+# V5:22 SSH-2.0-OpenSSH_7.4
+# V6:22 SSH-2.0-OpenSSH_7.4
+# V6:22 SSH-2.0-OpenSSH_7.4
+# V6:22 SSH-2.0-OpenSSH_7.4
+[root@V1 myansi]# ls   /root/.ssh/
+id_rsa  id_rsa.pub  known_hosts
+[root@V1 myansi]# ll    /root/.ssh/
+总用量 16
+-rw------- 1 root root 1679 5月  20 18:28 id_rsa
+-rw-r--r-- 1 root root  394 5月  20 18:28 id_rsa.pub
+-rw-r--r-- 1 root root 7764 5月  20 18:34 known_hosts
+
+[root@V1 myansi]# tail  -1   /root/.ssh/known_hosts 
+V6 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN+UL/j903euvgk+7XeRNsdwCbQXFsRrOLZMuRJjGtkb
+
+[root@V1 myansi]# ansible-playbook  -i  myhosts  authorizedKeyx.yaml  -k
+SSH password: 
+
+PLAY [configure authorized key  annotation describe comment] *******************
+
+TASK [Gathering Facts] *********************************************************
+ok: [V5]
+ok: [V1]
+ok: [V2]
+ok: [V6]
+ok: [V3]
+ok: [V4]
+
+TASK [root_key] ****************************************************************
+changed: [V1]
+changed: [V2]
+changed: [V5]
+changed: [V3]
+changed: [V6]
+changed: [V4]
+
+PLAY RECAP *********************************************************************
+V1                         : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V2                         : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V3                         : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V4                         : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V5                         : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V6                         : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[root@V1 myansi]# ll  /root/.ssh/
+总用量 20
+-rw------- 1 root root  394 5月  20 18:36 authorized_keys
+-rw------- 1 root root 1679 5月  20 18:28 id_rsa
+-rw-r--r-- 1 root root  394 5月  20 18:28 id_rsa.pub
+-rw-r--r-- 1 root root 7764 5月  20 18:34 known_hosts
+
+
+[root@V1 myansi]# ansible   all   -m   ping |grep  ^V[1-9]
+V1 | SUCCESS => {
+V3 | SUCCESS => {
+V6 | SUCCESS => {
+V5 | SUCCESS => {
+V2 | SUCCESS => {
+V4 | SUCCESS => {
+[root@V1 myansi]# 
+[root@V1 myansi]# ansible  other  -m  command   -a  "rm  -f  /etc/yum.repos.d/local.repo"
+
+ [WARNING]: Consider using the file module with state=absent rather than running 'rm'. 
+ If you need to use command because file is insufficient you can add 'warn: false' to this command task or set 'command_warnings=False' in  ansible.cfg to get rid of this message.
+[警告]：考虑使用state=absent的文件模块，而不是运行“rm”。
+如果由于文件不足而需要使用命令，可以将“warn:false”添加到此命令任务，
+或在ansible.cfg中设置“command_warnings=False”以消除此消息。
+
+V3 | CHANGED | rc=0 >>
+
+
+V4 | CHANGED | rc=0 >>
+
+
+[root@V1 myansi]# ansible  other  -m  command   -a  "ls  /etc/yum.repos.d/local.repo"
+V3 | FAILED | rc=2 >>
+ls: 无法访问/etc/yum.repos.d/local.repo: 没有那个文件或目录non-zero return code
+
+V4 | FAILED | rc=2 >>
+ls: 无法访问/etc/yum.repos.d/local.repo: 没有那个文件或目录non-zero return code
+
+[root@V1 myansi]# grep  -n  'command_warnings'  /etc/ansible/ansible.cfg 
+188:# command_warnings = False
+
+[root@V1 myansi]# ls
+ansible.cfg  authorizedKeyx.yaml  myhosts  vimrc.txt
+[root@V1 myansi]# vim    ansible.cfg 
+[root@V1 myansi]# cat     ansible.cfg
+[defaults]
+inventory      =  myhosts
+remote_user = root
+host_key_checking = False
+command_warnings=False
+[root@V1 myansi]# scp  /etc/yum.repos.d/local.repo  root@V3:/etc/yum.repos.d/
+local.repo                               100%   91   172.1KB/s   00:00    
+[root@V1 myansi]# scp  /etc/yum.repos.d/local.repo  root@V4:/etc/yum.repos.d/
+local.repo                               100%   91   113.7KB/s   00:00    
+
+[root@V1 myansi]# ansible  other  -m  command   -a  "ls  /etc/yum.repos.d/local.repo"
+
+V3 | CHANGED | rc=0 >>
+/etc/yum.repos.d/local.repo
+
+V4 | CHANGED | rc=0 >>
+/etc/yum.repos.d/local.repo
+
+[root@V1 myansi]# ansible  other  -m  command   -a  "rm  -f  /etc/yum.repos.d/local.repo"
+V4 | CHANGED | rc=0 >>
+
+
+V3 | CHANGED | rc=0 >>
+
+[root@V1 myansi]# cp    /etc/yum.repos.d/local.repo  .
+[root@V1 myansi]# ls
+ansible.cfg  authorizedKeyx.yaml  local.repo  myhosts  vimrc.txt
+[root@V1 myansi]# cat    local.repo 
+[local]
+name=CentOS7-1804.iso
+baseurl=ftp://192.168.1.254/centos-1804
+enabled=1
+gpgcheck=0
+[root@V1 myansi]# mkdir   files
+[root@V1 myansi]# cp  local.repo   files/
+[root@V1 myansi]# ls    files/
+local.repo
+
+
+[root@V1 myansi]# ansible-doc  copy
+> COPY    (/usr/lib/python2.7/site-packages/ansible/modules/files/copy.py)
+............
+EXAMPLES:
+
+- name: Copy file with owner and permissions
+  copy:
+    src: /srv/myfiles/foo.conf
+    dest: /etc/foo.conf
+    owner: foo
+    group: foo
+    mode: '0644'
+................
+- name: Copy a "sudoers" file on the remote machine for editing
+  copy:
+    src: /etc/sudoers
+    dest: /etc/sudoers.edit
+    remote_src: yes
+    validate: /usr/sbin/visudo -cf %s
+
+
+有2种方法设置python的默认编码：
+
+一个解决的方案在程序中加入以下代码：
+
+Python代码 
+import sys  
+reload(sys)  
+sys.setdefaultencoding('utf8')   
+ 另一个方案是在python的Lib\site-packages文件夹下新建一个sitecustomize.py，内容为：
+
+Python代码 
+# encoding=utf8  
+import sys  
+reload(sys)  
+sys.setdefaultencoding('utf8')   
+
+[root@V2 myansi]# find  /usr/lib/python2.7/ |xargs  grep  -Elri  "encoding|utf8|utf-8" |grep "conf"
+/usr/lib/python2.7/site-packages/ansible/config/manager.py
+....................
+
+[root@V2 myansi]# grep  -ni  utf8   /usr/lib/python2.7/site-packages/ansible/config/manager.py
+
+295:    raise AnsibleOptionsError("Error reading config file(%s) because the config file was not utf8 encoded: %s" % (cfile, to_native(e)))
+
+
+[root@V2 myansi]# grep  -ni  yaml    /usr/lib/python2.7/site-packages/ansible/config/manager.py
+
+16:from yaml import load as yaml_load
+19:    from yaml import CSafeLoader as SafeLoader
+21:    from yaml import SafeLoader
+151:        elif ext in ('.yaml', '.yml'):
+152:            ftype = 'yaml'
+249:        self._base_defs = self._read_config_yaml_file(defs_file or ('%s/base.yml' % os.path.dirname(__file__)))
+270:    def _read_config_yaml_file(self, yml_file):
+276:                return yaml_load(config_def, Loader=SafeLoader) or {}
+278:            "Missing base YAML definition file (bad install?): %s" % to_native(yml_file))
+304:            # FIXME: this should eventually handle yaml config files
+305:            # elif ftype == 'yaml':
+307:            #         self._parsers[cfile] = yaml.safe_load(config_stream)
+311:    def _find_yaml_config_files(self):
+312:        ''' Load YAML Config Files in order, check merge flags, keep origin of settings'''
+447:                        elif ftype == 'yaml':
+492:        defaults_config = self._read_config_yaml_file(
+[root@V2 myansi]# 
+
+
+
+annotation　　　　英 [ˌænəˈteɪʃn]
+　　　n.注解;评注;注文;释文
+
+describe    英 [dɪˈskraɪb]
+   v.描述;形容;把…称为;做…运动;画出…图形;
+
+comment    英 [ˈkɒment]
+   n.议论;评论;解释;批评;指责
+   v.表达意见
+
+[root@V1 myansi]# vim   authorizedKeyx.yaml 
+[root@V1 myansi]# ansible-playbook  -i  myhosts  authorizedKeyx.yaml 
+.............
+TASK [describe annotation comment lines ---- copy yum config file] *****************
+ok: [V6]
+ok: [V2]
+ok: [V1]
+ok: [V5]
+changed: [V3]
+changed: [V4]
+....................
+[root@V1 myansi]# ansible  other  -m  command   -a  "ls  -l  /etc/yum.repos.d/local.repo"
+V3 | CHANGED | rc=0 >>
+-rw-r--r-- 1 root root 91 5月  20 19:56 /etc/yum.repos.d/local.repo
+
+V4 | CHANGED | rc=0 >>
+-rw-r--r-- 1 root root 91 5月  20 19:56 /etc/yum.repos.d/local.repo
+
+
+[root@V1 ~]# scp  -P7920  -r  myansi/  student@192.168.1.254:/home/student/Ansiblebj/
+
+[root@V1 myansi]# ansible  V2   -m  command   -a  "shutdown  -h  now"
+V2 | UNREACHABLE! => {
+    "changed": false, 
+    "msg": "Failed to connect to the host via ssh: Shared connection to v2 closed.", 
+    "unreachable": true
+}
+[root@V1 myansi]# ansible  V6   -m  command   -a  "shutdown  -h  now"
+V6 | UNREACHABLE! => {
+    "changed": false, 
+    "msg": "Failed to connect to the host via ssh: Shared connection to v6 closed.", 
+    "unreachable": true
+}
+
+============== 安装　httpd　软件包　=========
+
+[root@V1 myansi]# ansible   -i  myhosts   V5   -m  yum  -a \
+> 'name=httpd  state=present'  -k
+SSH password: 1
+V5 | SUCCESS => {
+......................
+
+[root@V1 myansi]# ansible  all    -m  command   -a  "systemctl  is-active  httpd"
+V1 | CHANGED | rc=0 >>
+active
+
+V5 | FAILED | rc=3 >>
+unknownnon-zero return code
+
+V4 | FAILED | rc=3 >>
+unknownnon-zero return code
+
+V3 | FAILED | rc=3 >>
+unknownnon-zero return code
+
+[root@V1 myansi]# ansible  all    -m  command   -a  "systemctl  is-active  mariadb"
+V5 | FAILED | rc=3 >>
+unknownnon-zero return code
+
+V4 | FAILED | rc=3 >>
+unknownnon-zero return code
+
+V3 | FAILED | rc=3 >>
+unknownnon-zero return code
+
+V1 | CHANGED | rc=0 >>
+active
+
+[root@V1 myansi]#
+[root@V1 myansi]# vim   myhosts 
+[root@V1 myansi]# cat   myhosts
+[dbservers]
+V3
+
+[webservers]
+V[4:5]
+
+[other]
+V1
+
+[app:children]
+webservers
+dbservers
+
+[app:vars]
+ansible_ssh_user=root
+ansible_ssh_pass="1"
+
+[root@V1 myansi]# ansible app  -m shell  -a  "ifconfig |awk  '/inet /{print $2}'"|grep  ^V[1-9]
+
+V3 | CHANGED | rc=0 >>
+V5 | CHANGED | rc=0 >>
+V4 | CHANGED | rc=0 >>
+
+[root@V1 myansi]# ansible  app  -m  shell  -a  "ifconfig |grep 'inet '" |awk   '/inet /{print $2}'
+
+192.168.1.14
+192.168.122.14
+127.0.0.1
+192.168.1.13
+192.168.122.13
+127.0.0.1
+192.168.1.15
+192.168.122.15
+127.0.0.1
+
+[root@V1 myansi]# ansible app  -m shell -a "yum  makecache "
+...................
+[root@V1 myansi]# ansible app  -m shell -a "yum  repolist"
+....................
+
+config
+英 [kənˈfɪg]   美 [kənˈfɪg]  
+abbr.
+(计算机系统)配置
+
+configure    英 [kənˈfɪɡə(r)] 
+    v.(按特定方式)安置;(尤指对计算机设备进行)配置;对(设备或软件进行)设定
+
+[root@V1 myansi]# ansible-doc  yum |grep -A7 -B1 "EXAMPLES:"
+
+EXAMPLES:
+
+- name: install the latest version of Apache
+  yum:
+    name: httpd
+    state: latest
+
+- name: ensure a list of packages installed
+
+[root@V1 myansi]# ansible-doc  authorized_key |grep -A8 -B1 "EXAMPLES:"
+
+EXAMPLES:
+
+- name: Set authorized key taken from file
+  authorized_key:
+    user: charlie
+    state: present
+    key: "{{ lookup('file', '/home/charlie/.ssh/id_rsa.pub') }}"
+
+- name: Set authorized keys taken from url
+
+[root@V1 myansi]# vim   lamp.yml
+
+
+[root@V1 ~]# scp  -P7920  -r  myansi/  student@192.168.1.254:/home/student/Ansiblebj/
+
+
+
+
+
+
+

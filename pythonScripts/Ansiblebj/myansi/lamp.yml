@@ -1,0 +1,29 @@
+---
+- name: configure  web  comment
+  hosts: webservers
+  tasks:
+    - name: install web app
+      yum:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - elinks
+        - telnet
+        - gcc
+        - pcre-devel
+        - httpd-tools
+        - httpd
+        - php
+        - php-mysql
+    - name: config web service
+
+- name: configure  db  annotation
+  hosts: dbservers
+  tasks:
+    - name: install db app
+      yum:
+        name: "{{ item }}"
+        state: present
+          
+    - name: config db service
+
