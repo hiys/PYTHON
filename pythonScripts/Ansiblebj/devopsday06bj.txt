@@ -1075,7 +1075,152 @@ ansible命令执行的方式有两种
 
 
 
+[root@V1 myansi]# python
+Python 2.7.5 (default, Apr 11 2018, 07:36:10) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-28)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import json
+>>> import shutil
+>>> from ansible.module_utils.common.collections import ImmutableDict
+>>> from ansible.parsing.dataloader import DataLoader
+>>> from ansible.vars.manager import VariableManager
+>>> from ansible.inventory.manager import InventoryManager
+>>> from ansible.playbook.play import Play
+>>> from ansible.executor.task_queue_manager import TaskQueueManager
+>>> from ansible.plugins.callback import CallbackBase
+>>> from ansible import context
+>>> import ansible.constants as C
+>>>
+>>> shutil.
+shutil.Error(                      shutil._get_gid(
+shutil.ExecError(                  shutil._get_uid(
+shutil.SpecialFileError(           shutil._make_tarball(
+shutil.WindowsError                shutil._make_zipfile(
+shutil._ARCHIVE_FORMATS            shutil._samefile(
+shutil.__all__                     shutil.abspath(
+shutil.__class__(                  shutil.collections
+shutil.__delattr__(                shutil.copy(
+shutil.__dict__                    shutil.copy2(
+shutil.__doc__                     shutil.copyfile(
+shutil.__file__                    shutil.copyfileobj(
+shutil.__format__(                 shutil.copymode(
+shutil.__getattribute__(           shutil.copystat(
+shutil.__hash__(                   shutil.copytree(
+shutil.__init__(                   shutil.errno
+shutil.__name__                    shutil.fnmatch
+shutil.__new__(                    shutil.get_archive_formats(
+shutil.__package__                 shutil.getgrnam(
+shutil.__reduce__(                 shutil.getpwnam(
+shutil.__reduce_ex__(              shutil.ignore_patterns(
+shutil.__repr__(                   shutil.make_archive(
+shutil.__setattr__(                shutil.move(
+shutil.__sizeof__(                 shutil.os
+shutil.__str__(                    shutil.register_archive_format(
+shutil.__subclasshook__(           shutil.rmtree(
+shutil._basename(                  shutil.stat
+shutil._call_external_zip(         shutil.sys
+shutil._destinsrc(                 shutil.unregister_archive_format(
+>>> 
+[root@V1 myansi]# 
 
+[root@V1 myansi]# python
+Python 2.7.5 (default, Apr 11 2018, 07:36:10) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-28)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import  ansible.module_utils.common.collections  as  aliasamcc
+
+>>> aliasamcc.ImmutableDict(
+Display all 176 possibilities? (y or n)
+ArithmeticError(            dir(
+AssertionError(             divmod(
+AttributeError(             elif
+BaseException(              else
+BufferError(                enumerate(
+BytesWarning(               eval(
+DeprecationWarning(         except
+EOFError(                   exec
+Ellipsis                    execfile(
+EnvironmentError(           exit(
+Exception(                  file(
+False                       filter(
+FloatingPointError(         finally
+FutureWarning(              float(
+GeneratorExit(              for
+IOError(                    format(
+ImportError(                from
+ImportWarning(              frozenset(
+IndentationError(           getattr(
+IndexError(                 global
+KeyError(                   globals(
+KeyboardInterrupt(          hasattr(
+LookupError(                hash(
+MemoryError(                help(
+NameError(                  hex(
+None                        id(
+NotImplemented              if
+NotImplementedError(        import
+OSError(                    in
+OverflowError(              input(
+PendingDeprecationWarning(  int(
+ReferenceError(             intern(
+RuntimeError(               is
+RuntimeWarning(             isinstance(
+StandardError(              issubclass(
+StopIteration(              iter(
+SyntaxError(                lambda
+SyntaxWarning(              len(
+SystemError(                license(
+SystemExit(                 list(
+TabError(                   locals(
+True                        long(
+TypeError(                  map(
+UnboundLocalError(          max(
+UnicodeDecodeError(         memoryview(
+UnicodeEncodeError(         min(
+UnicodeError(               next(
+UnicodeTranslateError(      not
+UnicodeWarning(             object(
+UserWarning(                oct(
+ValueError(                 open(
+Warning(                    or
+ZeroDivisionError(          ord(
+__debug__                   pass
+__doc__                     pow(
+__import__(                 print
+__name__                    print(
+__package__                 property(
+abs(                        quit(
+aliasamcc                   raise
+all(                        range(
+and                         raw_input(
+any(                        readline
+apply(                      reduce(
+as                          reload(
+assert                      repr(
+basestring(                 return
+bin(                        reversed(
+bool(                       round(
+break                       set(
+buffer(                     setattr(
+bytearray(                  slice(
+bytes(                      sorted(
+callable(                   staticmethod(
+chr(                        str(
+class                       sum(
+classmethod(                super(
+cmp(                        try
+coerce(                     tuple(
+compile(                    type(
+complex(                    unichr(
+continue                    unicode(
+copyright(                  vars(
+credits(                    while
+def                         with
+del                         xrange(
+delattr(                    yield
+dict(                       zip(
+>>> aliasamcc.ImmutableDict(
 
 
 

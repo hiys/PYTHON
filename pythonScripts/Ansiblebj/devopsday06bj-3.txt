@@ -1,0 +1,1170 @@
+
+
+
+[student@room10pc15 ~]$ virsh  start  V1
+域 V1 已开始
+
+[student@room10pc15 ~]$ for i  in  V{3..5};do  virsh start $i;done;
+域 V3 已开始
+
+域 V4 已开始
+
+域 V5 已开始
+
+cd  myansi/
+
+reset
+
+[root@V3 ansible]# pyflakes     called.py 
+[root@V3 ansible]# pyflakes     tcallback.py 
+[root@V3 ansible]# head  -2   called.py
+#!/usr/bin/env  python
+# -*- coding: utf8 -*-
+[root@V3 ansible]# head  -2     tcallback.py 
+#!/usr/bin/env  python
+# -*- coding: utf8 -*-
+[root@V3 ansible]# python      called.py
+__name__ is __main__
+sys.argv is ['called.py']
+
+-------- ****** called.py  ****** -------
+
+[root@V3 ansible]# python      tcallback.py 
+__name__ is called
+__name__ is __main__
+sys.argv is ['tcallback.py']
+callback_a = <function callback_a at 0x7f2f63ab86e0>
+
+play_fun =  <function callback_a at 0x7f2f63ab86e0>
+
+
+------- in call_fun **** called.py -------
+
+------ Aa ------tcallback.py
+in callback_a ------ tcallback.py
+
+result = **Aa -- tcallback.py * called.py**
+
+***************
+
+------- in call_fun **** called.py -------
+
+--- Bb ----- tcallback.py
+in callback_b ------ tcallback.py
+
+result = **Bb -- tcallback.py * called.py**
+
+END---OVER
+[root@V3 ansible]# 
+
+scp   -P7920    called.py     student@192.168.1.254:/home/student/Ansiblebj/
+scp   -P7920   tcallback.py   student@192.168.1.254:/home/student/Ansiblebj/
+[root@V1 ~]# scp  -P7920 -r  myansi/  student@192.168.1.254:/home/student/Ansiblebj/
+
+scp  -P7920  /usr/lib/python2.7/site-packages/ansible/plugins/callback/__init__.py   student@192.168.1.254:/home/student/Ansiblebj/
+
+
+https://www.jianshu.com/p/30a8e723efdc
+
+verbosity
+    n.冗长；赘述
+verbose      英 [vɜːˈbəʊs]
+    adj.冗长的;啰唆的;唠叨的
+
+fatal    英 [ˈfeɪtl]   美 [ˈfeɪtl]  
+    adj.致命的;灾难性的;毁灭性的;导致失败的
+
+=========================================
+
+[root@V1 myansi]# python      ansibleapi.py
+__name__ is __main__
+{
+    "localhost": {
+        "stderr_lines": [], 
+        "changed": true, 
+        "end": "2019-05-22 14:31:17.606110", 
+        "_ansible_no_log": false, 
+        "stdout": "ansible6api.py\nansibleapi.py\nansibleAPI.py\nansible.cfg\nansibleTest.py\nauthorizedKeyx.yaml\nfiles\nlamp.yml\nlocal.repo\nmyhosts\nntupletest.py\nvimrc.txt", 
+        "cmd": "ls", 
+        "start": "2019-05-22 14:31:17.603130", 
+        "delta": "0:00:00.002980", 
+        "stderr": "", 
+        "rc": 0, 
+        "invocation": {
+            "module_args": {
+                "warn": false, 
+                "executable": null, 
+                "_uses_shell": true, 
+                "strip_empty_ends": true, 
+                "_raw_params": "ls", 
+                "removes": null, 
+                "argv": null, 
+                "creates": null, 
+                "chdir": null, 
+                "stdin_add_newline": true, 
+                "stdin": null
+            }
+        }, 
+        "stdout_lines": [
+            "ansible6api.py", 
+            "ansibleapi.py", 
+            "ansibleAPI.py", 
+            "ansible.cfg", 
+            "ansibleTest.py", 
+            "authorizedKeyx.yaml", 
+            "files", 
+            "lamp.yml", 
+            "local.repo", 
+            "myhosts", 
+            "ntupletest.py", 
+            "vimrc.txt"
+        ], 
+        "ansible_facts": {
+            "discovered_interpreter_python": "/usr/bin/python"
+        }
+    }
+}
+{
+    "localhost": {
+        "msg": "ansible6api.py\nansibleapi.py\nansibleAPI.py\nansible.cfg\nansibleTest.py\nauthorizedKeyx.yaml\nfiles\nlamp.yml\nlocal.repo\nmyhosts\nntupletest.py\nvimrc.txt", 
+        "changed": false, 
+        "_ansible_verbose_always": true, 
+        "_ansible_no_log": false
+    }
+}
+sys.argv is ['ansibleapi.py']
+[root@V1 myansi]# echo  $?
+0
+[root@V1 myansi]# cp    ansibleapi.py   ansible8api.py
+[root@V1 myansi]# ls   
+ansible6api.py  ansibleAPI.py   authorizedKeyx.yaml  myhosts
+ansible8api.py  ansible.cfg     files                ntupletest.py
+ansibleapi.py   ansibleTest.py  lamp.yml             vimrc.txt
+
+[root@V1 ~]# scp  -P7920 -r  myansi/  student@192.168.1.254:/home/student/Ansiblebj/
+
+
+[root@V1 myansi]# vim    ansible8api.py 
+[root@V1 myansi]# pyflakes    ansible8api.py
+ansible8api.py:44: 'json' imported but unused
+ansible8api.py:52: 'ansible.plugins.callback.CallbackBase' imported but unused
+[root@V1 myansi]# python    ansible8api.py
+__name__ is __main__
+
+PLAY [Ansible Play] ****************************************************************
+
+TASK [shell] ***********************************************************************
+changed: [localhost]
+
+TASK [debug] ***********************************************************************
+ok: [localhost] => {
+    "msg": "ansible6api.py\nansible8api.py\nansibleapi.py\nansibleAPI.py\nansible.cfg\nansibleTest.py\nauthorizedKeyx.yaml\nfiles\nlamp.yml\nmyhosts\nntupletest.py\nvimrc.txt"
+}
+sys.argv is ['ansible8api.py']
+
+========================
+
+[root@V1 myansi]# ansible  --help
+Usage: ansible <host-pattern> [options]
+
+Define and run a single task 'playbook' against a set of hosts
+
+Options:
+  -a MODULE_ARGS, --args=MODULE_ARGS
+                        module arguments
+  --ask-vault-pass      ask for vault password
+  -B SECONDS, --background=SECONDS
+                        run asynchronously, failing after X seconds
+                        (default=N/A)
+  -C, --check           don't make any changes; instead, try to predict some
+                        of the changes that may occur
+  -D, --diff            when changing (small) files and templates, show the
+                        differences in those files; works great with --check
+  -e EXTRA_VARS, --extra-vars=EXTRA_VARS
+                        set additional variables as key=value or YAML/JSON, if
+                        filename prepend with @
+  -f FORKS, --forks=FORKS
+                        specify number of parallel processes to use
+                        (default=5)
+  -h, --help            show this help message and exit
+  -i INVENTORY, --inventory=INVENTORY, --inventory-file=INVENTORY
+                        specify inventory host path or comma separated host
+                        list. --inventory-file is deprecated
+  -l SUBSET, --limit=SUBSET
+                        further limit selected hosts to an additional pattern
+  --list-hosts          outputs a list of matching hosts; does not execute
+                        anything else
+  -m MODULE_NAME, --module-name=MODULE_NAME
+                        module name to execute (default=command)
+  -M MODULE_PATH, --module-path=MODULE_PATH
+                        prepend colon-separated path(s) to module library (def
+                        ault=~/.ansible/plugins/modules:/usr/share/ansible/plu
+                        gins/modules)
+  -o, --one-line        condense output
+  --playbook-dir=BASEDIR
+                        Since this tool does not use playbooks, use this as a
+                        substitute playbook directory.This sets the relative
+                        path for many features including roles/ group_vars/
+                        etc.
+  -P POLL_INTERVAL, --poll=POLL_INTERVAL
+                        set the poll interval if using -B (default=15)
+  --syntax-check        perform a syntax check on the playbook, but do not
+                        execute it
+  -t TREE, --tree=TREE  log output to this directory
+  --vault-id=VAULT_IDS  the vault identity to use
+  --vault-password-file=VAULT_PASSWORD_FILES
+                        vault password file
+  -v, --verbose         verbose mode (-vvv for more, -vvvv to enable
+                        connection debugging)
+  --version             show program's version number, config file location,
+                        configured module search path, module location,
+                        executable location and exit
+
+  Privilege Escalation Options:
+    control how and which user you become as on target hosts
+
+    -b, --become        run operations with become (does not imply password
+                        prompting)
+    --become-method=BECOME_METHOD
+                        privilege escalation method to use (default=sudo), use
+                        `ansible-doc -t become -l` to list valid choices.
+    --become-user=BECOME_USER
+                        run operations as this user (default=root)
+    -K, --ask-become-pass
+                        ask for privilege escalation password
+
+  Connection Options:
+    control as whom and how to connect to hosts
+
+    -k, --ask-pass      ask for connection password
+    --private-key=PRIVATE_KEY_FILE, --key-file=PRIVATE_KEY_FILE
+                        use this file to authenticate the connection
+    -u REMOTE_USER, --user=REMOTE_USER
+                        connect as this user (default=root)
+    -c CONNECTION, --connection=CONNECTION
+                        connection type to use (default=smart)
+
+smart      英 [smɑːt]   美 [smɑːrt]  
+    adj.衣冠楚楚的;衣着讲究的;整洁而漂亮的;光鲜的;聪明的;机敏的;精明的
+
+
+    -T TIMEOUT, --timeout=TIMEOUT
+                        override the connection timeout in seconds
+                        (default=10)
+    --ssh-common-args=SSH_COMMON_ARGS
+                        specify common arguments to pass to sftp/scp/ssh (e.g.
+                        ProxyCommand)
+    --sftp-extra-args=SFTP_EXTRA_ARGS
+                        specify extra arguments to pass to sftp only (e.g. -f,
+                        -l)
+    --scp-extra-args=SCP_EXTRA_ARGS
+                        specify extra arguments to pass to scp only (e.g. -l)
+    --ssh-extra-args=SSH_EXTRA_ARGS
+                        specify extra arguments to pass to ssh only (e.g. -R)
+
+Some modules do not make sense in Ad-Hoc (include, meta, etc)
+有些模块在Ad-Hoc（包括、元等）中没有意义。
+[root@V1 myansi]# 
+
+[root@V1 myansi]# vim   ansible8api2.py
+
+ 71 #由于API是为CLI构造的，因此它希望在上下文对象中始终设置某些选项。
+ 72 context.CLIARGS = ImmutableDict(connection='local',
+ 73   module_path=['/to/mymodules'], forks=10, become=None,
+ 74   become_method=None, become_user=None, check=False, diff=False
+ 75 )
+
+ 72 context.CLIARGS = ImmutableDict(connection='ssh',  #把 'local'改成 'ssh'
+
+[root@V1 myansi]# pyflakes    ansible8api2.py
+[root@V1 myansi]# python   ansible8api2.py
+__name__ is __main__
+
+PLAY [Ansible Play] ******************************************************************
+
+TASK [shell] *************************************************************************
+changed: [localhost]
+
+TASK [debug] *************************************************************************
+ok: [localhost] => {
+    "msg": "ansible\nCentOS7-Base-163.repo\nDesktop\nfreezepkg.txt\nip.sh\njdk-8u211-linux-x64.tar.gz\nJenkins\njenkins-2.121.1-1.1.noarch.rpm\nmyansi\nMyProject\nPython-3.6.7\nPython-3.6.7.tgz\npython-iniparse-0.4-9.el7.noarch.rpm\npython-urlgrabber-3.10-9.el7.noarch.rpm\nrpm-4.11.3-35.el7.x86_64.rpm\nRPM-GPG-KEY-CentOS-7\nrpm-libs-4.11.3-35.el7.x86_64.rpm\nrpm-python-4.11.3-35.el7.x86_64.rpm\nyum-3.4.3-161.el7.centos.noarch.rpm\nyum-metadata-parser-1.1.4-10.el7.x86_64.rpm\nyum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm\nyum-updateonboot-1.1.31-50.el7.noarch.rpm"
+}
+sys.argv is ['ansible8api2.py']
+[root@V1 myansi]# grep  -n  ssh   ansible8api2.py
+72:context.CLIARGS = ImmutableDict(connection='ssh',
+
+[root@V3 ansible]# vim    ansible.cfg 
+[root@V3 ansible]# vim    myhosts 
+
+[root@V3 ansible]# ssh-keygen   -t  rsa  -C  "keyOwner"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa): 
+Enter passphrase (empty for no passphrase): 
+Enter same passphrase again: 
+..............................
+
+ssh-keygen   -t  rsa  -C  "keyOwnerV2"
+ ssh-keyscan     192.168.1.1{1..6}   V{1..6} >> /root/.ssh/known_hosts 
+
+ ansible-playbook  -i  myhosts  --syntax-check    authorizedKeyx.yaml
+
+ ansible-playbook  -i  myhosts    authorizedKeyx.yaml  -k
+
+ansible app  -m shell  -a  "ifconfig | grep 'inet '" |awk  '{print $2}'
+
+[root@V2 myansi]# vim     ansible8api2.py
+
+[root@V2 myansi]# grep  -n  ImmutableDict\(connection=    ansible8api2.py 
+72:context.CLIARGS = ImmutableDict(connection='local',
+
+[root@V2 myansi]# python      ansible8api2.py
+__name__ is __main__
+
+PLAY [Ansible Play] *******************************************************************************
+
+TASK [shell] **************************************************************************************
+changed: [localhost]
+
+TASK [debug] **************************************************************************************
+ok: [localhost] => {
+    "msg": "ansible8api2.py\nansible.cfg\nauthorizedKeyx.yaml\nfiles\nmyhosts"
+}
+sys.argv is ['ansible8api2.py']
+[root@V2 myansi]# 
+
+[root@V2 myansi]# grep  -n  ssh   ansible8api2.py 
+72:context.CLIARGS = ImmutableDict(connection='ssh',
+
+[root@V2 myansi]# python      ansible8api2.py
+__name__ is __main__
+
+PLAY [Ansible Play] *******************************************************************************
+
+TASK [shell] **************************************************************************************
+changed: [localhost]
+
+TASK [debug] **************************************************************************************
+ok: [localhost] => {
+    "msg": "ansible\nDesktop\nfreezepkg.txt\nip.sh\njdk-8u211-linux-x64.tar.gz\njenkins-2.121.1-1.1.noarch.rpm\nmyansi\nPython-3.6.7\nPython-3.6.7.tgz\npython-iniparse-0.4-9.el7.noarch.rpm\npython-urlgrabber-3.10-9.el7.noarch.rpm\nrpm-4.11.3-35.el7.x86_64.rpm\nRPM-GPG-KEY-CentOS-7\nrpm-libs-4.11.3-35.el7.x86_64.rpm\nrpm-python-4.11.3-35.el7.x86_64.rpm\nyum-3.4.3-161.el7.centos.noarch.rpm\nyum-metadata-parser-1.1.4-10.el7.x86_64.rpm\nyum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm\nyum-updateonboot-1.1.31-50.el7.noarch.rpm"
+}
+sys.argv is ['ansible8api2.py']
+
+[root@V2 myansi]# vim    ansible8api2.py 
+
+[root@V2 myansi]# grep  -n  ImmutableDict\(connection=    ansible8api2.py 
+72:context.CLIARGS = ImmutableDict(connection='smart',
+
+[root@V2 myansi]# python    ansible8api2.py
+__name__ is __main__
+
+PLAY [Ansible Play] **************************************************************
+
+TASK [shell] *********************************************************************
+changed: [localhost]
+
+TASK [debug] *********************************************************************
+ok: [localhost] => {
+    "msg": "ansible\nDesktop\nfreezepkg.txt\nip.sh\njdk-8u211-linux-x64.tar.gz\njenkins-2.121.1-1.1.noarch.rpm\nmyansi\nPython-3.6.7\nPython-3.6.7.tgz\npython-iniparse-0.4-9.el7.noarch.rpm\npython-urlgrabber-3.10-9.el7.noarch.rpm\nrpm-4.11.3-35.el7.x86_64.rpm\nRPM-GPG-KEY-CentOS-7\nrpm-libs-4.11.3-35.el7.x86_64.rpm\nrpm-python-4.11.3-35.el7.x86_64.rpm\nyum-3.4.3-161.el7.centos.noarch.rpm\nyum-metadata-parser-1.1.4-10.el7.x86_64.rpm\nyum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm\nyum-updateonboot-1.1.31-50.el7.noarch.rpm"
+}
+sys.argv is ['ansible8api2.py']
+[root@V2 myansi]# 
+===============================================
+
+
+
+[root@V1 myansi]# vim   ansible8api.py 
+[root@V1 myansi]# grep  -n  ImmutableDict\(connection=    ansible8api.py 
+72:context.CLIARGS = ImmutableDict(connection='local',
+[root@V1 myansi]# python    ansible8api.py
+__name__ is __main__
+
+PLAY [Ansible Play] **************************************************************
+
+TASK [shell] *********************************************************************
+changed: [localhost]
+
+TASK [debug] *********************************************************************
+ok: [localhost] => {
+    "msg": "ansible6api.py\nansible8api2.py\nansible8api.py\nansibleapi.py\nansibleAPI.py\nansible.cfg\nansibleTest.py\nauthorizedKeyx.yaml\nfiles\nlamp.yml\nmyhosts\nntupletest.py\nvimrc.txt"
+}
+sys.argv is ['ansible8api.py']
+[root@V1 myansi]# grep  -n  ImmutableDict\(connection=    ansible8api2.py 
+72:context.CLIARGS = ImmutableDict(connection='ssh',
+[root@V1 myansi]# python    ansible8api2.py
+__name__ is __main__
+
+PLAY [Ansible Play] **************************************************************
+
+TASK [shell] *********************************************************************
+changed: [localhost]
+
+TASK [debug] *********************************************************************
+ok: [localhost] => {
+    "msg": "ansible\nCentOS7-Base-163.repo\nDesktop\nfreezepkg.txt\nip.sh\njdk-8u211-linux-x64.tar.gz\nJenkins\njenkins-2.121.1-1.1.noarch.rpm\nmyansi\nMyProject\nPython-3.6.7\nPython-3.6.7.tgz\npython-iniparse-0.4-9.el7.noarch.rpm\npython-urlgrabber-3.10-9.el7.noarch.rpm\nrpm-4.11.3-35.el7.x86_64.rpm\nRPM-GPG-KEY-CentOS-7\nrpm-libs-4.11.3-35.el7.x86_64.rpm\nrpm-python-4.11.3-35.el7.x86_64.rpm\nyum-3.4.3-161.el7.centos.noarch.rpm\nyum-metadata-parser-1.1.4-10.el7.x86_64.rpm\nyum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm\nyum-updateonboot-1.1.31-50.el7.noarch.rpm"
+}
+sys.argv is ['ansible8api2.py']
+
+[root@V1 myansi]# cp   ansible8api2.py  ansible8api3.py
+
+[root@V1 myansi]# vim    ansible8api3.py
+
+[root@V1 myansi]# grep  -n  ImmutableDict\(connection=    ansible8api2.py 
+72:context.CLIARGS = ImmutableDict(connection='ssh',
+
+[root@V1 myansi]# grep  -n  ImmutableDict\(connection=    ansible8api3.py 
+72:context.CLIARGS = ImmutableDict(connection='smart',
+
+[root@V1 myansi]# python     ansible8api3.py
+__name__ is __main__
+
+PLAY [Ansible Play] **************************************************************
+
+TASK [shell] *********************************************************************
+changed: [localhost]
+
+TASK [debug] *********************************************************************
+ok: [localhost] => {
+    "msg": "ansible\nCentOS7-Base-163.repo\nDesktop\nfreezepkg.txt\nip.sh\njdk-8u211-linux-x64.tar.gz\nJenkins\njenkins-2.121.1-1.1.noarch.rpm\nmyansi\nMyProject\nPython-3.6.7\nPython-3.6.7.tgz\npython-iniparse-0.4-9.el7.noarch.rpm\npython-urlgrabber-3.10-9.el7.noarch.rpm\nrpm-4.11.3-35.el7.x86_64.rpm\nRPM-GPG-KEY-CentOS-7\nrpm-libs-4.11.3-35.el7.x86_64.rpm\nrpm-python-4.11.3-35.el7.x86_64.rpm\nyum-3.4.3-161.el7.centos.noarch.rpm\nyum-metadata-parser-1.1.4-10.el7.x86_64.rpm\nyum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm\nyum-updateonboot-1.1.31-50.el7.noarch.rpm"
+}
+sys.argv is ['ansible8api3.py']
+[root@V1 myansi]# 
+
+ansible_connection
+      与主机的连接类型.比如:local, ssh 或者 paramiko. Ansible 1.2 以前默认使用 paramiko.1.2 以后默认使用 'smart','smart' 方式会根据是否支持 ControlPersist, 来判断'ssh' 方式是否可行.
+
+[root@V1 myansi]# grep  -n  smart   /etc/ansible/ansible.cfg 
+25:#transport      = smart
+33:# smart - gather by default, but don't regather if already gathered
+404:#   * smart = try sftp and then try scp [default]
+407:#scp_if_ssh = smart
+414:#   * smart = try sftp, scp, and piped, in that order [default]
+415:#transfer_method = smart
+
+---------------------------
+
+[root@V1 myansi]# grep  -n  ssh   /etc/ansible/ansible.cfg 
+370:[ssh_connection]
+372:# ssh arguments to use
+375:#ssh_args = -C -o ControlMaster=auto -o ControlPersist=60s
+386:# found with long hostnames and the conventional %(directory)s/ansible-ssh-%%h-%%p-%%r format.
+387:# In those cases, a "too long for Unix domain socket" ssh error would occur.
+407:#scp_if_ssh = smart
+410:# If set, this will override the scp_if_ssh option
+422:# The -tt argument is passed to ssh when pipelining is not enabled because sudo 
+[root@V1 myansi]# 
+
+[root@V1 myansi]# grep  -n  connection\]   /etc/ansible/ansible.cfg 
+346:[paramiko_connection]
+370:[ssh_connection]
+431:[persistent_connection]
+
+[root@V1 myansi]# ansible-doc    --help  |grep -A4  "\--module-path="
+  -M MODULE_PATH, --module-path=MODULE_PATH
+                        prepend colon-separated path(s) to module library (def
+                        ault=~/.ansible/plugins/modules:/usr/share/ansible/plu
+                        gins/modules)
+  -s, --snippet         Show playbook snippet for specified plugin(s)
+
+prepend colon-separated path(s) to module library 
+(default=~/.ansible/plugins/modules:/usr/share/ansible/plugins/modules)
+
+为模块库准备冒号分隔的路径
+（默认值~/.ansible/plugins/modules:/usr/share/ansible/plugins/modules）
+
+[root@V1 myansi]# ll  ~/.ansible/
+总用量 4
+drwx------  2 root root    6 5月  22 16:32 cp
+drwx------ 11 root root 4096 5月  22 16:49 tmp
+[root@V1 myansi]# ls  /root/.ansible/
+cp  tmp
+[root@V1 myansi]# ls  /usr/share/ansible/plugins/module
+modules/      module_utils/ 
+[root@V1 myansi]# ls  /usr/share/ansible/plugins/modules/
+[root@V1 myansi]# ls  /usr/share/ansible/plugins/module_utils/
+
+https://docs.ansible.com/ansible/latest/dev_guide/developing_api.html?highlight=python%20api
+
+https://docs.ansible.com/ansible/devel/porting_guides/porting_guide_2.8.html
+
+https://docs.ansible.com/ansible/devel/porting_guides/porting_guide_2.8.html
+
+重试文件创建默认
+
+在Ansible 2.8中，retry_files_enabled现在默认为False而不是True。通过编辑默认ansible.cfg文件并将值设置为，可以将行为修改为以前的版本True。
+
+命令行
+
+成为提示
+
+agnostic　　　　英 [æɡˈnɒstɪk]   美 [æɡˈnɑːstɪk]  
+　　　n.不可知论者(认为上帝存在与否是不可知的)
+　　　adj.不可知论（者）的
+
+从版本2.8开始，默认情况下，
+Ansible将使用该单词BECOME　提示　您　输入提升权限的密码（
+sudo　Unix系统enable上的权限或网络设备上的模式）：
+
+默认情况下，Ansible 2.8：
+
+ansible-playbook --become --ask-become-pass site.yml 
+BECOME密码：
+如果你想提示来显示特定的become_method，而不是不可知的价值，
+你正在使用，BECOME设置AGNOSTIC_BECOME_PROMPT到False您的Ansible配置。
+
+默认情况下，在Ansible 2.7中，或AGNOSTIC_BECOME_PROMPT=False在Ansible 2.8中：
+
+ansible-playbook --become --ask-become-pass site.yml 
+SUDO密码：
+
+https://docs.ansible.com/ansible/devel/porting_guides/porting_guide_2.8.html
+Ansible 2.8移植指南
+
+本节讨论Ansible 2.7和Ansible 2.8之间的行为变化。
+
+
+https://docs.ansible.com/ansible/devel/cli/ansible-playbook.html?highlight=become_method%20none%20become_user%20none
+
+用法：ansible-playbook [ -h ]  [ --version ]  [ -v ]  [ -k ] 
+                     [ -私有密钥PRIVATE_KEY_FILE ]  [ -u REMOTE_USER ] 
+                     [ -c CONNECTION ]  [ -T TIMEOUT ] 
+                     [ --ssh- common-args SSH_COMMON_ARGS ] 
+                     [ --sftp-extra-args SFTP_EXTRA_ARGS ] 
+                     [ --scp-extra-args SCP_EXTRA_ARGS ] 
+                     [ --ssh-extra-args SSH_EXTRA_ARGS ]  [ - force -handlers ] 
+                     [ --flush-cache ] [ -b ]  [ --become-method BECOME_METHOD ] 
+                     [ --become-user BECOME_USER ]  [ -K ]  [ -t TAGS ] 
+                     [ --skip-tags SKIP_TAGS ]  [ -C ]  [ --syntax-check ]  [ - D ] 
+                     [ -i INVENTORY ]  [ --list-hosts ]  [ -l SUBSET ] 
+                     [ -e EXTRA_VARS ]  [ --vault-id VAULT_IDS ] 
+                     [ --ask-vault-pass |--vault-password-file VAULT_PASSWORD_FILES ] 
+                     [ -f FORKS ]  [ -M MODULE_PATH ]  [ --list-tasks ] 
+                     [ --list-tags ]  [ --step ]  [ -  start-at-task START_AT_TASK ] 
+                     playbook [剧本...... ]
+
+--become-method <BECOME_METHOD>
+要使用的权限升级方法（默认=％（默认）s），请使用ansible-doc -t成为-l列出有效选项。
+
+--become-user <BECOME_USER>
+以此用户身份运行操作（默认= root）
+
+-C, --check
+不做任何改变; 相反，尝试预测可能发生的一些变化
+
+-D, --diff
+更改（小）文件和模板时，显示这些文件的差异; 与 --check一起使用效果很好
+
+-K, --ask-become-pass
+要求提供权限提升密码
+
+-M, --module-path
+将冒号分隔的路径预先添加到模块库（默认=〜/ .ansible / plugins / modules：/ usr / share / ansible / plugins / modules）
+
+-b, --become
+用run运行操作（不暗示密码提示）
+
+-c <CONNECTION>, --connection <CONNECTION>
+要使用的连接类型（默认=智能）
+
+-f <FORKS>, --forks <FORKS>
+指定要使用的并行进程数（默认值= 5）
+
+
+https://docs.ansible.com/ansible/devel/cli/ansible-playbook.html?highlight=become_method%20none%20become_user%20none
+Ansible
+devel的
+对于以前的版本，请参阅 文档存档。
+
+
+
+https://docs.ansible.com/ansible/devel/user_guide/playbooks_vault.html?highlight=vault_pass%20secret
+运行剧本借助保险柜
+要以交互方式指定保管库密码：
+ansible-playbook site.yml --ask-vault-pass
+然后，此提示将用于解密（仅在内存中）访问的任何保管库加密文件
+
+或者，可以使用文件或脚本指定密码（脚本版本将需要Ansible 1.7或更高版本）。使用此标志时，请确保该文件的权限不会让其他人访问您的密钥，也不会将您的密钥添加到源代码管理中：
+
+ansible-playbook site.yml --vault-password-file~ /. vault_pass .txt
+
+ansible-playbook site.yml --vault-password-file~ /. vault_pass .py
+
+
+vault    英 [vɔːlt]   美 [vɔːlt]  
+    n.(尤指银行的)金库，保险库;(教堂的)地下墓室;(坟地的)墓穴;拱顶;穹隆
+    v.(用手支撑或撑杆)跳跃，腾跃
+
+[root@V1 myansi]# vim   ansible8api3.py
+[root@V1 myansi]# pyflakes    ansible8api3.py
+[root@V1 myansi]# python    ansible8api3.py
+__name__ is __main__
+Traceback (most recent call last):
+  File "ansible8api3.py", line 131, in <module>
+    loader=loader,
+TypeError: __init__() takes at least 5 arguments (4 given)
+
+
+[root@V1 myansi]# vim   ansible8api3.py 
+
+ 98 #要以交互方式指定保管库密码：ansible-playbook site.yml --ask-vault-pass
+ 99 passwords = dict(vault_pass='secret')
+
+126 tqm = None
+127 try:
+128   tqm = TaskQueueManager(
+129     inventory=inventory,
+130     variable_manager=variable_manager,
+131     loader=loader,
+132     passwords=passwords,
+133 #    stdout_callback=results_callback,  # 使用我们的自定义回调，而不是打印到st    dout的"默认"回调插件
+134   )
+
+[root@V1 myansi]# grep  -n   passwords  ansible8api3.py
+99:passwords = dict(vault_pass='secret')
+132:    passwords=passwords,
+[root@V1 myansi]# python     ansible8api3.py
+__name__ is __main__
+
+PLAY [Ansible Play] **************************************************************
+
+TASK [shell] *********************************************************************
+changed: [localhost]
+
+TASK [debug] *********************************************************************
+ok: [localhost] => {
+    "msg": "ansible\nCentOS7-Base-163.repo\nDesktop\nfreezepkg.txt\nip.sh\njdk-8u211-linux-x64.tar.gz\nJenkins\njenkins-2.121.1-1.1.noarch.rpm\nmyansi\nMyProject\nPython-3.6.7\nPython-3.6.7.tgz\npython-iniparse-0.4-9.el7.noarch.rpm\npython-urlgrabber-3.10-9.el7.noarch.rpm\nrpm-4.11.3-35.el7.x86_64.rpm\nRPM-GPG-KEY-CentOS-7\nrpm-libs-4.11.3-35.el7.x86_64.rpm\nrpm-python-4.11.3-35.el7.x86_64.rpm\nyum-3.4.3-161.el7.centos.noarch.rpm\nyum-metadata-parser-1.1.4-10.el7.x86_64.rpm\nyum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm\nyum-updateonboot-1.1.31-50.el7.noarch.rpm"
+}
+sys.argv is ['ansible8api3.py']
+[root@V1 myansi]# 
+[root@V1 myansi]# ls  /root/
+ansible                         Python-3.6.7.tgz
+CentOS7-Base-163.repo           python-iniparse-0.4-9.el7.noarch.rpm
+Desktop                         python-urlgrabber-3.10-9.el7.noarch.rpm
+freezepkg.txt                   rpm-4.11.3-35.el7.x86_64.rpm
+ip.sh                           RPM-GPG-KEY-CentOS-7
+jdk-8u211-linux-x64.tar.gz      rpm-libs-4.11.3-35.el7.x86_64.rpm
+Jenkins                         rpm-python-4.11.3-35.el7.x86_64.rpm
+jenkins-2.121.1-1.1.noarch.rpm  yum-3.4.3-161.el7.centos.noarch.rpm
+myansi                          yum-metadata-parser-1.1.4-10.el7.x86_64.rpm
+MyProject                       yum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm
+Python-3.6.7                    yum-updateonboot-1.1.31-50.el7.noarch.rpm
+
+[root@V1 myansi]# vim     ansible8api4.py
+
+[root@V1 myansi]# vim     ansible8api4.py
+[root@V1 myansi]# python    ansible8api4.py
+__name__ is __main__
+
+PLAY [Ansible Play] **************************************************************
+
+TASK [shell] *********************************************************************
+changed: [localhost]
+
+TASK [debug] *********************************************************************
+ok: [localhost] => {
+    "msg": "ansible\nCentOS7-Base-163.repo\nD..............
+
+[root@V1 myansi]# ll  /root/myansi/myhosts 
+-rw-r--r-- 1 root root 140 5月  20 20:18 /root/myansi/myhosts
+[root@V1 myansi]# cat   /root/myansi/myhosts
+[dbservers]
+V3
+
+[webservers]
+V[4:5]
+
+[other]
+V1
+
+[app:children]
+webservers
+dbservers
+
+[app:vars]
+ansible_ssh_user=root
+ansible_ssh_pass="1"
+[root@V1 myansi]# 
+
+ ansible-playbook -i myhosts  --syntax-check  lamp.yml
+
+[root@V1 myansi]# pyflakes     ansible8api4.py
+
+[root@V1 myansi]# python     ansible8api4.py
+
+__name__ is __main__
+ [WARNING]: Unable to parse /root/myansi/["/root/myansi/myhosts"] as an inventory
+source
+
+ [WARNING]: No inventory was parsed, only implicit localhost is available
+
+
+PLAY [Ansible Play] *******************************************************************
+
+TASK [shell] **************************************************************************
+changed: [localhost]
+
+TASK [debug] **************************************************************************
+ok: [localhost] => {
+    "msg": "ansible6api.py\nansible8api2.py\nansible8api3.py\nansible8api4.py\nansible8api.py\nansibleapi.py\nansibleAPI.py\nansible.cfg\nansibleTest.py\nauthorizedKeyx.yaml\nfiles\nlamp.yml\nmyhosts\nntupletest.py\nvimrc.txt"
+}
+sys.argv is ['ansible8api4.py']
+[root@V1 myansi]# 
+
+
+[root@V1 myansi]# vim   ansible8api5.py
+
+[root@V1 myansi]# pyflakes    ansible8api5.py
+
+[root@V1 myansi]# python   ansible8api5.py
+__name__ is __main__
+
+PLAY [Ansible Play] *******************************************************************
+
+TASK [shell] **************************************************************************
+changed: [localhost]
+
+TASK [debug] **************************************************************************
+ok: [localhost] => {
+    "msg": "ansible6api.py\nansible8api2.py\nansible8api3.py\nansible8api4.py\nansible8api5.py\nansible8api.py\nansibleapi.py\nansibleAPI.py\nansible.cfg\nansibleTest.py\nauthorizedKeyx.yaml\nfiles\nlamp.yml\nmyhosts\nntupletest.py\nvimrc.txt"
+}
+sys.argv is ['ansible8api5.py']
+[root@V1 myansi]# ls
+ansible6api.py   ansible8api5.py  ansible.cfg          lamp.yml
+ansible8api2.py  ansible8api.py   ansibleTest.py       myhosts
+ansible8api3.py  ansibleapi.py    authorizedKeyx.yaml  ntupletest.py
+ansible8api4.py  ansibleAPI.py    files                vimrc.txt
+
+[root@V1 myansi]# grep  -n    'sources ='  ansible8api5.py
+115:inventory = InventoryManager(loader=loader, sources = ["/root/myansi/myhosts"])
+
+
+
+
+[root@V1 myansi]# vim      ansible8api5.py
+[root@V1 myansi]# pyflakes    ansible8api5.py
+[root@V1 myansi]# python    ansible8api5.py
+__name__ is __main__
+
+PLAY [Asb Play] ***********************************************************************
+
+TASK [shell] **************************************************************************
+changed: [V3]
+
+TASK [debug] **************************************************************************
+ok: [V3] => {
+    "msg": "ansible\nDesktop\nfreezepkg.txt\nip.sh\njdk-8u211-linux-x64.tar.gz\nPython-3.6.7\nPython-3.6.7.tgz\npython-iniparse-0.4-9.el7.noarch.rpm\npython-urlgrabber-3.10-9.el7.noarch.rpm\nrpm-4.11.3-35.el7.x86_64.rpm\nRPM-GPG-KEY-CentOS-7\nrpm-libs-4.11.3-35.el7.x86_64.rpm\nrpm-python-4.11.3-35.el7.x86_64.rpm\nyum-3.4.3-161.el7.centos.noarch.rpm\nyum-metadata-parser-1.1.4-10.el7.x86_64.rpm\nyum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm\nyum-updateonboot-1.1.31-50.el7.noarch.rpm"
+}
+sys.argv is ['ansible8api5.py']
+
+[root@V1 myansi]# grep    -En   "name = \"Asb|hosts = 'db"   ansible8api5.py
+124:  name = "Asb Play",   #在脚本执行输出内容中显示#python  xx.py\nPLAY [Asb Play]
+129:  hosts = 'dbservers',  #执行ansible管理命令的主机地址(在主机列表清单中查找)
+
+
+[root@V1 myansi]# vim    ansible8api6.py
+[root@V1 myansi]# pyflakes   ansible8api6.py
+[root@V1 myansi]# grep   -En   "name = \"Asb|hosts = 'other"   ansible8api6.py
+124:  name = "Asb Play",   #在脚本执行输出内容中显示#python  xx.py\nPLAY [Asb Play]
+129:  hosts = 'other',  #执行ansible管理命令的主机地址(在主机列表清单中查找)
+[root@V1 myansi]# python      ansible8api6.py
+__name__ is __main__
+
+PLAY [Asb Play] ***********************************************************************
+
+TASK [shell] **************************************************************************
+changed: [V2]
+changed: [V1]
+
+TASK [debug] **************************************************************************
+ok: [V1] => {
+    "msg": "ansible\nCentOS7-Base-163.repo\nDesktop\nfreezepkg.txt\nip.sh\njdk-8u211-linux-x64.tar.gz\nJenkins\njenkins-2.121.1-1.1.noarch.rpm\nmyansi\nMyProject\nPython-3.6.7\nPython-3.6.7.tgz\npython-iniparse-0.4-9.el7.noarch.rpm\npython-urlgrabber-3.10-9.el7.noarch.rpm\nrpm-4.11.3-35.el7.x86_64.rpm\nRPM-GPG-KEY-CentOS-7\nrpm-libs-4.11.3-35.el7.x86_64.rpm\nrpm-python-4.11.3-35.el7.x86_64.rpm\nyum-3.4.3-161.el7.centos.noarch.rpm\nyum-metadata-parser-1.1.4-10.el7.x86_64.rpm\nyum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm\nyum-updateonboot-1.1.31-50.el7.noarch.rpm"
+}
+ok: [V2] => {
+    "msg": "ansible\nDesktop\nfreezepkg.txt\nip.sh\njdk-8u211-linux-x64.tar.gz\njenkins-2.121.1-1.1.noarch.rpm\nmyansi\nPython-3.6.7\nPython-3.6.7.tgz\npython-iniparse-0.4-9.el7.noarch.rpm\npython-urlgrabber-3.10-9.el7.noarch.rpm\nrpm-4.11.3-35.el7.x86_64.rpm\nRPM-GPG-KEY-CentOS-7\nrpm-libs-4.11.3-35.el7.x86_64.rpm\nrpm-python-4.11.3-35.el7.x86_64.rpm\nyum-3.4.3-161.el7.centos.noarch.rpm\nyum-metadata-parser-1.1.4-10.el7.x86_64.rpm\nyum-plugin-fastestmirror-1.1.31-50.el7.noarch.rpm\nyum-updateonboot-1.1.31-50.el7.noarch.rpm"
+}
+sys.argv is ['ansible8api6.py']
+[root@V1 myansi]# 
+[root@V1 myansi]# grep  -nA1 "other"   myhosts
+7:[other]
+8-V[1:2]
+
+gather_facts 收集事实
+
+gather    英 [ˈɡæðə(r)]
+    v.聚集;集合;召集;收拢，归拢(分散的东西);搜集，收集(情报)
+
+fact     英 [fækt]   美 [fækt]  
+    n. 现实;实际情况;(可证实的)事实，真相;真实的事物;真实情况
+
+register    英 [ˈredʒɪstə(r)]   美 [ˈredʒɪstər]  
+v.
+登记;注册;(正式地或公开地)发表意见，提出主张;
+
+
+https://docs.ansible.com/ansible/devel/modules/setup_module.html?highlight=gather_facts%20setup
+
+setup - 收集有关远程主机的事实
+概要
+
+Playbooks会自动调用此模块，以收集有关可在playbooks中使用的远程主机的有用变量。它也可以直接执行，/usr/bin/ansible以检查主机可用的变量。Ansible自动提供有关系统的许多事实。
+Windows目标也支持此模块。
+
+Examples
+
+# Display facts from all hosts and store them indexed by I(hostname) at C(/tmp/facts).
+# ansible all -m setup --tree /tmp/facts
+
+# Display only facts regarding memory found by ansible on all hosts and output them.
+# ansible all -m setup -a 'filter=ansible_*_mb'
+
+# Display only facts returned by facter.
+# ansible all -m setup -a 'filter=facter_*'
+
+# Collect only facts returned by facter.
+# ansible all -m setup -a 'gather_subset=!all,!any,facter'
+
+- name: Collect only facts returned by facter
+  setup:
+    gather_subset:
+      - '!all'
+      - '!any'
+      - facter
+参数	选择/ 默认值	评论
+fact_path
+-
+默认：
+“/etc/ansible/facts.d”
+用于本地ansible事实的路径（*.fact） - 将运行此目录中的文件（如果可执行），
+ansible_local如果文件不可执行则将其结果添加到事实中。
+检查Windows选项的注释。
+（从2.1开始）文件/结果格式可以是JSON或INI格式。
+当自动调用setup作为其中一部分时，fact_path可以指定默认值。
+ansible.cfggather_facts
+当安装程序作为收集事实的一部分被自动调用时，
+可以在ansible.cfg中指定默认事实路径。
+The default fact_path can be specified in ansible.cfg for
+  when setup is automatically called as part of gather_facts.
+
+
+[root@V1 myansi]# vim    ansible8api6.py
+[root@V1 myansi]# grep  -n  gather_facts    ansible8api6.py
+130:  gather_facts = 'no',  #不收集主机信息
+[root@V1 myansi]# pyflakes    ansible8api6.py
+...........................
+
+[root@V1 myansi]# ansible  -i  myhosts  other  -m  ping
+.................
+[root@V1 myansi]# cat    authorizedKeyx.yaml 
+---
+- name: configure authorized key  annotation describe comment
+  hosts: all
+  tasks:
+  - name: root_key
+    authorized_key:
+      user: root
+      state: present
+      key: "{{ lookup('file','/root/.ssh/id_rsa.pub') }}"
+  - name: describe annotation comment lines ---- copy yum config file
+    copy:
+      src: files/local.repo   #本机当前目录下的子目录files/文件local.repo
+      dest: /etc/yum.repos.d/ #将要传达文件的目标位置
+
+[root@V1 myansi]# ansible-playbook   -i  myhosts   authorizedKeyx.yaml
+
+PLAY [configure authorized key  annotation describe comment] **************************
+
+TASK [Gathering Facts] ****************************************************************
+ok: [V2]
+ok: [V4]
+ok: [V3]
+ok: [V5]
+ok: [V1]
+
+TASK [root_key] ***********************************************************************
+ok: [V2]
+ok: [V3]
+ok: [V1]
+ok: [V5]
+ok: [V4]
+
+TASK [describe annotation comment lines ---- copy yum config file] ********************
+ok: [V1]
+ok: [V5]
+ok: [V2]
+ok: [V4]
+ok: [V3]
+
+PLAY RECAP ****************************************************************************
+V1                         : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V2                         : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V3                         : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V4                         : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V5                         : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[root@V1 myansi]# 
+
+gather_facts 收集事实
+
+gather    英 [ˈɡæðə(r)]
+    v.聚集;集合;召集;收拢，归拢(分散的东西);搜集，收集(情报)
+
+fact     英 [fækt]   美 [fækt]  
+    n. 现实;实际情况;(可证实的)事实，真相;真实的事物;真实情况
+
+register    英 [ˈredʒɪstə(r)]   美 [ˈredʒɪstər]  
+   v.登记;注册;(正式地或公开地)发表意见，提出主张;
+
+[root@V4 ~]# rpm  -q  httpd
+httpd-2.4.6-89.el7.centos.x86_64
+
+[root@V5 ~]# rpm  -q  httpd
+httpd-2.4.6-89.el7.centos.x86_64
+
+[root@V1 myansi]# vim     ansible8api7.py
+
+[root@V1 myansi]# grep   -En  'httpd|shell_out'   ansible8api7.py
+132:#    dict(action=dict(module='shell', args='ls'), register='shell_out'),
+133:    #卸载httpd软件
+134:    dict(action=dict(module='yum', args='name=httpd state=absent'), register='shell_out'),
+135:#    dict(action=dict(module='debug', args=dict(msg='{{shell_out.stdout}}')))
+136:    dict(action=dict(module='debug', args=dict(msg='{{shell_out}}')))
+
+[root@V1 myansi]# grep -nA2  webser   myhosts 
+4:[webservers]
+5-V[4:5]
+6-
+--
+11:webservers
+12-dbservers
+13-
+[root@V1 myansi]# grep  -n  other   ansible8api7.py
+126:#[root@V1 myansi]# grep  -nA1 "other"   myhosts
+127:#7:[other]
+129:  hosts = 'other',  #执行ansible管理命令的主机地址(在主机列表清单中查找)
+[root@V1 myansi]# grep  -nA1  other   myhosts 
+7:[other]
+8-V[1:2]
+[root@V1 myansi]# 
+
+[root@V1 myansi]# python     ansible8api7.py
+__name__ is __main__
+
+PLAY [Asb Play] *********************************************************************************
+
+TASK [yum] **************************************************************************************
+changed: [V1]
+changed: [V2]
+
+TASK [debug] ************************************************************************************
+ok: [V1] => {
+    "msg": {
+        "ansible_facts": {
+            "discovered_interpreter_python": "/usr/bin/python"
+        }, 
+        "changed": true, 
+        "changes": {
+            "removed": [
+                "httpd"
+            ]
+        }, 
+        "failed": false, 
+        "msg": "", 
+        "rc": 0, 
+        "results": [
+            "已加载插件：fastestmirror\n正在解决依赖关系\n--> 正在检查事务\n---> 软件包 httpd.x86_64.0.2.4.6-89.el7.centos 将被 删除\n--> 正在处理依赖关系 httpd-mmn = 20120211x8664，它被软件包 php-5.4.16-46.el7.x86_64 需要\n--> 正在处理依赖关系 httpd，它被软件包 zabbix-web-3.4.15-1.el7.noarch 需要\n--> 正在检查事务\n---> 软件包 php.x86_64.0.5.4.16-46.el7 将被 删除\n---> 软件包 zabbix-web.noarch.0.3.4.15-1.el7 将被 删除\n--> 正在处理依赖关系 zabbix-web = 3.4.15-1.el7，它被软件包 zabbix-web-mysql-3.4.15-1.el7.noarch 需要\n--> 正在检查事务\n---> 软件包 zabbix-web-mysql.noarch.0.3.4.15-1.el7 将被 删除\n--> 解决依赖关系完成\n\n依赖关系解决\n\n================================================================================\n Package               架构        版本                     源             大小\n================================================================================\n正在删除:\n httpd                 x86_64      2.4.6-89.el7.centos      @updates      9.4 M\n为依赖而移除:\n php                   x86_64      5.4.16-46.el7            @base         4.4 M\n zabbix-web            noarch      3.4.15-1.el7             @zabbix        15 M\n zabbix-web-mysql      noarch      3.4.15-1.el7             @zabbix       0.0  \n\n事务概要\n================================================================================\n移除  1 软件包 (+3 依赖软件包)\n\n安装大小：29 M\nDownloading packages:\nRunning transaction check\nRunning transaction test\nTransaction test succeeded\nRunning transaction\n  正在删除    : zabbix-web-3.4.15-1.el7.noarch                              1/4 \n警告：/etc/httpd/conf.d/zabbix.conf 已另存为 /etc/httpd/conf.d/zabbix.conf.rpmsave\n  正在删除    : zabbix-web-mysql-3.4.15-1.el7.noarch                        2/4 \n  正在删除    : php-5.4.16-46.el7.x86_64                                    3/4 \n  正在删除    : httpd-2.4.6-89.el7.centos.x86_64                            4/4 \n  验证中      : zabbix-web-mysql-3.4.15-1.el7.noarch                        1/4 \n  验证中      : httpd-2.4.6-89.el7.centos.x86_64                            2/4 \n  验证中      : php-5.4.16-46.el7.x86_64                                    3/4 \n  验证中      : zabbix-web-3.4.15-1.el7.noarch                              4/4 \n\n删除:\n  httpd.x86_64 0:2.4.6-89.el7.centos                                            \n\n作为依赖被删除:\n  php.x86_64 0:5.4.16-46.el7                zabbix-web.noarch 0:3.4.15-1.el7   \n  zabbix-web-mysql.noarch 0:3.4.15-1.el7   \n\n完毕！\n"
+        ]
+    }
+}
+ok: [V2] => {
+    "msg": {
+        "ansible_facts": {
+            "discovered_interpreter_python": "/usr/bin/python"
+        }, 
+        "changed": true, 
+        "changes": {
+            "removed": [
+                "httpd"
+            ]
+        }, 
+        "failed": false, 
+        "msg": "", 
+        "rc": 0, 
+        "results": [
+            "已加载插件：fastestmirror\n正在解决依赖关系\n--> 正在检查事务\n---> 软件包 httpd.x86_64.0.2.4.6-89.el7.centos 将被 删除\n--> 正在处理依赖关系 httpd-mmn = 20120211x8664，它被软件包 php-5.4.16-46.el7.x86_64 需要\n--> 正在检查事务\n---> 软件包 php.x86_64.0.5.4.16-46.el7 将被 删除\n--> 解决依赖关系完成\n\n依赖关系解决\n\n================================================================================\n Package      架构          版本                          源               大小\n================================================================================\n正在删除:\n httpd        x86_64        2.4.6-89.el7.centos           @updates        9.4 M\n为依赖而移除:\n php          x86_64        5.4.16-46.el7                 @base           4.4 M\n\n事务概要\n================================================================================\n移除  1 软件包 (+1 依赖软件包)\n\n安装大小：14 M\nDownloading packages:\nRunning transaction check\nRunning transaction test\nTransaction test succeeded\nRunning transaction\n  正在删除    : php-5.4.16-46.el7.x86_64                                    1/2 \n  正在删除    : httpd-2.4.6-89.el7.centos.x86_64                            2/2 \n  验证中      : httpd-2.4.6-89.el7.centos.x86_64                            1/2 \n  验证中      : php-5.4.16-46.el7.x86_64                                    2/2 \n\n删除:\n  httpd.x86_64 0:2.4.6-89.el7.centos                                            \n\n作为依赖被删除:\n  php.x86_64 0:5.4.16-46.el7                                                    \n\n完毕！\n"
+        ]
+    }
+}
+sys.argv is ['ansible8api7.py']
+[root@V1 myansi]# 
+
+[root@V1 myansi]# rpm  -q  httpd
+未安装软件包 httpd 
+[root@V2 myansi]# rpm  -q  httpd
+未安装软件包 httpd 
+
+[root@V1 myansi]# vim   ansible8api7.py
+
+123 play_source =  dict(
+124   name = "Asb Play",   #在脚本执行输出内容中显示#python  xx.py\nPLAY [Asb Play]
+125 #  hosts = 'localhost',  #执行ansible管理命令的主机地址
+126 #[root@V1 myansi]# grep  -nA1 "other"   myhosts
+127 #7:[other]
+128 #8-V[1:2]
+129   hosts = 'other',  #执行ansible管理命令的主机地址(在主机列表清单中查找)
+130   gather_facts = 'no',  #不收集主机信息
+131   tasks = [ #以下是执行的命令
+132 #    dict(action=dict(module='shell', args='ls'), register='shell_out'),
+133     #卸载httpd软件
+134     dict(action=dict(module='yum', args='name=httpd state=absent'), register='shell_out'),
+135 #    dict(action=dict(module='debug', args=dict(msg='{{shell_out.stdout}}')))
+136     dict(action=dict(module='debug', args=dict(msg='{{shell_out}}')))
+137   ]
+138 )
+
+131   tasks = [ #以下是执行的命令
+132 #    dict(action=dict(module='shell', args='ls'), register='shell_out'),
+133     #卸载httpd软件
+134 #    dict(action=dict(module='yum', args='name=httpd state=absent'), register='shell_out'),
+135 #在hosts = 'other'对应的#grep  -nA1 "other" myhosts文件指定的主机上安装现有版本的httpd 软件
+136     dict(action=dict(module='yum', args='name=httpd state=present'), register='shell_out'),
+137 #    dict(action=dict(module='debug', args=dict(msg='{{shell_out.stdout}}')))
+138     dict(action=dict(module='debug', args=dict(msg='{{shell_out}}')))
+139   ]
+140 )
+
+[root@V1 myansi]# grep   -n  httpd   ansible8api7.py
+133:    #卸载httpd软件
+134:#    dict(action=dict(module='yum', args='name=httpd state=absent'), register='shell_out'),
+135:#在hosts = 'other'对应的#grep  -nA1 "other" myhosts文件指定的主机上安装现有版本的httpd 软件
+136:    dict(action=dict(module='yum', args='name=httpd state=present'), register='shell_out'),
+
+
+
+[root@V1 myansi]# python    ansible8api7.py
+__name__ is __main__
+
+PLAY [Asb Play] *********************************************************************************
+
+TASK [yum] **************************************************************************************
+changed: [V2]
+changed: [V1]
+
+TASK [debug] ************************************************************************************
+ok: [V1] => {
+    "msg": {
+        "ansible_facts": {
+            "discovered_interpreter_python": "/usr/bin/python"
+        }, 
+        "changed": true, 
+        "changes": {
+            "installed": [
+                "httpd"
+            ]
+        }, 
+        "failed": false, 
+        "msg": "", 
+        "rc": 0, 
+        "results": [
+            "Loaded plugins: fastestmirror\nLoading mirror speeds from cached hostfile\n * epel: mirrors.aliyun.com\n * epel-debuginfo: mirrors.aliyun.com\n * epel-testing: mirrors.aliyun.com\n * epel-testing-debuginfo: mirrors.aliyun.com\nResolving Dependencies\n--> Running transaction check\n---> Package httpd.x86_64 0:2.4.6-89.el7.centos will be installed\n--> Finished Dependency Resolution\n\nDependencies Resolved\n\n================================================================================\n Package       Arch           Version                     Repository       Size\n================================================================================\nInstalling:\n httpd         x86_64         2.4.6-89.el7.centos         updates         2.7 M\n\nTransaction Summary\n================================================================================\nInstall  1 Package\n\nTotal download size: 2.7 M\nInstalled size: 9.4 M\nDownloading packages:\nRunning transaction check\nRunning transaction test\nTransaction test succeeded\nRunning transaction\n  Installing : httpd-2.4.6-89.el7.centos.x86_64                             1/1 \n  Verifying  : httpd-2.4.6-89.el7.centos.x86_64                             1/1 \n\nInstalled:\n  httpd.x86_64 0:2.4.6-89.el7.centos                                            \n\nComplete!\n"
+        ]
+    }
+}
+ok: [V2] => {
+    "msg": {
+        "ansible_facts": {
+            "discovered_interpreter_python": "/usr/bin/python"
+        }, 
+        "changed": true, 
+        "changes": {
+            "installed": [
+                "httpd"
+            ]
+        }, 
+        "failed": false, 
+        "msg": "", 
+        "rc": 0, 
+        "results": [
+            "Loaded plugins: fastestmirror\nLoading mirror speeds from cached hostfile\n * epel: mirrors.aliyun.com\n * epel-debuginfo: mirrors.aliyun.com\n * epel-testing: mirrors.aliyun.com\n * epel-testing-debuginfo: mirrors.aliyun.com\nResolving Dependencies\n--> Running transaction check\n---> Package httpd.x86_64 0:2.4.6-89.el7.centos will be installed\n--> Finished Dependency Resolution\n\nDependencies Resolved\n\n================================================================================\n Package       Arch           Version                     Repository       Size\n================================================================================\nInstalling:\n httpd         x86_64         2.4.6-89.el7.centos         updates         2.7 M\n\nTransaction Summary\n================================================================================\nInstall  1 Package\n\nTotal download size: 2.7 M\nInstalled size: 9.4 M\nDownloading packages:\nRunning transaction check\nRunning transaction test\nTransaction test succeeded\nRunning transaction\n  Installing : httpd-2.4.6-89.el7.centos.x86_64                             1/1 \n  Verifying  : httpd-2.4.6-89.el7.centos.x86_64                             1/1 \n\nInstalled:\n  httpd.x86_64 0:2.4.6-89.el7.centos                                            \n\nComplete!\n"
+        ]
+    }
+}
+sys.argv is ['ansible8api7.py']
+[root@V1 myansi]# rpm  -q  httpd
+httpd-2.4.6-89.el7.centos.x86_64
+[root@V1 myansi]# 
+
+[root@V2 myansi]# rpm  -q  httpd
+未安装软件包 httpd 
+[root@V2 myansi]# rpm  -q  httpd
+httpd-2.4.6-89.el7.centos.x86_64
+[root@V2 myansi]# 
+
+[root@V1 myansi]# vim    ansible8API.py
+[root@V1 myansi]# pyflakes    ansible8API.py
+[root@V1 myansi]# python    ansible8API.py
+__name__ is __main__
+
+PLAY [Asb Play] *********************************************************************************
+
+TASK [yum] **************************************************************************************
+ok: [V1]
+ok: [V2]
+
+TASK [debug] ************************************************************************************
+ok: [V1] => {
+    "msg": {
+        "ansible_facts": {
+            "discovered_interpreter_python": "/usr/bin/python"
+        }, 
+        "changed": false, 
+        "failed": false, 
+        "msg": "", 
+        "rc": 0, 
+        "results": [
+            "httpd-2.4.6-89.el7.centos.x86_64 providing httpd is already installed"
+        ]
+    }
+}
+ok: [V2] => {
+    "msg": {
+        "ansible_facts": {
+            "discovered_interpreter_python": "/usr/bin/python"
+        }, 
+        "changed": false, 
+        "failed": false, 
+        "msg": "", 
+        "rc": 0, 
+        "results": [
+            "httpd-2.4.6-89.el7.centos.x86_64 providing httpd is already installed"
+        ]
+    }
+}
+sys.argv is ['ansible8API.py']
+[root@V1 myansi]# 
+
+
+scp  -P7920 -r  myansi/  student@192.168.1.254:/home/student/Ansiblebj/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

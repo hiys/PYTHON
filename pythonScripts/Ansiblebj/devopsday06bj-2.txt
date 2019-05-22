@@ -1,0 +1,438 @@
+
+
+[student@room10pc15 ~]$ for i in  V1 V{3..5};do  virsh  start  $i;done;
+错误：域已经活跃
+
+域 V3 已开始
+
+域 V4 已开始
+
+域 V5 已开始
+[student@room10pc15 ~]$ free    -m
+              total        used        free      shared  buff/cache   available
+Mem:          15941        3156       11145         534        1639       11918
+Swap:             0           0           0
+[student@room10pc15 ~]$ free    -m
+              total        used        free      shared  buff/cache   available
+Mem:          15941        3151       11150         534        1639       11923
+Swap:             0           0           0
+
+reset
+
+[root@V1 ~]# cd  myansi/
+[root@V1 myansi]# vim   lamp.yml 
+
+:6,12s/^  // #把第6行至第12行的开头2个空格替换成空(删除2个空格)
+
+[root@V1 myansi]# vim   lamp.yml 
+
+[root@V1 myansi]# ansible-playbook -i myhosts  --syntax-check  lamp.yml
+
+playbook: lamp.yml
+[root@V1 myansi]# ansible-playbook -i myhosts  lamp.yml
+
+
+PLAY [configure  web  comment] *************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [V4]
+ok: [V5]
+
+TASK [install web app] *********************************************************
+[DEPRECATION WARNING]: Invoking "yum" only once while using a loop via squash_actions is deprecated.
+不推荐在通过squash_actions 使用循环时仅调用一次“yum”。
+ Instead of using a loop to supply multiple items and specifying `name: "{{ item }}"`, please use `name: ['elinks', 'telnet', 
+'gcc', 'pcre-devel', 'httpd-tools', 'httpd', 'php', 'php-mysql']` and remove the loop. 
+不要使用循环来提供多个项目并指定'name:“item”`，
+请使用'name:['elinks'、'telnet'、'gcc'、'pcre devel'、'httpd tools'、'httpd'、'php'、'php mysql']`并删除循环。
+
+This feature will be removed in version 2.11. 
+Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+此功能将在版本2.11中删除。
+通过在ansible.cfg中设置deprecation_warnings=false，可以禁用deprecation警告。
+.......................
+ok: [V5] => (item=[u'elinks', u'telnet', u'gcc', u'pcre-devel', u'httpd-tools', u'httpd', u'php', u'php-mysql'])
+ok: [V4] => (item=[u'elinks', u'telnet', u'gcc', u'pcre-devel', u'httpd-tools', u'httpd', u'php', u'php-mysql'])
+
+TASK [config web service] ******************************************************
+changed: [V4]
+changed: [V5]
+
+PLAY [configure  db  annotation] ***********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [V3]
+
+TASK [install db app] **********************************************************
+ok: [V3]
+
+TASK [config db service] *******************************************************
+changed: [V3]
+
+PLAY RECAP *********************************************************************
+V3                         : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V4                         : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V5                         : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+[root@V1 myansi]# echo  $?
+0
+[root@V1 myansi]# 
+
+
+[student@room10pc15 ~]$ watch  -n3  -d  free  -m
+
+Every 3.0s: free -m                                        Tue May 21 10:48:47 2019
+
+              total        used        free	 shared  buff/cache   available
+Mem:          15941        4206        9497         580        2236	  10796
+Swap:             0           0           0
+
+Every 3.0s: free -m                                        Tue May 21 10:50:05 2019
+
+              total        used        free	 shared  buff/cache   available
+Mem:          15941        4800        8602         578        2538	  10203
+Swap:             0           0           0
+
+[root@V1 myansi]# ansible  --version |head  -2
+ansible 2.8.0
+  config file = /root/myansi/ansible.cfg
+--------------------------------------
+
+This feature will be removed in version 2.11. 
+此功能将在版本2.11中删除。
+
+Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+通过在ansible.cfg中设置deprecation_warnings=False，可以禁用deprecation警告。
+
+[root@V1 myansi]# grep  -n  deprecation_warnings   /etc/ansible/ansible.cfg 
+180:#deprecation_warnings = True
+
+[root@V1 myansi]# ls
+ansible.cfg  authorizedKeyx.yaml  files  lamp.yml  local.repo  myhosts  vimrc.txt
+[root@V1 myansi]# cat   myhosts 
+[dbservers]
+V3
+
+[webservers]
+V[4:5]
+
+[other]
+V1
+
+[app:children]
+webservers
+dbservers
+
+[app:vars]
+ansible_ssh_user=root
+ansible_ssh_pass="1"
+[root@V1 myansi]# vim    ansible.cfg 
+[root@V1 myansi]# cat    ansible.cfg
+
+[defaults]
+inventory      =  myhosts
+remote_user = root
+host_key_checking = False
+command_warnings=False
+deprecation_warnings = False
+
+
+[root@V1 myansi]# scp  -P7920  lamp.yml  student@192.168.1.254:/home/student/Ansiblebj/
+
+
+http://www.ansible.com.cn/
+
+
+https://docs.python.org/2.7/
+http://www.ansible.com.cn/docs/developing.html
+
+https://docs.ansible.com/
+https://docs.ansible.com/ansible/latest/index.html
+
+[root@V1 myansi]# ansible  --version |head  -2
+ansible 2.8.0
+  config file = /root/myansi/ansible.cfg
+--------------------------------------
+
+Documentation
+Ansible
+2.8
+For previous versions, see the
+   documentation archive.
+对于以前的版本，请参阅
+    文档存档。
+
+Python API
+
+
+安装，升级和配置
+
+安装指南
+安装指南
+配置Ansible
+Ansible移植指南
+Ansible 2.8移植指南
+Ansible 2.7移植指南
+
+https://docs.ansible.com/ansible/latest/search.html?q=Python+API&check_keywords=yes&area=default
+
+https://docs.ansible.com/ansible/latest/dev_guide/developing_api.html?highlight=python%20api
+
+Python API example
+此示例是一个简单的演示，演示如何最低限度地运行几个任务：
+
+sample    英 [ˈsɑːmpl]
+     n.(抽查的)样本，样品;(化验的)取样，样本，
+example   英 [ɪɡˈzɑːmpl]
+     n.实例;例证;例子;典型;范例;样品;
+play　　　　英 [pleɪ]
+　　　v.玩耍;游戏;玩乐;(为玩耍)假装，假扮;捉弄;戏弄
+　　　n.游戏;玩耍;娱乐;戏剧;剧本;比赛
+
+#!/usr/bin/env python
+
+import json
+import shutil
+from ansible.module_utils.common.collections import ImmutableDict
+from ansible.parsing.dataloader import DataLoader
+from ansible.vars.manager import VariableManager
+from ansible.inventory.manager import InventoryManager
+from ansible.playbook.play import Play
+from ansible.executor.task_queue_manager import TaskQueueManager
+from ansible.plugins.callback import CallbackBase
+from ansible import context
+import ansible.constants as C
+
+class ResultCallback(CallbackBase):
+  """用于在结果出现时执行操作的回调插件示例
+如果要将所有结果收集到一个对象中，以便在执行结束时进行处理，
+请使用``json``回调插件或编写自己的自定义回调插件。
+  """
+  def v2_runner_on_ok(self, result, **kwargs):
+    """打印结果的JSON表示形式
+        此方法可以将结果存储在实例属性中，以便以后检索。
+    """
+    host = result._host
+    print(json.dumps({host.name: result._result}, indent=4))
+
+    #由于API是为CLI构造的，因此它希望在上下文对象中始终设置某些选项。
+    context.CLIARGS = ImmutableDict(connection='local',
+    module_path=['/to/mymodules'], forks=10, become=None,
+    become_method=None, become_user=None, check=False, diff=False)
+
+    # 初始化所需对象
+    loader = DataLoader()  # 负责查找和读取yaml、json和ini文件
+    passwords = dict(vault_pass='secret')
+
+    # 实例化resultcallback，以便在结果传入时处理它们。
+    # Ansible希望这是其主要的展示渠道之一。
+    results_callback = ResultCallback()
+
+    # 创建清单，使用作为源的主机配置文件路径，或使用逗号分隔的字符串作为主机
+    inventory = InventoryManager(loader=loader, sources='localhost,')
+
+    # 变量管理器负责合并所有不同的源，以便为您提供每个上下文中可用变量的统一视图。
+    variable_manager = VariableManager(loader=loader, inventory=inventory)
+
+    # 创建代表我们的游戏（包括任务）的数据结构，这基本上是我们的yaml加载程序在内部所做的。
+    play_source =  dict(
+      name = "Ansible Play",
+      hosts = 'localhost',
+      gather_facts = 'no',
+      tasks = [
+        dict(action=dict(module='shell', args='ls'), register='shell_out'),
+        dict(action=dict(module='debug', args=dict(msg='{{shell_out.stdout}}')))
+      ]
+    )
+
+    # 创建play　object，playbook objects使用。
+    # 加载而不是初始化或新方法，这也将从play_source中提供的信息自动创建任务对象。
+    play = Play().load(play_source, variable_manager=variable_manager, loader=loader)
+
+    # 运行它-实例化任务队列管理器，它负责分叉和设置所有对象，以便在主机列表和任务上迭代。
+    tqm = None
+    try:
+      tqm = TaskQueueManager(
+        inventory=inventory,
+        variable_manager=variable_manager,
+        loader=loader,
+        passwords=passwords,
+        stdout_callback=results_callback,  # 使用我们的自定义回调，而不是打印到stdout的“默认”回调插件
+        )
+      result = tqm.run(play) # 一出戏最有趣的数据实际上是发送到回调的方法
+    finally:
+      # 我们总是需要清理子程序和我们用来与他们沟通的结构。
+      if tqm is not None:
+        tqm.cleanup()
+      # Remove ansible tmpdir
+      shutil.rmtree(C.DEFAULT_LOCAL_TMP, True)
+
+
+[root@V1 myansi]# ansible  --version |head -2
+ansible 2.8.0
+  config file = /root/myansi/ansible.cfg
+
+
+[root@V1 MyProject]# cat  /root/.pip/pip.conf 
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+[root@V1 MyProject]# pip3   install   --upgrade  pyflakes
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting pyflakes
+  Downloading http://pypi.doubanio.com/packages/84/f2/ed0ffb887f8138a8fe5a621b8c0bb9598bfb3989e029f6c6a85ee66628ee/pyflakes-2.1.1-py2.py3-none-any.whl (59kB)
+     |████████████████████████████████| 61kB 4.5MB/s 
+Installing collected packages: pyflakes
+Successfully installed pyflakes-2.1.1
+
+[root@V1 MyProject]# pip3  freeze
+asn1crypto==0.24.0
+bcrypt==3.1.6
+certifi==2019.3.9
+cffi==1.12.3
+chardet==3.0.4
+cryptography==2.6.1
+Django==1.11.20
+idna==2.8
+paramiko==2.4.2
+pyasn1==0.4.5
+pycparser==2.19
+pyflakes==2.1.1
+PyMySQL==0.9.3
+PyNaCl==1.3.0
+pytz==2019.1
+requests==2.21.0
+six==1.12.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+[root@V1 MyProject]# type  pyflakes 
+pyflakes 是 /usr/local/bin/pyflakes
+
+[root@V1 MyProject]# ll  /usr/local/bin/pyflakes
+-rwxr-xr-x 1 root root 222 5月  21 12:49 /usr/local/bin/pyflakes
+
+[root@V1 MyProject]# pyflakes     deployjenkins.py  #pyflakes用于python程序的早期查错
+[root@V1 MyProject]# echo  $?
+0
+[root@V1 MyProject]# 
+
+[root@V1 myansi]# vim    ansibleapi.py
+
+ 45 
+:16,45s/^  //
+:25,48s/^            //
+[root@V1 myansi]# pyflakes   ansibleAPI.py 
+ansibleAPI.py:74: undefined name 'cleanup'
+[root@V1 myansi]# vim    ansibleAPI.py
+[root@V1 myansi]# pyflakes   ansibleAPI.py 
+[root@V1 myansi]# echo  $?
+0
+[root@V1 myansi]# vim    ansibleapi.py
+[root@V1 myansi]# pyflakes   ansibleapi.py
+[root@V1 myansi]# scp  -P7920   ansibleAPI.py   student@192.168.1.254:/home/student/Ansiblebj/
+
+
+[root@V1 myansi]# python
+Python 2.7.5 (default, Apr 11 2018, 07:36:10) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-28)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import  collections
+>>> collections.
+collections.Callable(          collections.__name__
+collections.Container(         collections.__new__(
+collections.Counter(           collections.__package__
+collections.Hashable(          collections.__reduce__(
+collections.ItemsView(         collections.__reduce_ex__(
+collections.Iterable(          collections.__repr__(
+collections.Iterator(          collections.__setattr__(
+collections.KeysView(          collections.__sizeof__(
+collections.Mapping(           collections.__str__(
+collections.MappingView(       collections.__subclasshook__(
+collections.MutableMapping(    collections._abcoll
+collections.MutableSequence(   collections._chain(
+collections.MutableSet(        collections._class_template
+collections.OrderedDict(       collections._eq(
+collections.Sequence(          collections._field_template
+collections.Set(               collections._get_ident(
+collections.Sized(             collections._heapq
+collections.ValuesView(        collections._imap(
+collections.__all__            collections._iskeyword(
+collections.__class__(         collections._itemgetter(
+collections.__delattr__(       collections._repeat(
+collections.__dict__           collections._repr_template
+collections.__doc__            collections._starmap(
+collections.__file__           collections._sys
+collections.__format__(        collections.defaultdict(
+collections.__getattribute__(  collections.deque(
+collections.__hash__(          collections.namedtuple(
+collections.__init__(          
+>>> collections.
+[root@V1 myansi]# scp   -P7920  ntupletest.py  student@192.168.1.254:/home/student/Ansiblebj/
+
+
+ansible.module_utils.common.collections.ImmutableDict
+
+[root@V1 myansi]# vim     ntupletest.py
+
+interpreter           美 [ɪnˈtɜːrprətər]  
+      n.口译工作者;口译译员;演绎(音乐、戏剧中人物等)的人;解释程序
+
+[root@V1 myansi]# vim    ansible6api.py
+[root@V1 myansi]# pyflakes  ansible6api.py
+ansible6api.py:78: local variable 'options' is assigned to but never used
+ansible6api.py:78:局部变量“options”已分配给但从未使用
+
+
+
+import shutil
+
+#把当目录下的nginx.conf文件复制到另外一个目录，并重命名
+shutil.copyfile('nginx.conf','/Users/kang/Desktop/nginx.conf.bak')
+
+#把base_dir的目录20190218打包压缩到桌面的test.zip
+shutil._make_zipfile("/Users/kang/Desktop/test",base_dir='/Users/kang/PycharmProjects/不破不立/第二章/20190218',)
+
+#把20190218下的所有内容，复制到桌面kangtest目录下（kangtest不存在，程序会新建一个目录）
+shutil.copytree('/Users/kang/PycharmProjects/不破不立/第二章/20190218/','/Users/kang/Desktop/kangtest')
+
+[root@V3 ~]# ll  ip.sh 
+-rw-r--r-- 1 root root 889 5月  16 15:59 ip.sh
+[root@V3 ~]# ls  ansible/
+[root@V3 ~]# python
+Python 2.7.5 (default, Apr 11 2018, 07:36:10) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-28)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   shutil
+>>> shutil.copyfile('ip.sh','./ansible/ipcopy.sh')
+>>> 
+[root@V3 ~]# ls  ansible/
+[root@V3 ~]# ll   ansible/
+总用量 4
+-rw-r--r-- 1 root root 889 5月  21 17:11 ipcopy.sh
+
+scp   -P7920    called.py     student@192.168.1.254:/home/student/Ansiblebj/
+scp   -P7920   tcallback.py   student@192.168.1.254:/home/student/Ansiblebj/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

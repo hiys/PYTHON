@@ -1,11 +1,11 @@
 ---                                ##以---为文件开始，固定格式
-- name: configure  web  comment    #name表示本剧本的总体描述信息
+- name: configure  web  comment    #name表示本剧本的总体描述信息PLAY [configure  web  comment]
   #hosts,tasks等对象的表示方法是键值中间以": "分隔表示,注意1个空格
   hosts: webservers             #指定主机或主机组来运行下面的tasks
   remote_user: root             #远端用户
   tasks:                        #多个具体任务,将要执行的一系列动作
     #yaml中的列表元素以"- "开头然后紧跟着1个"空格",后面为元素的内容
-    - name: install web app     #name代表本任务的具体描述信息
+    - name: install web app     #name代表本任务的具体描述信息TASK [install web app]
       yum:                      #使用指定模块yum
         #使用"{{var}}"来引用变量,name指定需要安装的软件名称
         name: "{{ item }}"
@@ -19,19 +19,19 @@
         - httpd
         - php
         - php-mysql
-    - name: config web service  #描述本任务执行步骤
+    - name: config web service  #描述本任务执行步骤TASK [config web service]
       service:                  #使用指定模块service
         name: httpd             #需要安装的软件名称
         state: started
         enabled: true
-- name: configure  db  annotation  #name表示本剧本的总体描述信息
+- name: configure  db  annotation  #name表示本剧本的总体描述信息PLAY [configure  db  annotation]
   hosts: dbservers
   tasks:
-    - name: install db app         #name代表本任务的具体描述信息
+    - name: install db app         #name代表本任务的具体描述信息TASK [install db app] 
       yum:
         name: mariadb-server       #name指定需要安装的软件名称
         state: latest       #latest安装软件并且升级版本,absent卸载软件
-    - name: config db service
+    - name: config db service      #TASK [config db service]
       service:                  #使用指定模块service
         name: mariadb
         state: started
