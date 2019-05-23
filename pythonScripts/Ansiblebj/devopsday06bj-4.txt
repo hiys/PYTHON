@@ -1,0 +1,1151 @@
+
+
+
+$ for i  in  V{1..5};do  virsh start $i;done;
+
+reset
+
+[root@V1 myansi]# python
+Python 2.7.5 (default, Apr 11 2018, 07:36:10) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-28)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> from ansible.executor.playbook_executor import PlaybookExecutor
+>>> PlaybookExecutor(
+Display all 177 possibilities? (y or n)
+ArithmeticError(            dir(
+AssertionError(             divmod(
+AttributeError(             elif
+BaseException(              else
+BufferError(                enumerate(
+BytesWarning(               eval(
+DeprecationWarning(         except
+EOFError(                   exec
+Ellipsis                    execfile(
+EnvironmentError(           exit(
+Exception(                  file(
+False                       filter(
+FloatingPointError(         finally
+FutureWarning(              float(
+GeneratorExit(              for
+IOError(                    format(
+ImportError(                from
+ImportWarning(              frozenset(
+IndentationError(           getattr(
+IndexError(                 global
+KeyError(                   globals(
+KeyboardInterrupt(          hasattr(
+LookupError(                hash(
+MemoryError(                help(
+NameError(                  hex(
+None                        id(
+NotImplemented              if
+NotImplementedError(        import
+OSError(                    in
+OverflowError(              input(
+PendingDeprecationWarning(  int(
+PlaybookExecutor(           intern(
+ReferenceError(             is
+RuntimeError(               isinstance(
+RuntimeWarning(             issubclass(
+StandardError(              iter(
+StopIteration(              lambda
+SyntaxError(                len(
+SyntaxWarning(              license(
+SystemError(                list(
+SystemExit(                 locals(
+TabError(                   long(
+True                        map(
+TypeError(                  max(
+UnboundLocalError(          memoryview(
+UnicodeDecodeError(         min(
+UnicodeEncodeError(         next(
+UnicodeError(               not
+UnicodeTranslateError(      object(
+UnicodeWarning(             oct(
+UserWarning(                open(
+ValueError(                 or
+Warning(                    ord(
+ZeroDivisionError(          pass
+__cffi_backend_extern_py    pow(
+__debug__                   print
+__doc__                     print(
+__import__(                 property(
+__name__                    quit(
+__package__                 raise
+abs(                        range(
+all(                        raw_input(
+and                         readline
+any(                        reduce(
+apply(                      reload(
+as                          repr(
+assert                      return
+basestring(                 reversed(
+bin(                        round(
+bool(                       set(
+break                       setattr(
+buffer(                     slice(
+bytearray(                  sorted(
+bytes(                      staticmethod(
+callable(                   str(
+chr(                        sum(
+class                       super(
+classmethod(                try
+cmp(                        tuple(
+coerce(                     type(
+compile(                    unichr(
+complex(                    unicode(
+continue                    vars(
+copyright(                  while
+credits(                    with
+def                         xrange(
+del                         yield
+delattr(                    zip(
+dict(                       
+>>> 
+
+>>> from ansible.executor.playbook_executor import PlaybookExecutor
+>>> PlaybookExecutor.
+PlaybookExecutor.__base__(
+PlaybookExecutor.__bases__
+PlaybookExecutor.__basicsize__
+PlaybookExecutor.__call__(
+PlaybookExecutor.__class__(
+PlaybookExecutor.__delattr__(
+PlaybookExecutor.__dict__
+PlaybookExecutor.__dictoffset__
+PlaybookExecutor.__doc__
+PlaybookExecutor.__eq__(
+PlaybookExecutor.__flags__
+PlaybookExecutor.__format__(
+PlaybookExecutor.__ge__(
+PlaybookExecutor.__getattribute__(
+PlaybookExecutor.__gt__(
+PlaybookExecutor.__hash__(
+PlaybookExecutor.__init__(
+PlaybookExecutor.__instancecheck__(
+PlaybookExecutor.__itemsize__
+PlaybookExecutor.__le__(
+PlaybookExecutor.__lt__(
+PlaybookExecutor.__module__
+PlaybookExecutor.__mro__
+PlaybookExecutor.__name__
+PlaybookExecutor.__ne__(
+PlaybookExecutor.__new__(
+PlaybookExecutor.__reduce__(
+PlaybookExecutor.__reduce_ex__(
+PlaybookExecutor.__repr__(
+PlaybookExecutor.__setattr__(
+PlaybookExecutor.__sizeof__(
+PlaybookExecutor.__str__(
+PlaybookExecutor.__subclasscheck__(
+PlaybookExecutor.__subclasses__(
+PlaybookExecutor.__subclasshook__(
+PlaybookExecutor.__weakref__
+PlaybookExecutor.__weakrefoffset__
+PlaybookExecutor._generate_retry_inventory(
+PlaybookExecutor._get_serialized_batches(
+PlaybookExecutor.mro(
+PlaybookExecutor.run(
+>>> 
+>>> from ansible.module_utils.common.collections import ImmutableDict
+>>> ImmutableDict.
+ImmutableDict.__abstractmethods__
+ImmutableDict.__base__(
+ImmutableDict.__bases__
+ImmutableDict.__basicsize__
+ImmutableDict.__call__(
+ImmutableDict.__class__(
+ImmutableDict.__contains__(
+ImmutableDict.__delattr__(
+ImmutableDict.__dict__
+ImmutableDict.__dictoffset__
+ImmutableDict.__doc__
+ImmutableDict.__eq__(
+ImmutableDict.__flags__
+ImmutableDict.__format__(
+ImmutableDict.__ge__(
+ImmutableDict.__getattribute__(
+ImmutableDict.__getitem__(
+ImmutableDict.__gt__(
+ImmutableDict.__hash__(
+ImmutableDict.__init__(
+ImmutableDict.__instancecheck__(
+ImmutableDict.__itemsize__
+ImmutableDict.__iter__(
+ImmutableDict.__le__(
+ImmutableDict.__len__(
+ImmutableDict.__lt__(
+ImmutableDict.__metaclass__(
+ImmutableDict.__module__
+ImmutableDict.__mro__
+ImmutableDict.__name__
+ImmutableDict.__ne__(
+ImmutableDict.__new__(
+ImmutableDict.__reduce__(
+ImmutableDict.__reduce_ex__(
+ImmutableDict.__repr__(
+ImmutableDict.__setattr__(
+ImmutableDict.__sizeof__(
+ImmutableDict.__str__(
+ImmutableDict.__subclasscheck__(
+ImmutableDict.__subclasses__(
+ImmutableDict.__subclasshook__(
+ImmutableDict.__weakref__
+ImmutableDict.__weakrefoffset__
+ImmutableDict._abc_cache
+ImmutableDict._abc_invalidation_counter
+ImmutableDict._abc_negative_cache
+ImmutableDict._abc_negative_cache_version
+ImmutableDict._abc_registry
+ImmutableDict._dump_registry(
+ImmutableDict.difference(
+ImmutableDict.get(
+ImmutableDict.items(
+ImmutableDict.iteritems(
+ImmutableDict.iterkeys(
+ImmutableDict.itervalues(
+ImmutableDict.keys(
+ImmutableDict.mro(
+ImmutableDict.register(
+ImmutableDict.union(
+ImmutableDict.values(
+>>> 
+
+>>> from ansible import context
+>>> context.
+context.CLIARGS                context.__name__
+context.CLIArgs(               context.__new__(
+context.GlobalCLIArgs(         context.__package__
+context.Mapping(               context.__reduce__(
+context.Set(                   context.__reduce_ex__(
+context.__all__                context.__repr__(
+context.__class__(             context.__setattr__(
+context.__delattr__(           context.__sizeof__(
+context.__dict__               context.__str__(
+context.__doc__                context.__subclasshook__(
+context.__file__               context._init_global_context(
+context.__format__(            context.absolute_import
+context.__getattribute__(      context.cliargs_deferred_get(
+context.__hash__(              context.division
+context.__init__(              context.is_sequence(
+context.__metaclass__(         context.print_function
+>>> 
+======================================
+
+[root@V1 myansi]# python
+Python 2.7.5 (default, Apr 11 2018, 07:36:10) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-28)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+>>> from ansible import context
+>>> from ansible.module_utils.common.collections import ImmutableDict
+>>> from ansible.executor.playbook_executor import PlaybookExecutor
+
+>>> 
+>>> type(context.CLIARGS)
+<class 'ansible.utils.context_objects.CLIArgs'>
+>>> context.CLIARGS = ImmutableDict(connection='smart', sudo=None,
+...   remote_user=None, ask_pass=None, sudo_user=None, ask_sudo_pass=False,
+...   module_path=None, forks=5, become=None, verbosity=5,
+...   become_method=None, become_user=None, check=False, diff=False,
+...   listhosts=None, listtasks=None, listtags=None, syntax=None
+... )
+>>> type(context.CLIARGS)
+<class 'ansible.module_utils.common.collections.ImmutableDict'>
+>>> print(context.CLIARGS)
+ImmutableDict({'listhosts': None, 'ask_pass': None, 'listtags': None, 'become_user': None, 'sudo': None, 'syntax': None, 'module_path': None, 'diff': False, 'check': False, 'ask_sudo_pass': False, 'remote_user': None, 'become_method': None, 'listtasks': None, 'verbosity': 5, 'connection': 'smart', 'become': None, 'forks': 5, 'sudo_user': None})
+>>>
+
+>>> from ansible.parsing.dataloader import DataLoader
+>>> loader = DataLoader()
+>>> type(loader)
+<class 'ansible.parsing.dataloader.DataLoader'>
+>>> print(loader)
+<ansible.parsing.dataloader.DataLoader object at 0x7fbd8751ce10>
+>>> 
+>>> passwords = dict()
+>>> type(passwords)
+<type 'dict'>
+>>> print(passwords)
+{}
+>>> from ansible.inventory.manager import InventoryManager
+>>> inventory = InventoryManager(
+...   loader=loader, sources = ["/root/myansi/myhosts"]
+... )
+>>> print(inventory)
+<ansible.inventory.manager.InventoryManager object at 0x7fbd76dcfe90>
+>>> type(inventory)
+<class 'ansible.inventory.manager.InventoryManager'>
+>>> 
+
+>>> from ansible.vars.manager import VariableManager
+>>> variable_manager = VariableManager(
+...   loader=loader, inventory=inventory
+... )
+>>> type(variable_manager)
+<class 'ansible.vars.manager.VariableManager'>
+>>> print(variable_manager)
+<ansible.vars.manager.VariableManager object at 0x7fbd76d34450>
+>>> 
+>>> from ansible.executor.playbook_executor import PlaybookExecutor
+>>> type(PlaybookExecutor)
+<type 'type'>
+>>> print(PlaybookExecutor)
+<class 'ansible.executor.playbook_executor.PlaybookExecutor'>
+>>>
+>>> def  run_pbook(pb_path):
+...   playbook = PlaybookExecutor(
+...     playbooks=pb_path,
+...     inventory=inventory,
+...     variable_manager=variable_manager,
+...     loader=loader,
+...     passwords=passwords
+...   ) 
+...   result = playbook.run()
+...   print(result)
+...   return result
+... 
+>>> run_pbook(pb_path=['lamp.yml'])
+
+PLAY [configure  web  comment] *************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [V5]
+ok: [V4]
+
+TASK [install web app] *********************************************************
+ok: [V5] => (item=[u'elinks', u'telnet', u'gcc', u'pcre-devel', u'httpd-tools', u'httpd', u'php', u'php-mysql'])
+changed: [V4] => (item=[u'elinks', u'telnet', u'gcc', u'pcre-devel', u'httpd-tools', u'httpd', u'php', u'php-mysql'])
+
+TASK [config web service] ******************************************************
+ok: [V5]
+changed: [V4]
+
+PLAY [configure  db  annotation] ***********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [V3]
+
+TASK [install db app] **********************************************************
+ok: [V3]
+
+TASK [config db service] *******************************************************
+ok: [V3]
+
+PLAY RECAP *********************************************************************
+V3                         : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V4                         : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V5                         : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 9, in run_pbook
+  File "/usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.py", line 242, in run
+    if context.CLIARGS['start_at_task'] and not self._tqm._start_at_done:
+  File "/usr/lib/python2.7/site-packages/ansible/module_utils/common/collections.py", line 20, in __getitem__
+    return self._store[key]
+KeyError: 'start_at_task'
+>>> 
+
+
+
+
+[root@V4 ~]# rpm  -q  httpd
+httpd-2.4.6-89.el7.centos.x86_64
+[root@V4 ~]# yum  -y   remove   httpd   |tail  -4
+作为依赖被删除:
+  php.x86_64 0:5.4.16-46.el7                                                    
+
+完毕！
+[root@V4 ~]# rpm  -q  httpd
+未安装软件包 httpd 
+[root@V4 ~]# 
+
+
+Once you have done this,
+ Django will have been installed into your Python installation's site-packages folder,
+ and you are ready to start developing in Django. 
+完成以上操作之后，
+Django将被安装到您的Python安装的site-packages文件夹中，
+您可以开始在Django中进行开发了。
+
+ site-packages  站点包
+
+[root@V1 myansi]# find  / -type  d  -iname  "*site-packages*"
+
+/root/ansible/Python-2.7.8/Lib/site-packages
+/root/Python-3.6.7/Lib/site-packages
+/usr/lib/python2.7/site-packages
+/usr/lib64/python2.7/site-packages
+/usr/local/lib/python3.6/site-packages
+
+[root@V1 myansi]# ls   /usr/lib/python2.7/site-packages/ansible/
+cli            constants.pyo  executor      inventory     plugins      utils
+compat         context.py     galaxy        modules       release.py   vars
+config         context.pyc    __init__.py   module_utils  release.pyc
+constants.py   context.pyo    __init__.pyc  parsing       release.pyo
+constants.pyc  errors         __init__.pyo  playbook      template
+
+[root@V1 myansi]# ls   /usr/lib/python2.7/site-packages/ansible-2.8.0-py2.7.egg-info/
+
+dependency_links.txt  PKG-INFO      SOURCES.txt
+not-zip-safe          requires.txt  top_level.txt
+
+[root@V1 myansi]# ls   /usr/lib/python2.7/site-packages/ansible/template/
+__init__.py   native_helpers.py   safe_eval.py   template.py   vars.py
+__init__.pyc  native_helpers.pyc  safe_eval.pyc  template.pyc  vars.pyc
+__init__.pyo  native_helpers.pyo  safe_eval.pyo  template.pyo  vars.pyo
+
+[root@V1 myansi]#  ls  /usr/lib/python2.7/site-packages/
+ansible                                              kitchen-1.1.1-py2.7.egg-info
+ansible-2.8.0-py2.7.egg-info                         _markerlib
+babel                                                paramiko
+Babel-0.9.6-py2.7.egg-info                           paramiko-2.1.1-py2.7.egg-info
+backports                                            pkg_resources.py
+backports.ssl_match_hostname-3.5.0.1-py2.7.egg-info  pkg_resources.pyc
+chardet                                              pkg_resources.pyo
+chardet-2.2.1-py2.7.egg-info                         ply
+decorator-3.4.0-py2.7.egg-info                       ply-3.4-py2.7.egg-info
+decorator.py                                         pyasn1
+decorator.pyc                                        pyasn1-0.1.9-py2.7.egg-info
+decorator.pyo                                        pycparser
+easy_install.py                                      pycparser-2.14-py2.7.egg-info
+easy_install.pyc                                     pyparsing-1.5.6-py2.7.egg-info
+easy_install.pyo                                     pyparsing.py
+enum                                                 pyparsing.pyc
+enum34-1.0.4-py2.7.egg-info                          pyparsing.pyo
+httplib2                                             python_keyczar-0.71c-py2.7.egg-info
+httplib2-0.9.2-py2.7.egg-info                        rpmUtils
+idna                                                 setuptools
+idna-2.4-py2.7.egg-info                              setuptools-0.9.8-py2.7.egg-info
+iniparse                                             six-1.9.0-py2.7.egg-info
+iniparse-0.4-py2.7.egg-info                          six.py
+ipaddress-1.0.16-py2.7.egg-info                      six.pyc
+ipaddress.py                                         six.pyo
+ipaddress.pyc                                        slip
+ipaddress.pyo                                        slip-0.4.0-py2.7.egg-info
+jinja2                                               slip.dbus-0.4.0-py2.7.egg-info
+Jinja2-2.7.2-py2.7.egg-info                          urlgrabber
+jmespath                                             urlgrabber-3.10-py2.7.egg-info
+jmespath-0.9.0-py2.7.egg-info                        yum
+keyczar                                              yumutils
+kitchen
+
+[root@V1 myansi]#  ls  /usr/lib/python2.7/site-packages/ansible/
+cli           constants.pyc  context.pyo  __init__.py   modules       plugins      template
+compat        constants.pyo  errors       __init__.pyc  module_utils  release.py   utils
+config        context.py     executor     __init__.pyo  parsing       release.pyc  vars
+constants.py  context.pyc    galaxy       inventory     playbook      release.pyo
+[root@V1 myansi]# 
+
+
+[root@V1 myansi]# find   /usr/lib/python2.7/site-packages/ |xargs  grep -lri "PlaybookExecutor"
+
+/usr/lib/python2.7/site-packages/ansible/cli/playbook.py
+/usr/lib/python2.7/site-packages/ansible/cli/playbook.pyc
+/usr/lib/python2.7/site-packages/ansible/cli/playbook.pyo
+/usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.py
+/usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.pyc
+/usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.pyo
+grep: /usr/lib/python2.7/site-packages/setuptools/script: 没有那个文件或目录
+grep: template: 没有那个文件或目录
+....................................
+grep: template.pyo: 没有那个文件或目录
+/usr/lib/python2.7/site-packages/ansible/cli/playbook.py
+/usr/lib/python2.7/site-packages/ansible/cli/playbook.pyc
+/usr/lib/python2.7/site-packages/ansible/cli/playbook.pyo
+/usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.py
+/usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.pyc
+/usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.pyo
+/usr/lib/python2.7/site-packages/ansible/cli/playbook.py
+/usr/lib/python2.7/site-packages/ansible/cli/playbook.pyc
+/usr/lib/python2.7/site-packages/ansible/cli/playbook.pyo
+/usr/lib/python2.7/site-packages/ansible/cli/playbook.py
+/usr/lib/python2.7/site-packages/ansible/cli/playbook.pyc
+/usr/lib/python2.7/site-packages/ansible/cli/playbook.pyo
+...................................
+/usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.py
+/usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.pyc
+/usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.pyo
+[root@V1 myansi]# 
+
+
+[root@V1 myansi]# ll  /usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.py
+
+-rw-r--r-- 1 root root 14009 5月  17 02:05 /usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.py
+
+[root@V1 myansi]# file   /usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.py
+
+/usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.py: Python script, ASCII text executable
+[root@V1 myansi]# vim    /usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.py
+
+scp  -P7920   /usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.py    student@192.168.1.254:/home/student/Ansiblebj/
+
+scp  -P7920   /usr/lib/python2.7/site-packages/ansible/module_utils/common/collections.py  student@192.168.1.254:/home/student/Ansiblebj/
+
+
+[root@V1 myansi]# vim    /usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.py
+
+ 22 import os
+ 23 
+ 24 from ansible import constants as C
+ 25 from ansible import context
+ 26 from ansible.executor.task_queue_manager import TaskQueueManager
+ 27 from ansible.module_utils._text import to_native, to_text
+ 28 from ansible.plugins.loader import become_loader, connection_loader, shell_loader
+ 29 from ansible.playbook import Playbook
+ 30 from ansible.template import Templar
+ 31 from ansible.plugins.loader import connection_loader, shell_loader
+ 32 from ansible.utils.helpers import pct_to_int
+ 33 from ansible.module_utils.parsing.convert_bool import boolean
+ 34 from ansible.utils.path import makedirs_safe
+ 35 from ansible.utils.ssh_functions import check_for_controlpersist
+ 36 from ansible.utils.display import Display
+ 37 
+
+ 38 display = Display()
+ 39 
+ 40 
+ 41 class PlaybookExecutor:
+
+ 48     def __init__(self, playbooks, inventory, variable_manager, loader, passwords):
+ 49         self._playbooks = playbooks
+ 50         self._inventory = inventory
+ 51         self._variable_manager = variable_manager
+ 52         self._loader = loader
+ 53         self.passwords = passwords
+ 54         self._unreachable_hosts = dict()
+ 55 
+ 56         if context.CLIARGS.get('listhosts') or context.CLIARGS.get('listtasks') or \
+ 57                 context.CLIARGS.get('listtags') or context.CLIARGS.get('syntax'):
+ 58             self._tqm = None
+ 59         else:
+ 60             self._tqm = TaskQueueManager(
+ 61                 inventory=inventory,
+ 62                 variable_manager=variable_manager,
+ 63                 loader=loader,
+ 64                 passwords=self.passwords,
+ 65                 forks=context.CLIARGS.get('forks'),
+ 66             )
+
+ 76     def run(self):
+ 77         '''
+ 78         Run the given playbook, based on the settings in the play which
+ 79         may limit the runs to serialized groups, etc.
+ 80         '''
+ 81 
+ 82         result = 0
+ 83         entrylist = []
+ 84         entry = {}
+ 85         try:
+ 86             # preload become/connection/shell to set config defs cached
+ 87             list(connection_loader.all(class_only=True))
+ 88             list(shell_loader.all(class_only=True))
+ 89             list(become_loader.all(class_only=True))
+ 90 
+ 91             for playbook_path in self._playbooks:
+ 92                 pb = Playbook.load(playbook_path, variable_manager=self._variable_manager, load    er=self._loader)
+
+
+
+
+
+[root@V3 ~]# rpm  -q  mariadb-server 
+mariadb-server-5.5.60-1.el7_5.x86_64
+[root@V3 ~]# yum  -y  remove  mariadb-server |tail  -3
+  mariadb-server.x86_64 1:5.5.60-1.el7_5                                        
+
+完毕！
+[root@V3 ~]# rpm  -q  mariadb-server 
+未安装软件包 mariadb-server 
+
+[root@V4 ~]# rpm  -q  httpd
+httpd-2.4.6-89.el7.centos.x86_64
+[root@V4 ~]# yum  -y   remove   httpd   |tail  -4
+作为依赖被删除:
+  php.x86_64 0:5.4.16-46.el7                                                    
+
+完毕！
+[root@V4 ~]# rpm  -q  httpd
+未安装软件包 httpd 
+
+[root@V5 ~]# rpm  -q  httpd
+httpd-2.4.6-89.el7.centos.x86_64
+[root@V5 ~]# yum  -y   remove   httpd   |tail  -4
+作为依赖被删除:
+  php.x86_64 0:5.4.16-46.el7                                                    
+
+完毕！
+[root@V5 ~]# rpm  -q  httpd
+未安装软件包 httpd 
+
+[root@V1 myansi]# vim   ansible8APIrun.py 
+[root@V1 myansi]# pyflakes   ansible8APIrun.py
+
+[root@V1 myansi]# cat   myhosts 
+[dbservers]
+V3
+
+[webservers]
+V[4:5]
+
+[other]
+V[1:2]
+
+[app:children]
+webservers
+dbservers
+
+[app:vars]
+ansible_ssh_user=root
+ansible_ssh_pass="1"
+[root@V1 myansi]# 
+[root@V1 myansi]# vim   lamp.yml
+[root@V1 myansi]# grep   -n   hosts  lamp.yml
+3:  #hosts,tasks等对象的表示方法是键值中间以": "分隔表示,注意1个空格
+4:  hosts: webservers             #指定主机或主机组来运行下面的tasks
+28:  hosts: dbservers
+[root@V1 myansi]# grep   -EnA1  "web|db"   myhosts 
+1:[dbservers]
+2-V3
+--
+4:[webservers]
+5-V[4:5]
+--
+11:webservers
+12:dbservers
+13-
+[root@V1 myansi]# 
+
+scp  -P7920   /usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.py    student@192.168.1.254:/home/student/Ansiblebj/
+
+scp  -P7920   /usr/lib/python2.7/site-packages/ansible/module_utils/common/collections.py  student@192.168.1.254:/home/student/Ansiblebj/
+
+
+[root@V1 myansi]# pyflakes   ansible8APIrun.py
+[root@V1 myansi]# python     ansible8APIrun.py
+__name__ is __main__
+ImmutableDict({'listhosts': None, 'ask_pass': None, 'listtags': None, 'become_user': None, 'sudo': None, 'syntax': None, 'module_path': None, 'diff': False, 'check': False, 'ask_sudo_pass': False, 'remote_user': None, 'become_method': None, 'listtasks': None, 'verbosity': 5, 'connection': 'smart', 'become': None, 'forks': 5, 'sudo_user': None})
+<class 'ansible.module_utils.common.collections.ImmutableDict'>
+<ansible.parsing.dataloader.DataLoader object at 0x7f884894ec90>
+<class 'ansible.parsing.dataloader.DataLoader'>
+<ansible.inventory.manager.InventoryManager object at 0x7f8848302090>
+<class 'ansible.inventory.manager.InventoryManager'>
+<ansible.vars.manager.VariableManager object at 0x7f88482c0210>
+<class 'ansible.vars.manager.VariableManager'>
+sys.argv is ['ansible8APIrun.py']
+<ansible.executor.playbook_executor.PlaybookExecutor object at 0x7f8848330890>
+<class 'ansible.executor.playbook_executor.PlaybookExecutor'>
+
+PLAY [configure  web  comment] ***********************************************************
+
+TASK [Gathering Facts] *******************************************************************
+ok: [V5]
+ok: [V4]
+
+TASK [install web app] .....................
+...........................
+PLAY RECAP *******************************************************************************
+V3                         : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V4                         : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+V5                         : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Traceback (most recent call last):
+  File "ansible8APIrun.py", line 126, in <module>
+    run_pbook(pb_path=['lamp.yml'])
+  File "ansible8APIrun.py", line 115, in run_pbook
+    result = playbook.run()
+  File "/usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.py", line 242, in run
+    if context.CLIARGS['start_at_task'] and not self._tqm._start_at_done:
+  File "/usr/lib/python2.7/site-packages/ansible/module_utils/common/collections.py", line 20, in __getitem__
+    return self._store[key]
+KeyError: 'start_at_task'
+
+
+[root@V1 myansi]# sed  -n  242p  /usr/lib/python2.7/site-packages/ansible/executor/playbook_executor.py
+
+        if context.CLIARGS['start_at_task'] and not self._tqm._start_at_done:
+
+[root@V1 myansi]# sed  -n  20p   /usr/lib/python2.7/site-packages/ansible/module_utils/common/collections.py
+
+        return self._store[key]
+
+[root@V1 myansi]# sed  -n  115p   ansible8APIrun.py 
+  result = playbook.run()
+
+start_at_task
+-
+added in 2.7
+Start the playbook at the task matching this name.
+在与此名称匹配的任务处启动剧本。
+
+[root@V1 myansi]# python
+Python 2.7.5 (default, Apr 11 2018, 07:36:10) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-28)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import    shutil
+>>> from   ansible.module_utils.basic  import  AnsibleModule
+>>> AnsibleModule.
+Display all 130 possibilities? (y or n)
+AnsibleModule.__base__(
+AnsibleModule.__bases__
+AnsibleModule.__basicsize__
+AnsibleModule.__call__(
+AnsibleModule.__class__(
+AnsibleModule.__delattr__(
+AnsibleModule.__dict__
+AnsibleModule.__dictoffset__
+AnsibleModule.__doc__
+AnsibleModule.__eq__(
+AnsibleModule.__flags__
+AnsibleModule.__format__(
+AnsibleModule.__ge__(
+AnsibleModule.__getattribute__(
+AnsibleModule.__gt__(
+AnsibleModule.__hash__(
+AnsibleModule.__init__(
+AnsibleModule.__instancecheck__(
+AnsibleModule.__itemsize__
+AnsibleModule.__le__(
+AnsibleModule.__lt__(
+AnsibleModule.__module__
+AnsibleModule.__mro__
+AnsibleModule.__name__
+AnsibleModule.__ne__(
+AnsibleModule.__new__(
+AnsibleModule.__reduce__(
+AnsibleModule.__reduce_ex__(
+AnsibleModule.__repr__(
+AnsibleModule.__setattr__(
+AnsibleModule.__sizeof__(
+AnsibleModule.__str__(
+AnsibleModule.__subclasscheck__(
+AnsibleModule.__subclasses__(
+AnsibleModule.__subclasshook__(
+AnsibleModule.__weakref__
+AnsibleModule.__weakrefoffset__
+AnsibleModule._apply_operation_to_mode(
+AnsibleModule._check_argument_types(
+AnsibleModule._check_argument_values(
+AnsibleModule._check_arguments(
+AnsibleModule._check_locale(
+AnsibleModule._check_mutually_exclusive(
+AnsibleModule._check_required_arguments(
+AnsibleModule._check_required_by(
+AnsibleModule._check_required_if(
+AnsibleModule._check_required_one_of(
+AnsibleModule._check_required_together(
+AnsibleModule._check_type_bits(
+AnsibleModule._check_type_bool(
+AnsibleModule._check_type_bytes(
+AnsibleModule._check_type_dict(
+AnsibleModule._check_type_float(
+AnsibleModule._check_type_int(
+AnsibleModule._check_type_jsonarg(
+AnsibleModule._check_type_list(
+AnsibleModule._check_type_path(
+AnsibleModule._check_type_raw(
+AnsibleModule._check_type_str(
+AnsibleModule._clean_args(
+AnsibleModule._count_terms(
+AnsibleModule._get_octal_mode_from_symbolic_perms(
+AnsibleModule._get_wanted_type(
+AnsibleModule._handle_aliases(
+AnsibleModule._handle_elements(
+AnsibleModule._handle_no_log_values(
+AnsibleModule._handle_options(
+AnsibleModule._load_params(
+AnsibleModule._log_invocation(
+AnsibleModule._log_to_syslog(
+AnsibleModule._read_from_pipes(
+AnsibleModule._restore_signal_handlers(
+AnsibleModule._return_formatted(
+AnsibleModule._set_cwd(
+AnsibleModule._set_defaults(
+AnsibleModule._set_fallbacks(
+AnsibleModule._symbolic_mode_to_octal(
+AnsibleModule._unsafe_writes(
+AnsibleModule.add_cleanup_file(
+AnsibleModule.add_path_info(
+AnsibleModule.append_to_file(
+AnsibleModule.atomic_move(
+AnsibleModule.backup_local(
+AnsibleModule.boolean(
+AnsibleModule.bytes_to_human(
+AnsibleModule.check_file_absent_if_check_mode(
+AnsibleModule.cleanup(
+AnsibleModule.debug(
+AnsibleModule.deprecate(
+AnsibleModule.digest_from_file(
+AnsibleModule.do_cleanup_files(
+AnsibleModule.exit_json(
+AnsibleModule.fail_json(
+AnsibleModule.fail_on_missing_params(
+AnsibleModule.find_mount_point(
+AnsibleModule.from_json(
+AnsibleModule.get_bin_path(
+AnsibleModule.get_buffer_size(
+AnsibleModule.get_file_attributes(
+AnsibleModule.human_to_bytes(
+AnsibleModule.is_executable(
+AnsibleModule.is_special_selinux_path(
+AnsibleModule.jsonify(
+AnsibleModule.load_file_common_arguments(
+AnsibleModule.log(
+AnsibleModule.md5(
+AnsibleModule.mro(
+AnsibleModule.preserved_copy(
+AnsibleModule.pretty_bytes(
+AnsibleModule.run_command(
+AnsibleModule.safe_eval(
+AnsibleModule.selinux_context(
+AnsibleModule.selinux_default_context(
+AnsibleModule.selinux_enabled(
+AnsibleModule.selinux_initial_context(
+AnsibleModule.selinux_mls_enabled(
+AnsibleModule.set_attributes_if_different(
+AnsibleModule.set_context_if_different(
+AnsibleModule.set_default_selinux_context(
+AnsibleModule.set_directory_attributes_if_different(
+AnsibleModule.set_file_attributes_if_different(
+AnsibleModule.set_fs_attributes_if_different(
+AnsibleModule.set_group_if_different(
+AnsibleModule.set_mode_if_different(
+AnsibleModule.set_owner_if_different(
+AnsibleModule.sha1(
+AnsibleModule.sha256(
+AnsibleModule.tmpdir
+AnsibleModule.user_and_group(
+AnsibleModule.warn(
+>>> AnsibleModule.
+
+[root@V1 myansi]# ll   /usr/lib/python2.7/site-packages/ansible/module_utils/basic.py
+-rw-r--r-- 1 root root 106955 5月  17 02:05 /usr/lib/python2.7/site-packages/ansible/module_utils/basic.py
+
+
+ scp   -P7920   ansible8APIrun.py   student@192.168.1.254:/home/student/Ansiblebj/
+ scp   -P7920   /usr/lib/python2.7/site-packages/ansible/module_utils/basic.py    student@192.168.1.254:/home/student/Ansiblebj/
+
+
+
+[root@V1 myansi]# sed  -n  "s/^#\(pipelining = \)False/\1True/p;"  /etc/ansible/ansible.cfg
+pipelining = True
+
+[root@V1 myansi]# grep  -n  ^#pipelining  /etc/ansible/ansible.cfg 
+401:#pipelining = False
+
+管道连接
+•  使用了管道连接后,与远程主机只有一个连接,命令
+通过数据流的方式发送执行
+
+•  此模式与有些系统程序兼容不太好
+•  配置方式:
+401:pipelining = True
+
+[root@V1 myansi]# sed  -i   "s/^#\(pipelining = \)False/\1True/;"  /etc/ansible/ansible.cfg
+
+[root@V1 myansi]# grep  -n  ^pipelining  /etc/ansible/ansible.cfg 
+401:pipelining = True   #能够使得执行效率提高
+
+[root@V1 myansi]# grep  -n  pipelining  /etc/ansible/ansible.cfg 
+393:# Enabling pipelining reduces the number of SSH operations required to
+401:pipelining = True
+422:# The -tt argument is passed to ssh when pipelining is not enabled because sudo 
+
+
+模块库目录
+•  可以使用 ANSIBLE_LIBRARY环境变量来指定模块的存放位置
+•  也可以在playbook当前目录下创建library目录
+
+[root@V1 myansi]# mkdir   mylib
+[root@V1 myansi]# echo  $ANSIBLE_LIBRARY  #环境变量
+
+[root@V1 myansi]# export   ANSIBLE_LIBRARY=$(pwd)/mylib
+[root@V1 myansi]# echo  $ANSIBLE_LIBRARY
+/root/myansi/mylib
+[root@V1 myansi]# ls   /root/myansi/mylib/
+
+[root@V1 myansi]# cd   /root/myansi/mylib/
+
+[root@V1 mylib]# vim   crcopy.py
+#!/usr/bin/env  python
+# -*- coding:utf8 -*-
+"""
+
+"""
+import    shutil
+from   ansible.module_utils.basic  import  AnsibleModule
+import   sys
+sys.stdout.write('\033[32;46;1m__name__ is %s\n\033[0m' % __name__)
+
+def main():
+  module = AnsibleModule(
+    argument_spec=dict(
+      yuan=dict(required=True, type='str'),
+      mubiao=dict(required=True, type='str')
+    )
+  )
+  print(module)
+  print(type(module))
+
+  shutil.copy(module.params['yuan'], module.params['mubiao'])
+  module.exit_json(changed=True)
+
+
+if __name__ == "__main__":
+  sys.stdout.write('\033[31;47;1msys.argv is %s\n\033[0m' % sys.argv)
+  main()
+
+
+
+[root@V3 ~]# ll  /root/ansible/called.py
+-rw-r--r-- 1 root root 1400 5月  22 12:49 /root/ansible/called.py
+[root@V3 ~]# ls   /opt/
+[root@V1 mylib]# vim   ../myhosts 
+[root@V1 mylib]# grep  -1 V3  ../myhosts
+[dbservers]
+V3
+
+[root@V1 mylib]# 
+[root@V1 mylib]# ansible  -i  ../myhosts  dbservers  -m  crcopy -a "yuan=/root/ansible/called.py  mubiao=/opt"
+
+[root@V1 myansi]# ansible  -i  myhosts  dbservers  -m  crcopy -a "yuan=/root/ansible/called.py  mubiao=/opt"
+V3 | FAILED! => {
+    "msg": "The module crcopy was not found in configured module paths. Additionally, core modules are missing. If this is a checkout, run 'git pull --rebase' to correct this problem."
+}
+
+
+https://github.com/Tencent
+
+https://github.com/Tencent/bk-cmdb
+
+[root@V1 myansi]# cat  /root/.pip/pip.conf 
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+[root@V1 myansi]# pip
+pip     pip3    pip3.6  
+
+
+https://pypi.org/project/ansible-cmdb/
+
+ansible-cmdb 1.30
+pip install ansible-cmdb  
+Latest version
+Last released: Nov 26, 2018
+
+https://pypi.org/project/ansible-cmdb/#files
+
+Download the file for your platform. If you're not sure which to choose, learn more about installing packages.
+Filename, size & hash SHA256 hash help	File type	Upload date
+ansible-cmdb-1.30.tar.gz (179.2 kB)  Copy SHA256 hash SHA256	Source	Nov 26, 2018
+
+https://files.pythonhosted.org/packages/1f/6f/18b2b850099a2346271ca1854c32d18143540e7961999d33b9fef55c3216/ansible-cmdb-1.30.tar.gz
+
+1bde1a154bf2ad726478c39d4f2be967194dc502ca48202f797cb457ff8bfe2f
+
+
+[root@V1 ~]# wget  https://files.pythonhosted.org/packages/1f/6f/18b2b850099a2346271ca1854c32d18143540e7961999d33b9fef55c3216/ansible-cmdb-1.30.tar.gz
+.............
+[root@V1 ~]# ll  ansible-cmdb-1.30.tar.gz 
+-rw-r--r-- 1 root root 179165 11月 26 23:38 ansible-cmdb-1.30.tar.gz
+[root@V1 ~]# sha
+sha1sum    sha224sum  sha256sum  sha384sum  sha512sum  
+[root@V1 ~]# sha256sum     ansible-cmdb-1.30.tar.gz
+1bde1a154bf2ad726478c39d4f2be967194dc502ca48202f797cb457ff8bfe2f  ansible-cmdb-1.30.tar.gz
+
+[root@V1 ~]# type  sha256sum 
+sha256sum 已被哈希 (/usr/bin/sha256sum)
+[root@V1 ~]# rpm  -qf   /usr/bin/sha256sum 
+coreutils-8.22-21.el7.x86_64
+
+
+[root@V1 ~]# tar   xzvf    ansible-cmdb-1.30.tar.gz 
+
+ansible-cmdb-1.30/
+ansible-cmdb-1.30/README.md
+ansible-cmdb-1.30/setup.cfg
+ansible-cmdb-1.30/setup.py
+ansible-cmdb-1.30/src/
+....................
+ansible-cmdb-1.30/test/test.py
+ansible-cmdb-1.30/PKG-INFO
+[root@V1 ~]# cd   ansible-cmdb-1.30/
+[root@V1 ansible-cmdb-1.30]# ls
+PKG-INFO  README.md  setup.cfg  setup.py  src  test
+
+[root@V1 ansible-cmdb-1.30]# src/
+-bash: src/: 是一个目录
+[root@V1 ansible-cmdb-1.30]# ls   src/
+ansiblecmdb  ansible-cmdb  ansible_cmdb.egg-info  ansible-cmdb.py
+
+
+[root@V1 ansible-cmdb-1.30]# scp  -P7920   setup.py   student@192.168.1.254:/home/student/Ansiblebj/
+
+====================================
+
+
+[root@V1 ansible-cmdb-1.30]# python   setup.py  install
+.................
+
+Installed /usr/lib/python2.7/site-packages/Mako-1.0.10-py2.7.egg
+Searching for PyYAML==3.10
+Best match: PyYAML 3.10
+Adding PyYAML 3.10 to easy-install.pth file
+
+Using /usr/lib64/python2.7/site-packages
+Searching for MarkupSafe==0.11
+Best match: MarkupSafe 0.11
+Adding MarkupSafe 0.11 to easy-install.pth file
+
+Using /usr/lib64/python2.7/site-packages
+Finished processing dependencies for ansible-cmdb==1.30
+
+[root@V1 ansible-cmdb-1.30]# ls
+build  dist  PKG-INFO  README.md  setup.cfg  setup.py  src  test
+
+[root@V1 myansi]# type  ansible-cmdb 
+ansible-cmdb 是 /usr/bin/ansible-cmdb
+
+[root@V1 ansible-cmdb-1.30]# ll
+总用量 24
+drwxr-xr-x 5 root root   62 5月  23 17:28 build
+drwxr-xr-x 2 root root   41 5月  23 17:28 dist
+-rw-rw-r-- 1 1000 1000 5969 11月 26 23:38 PKG-INFO
+-rw-rw-r-- 1 1000 1000 4135 10月 29 2018 README.md
+-rw-rw-r-- 1 1000 1000   38 11月 26 23:38 setup.cfg
+-rwxrwxr-x 1 1000 1000 2343 3月   4 2018 setup.py
+drwxrwxr-x 4 1000 1000   97 11月 26 23:38 src
+drwxrwxr-x 2 1000 1000   21 11月 26 23:38 test
+[root@V1 ansible-cmdb-1.30]# 
+[root@V1 ansible-cmdb-1.30]# ls  build/
+bdist.linux-x86_64  lib  scripts-2.7
+============================================
+
+
+----------------- 将所有的主机信息　收集到原来没有的新目录 outdir/ 中
+
+[root@V1 myansi]#  ansible  all  -m  setup  --tree  outdir/
+V4 | SUCCESS => {
+    "ansible_facts": {
+.............
+[root@V1 myansi]# ls  -ld  outdir/
+drwxr-xr-x 2 root root 56 5月  23 17:34 outdir/
+[root@V1 myansi]# ls  outdir/
+V1  V2  V3  V4  V5
+[root@V1 myansi]# ll  outdir/
+总用量 80
+-rw-r--r-- 1 root root 15236 5月  23 17:34 V1
+-rw-r--r-- 1 root root 15236 5月  23 17:34 V2
+-rw-r--r-- 1 root root 15234 5月  23 17:34 V3
+-rw-r--r-- 1 root root 15236 5月  23 17:34 V4
+-rw-r--r-- 1 root root 15236 5月  23 17:34 V5
+
+[root@V1 myansi]# file  outdir/V5
+outdir/V5: UTF-8 Unicode text, with very long lines, with no line terminators
+
+
+[root@V1 myansi]# type  ansible-cmdb 
+ansible-cmdb 是 /usr/bin/ansible-cmdb
+
+[root@V1 myansi]# rpm   -qf    /usr/bin/ansible-cmdb 
+文件 /usr/bin/ansible-cmdb 不属于任何软件包
+[root@V1 myansi]# file   /usr/bin/ansible-cmdb
+/usr/bin/ansible-cmdb: POSIX shell script, ASCII text executable
+
+[root@V1 myansi]# ll    /usr/bin/ansible-cmdb
+-rwxr-xr-x 1 root root 1138 5月  23 17:28 /usr/bin/ansible-cmdb
+
+
+[root@V1 myansi]# ansible-cmdb   outdir/  > newview.html
+Couldn't find /usr/bin/ansible-cmdb.py in . or /usr/bin/../lib/ansible-cmdb/ or /usr/bin/../lib/ansiblecmdb/ (cwd=/root/myansi)
+
+[root@V1 myansi]# type    ansible-cmdb 
+ansible-cmdb 已被哈希 (/usr/bin/ansible-cmdb)
+
+[root@V1 myansi]# ansible-cmdb   outdir/  >  overview.html
+Couldn't find /usr/bin/ansible-cmdb.py in . or /usr/bin/../lib/ansible-cmdb/ or /usr/bin/../lib/ansiblecmdb/ (cwd=/root/myansi)
+
+[root@V1 myansi]# ll     overview.html
+-rw-r--r-- 1 root root 0 5月  23 17:48 overview.html
+[root@V1 myansi]# ll    newview.html 
+-rw-r--r-- 1 root root 0 5月  23 17:47 newview.html
+
+
+[root@V1 myansi]# pip install ansible-cmdb
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting ansible-cmdb
+
+...............
+Installing collected packages: MarkupSafe, mako, pyyaml, ushlex, jsonxs, ansible-cmdb
+  Running setup.py install for mako ... done
+  Running setup.py install for pyyaml ... done
+  Running setup.py install for ushlex ... done
+  Running setup.py install for jsonxs ... done
+  Running setup.py install for ansible-cmdb ... done
+Successfully installed MarkupSafe-1.1.1 ansible-cmdb-1.30 jsonxs-0.6 mako-1.0.10 pyyaml-5.1 ushlex-0.99.1
+
+[root@V1 myansi]# ansible-cmdb   outdir/  > newview.html
+
+Couldn't find /usr/bin/ansible-cmdb.py in . or /usr/bin/../lib/ansible-cmdb/ or /usr/bin/../lib/ansiblecmdb/ (cwd=/root/myansi)
+------------------------ 失败原因　设置了临时环境变量，　退出终端，再次登录，临时环境变量失效
+
+[root@V1 myansi]# echo   $ANSIBLE_LIBRARY 　　＃这是ansible 的环境变量
+
+[root@V1 myansi]# ansible-cmdb   outdir/  > newview.html
+[root@V1 myansi]# ll    newview.html
+-rw-r--r-- 1 root root 82202 5月  23 17:57 newview.html
+
+[root@V1 myansi]# grep   -n   192.168.1  newview.html
+223:  192.168.1.11
+226:  192.168.1.11<br>192.168.122.11
+292:  192.168.1.12
+295:  192.168.122.12<br>192.168.1.12
+361:  192.168.1.13
+364:  192.168.1.13<br>192.168.122.13
+430:  192.168.1.14
+433:  192.168.122.14<br>192.168.1.14
+499:  192.168.1.15
+502:  192.168.1.15<br>192.168.122.15
+649:    <tr><th>All IPv4</th><td>192.168.1.11<br>192.168.122.11</td></tr>
+666:                    <td>192.168.1.11</td>
+667:                    <td>192.168.1.0</td>
+673:                    <td>192.168.122.11</td>
+674:                    <td>192.168.122.0</td>
+1287:    <tr><th>All IPv4</th><td>192.168.122.12<br>192.168.1.12</td></tr>
+1304:                    <td>192.168.1.12</td>
+1305:                    <td>192.168.1.0</td>
+1311:                    <td>192.168.122.12</td>
+1312:                    <td>192.168.122.0</td>
+1925:    <tr><th>All IPv4</th><td>192.168.1.13<br>192.168.122.13</td></tr>
+1942:                    <td>192.168.1.13</td>
+1943:                    <td>192.168.1.0</td>
+1949:                    <td>192.168.122.13</td>
+1950:                    <td>192.168.122.0</td>
+2563:    <tr><th>All IPv4</th><td>192.168.122.14<br>192.168.1.14</td></tr>
+2580:                    <td>192.168.1.14</td>
+2581:                    <td>192.168.1.0</td>
+2587:                    <td>192.168.122.14</td>
+2588:                    <td>192.168.122.0</td>
+3201:    <tr><th>All IPv4</th><td>192.168.1.15<br>192.168.122.15</td></tr>
+3218:                    <td>192.168.1.15</td>
+3219:                    <td>192.168.1.0</td>
+3225:                    <td>192.168.122.15</td>
+3226:                    <td>192.168.122.0</td>
+[root@V1 myansi]# 
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1146,22 +1146,143 @@ scp  -P7920 -r  myansi/  student@192.168.1.254:/home/student/Ansiblebj/
 
 
 
+https://github.com/Tencent
+
+https://github.com/Tencent/bk-cmdb
+
+[root@V1 myansi]# cat  /root/.pip/pip.conf 
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+[root@V1 myansi]# pip
+pip     pip3    pip3.6  
 
 
+https://pypi.org/project/ansible-cmdb/
+
+ansible-cmdb 1.30
+pip install ansible-cmdb  
+Latest version
+Last released: Nov 26, 2018
+
+https://pypi.org/project/ansible-cmdb/#files
+
+Download the file for your platform. If you're not sure which to choose, learn more about installing packages.
+Filename, size & hash SHA256 hash help	File type	Upload date
+ansible-cmdb-1.30.tar.gz (179.2 kB)  Copy SHA256 hash SHA256	Source	Nov 26, 2018
+
+https://files.pythonhosted.org/packages/1f/6f/18b2b850099a2346271ca1854c32d18143540e7961999d33b9fef55c3216/ansible-cmdb-1.30.tar.gz
+
+1bde1a154bf2ad726478c39d4f2be967194dc502ca48202f797cb457ff8bfe2f
 
 
+[root@V1 ~]# wget  https://files.pythonhosted.org/packages/1f/6f/18b2b850099a2346271ca1854c32d18143540e7961999d33b9fef55c3216/ansible-cmdb-1.30.tar.gz
+.............
+[root@V1 ~]# ll  ansible-cmdb-1.30.tar.gz 
+-rw-r--r-- 1 root root 179165 11月 26 23:38 ansible-cmdb-1.30.tar.gz
+[root@V1 ~]# sha
+sha1sum    sha224sum  sha256sum  sha384sum  sha512sum  
+[root@V1 ~]# sha256sum     ansible-cmdb-1.30.tar.gz
+1bde1a154bf2ad726478c39d4f2be967194dc502ca48202f797cb457ff8bfe2f  ansible-cmdb-1.30.tar.gz
+
+[root@V1 ~]# type  sha256sum 
+sha256sum 已被哈希 (/usr/bin/sha256sum)
+[root@V1 ~]# rpm  -qf   /usr/bin/sha256sum 
+coreutils-8.22-21.el7.x86_64
 
 
+[root@V1 ~]# tar   xzvf    ansible-cmdb-1.30.tar.gz 
+
+ansible-cmdb-1.30/
+ansible-cmdb-1.30/README.md
+ansible-cmdb-1.30/setup.cfg
+ansible-cmdb-1.30/setup.py
+ansible-cmdb-1.30/src/
+....................
+ansible-cmdb-1.30/test/test.py
+ansible-cmdb-1.30/PKG-INFO
+[root@V1 ~]# cd   ansible-cmdb-1.30/
+[root@V1 ansible-cmdb-1.30]# ls
+PKG-INFO  README.md  setup.cfg  setup.py  src  test
+
+[root@V1 ansible-cmdb-1.30]# src/
+-bash: src/: 是一个目录
+[root@V1 ansible-cmdb-1.30]# ls   src/
+ansiblecmdb  ansible-cmdb  ansible_cmdb.egg-info  ansible-cmdb.py
 
 
+[root@V1 ansible-cmdb-1.30]# scp  -P7920   setup.py   student@192.168.1.254:/home/student/Ansiblebj/
+
+====================================
 
 
+[root@V1 ansible-cmdb-1.30]# python   setup.py  install
+.................
+
+Installed /usr/lib/python2.7/site-packages/Mako-1.0.10-py2.7.egg
+Searching for PyYAML==3.10
+Best match: PyYAML 3.10
+Adding PyYAML 3.10 to easy-install.pth file
+
+Using /usr/lib64/python2.7/site-packages
+Searching for MarkupSafe==0.11
+Best match: MarkupSafe 0.11
+Adding MarkupSafe 0.11 to easy-install.pth file
+
+Using /usr/lib64/python2.7/site-packages
+Finished processing dependencies for ansible-cmdb==1.30
+
+[root@V1 ansible-cmdb-1.30]# ls
+build  dist  PKG-INFO  README.md  setup.cfg  setup.py  src  test
+
+[root@V1 myansi]# type  ansible-cmdb 
+ansible-cmdb 是 /usr/bin/ansible-cmdb
 
 
+----------------- 将所有的主机信息　收集到原来没有的新目录 outdir/ 中
+
+[root@V1 myansi]#  ansible  all  -m  setup  --tree  outdir/
+V4 | SUCCESS => {
+    "ansible_facts": {
+.............
+[root@V1 myansi]# ls  -ld  outdir/
+drwxr-xr-x 2 root root 56 5月  23 17:34 outdir/
+[root@V1 myansi]# ls  outdir/
+V1  V2  V3  V4  V5
+[root@V1 myansi]# ll  outdir/
+总用量 80
+-rw-r--r-- 1 root root 15236 5月  23 17:34 V1
+-rw-r--r-- 1 root root 15236 5月  23 17:34 V2
+-rw-r--r-- 1 root root 15234 5月  23 17:34 V3
+-rw-r--r-- 1 root root 15236 5月  23 17:34 V4
+-rw-r--r-- 1 root root 15236 5月  23 17:34 V5
 
 
+[root@V1 myansi]# pip install ansible-cmdb
 
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting ansible-cmdb
 
+...............
+Installing collected packages: MarkupSafe, mako, pyyaml, ushlex, jsonxs, ansible-cmdb
+  Running setup.py install for mako ... done
+  Running setup.py install for pyyaml ... done
+  Running setup.py install for ushlex ... done
+  Running setup.py install for jsonxs ... done
+  Running setup.py install for ansible-cmdb ... done
+Successfully installed MarkupSafe-1.1.1 ansible-cmdb-1.30 jsonxs-0.6 mako-1.0.10 pyyaml-5.1 ushlex-0.99.1
+
+[root@V1 myansi]# ansible-cmdb   outdir/  > newview.html
+
+Couldn't find /usr/bin/ansible-cmdb.py in . or /usr/bin/../lib/ansible-cmdb/ or /usr/bin/../lib/ansiblecmdb/ (cwd=/root/myansi)
+------------------------ 失败原因　设置了临时环境变量，　退出终端，再次登录，临时环境变量失效
+
+[root@V1 myansi]# echo   $ANSIBLE_LIBRARY 　　＃这是ansible 的环境变量
+
+[root@V1 myansi]# ansible-cmdb   outdir/  > newview.html
+[root@V1 myansi]# ll    newview.html
+-rw-r--r-- 1 root root 82202 5月  23 17:57 newview.html
 
 
 
