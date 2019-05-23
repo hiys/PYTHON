@@ -1,0 +1,39 @@
+version: '2'
+services:
+
+  master:
+    depends_on:
+      - centos-node
+      - ubuntu-node
+    image: centos-ansible-master
+    hostname: centos.master
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    tty: true
+    ports:
+      - 8000:8000
+    volumes:
+      - ../cmdbui:/srv
+    links:
+      - centos-node
+      - ubuntu-node
+    privileged: true
+
+  centos-node:
+    image: centos-node:6
+    hostname: node.centos
+    build:
+      context: ./
+      dockerfile: CentOS6Dockerfile
+    tty: true
+    privileged: true
+
+  ubuntu-node:
+    image: ubuntu-node:18.04
+    hostname: node.ubuntu
+    tty: true
+    privileged: true
+    build:
+      context: ./
+      dockerfile: UbuntuDockerfile
