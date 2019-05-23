@@ -1,0 +1,285 @@
+
+
+[student@room10pc15 ~]$ ll '/home/student/桌面/python1712-课件资料.rar' 
+-rw-r--r-- 1 student student 360085567 5月  16 21:22 /home/student/桌面/python1712-课件资料.rar
+
+[student@room10pc15 ~]$ scp   /home/student/桌面/python1712-课件资料.rar  root@192.168.1.11:/root/
+
+[root@V1 ~]# chmod  7777  python1712-课件资料.rar 
+[root@V1 ~]# ll    python1712-课件资料.rar
+-rwsrwsrwt 1 root root 360085567 5月  23 18:59 python1712-课件资料.rar
+
+[root@V1 ~]# chmod   6777    python1712-课件资料.rar
+[root@V1 ~]# ll    python1712-课件资料.rar
+-rwsrwsrwx 1 root root 360085567 5月  23 18:59 python1712-课件资料.rar
+[root@V1 ~]# du  -sh   python1712-课件资料.rar
+344M	python1712-课件资料.rar
+
+https://www.rarlab.com/rar_archiver.htm
+https://www.rarlab.com/download.htm
+
+WinRAR为RAR 和ZIP存档提供完整支持，能够解压缩
+ CAB，ARJ，LZH，TAR，GZ，UUE，BZ2，JAR，ISO，7Z，XZ，Z档案。
+ CAB, ARJ, LZH, TAR, GZ, UUE, BZ2, JAR, ISO, 7Z, XZ, Z archives.
+WinRAR提供了一个图形交互界面，利用鼠标和菜单以及命令行界面。
+
+https://www.rarlab.com/download.htm
+RAR 5.71 for Linux	Command line only	Trial	545 KB
+RAR 5.71 for Linux x64	Command line only	Trial	533 KB
+
+https://www.rarlab.com/rar/rarlinux-x64-5.7.1.tar.gz
+
+[root@V1 ~]# wget   https://www.rarlab.com/rar/rarlinux-x64-5.7.1.tar.gz
+--2019-05-23 19:11:28--  https://www.rarlab.com/rar/rarlinux-x64-5.7.1.tar.gz
+.....................
+
+2019-05-23 19:11:32 (223 KB/s) - 已保存 “rarlinux-x64-5.7.1.tar.gz” [546592/546592])
+
+[root@V1 ~]# ll      rarlinux-x64-5.7.1.tar.gz 
+-rw-r--r-- 1 root root 546592 4月  28 04:06 rarlinux-x64-5.7.1.tar.gz
+[root@V1 ~]# file    rarlinux-x64-5.7.1.tar.gz
+rarlinux-x64-5.7.1.tar.gz: gzip compressed data, from Unix, last modified: Sun Apr 28 04:06:56 2019
+
+
+[root@V1 ~]# tar   -zxvf   rarlinux-x64-5.7.1.tar.gz
+rar/
+rar/order.htm
+rar/acknow.txt
+rar/readme.txt
+rar/default.sfx
+rar/license.txt
+rar/rarfiles.lst
+rar/whatsnew.txt
+rar/makefile
+rar/rar
+rar/unrar
+rar/rar.txt
+[root@V1 ~]# cd  rar/
+[root@V1 rar]# ls
+acknow.txt   license.txt  order.htm  rarfiles.lst  readme.txt  whatsnew.txt
+default.sfx  makefile     rar        rar.txt       unrar
+
+[root@V1 rar]# type   rar
+-bash: type: rar: 未找到
+
+[root@V1 rar]# make  
+
+mkdir -p /usr/local/bin
+mkdir -p /usr/local/lib
+cp rar unrar /usr/local/bin
+cp rarfiles.lst /etc
+cp default.sfx /usr/local/lib
+
+
+[root@V1 rar]# make  install
+
+mkdir -p /usr/local/bin
+mkdir -p /usr/local/lib
+cp rar unrar /usr/local/bin
+cp rarfiles.lst /etc
+cp default.sfx /usr/local/lib
+
+[root@V1 rar]# type   rar
+
+rar 是 /usr/local/bin/rar
+
+[root@V1 rar]# type   unrar
+
+unrar 是 /usr/local/bin/unrar
+
+[root@V1 ~]# mkdir   web01
+[root@V1 ~]# cd    web01
+[root@V1 web01]# 
+[root@V1 web01]# ls  ../myansi/mylib/
+crcopy.py
+
+[root@V1 web01]# rar
+
+RAR 5.71   Copyright (c) 1993-2019 Alexander Roshal   28 Apr 2019
+Trial version             Type 'rar -?' for help
+
+Usage:     rar <command> -<switch 1> -<switch N> <archive> <files...>
+               <@listfiles...> <path_to_extract\>
+
+<Commands>
+  a             Add files to archive  添加文件到压缩包
+  c             Add archive comment
+  ch            Change archive parameters
+  cw            Write archive comment to file
+  d             Delete files from archive
+  e             Extract files without archived paths提取没有存档路径的文件
+  f             Freshen files in archive
+  w<path>       Assign work directory
+  x<file>       Exclude specified file      排除指定的文件
+  x@            Read file names to exclude from stdin  读取要从stdin中排除的文件名
+  x@<list>      Exclude files listed in specified list file 排除指定列表文件中列出的文件
+
+[root@V1 web01]# rar a  newx.rar   ../myansi/mylib/   #将源头目录压缩成 newx.rar
+
+RAR 5.71   Copyright (c) 1993-2019 Alexander Roshal   28 Apr 2019
+Trial version             Type 'rar -?' for help
+
+Evaluation copy. Please register.
+
+Creating archive newx.rar
+
+Adding    ../myansi/mylib/crcopy.py         OK 
+Done
+[root@V1 web01]# ls
+newx.rar
+[root@V1 web01]# ll   newx.rar 
+-rw-r--r-- 1 root root 983 5月  23 19:28 newx.rar
+[root@V1 web01]# file   newx.rar
+newx.rar: RAR archive data, v80,
+
+[root@V1 web01]# rar  -? |tail  -2
+  y             Assume Yes on all queries 假设所有查询都为“是”
+  z[file]       Read archive comment from file 从文件读取存档注释
+
+[root@V1 web01]# rar  x    newx.rar 
+
+RAR 5.71   Copyright (c) 1993-2019 Alexander Roshal   28 Apr 2019
+Trial version             Type 'rar -?' for help
+
+
+Extracting from newx.rar
+
+Creating    myansi                                                    OK
+Creating    myansi/mylib                                              OK
+Extracting  myansi/mylib/crcopy.py                                    OK 
+All OK
+[root@V1 web01]# ls
+myansi  newx.rar
+[root@V1 web01]# ls   myansi/
+mylib
+[root@V1 web01]# ls   myansi/mylib/
+crcopy.py
+[root@V1 web01]# head  -2   myansi/mylib/crcopy.py 
+#!/usr/bin/env  python
+# -*- coding:utf8 -*-
+[root@V1 web01]# 
+[root@V1 web01]# rm  -rf  myansi/
+[root@V1 web01]# ls
+newx.rar
+
+[root@V1 web01]# unrar    -?
+
+UNRAR 5.71 freeware      Copyright (c) 1993-2019 Alexander Roshal
+
+Usage:     unrar <command> -<switch 1> -<switch N> <archive> <files...>
+               <@listfiles...> <path_to_extract\>
+
+<Commands>
+  e             Extract files without archived paths提取没有存档路径的文件
+  l[t[a],b]     List archive contents [technical[all], bare]列出存档内容[技术[全部]，裸露]
+.............
+
+ o+            覆盖已存在文件
+  o-            不覆盖已存在文件
+p-            不询问密码
+  o[+|-]        Set the overwrite mode设置覆盖模式
+  ol[a]         Process symbolic links as the link [absolute paths]将符号链接处理为链接[绝对路径]
+
+
+[root@V1 web01]# ls
+newx.rar
+[root@V1 web01]# unrar    l   newx.rar 
+
+UNRAR 5.71 freeware      Copyright (c) 1993-2019 Alexander Roshal
+
+Archive: newx.rar
+Details: RAR 5
+
+ Attributes      Size     Date    Time   Name
+----------- ---------  ---------- -----  ----
+ -rw-r--r--      1650  2019-05-23 16:52  myansi/mylib/crcopy.py
+----------- ---------  ---------- -----  ----
+                 1650                    1
+
+[root@V1 web01]# 
+
+[root@V1 web01]# ls  ../python1712-课件资料.rar 
+../python1712-课件资料.rar
+[root@V1 web01]# unrar    l   ../python1712-课件资料.rar
+................
+    ...D...         0  2018-06-25 17:35  python1712-课件资料/day27-28
+    ...D...         0  2018-06-25 17:36  python1712-课件资料/day29-30
+    ...D...         0  2018-06-25 17:35  python1712-课件资料
+----------- ---------  ---------- -----  ----
+           1182709896                    18333
+
+[root@V1 web01]# 
+[root@V1 web01]# unrar   e    ../python1712-课件资料.rar
+
+[root@V1 web01]# unrar   e  -y    ../python1712-课件资料.rar
+
+
+ scp  -P7920   setup.py   student@192.168.1.254:/home/student/Ansiblebj/
+
+[root@V1 ~]# ls  -ld  web01/
+drwxrwxrwx 2 root root 86016 5月  23 19:56 web01/
+
+[root@V1 ~]# ls  web01/ |wc -l
+2782
+
+[root@V1 ~]# scp  -P7920  -r  web01/   student@192.168.1.254:/home/student/devweb1-6/
+
+[student@room10pc15 ~]$ ls  '/home/student/devweb1-6/web01' |wc  -l
+2782
+
+[student@room10pc15 ~]$ ls  -ld   /home/student/devweb1-6/web01/
+drwxrwxrwx 2 student student 106496 5月  23 20:03 /home/student/devweb1-6/web01/
+
+
+[student@room10pc15 ~]$ find  /home/student/devweb1-6/web01/ -type f -iname "*.pdf" 
+
+[student@room10pc15 ~]$ find  /home/student/devweb1-6/web01/  |xargs  grep  -lri  "docker"
+
+[student@room10pc15 ~]$ mkdir   Dockerdir
+[student@room10pc15 ~]$ cp  -r  `find  /home/student/devweb1-6/web01/  |xargs  grep  -lri  "docker"` Dockerdir/
+
+[root@V1 web01]# ls   centos-ansible-master.tar.gz 
+centos-ansible-master.tar.gz
+[root@V1 web01]# mkdir   dockerdir
+[root@V1 web01]# cd  dockerdir/
+[root@V1 dockerdir]# tar  -zxvf  ../centos-ansible-master.tar.gz 
+
+POSIX
+便携式操作系统接口;可移植操作系统界面;消息队列;
+便携式计算机环境操作系统接口;可移植操作系统接口标准
+
+[root@V1 dockerdir]#  file   ../centos-ansible-master.tar.gz
+../centos-ansible-master.tar.gz: POSIX tar archive
+[root@V1 dockerdir]# ta
+tabs     tac      tail     tailf    tar      taskset  
+[root@V1 dockerdir]# tar   -xvf   ../centos-ansible-master.tar.gz
+3cfc60effc7a4feb910decef802633dcebc82dab60721e723c4da745cfb769be.json
+
+
+[student@room10pc15 Dockerdir]$ \cp  `find  /home/student/devweb1-6/web01/ -type f -iname "*.pdf"`  ./
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
