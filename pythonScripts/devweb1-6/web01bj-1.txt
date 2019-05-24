@@ -1,0 +1,491 @@
+
+
+
+[root@V2 web01]#  wget    https://nodejs.org/download/release/latest-v10.x/node-v10.15.3-linux-x64.tar.gz
+
+[root@V2 web01]# du   -sh   node-v10.15.3-linux-x64.tar.gz
+18M	node-v10.15.3-linux-x64.tar.gz
+
+[root@V2 web01]# tar  -zxvf   node-v10.15.3-linux-x64.tar.gz
+
+[root@V2 web01]# ls  /root/web01/node-v10.15.3-linux-x64/
+bin  CHANGELOG.md  include  lib  LICENSE  README.md  share
+
+[root@V2 web01]# ls   /root/web01/node-v10.15.3-linux-x64/lib/
+node_modules
+
+[root@V2 web01]# ls   /root/web01/node-v10.15.3-linux-x64/lib/node_modules/
+npm
+
+[root@V2 web01]# ls   /root/web01/node-v10.15.3-linux-x64/lib/node_modules/npm/
+appveyor.yml  changelogs       html      Makefile      README.md
+AUTHORS       configure        lib       man           scripts
+bin           CONTRIBUTING.md  LICENSE   node_modules
+CHANGELOG.md  doc              make.bat  package.json
+
+[root@V2 web01]# ls  /root/web01/node-v10.15.3-linux-x64/bin/
+node  npm  npx
+
+[root@V2 web01]# ll  /root/web01/node-v10.15.3-linux-x64/bin/
+总用量 38308
+-rwxrwxr-x 1 500 500 39224256 3月   5 23:52 node
+lrwxrwxrwx 1 500 500       38 3月   5 23:53 npm -> ../lib/node_modules/npm/bin/npm-cli.js
+lrwxrwxrwx 1 500 500       38 3月   5 23:53 npx -> ../lib/node_modules/npm/bin/npx-cli.js
+[root@V2 web01]# vim     /etc/profile
+
+[root@V2 web01]# tail   -8   /etc/profile
+export  JAVA_HOME=/usr/java/jdk1.8.0_211
+export  JRE_HOME=/usr/java/jdk1.8.0_211/jre
+export  CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
+#export  PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+export  NODE_HOME=/root/web01/node-v10.15.3-linux-x64
+export  NODE_PATH=$NODE_HOME/lib/node_modules
+export  PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin:$NODE_HOME/bin/
+
+[root@V2 web01]# .  /etc/profile
+
+[root@V2 web01]# echo  $?
+0
+[root@V2 web01]# java  -version
+java version "1.8.0_211"
+Java(TM) SE Runtime Environment (build 1.8.0_211-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.211-b12, mixed mode)
+
+[root@V2 web01]# jps   -v
+1040 Jps -Denv.class.path=.:/usr/java/jdk1.8.0_211/lib:/usr/java/jdk1.8.0_211/jre/lib:.:/usr/java/jdk1.8.0_211/lib:/usr/java/jdk1.8.0_211/jre/lib: -Dapplication.home=/usr/java/jdk1.8.0_211 -Xms8m
+
+[root@V2 web01]# node   -v
+v10.15.3
+[root@V2 web01]# npm   -v
+6.4.1
+
+[root@V2 web01]# type   npm
+npm 已被哈希 (/root/web01/node-v10.15.3-linux-x64/bin/npm)
+
+[root@V2 web01]# type    node
+node 已被哈希 (/root/web01/node-v10.15.3-linux-x64/bin/node)
+
+[root@V2 web01]# type   java
+java 已被哈希 (/usr/java/jdk1.8.0_211/bin/java)
+
+[root@V2 web01]# type   jps
+jps 已被哈希 (/usr/java/jdk1.8.0_211/bin/jps)
+
+[root@V2 web01]# jps    node-v10.15.3-linux-x64
+1063 Jps
+[root@V2 web01]# 
+
+
+======================================
+mkdir   web01
+cd   web01/
+wget    https://nodejs.org/download/release/latest-v10.x/node-v10.15.3-linux-x64.tar.gz
+
+tar  -zxvf   node-v10.15.3-linux-x64.tar.gz
+
+新版的nodejs已经集成了npm，
+npm也一并安装好了。
+通过输入 "npm -v" 来测试是否成功安装
+
+[root@V3 web01]# vim    /etc/profile
+[root@V3 web01]# tail   -9   /etc/profile
+unset -f pathmunge
+export  JAVA_HOME=/usr/java/jdk1.8.0_211
+export  JRE_HOME=/usr/java/jdk1.8.0_211/jre
+export  CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
+#export  PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+export  NODE_HOME=/root/web01/node-v10.15.3-linux-x64
+export  NODE_PATH=$NODE_HOME/lib/node_modules
+export  PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin:$NODE_HOME/bin/
+
+[root@V3 web01]# .   /etc/profile
+[root@V3 web01]# java    -version
+java version "1.8.0_211"
+Java(TM) SE Runtime Environment (build 1.8.0_211-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.211-b12, mixed mode)
+[root@V3 web01]# jps   -v
+1418 Jps -Denv.class.path=.:/usr/java/jdk1.8.0_211/lib:/usr/java/jdk1.8.0_211/jre/lib:.:/usr/java/jdk1.8.0_211/lib:/usr/java/jdk1.8.0_211/jre/lib: -Dapplication.home=/usr/java/jdk1.8.0_211 -Xms8m
+[root@V3 web01]# npm     -v
+6.4.1
+[root@V3 web01]# node    -v
+v10.15.3
+[root@V3 web01]# jps   node-v10.15.3-linux-x64
+1438 Jps
+
+使用 npm 命令安装模块
+npm 安装 Node.js 模块语法格式如下：
+$ npm install <Module Name>
+
+使用 npm 命令安装常用的 Node.js web框架模块 express
+
+
+[root@V1 web01]# cd; mkdir  Webscript;cd  Webscript/
+
+[root@V1 Webscript]#  npm   install   express    #本地安装
+
+npm WARN saveError ENOENT: no such file or directory, open '/root/Webscript/package.json'
+npm notice created a lockfile as package-lock.json. You should commit this file.
+npm WARN enoent ENOENT: no such file or directory, open '/root/Webscript/package.json'
+npm WARN Webscript No description
+npm WARN Webscript No repository field.
+npm WARN Webscript No README data
+npm WARN Webscript No license field.
+
++ express@4.17.0
+added 50 packages from 37 contributors and audited 126 packages in 29.296s
+found 0 vulnerabilities
+
+[root@V1 Webscript]#  npm   install   express  -g   #全局安装
++ express@4.17.0
+added 50 packages from 37 contributors in 0.667s
+[root@V1 Webscript]# echo   $?
+0
+[root@V1 Webscript]# ls
+node_modules  package-lock.json
+[root@V1 Webscript]# ls   node_modules/
+accepts              forwarded          proxy-addr
+array-flatten        fresh              qs
+body-parser          http-errors        range-parser
+bytes                iconv-lite         raw-body
+content-disposition  inherits           safe-buffer
+content-type         ipaddr.js          safer-buffer
+cookie               media-typer        send
+cookie-signature     merge-descriptors  serve-static
+debug                methods            setprototypeof
+depd                 mime               statuses
+destroy              mime-db            toidentifier
+ee-first             mime-types         type-is
+encodeurl            ms                 unpipe
+escape-html          negotiator         utils-merge
+etag                 on-finished        vary
+express              parseurl
+finalhandler         path-to-regexp
+[root@V1 Webscript]# 
+
+本地安装
+1. 将安装包放在 ./node_modules 下（运行 npm 命令时所在的目录），如果没有 node_modules 目录，会在当前执行 npm 命令的目录下生成 node_modules 目录。
+2. 可以通过 require() 来引入本地安装的包。
+全局安装
+1. 将安装包放在 /usr/local 下或者你 node 的安装目录。
+2. 可以直接在命令行里使用。
+
+[root@V1 Webscript]# echo   $NODE_PATH
+/root/web01/node-v10.15.3-linux-x64/lib/node_modules
+
+[root@V1 Webscript]# ls   /root/web01/node-v10.15.3-linux-x64/lib/node_modules/
+express  npm
+[root@V1 Webscript]# ll   /root/web01/node-v10.15.3-linux-x64/lib/node_modules/
+总用量 4
+drwxr-xr-x  4 root root  123 5月  24 13:56 express
+drwxrwxr-x 10  500  500 4096 3月   5 23:53 npm
+
+[root@V1 Webscript]# ls   /root/web01/node-v10.15.3-linux-x64/lib/node_modules/express/
+History.md  lib      node_modules  Readme.md
+index.js    LICENSE  package.json
+
+[root@V1 Webscript]# ls    node_modules/express/
+History.md  index.js  lib  LICENSE  package.json  Readme.md
+[root@V1 Webscript]# 
+[root@V1 Webscript]# echo  $NODE_HOME
+/root/web01/node-v10.15.3-linux-x64
+
+
+[root@V1 Webscript]# npm   list   -g   #查看所有全局安装的模块
+
+/root/web01/node-v10.15.3-linux-x64/lib
+├─┬ express@4.17.0
+│ ├─┬ accepts@1.3.7
+│ │ ├─┬ mime-types@2.1.24
+│ │ │ └── mime-db@1.40.0
+...........................
+
+卸载后，你可以到 /node_modules/ 目录下查看包是否还存在，或者使用以下命令查看：
+$ npm ls
+更新模块
+我们可以使用以下命令更新模块：
+$ npm update express
+搜索模块
+使用以下来搜索模块：
+$ npm search express
+
+[root@V1 Webscript]# npm    ls
+/root/Webscript
+└─┬ express@4.17.0
+  ├─┬ accepts@1.3.7
+................
+  └── vary@1.1.2
+
+npm ERR! extraneous: ms@2.1.1 /root/Webscript/node_modules/send/node_modules/ms
+
+extraneous     英 [ɪkˈstreɪniəs]   美 [ɪkˈstreɪniəs]  
+    adj.没有直接联系的;无关的
+==================================================
+
+[root@V1 ~]# mkdir  Web01py; cd  Web01py/
+[root@V1 Web01py]# 
+
+[root@V1 Web01py]#  yum  makecache 
+
+[root@V1 Web01py]# yum   makecache 
+已加载插件：fastestmirror
+Loading mirror speeds from cached hostfile
+epel/x86_64/metalink                                             | 6.1 kB  00:00:00     
+epel-debuginfo/x86_64/metalink                                   | 6.6 kB  00:00:00     
+epel-testing/x86_64/metalink                                     | 6.2 kB  00:00:00     
+epel-testing-debuginfo/x86_64/metalink                           | 6.3 kB  00:00:00     
+ * epel: mirrors.tuna.tsinghua.edu.cn
+ * epel-debuginfo: mirrors.njupt.edu.cn
+ * epel-testing: mirrors.njupt.edu.cn
+ * epel-testing-debuginfo: mirrors.njupt.edu.cn
+base                                                             | 3.6 kB  00:00:00     
+centosplus                                                       | 3.4 kB  00:00:00     
+extras                                                           | 3.4 kB  00:00:00     
+jenkins                                                          | 2.9 kB  00:00:00     
+local                                                            | 3.6 kB  00:00:00     
+updates                                                          | 3.4 kB  00:00:00     
+zabbix                                                           | 2.9 kB  00:00:00     
+zabbix-non-supported                                             |  951 B  00:00:00     
+元数据缓存已建立
+
+[root@V1 Web01py]# yum   repolist  |tail  -14
+源标识                        源名称                                      状态
+base/x86_64                   CentOS-7 - Base - 163.com                   10,019
+centosplus/x86_64             CentOS-7 - Plus - 163.com                       70
+epel/x86_64                   Extra Packages for Enterprise Linux 7 - x86 13,200
+epel-debuginfo/x86_64         Extra Packages for Enterprise Linux 7 - x86  2,905
+epel-testing/x86_64           Extra Packages for Enterprise Linux 7 - Tes    687
+epel-testing-debuginfo/x86_64 Extra Packages for Enterprise Linux 7 - Tes     96
+extras/x86_64                 CentOS-7 - Extras - 163.com                    409
+jenkins                       Jenkins-stable                                  88
+local                         CentOS7-1804.iso                             9,911
+updates/x86_64                CentOS-7 - Updates - 163.com                 1,945
+zabbix/x86_64                 Zabbix Official Repository - x86_64            236
+zabbix-non-supported/x86_64   Zabbix Official Repository non-supported -       4
+repolist: 39,570
+
+[root@V1 Web01py]# ls   /etc/yum.repos.d/
+CentOS7-Base-163.repo  epel-testing.repo  local.repo
+epel.repo              jenkins.repo       zabbix.repo
+
+[root@V3 Web01py]# ls   /etc/yum.repos.d/
+CentOS7-Base-163.repo  local.repo
+[root@V3 Web01py]# yum   repolist |tail  -7
+源标识                         源名称                                     状态
+base/x86_64                    CentOS-7 - Base - 163.com                  10,019
+centosplus/x86_64              CentOS-7 - Plus - 163.com                      70
+extras/x86_64                  CentOS-7 - Extras - 163.com                   409
+local                          CentOS7-1804.iso                            9,911
+updates/x86_64                 CentOS-7 - Updates - 163.com                1,945
+repolist: 22,354
+
+[root@V1 Web01py]# yum   -y  install   httpd
+
+软件包 httpd-2.4.6-89.el7.centos.x86_64 已安装并且是最新版本
+无须任何处理
+
+[root@V1 Web01py]# systemctl  start  httpd  && systemctl  enable  httpd
+
+Created symlink from /etc/systemd/system/multi-user.target.wants/httpd.service to /usr/lib/systemd/system/httpd.service.
+
+[root@V1 Web01py]# scp  -P7920   /etc/yum.repos.d/*   student@192.168.1.254:/home/student/devweb1-6/
+
+[root@V1 Web01py]# scp  -P7920  -r  student@192.168.1.254:/home/student/devweb1-6/html/    /var/www/
+
+[root@V1 Web01py]# ls  /download/Myproject_2.1
+Myproject_2.1/        Myproject_2.1.tar.gz  
+
+[root@V1 Web01py]# ls  /download/Myproject_2.1/
+
+[root@V1 MyProject]# ll   /var/www/html/mysite
+lrwxrwxrwx 1 root root 23 5月  19 13:52 /var/www/html/mysite -> /download/Myproject_2.1
+
+[root@V1 Web01py]# rm   -f  /var/www/html/mysite
+
+[root@V1 Web01py]# scp  -P7920  -r  student@192.168.1.254:/home/student/devweb1-6/html/      /var/www/
+
+[root@V1 Web01py]# ls   /var/www/html/
+favicon.ico  index.html  test.php  xshell6.png  zidir
+
+[root@V1 Web01py]# scp  -r  /var/www/html/  root@V2:/var/www/
+
+[root@V1 Web01py]# ls   /var/www/html/
+favicon.ico  index.html  test.php  xshell6.png  zidir
+
+[root@V1 Web01py]# ls   /var/www/html/zidir/
+index.html  test.jpg  x1.jpg  x2.jpg
+
+[root@V1 Web01py]# vim    /var/www/html/index.html 
+
+[root@V1 Web01py]# yum  list  |grep  eog
+GeographicLib.x86_64                     1.43-1.el7               epel          
+GeographicLib-debuginfo.x86_64           1.43-1.el7               epel-debuginfo
+GeographicLib-devel.x86_64               1.43-1.el7               epel          
+GeographicLib-doc.noarch                 1.43-1.el7               epel          
+eog.i686                                 3.28.3-1.el7             base          
+eog.x86_64                               3.28.3-1.el7             base          
+eog-devel.i686                           3.28.3-1.el7             base          
+eog-devel.x86_64                         3.28.3-1.el7             base          
+octave-GeographicLib.noarch              1.43-1.el7               epel          
+perl-Geography-Countries.noarch          2009041301-17.el7        epel          
+python-GeographicLib.noarch              1.43-1.el7               epel  
+        
+[root@V1 Web01py]# yum   -y install   eog
+...................
+已安装:
+  eog.x86_64 0:3.28.3-1.el7                                                             
+
+作为依赖被安装:
+  abattis-cantarell-fonts.noarch 0:0.0.25-1.el7                                         
+  adwaita-cursor-theme.noarch 0:3.28.0-1.el7                                            
+  adwaita-gtk2-theme.x86_64 0:3.28-2.el7                                                
+  adwaita-icon-theme.noarch 0:3.28.0-1.el7                                              
+  at-spi2-atk.x86_64 0:2.26.2-1.el7                                                     
+  at-spi2-core.x86_64 0:2.28.0-1.el7                                                    
+  cairo-gobject.x86_64 0:1.15.12-3.el7                                                  
+  colord-libs.x86_64 0:1.3.4-1.el7                                                      
+  dconf.x86_64 0:0.28.0-4.el7                                                           
+  exempi.x86_64 0:2.2.0-8.el7                                                           
+  flatpak.x86_64 0:1.0.2-5.el7_6                                                        
+  flatpak-libs.x86_64 0:1.0.2-5.el7_6                                                   
+  fuse.x86_64 0:2.9.2-11.el7                                                            
+  fuse-libs.x86_64 0:2.9.2-11.el7                                                       
+  glib-networking.x86_64 0:2.56.1-1.el7                                                 
+  gnome-desktop3.x86_64 0:3.28.2-2.el7                                                  
+  gnome-themes-standard.x86_64 0:3.28-2.el7                                             
+  google-noto-emoji-color-fonts.noarch 0:20180508-4.el7                                 
+  gsettings-desktop-schemas.x86_64 0:3.28.0-2.el7                                       
+  gtk3.x86_64 0:3.22.30-3.el7                                                           
+  json-glib.x86_64 0:1.4.2-2.el7                                                        
+  lcms2.x86_64 0:2.6-3.el7                                                              
+  libXtst.x86_64 0:1.2.3-1.el7                                                          
+  libappstream-glib.x86_64 0:0.7.8-2.el7                                                
+  libarchive.x86_64 0:3.1.2-10.el7_2                                                    
+  libepoxy.x86_64 0:1.5.2-1.el7                                                         
+  libexif.x86_64 0:0.6.21-6.el7                                                         
+  libgcab1.x86_64 0:0.7-4.el7_4                                                         
+  libgusb.x86_64 0:0.2.9-1.el7                                                          
+  libmodman.x86_64 0:2.0.1-8.el7                                                        
+  libpeas.x86_64 0:1.22.0-1.el7                                                         
+  libpeas-gtk.x86_64 0:1.22.0-1.el7                                                     
+  libproxy.x86_64 0:0.4.11-11.el7                                                       
+  librsvg2.x86_64 0:2.40.20-1.el7                                                       
+  libsoup.x86_64 0:2.62.2-2.el7                                                         
+  libusbx.x86_64 0:1.0.21-1.el7                                                         
+  libwayland-cursor.x86_64 0:1.15.0-1.el7                                               
+  libwayland-egl.x86_64 0:1.15.0-1.el7                                                  
+  libxkbcommon.x86_64 0:0.7.1-1.el7                                                     
+  rest.x86_64 0:0.8.1-2.el7                                                             
+  xdg-desktop-portal.x86_64 0:1.0.2-1.el7                                               
+  xkeyboard-config.noarch 0:2.24-1.el7                                                  
+
+作为依赖被升级:
+  atk.x86_64 0:2.28.1-1.el7  cairo.x86_64 0:1.15.12-3.el7  glib2.x86_64 0:2.56.1-2.el7 
+
+完毕！
+[root@V1 Web01py]# ls   /var/www/html/zidir/
+index.html  test.jpg  x1.jpg  x2.jpg
+[root@V1 Web01py]# rpm   -q  eog 
+eog-3.28.3-1.el7.x86_64
+[root@V1 Web01py]# type   eog 
+eog 是 /usr/bin/eog
+[root@V1 Web01py]# eog  /var/www/html/zidir/test.jpg 
+
+Gtk-Message: 15:38:23.764: Failed to load module "pk-gtk-module"
+Gtk-Message: 15:38:23.764: Failed to load module "canberra-gtk-module"
+Gtk-Message: 15:38:23.777: Failed to load module "pk-gtk-module"
+Gtk-Message: 15:38:23.777: Failed to load module "canberra-gtk-module"
+...........
+[root@V1 Web01py]# chmod   -R  777  /var/www/html/
+
+[root@V1 Web01py]# ll   /var/www/html/
+总用量 64
+-rwxrwxrwx 1 root root 16958 5月  24 15:13 favicon.ico
+-rwxrwxrwx 1 root root  9633 5月  24 15:35 index.html
+-rwxrwxrwx 1 root root    44 5月  16 20:11 test.php
+-rwxrwxrwx 1 root root 28541 5月  24 15:13 xshell6.png
+drwxrwxrwx 2 root root    68 5月  24 15:02 zidir
+[root@V1 Web01py]# ls  -ld   /var/www/html/
+drwxrwxrwx 3 root root 91 5月  24 15:35 /var/www/html/
+
+[root@V1 Web01py]# cd  /var/www/html/
+[root@V1 html]# ls
+favicon.ico  index.html  test.php  xshell6.png  zidir
+
+[root@V1 html]# ls  zidir/
+index.html  test.jpg  x1.jpg  x2.jpg
+
+[root@V1 html]# cp  zidir/*.jpg  ./
+[root@V1 html]# ls
+favicon.ico  test.jpg  x1.jpg  xshell6.png
+index.html   test.php  x2.jpg  zidir
+
+super    英 [ˈsuːpə(r)]
+  adj.顶好的;超级的;顶呱呱的
+
+script   英 [skrɪpt]
+    n.剧本;
+sub      英 [sʌb]
+    n.替补队员;(向俱乐部等定期交纳的)会员费;助理编辑;审校人
+    v.(在比赛中)替换(队员);暂代(某人)工作;替班;
+
+sup          
+Superscripted　上标注（文本）
+sub          
+Subscripted　下标注（文本）
+
+
+带有 placeholder 文本设置颜色：
+<form action="demo-form.php">
+  <input type="text" name="fname" placeholder="First name"><br>
+  <input type="text" name="lname" placeholder="Last name"><br>
+  <input type="submit" value="提交">
+</form>
+定义和用法
+placeholder 属性规定
+可描述输入字段预期值的简短的提示信息
+（比如：一个样本值或者预期格式的短描述）。
+该提示
+会在用户输入值之前
+显示在输入字段中。
+注意：placeholder 属性适用于
+下面的 input 类型：text、search、url、tel、email 和 password。
+
+HTML 4.01 与 HTML5之间的差异
+placeholder 属性是 HTML5 中的新属性。
+语法
+<input placeholder="text">
+
+scp  -r  /var/www/html/  root@V3:/var/www/
+
+[root@V1 ~]# scp  -P7920  -r  /var/www/html/   student@192.168.1.254:/home/student/devweb1-6/
+student@192.168.1.254's password: 
+
+[root@V1 ~]# mkdir   /var/www/html/css
+[root@V1 ~]# ls  /var/www/html/
+css  favicon.ico  index.html  test.jpg  test.php  x1.jpg  xshell6.png  zidir
+
+[root@V1 ~]# ls  /var/www/html/css/
+[root@V1 ~]# ls  /var/www/html/zidir/
+index.html  test.jpg  x1.jpg  x2.jpg
+
+[root@V1 ~]# vim   /var/www/html/css/mycss.css
+
+[root@V1 ~]# ssh  -lroot  V2   "shutdown  -h now"
+Connection to v2 closed by remote host.
+[root@V1 ~]# ssh  -lroot  V3   "shutdown  -h now"
+Connection to v3 closed by remote host.
+[root@V1 ~]# shutdown  -h now
+
+
+
+
+
+
+
+
+
+
+
+
+
+
