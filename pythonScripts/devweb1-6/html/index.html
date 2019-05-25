@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后!-->
   <meta name="description" content="">
   <link rel="icon" href="./favicon.ico">
   <title>主页标题</title>
@@ -126,6 +126,36 @@
   </div>
   <div>
    <a  href="#position-A"> 返回到同一个页面的位置position-A</a>
+  </div>
+  <hr/>
+  <form>
+   <label>用户名</label><input  name="namex1" onblur="checkname()" type="text"/><br/>
+   <label>密码</label><input  name="passx2" type="password"/><br/>
+   <label>验证码</label><input  id="code" type="text"/><br/>
+   <button onsubmit="checkForm()" type="submit">button</button>
+  </form>  
+  <script>
+   function  checkname(){
+     var n= document.getElementsByName('namex1')[0].value;
+     if (n.length < 4){
+       alert('长度小于4错'+ n);
+     }
+   }
+   function  checkForm(){
+     checkname();
+     return false;
+   }
+   function  getValue(){
+    var  inputs = document.getElementsByTagName('input');
+    for(i= 0;i<inputs.length;i++){
+      inputs[i].value = i;
+    }
+   }
+  </script>
+  <div>
+   <p>hr-------- 1 --------hr</p>
+   <hr/>
+   <p>hr-------- 2 --------hr</p>
   </div>
  </body>
 </html>

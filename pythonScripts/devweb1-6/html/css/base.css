@@ -1,10 +1,103 @@
+/*优先级第3 */
 /*
  Globals
+ CSS  清零无边框
  */
-body{
+body,*{
+  margin:0 auto;
+  padding:0;
+  text-align: center;
   background: silver;
   color: blue;
+  font-variant: small-caps;
+}
+.third{ 
+ font-size:53px;
+ color:green;
+ background-color:gray;
+ background-image:url(http://192.168.1.11/xshell6.png);
+ text-align: center;
+ line-height: 40px;
+}
+.third_2{
+ font-size:43px;
+ color:purple;
+ background-color:gray;
+ margin-left: 500px auto;
+}
+#idcss{
+ font-size:32px;
+ color:yellow;
+ background-color:blue;
+}
+*{
+ font-size:32px;
+ border:1px  dotted blue;
+}
+#id_p{
+ font-size:64px;
+ background-color:orange;
+}
+p[id="id_p"]{
+ color:red;
+}
+span, p{font-size:64px;}
+ul{
+ list-style-type:none;
+}
+ul>li{
+ color:orange;
+ font-size:32px;
+}
+ul span{
+ color:red;
+}
+#div1{
+ border:10px  dotted green;
+ color: #09ff0e;
+}
+#div2{
+ color:rgb(10,25,255);
+}
+div>img{
+  float:right;
+}
+p[id='no_id']{
+  float:left;
+}
+p[name='div2p']{
+ color:rgb(0,255,0);
 }
 hr{
   color: pink;
+  margin:2 auto;
+  padding:2;
 }
+/*尚未访问的链接 */
+a:link{
+  color:pink;
+  font-size:15pt;
+}
+/*动态伪类,鼠标悬停在 HTML 元素时*/
+a:hover{
+  color:yellow;
+  font-size:30pt;
+}
+/*HTML 元素被激活时*/
+a:active{
+  color:red;
+  font-size:45pt;
+}
+
+/*HTML 元素获取焦点时*/
+a:focus{
+  color:white;
+  font-size:60pt;
+}
+
+/*已经访问过的链接*/
+a:visited{
+  color:green;
+  font-size:20pt;
+}
+

@@ -478,13 +478,66 @@ Connection to v3 closed by remote host.
 
 
 
+Bootstrap
+是美国Twitter公司的设计师Mark Otto和Jacob Thornton合作
+基于HTML、CSS、JavaScript 开发的简洁、直观、强悍的前端开发框架，
+使得 Web 开发更加快捷
+
+Bootstrap中文网
+Bootstrap是Twitter推出的一个用于前端开发的开源工具包。
+它由Twitter的设计师Mark Otto和Jacob Thornton合作开发,是一个CSS/HTML框架。
+目前,Bootstrap最新版本为3.0 ...
+http://www.bootcss.com/
+
+HTML DOM Style 对象
+http://www.w3school.com.cn/jsref/dom_obj_style.asp
+
+HTML 全局属性
+http://www.w3school.com.cn/tags/html_ref_standardattributes.asp
 
 
+django-1.9.6.tar.gz
 
 
+https://www.djangoproject.com/download/
+
+https://www.djangoproject.com/download/
+
+/********************
+
+http://127.0.0.1:8800/admin/login/?next=/admin/
+
+/********************* 复制网上的 html源代码 -----------------------
+Bootstrap 优站精选
+http://www.youzhan.org/
+
+https://v3.bootcss.com/
+Bootstrap 是完全开源的。它的代码托管、开发、维护都依赖 GitHub 平台。
+https://v3.bootcss.com/getting-started/#download
+
+https://v3.bootcss.com/getting-started/
+
+https://v3.bootcss.com/getting-started/#template
+基本模板
+使用以下给出的这份超级简单的 HTML 模版，或者修改这些实例。
+
+https://v3.bootcss.com/examples/blog/
+
+https://v3.bootcss.com/getting-started/#download
+https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip  
+## 下载文件bootstrap-3.3.7-dist.zip   下载文件
+
+[root@room9pc01 mysite]# unzip  '/root/桌面/bootstrap-3.3.7-dist.zip'  -d  ../blog/static/
+[root@room9pc01 mysite]# mv   ../blog/static/bootstrap-3.3.7-dist   ../blog/static/bootstrap
+
+***********/
+
+[root@room9pc01 mysite]# mkdir   -p  blog/static/{css,js}
 
 
-
+[root@room9pc01 mysite]# ls   blog/templates/  #新建立模版目录(默认名字templates)
+index.html
+**************/
 
 
 

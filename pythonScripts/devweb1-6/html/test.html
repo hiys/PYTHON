@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--STATUS OK-->
+<html lang="zh-CN">
+ <head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="./favicon.ico">
+  <title>test网页</title>
+  <!--优先级第3 -->
+  <link  href="./css/base.css" rel="stylesheet" type="text/css" charset="utf-8"/>
+
+  <!--优先级第2 -->
+  <style>
+   .second{
+    font-size:32px;
+    color:yellow;
+    background-color:green;
+   }
+  </style>
+  <script>
+   document.write('hello  world head!\n');
+  </script>  
+ </head>
+ <body>
+  <div>
+   <hr/>
+  </div>
+  <form action="/index.html" method="post">
+   <input name="username" placeholder="用户名">
+   <input name="password" placeholder="提示密码">
+   <input  type="reset"/>
+   <button type="submit">test网页提交submit跳转至主页</button>
+  </form>
+  <!--优先级第1 -->
+  <div class='second third' style='background-color:purple;font-size:24px;'>
+   <p>hr-------- 1 --------hr</p>
+   <hr/>
+   <a  href="/test.jpg" target="_top">
+    <img  src="http://192.168.1.11/xshell6.png" width='300px' alt="/xshell6.png无法显示时出现的提示说明文字"/>点击链接图片_top
+   </a>
+   <p>hr-------- 2 --------hr</p>
+  </div>
+ </body>
+</html>
+

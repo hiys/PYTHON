@@ -1,0 +1,758 @@
+
+
+extraneous     英 [ɪkˈstreɪniəs]   美 [ɪkˈstreɪniəs]  
+    adj.没有直接联系的;无关的
+
+scp  -r  /var/www/html/  root@V3:/var/www/
+scp  -P7920  -r  /var/www/html/   student@192.168.1.254:/home/student/devweb1-6/
+
+[root@V1 ~]# cd -
+/var/www/html
+
+[root@V1 html]# vim  test.html
+
+
+Bootstrap中文网
+Bootstrap是Twitter推出的一个用于前端开发的开源工具包。
+它由Twitter的设计师Mark Otto和Jacob Thornton合作开发,是一个CSS/HTML框架。
+目前,Bootstrap最新版本为3.0 ...
+http://www.bootcss.com/
+
+https://github.com/twbs/bootstrap/releases/
+
+https://github.com/twbs/bootstrap/releases/tag/v3.3.7
+
+bootstrap-3.3.7-dist.zip
+362 KB
+源代码
+（zip）
+源代码
+（tar.gz）
+
+https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip
+
+
+
+https://colorlib.com/wp/free-bootstrap-admin-dashboard-templates/
+
+39 Free Bootstrap Admin Dashboard Templates For Your Web App 2019
+
+[root@V1 html]# scp  -P7920  -r  student@192.168.1.254:/home/student/桌 面/nsd_2018/nsd1808/devweb/day02/static/   ./
+
+[root@V1 html]# ls  static/
+css  fonts  imgs  js
+
+[root@V1 html]# ls  static/css/
+bootstrap.css      bootstrap.min.css.map    bootstrap-theme.min.css
+bootstrap.css.map  bootstrap-theme.css      bootstrap-theme.min.css.map
+bootstrap.min.css  bootstrap-theme.css.map
+
+[root@V1 html]# ls  static/js/
+bootstrap.js  bootstrap.min.js  jquery.min.js  npm.js
+
+[root@V1 html]# ls  static/fonts/
+glyphicons-halflings-regular.eot  glyphicons-halflings-regular.woff
+glyphicons-halflings-regular.svg  glyphicons-halflings-regular.woff2
+glyphicons-halflings-regular.ttf
+
+
+
+Bootstrap中文网
+Bootstrap是Twitter推出的一个用于前端开发的开源工具包。
+它由Twitter的设计师Mark Otto和Jacob Thornton合作开发,是一个CSS/HTML框架。
+目前,Bootstrap最新版本为3.0 ...
+http://www.bootcss.com/
+
+https://github.com/twbs/bootstrap/releases/
+
+https://github.com/twbs/bootstrap/releases/tag/v3.3.7
+
+bootstrap-3.3.7-dist.zip
+362 KB
+源代码
+（zip）
+源代码
+（tar.gz）
+
+https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip
+
+
+[root@V1 html]# ls
+css          index.html  test.jpg  x1.jpg       zidir
+favicon.ico  test.html   test.php  xshell6.png
+
+[root@V1 html]# wget  https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip
+
+--2019-05-25 14:35:35--  https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip
+
+[root@V1 html]# yum    makecache 
+.............
+epel-testing                                     | 4.7 kB     00:00     
+epel-testing-debuginfo                           | 3.0 kB     00:00     
+extras                                           | 3.4 kB     00:00     
+jenkins                                          | 2.9 kB     00:00     
+local                                            | 3.6 kB     00:00     
+updates                                          | 3.4 kB     00:00     
+zabbix                                           | 2.9 kB     00:00     
+zabbix-non-supported                             |  951 B     00:00     
+元数据缓存已建立
+
+[root@V1 html]# yum  repolist |tail  -14
+源标识                         源名称                                     状态
+base/x86_64                    CentOS-7 - Base - 163.com                  10,019
+centosplus/x86_64              CentOS-7 - Plus - 163.com                      70
+!epel/x86_64                   Extra Packages for Enterprise Linux 7 - x8 13,200
+!epel-debuginfo/x86_64         Extra Packages for Enterprise Linux 7 - x8  2,905
+*epel-testing/x86_64           Extra Packages for Enterprise Linux 7 - Te    687
+*epel-testing-debuginfo/x86_64 Extra Packages for Enterprise Linux 7 - Te     96
+extras/x86_64                  CentOS-7 - Extras - 163.com                   409
+jenkins                        Jenkins-stable                                 88
+local                          CentOS7-1804.iso                            9,911
+updates/x86_64                 CentOS-7 - Updates - 163.com                1,945
+zabbix/x86_64                  Zabbix Official Repository - x86_64           236
+zabbix-non-supported/x86_64    Zabbix Official Repository non-supported -      4
+repolist: 39,570
+
+[root@V1 html]# 
+[root@V1 html]# yum  list  |egrep  '^(unzip|zip)'
+unzip.x86_64                             6.0-19.el7               base          
+zip.x86_64                               3.0-11.el7               base          
+zipios++.x86_64                          0.1.5.9-9.el7            epel          
+zipios++-debuginfo.x86_64                0.1.5.9-9.el7            epel-debuginfo
+zipios++-devel.x86_64                    0.1.5.9-9.el7            epel          
+[root@V1 html]# yum   -y   install   zip   unzip
+................
+已安装:
+  unzip.x86_64 0:6.0-19.el7           zip.x86_64 0:3.0-11.el7          
+
+完毕！
+
+[root@V1 html]# rpm   -q   unzip  zip
+unzip-6.0-19.el7.x86_64
+zip-3.0-11.el7.x86_64
+
+
+[root@V2 ~]# yum    makecache 
+.......
+元数据缓存已建立
+[root@V2 ~]#  yum   -y   install   zip   unzip
+...........
+已安装:
+  unzip.x86_64 0:6.0-19.el7           zip.x86_64 0:3.0-11.el7          
+
+完毕！
+[root@V2 ~]# rpm   -q  zip  unzip
+zip-3.0-11.el7.x86_64
+unzip-6.0-19.el7.x86_64
+.........
+
+[root@V1 html]# type  unzip
+unzip 是 /usr/bin/unzip
+[root@V1 html]# type  zip
+zip 是 /usr/bin/zip
+
+
+[root@V1 html]# rpm  -qf  /usr/bin/zip
+zip-3.0-11.el7.x86_64
+[root@V1 html]# rpm  -qf  /usr/bin/unzip
+unzip-6.0-19.el7.x86_64
+
+[root@V1 html]# unzip    bootstrap-3.3.7-dist.zip 
+
+Archive:  bootstrap-3.3.7-dist.zip
+   creating: bootstrap-3.3.7-dist/css/
+  inflating: bootstrap-3.3.7-dist/css/bootstrap-theme.css  
+  inflating: bootstrap-3.3.7-dist/css/bootstrap-theme.css.map  
+  inflating: bootstrap-3.3.7-dist/css/bootstrap-theme.min.css  
+  inflating: bootstrap-3.3.7-dist/css/bootstrap-theme.min.css.map  
+  inflating: bootstrap-3.3.7-dist/css/bootstrap.css  
+  inflating: bootstrap-3.3.7-dist/css/bootstrap.css.map  
+  inflating: bootstrap-3.3.7-dist/css/bootstrap.min.css  
+  inflating: bootstrap-3.3.7-dist/css/bootstrap.min.css.map  
+   creating: bootstrap-3.3.7-dist/fonts/
+  inflating: bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.eot  
+  inflating: bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.svg  
+  inflating: bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.ttf  
+  inflating: bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.woff  
+  inflating: bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.woff2  
+   creating: bootstrap-3.3.7-dist/js/
+  inflating: bootstrap-3.3.7-dist/js/bootstrap.js  
+  inflating: bootstrap-3.3.7-dist/js/bootstrap.min.js  
+  inflating: bootstrap-3.3.7-dist/js/npm.js  
+[root@V1 html]# echo  $?
+0
+[root@V1 html]# ls
+bootstrap-3.3.7-dist      favicon.ico  test.jpg  xshell6.png
+bootstrap-3.3.7-dist.zip  index.html   test.php  zidir
+css                       test.html    x1.jpg
+
+[root@V1 html]# mv   bootstrap-3.3.7-dist.zip  ../
+
+[root@V1 html]# ls   ../
+bootstrap-3.3.7-dist.zip  cgi-bin  html
+
+[root@V1 html]# scp  ../bootstrap-3.3.7-dist.zip  root@V2:/root/
+.............. 
+[root@V1 html]# scp  ../bootstrap-3.3.7-dist.zip  root@V3:/root/
+.........
+[root@V1 html]# ll  ../bootstrap-3.3.7-dist.zip 
+-rw-r--r-- 1 root root 370276 5月  23 2017 ../bootstrap-3.3.7-dist.zip
+   
+[root@V1 html]# ls
+bootstrap-3.3.7-dist  favicon.ico  test.html  test.php  xshell6.png
+css                   index.html   test.jpg   x1.jpg    zidir
+
+
+[root@V1 html]# ls   bootstrap-3.3.7-dist/
+css  fonts  js
+
+-----------------  bootstrap-theme.css文件:Bootstrap框架的主题文件
+
+[root@V1 html]# ls   bootstrap-3.3.7-dist/css/
+bootstrap.css      bootstrap.min.css.map    bootstrap-theme.min.css
+bootstrap.css.map  bootstrap-theme.css      bootstrap-theme.min.css.map
+bootstrap.min.css  bootstrap-theme.css.map
+
+[root@V1 html]# ls   bootstrap-3.3.7-dist/fonts/
+glyphicons-halflings-regular.eot  glyphicons-halflings-regular.woff
+glyphicons-halflings-regular.svg  glyphicons-halflings-regular.woff2
+glyphicons-halflings-regular.ttf
+
+---------------  bootstrap.js文件:Bootstrap框架的核心javascript文件
+
+[root@V1 html]# ls    bootstrap-3.3.7-dist/js/
+bootstrap.js  bootstrap.min.js  npm.js
+
+[root@V1 html]# vim   bootstrap-3.3.7-dist/css/bootstrap.css
+
+[root@V1 html]# vim   bootstrap-3.3.7-dist/css/bootstrap.min.css
+
+[root@V1 html]# head  -3   bootstrap-3.3.7-dist/css/bootstrap.min.css
+/*!
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
+
+[root@V1 html]# du   -sh  bootstrap-3.3.7-dist/css/bootstrap.min.css
+120K	bootstrap-3.3.7-dist/css/bootstrap.min.css
+
+[root@V1 html]# du   -sh   bootstrap-3.3.7-dist/css/bootstrap.css
+144K	bootstrap-3.3.7-dist/css/bootstrap.css
+
+[root@V1 html]# head  -3   bootstrap-3.3.7-dist/css/bootstrap.css
+/*!
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
+
+==============================
+
+
+Bootstrap目录说明
+•  css目录 – 用于存放Bootstrap框架使用的样式文件
+–  bootstrap.css文件:Bootstrap框架的样式文件
+–  bootstrap.min.css文件:Bootstrap框架的样式压缩文件
+–  bootstrap-theme.css文件:Bootstrap框架的主题文件
+
+•  fonts目录 – 用于存放Bootstrap框架使用的字体文件
+
+•  js目录 – 用于存放Bootstrap框架使用的核心javascript文件
+–  bootstrap.js文件:Bootstrap框架的核心javascript文件
+–  bootstrap.min.js文件:Bootstrap框架的核心javascript压缩文件 
+
+  由于Bootstrap框架是基于jQuery使用的javascript代码,
+所以想要使用Bootstrap框架,必须要先引入jQuery文
+
+•  解决浏览器兼容性:
+–  html5shiv.min.js文件:解决 IE8 浏览器支持HTML5的新元素
+–  respond.min.js文件:解决 IE8 浏览器支持CSS Media Query
+
+
+[root@V1 html]# ls
+bootstrap-3.3.7-dist  favicon.ico  test.html  test.php  xshell6.png
+css                   index.html   test.jpg   x1.jpg    zidir
+[root@V1 html]# ls  bootstrap-3.3.7-dist/
+css  fonts  js
+
+---------------  bootstrap.js文件:Bootstrap框架的核心javascript文件
+
+[root@V1 html]# ls  bootstrap-3.3.7-dist/js/
+bootstrap.js  bootstrap.min.js  npm.js
+
+在　http://www.bootcss.com/　主页中　　鼠标右击　查看页面源代码(V)
+
+view-source:http://www.bootcss.com/
+
+Ctrl  + F　查找　jquery123.com
+
+    <div class="navbar-collapse collapse" role="navigation">
+      <ul class="nav navbar-nav">
+        <li class="hidden-sm hidden-md"><a href="https://v2.bootcss.com/"  target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'v2doc'])">Bootstrap2中文文档</a></li>
+        <li><a href="https://v3.bootcss.com/" target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'v3doc'])">Bootstrap3中文文档</a></li>
+        <li><a href="https://v4.bootcss.com/" target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'v4doc'])">Bootstrap4中文文档</a></li>
+        <li><a href="/p/lesscss/" target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'less'])">Less 教程</a></li>
+        <li><a href="https://www.jquery123.com/" target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'jquery'])">jQuery API</a></li>
+        <li><a class="reddot" href="http://www.youzhan.org/" target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'youzhan-main-nav'])">网站实例</a></li>
+      </ul>
+
+
+
+<a href="https://www.jquery123.com/"
+
+https://www.jquery123.com/
+
+jQuery API 中文文档
+
+jQuery 是一个高效、精简并且功能丰富的 JavaScript 工具库。
+它提供的 API 易于使用且兼容众多浏览器，这让诸如 HTML 文档遍历和操作、事件处理、动画和 Ajax 操作更加简单。
+如果你是一个 jQuery 新手，我们建议你先到jQuery 学习中心历练历练。
+
+view-source:https://www.baidu.com/
+<script type="text/javascript" 
+　src="https://ss1.bdstatic.com/5eN1bjq8AAUYm2zgoY3K/r/www/cache/static/protocol/https/jquery/jquery-1.10.2.min_65682a2.js"></script>
+
+
+http://tts.tmooc.cn/studentCenter/toMyttsPage
+主页中　　鼠标右击　查看页面源代码(V)
+
+view-source:http://tts.tmooc.cn/studentCenter/toMyttsPage
+
+<script src="http://tts.tmooc.cn/private/ttsfront/js/jquery-2.1.1.js"></script>
+<script src="http://tts.tmooc.cn/private/ttsfront/js/jquery-cookie.js"></script>
+<script src="http://tts.tmooc.cn/private/ttsfront/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="http://tts.tmooc.cn/private/ttsfront/js/jquery.SuperSlide.2.1.1.js"></script>
+
+
+http://jquery.com/download/
+
+链接下载jQuery
+
+要在本地下载这些文件，请右键单击该链接，然后从菜单中选择“另存为...”。
+
+链接 jQuery
+
+有关升级jQuery的帮助，请参阅与您的版本最相关的升级指南。我们还建议使用jQuery Migrate插件。
+
+下载压缩的生产jQuery 3.4.1
+
+下载未压缩的开发jQuery 3.4.1
+
+下载jQuery 3.4.1的映射文件
+
+您还可以使用slim构建，它不包括ajax和效果模块：
+
+下载压缩的，生产jQuery 3.4.1 slim build
+
+使用npm或Yarn下载jQuery
+jQuery 在npm上注册为包。您可以使用npm CLI命令安装最新版本的jQuery：
+npm install jquery
+
+这将在node_modules目录中安装jQuery 。
+node_modules/jquery/dist/您将在其中找到未压缩的版本，压缩版本和映射文件。
+
+[root@V1 html]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/
+express  npm
+
+[root@V1 html]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/
+express  jquery  npm
+
+[root@V1 html]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/jquery/
+AUTHORS.txt  dist      LICENSE.txt   README.md
+bower.json   external  package.json  src
+
+
+链接 jQuery Migrate插件
+我们创建了jQuery Migrate插件， 以简化从旧版jQuery的过渡。
+该插件恢复不推荐使用的功能和行为，以便旧代码仍然可以在较新版本的jQuery上正常运行。
+使用未压缩的开发版本来诊断兼容性问题，它将在控制台上生成警告，您可以使用它来识别和修复问题。
+使用压缩生产版本可以简单地修复兼容性问题，而不会生成控制台警告。
+
+Migrate有两个版本。第一个将帮助您将1.9之前的jQuery代码更新到jQuery 1.9到3.0。你可以在这里获得该版本：
+
+下载压缩的生产jQuery Migrate 1.4.1
+
+下载未压缩的开发jQuery Migrate 1.4.1
+
+第二个版本帮助您更新代码以在jQuery 3.0或更高版本上运行，
+一旦您使用了Migrate 1.x并升级到jQuery 1.9或更高版本：
+
+下载压缩的生产jQuery Migrate 3.0.1
+
+下载未压缩的开发jQuery Migrate 3.0.1
+
+注意：要使用最新的正在进行的jQuery版本，请尝试上面描述的jQuery Pre-Release Build。
+
+所有源代码都保存在Git版本控制下，您可以在线浏览。存储库的README提供了有关构建和测试您自己的jQuery的更多信息，以及有关创建自定义构建的说明，该构建排除了一些API以减小文件大小。
+
+如果您有权访问Git，可以在此处连接到存储库：
+
+git clone git://github.com/jquery/jquery.git
+您还可以从GitHub查看并构建特定版本的jQuery：
+
+git clone git://github.com/jquery/jquery.git
+git checkout 1.2.6
+特定版本的README文件将包含构建该版本的说明，因为该过程随时间而变化。
+
+链接过去的版本
+所有过去的版本都可以在jQuery CDN上找到。
+
+[root@V1 html]# tail   -5  /etc/profile
+#export  PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin:/root/web01/node-v10.15.3-linux-x64/bin/
+export  NODE_HOME=/root/web01/node-v10.15.3-linux-x64
+export  NODE_PATH=$NODE_HOME/lib/node_modules
+export  PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin:$NODE_HOME/bin/
+
+[root@V1 html]# echo  $NODE_PATH 
+/root/web01/node-v10.15.3-linux-x64/lib/node_modules
+[root@V1 html]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/
+express  npm
+[root@V1 html]# type   npm
+npm 是 /root/web01/node-v10.15.3-linux-x64/bin/npm
+[root@V1 html]# npm    -v
+6.4.1
+[root@V1 html]# npm   install   jquery   #安装 jQuery
+
+npm WARN saveError ENOENT: no such file or directory, open '/var/www/html/package.json'
+npm notice created a lockfile as package-lock.json. You should commit this file.
+npm WARN enoent ENOENT: no such file or directory, open '/var/www/html/package.json'
+npm WARN html No description
+npm WARN html No repository field.
+npm WARN html No README data
+npm WARN html No license field.
+
++ jquery@3.4.1
+added 1 package from 1 contributor and audited 1 package in 4.45s
+found 0 vulnerabilities
+
+[root@V1 html]# ls
+bootstrap-3.3.7-dist  index.html         test.html  x1.jpg
+css                   node_modules       test.jpg   xshell6.png
+favicon.ico           package-lock.json  test.php   zidir
+
+[root@V1 html]# npm    install  jquery   -g   #安装最新版本的jQuery
++ jquery@3.4.1
+added 1 package from 1 contributor in 0.307s
+
+
+   ╭───────────────────────────────────────────────────────────────╮
+   │                                                               │
+   │       New minor version of npm available! 6.4.1 → 6.9.0       │
+   │   Changelog: https://github.com/npm/cli/releases/tag/v6.9.0   │
+   │               Run npm install -g npm to update!               │
+   │                                                               │
+   ╰───────────────────────────────────────────────────────────────╯
+
+[root@V1 html]# 
+
+New minor version of npm available! 6.4.1 → 6.9.0
+Changelog: https://github.com/npm/cli/releases/tag/v6.9.0 
+Run npm install -g npm to update! 
+
+新的次要版本的NPM可用！6.4.1～6.6.0
+更改日志：https://github.com/npm/cli/releases/tag/v6.9.0
+运行 npm install -g npm 进行更新！
+
+[root@V1 html]# npm   install   -g   npm   #安装最新版本的npm
+
+/root/web01/node-v10.15.3-linux-x64/bin/npm -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/npm/bin/npm-cli.js
+/root/web01/node-v10.15.3-linux-x64/bin/npx -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/npm/bin/npx-cli.js
++ npm@6.9.0
+added 54 packages from 9 contributors, removed 15 packages and updated 47 packages in 18.111s
+
+[root@V1 html]# echo  $?
+0
+[root@V1 html]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/jquery/src/
+ajax           data           event.js         selector-native.js
+ajax.js        data.js        exports          selector-sizzle.js
+attributes     deferred       jquery.js        serialize.js
+attributes.js  deferred.js    manipulation     traversing
+callbacks.js   deprecated.js  manipulation.js  traversing.js
+core           dimensions.js  offset.js        var
+core.js        effects        queue            wrap.js
+css            effects.js     queue.js
+css.js         event          selector.js
+
+[root@V1 html]# npm    -v
+6.4.1
+[root@V1 html]# npm    -v
+6.9.0
+
+migrate      英 [maɪˈɡreɪt]   美 [ˈmaɪɡreɪt]
+     v.(随季节变化)迁徙;移居;迁移;移动;转移
+
+[root@V1 html]# npm    install  -g  migrate   #安装最新版本的jQuery Migrate
+
+/root/web01/node-v10.15.3-linux-x64/bin/migrate -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate
+/root/web01/node-v10.15.3-linux-x64/bin/migrate-init -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate-init
+/root/web01/node-v10.15.3-linux-x64/bin/migrate-list -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate-list
+/root/web01/node-v10.15.3-linux-x64/bin/migrate-create -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate-create
+/root/web01/node-v10.15.3-linux-x64/bin/migrate-up -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate-up
+/root/web01/node-v10.15.3-linux-x64/bin/migrate-down -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate-down
++ migrate@1.6.2
+added 20 packages from 13 contributors in 11.522s
+[root@V1 html]# echo  $?
+0
+[root@V1 html]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/
+express  jquery  migrate  npm
+[root@V1 html]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/
+bin         index.js  LICENSE       package.json
+History.md  lib       node_modules  Readme.md
+[root@V1 html]# cat   /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/Readme.md 
+
+
+# Migrate
+
+[![NPM Version](https://img.shields.io/npm/v/migrate.svg)](https://npmjs.org/package/migrate)
+[![NPM Downloads](https://img.shields.io/npm/dm/migrate.svg)](https://npmjs.org/package/migrate)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Build Status](https://travis-ci.org/tj/node-migrate.svg?branch=master)](https://travis-ci.org/tj/node-migrate)
+
+
+## Installation
+
+    $ npm install migrate
+
+## Usage
+
+```
+Usage: migrate [options] [command]
+
+Options:
+
+  -V, --version  output the version number
+  -h, --help     output usage information
+
+Commands:
+
+  init           Initalize the migrations tool in a project
+  list           List migrations and their status
+  create <name>  Create a new migration
+  up [name]      Migrate up to a give migration
+  down [name]    Migrate down to a given migration
+  help [cmd]     display help for [cmd]
+```
+
+
+................
+
+```javascript
+var migrate = require('migrate')
+
+migrate.load({
+  stateStore: '.migrate'
+}, function (err, set) {
+  if (err) {
+    throw err
+  }
+  set.up(function (err) {
+    if (err) {
+      throw err
+    }
+    console.log('migrations successfully ran')
+  })
+})
+```
+[root@V1 html]# cp   /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/Readme.md   .
+
+[root@V1 html]# ls
+bootstrap-3.3.7-dist  index.html         Readme.md  test.php     zidir
+css                   node_modules       test.html  x1.jpg
+favicon.ico           package-lock.json  test.jpg   xshell6.png
+
+
+[root@V1 html]# scp  -P7920   student@192.168.1.254:/home/student/桌面/nsd_2018/nsd1808/devweb/day02/static/js/jquery.min.js  ./
+
+[root@V1 html]# mv    jquery.min.js  bootstrap-3.3.7-dist/js/
+
+[root@V1 html]# ls  bootstrap-3.3.7-dist/js/
+bootstrap.js  bootstrap.min.js  jquery.min.js  npm.js
+
+[root@V1 html]# head  -2   bootstrap-3.3.7-dist/js/jquery.min.js 
+
+/*! jQuery v2.0.3 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
+//@ sourceMappingURL=jquery.min.map
+
+[root@V1 html]# ls
+bootstrap-3.3.7-dist  index.html         Readme.md  test.php     zidir
+css                   node_modules       test.html  x1.jpg
+favicon.ico           package-lock.json  test.jpg   xshell6.png
+
+[root@V1 html]# scp  -P7920  -r  student@192.168.1.254:/home/student/桌 面/sd_2018/nsd1808/devweb/day02/static/imgs  bootstrap-3.3.7-dist/
+
+[root@V1 html]# ls  bootstrap-3.3.7-dist/fonts/
+glyphicons-halflings-regular.eot  glyphicons-halflings-regular.woff
+glyphicons-halflings-regular.svg  glyphicons-halflings-regular.woff2
+glyphicons-halflings-regular.ttf
+
+[root@V1 html]# ls  bootstrap-3.3.7-dist/css/
+bootstrap.css      bootstrap.min.css.map    bootstrap-theme.min.css
+bootstrap.css.map  bootstrap-theme.css      bootstrap-theme.min.css.map
+bootstrap.min.css  bootstrap-theme.css.map
+
+[root@V1 html]# ls  bootstrap-3.3.7-dist/js/
+bootstrap.js  bootstrap.min.js  jquery.min.js  npm.js
+
+[root@V1 html]# ls  bootstrap-3.3.7-dist/imgs/
+banner.jpg  linux.jpg
+
+[root@V1 html]# ls  bootstrap-3.3.7-dist/
+css  fonts  imgs  js
+
+[root@V1 html]# ls
+bootstrap-3.3.7-dist  index.html         Readme.md  test.php     zidir
+css                   node_modules       test.html  x1.jpg
+favicon.ico           package-lock.json  test.jpg   xshell6.png
+[root@V1 html]# ls    node_modules/
+jquery
+[root@V1 html]# ls    node_modules/jquery/
+AUTHORS.txt  dist      LICENSE.txt   README.md
+bower.json   external  package.json  src
+
+[root@V1 html]# npm   install  migrate
+
+npm WARN saveError ENOENT: no such file or directory, open '/var/www/html/package.json'
+npm WARN enoent ENOENT: no such file or directory, open '/var/www/html/package.json'
+npm WARN html No description
+npm WARN html No repository field.
+npm WARN html No README data
+npm WARN html No license field.
+
++ migrate@1.6.2
+added 20 packages from 13 contributors and audited 22 packages in 5.559s
+found 0 vulnerabilities
+
+[root@V1 html]# echo  $?
+0
+[root@V1 html]# ls
+bootstrap-3.3.7-dist  index.html         Readme.md  test.php     zidir
+css                   node_modules       test.html  x1.jpg
+favicon.ico           package-lock.json  test.jpg   xshell6.png
+[root@V1 html]# ls    node_modules/
+ansi-regex       concat-map            jquery     strip-ansi
+ansi-styles      dateformat            migrate    supports-color
+balanced-match   dotenv                minimatch  unicode
+brace-expansion  escape-string-regexp  minimist
+chalk            has-ansi              mkdirp
+commander        inherits              slug
+[root@V1 html]# 
+
+
+migrate      英 [maɪˈɡreɪt]   美 [ˈmaɪɡreɪt]
+     v.(随季节变化)迁徙;移居;迁移;移动;转移
+
+[root@V1 html]# node   -v
+v10.15.3
+[root@V1 html]# npm     -v
+6.9.0
+[root@V1 html]# ls
+bootstrap-3.3.7-dist  index.html         Readme.md  test.php     zidir
+css                   node_modules       test.html  x1.jpg
+favicon.ico           package-lock.json  test.jpg   xshell6.png
+
+[root@V1 html]# vim    bootcss.html
+
+[root@V1 html]# mv  bootstrap-3.3.7-dist   static
+
+[root@V1 html]# ls
+bootcss.html  index.html         Readme.md  test.jpg  xshell6.png
+css           node_modules       static     test.php  zidir
+favicon.ico   package-lock.json  test.html  x1.jpg
+
+[root@V1 html]# vim    bootcss.html
+
+[root@V1 html]# type  php
+php 是 /usr/bin/php
+[root@V1 html]# php   -v
+PHP 5.4.16 (cli) (built: Oct 30 2018 19:30:51) 
+Copyright (c) 1997-2013 The PHP Group
+Zend Engine v2.4.0, Copyright (c) 1998-2013 Zend Technologies
+[root@V1 html]# rpm  -qf  /usr/bin/php
+php-cli-5.4.16-46.el7.x86_64
+
+Bootstrap环境安装和jQuery安装
+
+https://www.cnblogs.com/shiy/p/6650717.html
+http://jquery.com/download/
+
+https://www.runoob.com/bootstrap/bootstrap-tutorial.html
+
+Bootstrap 教程
+Bootstrap 教程
+Bootstrap，来自 Twitter，是目前最受欢迎的前端框架。
+Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的，它简洁灵活，使得 Web 开发更加快捷。
+
+https://www.runoob.com/bootstrap4/bootstrap4-grid-basic.html
+
+Bootstrap4 网格系统
+Bootstrap 提供了一套响应式、移动设备优先的流式网格系统，随着屏幕或视口（viewport）尺寸的增加，系统会自动分为最多 12 列。
+我们也可以根据自己的需要，定义列数：
+1	1	1	1	1	1	1	1	1	1	1	1
+4	4	4
+4	8
+6	6
+12
+Bootstrap 4 的网格系统是响应式的，列会根据屏幕大小自动重新排列。
+
+网格类
+Bootstrap 4 网格系统有以下 5 个类:
+.col- 针对所有设备
+.col-sm- 平板 - 屏幕宽度等于或大于 576px
+.col-md- 桌面显示器 - 屏幕宽度等于或大于 768px)
+.col-lg- 大桌面显示器 - 屏幕宽度等于或大于 992px)
+.col-xl- 超大桌面显示器 - 屏幕宽度等于或大于 1200px)
+Bootstrap 网格系统如何在不同设备上工作的：
+超小设备
+<576px	平板
+≥576px	桌面显示器
+≥768px	大桌面显示器
+≥992px	超大桌面显示器
+≥1200px
+容器最大宽度	None (auto)	540px	720px	960px	1140px
+类前缀	.col-	.col-sm-	.col-md-	.col-lg-	.col-xl-
+列数量和	12
+间隙宽度	30px （一个列的每边分别 15px）
+
+平板、桌面、大桌面显示器、超大桌面显示器
+以下实例在平板、桌面、大桌面显示器、超大桌面显示器的宽度比例为分别为：25%/75%、50%/50%、33.33%/66.67%、16.67/83.33%, 在移动手机等小型设备上会堆叠显示。
+实例
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-6 col-lg-4 col-xl-2">
+      <p>RUNOOB</p>
+    </div>
+    <div class="col-sm-9 col-md-6 col-lg-8 col-xl-10">
+      <p>菜鸟教程</p>
+    </div>
+  </div>
+</div>
+
+https://www.runoob.com/bootstrap4/bootstrap4-grid-basic.html
+
+
+https://class.qq.com/class/14632.html
+李炎恢老师Bootstrap视频教程
+李炎恢Bootstrap视频教程下载
+http://www.ycku.com/bootstrap/
+
+https://www.jquery123.com/
+
+[root@V1 ~]# ansible  V2  -i  myansi/myhosts   -a  "shutdown  -h  now"
+V2 | UNREACHABLE! => {
+    "changed": false, 
+    "msg": "SSH Error: data could not be sent to remote host \"V2\". Make sure this host can be reached over ssh", 
+    "unreachable": true
+}
+[root@V1 ~]# 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
