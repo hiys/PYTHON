@@ -1,0 +1,1378 @@
+
+[root@room9pc01 ~]# cd  /testPython/zzg_pypkgs/
+[root@room9pc01 zzg_pypkgs]# ls
+ansible-cmdb_pkgs  dj_pkgs  matplotlib_pkgs  python3_pkg      wordcloud_pkgs
+ansible_pkg        docker   paramiko_pkgs    requests_pkgs    wordpress
+bootcss            jenkins  pymysql_pkgs     sqlalchemy_pkgs
+[root@room9pc01 zzg_pypkgs]# cd -
+/root
+
+
+  yum  -y  install  \
+ sqlite-devel    tk-devel        tcl-devel       readline-devel   \
+ zlib-devel      gcc             gcc-c++         openssl       openssl-devel \
+ libffi-devel    libxml2-devel   libxslt-devel   mysql-devel  \
+ mariadb-devel   mariadb-server  mariadb 
+
+
+rpm  -q  \
+ sqlite-devel    tk-devel        tcl-devel       readline-devel   \
+ zlib-devel      gcc             gcc-c++         openssl       openssl-devel \
+ libffi-devel    libxml2-devel   libxslt-devel   mysql-devel  \
+ mariadb-devel   mariadb-server  mariadb 
+
+tar  -zxf  Python-3.6.7.tgz 
+
+cd  Python-3.6.7/
+
+./configure   --prefix=/usr/local/
+
+ make && make install
+
+====================================
+
+https://www.djangoproject.com/download/
+
+Django 1.11.20 (LTS): Django-1.11.20.tar.gz
+Checksums: Django-1.11.20.checksum.txt
+Release notes: Online documentation
+
+Django 1.11.20（LTS）：Django-1.11.20.tar.gz
+校验和：django-1.11.20.checksum.txt
+发行说明：在线文档
+=======================================
+
+# cat /root/.pip/pip.conf 
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+
+
+# cp   '/root/桌面/Django-1.11.20.tar.gz' .
+
+# cd
+# mkdir    Django    #创建项目目录
+ # cd       Django/
+
+ll   /root/Django-1.11.20.tar.gz 
+
+ md5sum   /root/Django-1.11.20.tar.gz
+
+ pip3.6   install   /root/Django-1.11.20.tar.gz 
+
+]# pip3.6   install  tornado  #非必须的操作(安装模块)
+
+pip3  freeze   #查看 安装的所有软件包
+[root@room9pc01 Django]# pip3  freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+[root@room9pc01 Django]# 
+
+python3  -m   django  version
+[root@room9pc01 Django]# python3  -m   django  version
+1.11.20
+
+pip3  freeze  > pkg1120.txt #导出信息到文件中
+
+[root@room9pc01 Django]# cat     pkg1120.txt
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+[root@room9pc01 Django]# 
+
+--------------- 创建自定义的 干净 虚拟环境 ------------------
+------------- python3.6  -m   venv   新目录名 -------------------
+
+ # python3.6  -m   venv   django1120
+
+ ls   django1120/
+
+---------------------- 激活  虚拟环境 ---------------
+
+ll   django1120/bin/activate
+
+source    django1120/bin/activate    #激活  虚拟环境 
+
+pip  freeze   #查看在虚拟环境中安装的所有软件包
+
+pip  install  $(cat  pkg1120.txt)  #安装模块
+
+pip   install  --upgrade  pip   #升级 pip3版本
+
+ pip  --version
+
+python  --version
+
+django-admin   startproject  mysite   #新建一个django 项目
+# django-admin   startproject  mysite   #新建一个django 项目mysite
+
+
+cd  mysite/   #进入项目
+
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite
+
+[root@room9pc01 mysite]# python3  manage.py  startapp  blog #新开一个应用blog
+
+ python   manage.py   runserver   8800  #开启 django网站 服务
+
+
+Starting development server at http://127.0.0.1:8800/
+Quit the server with CONTROL-C.
+^C(django116) [root@V0 mysite]# exit
+登出
+
+
+# cd  Django/
+
+source    django1120/bin/activate    #激活  虚拟环境 
+
+pip  freeze   #查看在虚拟环境中安装的所有软件包
+
+cd   mysite/   #进入网站目录
+
+ python   manage.py   runserver   8800   #开启 django网站 服务
+
+
+ http://127.0.0.1:8800/ 在火狐浏览器中访问本机
+
+
+============================================
+
+
+
+[root@room9pc01 mysite]# pip3.6   install   tornado
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+.......................
+Installing collected packages: tornado
+  Running setup.py install for tornado ... done
+Successfully installed tornado-6.0.2
+
+[root@room9pc01 mysite]# pip3  freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite
+[root@room9pc01 mysite]# 
+
+================================
+Linux服务器下安装python3，pip3
+yum -y install
+ zlib-devel    bzip2-devel    openssl-devel       ncurses-devel
+ sqlite-devel  readline-devel tk-devel gdbm-devel db4-devel
+ libpcap-devel xz-devel
+
+然后去官网下载 python3.6.7
+====================
+
+
+[root@room9pc01 ~]# ls  Django/
+django1120  mysite  pkg1120.txt
+
+[root@room9pc01 ~]# cd  Django/
+
+[root@room9pc01 Django]# pip3  freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+
+[root@room9pc01 Django]# python3  -m   django  version
+1.11.20
+
+[root@room9pc01 Django]# pip3  freeze  > pkg1120.txt
+
+[root@room9pc01 Django]# cat     pkg1120.txt
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+
+[root@room9pc01 Django]# ls
+django1120  mysite  pkg1120.txt
+
+[root@room9pc01 Django]# pwd
+/root/Django
+---------------------------------------------- 激活  虚拟环境 -------------------------------
+
+[root@room9pc01 Django]# source    django1120/bin/activate
+
+
+(django1120) [root@room9pc01 Django]# pip  freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+(django1120) [root@room9pc01 Django]# pip   install   `cat  pkg1120.txt`
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Requirement already satisfied: Django==1.11.20 in ./django1120/lib/python3.6/site-packages (1.11.20)
+Requirement already satisfied: PyMySQL==0.9.3 in ./django1120/lib/python3.6/site-packages (0.9.3)
+Requirement already satisfied: pytz==2019.1 in ./django1120/lib/python3.6/site-packages (2019.1)
+Requirement already satisfied: SQLAlchemy==1.3.3 in ./django1120/lib/python3.6/site-packages (1.3.3)
+Collecting tornado==6.0.2
+  Downloading http://pypi.doubanio.com/packages/03/3f/5f89d99fca3c0100c8cede4f53f660b126d39e0d6a1e943e95cc3ed386fb/tornado-6.0.2.tar.gz (481kB)
+     |████████████████████████████████| 491kB 5.7MB/s 
+
+Installing collected packages: tornado
+
+  Running setup.py install for tornado ... done
+Successfully installed tornado-6.0.2
+
+(django1120) [root@room9pc01 Django]# pip  freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+
+(django1120) [root@room9pc01 Django]# pip   --version
+pip 19.1 from /root/Django/django1120/lib/python3.6/site-packages/pip (python 3.6)
+
+(django1120) [root@room9pc01 Django]# python  --version
+Python 3.6.7
+
+(django1120) [root@room9pc01 Django]# cd   mysite/
+
+(django1120) [root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+(django1120) [root@room9pc01 mysite]# pwd
+/root/Django/mysite
+
+----------------------------------------- #开启 django网站 服务 ----------------------
+
+python manage.py runserver （0.0.0.0 | 0）:8000 
+会让 Django 监听所有网络接口和IP地址，因此也就让其它电脑可连接到开发服务器了。
+
+(django1120) [root@room9pc01 mysite]# python   manage.py   runserver   8800  #开启 django网站 服务
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 13 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+
+April 30, 2019 - 02:03:20
+Django version 1.11.20, using settings 'mysite.settings'
+Starting development server at http://127.0.0.1:8800/
+Quit the server with CONTROL-C.
+
+refer
+英 [rɪˈfɜː(r)]   美 [rɪˈfɜːr]  
+v.
+谈及;提到;提及;称…(为);指;涉及;描述
+
+
+[root@room9pc01 ~]# cd  Django/
+[root@room9pc01 Django]# pip3  freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+
+[root@room9pc01 Django]# ls
+django1120  mysite  pkg1120.txt
+
+
+[root@room9pc01 Django]# cd  mysite/
+
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite
+[root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+[root@room9pc01 mysite]# ls  blog/
+admin.py  __init__.py  models.py    static     tests.py  views.py
+apps.py   migrations   __pycache__  templates  urls.py
+[root@room9pc01 mysite]# ls   mysite/
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+[root@room9pc01 mysite]# ls  blog/
+admin.py  __init__.py  models.py    static     tests.py  views.py
+apps.py   migrations   __pycache__  templates  urls.py
+
+
+https://www.djangoproject.com/download/
+/内部存储设 备/tencent/QQfile_recv/
+
+[root@room9pc01 ~]# \cp   -r  Django/   /var/git/PYTHON/pythonScripts/
+
+[root@room9pc01 ~]# cd  /root/Django/mysite/
+[root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# cd  /root/Django/mysite/mysite/
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite/mysite
+[root@room9pc01 mysite]# ls
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+
+[root@room9pc01 mysite]# ifconfig |head  -2
+enp1s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 176.121.210.37  netmask 255.255.255.0  broadcast 176.121.210.255
+
+# Application definition
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'blog'
+]
+
+
+middleware
+英 [ˈmɪdlweə(r)]   美 [ˈmɪdlwer]  
+n.
+中间件，中介软件(允许不同程序协同工作)
+
+Django 语言和时区的设置都在 settings.py 文件中。
+中文设置
+LANGUAGE_CODE：设置语言，英语 en-us，中文简体 zh-Hans，中文繁体 zh-Hant
+在 MIDDLEWARE 中添加 django.middleware.locale.LocaleMiddleware (这个中间件用来控制区域和语言的，打开后可根据你所在的区域选择对应的语言)
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+时区设置
+
+TIME_ZONE：时区，Asia/Shanghai
+
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
+
+
+
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite/mysite
+
+[root@room9pc01 mysite]# ls
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+
+[root@room9pc01 mysite]# vim   /root/Django/mysite/mysite/settings.py 
+
+#ALLOWED_HOSTS后面所跟的属性值是一个字符串列表值，
+#这个字符串列表值表示当下这个Django站点可以提供的host/domain(主机/域名)
+
+ALLOWED_HOSTS = ['192.168.0.10','192.168.0.254','127.0.0.1', '176.121.210.37']
+
+#在setting.py文件中设置允许主机
+#ALLOWED_HOSTS = ['*']
+
+# Internationalization
+# https://docs.djangoproject.com/en/1.11/topics/i18n/
+
+LANGUAGE_CODE = 'zh-Hans'
+
+TIME_ZONE = 'Asia/Shanghai'
+
+[root@room9pc01 mysite]# grep  -En  'LANGUAGE_CODE|ALLOWED_HOSTS|TIME_ZONE'  /root/Django/mysite/mysite/settings.py
+
+28:ALLOWED_HOSTS = ['192.168.0.10','192.168.0.254','127.0.0.1', '176.121.210.37']
+107:LANGUAGE_CODE = 'zh-Hans'
+109:TIME_ZONE = 'Asia/Shanghai'
+
+[root@room9pc01 mysite]# 
+
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite
+
+[root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# vim   blog/views.py 
+
+[root@room9pc01 mysite]# cat   -n   blog/views.py
+     1	from django.shortcuts import render, HttpResponse
+     2	
+     3	# Create your views here.
+     4	
+     5	def  index(request):
+     6	  page = request.GET.get('page');
+     7	  return render(request, "index.html")
+     8	def  indexx(request):
+     9	  return render(request, "index.html")
+    10	def  hanshu(request):
+    11	  return HttpResponse("中文页面.Django/mysite/blog/views.py---hanshu");
+    12	
+
+[root@room9pc01 mysite]# vim    blog/urls.py 
+
+[root@room9pc01 mysite]# cat   -n   blog/urls.py
+
+     1	from django.conf.urls import url
+     2	from  .views  import  index, hanshu, indexx
+     3	
+     4	
+     5	urlpatterns = [
+     6	    url(r'^$', index),
+     7	    url(r'^indexx$', indexx),
+     8	    url(r'^indexxx', hanshu),
+     9	]
+[root@room9pc01 mysite]# 
+
+django中正确配置url匹配找到视图：
+在项目下的settings.py中ROOT_URLCONF = "项目名.urls“
+
+[root@room9pc01 mysite]# grep  -n  ROOT_URLCONF   /root/Django/mysite/mysite/settings.py 
+
+53:ROOT_URLCONF = 'mysite.urls'  #指定入口文件
+表示 前台发来请求会先去项目下的mysite/urls.py 文件 进行正则匹配找到应该执行的视图函数
+
+[root@room9pc01 mysite]# tail   -8   /root/Django/mysite/mysite/urls.py 
+"""
+from django.conf.urls import url,include
+from django.contrib import admin
+
+urlpatterns = [
+    url(r'^admin/', admin.site.urls), #第一个include(admin.site.urls) 表示django的后台数据库管理页面
+
+    url(r'^blog/', include("blog.urls"))
+]
+发来的请求会进入urlpatters列表顺次匹配正则表达式，
+匹配成功的进入url()函数中的第二个参数admin.site.urls指定的去向
+
+
+[root@room9pc01 mysite]# pwd  # 注意路径,注意同名但路径不同的目录mysite
+/root/Django/mysite
+
+[root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# ls   blog/
+admin.py  __init__.py  models.py    static     tests.py  views.py
+apps.py   migrations   __pycache__  templates  urls.py
+
+----------------------------------------------------------------------
+
+http://127.0.0.1:8800/admin/login/?next=/admin/
+
+/********************* 复制网上的 html源代码 -----------------------
+Bootstrap 优站精选
+http://www.youzhan.org/
+
+https://v3.bootcss.com/
+Bootstrap 是完全开源的。它的代码托管、开发、维护都依赖 GitHub 平台。
+https://v3.bootcss.com/getting-started/#download
+
+https://v3.bootcss.com/getting-started/
+
+https://v3.bootcss.com/getting-started/#template
+基本模板
+使用以下给出的这份超级简单的 HTML 模版，或者修改这些实例。
+
+https://v3.bootcss.com/examples/blog/
+
+https://v3.bootcss.com/getting-started/#download
+https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip  
+## 下载文件bootstrap-3.3.7-dist.zip   下载文件
+
+[root@room9pc01 mysite]# unzip  '/root/桌面/bootstrap-3.3.7-dist.zip'  -d  ../blog/static/
+[root@room9pc01 mysite]# mv   ../blog/static/bootstrap-3.3.7-dist   ../blog/static/bootstrap
+
+***********/
+
+[root@room9pc01 mysite]# mkdir   -p  blog/static/{css,js}
+
+
+[root@room9pc01 mysite]# ls   blog/templates/  #新建立模版目录(默认名字templates)
+index.html
+
+[root@room9pc01 mysite]# ls   blog/static/
+bootstrap  css  js
+
+[root@room9pc01 mysite]# ls   blog/static/bootstrap/
+css  fonts  js
+
+[root@room9pc01 mysite]# ls   blog/static/css/
+blog.css
+
+[root@room9pc01 mysite]# wc  -l    blog/static/css/blog.css 
+167 blog/static/css/blog.css
+
+[root@room9pc01 mysite]# vim   /root/Django/mysite/blog/templates/index.html 
+
+  1 {% load  static %}
+  2 <!DOCTYPE html>
+  3 <html lang="zh-CN">
+  4   <head>
+  5     <meta charset="utf-8">
+............................
+ 15     <!-- Bootstrap core CSS -->
+
+ 16     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  #修改16行不使用cdn网上的资源,  改成下面的格式,使用本地文件
+
+ 16     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" re    l="stylesheet">
+ 17 
+ 18     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+ 19     <link href="../../assets/css/ie10-viewport-bug-workaround.css"     rel="stylesheet">
+ 20 
+ 21     <!-- Custom styles for this template -->
+ 22     <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+ 23 
+
+
+[root@room9pc01 ~]# cd  Django/mysite/
+
+[root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# file   /root/Django/mysite/db.sqlite3 
+/root/Django/mysite/db.sqlite3: SQLite 3.x database
+
+[root@room9pc01 mysite]# du  -sh   /root/Django/mysite/db.sqlite3
+4.0K	/root/Django/mysite/db.sqlite3
+
+[root@room9pc01 mysite]# ll   /root/Django/mysite/db.sqlite3
+-rw-r--r-- 1 root root 3072 4月  29 13:43 /root/Django/mysite/db.sqlite3
+
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite
+
+
+migrate       英 [maɪˈɡreɪt] 
+    v.(随季节变化)迁徙;移居;迁移;移动;转移
+
+
+[root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# ls   blog/
+admin.py  __init__.py  models.py    static     tests.py  views.py
+apps.py   migrations   __pycache__  templates  urls.py
+
+[root@room9pc01 mysite]# vim   blog/models.py 
+
+/************************* 参考 ******************************** 参考 *******
+[root@room9pc01 mysite]# ls  /usr/local/lib/python3.6/site-packages/
+
+django                         pytz
+Django-1.11.20-py3.6.egg-info  pytz-2019.1.dist-info
+easy_install.py                README.txt
+pip                            setuptools
+pip-19.1.dist-info             setuptools-39.0.1.dist-info
+pkg_resources                  sqlalchemy
+__pycache__                    SQLAlchemy-1.3.3-py3.6.egg-info
+pymysql                        tornado
+PyMySQL-0.9.3.dist-info        tornado-6.0.2-py3.6.egg-info
+
+[root@room9pc01 mysite]# ls  /usr/local/lib/python3.6/site-packages/django/
+
+apps     core      http         __pycache__   test
+bin      db        __init__.py  shortcuts.py  urls
+conf     dispatch  __main__.py  template      utils
+contrib  forms     middleware   templatetags  views
+
+[root@room9pc01 mysite]# ls  /usr/local/lib/python3.6/site-packages/django/db/
+
+backends     migrations  __pycache__     utils.py
+__init__.py  models      transaction.py
+
+[root@room9pc01 mysite]# ls  /usr/local/lib/python3.6/site-packages/django/db/models/
+
+aggregates.py  expressions.py  __init__.py  __pycache__     sql
+base.py        fields          lookups.py   query.py        utils.py
+constants.py   functions       manager.py   query_utils.py
+deletion.py    indexes.py      options.py   signals.py
+
+[root@room9pc01 mysite]# wc  -l   /usr/local/lib/python3.6/site-packages/django/db/models/base.py 
+1820 /usr/local/lib/python3.6/site-packages/django/db/models/base.py
+
+[root@room9pc01 mysite]# head   /usr/local/lib/python3.6/site-packages/django/db/models/base.py
+from __future__ import unicode_literals
+
+import copy
+import inspect
+import warnings
+from itertools import chain
+
+from django.apps import apps
+from django.conf import settings
+from django.core import checks
+[root@room9pc01 mysite]# 
+
+------  /usr/local/lib/python3.6/site-packages/django/db/models/base.py ---------
+
+
+ 470 
+ 471 class Model(six.with_metaclass(ModelBase)):
+ 472 
+ 473     def __init__(self, *args, **kwargs):
+ 474         # Alias some things as locals to avoid repeat global lookups
+ 475         cls = self.__class__
+ 476         opts = self._meta
+ 477         _setattr = setattr
+ 478         _DEFERRED = DEFERRED
+ 479 
+ 480         pre_init.send(sender=cls, args=args, kwargs=kwargs)
+ 481 
+ 482         # Set up the storage for instance state
+ 483         self._state = ModelState()
+ 484 
+
+[root@room9pc01 mysite]# cp   /usr/local/lib/python3.6/site-packages/django/db/models/base.py   '/var/git/PYTHON/pythonScripts/Django1120' 
+
+[root@room9pc01 mysite]#  \cp   /usr/local/lib/python3.6/site-packages/django/db/models/base.py \
+>   '/var/git/PYTHON/pythonScripts/Django1120' 
+
+*********************** 参考 **************************/
+
+
+[root@room9pc01 mysite]# cat    blog/models.py
+
+from django.db import models
+import django.utils.timezone as timezone
+
+# Create your models here.
+
+class Post(models.Model):
+    title = models.CharField(max_length=100)
+    desc = models.CharField(max_length=500)
+    content = models.TextField()
+    author = models.CharField(max_length=50)
+    add_date = models.DateTimeField('添加日期', default=timezone.now)
+    mod_date = models.DateTimeField('最后修改日期', auto_now=True)
+
+#    def __str__(self):
+#        return self.title
+#
+#
+#class Comments(models.Model):
+#    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+#    content = models.TextField(max_length=500)
+#
+#    def __str__(self):
+#        return self.content
+#
+[root@room9pc01 mysite]# 
+
+
+
+[root@room9pc01 mysite]# pwd
+/root/Django/mysite
+
+[root@room9pc01 mysite]# ls   ../
+django1120  mysite  pkg1120.txt
+
+[root@room9pc01 mysite]# ls   ../django1120/
+bin  include  lib  lib64  pip-selfcheck.json  pyvenv.cfg
+
+[root@room9pc01 mysite]# ls   blog/
+
+admin.py  __init__.py  models.py    static     tests.py  views.py
+
+apps.py   migrations   __pycache__  templates  urls.py
+
+[root@room9pc01 mysite]# ls   blog/migrations/
+__init__.py  __pycache__
+
+[root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# du  -sh   /root/Django/mysite/db.sqlite3
+4.0K	/root/Django/mysite/db.sqlite3
+
+migrate       英 [maɪˈɡreɪt] 
+    v.(随季节变化)迁徙;移居;迁移;移动;转移
+
+[root@room9pc01 mysite]# python3   manage.py   migrate
+
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying sessions.0001_initial... OK
+
+[root@room9pc01 mysite]# du  -sh   /root/Django/mysite/db.sqlite3
+44K	/root/Django/mysite/db.sqlite3
+
+[root@room9pc01 mysite]# ll   /root/Django/mysite/db.sqlite3
+-rw-r--r-- 1 root root 37888 4月  30 15:12 /root/Django/mysite/db.sqlite3
+
+[root@room9pc01 mysite]# 
+
+[root@room9pc01 mysite]# yum   -y  install  mariadb  mariadb-server
+..................
+Loading mirror speeds from cached hostfile
+软件包 1:mariadb-5.5.56-2.el7.x86_64 已安装并且是最新版本
+软件包 1:mariadb-server-5.5.56-2.el7.x86_64 已安装并且是最新版本
+无须任何处理
+
+[root@room9pc01 mysite]# systemctl  enable  mariadb  &&systemctl start  mariadbCreated symlink from /etc/systemd/system/multi-user.target.wants/mariadb.service to /usr/lib/systemd/system/mariadb.service.
+
+[root@room9pc01 mysite]# mysqladmin  -uroot  password  '123'
+
+[root@room9pc01 mysite]# mysql  -uroot  -p123  -e "show  databases;"
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| test               |
++--------------------+
+
+[root@room9pc01 mysite]# mysql  -uroot  -p123  -e "
+> select  distinct concat
+> ('userName: ''',user,'''@''',host,'''Password: ''',password,''';') 
+> from  mysql.user"
++------------------------------------------------------------------------------------+
+| concat
+('userName: ''',user,'''@''',host,'''Password: ''',password,''';') |
++------------------------------------------------------------------------------------+
+| userName: 'root'@'localhost'Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; |
+| userName: 'root'@'room9pc01.tedu.cn'Password: '';   |
+| userName: 'root'@'127.0.0.1'Password: '';         |
+| userName: 'root'@'::1'Password: '';            |
+| userName: ''@'localhost'Password: '';          |
+| userName: ''@'room9pc01.tedu.cn'Password: '';     |
++------------------------------------------------------------------------------------+
+
+
+[root@room9pc01 mysite]#  mysql  -uroot  -p123  -e "
+> grant  all  privileges  on  *.*  to  'root'@'%'
+> identified by '123'  with grant option;
+> flush  privileges;
+> delete  from  mysql.user  where  password='';"
+
+[root@room9pc01 mysite]# mysql  -uroot  -p123  -e "
+select  distinct concat
+('userName: ''',user,'''@''',host,'''Password: ''',password,''';') 
+from  mysql.user"
++------------------------------------------------------------------------------------+
+| concat
+('userName: ''',user,'''@''',host,'''Password: ''',password,''';')          |
++------------------------------------------------------------------------------------+
+| userName: 'root'@'localhost'Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; |
+| userName: 'root'@'%'Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257';         |
++------------------------------------------------------------------------------------+
+
+[root@room9pc01 mysite]# 
+MariaDB [(none)]> create  database  pysql   default  charset  utf8;
+
+[root@room9pc01 mysite]#  mysql  -uroot  -p123  -e "
+> create  database  site01;show databases;"
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| site01             |
+| test               |
++--------------------+
+[root@room9pc01 mysite]# 
+
+
+ 77 DATABASES = {
+ 78     'default': {
+ 79         'ENGINE': 'django.db.backends.sqlite3',  #修改前的数据库是 sqlite3
+ 80         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+ 81     }
+ 82 }
+
+
+====================================
+https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+
+连接到其他数据库后端（如MySQL，Oracle或PostgreSQL）时，将需要其他连接参数。
+请参阅ENGINE下面的设置，了解如何指定其他数据库类型。
+这个例子适用于PostgreSQL：
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydatabase',
+        'USER': 'mydatabaseuser',
+        'PASSWORD': 'mypassword',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+
+        'ENGINE': 'django.db.backends.mysql',
+
+        'NAME': 'site01',
+        'USER': 'root',
+        'PASSWORD': '123',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+
+https://www.djangoproject.com/download/
+
+Django 1.11.20 (LTS): Django-1.11.20.tar.gz
+
+[root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# vim   mysite/settings.py 
+
+ 77 DATABASES = {
+ 78     'default': {
+ 79         'ENGINE': 'django.db.backends.mysql',
+ 80         'NAME': 'site01',   #数据库名称
+ 81         'USER': 'root',
+ 82         'PASSWORD': '123',
+ 83         'HOST': '127.0.0.1',
+ 84         'PORT': '3306',
+ 85     }
+ 86 }
+
+vim 
+:set  ic
+[root@room9pc01 mysite]#  mysql  -uroot  -p123  -P3306 -Dsite01 -e "
+show tables;select  database();"
++------------+
+| database() |
++------------+
+| site01     |
++------------+
+[root@room9pc01 mysite]# 
+
+[root@room9pc01 mysite]# pip3.6    install   MySQLdb-python #错误
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting MySQLdb-python
+  ERROR: Could not find a version that satisfies the requirement MySQLdb-python (from versions: none)
+ERROR: No matching distribution found for MySQLdb-python
+
+[root@room9pc01 mysite]# pip3.6   search   MySQLdb
+
+mysqldb-rich (3.2)     - rich mysqldb
+Flask-MySQLdb (0.2.0)  - MySQLdb extension for Flask
+exon-mysqldb (0.1)     - Database utils for MySQL backend.
+MySQL-Tool (0.0.3)     - MysqlDb module use.
+lurker (0.1)           - a tiny wrapper for mysqldb
+umysqldb (1.0.3)       - MySQLdb compatible wrapper for ultramysql
+mysqldbhelper (1.0.2)  - A simple wrapper over mysqldb
+tomdb (0.5.1)          - A simple wrapper around MySQLdb and pymysql.
+mandb (0.1.4)          - Mandb is a lightweight wrapper around MySQLdb and
+                         sqlite3.
+sqlShort (0.3)         - A tiny wrapper for the Python modules MySQLdb and
+                         Sqlite
+sqlwitch (0.2)         - sqlwitch offers idiomatic SQL generation on top of
+                         MySQLdb.
+simplemysql (1.25)     - An ultra simple wrapper for Python MySQLdb with
+                         very basic functionality
+torndb3 (0.3)          - A lightweight wrapper around MySQLdb.  Originally
+                         part of the Tornado framework.
+torndb (0.3)           - A lightweight wrapper around MySQLdb.  Originally
+                         part of the Tornado framework.
+mysql_helper (1.0.0)   - Um m&#243;dulo para auxiliar opera&#231;&#245;es
+                         com o MySQL e MySQLdb
+
+[root@room9pc01 mysite]# 
+
+[root@room9pc01 mysite]# pip3.6    install   pymysql
+
+查找索引：http://pypi.doubanio.com/simple/
+已经满足的要求：pymysql in/usr/local/lib/python3.6/site-packages（0.9.3）
+
+[root@room9pc01 mysite]# pip3  freeze
+Django==1.11.20
+PyMySQL==0.9.3
+pytz==2019.1
+SQLAlchemy==1.3.3
+tornado==6.0.2
+
+[root@room9pc01 mysite]# ls  /usr/local/lib/python3.6/site-packages/
+
+django                         pytz
+Django-1.11.20-py3.6.egg-info  pytz-2019.1.dist-info
+easy_install.py                README.txt
+pip                            setuptools
+pip-19.1.dist-info             setuptools-39.0.1.dist-info
+pkg_resources                  sqlalchemy
+__pycache__                    SQLAlchemy-1.3.3-py3.6.egg-info
+pymysql                        tornado
+PyMySQL-0.9.3.dist-info        tornado-6.0.2-py3.6.egg-info
+[root@room9pc01 mysite]# 
+
+>>> import  pymysql
+>>> pymysql.
+pymysql.BINARY               pymysql.TimeFromTicks(
+pymysql.Binary(              pymysql.Timestamp(
+pymysql.Connect(             pymysql.TimestampFromTicks(
+pymysql.Connection(          pymysql.VERSION
+pymysql.DATE                 pymysql.VERSION_STRING
+pymysql.DATETIME             pymysql.Warning(
+pymysql.DBAPISet(            pymysql.apilevel
+pymysql.DataError(           pymysql.charset
+pymysql.DatabaseError(       pymysql.connect(
+pymysql.Date(                pymysql.connections
+pymysql.DateFromTicks(       pymysql.constants
+pymysql.Error(               pymysql.converters
+pymysql.FIELD_TYPE           pymysql.cursors
+pymysql.IntegrityError(      pymysql.err
+pymysql.InterfaceError(      pymysql.escape_dict(
+pymysql.InternalError(       pymysql.escape_sequence(
+pymysql.MySQLError(          pymysql.escape_string(
+
+pymysql.NULL                 pymysql.get_client_info(
+
+pymysql.NUMBER               pymysql.install_as_MySQLdb(
+
+pymysql.NotSupportedError(   pymysql.optionfile
+pymysql.OperationalError(    pymysql.paramstyle
+pymysql.PY2                  pymysql.protocol
+pymysql.ProgrammingError(    pymysql.sys
+pymysql.ROWID                pymysql.thread_safe(
+pymysql.STRING               pymysql.threadsafety
+pymysql.TIME                 pymysql.times
+pymysql.TIMESTAMP            pymysql.util
+pymysql.Time(                pymysql.version_info
+
+>>> rcMySQL = pymysql.install_as_MySQLdb()
+>>> type(rcMySQL)
+<class 'NoneType'>
+>>> 
+
+[root@room9pc01 mysite]# ls  ../
+django1120  mysite  pkg1120.txt
+
+[root@room9pc01 mysite]# ls  
+blog  db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# ls  mysite/
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+
+[root@room9pc01 mysite]# vim     mysite/__init__.py 
+
+[root@room9pc01 mysite]# cat     mysite/__init__.py  #非常关键
+
+import   pymysql
+pymysql.install_as_MySQLdb()
+
+--------------------------------------------#迁移Django储存模型  真正生成数据库 ----------------------
+
+[root@room9pc01 mysite]# python3   manage.py   migrate  
+
+System check identified some issues:
+
+WARNINGS:
+?: (mysql.W002) MySQL Strict Mode is not set for database connection 'default'
+	HINT: MySQL's Strict Mode fixes many data integrity problems in MySQL, such as data truncation upon insertion, by escalating warnings into errors. It is strongly recommended you activate it. See: https://docs.djangoproject.com/en/1.11/ref/databases/#mysql-sql-mode
+
+警告：
+？：（mysql.w002）没有为数据库连接'default'设置mysql严格模式
+提示：MySQL的严格模式通过将警告升级为错误来修复MySQL中的许多数据完整性问题，例如插入时的数据截断。
+强烈建议您激活它。
+参见：https://docs.djangoproject.com/en/1.11/ref/databases/mysql-sql-mode
+
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying sessions.0001_initial... OK
+[root@room9pc01 mysite]#  
+
+[root@room9pc01 mysite]# mysql  -uroot  -p123  -P3306 -Dsite01 -e "
+> show tables;select  database();"
++----------------------------+
+| Tables_in_site01           |
++----------------------------+
+| auth_group                 |
+| auth_group_permissions     |
+| auth_permission            |
+| auth_user                  |
+| auth_user_groups           |
+| auth_user_user_permissions |
+| django_admin_log           |
+| django_content_type        |
+| django_migrations          |
+| django_session             |
++----------------------------+
++------------+
+| database() |
++------------+
+| site01     |
++------------+
+[root@room9pc01 mysite]# 
+
+[root@room9pc01 mysite]# ls   blog/migrations/
+__init__.py  __pycache__
+
+
+python manage.py makemigrations
+这个命令是
+记录我们对models.py的所有改动，
+并且将这个改动迁移到migrations这个文件夹下生成一个文件
+0001_initial.py文件，
+如果你接下来还要进行改动的话可能生成就是
+另外一个文件不一定都是0001文件，
+但是这个命令并没有作用到数据库
+makemigrations只是生成了迁移文件,
+并未真正的反馈到数据库中
+--------------------- 
+
+
+[root@room9pc01 mysite]# python3   manage.py   makemigrations
+
+Migrations for 'blog':
+  blog/migrations/0001_initial.py
+    - Create model Post
+
+[root@room9pc01 mysite]# ls   blog/migrations/
+0001_initial.py  __init__.py  __pycache__
+
+[root@room9pc01 mysite]# wc  -l   blog/migrations/0001_initial.py 
+29 blog/migrations/0001_initial.py
+
+
+[root@room9pc01 mysite]# cat    blog/migrations/0001_initial.py
+# -*- coding: utf-8 -*-
+# Generated by Django 1.11.20 on 2019-04-30 08:43
+from __future__ import unicode_literals
+
+from django.db import migrations, models
+import django.utils.timezone
+
+
+class Migration(migrations.Migration):
+
+    initial = True
+
+    dependencies = [
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='Post',
+            fields=[          #多了一个字段 'id'
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=100)),
+                ('desc', models.CharField(max_length=500)),
+                ('content', models.TextField()),
+                ('author', models.CharField(max_length=50)),
+                ('add_date', models.DateTimeField(default=django.utils.timezone.now, verbose_name='添加日期')),
+                ('mod_date', models.DateTimeField(auto_now=True, verbose_name='最后修改日期')),
+            ],
+        ),
+    ]
+[root@room9pc01 mysite]# 
+
+[root@room9pc01 mysite]#  cat    blog/models.py
+from django.db import models
+import django.utils.timezone as timezone
+
+# Create your models here.
+
+class Post(models.Model):    #这里原来没有 'id'字段
+    title = models.CharField(max_length=100)
+    desc = models.CharField(max_length=500)
+    content = models.TextField()
+    author = models.CharField(max_length=50)
+    add_date = models.DateTimeField('添加日期', default=timezone.now)
+    mod_date = models.DateTimeField('最后修改日期', auto_now=True)
+
+#    def __str__(self):
+#        return self.title
+#
+#
+#class Comments(models.Model):
+#    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+#    content = models.TextField(max_length=500)
+#
+#    def __str__(self):
+#        return self.content
+#
+[root@room9pc01 mysite]# 
+
+--------------------------------------------#迁移Django储存模型  真正生成数据库 ----------------------
+
+[root@room9pc01 mysite]# python3   manage.py   migrate  
+
+System check identified some issues:
+
+WARNINGS:
+?: (mysql.W002) MySQL Strict Mode is not set for database connection 'default'
+	HINT: MySQL's Strict Mode fixes many data integrity problems in MySQL, such as data truncation upon insertion, by escalating warnings into errors. It is strongly recommended you activate it. See: https://docs.djangoproject.com/en/1.11/ref/databases/#mysql-sql-mode
+
+系统检查发现了一些问题：
+
+警告：
+？：（mysql.w002）没有为数据库连接'default'设置mysql严格模式
+提示：MySQL的严格模式通过将警告升级为错误来修复MySQL中的许多数据完整性问题，例如插入时的数据截断。
+强烈建议您激活它。参见：https://docs.djangoproject.com/en/1.11/ref/databases/mysql-sql-mode
+
+Operations to perform:
+  Apply all migrations: admin, auth, blog, contenttypes, sessions
+Running migrations:
+  Applying blog.0001_initial... OK
+
+[root@room9pc01 mysite]# 
+
+[root@room9pc01 mysite]# mysql  -uroot  -p123  -P3306 -Dsite01 -e "
+> show tables;select  database();"
++----------------------------+
+| Tables_in_site01           |
++----------------------------+
+| auth_group                 |
+| auth_group_permissions     |
+| auth_permission            |
+| auth_user                  |
+| auth_user_groups           |
+| auth_user_user_permissions |
+| blog_post                  |  #多出一张表 blog_post
+| django_admin_log           |
+| django_content_type        |
+| django_migrations          |
+| django_session             |
++----------------------------+
++------------+
+| database() |
++------------+
+| site01     |
++------------+
+[root@room9pc01 mysite]# mysql  -uroot  -p123  -P3306 -Dsite01 -e "
+show tables;select  *  from  blog_post;"
++----------------------------+
+| Tables_in_site01           |
++----------------------------+
+| auth_group                 |
+| auth_group_permissions     |
+| auth_permission            |
+| auth_user                  |
+| auth_user_groups           |
+| auth_user_user_permissions |
+| blog_post                  | #多出一张表 blog_post
+| django_admin_log           |
+| django_content_type        |
+| django_migrations          |
+| django_session             |
++----------------------------+
+[root@room9pc01 mysite]# 
+
+
+mysql  -uroot  -p123  -P3306 -Dsite01 -e "
+show  columns   from  blog_post;"
+
+[root@room9pc01 mysite]# mysql  -uroot  -p123  -P3306 -Dsite01 -e "
+> show  columns   from  blog_post;"
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| id       | int(11)      | NO   | PRI | NULL    | auto_increment |
+| title    | varchar(100) | NO   |     | NULL    |                |
+| desc     | varchar(500) | NO   |     | NULL    |                |
+| content  | longtext     | NO   |     | NULL    |                |
+| author   | varchar(50)  | NO   |     | NULL    |                |
+| add_date | datetime     | NO   |     | NULL    |                |
+| mod_date | datetime     | NO   |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+[root@room9pc01 mysite]# 
+Abc123.yes
+Abc123.yes
+
+[root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# python3   manage.py   createsuperuser #建立管理员用户
+
+Username (leave blank to use 'root'): admin
+Email address: admin@qq.com
+Password: 123
+Password (again):123
+This password is too short. It must contain at least 8 characters.
+This password is entirely numeric.
+Password:  Abc123.yes
+Password (again): Abc123.yes
+Superuser created successfully.
+
+[root@room9pc01 mysite]# 
+
+
+http://127.0.0.1:8800/admin/login/?next=/admin/
+
+Django 管理
+用户名:
+admin
+
+密码:
+Abc123.yes
+ 
+http://127.0.0.1:8800/admin/login/?next=/admin/
+
+
+
+[root@room9pc01 mysite]# ls  ../
+django1120  mysite  pkg1120.txt
+
+[root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# ls  mysite/
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+
+[root@room9pc01 mysite]# ls  blog/
+admin.py  __init__.py  models.py    static     tests.py  views.py
+apps.py   migrations   __pycache__  templates  urls.py
+
+[root@room9pc01 mysite]# ll   blog/models.py 
+-rw-r--r-- 1 root root 693 4月  30 15:04 blog/models.py
+
+[root@room9pc01 mysite]# head   blog/models.py
+from django.db import models
+import django.utils.timezone as timezone
+
+# Create your models here.
+
+class Post(models.Model):
+    title = models.CharField(max_length=100)
+    desc = models.CharField(max_length=500)
+    content = models.TextField()
+    author = models.CharField(max_length=50)
+[root@room9pc01 mysite]# 
+
+
+[root@room9pc01 mysite]# cat   blog/admin.py 
+from django.contrib import admin
+
+# Register your models here.
+
+[root@room9pc01 mysite]# vim    blog/admin.py
+
+[root@room9pc01 mysite]# cat    blog/admin.py
+from django.contrib import admin
+from   .models  import  Post
+
+# Register your models here.
+admin.site.register(Post)
+
+[root@room9pc01 mysite]# 
+
+http://127.0.0.1:8800/admin/
+
+Django 管理    欢迎， admin. 查看站点 / 修改密码 / 注销
+站点管理
+Blog
+Posts 	增加    修改
+
+认证和授权 
+用户 	增加  修改
+组 	增加  修改
+
+http://127.0.0.1:8800/admin/blog/post/1/change/ #页面提交一条数据返回
+
+ mysql  -uroot  -p123  -P3306 -Dsite01 -e "
+show tables;select  *  from  blog_post;"
+
+ mysql  -uroot  -p123  -P3306 -Dsite01 -e "
+ select  *  from  blog_post;"
+
+[root@room9pc01 mysite]#  mysql  -uroot  -p123  -P3306 -Dsite01 -e "
+>  select  *  from  blog_post;"
++----+---------+---------+---------------------+--------+---------------------+---------------------+
+| id | title   | desc    | content             | author | add_date   | mod_date    |
++----+---------+---------+---------------------+--------+---------------------+---------------------+
+|  1 | Biao-Ti | not-set | not   default  utf8 | root   | 2019-04-30 09:34:00 | 2019-04-30 09:43:05 |
++----+---------+---------+---------------------+--------+---------------------+---------------------+
+
+/***********
+MariaDB [(none)]> create  database  pysql   default  charset  utf8;
+
+[root@room9pc01 mysite]# ls
+blog  db.sqlite3  manage.py  mysite
+
+[root@room9pc01 mysite]# ls  blog/
+admin.py  __init__.py  models.py    static     tests.py  views.py
+apps.py   migrations   __pycache__  templates  urls.py
+
+[root@room9pc01 mysite]# cat  blog/urls.py 
+from django.conf.urls import url
+from  .views  import  index, hanshu, indexx
+
+
+urlpatterns = [
+    url(r'^$', index),
+    url(r'^indexx$', indexx),
+    url(r'^indexxx', hanshu),
+]
+[root@room9pc01 mysite]# 
+
+[root@room9pc01 mysite]# vim    blog/views.py 
+
+
+
+
+[root@room9pc01 mysite]# ls  blog/templates/
+index.html
+[root@room9pc01 mysite]# vim   blog/templates/index.html 
+
+HTML注释：
+
+<!--这是单行注释-->
+<!--
+    这是多行注释
+    这是多行注释
+    这是多行注释
+-->
+JS/jQuery注释：
+
+//这是单行注释
+/*
+    这是多行注释
+    这是多行注释
+    这是多行注释
+*/
+css注释：
+
+/*这是单行注释*/
+
+/*
+    这是多行注释
+    这是多行注释
+    这是多行注释
+*/
+--------------------- 
+
+
+
+
+
+

@@ -1,0 +1,2068 @@
+
+
+extraneous     英 [ɪkˈstreɪniəs]   美 [ɪkˈstreɪniəs]  
+    adj.没有直接联系的;无关的
+
+scp  -r  /var/www/html/  root@V3:/var/www/
+scp  -P7920  -r  /var/www/html/   student@192.168.1.254:/home/student/devweb1-6/
+
+[root@V1 ~]# cd -
+/var/www/html
+
+[root@V1 html]# vim  test.html
+
+
+Bootstrap中文网
+Bootstrap是Twitter推出的一个用于前端开发的开源工具包。
+它由Twitter的设计师Mark Otto和Jacob Thornton合作开发,是一个CSS/HTML框架。
+目前,Bootstrap最新版本为3.0 ...
+http://www.bootcss.com/
+
+https://github.com/twbs/bootstrap/releases/
+
+https://github.com/twbs/bootstrap/releases/tag/v3.3.7
+
+bootstrap-3.3.7-dist.zip
+362 KB
+源代码
+（zip）
+源代码
+（tar.gz）
+
+https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip
+
+
+
+https://colorlib.com/wp/free-bootstrap-admin-dashboard-templates/
+
+39 Free Bootstrap Admin Dashboard Templates For Your Web App 2019
+
+[root@V1 html]# scp  -P7920  -r  student@192.168.1.254:/home/student/桌 面/nsd_2018/nsd1808/devweb/day02/static/   ./
+
+[root@V1 html]# ls  static/
+css  fonts  imgs  js
+
+[root@V1 html]# ls  static/css/
+bootstrap.css      bootstrap.min.css.map    bootstrap-theme.min.css
+bootstrap.css.map  bootstrap-theme.css      bootstrap-theme.min.css.map
+bootstrap.min.css  bootstrap-theme.css.map
+
+[root@V1 html]# ls  static/js/
+bootstrap.js  bootstrap.min.js  jquery.min.js  npm.js
+
+[root@V1 html]# ls  static/fonts/
+glyphicons-halflings-regular.eot  glyphicons-halflings-regular.woff
+glyphicons-halflings-regular.svg  glyphicons-halflings-regular.woff2
+glyphicons-halflings-regular.ttf
+
+
+
+Bootstrap中文网
+Bootstrap是Twitter推出的一个用于前端开发的开源工具包。
+它由Twitter的设计师Mark Otto和Jacob Thornton合作开发,是一个CSS/HTML框架。
+目前,Bootstrap最新版本为3.0 ...
+http://www.bootcss.com/
+
+https://github.com/twbs/bootstrap/releases/
+
+https://github.com/twbs/bootstrap/releases/tag/v3.3.7
+
+bootstrap-3.3.7-dist.zip
+362 KB
+源代码
+（zip）
+源代码
+（tar.gz）
+
+https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip
+
+
+[root@V1 html]# ls
+css          index.html  test.jpg  x1.jpg       zidir
+favicon.ico  test.html   test.php  xshell6.png
+
+[root@V1 html]# wget  https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip
+
+--2019-05-25 14:35:35--  https://github.com/twbs/bootstrap/releases/download/v3.3.7/bootstrap-3.3.7-dist.zip
+
+[root@V1 html]# yum    makecache 
+.............
+epel-testing                                     | 4.7 kB     00:00     
+epel-testing-debuginfo                           | 3.0 kB     00:00     
+extras                                           | 3.4 kB     00:00     
+jenkins                                          | 2.9 kB     00:00     
+local                                            | 3.6 kB     00:00     
+updates                                          | 3.4 kB     00:00     
+zabbix                                           | 2.9 kB     00:00     
+zabbix-non-supported                             |  951 B     00:00     
+元数据缓存已建立
+
+[root@V1 html]# yum  repolist |tail  -14
+源标识                         源名称                                     状态
+base/x86_64                    CentOS-7 - Base - 163.com                  10,019
+centosplus/x86_64              CentOS-7 - Plus - 163.com                      70
+!epel/x86_64                   Extra Packages for Enterprise Linux 7 - x8 13,200
+!epel-debuginfo/x86_64         Extra Packages for Enterprise Linux 7 - x8  2,905
+*epel-testing/x86_64           Extra Packages for Enterprise Linux 7 - Te    687
+*epel-testing-debuginfo/x86_64 Extra Packages for Enterprise Linux 7 - Te     96
+extras/x86_64                  CentOS-7 - Extras - 163.com                   409
+jenkins                        Jenkins-stable                                 88
+local                          CentOS7-1804.iso                            9,911
+updates/x86_64                 CentOS-7 - Updates - 163.com                1,945
+zabbix/x86_64                  Zabbix Official Repository - x86_64           236
+zabbix-non-supported/x86_64    Zabbix Official Repository non-supported -      4
+repolist: 39,570
+
+[root@V1 html]# 
+[root@V1 html]# yum  list  |egrep  '^(unzip|zip)'
+unzip.x86_64                             6.0-19.el7               base          
+zip.x86_64                               3.0-11.el7               base          
+zipios++.x86_64                          0.1.5.9-9.el7            epel          
+zipios++-debuginfo.x86_64                0.1.5.9-9.el7            epel-debuginfo
+zipios++-devel.x86_64                    0.1.5.9-9.el7            epel          
+[root@V1 html]# yum   -y   install   zip   unzip
+................
+已安装:
+  unzip.x86_64 0:6.0-19.el7           zip.x86_64 0:3.0-11.el7          
+
+完毕！
+
+[root@V1 html]# rpm   -q   unzip  zip
+unzip-6.0-19.el7.x86_64
+zip-3.0-11.el7.x86_64
+
+
+[root@V2 ~]# yum    makecache 
+.......
+元数据缓存已建立
+[root@V2 ~]#  yum   -y   install   zip   unzip
+...........
+已安装:
+  unzip.x86_64 0:6.0-19.el7           zip.x86_64 0:3.0-11.el7          
+
+完毕！
+[root@V2 ~]# rpm   -q  zip  unzip
+zip-3.0-11.el7.x86_64
+unzip-6.0-19.el7.x86_64
+.........
+
+[root@V1 html]# type  unzip
+unzip 是 /usr/bin/unzip
+[root@V1 html]# type  zip
+zip 是 /usr/bin/zip
+
+
+[root@V1 html]# rpm  -qf  /usr/bin/zip
+zip-3.0-11.el7.x86_64
+[root@V1 html]# rpm  -qf  /usr/bin/unzip
+unzip-6.0-19.el7.x86_64
+
+[root@V1 html]# unzip    bootstrap-3.3.7-dist.zip 
+
+Archive:  bootstrap-3.3.7-dist.zip
+   creating: bootstrap-3.3.7-dist/css/
+  inflating: bootstrap-3.3.7-dist/css/bootstrap-theme.css  
+  inflating: bootstrap-3.3.7-dist/css/bootstrap-theme.css.map  
+  inflating: bootstrap-3.3.7-dist/css/bootstrap-theme.min.css  
+  inflating: bootstrap-3.3.7-dist/css/bootstrap-theme.min.css.map  
+  inflating: bootstrap-3.3.7-dist/css/bootstrap.css  
+  inflating: bootstrap-3.3.7-dist/css/bootstrap.css.map  
+  inflating: bootstrap-3.3.7-dist/css/bootstrap.min.css  
+  inflating: bootstrap-3.3.7-dist/css/bootstrap.min.css.map  
+   creating: bootstrap-3.3.7-dist/fonts/
+  inflating: bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.eot  
+  inflating: bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.svg  
+  inflating: bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.ttf  
+  inflating: bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.woff  
+  inflating: bootstrap-3.3.7-dist/fonts/glyphicons-halflings-regular.woff2  
+   creating: bootstrap-3.3.7-dist/js/
+  inflating: bootstrap-3.3.7-dist/js/bootstrap.js  
+  inflating: bootstrap-3.3.7-dist/js/bootstrap.min.js  
+  inflating: bootstrap-3.3.7-dist/js/npm.js  
+[root@V1 html]# echo  $?
+0
+[root@V1 html]# ls
+bootstrap-3.3.7-dist      favicon.ico  test.jpg  xshell6.png
+bootstrap-3.3.7-dist.zip  index.html   test.php  zidir
+css                       test.html    x1.jpg
+
+[root@V1 html]# mv   bootstrap-3.3.7-dist.zip  ../
+
+[root@V1 html]# ls   ../
+bootstrap-3.3.7-dist.zip  cgi-bin  html
+
+[root@V1 html]# scp  ../bootstrap-3.3.7-dist.zip  root@V2:/root/
+.............. 
+[root@V1 html]# scp  ../bootstrap-3.3.7-dist.zip  root@V3:/root/
+.........
+[root@V1 html]# ll  ../bootstrap-3.3.7-dist.zip 
+-rw-r--r-- 1 root root 370276 5月  23 2017 ../bootstrap-3.3.7-dist.zip
+   
+[root@V1 html]# ls
+bootstrap-3.3.7-dist  favicon.ico  test.html  test.php  xshell6.png
+css                   index.html   test.jpg   x1.jpg    zidir
+
+
+[root@V1 html]# ls   bootstrap-3.3.7-dist/
+css  fonts  js
+
+-----------------  bootstrap-theme.css文件:Bootstrap框架的主题文件
+
+[root@V1 html]# ls   bootstrap-3.3.7-dist/css/
+bootstrap.css      bootstrap.min.css.map    bootstrap-theme.min.css
+bootstrap.css.map  bootstrap-theme.css      bootstrap-theme.min.css.map
+bootstrap.min.css  bootstrap-theme.css.map
+
+[root@V1 html]# ls   bootstrap-3.3.7-dist/fonts/
+glyphicons-halflings-regular.eot  glyphicons-halflings-regular.woff
+glyphicons-halflings-regular.svg  glyphicons-halflings-regular.woff2
+glyphicons-halflings-regular.ttf
+
+---------------  bootstrap.js文件:Bootstrap框架的核心javascript文件
+
+[root@V1 html]# ls    bootstrap-3.3.7-dist/js/
+bootstrap.js  bootstrap.min.js  npm.js
+
+[root@V1 html]# vim   bootstrap-3.3.7-dist/css/bootstrap.css
+
+[root@V1 html]# vim   bootstrap-3.3.7-dist/css/bootstrap.min.css
+
+[root@V1 html]# head  -3   bootstrap-3.3.7-dist/css/bootstrap.min.css
+/*!
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
+
+[root@V1 html]# du   -sh  bootstrap-3.3.7-dist/css/bootstrap.min.css
+120K	bootstrap-3.3.7-dist/css/bootstrap.min.css
+
+[root@V1 html]# du   -sh   bootstrap-3.3.7-dist/css/bootstrap.css
+144K	bootstrap-3.3.7-dist/css/bootstrap.css
+
+[root@V1 html]# head  -3   bootstrap-3.3.7-dist/css/bootstrap.css
+/*!
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
+
+==============================
+
+
+Bootstrap目录说明
+•  css目录 – 用于存放Bootstrap框架使用的样式文件
+–  bootstrap.css文件:Bootstrap框架的样式文件
+–  bootstrap.min.css文件:Bootstrap框架的样式压缩文件
+–  bootstrap-theme.css文件:Bootstrap框架的主题文件
+
+•  fonts目录 – 用于存放Bootstrap框架使用的字体文件
+
+•  js目录 – 用于存放Bootstrap框架使用的核心javascript文件
+–  bootstrap.js文件:Bootstrap框架的核心javascript文件
+–  bootstrap.min.js文件:Bootstrap框架的核心javascript压缩文件 
+
+  由于Bootstrap框架是基于jQuery使用的javascript代码,
+所以想要使用Bootstrap框架,必须要先引入jQuery文
+
+•  解决浏览器兼容性:
+–  html5shiv.min.js文件:解决 IE8 浏览器支持HTML5的新元素
+–  respond.min.js文件:解决 IE8 浏览器支持CSS Media Query
+
+
+[root@V1 html]# ls
+bootstrap-3.3.7-dist  favicon.ico  test.html  test.php  xshell6.png
+css                   index.html   test.jpg   x1.jpg    zidir
+[root@V1 html]# ls  bootstrap-3.3.7-dist/
+css  fonts  js
+
+---------------  bootstrap.js文件:Bootstrap框架的核心javascript文件
+
+[root@V1 html]# ls  bootstrap-3.3.7-dist/js/
+bootstrap.js  bootstrap.min.js  npm.js
+
+在　http://www.bootcss.com/　主页中　　鼠标右击　查看页面源代码(V)
+
+view-source:http://www.bootcss.com/
+
+Ctrl  + F　查找　jquery123.com
+
+    <div class="navbar-collapse collapse" role="navigation">
+      <ul class="nav navbar-nav">
+        <li class="hidden-sm hidden-md"><a href="https://v2.bootcss.com/"  target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'v2doc'])">Bootstrap2中文文档</a></li>
+        <li><a href="https://v3.bootcss.com/" target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'v3doc'])">Bootstrap3中文文档</a></li>
+        <li><a href="https://v4.bootcss.com/" target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'v4doc'])">Bootstrap4中文文档</a></li>
+        <li><a href="/p/lesscss/" target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'less'])">Less 教程</a></li>
+        <li><a href="https://www.jquery123.com/" target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'jquery'])">jQuery API</a></li>
+        <li><a class="reddot" href="http://www.youzhan.org/" target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'youzhan-main-nav'])">网站实例</a></li>
+      </ul>
+
+
+
+<a href="https://www.jquery123.com/"
+
+https://www.jquery123.com/
+
+jQuery API 中文文档
+
+jQuery 是一个高效、精简并且功能丰富的 JavaScript 工具库。
+它提供的 API 易于使用且兼容众多浏览器，这让诸如 HTML 文档遍历和操作、事件处理、动画和 Ajax 操作更加简单。
+如果你是一个 jQuery 新手，我们建议你先到jQuery 学习中心历练历练。
+
+view-source:https://www.baidu.com/
+<script type="text/javascript" 
+　src="https://ss1.bdstatic.com/5eN1bjq8AAUYm2zgoY3K/r/www/cache/static/protocol/https/jquery/jquery-1.10.2.min_65682a2.js"></script>
+
+
+http://tts.tmooc.cn/studentCenter/toMyttsPage
+主页中　　鼠标右击　查看页面源代码(V)
+
+view-source:http://tts.tmooc.cn/studentCenter/toMyttsPage
+
+<script src="http://tts.tmooc.cn/private/ttsfront/js/jquery-2.1.1.js"></script>
+<script src="http://tts.tmooc.cn/private/ttsfront/js/jquery-cookie.js"></script>
+<script src="http://tts.tmooc.cn/private/ttsfront/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="http://tts.tmooc.cn/private/ttsfront/js/jquery.SuperSlide.2.1.1.js"></script>
+
+
+http://jquery.com/download/
+
+链接下载jQuery
+
+要在本地下载这些文件，请右键单击该链接，然后从菜单中选择“另存为...”。
+
+链接 jQuery
+
+有关升级jQuery的帮助，请参阅与您的版本最相关的升级指南。我们还建议使用jQuery Migrate插件。
+
+下载压缩的生产jQuery 3.4.1
+
+下载未压缩的开发jQuery 3.4.1
+
+下载jQuery 3.4.1的映射文件
+
+您还可以使用slim构建，它不包括ajax和效果模块：
+
+下载压缩的，生产jQuery 3.4.1 slim build
+
+使用npm或Yarn下载jQuery
+jQuery 在npm上注册为包。您可以使用npm CLI命令安装最新版本的jQuery：
+npm install jquery
+
+这将在node_modules目录中安装jQuery 。
+node_modules/jquery/dist/您将在其中找到未压缩的版本，压缩版本和映射文件。
+
+[root@V1 html]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/
+express  npm
+
+[root@V1 html]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/
+express  jquery  npm
+
+[root@V1 html]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/jquery/
+AUTHORS.txt  dist      LICENSE.txt   README.md
+bower.json   external  package.json  src
+
+
+链接 jQuery Migrate插件
+我们创建了jQuery Migrate插件， 以简化从旧版jQuery的过渡。
+该插件恢复不推荐使用的功能和行为，以便旧代码仍然可以在较新版本的jQuery上正常运行。
+使用未压缩的开发版本来诊断兼容性问题，它将在控制台上生成警告，您可以使用它来识别和修复问题。
+使用压缩生产版本可以简单地修复兼容性问题，而不会生成控制台警告。
+
+Migrate有两个版本。第一个将帮助您将1.9之前的jQuery代码更新到jQuery 1.9到3.0。你可以在这里获得该版本：
+
+下载压缩的生产jQuery Migrate 1.4.1
+
+下载未压缩的开发jQuery Migrate 1.4.1
+
+第二个版本帮助您更新代码以在jQuery 3.0或更高版本上运行，
+一旦您使用了Migrate 1.x并升级到jQuery 1.9或更高版本：
+
+下载压缩的生产jQuery Migrate 3.0.1
+
+下载未压缩的开发jQuery Migrate 3.0.1
+
+注意：要使用最新的正在进行的jQuery版本，请尝试上面描述的jQuery Pre-Release Build。
+
+所有源代码都保存在Git版本控制下，您可以在线浏览。存储库的README提供了有关构建和测试您自己的jQuery的更多信息，以及有关创建自定义构建的说明，该构建排除了一些API以减小文件大小。
+
+如果您有权访问Git，可以在此处连接到存储库：
+
+git clone git://github.com/jquery/jquery.git
+您还可以从GitHub查看并构建特定版本的jQuery：
+
+git clone git://github.com/jquery/jquery.git
+git checkout 1.2.6
+特定版本的README文件将包含构建该版本的说明，因为该过程随时间而变化。
+
+链接过去的版本
+所有过去的版本都可以在jQuery CDN上找到。
+
+[root@V1 html]# tail   -5  /etc/profile
+#export  PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin:/root/web01/node-v10.15.3-linux-x64/bin/
+export  NODE_HOME=/root/web01/node-v10.15.3-linux-x64
+export  NODE_PATH=$NODE_HOME/lib/node_modules
+export  PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin:$NODE_HOME/bin/
+
+[root@V1 html]# echo  $NODE_PATH 
+/root/web01/node-v10.15.3-linux-x64/lib/node_modules
+[root@V1 html]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/
+express  npm
+[root@V1 html]# type   npm
+npm 是 /root/web01/node-v10.15.3-linux-x64/bin/npm
+[root@V1 html]# npm    -v
+6.4.1
+[root@V1 html]# npm   install   jquery   #安装 jQuery
+
+npm WARN saveError ENOENT: no such file or directory, open '/var/www/html/package.json'
+npm notice created a lockfile as package-lock.json. You should commit this file.
+npm WARN enoent ENOENT: no such file or directory, open '/var/www/html/package.json'
+npm WARN html No description
+npm WARN html No repository field.
+npm WARN html No README data
+npm WARN html No license field.
+
++ jquery@3.4.1
+added 1 package from 1 contributor and audited 1 package in 4.45s
+found 0 vulnerabilities
+
+[root@V1 html]# ls
+bootstrap-3.3.7-dist  index.html         test.html  x1.jpg
+css                   node_modules       test.jpg   xshell6.png
+favicon.ico           package-lock.json  test.php   zidir
+
+[root@V1 html]# npm    install  jquery   -g   #安装最新版本的jQuery
++ jquery@3.4.1
+added 1 package from 1 contributor in 0.307s
+
+
+   ╭───────────────────────────────────────────────────────────────╮
+   │                                                               │
+   │       New minor version of npm available! 6.4.1 → 6.9.0       │
+   │   Changelog: https://github.com/npm/cli/releases/tag/v6.9.0   │
+   │               Run npm install -g npm to update!               │
+   │                                                               │
+   ╰───────────────────────────────────────────────────────────────╯
+
+[root@V1 html]# 
+
+New minor version of npm available! 6.4.1 → 6.9.0
+Changelog: https://github.com/npm/cli/releases/tag/v6.9.0 
+Run npm install -g npm to update! 
+
+新的次要版本的NPM可用！6.4.1～6.6.0
+更改日志：https://github.com/npm/cli/releases/tag/v6.9.0
+运行 npm install -g npm 进行更新！
+
+[root@V1 html]# npm   install   -g   npm   #安装最新版本的npm
+
+/root/web01/node-v10.15.3-linux-x64/bin/npm -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/npm/bin/npm-cli.js
+/root/web01/node-v10.15.3-linux-x64/bin/npx -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/npm/bin/npx-cli.js
++ npm@6.9.0
+added 54 packages from 9 contributors, removed 15 packages and updated 47 packages in 18.111s
+
+[root@V1 html]# echo  $?
+0
+[root@V1 html]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/jquery/src/
+ajax           data           event.js         selector-native.js
+ajax.js        data.js        exports          selector-sizzle.js
+attributes     deferred       jquery.js        serialize.js
+attributes.js  deferred.js    manipulation     traversing
+callbacks.js   deprecated.js  manipulation.js  traversing.js
+core           dimensions.js  offset.js        var
+core.js        effects        queue            wrap.js
+css            effects.js     queue.js
+css.js         event          selector.js
+
+[root@V1 html]# npm    -v
+6.4.1
+[root@V1 html]# npm    -v
+6.9.0
+
+migrate      英 [maɪˈɡreɪt]   美 [ˈmaɪɡreɪt]
+     v.(随季节变化)迁徙;移居;迁移;移动;转移
+
+[root@V1 html]# npm    install  -g  migrate   #安装最新版本的jQuery Migrate
+
+/root/web01/node-v10.15.3-linux-x64/bin/migrate -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate
+/root/web01/node-v10.15.3-linux-x64/bin/migrate-init -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate-init
+/root/web01/node-v10.15.3-linux-x64/bin/migrate-list -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate-list
+/root/web01/node-v10.15.3-linux-x64/bin/migrate-create -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate-create
+/root/web01/node-v10.15.3-linux-x64/bin/migrate-up -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate-up
+/root/web01/node-v10.15.3-linux-x64/bin/migrate-down -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate-down
++ migrate@1.6.2
+added 20 packages from 13 contributors in 11.522s
+[root@V1 html]# echo  $?
+0
+[root@V1 html]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/
+express  jquery  migrate  npm
+[root@V1 html]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/
+bin         index.js  LICENSE       package.json
+History.md  lib       node_modules  Readme.md
+[root@V1 html]# cat   /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/Readme.md 
+
+
+# Migrate
+
+[![NPM Version](https://img.shields.io/npm/v/migrate.svg)](https://npmjs.org/package/migrate)
+[![NPM Downloads](https://img.shields.io/npm/dm/migrate.svg)](https://npmjs.org/package/migrate)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Build Status](https://travis-ci.org/tj/node-migrate.svg?branch=master)](https://travis-ci.org/tj/node-migrate)
+
+
+## Installation
+
+    $ npm install migrate
+
+## Usage
+
+```
+Usage: migrate [options] [command]
+
+Options:
+
+  -V, --version  output the version number
+  -h, --help     output usage information
+
+Commands:
+
+  init           Initalize the migrations tool in a project
+  list           List migrations and their status
+  create <name>  Create a new migration
+  up [name]      Migrate up to a give migration
+  down [name]    Migrate down to a given migration
+  help [cmd]     display help for [cmd]
+```
+
+
+................
+
+```javascript
+var migrate = require('migrate')
+
+migrate.load({
+  stateStore: '.migrate'
+}, function (err, set) {
+  if (err) {
+    throw err
+  }
+  set.up(function (err) {
+    if (err) {
+      throw err
+    }
+    console.log('migrations successfully ran')
+  })
+})
+```
+[root@V1 html]# cp   /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/Readme.md   .
+
+[root@V1 html]# ls
+bootstrap-3.3.7-dist  index.html         Readme.md  test.php     zidir
+css                   node_modules       test.html  x1.jpg
+favicon.ico           package-lock.json  test.jpg   xshell6.png
+
+
+[root@V1 html]# scp  -P7920   student@192.168.1.254:/home/student/桌面/nsd_2018/nsd1808/devweb/day02/static/js/jquery.min.js  ./
+
+[root@V1 html]# mv    jquery.min.js  bootstrap-3.3.7-dist/js/
+
+[root@V1 html]# ls  bootstrap-3.3.7-dist/js/
+bootstrap.js  bootstrap.min.js  jquery.min.js  npm.js
+
+[root@V1 html]# head  -2   bootstrap-3.3.7-dist/js/jquery.min.js 
+
+/*! jQuery v2.0.3 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
+//@ sourceMappingURL=jquery.min.map
+
+[root@V1 html]# ls
+bootstrap-3.3.7-dist  index.html         Readme.md  test.php     zidir
+css                   node_modules       test.html  x1.jpg
+favicon.ico           package-lock.json  test.jpg   xshell6.png
+
+[root@V1 html]# scp  -P7920  -r  student@192.168.1.254:/home/student/桌 面/sd_2018/nsd1808/devweb/day02/static/imgs  bootstrap-3.3.7-dist/
+
+[root@V1 html]# ls  bootstrap-3.3.7-dist/fonts/
+glyphicons-halflings-regular.eot  glyphicons-halflings-regular.woff
+glyphicons-halflings-regular.svg  glyphicons-halflings-regular.woff2
+glyphicons-halflings-regular.ttf
+
+[root@V1 html]# ls  bootstrap-3.3.7-dist/css/
+bootstrap.css      bootstrap.min.css.map    bootstrap-theme.min.css
+bootstrap.css.map  bootstrap-theme.css      bootstrap-theme.min.css.map
+bootstrap.min.css  bootstrap-theme.css.map
+
+[root@V1 html]# ls  bootstrap-3.3.7-dist/js/
+bootstrap.js  bootstrap.min.js  jquery.min.js  npm.js
+
+[root@V1 html]# ls  bootstrap-3.3.7-dist/imgs/
+banner.jpg  linux.jpg
+
+[root@V1 html]# ls  bootstrap-3.3.7-dist/
+css  fonts  imgs  js
+
+[root@V1 html]# ls
+bootstrap-3.3.7-dist  index.html         Readme.md  test.php     zidir
+css                   node_modules       test.html  x1.jpg
+favicon.ico           package-lock.json  test.jpg   xshell6.png
+[root@V1 html]# ls    node_modules/
+jquery
+[root@V1 html]# ls    node_modules/jquery/
+AUTHORS.txt  dist      LICENSE.txt   README.md
+bower.json   external  package.json  src
+
+[root@V1 html]# npm   install  migrate
+
+npm WARN saveError ENOENT: no such file or directory, open '/var/www/html/package.json'
+npm WARN enoent ENOENT: no such file or directory, open '/var/www/html/package.json'
+npm WARN html No description
+npm WARN html No repository field.
+npm WARN html No README data
+npm WARN html No license field.
+
++ migrate@1.6.2
+added 20 packages from 13 contributors and audited 22 packages in 5.559s
+found 0 vulnerabilities
+
+[root@V1 html]# echo  $?
+0
+[root@V1 html]# ls
+bootstrap-3.3.7-dist  index.html         Readme.md  test.php     zidir
+css                   node_modules       test.html  x1.jpg
+favicon.ico           package-lock.json  test.jpg   xshell6.png
+[root@V1 html]# ls    node_modules/
+ansi-regex       concat-map            jquery     strip-ansi
+ansi-styles      dateformat            migrate    supports-color
+balanced-match   dotenv                minimatch  unicode
+brace-expansion  escape-string-regexp  minimist
+chalk            has-ansi              mkdirp
+commander        inherits              slug
+[root@V1 html]# 
+
+
+migrate      英 [maɪˈɡreɪt]   美 [ˈmaɪɡreɪt]
+     v.(随季节变化)迁徙;移居;迁移;移动;转移
+
+[root@V1 html]# node   -v
+v10.15.3
+[root@V1 html]# npm     -v
+6.9.0
+[root@V1 html]# ls
+bootstrap-3.3.7-dist  index.html         Readme.md  test.php     zidir
+css                   node_modules       test.html  x1.jpg
+favicon.ico           package-lock.json  test.jpg   xshell6.png
+
+[root@V1 html]# vim    bootcss.html
+
+[root@V1 html]# mv  bootstrap-3.3.7-dist   static
+
+[root@V1 html]# ls
+bootcss.html  index.html         Readme.md  test.jpg  xshell6.png
+css           node_modules       static     test.php  zidir
+favicon.ico   package-lock.json  test.html  x1.jpg
+
+[root@V1 html]# vim    bootcss.html
+
+[root@V1 html]# type  php
+php 是 /usr/bin/php
+[root@V1 html]# php   -v
+PHP 5.4.16 (cli) (built: Oct 30 2018 19:30:51) 
+Copyright (c) 1997-2013 The PHP Group
+Zend Engine v2.4.0, Copyright (c) 1998-2013 Zend Technologies
+[root@V1 html]# rpm  -qf  /usr/bin/php
+php-cli-5.4.16-46.el7.x86_64
+
+Bootstrap环境安装和jQuery安装
+
+https://www.cnblogs.com/shiy/p/6650717.html
+http://jquery.com/download/
+
+https://www.runoob.com/bootstrap/bootstrap-tutorial.html
+
+Bootstrap 教程
+Bootstrap 教程
+Bootstrap，来自 Twitter，是目前最受欢迎的前端框架。
+Bootstrap 是基于 HTML、CSS、JAVASCRIPT 的，它简洁灵活，使得 Web 开发更加快捷。
+
+https://www.runoob.com/bootstrap4/bootstrap4-grid-basic.html
+
+Bootstrap4 网格系统
+Bootstrap 提供了一套响应式、移动设备优先的流式网格系统，随着屏幕或视口（viewport）尺寸的增加，系统会自动分为最多 12 列。
+我们也可以根据自己的需要，定义列数：
+1	1	1	1	1	1	1	1	1	1	1	1
+4	4	4
+4	8
+6	6
+12
+Bootstrap 4 的网格系统是响应式的，列会根据屏幕大小自动重新排列。
+
+网格类
+Bootstrap 4 网格系统有以下 5 个类:
+.col- 针对所有设备
+.col-sm- 平板 - 屏幕宽度等于或大于 576px
+.col-md- 桌面显示器 - 屏幕宽度等于或大于 768px)
+.col-lg- 大桌面显示器 - 屏幕宽度等于或大于 992px)
+.col-xl- 超大桌面显示器 - 屏幕宽度等于或大于 1200px)
+Bootstrap 网格系统如何在不同设备上工作的：
+超小设备
+<576px	平板
+≥576px	桌面显示器
+≥768px	大桌面显示器
+≥992px	超大桌面显示器
+≥1200px
+容器最大宽度	None (auto)	540px	720px	960px	1140px
+类前缀	.col-	.col-sm-	.col-md-	.col-lg-	.col-xl-
+列数量和	12
+间隙宽度	30px （一个列的每边分别 15px）
+
+平板、桌面、大桌面显示器、超大桌面显示器
+以下实例在平板、桌面、大桌面显示器、超大桌面显示器的宽度比例为分别为：25%/75%、50%/50%、33.33%/66.67%、16.67/83.33%, 在移动手机等小型设备上会堆叠显示。
+实例
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-6 col-lg-4 col-xl-2">
+      <p>RUNOOB</p>
+    </div>
+    <div class="col-sm-9 col-md-6 col-lg-8 col-xl-10">
+      <p>菜鸟教程</p>
+    </div>
+  </div>
+</div>
+
+https://www.runoob.com/bootstrap4/bootstrap4-grid-basic.html
+
+
+https://class.qq.com/class/14632.html
+李炎恢老师Bootstrap视频教程
+李炎恢Bootstrap视频教程下载
+http://www.ycku.com/bootstrap/
+
+https://www.jquery123.com/
+
+[root@V1 ~]# ansible  V2  -i  myansi/myhosts   -a  "shutdown  -h  now"
+V2 | UNREACHABLE! => {
+    "changed": false, 
+    "msg": "SSH Error: data could not be sent to remote host \"V2\". Make sure this host can be reached over ssh", 
+    "unreachable": true
+}
+[root@V1 ~]# 
+
+=========================================
+
+[root@V1 ~]# python
+python             python3            python3.6m
+python2            python3.6          python3.6m-config
+python2.7          python3.6-config   python3-config
+
+[root@V1 ~]# type    python
+python 是 /usr/bin/python
+
+[root@V1 ~]# rpm  -qf   /usr/bin/python
+python-2.7.5-68.el7.x86_64
+
+[root@V1 ~]# ll          /usr/bin/python
+lrwxrwxrwx. 1 root root 7 1月  26 12:33 /usr/bin/python -> python2
+[root@V1 ~]# ll    /usr/bin/python2
+lrwxrwxrwx. 1 root root 9 1月  26 12:33 /usr/bin/python2 -> python2.7
+
+[root@V1 ~]# ll    /usr/bin/python2.7 
+-rwxr-xr-x. 1 root root 7216 4月  11 2018 /usr/bin/python2.7
+
+[root@V1 ~]# type   python3
+python3 是 /usr/local/bin/python3
+
+[root@V1 ~]# rpm  -qf     /usr/local/bin/python3
+文件 /usr/local/bin/python3 不属于任何软件包
+
+[root@V1 ~]# ll     /usr/local/bin/python3
+lrwxrwxrwx 1 root root 9 5月  16 19:03 /usr/local/bin/python3 -> python3.6
+[root@V1 ~]# ll     /usr/local/bin/python3.6
+-rwxr-xr-x 2 root root 12728832 5月  16 19:01 /usr/local/bin/python3.6
+
+-------------------------------------  #创建Django项目目录  --------------------------------
+
+[root@V1 ~]# mkdir     djProject       #创建Django项目目录
+
+[root@V1 ~]# chmod   -R    777  djProject/
+
+[root@V1 ~]# ls     -ld    djProject/
+drwxrwxrwx 2 root root 6 5月  26 12:05 djProject/
+
+----------------------------- 创建  #创建Django项目 自定义的 干净 虚拟环境 ----------------------------------
+
+------------- python3.6  -m   venv   新目录名 -------------------
+
+
+[root@V1 ~]# cd     djProject/
+
+[root@V1 djProject]# python3    -m    venv     /root/djProject/djEnv
+
+[root@V1 djProject]# ls
+djEnv
+[root@V1 djProject]# ls     djEnv/
+bin  include  lib  lib64  pyvenv.cfg
+
+[root@V1 djProject]# ls     djEnv/bin/
+activate      activate.fish  easy_install-3.6  pip3    python
+activate.csh  easy_install   pip               pip3.6  python3
+
+[root@V1 djProject]# ll     djEnv/bin/python
+lrwxrwxrwx 1 root root 7 5月  26 12:07 djEnv/bin/python -> python3
+
+[root@V1 djProject]# ll     djEnv/bin/python3
+lrwxrwxrwx 1 root root 22 5月  26 12:07 djEnv/bin/python3 -> /usr/local/bin/python3
+
+[root@V1 djProject]# ll      djEnv/bin/activate
+-rw-r--r-- 1 root root 2199 5月  26 12:07 djEnv/bin/activate
+
+[root@V1 djProject]# ll      /root/djProject/djEnv/bin/activate
+-rw-r--r-- 1 root root 2199 5月  26 12:07 /root/djProject/djEnv/bin/activate
+
+---------------------------------------------- 激活  虚拟环境 -------------------------------
+
+[root@V1 djProject]# source    /root/djProject/djEnv/bin/activate
+(djEnv) [root@V1 djProject]# ls
+djEnv
+
+(djEnv) [root@V1 djProject]# ls     djEnv/
+bin  include  lib  lib64  pyvenv.cfg
+(djEnv) [root@V1 djProject]# 
+
+-------------  pip  freeze   #查看在虚拟环境中安装的所有软件包 ------------
+
+(djEnv) [root@V1 djProject]# ls     djEnv/bin/
+activate      activate.fish  easy_install-3.6  pip3    python
+activate.csh  easy_install   pip               pip3.6  python3
+
+(djEnv) [root@V1 djProject]# ll     djEnv/bin/pip
+-rwxr-xr-x 1 root root 233 5月  26 12:07 djEnv/bin/pip
+
+(djEnv) [root@V1 djProject]# type   pip
+pip 是 /root/djProject/djEnv/bin/pip
+
+(djEnv) [root@V1 djProject]# python   --version
+Python 3.6.7
+
+(djEnv) [root@V1 djProject]# pip     --version      # pip3版本
+pip 10.0.1 from /root/djProject/djEnv/lib/python3.6/site-packages/pip (python 3.6)
+
+(djEnv) [root@V1 djProject]# pip    freeze  #查看在虚拟环境中安装的所有软件包
+
+-------------------------------  #安装模块 ------------------------
+
+(djEnv) [root@V1 djProject]# pip    install    django==1.11.6
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting django==1.11.6
+  Downloading http://pypi.doubanio.com/packages/82/33/f9d2871f3aed5062661711bf91b3ebb03daa52cc0e1c37925f3e0c4508c5/Django-1.11.6-py2.py3-none-any.whl (6.9MB)
+.......................................
+Installing collected packages: pytz, django
+Successfully installed django-1.11.6 pytz-2019.1
+You are using pip version 10.0.1, however version 19.1.1 is available.
+You should consider upgrading via the 'pip install --upgrade pip' command.
+
+--------------  pip   install  --upgrade  pip   #升级 pip3版本 ------------
+
+(djEnv) [root@V1 djProject]# pip    install  --upgrade   pip
+.......................................
+Installing collected packages: pip
+  Found existing installation: pip 10.0.1
+    Uninstalling pip-10.0.1:
+      Successfully uninstalled pip-10.0.1
+Successfully installed pip-19.1.1
+
+(djEnv) [root@V1 djProject]# cat   /root/.pip/pip.conf 
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+-------------  pip  freeze   #查看在虚拟环境中安装的所有软件包 ------------
+
+(djEnv) [root@V1 djProject]# pip    freeze
+Django==1.11.6
+pytz==2019.1
+
+(djEnv) [root@V1 djProject]# python
+
+Python 3.6.7 (default, May 16 2019, 19:00:38) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-36)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+
+>>> import     django
+>>> django.
+django.VERSION           django.unicode_literals
+django.get_version(      django.utils
+django.setup(            
+>>> 
+
+(djEnv) [root@V1 djProject]# pwd
+/root/djProject
+
+(djEnv) [root@V1 djProject]# ls
+djEnv
+(djEnv) [root@V1 djProject]# ls   djEnv/
+bin  include  lib  lib64  pip-selfcheck.json  pyvenv.cfg
+
+(djEnv) [root@V1 djProject]# type  django-admin
+django-admin 是 /root/djProject/djEnv/bin/django-admin
+
+(djEnv) [root@V1 djProject]# ll    /root/djProject/djEnv/bin/django-admin
+-rwxr-xr-x 1 root root 284 5月  26 12:20 /root/djProject/djEnv/bin/django-admin
+
+(djEnv) [root@V1 djProject]# ls   /root/djProject/djEnv/bin/
+
+activate       django-admin     easy_install-3.6  pip3.6       python3
+activate.csh   django-admin.py  pip               __pycache__
+activate.fish  easy_install     pip3              python
+
+
+-------- # django-admin   startproject  mysite   #新建一个django 项目mysite
+
+(djEnv) [root@V1 djProject]# django-admin    startproject    mysite
+
+(djEnv) [root@V1 djProject]# ls    #Django项目目录下的环境目录djEnv，子项目根目录mysite
+djEnv  mysite
+
+(djEnv) [root@V1 djProject]# cd    mysite/     #进入子项目根目录mysite
+
+(djEnv) [root@V1 mysite]# ls
+manage.py  mysite
+
+(djEnv) [root@V1 mysite]# pwd      #子项目路径
+/root/djProject/mysite
+
+(djEnv) [root@V1 mysite]# ls    /root/djProject/mysite/
+manage.py  mysite
+
+(djEnv) [root@V1 mysite]# ls    /root/djProject/mysite/mysite/
+__init__.py  settings.py  urls.py  wsgi.py
+
+(djEnv) [root@V1 mysite]# ls
+manage.py  mysite
+(djEnv) [root@V1 mysite]# ll    manage.py 
+-rwxr-xr-x 1 root root 804 5月  26 12:33 manage.py
+
+---------------------------------------------------------------------------------------------
+
+ python   manage.py   runserver   8800   #开启 django网站 服务
+
+ http://192.168.1.11:8800/ 在火狐浏览器中访问本机
+
+-----------  0.0.0.0:8800 可以简写成　　0:8800 --------------
+
+(djEnv) [root@V1 mysite]# python   manage.py   runserver   0.0.0.0:8800
+
+Performing system checks...
+正在执行系统检查…
+System check identified no issues (0 silenced).
+系统检查未发现问题（0静音）。
+
+silence           英 [ˈsaɪləns]
+    n.寂静;无声;沉默;缄默;默不作声;缄口不谈;拒绝回答
+    v.使安静;使不说话;
+
+You have 13 unapplied migration(s).
+ Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+您有13个未应用的迁移。
+在应用应用程序的迁移（admin、auth、contenttypes、sessions）之前，项目可能无法正常工作。
+运行“python manage.py migrate”以应用它们。
+
+May 26, 2019 - 04:50:27
+Django version 1.11.6, using settings 'mysite.settings'
+Starting development server at http://0.0.0.0:8800/
+Quit the server with CONTROL-C.
+
+http://192.168.1.11:8800/
+
+
+DisallowedHost at /
+
+Invalid HTTP_HOST header: '192.168.1.11:8800'. You may need to add '192.168.1.11' to ALLOWED_HOSTS.
+
+Request Method: 	GET
+Request URL: 	http://192.168.1.11:8800/
+Django Version: 	1.11.6
+Exception Type: 	DisallowedHost
+Exception Value: 	
+
+Invalid HTTP_HOST header: '192.168.1.11:8800'. You may need to add '192.168.1.11' to ALLOWED_HOSTS.
+
+Exception Location: 	/root/djProject/djEnv/lib/python3.6/site-packages/django/http/request.py in get_host, line 113
+Python Executable: 	/root/djProject/djEnv/bin/python
+Python Version: 	3.6.7
+Python Path: 	
+
+['/root/djProject/mysite',
+ '/usr/local/lib/python36.zip',
+ '/usr/local/lib/python3.6',
+ '/usr/local/lib/python3.6/lib-dynload',
+ '/root/djProject/djEnv/lib/python3.6/site-packages']
+
+Server time: 	Sun, 26 May 2019 04:52:16 +0000
+Traceback Switch to copy-and-paste view 
+.......................
+You're seeing this error because you have DEBUG = True in your Django settings file. 
+Change that to False, and Django will display a standard page generated by the handler for this status code. 
+您看到此错误是因为您在Django设置文件中的debug=true。
+将其更改为False，Django将显示处理程序为此状态代码生成的标准页。 
+
+(djEnv) [root@V1 mysite]# python   manage.py   runserver   0.0.0.0:8800
+
+Performing system checks...
+正在执行系统检查…
+..............................................
+
+[26/May/2019 04:52:17] "GET /favicon.ico HTTP/1.1" 400 62359
+
+^C(djEnv) [root@V1 mysite]# pwd
+/root/djProject/mysite
+
+----------------------------------------------------------------------------
+
+
+(djEnv) [root@V1 mysite]# ls
+db.sqlite3  manage.py  mysite
+
+(djEnv) [root@V1 mysite]# pip    freeze
+Django==1.11.6
+pytz==2019.1
+
+-------------------------  #安装 pymysql　模块 ----------------
+
+(djEnv) [root@V1 mysite]# pip    install   pymysql  #安装 pymysql　模块
+
+Looking in indexes: http://pypi.doubanio.com/simple/
+Collecting pymysql
+  Downloading http://pypi.doubanio.com/packages/ed/39/15045ae46f2a123019aa968dfcba0396c161c20f855f11dea6796bcaae95/PyMySQL-0.9.3-py2.py3-none-any.whl (47kB)
+     |████████████████████████████████| 51kB 3.0MB/s 
+Installing collected packages: pymysql
+Successfully installed pymysql-0.9.3
+(djEnv) [root@V1 mysite]# pip    freeze
+Django==1.11.6
+PyMySQL==0.9.3
+pytz==2019.1
+(djEnv) [root@V1 mysite]# 
+
+----------------------------------------------------------------------------
+
+
+[root@V1 ~]# cd  djProject/
+
+[root@V1 djProject]# pip3   freeze
+ansible-cmdb==1.30
+asn1crypto==0.24.0
+bcrypt==3.1.6
+certifi==2019.3.9
+cffi==1.12.3
+chardet==3.0.4
+cryptography==2.6.1
+Django==1.11.20
+idna==2.8
+jsonxs==0.6
+Mako==1.0.10
+MarkupSafe==1.1.1
+paramiko==2.4.2
+pyasn1==0.4.5
+pycparser==2.19
+pyflakes==2.1.1
+PyMySQL==0.9.3
+PyNaCl==1.3.0
+pytz==2019.1
+PyYAML==5.1
+requests==2.21.0
+six==1.12.0
+SQLAlchemy==1.3.3
+tornado==6.0.2
+urllib3==1.24.3
+ushlex==0.99.1
+
+[root@V1 djProject]# ls
+djEnv  mysite
+[root@V1 djProject]# ls   djEnv/lib/python3.6/site-packages/django/
+apps  contrib  dispatch  __init__.py  __pycache__   templatetags  utils
+bin   core     forms     __main__.py  shortcuts.py  test          views
+conf  db       http      middleware   template      urls
+
+[root@V1 djProject]# ls   djEnv/lib/python3.6/site-packages/django/http/
+cookie.py    multipartparser.py  request.py
+__init__.py  __pycache__         response.py
+
+[root@V1 djProject]# cat   djEnv/lib/python3.6/site-packages/django/http/request.py 
+
+100         allowed_hosts = settings.ALLOWED_HOSTS
+101         if settings.DEBUG and not allowed_hosts:
+102             allowed_hosts = ['localhost', '127.0.0.1', '[::1]']
+103 
+104         domain, port = split_domain_port(host)
+105         if domain and validate_host(domain, allowed_hosts):
+106             return host
+107         else:
+108             msg = "Invalid HTTP_HOST header: %r." % host
+109             if domain:
+110                 msg += " You may need to add %r to ALLOWED_HOSTS." %     domain
+111             else:
+112                 msg += " The domain name provided is not valid accord    ing to RFC 1034/1035."
+113             raise DisallowedHost(msg)
+114 
+
+silence           英 [ˈsaɪləns]
+    n.寂静;无声;沉默;缄默;默不作声;缄口不谈;拒绝回答
+    v.使安静;使不说话;
+
+[root@V1 djProject]# ls
+djEnv  mysite
+[root@V1 djProject]# pwd
+/root/djProject
+[root@V1 djProject]# cd  /root/djProject/mysite/
+
+[root@V1 mysite]# rpm   -q   tk-devel
+tk-devel-8.5.13-6.el7.x86_64
+
+[root@V1 mysite]# rpm    -q  sqlite-devel
+sqlite-devel-3.7.17-8.el7.x86_64
+
+[root@V1 mysite]# pwd
+/root/djProject/mysite
+
+[root@V1 mysite]# ls
+db.sqlite3  manage.py  mysite
+
+[root@V1 mysite]# systemctl   is-active  mariadb
+active
+[root@V1 mysite]# systemctl   is-enabled  mariadb
+enabled
+
+[root@V1 mysite]# grep  -Env  '^#|^$'   /etc/my.cnf
+
+1:[client]
+2:default-character-set=utf8
+3:[mysqld]
+4:character-set-server=utf8
+5:datadir=/var/lib/mysql
+6:socket=/var/lib/mysql/mysql.sock
+8:symbolic-links=0
+14:[mysqld_safe]
+15:log-error=/var/log/mariadb/mariadb.log
+16:pid-file=/var/run/mariadb/mariadb.pid
+21:!includedir /etc/my.cnf.d
+
+[root@V1 mysite]# type  mysql
+mysql 是 /usr/bin/mysql
+
+[root@V1 mysite]# rpm   -qf   /usr/bin/mysql
+mariadb-5.5.60-1.el7_5.x86_64
+
+[root@V1 mysite]# rpm  -q    mariadb-server
+mariadb-server-5.5.60-1.el7_5.x86_64
+
+[root@V1 mysite]# mysql -uroot -p123 -e "create  database  django  default  charset  utf8;"
+
+[root@V1 mysite]# mysql -uroot -p123 -e  "show create  database  django;"
+
++----------+-----------------------------------------------------------------+
+| Database | Create Database           |
++----------+-----------------------------------------------------------------+
+| django   | CREATE DATABASE `django` /*!40100 DEFAULT CHARACTER SET utf8 */ |
++----------+-----------------------------------------------------------------+
+
+[root@V1 mysite]# mysql  -uroot  -p123   -e   "show  databases;"
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| django             |
+| mysql              |
+| performance_schema |
+| test               |
+| zabbix             |
++--------------------+
+[root@V1 mysite]# pwd
+/root/djProject/mysite
+
+[root@V1 mysite]# ls
+db.sqlite3  manage.py  mysite
+[root@V1 mysite]# ls  ../
+djEnv  mysite
+[root@V1 mysite]# ls   /root/djProject/mysite/mysite/
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+
+
+[root@V1 djProject]# head  -4   /root/djProject/mysite/mysite/settings.py 
+"""
+Django settings for mysite project.
+
+Generated by 'django-admin startproject' using Django 1.11.6.
+[root@V1 djProject]# 
+
+
+[root@V1 mysite]# vim    /root/djProject/mysite/mysite/settings.py 
+
+ 73 # Database
+ 74 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+ 75 
+ 76 DATABASES = {
+ 77     'default': {
+ 78         'ENGINE': 'django.db.backends.sqlite3',
+ 79         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+ 80     }
+ 81 }
+
+https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+
+When connecting to other database backends, 
+such as MySQL, Oracle, or PostgreSQL, additional connection parameters will be required. 
+See the ENGINE setting below on how to specify other database types. 
+This example is for PostgreSQL:
+当连接到其他数据库后端时，
+如mysql、oracle或postgresql，需要额外的连接参数。
+请参阅下面的引擎设置，了解如何指定其他数据库类型。
+此示例适用于PostgreSQL：
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydatabase',
+        'USER': 'mydatabaseuser',
+        'PASSWORD': 'mypassword',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+
+ 74 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+ 75 
+ 76 DATABASES = {
+ 77     'default': {
+ 78         'ENGINE': 'django.db.backends.mysql',
+ 79         'NAME': 'django',
+ 80         'USER': 'root',
+ 81         'PASSWORD': '123',
+ 82         'HOST': '127.0.0.1',
+ 83         'PORT': '3306',
+ 84     }
+ 85 }
+ 86 
+
+(djEnv) [root@V1 mysite]# ls  /root/djProject/djEnv/lib/python3.6/site-packages/
+django                   pymysql
+Django-1.11.6.dist-info  PyMySQL-0.9.3.dist-info
+easy_install.py          pytz
+pip                      pytz-2019.1.dist-info
+pip-19.1.1.dist-info     setuptools
+pkg_resources            setuptools-39.0.1.dist-info
+__pycache__
+
+(djEnv) [root@V1 mysite]# pip    freeze
+Django==1.11.6
+PyMySQL==0.9.3
+pytz==2019.1
+
+(djEnv) [root@V1 mysite]# ls  /root/djProject/djEnv/lib/python3.6/site-packages/pymysql/
+_auth.py    connections.py  cursors.py   optionfile.py  _socketio.py
+charset.py  constants       err.py       protocol.py    times.py
+_compat.py  converters.py   __init__.py  __pycache__    util.py
+
+
+[root@V1 djProject]# find  /root/djProject/djEnv/lib/python3.6/site-packages/ |xargs  grep  -lri  "install_as_MySQLdb"  |grep   ".py$"
+
+/root/djProject/djEnv/lib/python3.6/site-packages/pymysql/__init__.py
+...........................
+
+[root@V1 djProject]# cat   /root/djProject/djEnv/lib/python3.6/site-packages/pymysql/__init__.py
+
+120 def install_as_MySQLdb():
+121     """
+122     After this function is called, any application that imports MySQLdb or
+123     _mysql will unwittingly actually use pymysql.
+124     """
+125     sys.modules["MySQLdb"] = sys.modules["_mysql"] = sys.modules["pymysql"]
+......................
+128 __all__ = [
+129     'BINARY', 'Binary', 'Connect', 'Connection', 'DATE', 'Date',
+......................
+139     "install_as_MySQLdb",
+140     "NULL", "__version__",
+141 ]
+
+
+[root@V1 djProject]# ls  mysite/mysite/
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+
+[root@V1 djProject]# vim   mysite/mysite/__init__.py 
+
+[root@V1 djProject]# cat    -n   mysite/mysite/__init__.py
+     1	import   pymysql
+     2	pymysql.install_as_MySQLdb()
+[root@V1 djProject]# 
+[root@V1 mysite]# sed  -n  '75,86p;'   /root/djProject/mysite/mysite/settings.py
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django',
+        'USER': 'root',
+        'PASSWORD': '123',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
+
+[root@V1 mysite]# pwd
+/root/djProject/mysite
+
+[root@V1 mysite]# ls
+db.sqlite3  manage.py  mysite
+
+[root@V1 mysite]# file    db.sqlite3 
+db.sqlite3: SQLite 3.x database
+[root@V1 mysite]# ll     db.sqlite3
+-rw-r--r-- 1 root root 3072 5月  26 12:50 db.sqlite3
+
+[root@V1 mysite]# rm    -f    db.sqlite3
+[root@V1 mysite]# ls
+manage.py  mysite
+
+
+(djEnv) [root@V1 mysite]# pwd
+/root/djProject/mysite
+(djEnv) [root@V1 mysite]# ls
+manage.py  mysite
+
+---------   python   manage.py   runserver   0:8800  #开启 django网站 服务
+
+(djEnv) [root@V1 mysite]# python   manage.py   runserver   0:8800
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 13 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+
+May 26, 2019 - 06:23:12
+Django version 1.11.6, using settings 'mysite.settings'
+Starting development server at http://0:8800/
+Quit the server with CONTROL-C.
+
+[root@V1 mysite]# ll
+总用量 4
+-rwxr-xr-x 1 root root 804 5月  26 12:33 manage.py
+drwxr-xr-x 3 root root  93 5月  26 14:18 mysite
+
+
+(djEnv) [root@V1 mysite]# python   manage.py   runserver   0:8800
+.....................
+[26/May/2019 06:28:03] "GET / HTTP/1.1" 400 62500
+Invalid HTTP_HOST header: '192.168.1.11:8800'. You may need to add '192.168.1.11' to ALLOWED_HOSTS.
+[26/May/2019 06:28:55] "GET / HTTP/1.1" 400 62365
+CommandError: You must set settings.ALLOWED_HOSTS if DEBUG is False.
+
+(djEnv) [root@V1 mysite]# ls
+manage.py  mysite
+(djEnv) [root@V1 mysite]# vim   mysite/settings.py 
+ 26 DEBUG = False    #必须改成 默认的　True
+ 27 
+ 28 ALLOWED_HOSTS = ['192.168.1.11',]
+ 28 ALLOWED_HOSTS = ['192.168.1.11', '192.168.1.254']
+
+[root@V1 djProject]# vim     mysite/mysite/settings.py
+
+[root@V1 djProject]# grep  -En  "^DEBUG =|^ALLOWED_HOSTS ="   mysite/mysite/settings.py
+26:DEBUG = True
+28:ALLOWED_HOSTS = [ '*' ]  #['你的域名']
+
+[root@V1 djProject]# grep  -En  "^DEBUG =|^ALLOWED_HOSTS ="   mysite/mysite/settings.py
+
+26:DEBUG = True
+28:ALLOWED_HOSTS = [ '192.168.1.11', '192.168.1.12', '192.168.1.254' ]
+
+(djEnv) [root@V1 mysite]# python   manage.py   runserver   0:8800
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 13 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+
+May 26, 2019 - 06:40:15
+Django version 1.11.6, using settings 'mysite.settings'
+Starting development server at http://0:8800/
+Quit the server with CONTROL-C.
+
+...................
+
+[root@V1 mysite]# ls   mysite/
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+
+[root@V1 mysite]# grep  -nE   "^DEBUG =|^ALLOWED_HOSTS ="   mysite/settings.py 
+26:DEBUG = True
+28:ALLOWED_HOSTS = [ '192.168.1.11', '192.168.1.12', '192.168.1.254' ]
+
+这个字符串列表值 表示
+当下这个Django站点可以提供的host/domain(主机/域名)。这是一种安全措施
+ALLOWED_HOSTS是为了限定请求中的host值，
+以防止黑客构造包来发送请求。只有在列表中的host才能访问。
+
+[root@V1 djProject]# cat    -n   mysite/mysite/__init__.py
+     1	import   pymysql
+     2	pymysql.install_as_MySQLdb()
+[root@V1 djProject]# sed  -n  '75,86p;'   /root/djProject/mysite/mysite/settings.py
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django',
+        'USER': 'root',
+        'PASSWORD': '123',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
+
+[root@V1 djProject]# 
+[root@V1 djProject]# mysql  -uroot  -p123  -e "
+> select  distinct concat
+> ('userName: ''',user,'''@''',host,'''Password: ''',password,''';')
+> from  mysql.user;"
++------------------------------------------------------------------------------------+
+| concat
+('userName: ''',user,'''@''',host,'''Password: ''',password,''';')          |
++------------------------------------------------------------------------------------+
+| userName: 'root'@'localhost'Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; |
+| userName: 'root'@'%'Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257';         |
+| userName: 'zabbix'@'%'Password: '*DEEF4D7D88CD046ECA02A80393B7780A63E7E789';       |
++------------------------------------------------------------------------------------+
+
+mysql  -uroot  -p123  -e "
+select  distinct concat
+('userName: ''',user,'''@''',host,'''Password: ''',password,''';')
+from  mysql.user;"
+====================================
+
+[root@V1 mysite]# vim     mysite/settings.py
+
+110 LANGUAGE_CODE = 'en-us'
+110 LANGUAGE_CODE = 'zh-hans'
+
+112 TIME_ZONE = 'UTC'
+112 TIME_ZONE = 'Asia/Shanghai'
+
+[root@V1 mysite]# grep  -nE   "^(DEBUG|ALLOWED_HOSTS|LANGUAGE_CODE|TIME_ZONE)"   mysite/settings.py 
+26:DEBUG = True
+28:ALLOWED_HOSTS = [ '192.168.1.11', '192.168.1.12', '192.168.1.254' ]
+110:LANGUAGE_CODE = 'zh-hans'
+112:TIME_ZONE = 'Asia/Shanghai'
+
+http://192.168.1.11:8800/
+It worked!
+Congratulations on your first Django-powered page.
+
+http://192.168.1.11:8800/
+
+正常工作了！
+祝贺你的第一个由Django驱动的页面。
+
+接下来运行你的第一个程序 python manage.py startapp [app_label].
+
+您看到此消息是由于Django的配置文件设置了 DEBUG = True，您还没有配置任何路由URL。开始工作吧。
+
+[root@V1 mysite]# mysql  -uroot  -p123  -D django  -e  "select  database();"
++------------+
+| database() |
++------------+
+| django     |
++------------+
+[root@V1 mysite]# mysql  -uroot  -p123  -D django  -e  "show  tables;"
++-------------------+
+| Tables_in_django  |
++-------------------+
+| django_migrations |
++-------------------+
+[root@V1 mysite]# ls
+manage.py  mysite
+
+---------------------------- #迁移Django储存模型   生成数据库   ----------------------
+----------------  python3   manage.py   migrate   -----------
+
+[root@V1 mysite]# python3  /root/djProject/mysite/manage.py  migrate
+
+System check identified some issues:
+
+WARNINGS:
+?: (mysql.W002) MySQL Strict Mode is not set for database connection 'default'
+	HINT: MySQL's Strict Mode fixes many data integrity problems in MySQL, such as data truncation upon insertion, by escalating warnings into errors. It is strongly recommended you activate it. See: https://docs.djangoproject.com/en/1.11/ref/databases/#mysql-sql-mode
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, sessions
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying sessions.0001_initial... OK
+[root@V1 mysite]# echo  $?
+0
+[root@V1 mysite]# mysql  -uroot  -p123  -D django  -e  "show  tables;"
++----------------------------+
+| Tables_in_django           |
++----------------------------+
+| auth_group                 |
+| auth_group_permissions     |
+| auth_permission            |
+| auth_user                  |
+| auth_user_groups           |
+| auth_user_user_permissions |
+| django_admin_log           |
+| django_content_type        |
+| django_migrations          |
+| django_session             |
++----------------------------+
+[root@V1 mysite]# 
+
+[root@V1 mysite]# ls
+manage.py  mysite
+------　注意　#建立管理员用户，必须先迁移Django储存模型  真正生成数据库 ，　这里会报错－－－－
+
+[root@V1 mysite]# python3  /root/djProject/mysite/manage.py  createsuperuser
+..............
+    raise errorclass(errno, errval)
+django.db.utils.ProgrammingError: (1146, "Table 'django.auth_user' doesn't exist")
+[root@V1 mysite]# echo  $?
+1
+
+^C(djEnv) [root@V1 mysite]# pwd
+/root/djProject/mysite
+(djEnv) [root@V1 mysite]# ls
+manage.py  mysite
+
+------------- python3   manage.py   createsuperuser #建立管理员用户
+
+(djEnv) [root@V1 mysite]# python3   manage.py   createsuperuser
+
+Username (leave blank to use 'root'): admin
+Email address: admin@qq.com
+Password: Abc123.yes
+Password (again): Abc123.yes
+Superuser created successfully.
+(djEnv) [root@V1 mysite]# 
+(djEnv) [root@V1 mysite]# python3   manage.py  runserver  0.0.0.0:8800
+Performing system checks...
+
+System check identified no issues (0 silenced).
+May 26, 2019 - 15:50:27
+Django version 1.11.6, using settings 'mysite.settings'
+Starting development server at http://0.0.0.0:8800/
+Quit the server with CONTROL-C.
+
+
+Abc123.yes
+
+Abc123.yes
+
+192.168.1.11:8800/admin
+http://192.168.1.11:8800/admin/login/?next=/admin/
+
+Django 管理
+用户名:
+admin
+
+密码:
+Abc123.yes
+http://192.168.1.11:8800/admin/auth/user/
+
+Django 管理
+欢迎， admin. 查看站点 / 修改密码 / 注销
+首页 › 认证和授权 › 用户 
+
+[root@V1 mysite]# mysql  -uroot  -p123  -D django  -e  "select *  from  django.auth_user\G;"
+
+*************************** 1. row ***************************
+          id: 1
+    password: pbkdf2_sha256$36000$FJKr1jawdVIL$yNKtOyMpKaOeHpdDCVt50syuwzNyocN3pnOjxQhQlIk=
+  last_login: 2019-05-26 07:51:21
+is_superuser: 1
+    username: admin
+  first_name: 
+   last_name: 
+       email: admin@qq.com
+    is_staff: 1
+   is_active: 1
+ date_joined: 2019-05-26 07:48:38
+[root@V1 mysite]# 
+
+
+------------ python3  manage.py  startapp  polls #新开一个应用 polls -----------
+
+[root@V1 mysite]# pwd
+/root/djProject/mysite
+
+[root@V1 mysite]# ls
+manage.py  mysite
+------------------------------------ #新开一个应用 polls -----------
+
+[root@V1 mysite]# python3  /root/djProject/mysite/manage.py  startapp  polls
+
+[root@V1 mysite]# ls
+manage.py  mysite  polls
+
+poll      英 [pəʊl]   美 [poʊl]  
+    n.民意测验;民意调查;选举投票;计票;投票数
+    v.获得(票数);
+
+[root@V1 mysite]# ls   polls/
+admin.py  apps.py  __init__.py  migrations  models.py  tests.py  views.py
+
+[root@V1 mysite]# ls   mysite/
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+
+-------------------- 把应用polls 添加到 mysite项目中
+
+[root@V1 mysite]# vim   /root/djProject/mysite/mysite/settings.py 
+
+ 33 INSTALLED_APPS = [
+ 34     'django.contrib.admin',
+ 35     'django.contrib.auth',
+ 36     'django.contrib.contenttypes',
+ 37     'django.contrib.sessions',
+ 38     'django.contrib.messages',
+ 39     'django.contrib.staticfiles',
+ 40     'polls',
+ 41 ]
+
+[root@V1 mysite]# ls   mysite/
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+
+#配置路由 URLConf 
+用户访问网址时，
+根据djProject/mysite/mysite/urls.py 查找使用哪个视图函数处理
+在文件djProject/mysite/mysite/urls.py 中授权
+把　http://192.168.1.11/polls/开头的网址，交给 polls/urls.py处理
+-----------------------  #新建文件 polls/urls.py -------------
+vim   /root/djProject/mysite/polls/urls.py 
+
+[root@V1 djProject]# ls  /root/djProject/djEnv/lib/python3.6/site-packages/django/contrib/
+
+admin      contenttypes  humanize     postgres     sessions  staticfiles
+admindocs  flatpages     __init__.py  __pycache__  sitemaps  syndication
+auth       gis           messages     redirects    sites
+
+[root@V1 djProject]# ls  /root/djProject/djEnv/lib/python3.6/site-packages/django/conf/
+
+app_template        __init__.py  project_template  urls
+global_settings.py  locale       __pycache__
+
+[root@V1 djProject]# ls  /root/djProject/djEnv/lib/python3.6/site-packages/django/conf/urls/
+
+i18n.py  __init__.py  __pycache__  static.py
+
+[root@V1 djProject]# egrep   -nA1   '^def (include|url)'  /root/djProject/djEnv/lib/python3.6/site-packages/django/conf/urls/__init__.py
+
+19:def include(arg, namespace=None, app_name=None):
+20-    if app_name and not namespace:
+--
+77:def url(regex, view, kwargs=None, name=None):
+78-    if isinstance(view, (list, tuple)):
+
+
+[root@V1 djProject]# ls  /root/djProject/mysite/
+manage.py  mysite  polls
+[root@V1 djProject]# ls  /root/djProject/mysite/mysite/
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+
+[root@V1 mysite]# vim   /root/djProject/mysite/mysite/urls.py 
+
+ 16 from django.conf.urls import url, include
+ 17 from django.contrib import admin
+ 18 
+ 19 urlpatterns = [
+ 20     url(r'^admin/', admin.site.urls),
+ 21     url(r'^polls/', include('polls.urls'))
+ 22 ]
+
+[root@V1 mysite]# tail   -8   /root/djProject/mysite/mysite/urls.py 
+"""
+from django.conf.urls import url, include
+from django.contrib import admin
+
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'^polls/', include('polls.urls')) 
+]
+[root@V1 mysite]# 
+
+[root@V1 djProject]# python
+Python 2.7.5 (default, Apr 11 2018, 07:36:10) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-28)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> winpath =  'C:\tmp'
+>>> print(winpath)
+C:	mp
+>>> winpath =  r'C:\tmp'
+>>> print(winpath)
+C:\tmp
+>>> winpath =  'C:\\tmp'
+>>> print(winpath)
+C:\tmp
+>>> 
+[root@V1 djProject]# ls   /root/djProject/mysite/polls/views.py 
+/root/djProject/mysite/polls/views.py
+
+[root@V1 djProject]# ls  /root/djProject/mysite/
+manage.py  mysite  polls
+
+#django项目基础目录默认设置是manage.py文件所在的目录/root/djProject/mysite/
+
+
+-----------------------  #新建文件 polls/urls.py -------------
+
+[root@V1 mysite]# vim   /root/djProject/mysite/polls/urls.py 
+  1 """
+  2 [root@V1 djProject]# ls  /root/djProject/mysite/polls/
+  3 admin.py  __init__.py  models.py    tests.py  views.py
+  4 apps.py   migrations   __pycache__  urls.py
+  5 [root@V1 djProject]# ls  /root/djProject/mysite/
+  6 manage.py  mysite  polls
+  7 #django项目基础目录默认设置是manage.py文件所在的目录/root/djProject/mysit    e/
+  8 """
+  9 from django.conf.urls import url
+ 10 from  .  import   views   #相对路径导入模块
+ 11 urlpatterns = [
+ 12   #使用index函数响应http://192.168.1.11/polls/主页请求，
+ 13   #该url的名字(name)是index
+ 14   url(r'^$', views.index, name='index')  #http://192.168.1.11/polls/
+ 15 ]
+
+
+[root@V1 djProject]# cat  /root/djProject/djEnv/lib/python3.6/site-packages/django/shortcuts.py
+
+  6 from django.http import (
+  7     Http404, HttpResponse, HttpResponsePermanentRedirect, HttpResponseRedirect,
+  8 )
+  9 from django.template import loader
+ 10 from django.urls import NoReverseMatch, reverse
+ 11 from django.utils import six
+ 12 from django.utils.encoding import force_text
+ 13 from django.utils.functional import Promise
+
+
+[root@V1 djProject]# grep  -n  '^def render'  /root/djProject/djEnv/lib/python3.6/site-packages/django/shortcuts.py
+
+16:def render_to_response(template_name, context=None, content_type=None, status=None, using=None):
+
+25:def render(request, template_name, context=None, content_type=None, status=None, using=None):
+
+[root@V1 djProject]# vim   /root/djProject/mysite/polls/views.py
+
+  1 from django.shortcuts import render, HttpResponse
+  2 
+  3 # Create your views here.
+  4 #request形参必须提供，表示用户的请求
+  5 def   index(request):
+  6   return  HttpResponse('<h1>Polls OK</h1>')
+  7 
+
+[root@V1 mysite]# ls   /root/djProject/mysite/polls/
+
+admin.py  __init__.py  models.py    tests.py  views.py
+apps.py   migrations   __pycache__  urls.py
+
+(djEnv) [root@V1 mysite]# pip    freeze
+Django==1.11.6
+PyMySQL==0.9.3
+pytz==2019.1
+(djEnv) [root@V1 mysite]# 
+
+[root@V1 djProject]# ls  /root/djProject/djEnv/lib/python3.6/site-packages/django/db/
+
+backends  __init__.py  migrations  models  __pycache__  transaction.py  utils.py
+
+[root@V1 djProject]# ls  /root/djProject/djEnv/lib/python3.6/site-packages/django/db/models/
+
+aggregates.py  deletion.py     functions    lookups.py  __pycache__     signals.py
+base.py        expressions.py  indexes.py   manager.py  query.py        sql
+constants.py   fields          __init__.py  options.py  query_utils.py  utils.py
+
+[root@V1 djProject]# cat   /root/djProject/djEnv/lib/python3.6/site-packages/django/db/models/fields/__init__.py
+
+1057 class CharField(Field):
+1058     description = _("String (up to %(max_length)s)")
+
+1314 class DateTimeField(DateField):
+1315     empty_strings_allowed = False
+
+1804 class IntegerField(Field):
+1805     empty_strings_allowed = False
+
+
+
+[root@V1 mysite]# ls
+manage.py  mysite  polls
+
+[root@V1 mysite]# ls  polls/
+admin.py  __init__.py  models.py    tests.py  views.py
+apps.py   migrations   __pycache__  urls.py
+
+publish       英 [ˈpʌblɪʃ]
+      v.出版;发行;(在报刊)发表，刊登，登载;(在互联网上)发表，公布
+vote         英 [vəʊt]
+     n.选票;票;投票;选举;表决;投票总数;
+
+[root@V1 mysite]# vim    polls/models.py 
+[root@V1 mysite]# pyflakes   polls/models.py
+
+[root@V1 mysite]# cat   -n   polls/models.py
+
+     1	from django.db import models
+     2	#import django.utils.timezone as timezone
+     3	
+     4	# Create your models here.
+     5	class  Question(models.Model):
+     6	  question_text = models.CharField(max_length=200)
+     7	  publish_date = models.DateTimeField('date  published')
+     8	
+     9	class  Choice(models.Model):
+    10	  choice_text = models.CharField(max_length=200)
+    11	  votes = models.IntegerField(default=0)
+    12	  question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    13	
+[root@V1 mysite]# 
+..................
+Django version 1.11.6, using settings 'mysite.settings'
+Starting development server at http://0.0.0.0:8800/
+Quit the server with CONTROL-C.
+^C(djEnv) [root@V1 mysite]# 
+(djEnv) [root@V1 mysite]# ls
+manage.py  mysite  polls
+
+/**********************************
+python manage.py makemigrations
+这个命令是
+记录我们对models.py的所有改动，
+并且将这个改动迁移到migrations这个文件夹下生成一个文件
+0001_initial.py文件，
+如果你接下来还要进行改动的话可能生成就是
+另外一个文件不一定都是0001文件，
+但是这个命令并没有作用到数据库
+makemigrations只是生成了迁移文件,
+并未真正的反馈到数据库中
+**********************************/
+
+(djEnv) [root@V1 mysite]# python   manage.py    makemigrations
+
+Migrations for 'polls':
+  polls/migrations/0001_initial.py
+    - Create model Choice
+    - Create model Question
+    - Add field question to choice
+
+--------------------------------#迁移Django储存模型  真正生成数据库 ----------------------
+
+(djEnv) [root@V1 mysite]# python   manage.py    migrate
+
+System check identified some issues:
+
+WARNINGS:
+?: (mysql.W002) MySQL Strict Mode is not set for database connection 'default'
+	HINT: MySQL's Strict Mode fixes many data integrity problems in MySQL, such as data truncation upon insertion, by escalating warnings into errors. It is strongly recommended you activate it. See: https://docs.djangoproject.com/en/1.11/ref/databases/#mysql-sql-mode
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, polls, sessions
+Running migrations:
+  Applying polls.0001_initial... OK
+(djEnv) [root@V1 mysite]# 
+
+[root@V1 mysite]# ls
+manage.py  mysite  polls
+
+[root@V1 mysite]# ls    polls/
+admin.py  __init__.py  models.py    tests.py  views.py
+apps.py   migrations   __pycache__  urls.py
+
+[root@V1 mysite]# ls    polls/migrations/
+0001_initial.py  __init__.py  __pycache__
+
+[root@V1 mysite]# ll   polls/migrations/0001_initial.py 
+-rw-r--r-- 1 root root 1235 5月  26 18:38 polls/migrations/0001_initial.py
+
+/*****　旧的　表数据# mysql  -uroot  -p123  -D django  -e  "show  tables;"
++----------------------------+
+| Tables_in_django           |
++----------------------------+
+| auth_group                 |
+| auth_group_permissions     |
+| auth_permission            |
+| auth_user                  |
+| auth_user_groups           |
+| auth_user_user_permissions |
+| django_admin_log           |
+| django_content_type        |
+| django_migrations          |
+| django_session             |
++----------------------------+
+************/
+ [root@V1 djProject]# mysql  -uroot  -p123  -D django  -e "
+> show   tables;"
++----------------------------+
+| Tables_in_django           |
++----------------------------+
+| auth_group                 |
+| auth_group_permissions     |
+| auth_permission            |
+| auth_user                  |
+| auth_user_groups           |
+| auth_user_user_permissions |
+| django_admin_log           |
+| django_content_type        |
+| django_migrations          |
+| django_session             |
+| polls_choice   | #多出一张表polls_choice 外键question_id 注意:最后的"_id"是自动追加的外键标志
+| polls_question             | #多出一张表 polls_question 
++----------------------------+
+
+[root@V1 djProject]# mysql  -uroot  -p123  -D django  -e "
+> select   *  from   polls_choice;"
+[root@V1 djProject]# mysql  -uroot  -p123  -D django  -e "
+select   *  from   polls_question;"
+[root@V1 djProject]# 
+[root@V1 djProject]# mysql  -uroot  -p123  -D django  -e  "desc   polls_choice;"
+
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+| choice_text | varchar(200) | NO   |     | NULL    |                |
+| votes       | int(11)      | NO   |     | NULL    |                |
+| question_id | int(11)      | NO   | MUL | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+外键question_id 注意:最后的"_id"是自动追加的外键标志
+[root@V1 mysite]# cat   -n   polls/models.py
+ 12	  question = models.ForeignKey(Question, on_delete=models.CASCADE)
+
+[root@V1 djProject]# mysql  -uroot  -p123  -D django  -e "show  create  table   polls_choice;"
+
+| Table        | Create Table   |
+| polls_choice | CREATE TABLE `polls_choice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `choice_text` varchar(200) NOT NULL,
+  `votes` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `polls_choice_question_id_c5b4b260_fk_polls_question_id` (`question_id`),
+  CONSTRAINT `polls_choice_question_id_c5b4b260_fk_polls_question_id` FOREIGN KEY (`question_id`) REFERENCES `polls_question` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 |
+
+
+
+[root@V1 djProject]# mysql  -uroot  -p123  -D django  -e "desc   polls_question;"
+
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| id            | int(11)      | NO   | PRI | NULL    | auto_increment |
+| question_text | varchar(200) | NO   |     | NULL    |                |
+| publish_date  | datetime     | NO   |     | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+[root@V1 djProject]# 
+
+/******************************************
+(djEnv) [root@V1 mysite]# ls
+manage.py  mysite  polls
+
+(djEnv) [root@V1 mysite]# python   manage.py    makemigrations
+Migrations for 'polls':
+  polls/migrations/0001_initial.py
+    - Create model Choice
+    - Create model Question
+    - Add field question to choice
+
+(djEnv) [root@V1 mysite]# python   manage.py    migrate
+
+System check identified some issues:
+
+WARNINGS:
+?: (mysql.W002) MySQL Strict Mode is not set for database connection 'default'
+	HINT: MySQL's Strict Mode fixes many data integrity problems in MySQL, such as data truncation upon insertion, by escalating warnings into errors. It is strongly recommended you activate it. See: https://docs.djangoproject.com/en/1.11/ref/databases/#mysql-sql-mode
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, polls, sessions
+Running migrations:
+  Applying polls.0001_initial... OK
+
+**********************/
+
+(djEnv) [root@V1 mysite]# python3   manage.py  runserver  0.0.0.0:8800
+
+Performing system checks...
+
+System check identified no issues (0 silenced).
+May 26, 2019 - 19:12:49
+Django version 1.11.6, using settings 'mysite.settings'
+Starting development server at http://0.0.0.0:8800/
+Quit the server with CONTROL-C.
+
+[root@V1 mysite]# ls   
+manage.py  mysite  polls
+[root@V1 mysite]# ls   polls/
+admin.py  __init__.py  models.py    tests.py  views.py
+apps.py   migrations   __pycache__  urls.py
+
+[root@V1 mysite]# vim   polls/admin.py 
+[root@V1 mysite]# cat   -n   polls/admin.py
+
+     1	from django.contrib import admin
+     2	from    .models   import  Question, Choice
+     3	# Register your models here.
+     4	admin.site.register(Question)
+     5	admin.site.register(Choice)
+
+[root@V1 mysite]# 
+http://192.168.1.11:8800/admin/
+
+Choices      增加      修改
+Questions    增加      修改
+
+[root@V1 mysite]# vim   polls/models.py 
+
+[root@V1 mysite]# cat   -n   polls/models.py
+
+     1	from django.db import models
+     2	#import django.utils.timezone as timezone
+     3	
+     4	# Create your models here.
+     5	class  Question(models.Model):
+     6	  question_text = models.CharField(max_length=200)
+     7	  publish_date = models.DateTimeField('date  published')
+     8	
+     9	  def  __str__(self):
+    10	    return  self.question_text
+    11	
+    12	class  Choice(models.Model):
+    13	  choice_text = models.CharField(max_length=200)
+    14	  votes = models.IntegerField(default=0)
+    15	  question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    16	
+[root@V1 mysite]# 
+
+
+https://down.51cto.com/
+Django By Example
+
+https://down.51cto.com/search.php?q=Django+By+Example
+
+[root@V1 ~]# scp  -P7920   -r   djProject/   student@192.168.1.254:/home/student/devweb1-6/Djangojs/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
