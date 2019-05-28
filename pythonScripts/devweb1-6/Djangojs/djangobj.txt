@@ -2164,8 +2164,35 @@ Quit the server with CONTROL-C.
 ...............................
 
 
+[root@V1 mysite]# find  /  -type d  -iname  "*site-packages*"
+/root/djProject/djEnv/lib/python3.6/site-packages
+/root/ansible/Python-2.7.8/Lib/site-packages
+/root/Python-3.6.7/Lib/site-packages
+/usr/lib/python2.7/site-packages
+/usr/lib64/python2.7/site-packages
+/usr/local/lib/python3.6/site-packages
 
+[root@V1 mysite]# ls  /root/djProject/djEnv/lib/python3.6/site-packages/django/
+apps  contrib  dispatch  __init__.py  __pycache__   templatetags  utils
+bin   core     forms     __main__.py  shortcuts.py  test          views
+conf  db       http      middleware   template      urls
 
+[root@V1 mysite]# ls  /usr/local/lib/python3.6/site-packages/
+ansiblecmdb
+ansible_cmdb-1.30-py3.6.egg-info
+..........
+
+[root@V1 mysite]# ll  /usr/local/lib/python3.6/datetime.py -rw-r--r-- 1 root root 80647 5月  16 19:01 /usr/local/lib/python3.6/datetime.py
+[root@V1 mysite]# grep  -n  '^class timedelta'   /usr/local/lib/python3.6/datetime.py
+337:class timedelta:
+[root@V1 mysite]# grep  -n  '^class '   /usr/local/lib/python3.6/datetime.py
+337:class timedelta:
+659:class date:
+954:class tzinfo:
+1024:class time:
+1361:class datetime(date):
+1961:class timezone(tzinfo):
+[root@V1 mysite]# 
 
 
 
