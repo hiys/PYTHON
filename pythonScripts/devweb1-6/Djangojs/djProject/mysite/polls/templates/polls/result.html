@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--STATUS OK-->
+<html lang="zh-CN">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+<!-- <link rel="icon" href="./favicon.ico">- -->
+  <title>polls-result投票结果</title>
+ </head>
+ <body>
+  <div>
+{# queston 是django函数传过来的变量名 #}
+{# 注释  <p> {{ question }} <p> #}
+   <table>
+    <tr>
+     <td  colspan='2'>
+      {{ question.question_text }}
+     </td>
+    </tr>
+    {% for c  in question.choice_set.all %}
+     <tr>
+      <td>{{ c.choice_text }}</td>
+      <td>得票数:{{ c.votes }}</td>
+     </tr>
+    {% endfor %}
+   </table>
+   <hr/>
+   <p> --------result --------</p>
+  </div>
+ </body>
+</html>
+

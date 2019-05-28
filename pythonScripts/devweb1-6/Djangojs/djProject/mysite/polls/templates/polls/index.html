@@ -1,3 +1,4 @@
+{%  load  staticfiles %}
 <!DOCTYPE html>
 <!--STATUS OK-->
 <html lang="zh-CN">
@@ -6,14 +7,37 @@
   <meta name="description" content="">
 <!-- <link rel="icon" href="./favicon.ico">- -->
   <title>polls主页标题</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <!-- Site CSS -->
+<!--  <link href="http://192.168.1.11:80/static/css/bootstrap.min.css" rel="stylesheet"/> -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+{#  <link  href="{% static 'css/bootstrap.min.css' %}"  rel="stylesheet"/> #}
  </head>
  <body>
-  <div>
+  <div class="container  h5">
 {# questons 是django函数传过来的变量名 #}
-   <p> {{ questions }} <p>
+{# JavaScript模板引擎 #}
+{# <p> {{ questions }} </p> #}
+   <ul>
+    {% for  question in  questions %}
+      <li>
+{#     <a href="http://192.168.1.11:80/polls/{{ question.id }}"> #}
+       <a href="{% url 'detail' question_id=question.id %}">
+         {{ question.question_text }}</a>&nbsp;
+       {{ question.publish_date }}</li>
+    {% endfor %}
+   </ul>
    <hr/>
-   <p> -------- --------</p>
+   <p> --------polls主页标题 polls/templates/polls/index.html  --------</p>
   </div>
+{#  <script src="http://192.168.1.11:8800/static/js/jquery.min.js"> #}
+  <script src="{% static 'js/jquery.min.js' %}">
+
+  </script>
+{#  <script src="http://192.168.1.11:8800/static/js/bootstrap.min.js"> #}
+  <script src="{% static 'js/bootstrap.min.js' %}">
+
+  </script>
  </body>
 </html>
 
