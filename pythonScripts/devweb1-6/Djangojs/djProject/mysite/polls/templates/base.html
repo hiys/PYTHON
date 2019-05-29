@@ -1,0 +1,44 @@
+{%  load  staticfiles %}
+<!DOCTYPE html>
+<!--STATUS OK-->
+<html lang="zh-CN">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+<!-- <link rel="icon" href="./favicon.ico">- -->
+  <title>{% block title %}{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <!-- Site CSS -->
+<!--  <link href="http://192.168.1.11:80/static/css/bootstrap.min.css" rel="stylesheet"/> -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+{#  <link  href="{% static 'css/bootstrap.min.css' %}"  rel="stylesheet"/> #}
+ </head>
+ <body>
+  <div class="container  h3">
+{# JavaScript模板引擎 #}
+   <div class="row">
+    <div class="col-md-12">
+     {% block  content %}
+     {% endblock %}
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12 text-center text-primary">
+     "在{# #}中的注释文字不会显示在网页上{# JavaScript模板引擎 #}"<br/>
+     <a href='http://192.168.1.11' target="_blank"> 超级链接网址</a>
+    </div>
+   </div>
+   <hr/>
+   <p> -------- polls/templates/base.html --------</p>
+  </div>
+{#  <script src="http://192.168.1.11:8800/static/js/jquery.min.js"> #}
+  <script src="{% static 'js/jquery.min.js' %}">
+
+  </script>
+{#  <script src="http://192.168.1.11:8800/static/js/bootstrap.min.js"> #}
+  <script src="{% static 'js/bootstrap.min.js' %}">
+
+  </script>
+ </body>
+</html>
+

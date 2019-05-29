@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!--STATUS OK-->
+<html lang="zh-CN">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+<!-- <link rel="icon" href="./favicon.ico">- -->
+  <title>home页</title>
+ </head>
+ <body>
+  <form  action="{% url  'login' %}"  method="post">
+   <label>用户名: </label><input  type="text" name="username" /><br/>
+   <label>密码: </label><input type="password"  name="password"/><br/>
+   <input  type="submit"   value="登录"/>
+  </form>
+  <div>
+   home页 登录访问
+   <p> -------- myapp/templates/home.html --------</p>
+  </div>
+ </body>
+</html>

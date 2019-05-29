@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!--STATUS OK-->
+<html lang="zh-CN">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+<!-- <link rel="icon" href="./favicon.ico">- -->
+  <title>message留言</title>
+ </head>
+ <body>
+<!--  <form action="/myapp/hello" method="post"> -->
+  <form action="" method="post">
+   <textarea  name="liuyan"  id=""  cols="50" rows="8">
+   </textarea><br/>
+   <input  type="submit"   value="提交"/>
+  </form>
+  <div>
+   {%  if  msgs %}
+    {% for   msg  in msgs %}
+     <p>{{ msg.msg }}{{ msg.publish_date }}</p>
+    {% endfor %}
+   {% endif %}
+   <p> -------- myapp/templates/message.html --------</p>
+  </div>
+ </body>
+</html>

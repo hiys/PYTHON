@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<!--STATUS OK-->
-<html lang="zh-CN">
- <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="">
-<!-- <link rel="icon" href="./favicon.ico">- -->
-  <title>polls-detail投票详情</title>
- </head>
- <body>
-  <div>
-{# queston 是django函数传过来的变量名 #}
-{#   <p> {{ question }} <p> #}
+{%  extends 'base.html' %}
+{%  block title %}polls-detail投票详情{% endblock %}
+{% block content %}
   <form action="{% url 'vote' question_id=question.id %}" method="post">
    <p>{{ queston.question_text }}</p>
    {%  for  c  in  question.choice_set.all %}
@@ -21,9 +11,7 @@
    <input  type="submit"   value="提交"/>
   </form>
 {#  <a href="http://192.168.1.11:8800/polls">返回首页</a> #}
-  <a href="{% url  'index' %}">返回首页</a> 
-   <p> --------detail --------</p>
-  </div>
- </body>
-</html>
+  <a href="{% url  'index' %}">返回首页</a>
+   <p> -------- polls/templates/polls/detail.html --------</p>
+{% endblock %}
 

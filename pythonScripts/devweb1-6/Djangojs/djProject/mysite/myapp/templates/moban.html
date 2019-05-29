@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--STATUS OK-->
+<html lang="zh-CN">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+<!-- <link rel="icon" href="./favicon.ico">- -->
+  <title>moban页</title>
+ </head>
+ <body>
+  <div>
+   {{ mystr }} mystr<br/>
+   <hr/>
+   {{ mylist }}<br/>
+   {% for  name in mylist %}
+     name: <b> {{ name }} </b><br/>
+   {%  endfor %}
+   <hr/>
+   {{ mylist.1}} mylist.1<br/>
+   <hr/>
+   {{mynum }}mynum<br/>
+   <hr/>
+   {{ mydict }}mydict<br/>
+   <hr/>
+   {{ mydict.bob }}mydict.bob<br/>
+   <hr/>
+   {% for  name,age in mydict.items %}
+     {{ name }} : {{ age }} <br/>
+   {%  endfor %}
+  </div>
+ </body>
+</html>
+
