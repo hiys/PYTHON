@@ -1,0 +1,1454 @@
+
+
+scp  -P7920  -r   mysite/  testvote.py   student@192.168.1.254:/home/student/devweb1-6/Djangojs/djProject/
+
+
+cd  djProject/
+
+source    /root/djProject/djEnv/bin/activate #激活虚拟环境
+
+pip   freeze   　　　#查看模块包
+
+cd  mysite/
+
+python  manage.py  runserver  0:8800 #开启django网站服务
+
+
+#＃----------- cd  mysite/ 进入项目根目录　django项目基础目录
+
+--------------------  进入python shell 模式 ---------------
+
+(djEnv) [root@V1 mysite]# python   manage.py    shell
+===========================================
+
+mysql  -uroot  -p123  -D django -e "
+select *  from  polls_question;"
+
+mysql  -uroot  -p123  -D django -e "
+select *  from  polls_choice;"
+
+
+[student@room10pc15 ~]$ ssh  -X  root@192.168.1.11
+
+[root@V1 ~]# tty 
+/dev/pts/0
+[root@V1 ~]# tty 
+/dev/pts/1
+[root@V1 ~]# tty 
+/dev/pts/2
+[root@V1 ~]# tty 
+/dev/pts/3
+[root@V1 ~]# tty 
+/dev/pts/4
+[root@V1 ~]# tty 
+/dev/pts/5
+[root@V1 ~]# tty 
+/dev/pts/6
+[root@V1 ~]# tty 
+/dev/pts/7
+
+[root@V1 ~]# cd  djProject/
+
+[root@V1 djProject]# source    /root/djProject/djEnv/bin/activate #激活 虚拟环境
+
+(djEnv) [root@V1 djProject]# pip   freeze   　　　#查看模块包
+Django==1.11.6
+PyMySQL==0.9.3
+pytz==2019.1
+
+(djEnv) [root@V1 djProject]# cd  mysite/
+
+(djEnv) [root@V1 mysite]# python  manage.py  runserver  0:8800 #开启django网站服务
+Performing system checks...
+
+System check identified no issues (0 silenced).
+May 29, 2019 - 11:07:28
+Django version 1.11.6, using settings 'mysite.settings'
+Starting development server at http://0:8800/
+Quit the server with CONTROL-C.
+
+
+
+[root@V1 ~]# cd  djProject/mysite/
+
+[root@V1 mysite]# ls  ../
+djEnv  mysite  testvote.py
+
+[root@V1 mysite]# ls
+manage.py  mysite  polls
+
+[root@V1 mysite]# ls   mysite/
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+
+[root@V1 mysite]# ls   polls/
+admin.py  __init__.py  models.py    static     tests.py  views.py
+apps.py   migrations   __pycache__  templates  urls.py
+
+[root@V1 mysite]# ls   polls/static/
+css  fonts  imgs  js
+
+[root@V1 mysite]# ls   polls/static/js/
+bootstrap.js  bootstrap.min.js  jquery.min.js  npm.js
+
+[root@V1 mysite]# ls   polls/templates/polls/
+detail.html  index.html  result.html
+
+[root@V1 mysite]# mysql  -uroot  -p123  -D django -e "
+> select *  from  polls_question;"
++----+--------------------------------------------+---------------------+
+| id | question_text                              | publish_date        |
++----+--------------------------------------------+---------------------+
+|  1 | 第一次创业，期待结果是什么？               | 2019-05-26 11:25:00 |
+|  2 | 业余爱好是哪些？                           | 2019-05-24 16:00:00 |
+|  3 | 开源思想是指哪些？                         | 2019-05-27 13:18:00 |
+|  4 | 中秋节日几号                               | 2019-03-29 13:19:00 |
+|  5 | 上海明天气温预测?                          | 2019-05-27 15:17:53 |
+|  6 | 什么时候收货利润?                          | 2019-05-27 15:22:50 |
++----+--------------------------------------------+---------------------+
+[root@V1 mysite]# 
+[root@V1 mysite]# mysql  -uroot  -p123  -D django -e "
+> select *  from  polls_choice;"
++----+----------------------------+-------+-------------+
+| id | choice_text                | votes | question_id |
++----+----------------------------+-------+-------------+
+|  1 | 15000以上                  |     1 |           1 |
+|  2 | 听音乐                     |     0 |           2 |
+|  3 | 培养出20个专业人才         |     2 |           1 |
+|  4 | 看玄幻小说                 |     0 |           2 |
+|  5 | 旅游看海                   |    14 |           2 |
+|  6 | 两年内投资回本             |     1 |           1 |
+|  7 | 吃月饼                     |     0 |           4 |
+|  8 | 19                         |     0 |           5 |
+|  9 | 25                         |     3 |           5 |
++----+----------------------------+-------+-------------+
+[root@V1 mysite]# 
+
+[root@V1 mysite]# vim   polls/templates/polls/index.html 
+
+[root@V1 mysite]# ls   polls/templates/polls/
+detail.html  index.html  result.html
+
+[root@V1 mysite]# cp  polls/templates/polls/detail.html{,.bak}
+[root@V1 mysite]# cp  polls/templates/polls/index.html{,.bak}
+[root@V1 mysite]# cp  polls/templates/polls/result.html{,.bak}
+
+[root@V1 mysite]# ls   polls/templates/polls/
+detail.html      index.html      result.html
+detail.html.bak  index.html.bak  result.html.bak
+
+[root@V1 mysite]# cp   polls/templates/polls/index.html   polls/templates/base.html
+
+[root@V1 mysite]# ls  polls/templates/
+base.html  polls
+[root@V1 mysite]# vim    polls/templates/base.html
+[root@V1 mysite]# cat  -n   polls/templates/base.html
+     1	{%  load  staticfiles %}
+     2	<!DOCTYPE html>
+     3	<!--STATUS OK-->
+     4	<html lang="zh-CN">
+     5	 <head>
+     6	  <meta charset="UTF-8">
+     7	  <meta name="description" content="">
+     8	<!-- <link rel="icon" href="./favicon.ico">- -->
+     9	  <title>{% block title %}{% endblock %}</title>
+    10	  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    11	  <!-- Site CSS -->
+    12	<!--  <link href="http://192.168.1.11:80/static/css/bootstrap.min.css" rel="stylesheet"/> -->
+    13	  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"/>
+    14	{#  <link  href="{% static 'css/bootstrap.min.css' %}"  rel="stylesheet"/> #}
+    15	 </head>
+    16	 <body>
+    17	  <div class="container  h3">
+    18	{# JavaScript模板引擎 #}
+    19	   <div class="row">
+    20	    <div class="col-md-12">
+    21	     {% block  content %}
+    22	     {% endblock %}
+    23	    </div>
+    24	   </div>
+    25	   <div class="row">
+    26	    <div class="col-md-12 text-center text-primary">
+    27	     "在{# #}中的注释文字不会显示在网页上{# JavaScript模板引擎 #}"<br/>
+    28	     <a href='http://192.168.1.11' target="_blank"> 超级链接网址</a>
+    29	    </div>
+    30	   </div>
+    31	   <hr/>
+    32	   <p> -------- polls/templates/base.html --------</p>
+    33	  </div>
+    34	{#  <script src="http://192.168.1.11:8800/static/js/jquery.min.js"> #}
+    35	  <script src="{% static 'js/jquery.min.js' %}">
+    36	
+    37	  </script>
+    38	{#  <script src="http://192.168.1.11:8800/static/js/bootstrap.min.js"> #}
+    39	  <script src="{% static 'js/bootstrap.min.js' %}">
+    40	
+    41	  </script>
+    42	 </body>
+    43	</html>
+    44	
+[root@V1 mysite]# 
+
+[root@V1 mysite]# ls   polls/templates/polls/
+detail.html      index.html      result.html
+detail.html.bak  index.html.bak  result.html.bak
+
+[root@V1 mysite]# vim  polls/templates/polls/index.html
+
+[root@V1 mysite]# cat  -n  polls/templates/polls/index.html
+     1	{% extends 'base.html' %}
+     2	{% block title %}polls主页index.html{% endblock %}
+     3	{% block  content %}
+     4	   <ul>
+     5	    {% for  question in  questions %}
+     6	      <li>
+     7	{#     <a href="http://192.168.1.11:80/polls/{{ question.id }}"> #}
+     8	       <a href="{% url 'detail' question_id=question.id %}">
+     9	         {{ question.question_text }}</a>&nbsp;
+    10	       {{ question.publish_date }}</li>
+    11	    {% endfor %}
+    12	   </ul>
+    13	<p> -------- polls/templates/polls/index.html --------</p>
+    14	{% endblock %}
+    15	
+[root@V1 mysite]#
+
+[root@V1 mysite]# vim  polls/templates/polls/detail.html
+
+[root@V1 mysite]# cat  -n  polls/templates/polls/detail.html
+     1	{%  extends 'base.html' %}
+     2	{%  block title %}polls-detail投票详情{% endblock %}
+     3	{% block content %}
+     4	  <form action="{% url 'vote' question_id=question.id %}" method="post">
+     5	   <p>{{ queston.question_text }}</p>
+     6	   {%  for  c  in  question.choice_set.all %}
+     7	    <label>
+     8	     <input  type="radio" name="c_id"  value="{{ c.id  }}"/>{{ c.choice_text }}
+     9	    </label>
+    10	   {%  endfor %}
+    11	   <input  type="submit"   value="提交"/>
+    12	  </form>
+    13	{#  <a href="http://192.168.1.11:8800/polls">返回首页</a> #}
+    14	  <a href="{% url  'index' %}">返回首页</a>
+    15	   <p> -------- polls/templates/polls/detail.html --------</p>
+    16	{% endblock %}
+    17	
+[root@V1 mysite]# 
+
+[root@V1 mysite]# vim   polls/templates/polls/result.html
+
+[root@V1 mysite]# cat  -n   polls/templates/polls/result.html
+     1	{% extends 'base.html' %}
+     2	{% block title %}result投票结果{% endblock %}
+     3	{% block content %}
+     4	   <table class="table table-striped table-hover">
+     5	    <tr class="info">
+     6	     <td  colspan='2'>
+     7	      {{ question.question_text }}
+     8	     </td>
+     9	    </tr>
+    10	    {% for c  in question.choice_set.all %}
+    11	     <tr>
+    12	      <td>{{ c.choice_text }}</td>
+    13	      <td>得票数:{{ c.votes }}</td>
+    14	     </tr>
+    15	    {% endfor %}
+    16	   </table>
+    17	   <a href="{% url  'index' %}">从result.html返回首页index.html</a>
+    18	   <hr/>
+    19	   <p> -------- polls/templates/polls/result.html --------</p>
+    20	{% endblock %}
+    21	
+[root@V1 mysite]# 
+
+•  项目中已存在urls.py,说明如下:
+urlpatterns = [
+url(r'^admin/', admin.site.urls),
+url(r'^hello/$', hello, name='aa', {'age':12,} ),
+]
+views.py:
+def hello(request):
+return HttpResponse("hello world!!!")
+
+==========================
+
+from django.conf.urls import url
+from  .  import   views   #相对路径导入模块
+urlpatterns = [   
+  #使用index函数响应http://192.168.1.11:8800/polls/主页请求，
+  #该url的名字(name)是index
+  url(r'^$', views.index, name='index'),  #http://192.168.1.11:8800/polls/
+] 
+
+
+
+提取参数
+•  URL本身可以用于传递信息,
+该信息不符合HTTP协议,
+是非 标准化化信息,
+需要依赖框架来解释。
+Django通过正则匹配 分组的方法,获取各段的信息
+#urls.py
+url(r'^student/(?P<nameX>\w+)/(?P<ageY>\w+)/$',test1, name='aa', {'keyx1':'vy1'}),
+
+#views.py
+def test1(request, nameX='', ageY='')
+
+
+[root@V1 mysite]# tail   -12  /root/djProject/mysite/polls/urls.py 
+
+from django.conf.urls import url
+from  .  import   views   #相对路径导入模块
+urlpatterns = [
+  #使用index函数响应http://192.168.1.11:8800/polls/主页请求，
+  #该url的名字(name)是index
+  url(r'^$', views.index, name='index'),  #http://192.168.1.11:8800/polls/
+  #(?P<question_id>\d+)表示把(\d+)这个分组的内容保存到变量question_id中，并且把变量question_id作为函数views.detail的参数
+  url(r'(?P<question_id>\d+)/$', views.detail, name='detail'), #http://192.168.1.11:8800/polls/1/
+  url(r'(?P<question_id>\d+)/result/$', views.result, name='result'), #http://192.168.1.11:8800/polls/3/result/
+  url(r'(?P<question_id>\d+)/vote/$', views.vote, name='vote'),
+]
+
+[root@V1 mysite]# tail   -12  /root/djProject/mysite/polls/views.py 
+
+def   result(request, question_id):
+  question = get_object_or_404(Question, id=question_id)
+  return  render(request, 'polls/result.html', {'question': question})
+
+def   vote(request, question_id):
+  choice_id = request.POST.get('c_id')
+  c = get_object_or_404(Choice, id=choice_id)
+  c.votes += 1
+  c.save()
+  return  redirect('result', question_id=question_id)
+
+
+[root@V1 mysite]# cat  -n    /root/djProject/mysite/polls/views.py 
+     1	from django.shortcuts import (render, HttpResponse, 
+     2	get_object_or_404, redirect)
+     3	from   .models   import   Question, Choice
+     4	
+     5	# Create your views here.
+     6	#request形参必须提供，表示用户的请求http://192.168.1.11:8800/polls/
+     7	#def   index(request):
+     8	#  return  HttpResponse('<h1>Polls OK</h1>')
+     9	
+    10	#为polls主页编写视图函数
+    11	def   index(request):
+    12	  questions = Question.objects.all()
+    13	#>>> from    polls.models   import  (Question, Choice)
+    14	#>>> Question.objects.all()
+    15	#<QuerySet [<Question: 第一次创业，期待结果是什么？>, <Question: 业余爱好是哪些？>, <Question: 开源思想是指哪些？>, <Question: 中秋节日几号>, <Question: 上海明天气温预测?>, <Question: 什么时候收货利润?>]>
+    16	
+    17	  return  render(request, 'polls/index.html', {'questions': questions})
+    18	  #向用户返回一个网页(模板),{'questions': questions}字典是传给网页的数据
+    19	
+    20	def   detail(request, question_id):
+    21	#  question = Question.objects.get(id= question_id)
+    22	  question = get_object_or_404(Question, id=question_id)
+    23	  return  render(request, 'polls/detail.html', {'question': question})
+    24	
+    25	def   result(request, question_id):
+    26	  question = get_object_or_404(Question, id=question_id)
+    27	  return  render(request, 'polls/result.html', {'question': question})
+    28	
+    29	def   vote(request, question_id):
+    30	  choice_id = request.POST.get('c_id')
+    31	  c = get_object_or_404(Choice, id=choice_id)
+    32	  c.votes += 1
+    33	  c.save()
+    34	  return  redirect('result', question_id=question_id)
+    35	
+[root@V1 mysite]# 
+
+
+
+•  模板中可以使用的元素有:
+–  变量,使用 {{ variable }} 的格式
+–  标签/指令,使用 {% ... %}的格式
+–  字符串:{ } 之外的任何东西,都当做字符串处理
+
+=================================
+
+(djEnv) [root@V1 djProject]# cat   /root/.pip/pip.conf 
+[global]
+index-url = http://pypi.doubanio.com/simple/
+[install]
+trusted-host = pypi.doubanio.com
+
+-------------------------------------  #创建Django项目目录  --------------------------------
+
+mkdir     djProject       #创建Django项目目录
+chmod   -R    777  djProject/
+
+cd  djProject/
+
+----------------------------- 创建Django项目 自定义的 干净 虚拟环境 ----------------------------------
+------------- python3.6  -m   venv   新目录名 -------------------
+
+python3    -m    venv     /root/djProject/djEnv
+
+source    /root/djProject/djEnv/bin/activate #激活虚拟环境
+
+-------------  pip  freeze   #查看在虚拟环境中安装的所有软件包 -----------
+pip   freeze   　　　#查看模块包
+
+   -------------------------  #安装模块 ------------------------
+(djEnv) [root@V1 djProject]# pip    install    django==1.11.6
+
+--------------  pip   install  --upgrade  pip   #升级 pip3版本 ------------
+(djEnv) [root@V1 djProject]# pip    install  --upgrade   pip
+
+
+-------------  pip  freeze   #查看在虚拟环境中安装的所有软件包 ------------
+
+(djEnv) [root@V1 djProject]# pip    freeze
+Django==1.11.6
+pytz==2019.1
+
+-------- # django-admin   startproject  mysite   #新建一个django 项目mysite
+(djEnv) [root@V1 djProject]# django-admin    startproject    mysite
+
+
+cd  mysite/      #进入项目根目录　django项目基础目录
+
+-------------------------  #安装 pymysql　模块 ----------------
+(djEnv) [root@V1 mysite]# pip    install   pymysql  #安装 pymysql　模块
+
+(djEnv) [root@V1 mysite]# pip    freeze
+Django==1.11.6
+PyMySQL==0.9.3
+pytz==2019.1
+
+[root@V1 mysite]# systemctl   is-active  mariadb
+active
+[root@V1 mysite]# systemctl   is-enabled  mariadb
+enabled
+
+[root@V1 mysite]# grep  -Env  '^#|^$'   /etc/my.cnf
+1:[client]
+2:default-character-set=utf8
+3:[mysqld]
+4:character-set-server=utf8
+5:default-time_zone = '+08:00'
+6:datadir=/var/lib/mysql
+7:socket=/var/lib/mysql/mysql.sock
+9:symbolic-links=0
+15:[mysqld_safe]
+16:log-error=/var/log/mariadb/mariadb.log
+17:pid-file=/var/run/mariadb/mariadb.pid
+22:!includedir /etc/my.cnf.d
+
+[root@V1 mysite]# rpm  -q    mariadb-server
+mariadb-server-5.5.60-1.el7_5.x86_64
+
+[root@V1 mysite]# mysql -uroot -p123 -e "create  database  django  default  charset  utf8;"
+
+[root@V1 mysite]# mysql -uroot -p123 -e  "show create  database  django;"
+
+
+python  manage.py  runserver  0:8800 #开启django网站服务
+
+ http://192.168.1.11:8800/ 在火狐浏览器中访问本机
+-----------  0.0.0.0:8800 可以简写成　　0:8800 --------------
+
+[root@V1 mysite]# vim    /root/djProject/mysite/mysite/settings.py 
+
+[root@V1 djProject]# vim   mysite/mysite/__init__.py 
+
+[root@V1 djProject]# cat    -n   mysite/mysite/__init__.py
+     1	import   pymysql
+     2	pymysql.install_as_MySQLdb()
+[root@V1 djProject]# 
+[root@V1 mysite]# sed  -n  '75,86p;'   /root/djProject/mysite/mysite/settings.py
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django',
+        'USER': 'root',
+        'PASSWORD': '123',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
+
+[root@V1 mysite]# rm    -f    db.sqlite3
+
+---------   python   manage.py   runserver   0:8800  #开启 django网站 服务
+
+(djEnv) [root@V1 mysite]# python   manage.py   runserver   0:8800
+
+[root@V1 djProject]# mysql  -uroot  -p123  -e "
+> select  distinct concat
+> ('userName: ''',user,'''@''',host,'''Password: ''',password,''';')
+> from  mysql.user;"
++------------------------------------------------------------------------------------+
+| concat
+('userName: ''',user,'''@''',host,'''Password: ''',password,''';')          |
++------------------------------------------------------------------------------------+
+| userName: 'root'@'localhost'Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257'; |
+| userName: 'root'@'%'Password: '*23AE809DDACAF96AF0FD78ED04B6A265E05AA257';         |
+| userName: 'zabbix'@'%'Password: '*DEEF4D7D88CD046ECA02A80393B7780A63E7E789';       |
++------------------------------------------------------------------------------------+
+
+---------------------------- #迁移Django储存模型   生成数据库   ----------------------
+----------------  python3   manage.py   migrate   -----------
+
+[root@V1 mysite]# python3  /root/djProject/mysite/manage.py  migrate
+
+
+[root@V1 mysite]# mysql  -uroot  -p123  -D django  -e  "show  tables;"
+
+
+------------- python3   manage.py   createsuperuser #建立管理员用户
+
+(djEnv) [root@V1 mysite]# python3   manage.py   createsuperuser
+
+Username (leave blank to use 'root'): admin
+Email address: admin@qq.com
+Password: Abc123.yes
+Password (again): Abc123.yes
+Superuser created successfully.
+
+(djEnv) [root@V1 mysite]# python3   manage.py  runserver  0.0.0.0:8800
+
+[root@V1 mysite]# mysql  -uroot  -p123  -D django  -e  "select *  from  django.auth_user\G;"
+
+------------------------------------ #新开一个应用 polls -----------
+
+[root@V1 mysite]# python3  /root/djProject/mysite/manage.py  startapp  polls
+
+-------------------- 把应用polls 添加到 mysite项目中
+
+[root@V1 mysite]# vim   /root/djProject/mysite/mysite/settings.py 
+
+
+[root@V1 mysite]# vim   /root/djProject/mysite/mysite/urls.py 
+
+-----------------------  #新建文件 polls/urls.py -------------
+
+[root@V1 mysite]# vim   /root/djProject/mysite/polls/urls.py 
+
+[root@V1 mysite]# vim    polls/models.py 
+[root@V1 mysite]# pyflakes   polls/models.py
+
+(djEnv) [root@V1 mysite]# python   manage.py    makemigrations
+
+
+--------------------------------#迁移Django储存模型  真正生成数据库 ----------------------
+
+(djEnv) [root@V1 mysite]# python   manage.py    migrate
+
+
+[root@V1 djProject]# mysql  -uroot  -p123  -D django  -e "
+> select   *  from   polls_choice;"
+[root@V1 djProject]# mysql  -uroot  -p123  -D django  -e "
+select   *  from   polls_question;"
+[root@V1 djProject]# 
+[root@V1 djProject]# mysql  -uroot  -p123  -D django  -e  "desc   polls_choice;"
+
+[root@V1 djProject]# mysql  -uroot  -p123  -D django  -e "desc   polls_question;"
+
+
+(djEnv) [root@V1 mysite]# python3   manage.py  runserver  0.0.0.0:8800
+
+[root@V1 mysite]# vim   polls/admin.py 
+
+http://192.168.1.11:8800/admin/
+
+[root@V1 djProject]# vim   /etc/my.cnf
+[root@V1 djProject]# head   -7   /etc/my.cnf
+
+[root@V1 djProject]# systemctl   restart    mariadb
+
+[root@V1 djProject]# mysql  -uroot  -p123   -e "show  variables like '%time_zone%';"
+
+[root@V1 djProject]# vim     mysite/mysite/settings.py 
+
+====================================
+====================================
+
+-------------------------------------  #创建Django项目目录  --------------------------------
+
+mkdir     djProject       #创建Django项目目录
+chmod   -R    777  djProject/
+
+cd  djProject/
+
+----------------------------- 创建Django项目 自定义的 干净 虚拟环境 ----------------------------------
+------------- python3.6  -m   venv   新目录名 -------------------
+
+python3    -m    venv     /root/djProject/djEnv
+
+
+source    /root/djProject/djEnv/bin/activate #激活虚拟环境
+
+(djEnv) [root@V1 djProject]# cd  mysite/
+(djEnv) [root@V1 mysite]# 
+(djEnv) [root@V1 mysite]# python  manage.py  runserver  0:8800 #开启django网站服务
+
+ ^C(djEnv) [root@V1 mysite]# reset
+(djEnv) [root@V1 mysite]# ls
+manage.py  mysite  polls
+(djEnv) [root@V1 mysite]# cd  ../
+(djEnv) [root@V1 djProject]# ls
+djEnv  mysite  testvote.py
+(djEnv) [root@V1 djProject]# pwd
+/root/djProject
+
+-------- # django-admin   startproject  mysite   #新建一个django 项目 mysite
+(djEnv) [root@V1 djProject]# django-admin  startproject  mysite
+
+CommandError: '/root/djProject/mysite' already exists
+
+(djEnv) [root@V1 djProject]# ls
+djEnv  mysite  testvote.py
+
+(djEnv) [root@V1 djProject]# cd  mysite/
+
+/***
+# mysql -uroot -p123 -e "create  database  django  default  charset  utf8;"
+****/
+
+------------------------------------ #新开一个应用 myapp -----------
+
+(djEnv) [root@V1 mysite]# ls
+manage.py  mysite  polls
+(djEnv) [root@V1 mysite]# python3  /root/djProject/mysite/manage.py  startapp  myapp
+
+(djEnv) [root@V1 mysite]# ls
+manage.py  myapp  mysite  polls
+
+(djEnv) [root@V1 mysite]# cat  mysite/__init__.py 
+import   pymysql
+pymysql.install_as_MySQLdb()
+
+-------------------- 把应用 myapp 添加到 mysite项目中
+
+[root@V1 mysite]# vim   /root/djProject/mysite/mysite/settings.py 
+
+ 26 DEBUG = True
+ 27 
+ 28 ALLOWED_HOSTS = [ '192.168.1.11', '192.168.1.12', '192.168.1.254' ]
+ 29 
+ 33 INSTALLED_APPS = [
+ 34     'django.contrib.admin',
+ 35     'django.contrib.auth',
+ 36     'django.contrib.contenttypes',
+ 37     'django.contrib.sessions',
+ 38     'django.contrib.messages',
+ 39     'django.contrib.staticfiles',
+ 40     'polls',
+ 41     'myapp',
+ 42 ]
+ 43 
+ 44 MIDDLEWARE = [
+ 45     'django.middleware.security.SecurityMiddleware',
+ 46     'django.contrib.sessions.middleware.SessionMiddleware',
+ 47     'django.middleware.common.CommonMiddleware',
+ 48 #    'django.middleware.csrf.CsrfViewMiddleware', #注释这一安全选项
+ 49     'django.contrib.auth.middleware.AuthenticationMiddleware',
+ 50     'django.contrib.messages.middleware.MessageMiddleware',
+ 51     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+ 52 ]
+ 53 
+ 54 ROOT_URLCONF = 'mysite.urls'
+ 55 
+ 56 TEMPLATES = [
+ 57     {
+ 58         'BACKEND': 'django.template.backends.django.DjangoTemplates'    ,
+ 59         'DIRS': [],
+ 60         'APP_DIRS': True,
+ 61         'OPTIONS': {
+ 75 # Database
+ 76 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
+ 77 
+ 78 DATABASES = {
+ 79     'default': {
+ 80         'ENGINE': 'django.db.backends.mysql',
+ 81         'NAME': 'django',
+ 82         'USER': 'root',
+ 83         'PASSWORD': '123',
+ 84         'HOST': '127.0.0.1',
+ 85         'PORT': '3306',
+ 86     }
+ 87 }
+ 88 
+109 # Internationalization
+110 # https://docs.djangoproject.com/en/1.11/topics/i18n/
+111 
+112 LANGUAGE_CODE = 'zh-hans'
+113 
+114 TIME_ZONE = 'Asia/Shanghai'
+115 
+116 USE_I18N = True
+117 
+118 USE_L10N = True
+119 
+120 USE_TZ = False
+121 
+122 
+123 # Static files (CSS, JavaScript, Images)
+124 # https://docs.djangoproject.com/en/1.11/howto/static-files/
+125 
+126 STATIC_URL = '/static/'
+
+(djEnv) [root@V1 mysite]# python   manage.py    makemigrations
+
+
+--------------------------------#迁移Django储存模型  真正生成数据库 ----------------------
+
+(djEnv) [root@V1 mysite]# python   manage.py    migrate
+
+------------- python3   manage.py   createsuperuser #建立管理员用户
+/****
+(djEnv) [root@V1 mysite]# python3   manage.py   createsuperuser
+***/
+
+(djEnv) [root@V1 mysite]# ls  /root/djProject/mysite/myapp/
+admin.py  __init__.py  models.py    tests.py
+apps.py   migrations   __pycache__  views.py
+
+(djEnv) [root@V1 mysite]# ls  /root/djProject/mysite/mysite/
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+
+(djEnv) [root@V1 mysite]# ls
+manage.py  myapp  mysite  polls
+
+ --------- ***  授权访问　192.168.1.11:8800/myapp/开头的网址都交给 myapp 处理
+
+(djEnv) [root@V1 mysite]# vim    /root/djProject/mysite/mysite/urls.py 
+
+(djEnv) [root@V1 mysite]# tail    /root/djProject/mysite/mysite/urls.py
+"""
+from django.conf.urls import url, include
+from django.contrib import admin
+
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'^polls/', include('polls.urls')), 
+    url(r'^myapp/', include('myapp.urls')),
+]
+
+(djEnv) [root@V1 mysite]# 
+(djEnv) [root@V1 mysite]# ls  /root/djProject/mysite/polls/
+admin.py  __init__.py  models.py    static     tests.py  views.py
+apps.py   migrations   __pycache__  templates  urls.py
+
+
+(djEnv) [root@V1 mysite]# cp   polls/urls.py   myapp/urls.py
+
+(djEnv) [root@V1 mysite]# ls  /root/djProject/mysite/myapp/
+
+admin.py  __init__.py  models.py    tests.py  views.py
+apps.py   migrations   __pycache__  urls.py
+
+(djEnv) [root@V1 mysite]# vim    /root/djProject/mysite/myapp/urls.py 
+
+(djEnv) [root@V1 mysite]# cat   -n  /root/djProject/mysite/myapp/urls.py
+
+     6	from django.conf.urls import url
+     7	from  .  import   views   #相对路径导入模块
+     8	urlpatterns = [
+
+    11	  url(r'^hello', views.hello, name='hello'),  #http://192.168.1.11:8800/myapp/hello
+    12	
+    13	]
+    14	
+(djEnv) [root@V1 mysite]# 
+
+[root@V1 djProject]# vim    mysite/myapp/views.py 
+
+[root@V1 djProject]# cat   mysite/myapp/views.py
+from django.shortcuts import (render,
+HttpResponse, get_object_or_404, redirect)
+
+# Create your views here.#为myapp应用主页编写视图函数
+def  hello(request):
+  return  HttpResponse('<h1>Myapp hello OK</h1>')
+
+[root@V1 djProject]# 
+(djEnv) [root@V1 mysite]# python  manage.py   runserver  0:8800
+Performing system checks...
+
+System check identified no issues (0 silenced).
+May 29, 2019 - 16:02:31
+Django version 1.11.6, using settings 'mysite.settings'
+Starting development server at http://0:8800/
+Quit the server with CONTROL-C.
+
+http://192.168.1.11:8800/myapp/hello
+Myapp hello OK
+
+[root@V1 mysite]# ls   myapp/
+admin.py  __init__.py  models.py    tests.py  views.py
+apps.py   migrations   __pycache__  urls.py
+
+[root@V1 mysite]# vim   myapp/models.py 
+
+[root@V1 mysite]# cat  -n   myapp/models.py
+     1	from django.db import models
+     2	from  django.utils import  timezone
+     3	from    datetime   import  timedelta
+     4	
+     5	# Create your models here.
+     6	class  Message(models.Model):
+     7	  msg = models.CharField(max_length=240)
+     8	  publish_date = models.DateTimeField(auto_now_add=True)
+     9	  def  __str__(self):
+    10	    return  self.msg
+    11	
+[root@V1 mysite]#
+
+(djEnv) [root@V1 mysite]# ls   
+
+hahaAAAAAAA2019年5月29日 20:52
+
+bbbbbbbbbbBBBBB2019年5月29日 20:52
+
+cccccccc2019年5月29日 20:52
+
+ddddddddddddd2019年5月29日 20:52
+
+-------- myapp/templates/message.html --------
+
+manage.py  myapp  mysite  polls
+
+
+(djEnv) [root@V1 mysite]# python  manage.py   makemigrations
+Migrations for 'myapp':
+  myapp/migrations/0001_initial.py
+    - Create model Message
+
+(djEnv) [root@V1 mysite]# ls  myapp/migrations/
+0001_initial.py  __init__.py  __pycache__
+
+(djEnv) [root@V1 mysite]# grep -n  Message  myapp/migrations/0001_initial.py 
+17:            name='Message',
+
+
+
+(djEnv) [root@V1 mysite]# python   manage.py   migrate
+
+System check identified some issues:
+
+WARNINGS:
+?: (mysql.W002) MySQL Strict Mode is not set for database connection 'default'
+	HINT: MySQL's Strict Mode fixes many data integrity problems in MySQL, such as data truncation upon insertion, by escalating warnings into errors. It is strongly recommended you activate it. See: https://docs.djangoproject.com/en/1.11/ref/databases/#mysql-sql-mode
+Operations to perform:
+  Apply all migrations: admin, auth, contenttypes, myapp, polls, sessions
+Running migrations:
+  Applying myapp.0001_initial... OK
+(djEnv) [root@V1 mysite]# 
+
+
+[root@V1 mysite]# mysql  -uroot  -p123  -D django  -e "desc   myapp_message;"
++--------------+--------------+------+-----+---------+----------------+
+| Field        | Type         | Null | Key | Default | Extra          |
++--------------+--------------+------+-----+---------+----------------+
+| id           | int(11)      | NO   | PRI | NULL    | auto_increment |
+| msg          | varchar(240) | NO   |     | NULL    |                |
+| publish_date | datetime     | NO   |     | NULL    |                |
++--------------+--------------+------+-----+---------+----------------+
+
+[root@V1 mysite]# cat  -n    polls/models.py
+     1	from  django.db import models
+     2	from  django.utils import  timezone
+     3	from    datetime   import  timedelta
+     4	
+     5	# Create your models here.
+     6	class  Question(models.Model):
+     7	  question_text = models.CharField(max_length=200)
+     8	  publish_date = models.DateTimeField('date  published')
+     9	
+    10	  def  __str__(self):
+    11	    return  self.question_text
+    12	  def  was_publish_recently(self):
+    13	    return  self.publish_date > timezone.now() - timedelta(days=7)
+    14	    #最近七天发布的信息
+    15	
+    16	class  Choice(models.Model):
+    17	  choice_text = models.CharField(max_length=200)
+    18	  votes = models.IntegerField(default=0)
+    19	  question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    20	
+    21	  def  __str__(self):
+    22	    return  self.choice_text
+    23	
+    24	
+[root@V1 mysite]# 
+[root@V1 mysite]# vim  myapp/urls.py 
+
+[root@V1 mysite]# vim   myapp/views.py 
+[root@V1 mysite]# pyflakes  myapp/views.py
+
+[root@V1 mysite]# vim   myapp/models.py 
+
+[root@V1 mysite]# cat   -n   myapp/models.py
+     1	from django.db import models
+     2	from  django.utils import  timezone
+     3	from    datetime   import  timedelta
+     4	
+     5	# Create your models here.
+     6	class  Message(models.Model):
+     7	  msg = models.CharField(max_length=240)
+     8	  publish_date = models.DateTimeField(auto_now_add=True)
+     9	  def  __str__(self):
+    10	    return  self.msg
+    11	
+
+[root@V1 mysite]# cat   -n   myapp/urls.py
+     1	"""
+     2	[root@V1 djProject]# ls   mysite/
+     3	manage.py  myapp  mysite  polls
+     4	#django项目基础目录默认设置是manage.py文件所在的目录/root/djProject/mysite/
+     5	"""
+     6	from django.conf.urls import url
+     7	from  .  import   views   #相对路径导入模块
+     8	urlpatterns = [
+     9	  #使用hello函数响应http://192.168.1.11:8800/myapp/hello主页请求，
+    10	  #该url的名字(name)是hello
+    11	  url(r'^hello', views.hello, name='hello'),  #http://192.168.1.11:8800/myapp/hello
+    12	  url(r'^message/$', views.message, name='message'),
+    13	
+    14	]
+    15	
+[root@V1 mysite]# cat   -n  myapp/views.py
+     1	from django.shortcuts import (render,
+     2	HttpResponse, get_object_or_404, redirect)
+     3	from   .models  import  Message
+     4	# Create your views here.#为myapp应用主页编写视图函数
+     5	def  hello(request):
+     6	  return  HttpResponse('<h1>Myapp hello OK</h1>')
+     7	
+     8	def  message(request):
+     9	  msgs = Message.objects.all()
+    10	  return  render(request, 'message.html', {'msgs': msgs})
+
+
+[root@V1 mysite]# mkdir   myapp/templates
+
+[root@V1 mysite]# ls     myapp/
+admin.py  __init__.py  models.py    templates  urls.py
+apps.py   migrations   __pycache__  tests.py   views.py
+
+
+[root@V1 mysite]# vim   myapp/templates/message.html
+
+[root@V1 mysite]# cat  -n  myapp/templates/message.html
+     1	<!DOCTYPE html>
+     2	<!--STATUS OK-->
+     3	<html lang="zh-CN">
+     4	 <head>
+     5	  <meta charset="UTF-8">
+     6	  <meta name="description" content="">
+     7	<!-- <link rel="icon" href="./favicon.ico">- -->
+     8	  <title>message留言</title>
+     9	 </head>
+    10	 <body>
+    11	  <div>
+    12	   {{ msgs }}
+    13	   <p> -------- myapp/templates/message.html --------</p>
+    14	  </div>
+    15	 </body>
+    16	</html>
+[root@V1 mysite]# 
+
+
+(djEnv) [root@V1 mysite]# python  manage.py   runserver  0:8800
+
+
+http://192.168.1.11:8800/myapp/message/
+
+<QuerySet []>
+
+-------- myapp/templates/message.html --------
+
+
+[root@V1 mysite]# mysql  -uroot  -p123  -D django  -e "select  *  from   myapp_message;"
++----+------------------------------+---------------------+
+| id | msg                          | publish_date        |
++----+------------------------------+---------------------+
+|  1 |    abcABC123  test
+hahaxixi | 2019-05-29 17:40:46 |
+|  2 |                              | 2019-05-29 17:40:55 |
+|  3 |                              | 2019-05-29 17:40:58 |
++----+------------------------------+---------------------+
+
+
+[root@V1 mysite]# mysql  -uroot  -p123  -D django  -e "delete  from   myapp_message;"
+[root@V1 mysite]# mysql  -uroot  -p123  -D django  -e "select  *  from   myapp_message;"
+
+
+http://192.168.1.11:8800/myapp/message/
+
+
+[root@V1 mysite]# mysql  -uroot  -p123  -D django  -e "delete  from   myapp_message;"
+
+[root@V1 mysite]# vim    myapp/templates/protect.html
+
+
+[root@V1 mysite]# vim   myapp/templates/home.html
+
+
+[root@V1 mysite]# vim    myapp/urls.py
+
+[root@V1 mysite]# cat  -n  myapp/urls.py
+     1	"""
+     2	[root@V1 djProject]# ls   mysite/
+     3	manage.py  myapp  mysite  polls
+     4	#django项目基础目录默认设置是manage.py文件所在的目录/root/djProject/mysite/
+     5	"""
+     6	from django.conf.urls import url
+     7	from  .  import   views   #相对路径导入模块
+     8	urlpatterns = [
+     9	  #使用hello函数响应http://192.168.1.11:8800/myapp/hello主页请求，
+    10	  #该url的名字(name)是hello
+    11	  url(r'^hello', views.hello, name='hello'),  #http://192.168.1.11:8800/myapp/hello
+    12	  url(r'^message/$', views.message, name='message'),
+    13	  url(r'^home/$', views.home, name='home'),
+    14	  url(r'^login/$', views.login, name='login'),
+    15	  url(r'^protected/$', views.protected, name='protected'),
+    16	]
+    17	
+
+[root@V1 mysite]# vim    myapp/views.py
+
+
+http://192.168.1.11:8800/myapp/home/
+用户名: bob
+密码: 1234
+home页 登录访问
+
+-------- myapp/templates/home.html --------
+
+
+http://192.168.1.11:8800/myapp/protected/
+未登录不能访问
+
+-------- myapp/templates/protect.html --------
+
+
+https://docs.djangoproject.com/en/1.11/topics/templates/
+
+
+BACKEND is a dotted Python path to a template engine class implementing Django’s template backend API. The built-in backends are
+后端是实现Django的模板后端API的模板引擎类的点式python路径。内置的后端是
+  django.template.backends.django.DjangoTemplates 
+and django.template.backends.jinja2.Jinja2.
+
+
+implementing Django’s template backend API
+实现Django的模板后端API
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            '/home/html/example.com',
+            '/home/html/default',
+        ],
+    },
+    {
+        'BACKEND': 'django.template.backends.jinja2.Jinja2',
+        'DIRS': [
+            '/home/html/jinja2',
+        ],
+    },
+]
+
+ 55 
+ 56 TEMPLATES = [
+ 57     {     #'BACKEND': 'django.template.backends.jinja2.Jinja2',
+ 58         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+ 59         'DIRS': [],
+ 60         'APP_DIRS': True,
+ 61         'OPTIONS': {
+ 62             'context_processors': [
+ 63                 'django.template.context_processors.debug',
+ 64                 'django.template.context_processors.request',
+ 65                 'django.contrib.auth.context_processors.auth',
+ 66                 'django.contrib.messages.context_processors.messages',
+ 67             ],
+ 68         },
+ 69     },
+ 70 ]
+
+1). python的Web开发中，业务逻辑(实质就是视图函数的内容)和页面逻辑(html文件)分开的，
+使得代码的可读性增强，代码容易理解和维护；
+2). 模板渲染: 在html文件中，通过动态赋值，
+将重新翻译好的html文件(模板引擎生效) 返回给用户的过程；
+3). 其他的模板引擎: Mako, Template, Jinja2
+
+template.js 一款javascript模板引擎
+
+提供一套模板语法，用户可以写一个模板区块，
+每次根据传入的数据，生成对应数据产生的HTML片段，渲染不同的效果。
+
+特性
+模版编译，渲染
+
+支持所有主流浏览器及Node（UMD）
+
+JavaScript原生语法
+
+丰富的自定义配置
+
+支持数据过滤
+
+异常捕获功能
+
+功能专一，简单好用
+
+兼容性
+Node 0.10+
+
+Safari 6+ (Mac)
+
+iOS 5+ Safari
+
+Chrome 23+ (Windows, Mac, Android, iOS, Linux, Chrome OS)
+
+Firefox 4+ (Windows, Mac, Android, Linux, Firefox OS)
+
+Internet Explorer 6+ (Windows, Windows Phone)
+
+Opera 10+ (Windows, linux, Android)
+
+传统用法
+
+<script src="template.js"></script>
+
+
+AMD
+require(['template'], function (template) {
+    ***
+});
+
+$ npm install template_js
+$ npm install yanhaijing/template.js
+
+npm i templatejs-loader
+
+$ npm install --save template_js@0.6.1 # 安装template运行时
+$ npm install --save templatejs-loader # 安装template编译插件
+
+
+•  当模板系统遇到变量名里有小数点时会按以下顺序查找:
+–  字典查找,如foo["bar"]
+–  属性查找,如foo.bar
+–  方法调用,如foo.bar()
+–  列表的索引查找,如foo[bar]
+
+[root@V1 mysite]# vim    myapp/urls.py
+
+    16	  url(r'^moban/$', views.moban, name='moban'),
+    17	]
+
+
+[root@V1 mysite]# vim    myapp/views.py
+
+    53	def  moban(request):
+    54	  astr = 'hello  world'
+    55	  alist = ['zhangsan', 'lisi', 'wangwu', 'zhaoliu']
+    56	  number = 100
+    57	  adict = {'bob': 23, 'alice': 20}
+    58	  context = {'mystr': astr, 'mylist': alist, 'mynum': number, 'mydict': adict}
+    59	  return  render(request, 'moban.html', context)
+    60	
+
+[root@V1 mysite]# vim   myapp/templates/moban.html
+
+     8	  <title>moban页</title>
+     9	 </head>
+    10	 <body>
+    11	  <div>
+    12	   {{ mystr }} mystr<br/>
+    13	   <hr/>
+    14	   {{ mylist }}<br/>
+    15	   {% for  name in mylist %}
+    16	     name: <b> {{ name }} </b><br/>
+    17	   {%  endfor %}
+    18	   <hr/>
+    19	   {{mynum }}mynum<br/>
+    20	   <hr/>
+    21	   {{ mydict }}mydict<br/>
+    22	   <hr/>
+    23	  </div>
+    24	 </body>
+    25	</html>
+
+http://192.168.1.11:8800/myapp/moban/
+
+hello world mystr
+['zhangsan', 'lisi', 'wangwu', 'zhaoliu']
+name: zhangsan
+name: lisi
+name: wangwu
+name: zhaoliu
+100mynum
+{'bob': 23, 'alice': 20}mydict
+
+
+
+http://192.168.1.11:8800/myapp/moban/
+hello world mystr
+['zhangsan', 'lisi', 'wangwu', 'zhaoliu']
+name: zhangsan
+name: lisi
+name: wangwu
+name: zhaoliu
+lisi mylist.1
+100mynum
+{'bob': 23, 'alice': 20}mydict
+23mydict.bob
+bob : 23
+alice : 20 
+
+    11	  <div>
+    12	   {{ mystr }} mystr<br/>
+    13	   <hr/>
+    14	   {{ mylist }}<br/>
+    15	   {% for  name in mylist %}
+    16	     name: <b> {{ name }} </b><br/>
+    17	   {%  endfor %}
+    18	   <hr/>
+    19	   {{ mylist.1}} mylist.1<br/>
+    20	   <hr/>
+    21	   {{mynum }}mynum<br/>
+    22	   <hr/>
+    23	   {{ mydict }}mydict<br/>
+    24	   <hr/>
+    25	   {{ mydict.bob }}mydict.bob<br/>
+    26	   <hr/>
+    27	   {% for  name,age in mydict.items %}
+    28	     {{ name }} : {{ age }} <br/>
+    29	   {%  endfor %}
+    30	  </div>
+
+模型的定义非常类似于数据库表的字段定义。其字段
+类具有定义、校验的作用
+
+class	Student(models.Model):	
+ id = models.IntegerField(primary_key=True)
+.................
+
+
+[root@V1 mysite]# mysql  -uroot  -p123  -D django  -e "delete  from   myapp_message;"
+
+http://192.168.1.11:8800/myapp/message/
+
+hahaAAAAAAA2019年5月29日 20:52
+
+bbbbbbbbbbBBBBB2019年5月29日 20:52
+
+cccccccc2019年5月29日 20:52
+
+ddddddddddddd2019年5月29日 20:52
+
+-------- myapp/templates/message.html --------
+
+
+
+[root@V1 mysite]# mysql  -uroot  -p123  -D django  -e "select  *  from   myapp_message;"
++----+--------------------+---------------------+
+| id | msg                | publish_date        |
++----+--------------------+---------------------+
+| 17 |    hahaAAAAAAA     | 2019-05-29 20:52:03 |
+| 18 |    bbbbbbbbbbBBBBB | 2019-05-29 20:52:34 |
+| 19 |    cccccccc        | 2019-05-29 20:52:43 |
+| 20 |    ddddddddddddd   | 2019-05-29 20:52:48 |
++----+--------------------+---------------------+
+[root@V1 mysite]# 
+
+[root@V1 mysite]# cat   -n   myapp/models.py
+     1	from django.db import models
+     2	from  django.utils import  timezone
+     3	from    datetime   import  timedelta
+     4	
+     5	# Create your models here.
+     6	class  Message(models.Model):
+     7	  msg = models.CharField(max_length=240)
+     8	  publish_date = models.DateTimeField(auto_now_add=True)
+     9	  def  __str__(self):
+    10	    return  self.msg
+    11	
+[root@V1 mysite]# ls
+manage.py  myapp  mysite  polls
+
+[root@V1 mysite]# source    /root/djProject/djEnv/bin/activate #激活虚拟环境
+(djEnv) [root@V1 mysite]# ls
+manage.py  myapp  mysite  polls
+
+(djEnv) [root@V1 mysite]# python   manage.py    shell
+
+Python 3.6.7 (default, May 16 2019, 19:00:38) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-36)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+
+>>> from   myapp.models  import  Message
+
+>>> Message.objects.all()
+<QuerySet [<Message:    hahaAAAAAAA>, <Message:    bbbbbbbbbbBBBBB>, <Message:    cccccccc>, <Message:    ddddddddddddd>]>
+
+>>> Message.objects.all()[0]
+<Message:    hahaAAAAAAA>
+
+>>> len(Message.objects.all())
+4
+
+>>> len(Message.objects.all()) - 1
+3
+>>>
+
+>>> a = Message.objects.all()
+>>> len(a)
+4
+>>> a[len(a)-1]
+<Message:    ddddddddddddd>
+>>> 
+
+>>> Message.objects.filter(msg="   hahaAAAAAAA")
+<QuerySet [<Message:    hahaAAAAAAA>]>
+>>> 
+
+http://192.168.1.11:8800/myapp/message/
+AAAaaa2019年5月29日 21:10
+
+BBBbbb2019年5月29日 21:10
+
+CCCccc2019年5月29日 21:10
+
+ddd4442019年5月29日 21:10
+
+>>> a = Message.objects.all()
+>>> len(a)
+8
+>>> a[len(a)-1]
+<Message: ddd444>
+>>> Message.objects.filter(msg="ddd444")
+<QuerySet [<Message: ddd444>]>
+>>> a[len(a)-2]
+<Message: CCCccc>
+>>> Message.objects.filter(msg="CCCccc")  #严格匹配
+<QuerySet [<Message: CCCccc>]>
+>>> 
+
+>>> Message.objects.filter(msg__exact="ddd444")  #严格匹配
+<QuerySet [<Message: ddd444>]>
+>>> Message.objects.filter(msg__iexact="DDd444")  #不区别大小写
+<QuerySet [<Message: ddd444>]>
+>>> Message.objects.filter(msg__contains="aa")   #包含
+<QuerySet [<Message: AAAaaa>]>
+>>> Message.objects.filter(msg__contains="a")
+<QuerySet [<Message:    hahaAAAAAAA>, <Message: AAAaaa>]>
+
+>>> Message.objects.filter(msg__contains="c")
+<QuerySet [<Message:    cccccccc>, <Message: CCCccc>]>
+
+>>> Message.objects.filter(msg__icontains="c")    #包含且不区别大小写
+<QuerySet [<Message:    cccccccc>, <Message: CCCccc>]>
+>>> 
+>>> Message.objects.filter(msg__regex="^C")
+<QuerySet [<Message: CCCccc>]>
+
+>>> Message.objects.filter(msg__iregex="^a")
+<QuerySet [<Message: AAAaaa>]>
+>>> 
+
+采用正则进行过滤
+–  Person.objects.filter(name__regex="^abc")
+•  采用正则表达式不区分大小写
+–  Person.objects.filter(name__iregex="^abc")
+
+
+灵活的双下划线
+•  __exact:精确等于,like 'aaa'
+•  __iexact:精确等于,忽略大小写,ilike ‘aaa’
+•  __contains:包含,like '%aaa%'
+•  __icontains:包含,忽略大小写,ilike '%aaa%'
+•  __gt:大于
+•  __gte:大于等于
+•  __lt:小于
+•  __lte:小于等于
+
+
+灵活的双下划线
+•  __in:存在于一个list范围内
+•  __startswith:以...开头
+•  __istartswith:以...开头,忽略大小写
+•  __endswith:以...结尾
+•  __iendswith:以...结尾,忽略大小写
+•  __range:在...范围内
+•  __year:日期字段的年份
+•  __month:日期字段的月份
+•  __day:日期字段的日
+•  __isnull=True/False
+
+
+>>> Message.objects.filter(publish_date__year=2019)
+
+<QuerySet [<Message:    hahaAAAAAAA>, <Message:    bbbbbbbbbbBBBBB>, <Message:    cccccccc>, <Message:    ddddddddddddd>, <Message: AAAaaa>, <Message: BBBbbb>, <Message: CCCccc>, <Message: ddd444>]>
+
+>>> Message.objects.filter(publish_date__month=5)
+
+<QuerySet [<Message:    hahaAAAAAAA>, <Message:    bbbbbbbbbbBBBBB>, <Message:    cccccccc>, <Message:    ddddddddddddd>, <Message: AAAaaa>, <Message: BBBbbb>, <Message: CCCccc>, <Message: ddd444>]>
+>>> 
+
+
+>>> from  datetime  import  datetime
+>>> t1= datetime.now()
+>>> t1
+datetime.datetime(2019, 5, 29, 21, 26, 1, 616397)
+>>> t1.year
+2019
+>>> t1.month
+5
+>>> t1.date
+<built-in method date of datetime.datetime object at 0x7f7aff1c9be8>
+>>> t1.day
+29
+>>> 
+
+>>> Message.objects.filter(msg__endswith="a")
+<QuerySet [<Message: AAAaaa>]>
+
+>>> Message.objects.filter(msg__endswith="c")
+<QuerySet [<Message:    cccccccc>, <Message: CCCccc>]>
+
+>>> all_msgs= Message.objects.exclude(msg__endswith="c")
+>>> all_msgs[1]
+<Message:    bbbbbbbbbbBBBBB>
+
+>>> len(all_msgs)
+6
+>>> all_msgs[5]
+<Message: ddd444>
+>>> all_msgs[5].id
+24
+>>> 
+
+https://yiyibooks.cn/xx/Django_1.11.6/index.html
+
+https://yiyibooks.cn/xx/Django_1.11.6/intro/tutorial01.html
+
+[root@V1 djProject]# scp  -P7920  -r   mysite/    student@192.168.1.254:/home/student/devweb1-6/Djangojs/djProject/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

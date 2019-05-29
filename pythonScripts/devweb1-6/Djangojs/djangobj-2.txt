@@ -1,0 +1,1026 @@
+
+scp  -P7920   -r   djProject/   student@192.168.1.254:/home/student/devweb1-6/Djangojs/
+
+https://www.google.com/search?q=www&oq=www&aqs=chrome..69i57.8122j0j4&sourceid=chrome&ie=UTF-8
+
+
+cd  djProject/
+
+source    /root/djProject/djEnv/bin/activate #激活虚拟环境
+
+pip   freeze   　　　#查看模块包
+
+cd  mysite/
+
+python  manage.py  runserver  0:8800 #开启django网站服务
+
+
+#＃----------- cd  mysite/ 进入项目根目录　django项目基础目录
+
+--------------------  进入python shell 模式 ---------------
+
+(djEnv) [root@V1 mysite]# python   manage.py    shell
+===========================================
+
+cd  djProject/
+
+source    /root/djProject/djEnv/bin/activate #激活虚拟环境
+cd  mysite/
+python   manage.py    shell
+
+
+mysql  -uroot  -p123  -D django -e "
+select *  from  polls_question;"
+
+mysql  -uroot  -p123  -D django -e "
+select *  from  polls_choice;"
+
+
+[root@V1 djProject]# source    /root/djProject/djEnv/bin/activate #激活 虚拟环境
+(djEnv) [root@V1 djProject]# 
+(djEnv) [root@V1 djProject]# pip   freeze   　　　#查看模块包
+Django==1.11.6
+PyMySQL==0.9.3
+pytz==2019.1
+(djEnv) [root@V1 djProject]# 
+(djEnv) [root@V1 djProject]# cd  mysite/
+(djEnv) [root@V1 mysite]# 
+(djEnv) [root@V1 mysite]# python  manage.py  runserver  0:8800 #开启django网站服务
+Performing system checks...
+
+System check identified no issues (0 silenced).
+May 28, 2019 - 12:34:34
+Django version 1.11.6, using settings 'mysite.settings'
+Starting development server at http://0:8800/
+Quit the server with CONTROL-C.
+
+
+
+
+[root@V1 djProject]# source    /root/djProject/djEnv/bin/activate #激活 虚拟环境
+
+(djEnv) [root@V1 djProject]# cd  mysite/
+
+(djEnv) [root@V1 mysite]# python   manage.py    shell
+
+Python 3.6.7 (default, May 16 2019, 19:00:38) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-36)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> 
+
+
+[root@V1 djProject]# ls
+djEnv  mysite
+[root@V1 djProject]# cd  mysite/
+
+[root@V1 mysite]# ls
+manage.py  mysite  polls
+
+[root@V1 mysite]# ls  mysite/
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+
+[root@V1 mysite]# ls   polls/
+admin.py  __init__.py  models.py    templates  urls.py
+apps.py   migrations   __pycache__  tests.py   views.py
+
+[root@V1 djProject]#  cd  mysite/
+[root@V1 mysite]# mysql  -uroot  -p123  -D django -e "
+> select *  from  polls_question;"
++----+--------------------------------------------+---------------------+
+| id | question_text         | publish_date        |
++----+--------------------------------------------+---------------------+
+|  1 | 第一次创业，期待结果是什么？               | 2019-05-26 11:25:00 |
+|  2 | 业余爱好是哪些？                           | 2019-05-24 16:00:00 |
+|  3 | 开源思想是指哪些？                         | 2019-05-27 13:18:00 |
+|  4 | 中秋节日几号                               | 2019-03-29 13:19:00 |
+|  5 | 上海明天气温预测?                          | 2019-05-27 15:17:53 |
+|  6 | 什么时候收货利润?                          | 2019-05-27 15:22:50 |
++----+--------------------------------------------+---------------------+
+[root@V1 mysite]# 
+[root@V1 mysite]# 
+[root@V1 mysite]# mysql  -uroot  -p123  -D django -e "
+> select *  from  polls_choice;"
++----+----------------------------+-------+-------------+
+| id | choice_text      | votes | question_id |
++----+----------------------------+-------+-------------+
+|  1 | 15000以上                  |     0 |           1 |
+|  2 | 听音乐                     |     0 |           2 |
+|  3 | 培养出20个专业人才         |     0 |           1 |
+|  4 | 看玄幻小说                 |     0 |           2 |
+|  5 | 旅游看海                   |     0 |           2 |
+|  6 | 两年内投资回本             |     0 |           1 |
+|  7 | 吃月饼                     |     0 |           4 |
+|  8 | 19                         |     0 |           5 |
+|  9 | 25                         |     0 |           5 |
++----+----------------------------+-------+-------------+
+[root@V1 mysite]# 
+
+[root@V1 djProject]# source    /root/djProject/djEnv/bin/activate #激活 虚拟环境
+
+(djEnv) [root@V1 djProject]# cd  mysite/
+
+(djEnv) [root@V1 mysite]# python   manage.py    shell
+
+Python 3.6.7 (default, May 16 2019, 19:00:38) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-36)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> 
+>>> from    polls.models   import  (Question, Choice)
+>>> Question.objects.all()
+<QuerySet [<Question: 第一次创业，期待结果是什么？>, <Question: 业余爱好是哪些？>, <Question: 开源思想是指哪些？>, <Question: 中秋节日几号>, <Question: 上海明天气温预测?>, <Question: 什么时候收货利润?>]>
+>>> 
+>>> Choice.objects.all()
+<QuerySet [<Choice: 15000以上>, <Choice: 听音乐>, <Choice: 培养出20个专业人才>, <Choice: 看玄幻小说>, <Choice: 旅游看海>, <Choice: 两年内投资回本>, <Choice: 吃月饼>, <Choice: 19>, <Choice: 25>]>
+>>> 
+>>> from   django.utils   import   timezone
+>>> from    datetime   import  timedelta
+>>> 
+>>> from django.shortcuts import (render,
+... HttpResponse, get_object_or_404)
+>>> 
+
+
+[root@V1 mysite]# ls   polls/templates/polls/
+index.html
+
+[root@V1 mysite]# ls    polls/
+admin.py  __init__.py  models.py    templates  urls.py
+apps.py   migrations   __pycache__  tests.py   views.py
+
+[root@V1 mysite]# ls  /root/djProject/mysite/polls/
+admin.py  __init__.py  models.py    templates  urls.py
+apps.py   migrations   __pycache__  tests.py   views.py
+
+[root@V1 mysite]# vim  polls/urls.py 
+
+[root@V1 mysite]# cat  -n   polls/urls.py
+     1	"""
+     2	[root@V1 djProject]# ls  /root/djProject/mysite/
+     3	manage.py  mysite  polls
+     4	#django项目基础目录默认设置是manage.py文件所在的目录/root/djProject/mysite/
+     5	"""
+     6	from django.conf.urls import url
+     7	from  .  import   views   #相对路径导入模块
+     8	urlpatterns = [
+     9	  #使用index函数响应http://192.168.1.11/polls/主页请求，
+    10	  #该url的名字(name)是index
+    11	  url(r'^$', views.index, name='index'),  #http://192.168.1.11/polls/
+    12	  #(?P<question_id>\d+)表示把(\d+)这个分组的内容保存到变量question_id中，并且把变量question_id作为函数views.detail的参数
+    13	  url(r'(?P<question_id>\d+)/$', views.detail, name='detail'), #http://192.168.1.11/polls/1/
+    14	]
+    15	
+[root@V1 mysite]# 
+
+[root@V1 mysite]# vim    polls/views.py 
+
+[root@V1 mysite]# cat   -n    polls/views.py 
+     1	from django.shortcuts import render, HttpResponse
+     2	from   .models   import   Question
+     3	
+     4	# Create your views here.
+     5	#request形参必须提供，表示用户的请求http://192.168.1.11:8800/polls/
+     6	#def   index(request):
+     7	#  return  HttpResponse('<h1>Polls OK</h1>')
+     8	
+     9	#为polls主页编写视图函数
+    10	def   index(request):
+    11	  questions = Question.objects.all()
+    12	#>>> from    polls.models   import  (Question, Choice)
+    13	#>>> Question.objects.all()
+    14	#<QuerySet [<Question: 第一次创业，期待结果是什么？>, <Question: 业余爱好是哪些？>, <Question: 开源思想是指哪些？>, <Question: 中秋节日几号>, <Question: 上海明天气温预测?>, <Question: 什么时候收货利润?>]>
+    15	
+    16	  return  render(request, 'polls/index.html', {'questions': questions})
+    17	  #向用户返回一个网页(模板),{'questions': questions}字典是传给网页的数据
+    18	
+    19	def   detail(request, question_id):
+    20	  question = Question.objects.get(id= question_id)
+    21	  return  render(request, 'polls/detail.html', {'question': question})
+    22	
+    23	
+[root@V1 mysite]# 
+
+
+[root@V1 mysite]# vim   polls/templates/polls/detail.html
+
+[root@V1 mysite]# cat  -n   polls/templates/polls/detail.html
+     1	<!DOCTYPE html>
+     2	<!--STATUS OK-->
+     3	<html lang="zh-CN">
+     4	 <head>
+     5	  <meta charset="UTF-8">
+     6	  <meta name="description" content="">
+     7	<!-- <link rel="icon" href="./favicon.ico">- -->
+     8	  <title>polls-detail投票详情</title>
+     9	 </head>
+    10	 <body>
+    11	  <div>
+    12	{# queston 是django函数传过来的变量名 #}
+    13	   <p> {{ question }} <p>
+    14	   <hr/>
+    15	   <p> --------detail --------</p>
+    16	  </div>
+    17	 </body>
+    18	</html>
+    19	
+[root@V1 mysite]# 
+
+http://192.168.1.11:8800/polls/4/
+中秋节日几号
+
+--------detail --------
+
+
+http://192.168.1.11:8800/polls/7/
+
+Page not found (404)
+Request Method: 	GET
+Request URL: 	http://192.168.1.11:8800/polls/7/
+Raised by: 	polls.views.detail
+
+http://192.168.1.11:8800/polls/6/
+什么时候收货利润?
+
+--------detail --------
+
+[root@V1 mysite]# vim   polls/templates/polls/result.html
+
+[root@V1 mysite]# ls   polls/templates/polls/
+detail.html  index.html  result.html
+
+Nunjucks是Mozilla开发的一个纯JavaScript编写的模板引擎，
+既可以用在Node环境下，又可以运行在浏览器端。
+但是，主要还是运行在Node环境下，
+因为浏览器端有更好的模板解决方案，例如MVVM框架。
+
+模板引擎就是基于模板配合数据构造出字符串输出的一个组件。
+比如下面的函数就是一个模板引擎：
+
+function examResult (data) {
+    return `${data.name}同学一年级期末考试语文${data.chinese}分，数学${data.math}分`
+}
+
+ JavaScript模板引擎就是帮我们把带有JavaScript代码的伪html语句翻译为html的东东
+<ul>
+    <% for ( var i = 0; i < users.length; i++ ) { %>
+         <li><a href="<%=users[i].url%>"><%=users[i].name%></a></li>
+    <% } %>
+</ul>
+ 看了很容易就明白开发者希望得到的是这样的html
+
+<ul>
+  <li><a href="XXX">OOO</a></li>
+  <li><a href="XXX">OOO</a></li>
+  <li><a href="XXX">OOO</a></li>
+</ul>
+https://blog.csdn.net/qq_39198420/article/details/79363395
+JavaScript模板引擎
+
+
+[root@V1 mysite]# vim   polls/templates/polls/index.html
+
+[root@V1 mysite]# cat  -n   polls/templates/polls/index.html
+     1	<!DOCTYPE html>
+     2	<!--STATUS OK-->
+     3	<html lang="zh-CN">
+     4	 <head>
+     5	  <meta charset="UTF-8">
+     6	  <meta name="description" content="">
+     7	<!-- <link rel="icon" href="./favicon.ico">- -->
+     8	  <title>polls主页标题</title>
+     9	 </head>
+    10	 <body>
+    11	  <div>
+    12	{# questons 是django函数传过来的变量名 #}
+    13	{# JavaScript模板引擎 #}
+    14	{# <p> {{ questions }} </p> #}
+    15	   <ul>
+    16	    {% for  question in  questions %}
+    17	      <li>{{ question.question_text }} {{ question.publish_date }}</li>
+    18	    {% endfor %}
+    19	   </ul>
+    20	   <hr/>
+    21	   <p> -------- --------</p>
+    22	  </div>
+    23	 </body>
+    24	</html>
+    25	
+[root@V1 mysite]# ls   polls/templates/polls/
+detail.html  index.html  result.html
+[root@V1 mysite]# 
+
+http://192.168.1.11:8800/polls/
+    第一次创业，期待结果是什么？ 2019年5月26日 11:25
+    业余爱好是哪些？ 2019年5月24日 16:00
+    开源思想是指哪些？ 2019年5月27日 13:18
+    中秋节日几号 2019年3月29日 13:19
+    上海明天气温预测? 2019年5月27日 15:17
+    什么时候收货利润? 2019年5月27日 15:22
+
+-------- --------
+
+   <ul>
+    {% for  question in  questions %}
+      <li>
+       <a href="# ">{{ question.question_text }}</a>&nbsp;
+          {{ question.publish_date }}</li>
+    {% endfor %}
+   </ul>
+
+  <div>
+   <a  href="./xshell6.png" target="_blank">_blank点击xshell6.png</a>
+   <a  href="javascript:alert('这是弹出对话框的内容');">点击链接</a>
+   <a  name="position-A">锚点位置主页position-A</a>
+   <hr/>
+  </div>
+
+  <div>
+   <a  name="position-B2">锚点位置主页position-B2</a>
+  </div>
+
+  <div>
+   <a  href="#position-A"> 返回到同一个页面的位置position-A</a>
+  </div>
+
+  <div>
+   <a  href="http://192.168.1.11/#position-B2"> 从子网页/zidir/ -->
+     返回到主页面的位置= 锚点位置主页position-B2 注意B2</a>
+  </div>
+   <a  href="http://192.168.1.11/#position-A"> 从子网页/zidir/ -->
+     返回到主页面的位置= 锚点位置主页position-A</a>
+  </div>
+
+[root@V1 mysite]# vim   polls/templates/polls/index.html
+[root@V1 mysite]# cat  -n   polls/templates/polls/index.html
+     1	<!DOCTYPE html>
+     2	<!--STATUS OK-->
+     3	<html lang="zh-CN">
+     4	 <head>
+     5	  <meta charset="UTF-8">
+     6	  <meta name="description" content="">
+     7	<!-- <link rel="icon" href="./favicon.ico">- -->
+     8	  <title>polls主页标题</title>
+     9	 </head>
+    10	 <body>
+    11	  <div>
+    12	{# questons 是django函数传过来的变量名 #}
+    13	{# JavaScript模板引擎 #}
+    14	{# <p> {{ questions }} </p> #}
+    15	   <ul>
+    16	    {% for  question in  questions %}
+    17	      <li>
+    18	       <a href="http://192.168.1.11:8800/polls/{{ question.id }}">
+    19	         {{ question.question_text }}</a>&nbsp;
+    20	       {{ question.publish_date }}</li>
+    21	    {% endfor %}
+    22	   </ul>
+    23	   <hr/>
+    24	   <p> -------- --------</p>
+    25	  </div>
+    26	 </body>
+    27	</html>
+    28	
+[root@V1 mysite]# 
+
+http://192.168.1.11:8800/polls/
+ 第一次创业，期待结果是什么？  2019年5月26日 11:25
+http://192.168.1.11:8800/polls/1
+ 业余爱好是哪些？  2019年5月24日 16:00
+ 上海明天气温预测?  2019年5月27日 15:17
+什么时候收货利润?  2019年5月27日 15:22
+http://192.168.1.11:8800/polls/6
+
+[root@V1 mysite]# vim   polls/templates/polls/index.html
+[root@V1 mysite]# cat  -n   polls/templates/polls/index.html
+     1	<!DOCTYPE html>
+     2	<!--STATUS OK-->
+     3	<html lang="zh-CN">
+     4	 <head>
+     5	  <meta charset="UTF-8">
+     6	  <meta name="description" content="">
+     7	<!-- <link rel="icon" href="./favicon.ico">- -->
+     8	  <title>polls主页标题</title>
+     9	 </head>
+    10	 <body>
+    11	  <div>
+    12	{# questons 是django函数传过来的变量名 #}
+    13	{# JavaScript模板引擎 #}
+    14	{# <p> {{ questions }} </p> #}
+    15	   <ul>
+    16	    {% for  question in  questions %}
+    17	      <li>
+    18	{#     <a href="http://192.168.1.11:8800/polls/{{ question.id }}"> #}
+    19	       <a href="{% url 'detail' question_id=question.id %}">
+    20	         {{ question.question_text }}</a>&nbsp;
+    21	       {{ question.publish_date }}</li>
+    22	    {% endfor %}
+    23	   </ul>
+    24	   <hr/>
+    25	   <p> -------- --------</p>
+    26	  </div>
+    27	 </body>
+    28	</html>
+    29	
+[root@V1 mysite]# 
+
+     8	urlpatterns = [
+     9	  #使用index函数响应http://192.168.1.11:8800/polls/主页请求，
+    10	  #该url的名字(name)是index
+    11	  url(r'^$', views.index, name='index'),  #http://192.168.1.11:8800/polls/
+    12	  #(?P<question_id>\d+)表示把(\d+)这个分组的内容保存到变量question_id中，并且把变量question_id作为函数views.detail的参数
+    13	  url(r'(?P<question_id>\d+)/$', views.detail, name='detail'), #http://192.168.1.11:8800/polls/1/
+    14	  url(r'(?P<question_id>\d+)/result/$', views.result, name='result'), #http://192.168.1.11:8800/polls/3/result/
+    15	]
+
+
+[root@V1 mysite]# ls  polls/templates/polls/
+detail.html  index.html  result.html
+
+[root@V1 mysite]# vim   polls/templates/polls/result.html 
+
+[root@V1 mysite]# cat   -n    polls/templates/polls/result.html 
+     1	<!DOCTYPE html>
+     2	<!--STATUS OK-->
+     3	<html lang="zh-CN">
+     4	 <head>
+     5	  <meta charset="UTF-8">
+     6	  <meta name="description" content="">
+     7	<!-- <link rel="icon" href="./favicon.ico">- -->
+     8	  <title>polls-result投票结果</title>
+     9	 </head>
+    10	 <body>
+    11	  <div>
+    12	{# queston 是django函数传过来的变量名 #}
+    13	{# 注释  <p> {{ question }} <p> #}
+    14	   <table>
+    15	    <tr>
+    16	     <td  colspan='2'>
+    17	      {{ question.question_text }}
+    18	     </td>
+    19	    </tr>
+    20	    {% for c  in question.choice_set.all %}
+    21	     <tr>
+    22	      <td>{{ c.choice_text }}</td>
+    23	      <td>得票数:{{ c.votes }}</td>
+    24	     </tr>
+    25	    {% endfor %}
+    26	   </table>
+    27	   <hr/>
+    28	   <p> --------result --------</p>
+    29	  </div>
+    30	 </body>
+    31	</html>
+    32	
+[root@V1 mysite]# 
+
+
+
+[root@V1 mysite]# vim   polls/templates/polls/detail.html 
+
+
+[root@V1 mysite]# vim    polls/urls.py
+
+
+[root@V1 mysite]# vim    polls/views.py 
+
+
+[root@V1 mysite]# vim   polls/templates/polls/detail.html
+[root@V1 mysite]# cat  -n   polls/templates/polls/detail.html
+     1	<!DOCTYPE html>
+     2	<!--STATUS OK-->
+     3	<html lang="zh-CN">
+     4	 <head>
+     5	  <meta charset="UTF-8">
+     6	  <meta name="description" content="">
+     7	<!-- <link rel="icon" href="./favicon.ico">- -->
+     8	  <title>polls-detail投票详情</title>
+     9	 </head>
+    10	 <body>
+    11	  <div>
+    12	{# queston 是django函数传过来的变量名 #}
+    13	{#   <p> {{ question }} <p> #}
+    14	  <form action="{% url 'vote' question_id=question.id %}" method="post">
+    15	   <p>{{ queston.question_text }}</p>
+    16	   {%  for  c  in  question.choice_set.all %}
+    17	    <label>
+    18	     <input  type="radio" name="c_id"  value="{{ c.id  }}"/>{{ c.choice_text }}
+    19	    </label>
+    20	   {%  endfor %}
+    21	   <input  type="submit"   value="提交"/>
+    22	  </form>
+    23	   <p> --------detail --------</p>
+    24	  </div>
+    25	 </body>
+    26	</html>
+    27	
+[root@V1 mysite]# 
+
+http://192.168.1.11:8800/polls/1/vote/
+
+禁止访问 (403)
+
+CSRF验证失败. 请求被中断.
+
+
+http://192.168.1.11:8800/polls/
+
+    第一次创业，期待结果是什么？  2019年5月26日 11:25
+    业余爱好是哪些？  2019年5月24日 16:00
+    开源思想是指哪些？  2019年5月27日 13:18
+    中秋节日几号  2019年3月29日 13:19
+    上海明天气温预测?  2019年5月27日 15:17
+    什么时候收货利润?  2019年5月27日 15:22
+
+http://192.168.1.11:8800/polls/5/
+
+ 19 25 --------detail --------
+
+view-source:http://192.168.1.11:8800/polls/5/
+  <title>polls-detail投票详情</title>
+ </head>
+ <body>
+  <div>
+
+
+  <form action="/polls/5/vote/" method="post">
+   <p></p>
+   
+    <label>
+     <input  type="radio" name="c_id"  value="8"/>19
+    </label>
+   
+    <label>
+     <input  type="radio" name="c_id"  value="9"/>25
+    </label>
+   
+   <input  type="submit"   value="提交"/>
+  </form>
+   <p> --------detail --------</p>
+
+
+[root@V1 mysite]# ls  mysite/
+__init__.py  __pycache__  settings.py  urls.py  wsgi.py
+[root@V1 mysite]# vim   mysite/settings.py 
+
+ 43 MIDDLEWARE = [
+ 44     'django.middleware.security.SecurityMiddleware',
+ 45     'django.contrib.sessions.middleware.SessionMiddleware',
+ 46     'django.middleware.common.CommonMiddleware',
+ 47     'django.middleware.csrf.CsrfViewMiddleware',  #注释这一安全选项
+ 47 #    'django.middleware.csrf.CsrfViewMiddleware', #注释这一安全选项
+
+ 48     'django.contrib.auth.middleware.AuthenticationMiddleware',
+ 49     'django.contrib.messages.middleware.MessageMiddleware',
+ 50     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+ 51 ]
+
+
+http://192.168.1.11:8800/polls/5/vote/
+TypeError at /polls/5/vote/
+
+vote() got an unexpected keyword argument 'question_id'
+
+Request Method: 	POST
+Request URL: 	http://192.168.1.11:8800/polls/5/vote/
+Django Version: 	1.11.6
+Exception Type: 	TypeError
+Exception Value: 	
+
+vote() got an unexpected keyword argument 'question_id'
+
+[root@V1 mysite]# vim     polls/views.py
+[root@V1 mysite]# cat    -n   polls/views.py
+
+     1	from django.shortcuts import (render, HttpResponse, 
+     2	get_object_or_404, redirect)
+     3	from   .models   import   Question, Choice
+     4	
+     5	# Create your views here.
+     6	#request形参必须提供，表示用户的请求http://192.168.1.11:8800/polls/
+     7	#def   index(request):
+     8	#  return  HttpResponse('<h1>Polls OK</h1>')
+     9	
+    10	#为polls主页编写视图函数
+    11	def   index(request):
+    12	  questions = Question.objects.all()
+    13	#>>> from    polls.models   import  (Question, Choice)
+    14	#>>> Question.objects.all()
+    15	#<QuerySet [<Question: 第一次创业，期待结果是什么？>, <Question: 业余爱好是哪些？>, <Question: 开源思想是指哪些？>, <Question: 中秋节日几号>, <Question: 上海明天气温预测?>, <Question: 什么时候收货利润?>]>
+    16	
+    17	  return  render(request, 'polls/index.html', {'questions': questions})
+    18	  #向用户返回一个网页(模板),{'questions': questions}字典是传给网页的数据
+    19	
+    20	def   detail(request, question_id):
+    21	#  question = Question.objects.get(id= question_id)
+    22	  question = get_object_or_404(Question, id=question_id)
+    23	  return  render(request, 'polls/detail.html', {'question': question})
+    24	
+    25	def   result(request, question_id):
+    26	  question = get_object_or_404(Question, id=question_id)
+    27	  return  render(request, 'polls/result.html', {'question': question})
+    28	
+    29	def   vote(request, question_id):
+    30	  choice_id = request.POST.get('c_id')
+    31	  c = get_object_or_404(Choice, id=choice_id)
+    32	  c.votes += 1
+    33	  c.save()
+    34	  return  redirect('result', question_id=question_id)
+    35	
+[root@V1 mysite]# 
+
+
+http://192.168.1.11:8800/polls/1/
+
+http://192.168.1.11:8800/polls/1/result/
+
+ 第一次创业，期待结果是什么？
+15000以上 	得票数:0
+培养出20个专业人才 	得票数:2
+两年内投资回本 	得票数:1
+
+--------result --------
+
+[root@V1 mysite]# vim    polls/templates/polls/detail.html 
+
+[root@V1 mysite]# cat   -n    polls/templates/polls/result.html 
+     1	<!DOCTYPE html>
+     2	<!--STATUS OK-->
+     3	<html lang="zh-CN">
+     4	 <head>
+     5	  <meta charset="UTF-8">
+     6	  <meta name="description" content="">
+     7	<!-- <link rel="icon" href="./favicon.ico">- -->
+     8	  <title>polls-result投票结果</title>
+     9	 </head>
+    10	 <body>
+    11	  <div>
+    12	{# queston 是django函数传过来的变量名 #}
+    13	{# 注释  <p> {{ question }} <p> #}
+    14	   <table>
+    15	    <tr>
+    16	     <td  colspan='2'>
+    17	      {{ question.question_text }}
+    18	     </td>
+    19	    </tr>
+    20	    {% for c  in question.choice_set.all %}
+    21	     <tr>
+    22	      <td>{{ c.choice_text }}</td>
+    23	      <td>得票数:{{ c.votes }}</td>
+    24	     </tr>
+    25	    {% endfor %}
+    26	   </table>
+    27	   <hr/>
+    28	   <p> --------result --------</p>
+    29	  </div>
+    30	 </body>
+    31	</html>
+    32	
+[root@V1 mysite]# cat   -n    polls/templates/polls/detail.html 
+     1	<!DOCTYPE html>
+     2	<!--STATUS OK-->
+     3	<html lang="zh-CN">
+     4	 <head>
+     5	  <meta charset="UTF-8">
+     6	  <meta name="description" content="">
+     7	<!-- <link rel="icon" href="./favicon.ico">- -->
+     8	  <title>polls-detail投票详情</title>
+     9	 </head>
+    10	 <body>
+    11	  <div>
+    12	{# queston 是django函数传过来的变量名 #}
+    13	{#   <p> {{ question }} <p> #}
+    14	  <form action="{% url 'vote' question_id=question.id %}" method="post">
+    15	   <p>{{ queston.question_text }}</p>
+    16	   {%  for  c  in  question.choice_set.all %}
+    17	    <label>
+    18	     <input  type="radio" name="c_id"  value="{{ c.id  }}"/>{{ c.choice_text }}
+    19	    </label>
+    20	   {%  endfor %}
+    21	   <input  type="submit"   value="提交"/>
+    22	  </form>
+    23	{#  <a href="http://192.168.1.11:8800/polls">返回首页</a> #}
+    24	  <a href="{% url  'index' %}">返回首页</a> 
+    25	   <p> --------detail --------</p>
+    26	  </div>
+    27	 </body>
+    28	</html>
+    29	
+[root@V1 mysite]# 
+
+
+     7	<!-- <link rel="icon" href="./favicon.ico">- --> 网页会显示此行注释<!-- 显示此行注释　-->
+     8	  <title>polls-detail投票详情</title>
+     9	 </head>
+    10	 <body>
+    11	  <div>
+    12	{# queston 是django函数传过来的变量名 #}　　网页会屏蔽隐藏此行注释 {# 屏蔽隐藏此行注释  #}
+
+scp  -P7920  -r  djProject/mysite/   student@192.168.1.254:/home/student/devweb1-6/Djangojs/djProject/
+
+
+
+
+-----------------------------------------------------------
+view-source:http://192.168.1.11:8800/polls/5/
+
+<!DOCTYPE html>
+<!--STATUS OK-->
+<html lang="zh-CN">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+<!-- <link rel="icon" href="./favicon.ico">- -->
+  <title>polls-detail投票详情</title>
+ </head>
+ <body>
+  <div>
+
+
+  <form action="/polls/5/vote/" method="post">
+   <p></p>
+   
+    <label>
+     <input  type="radio" name="c_id"  value="8"/>19
+    </label>
+   
+    <label>
+     <input  type="radio" name="c_id"  value="9"/>25
+    </label>
+   
+   <input  type="submit"   value="提交"/>
+  </form>
+
+  <a href="/polls/">返回首页</a> 
+   <p> --------detail --------</p>
+  </div>
+ </body>
+</html>
+
+=====================
+[root@V1 mysite]# mysql  -uroot  -p123  -D django -e "
+select *  from  polls_choice;"
++----+----------------------------+-------+-------------+
+| id | choice_text                | votes | question_id |
++----+----------------------------+-------+-------------+
+|  1 | 15000以上                  |     0 |           1 |
+|  2 | 听音乐                     |     0 |           2 |
+|  3 | 培养出20个专业人才         |     2 |           1 |
+|  4 | 看玄幻小说                 |     0 |           2 |
+|  5 | 旅游看海                   |     3 |           2 |
+|  6 | 两年内投资回本             |     1 |           1 |
+|  7 | 吃月饼                     |     0 |           4 |
+|  8 | 19                         |     0 |           5 |
+|  9 | 25                         |     3 |           5 |
++----+----------------------------+-------+-------------+
+
+
+http://192.168.1.11:8800/polls/5/
+ 19 25 返回首页
+
+--------detail --------
+
+[root@V1 mysite]# cat   -n    polls/templates/polls/detail.html 
+     1	<!DOCTYPE html>
+     2	<!--STATUS OK-->
+     3	<html lang="zh-CN">
+     4	 <head>
+     5	  <meta charset="UTF-8">
+     6	  <meta name="description" content="">
+     7	<!-- <link rel="icon" href="./favicon.ico">- -->
+     8	  <title>polls-detail投票详情</title>
+     9	 </head>
+    10	 <body>
+    11	  <div>
+    12	{# queston 是django函数传过来的变量名 #}
+    13	{#   <p> {{ question }} <p> #}
+    14	  <form action="{% url 'vote' question_id=question.id %}" method="post">
+    15	   <p>{{ queston.question_text }}</p>
+    16	   {%  for  c  in  question.choice_set.all %}
+    17	    <label>
+    18	     <input  type="radio" name="c_id"  value="{{ c.id  }}"/>{{ c.choice_text }}
+    19	    </label>
+    20	   {%  endfor %}
+    21	   <input  type="submit"   value="提交"/>
+    22	  </form>
+    23	{#  <a href="http://192.168.1.11:8800/polls">返回首页</a> #}
+    24	  <a href="{% url  'index' %}">返回首页</a> 
+    25	   <p> --------detail --------</p>
+    26	  </div>
+    27	 </body>
+    28	</html>
+    29	
+[root@V1 mysite]# 
+
+def   detail(request, question_id):
+#  question = Question.objects.get(id= question_id)
+  question = get_object_or_404(Question, id=question_id)
+  return  render(request, 'polls/detail.html', {'question': question})
+
+def   result(request, question_id):
+  question = get_object_or_404(Question, id=question_id)
+  return  render(request, 'polls/result.html', {'question': question})
+
+def   vote(request, question_id):
+  choice_id = request.POST.get('c_id')
+  c = get_object_or_404(Choice, id=choice_id)
+  c.votes += 1
+  c.save()
+  return  redirect('result', question_id=question_id)
+==================
+
+
+<form action="/polls/5/vote/" method="post">
+    14	  <form action="{% url 'vote' question_id=question.id %}" method="post">
+
+[root@V1 mysite]# mysql  -uroot  -p123  -D django -e "
+select *  from  polls_choice;"
++----+----------------------------+-------+-------------+
+| id | choice_text                | votes | question_id |
++----+----------------------------+-------+-------------+
+|  1 | 15000以上                  |     0 |           1 |
+|  2 | 听音乐                     |     0 |           2 |
+|  3 | 培养出20个专业人才         |     2 |           1 |
+|  4 | 看玄幻小说                 |     0 |           2 |
+|  5 | 旅游看海                   |     3 |           2 |
+|  6 | 两年内投资回本             |     1 |           1 |
+|  7 | 吃月饼                     |     0 |           4 |
+|  8 | 19                         |     0 |           5 |
+|  9 | 25                         |     3 |           5 |
++----+----------------------------+-------+-------------+
+
+[root@V1 mysite]# ls
+manage.py  mysite  polls
+[root@V1 mysite]# pwd
+/root/djProject/mysite
+[root@V1 mysite]# python3
+Python 3.6.7 (default, May 16 2019, 19:00:38) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-36)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import   requests
+>>> data = { 'c_id': '5'}
+>>> requests.post("http://192.168.1.11:8800/polls/5/vote/", data=data)
+<Response [200]>
+>>> 
+[root@V1 mysite]# cat   -n    polls/templates/polls/detail.html 
+
+    14	  <form action="{% url 'vote' question_id=question.id %}" method="post">
+    15	   <p>{{ queston.question_text }}</p>
+    16	   {%  for  c  in  question.choice_set.all %}
+    17	    <label>
+    18	     <input  type="radio" name="c_id"  value="{{ c.id  }}"/>{{ c.choice_text }}
+    19	    </label>
+    20	   {%  endfor %}
+    21	   <input  type="submit"   value="提交"/>
+    22	  </form>
+
+
+[root@V1 mysite]# cat    -n   polls/views.py
+
+    29	def   vote(request, question_id):
+    30	  choice_id = request.POST.get('c_id')
+    31	  c = get_object_or_404(Choice, id=choice_id)
+    32	  c.votes += 1
+    33	  c.save()
+    34	  return  redirect('result', question_id=question_id)
+    35	
+
+http://192.168.1.11:8800/polls/5/result/
+上海明天气温预测?
+19 	得票数:0
+25 	得票数:3
+
+http://192.168.1.11:8800/polls/2/result/
+ 业余爱好是哪些？
+听音乐 	得票数:0
+看玄幻小说 	得票数:0
+旅游看海 	得票数:3
+>>> import   requests
+>>> data = { 'c_id': '5'}
+>>> requests.post("http://192.168.1.11:8800/polls/5/vote/", data=data)
+<Response [200]>
+>>> requests.post("http://192.168.1.11:8800/polls/5/vote/", data=data)
+<Response [200]>
+>>> requests.post("http://192.168.1.11:8800/polls/5/vote/", data=data)
+<Response [200]>
+>>> 
+旅游看海 	得票数:4
+[root@V1 mysite]# mysql  -uroot  -p123  -D django -e "
+select *  from  polls_choice;"
++----+----------------------------+-------+-------------+
+| id | choice_text                | votes | question_id |
++----+----------------------------+-------+-------------+
+|  1 | 15000以上                  |     0 |           1 |
+|  2 | 听音乐                     |     0 |           2 |
+|  3 | 培养出20个专业人才         |     2 |           1 |
+|  4 | 看玄幻小说                 |     0 |           2 |
+|  5 | 旅游看海                   |     3 |           2 |
+|  6 | 两年内投资回本             |     1 |           1 |
+|  7 | 吃月饼                     |     0 |           4 |
+|  8 | 19                         |     0 |           5 |
+|  9 | 25                         |     3 |           5 |
++----+----------------------------+-------+-------------+
+[root@V1 mysite]# mysql  -uroot  -p123  -D django -e "
+select *  from  polls_choice;"
++----+----------------------------+-------+-------------+
+| id | choice_text                | votes | question_id |
++----+----------------------------+-------+-------------+
+|  1 | 15000以上                  |     0 |           1 |
+|  2 | 听音乐                     |     0 |           2 |
+|  3 | 培养出20个专业人才         |     2 |           1 |
+|  4 | 看玄幻小说                 |     0 |           2 |
+|  5 | 旅游看海                   |     4 |           2 |
+|  6 | 两年内投资回本             |     1 |           1 |
+|  7 | 吃月饼                     |     0 |           4 |
+|  8 | 19                         |     0 |           5 |
+|  9 | 25                         |     3 |           5 |
++----+----------------------------+-------+-------------+
+[root@V1 mysite]# 
+
+[root@V1 djProject]# ls
+djEnv  mysite
+[root@V1 djProject]# pwd
+/root/djProject
+[root@V1 djProject]# ls   mysite/polls/templates/polls/
+detail.html  index.html  result.html
+
+[root@V1 djProject]# ls   mysite/polls/
+admin.py  __init__.py  models.py    templates  urls.py
+apps.py   migrations   __pycache__  tests.py   views.py
+
+[root@V1 djProject]# vim    testvote.py
+
+[root@V1 djProject]# scp   -P7920  testvote.py  student@192.168.1.254:/home/student/devweb1-6/Djangojs/
+
+
+[root@V1 mysite]# pwd
+/root/djProject/mysite
+
+[root@V1 mysite]# ls    polls/
+admin.py  __init__.py  models.py    templates  urls.py
+apps.py   migrations   __pycache__  tests.py   views.py
+
+[root@V1 mysite]# ls   /var/www/html/static/
+css  fonts  imgs  js
+
+[root@V1 mysite]# cp   -r   /var/www/html/static/   polls/
+
+[root@V1 mysite]# ls
+manage.py  mysite  polls
+
+[root@V1 mysite]# ls  polls/
+admin.py  __init__.py  models.py    static     tests.py  views.py
+apps.py   migrations   __pycache__  templates  urls.py
+
+
+[root@V1 mysite]# ls  polls/static/
+css  fonts  imgs  js
+
+[root@V1 mysite]# ls  polls/static/js/
+bootstrap.js  bootstrap.min.js  jquery.min.js  npm.js
+
+[root@V1 mysite]# ls  polls/static/css/
+bootstrap.css      bootstrap.min.css.map    bootstrap-theme.min.css
+bootstrap.css.map  bootstrap-theme.css      bootstrap-theme.min.css.map
+bootstrap.min.css  bootstrap-theme.css.map
+
+[root@V1 mysite]# vim     polls/templates/polls/index.html 
+
+==============================
+
+(djEnv) [root@V1 mysite]# python  manage.py  runserver  0:80 #开启django网站服务
+Performing system checks...
+
+System check identified no issues (0 silenced).
+May 28, 2019 - 20:47:29
+Django version 1.11.6, using settings 'mysite.settings'
+Starting development server at http://0:80/
+Quit the server with CONTROL-C.
+Error: That port is already in use.
+
+[root@V1 mysite]# systemctl   stop   httpd
+
+(djEnv) [root@V1 mysite]# python  manage.py  runserver  0:80 #开启django网站服务
+Performing system checks...
+
+System check identified no issues (0 silenced).
+May 28, 2019 - 20:48:20
+Django version 1.11.6, using settings 'mysite.settings'
+Starting development server at http://0:80/
+Quit the server with CONTROL-C.
+
+[root@V1 djProject]# scp  -P7920  -r   mysite/  testvote.py   student@192.168.1.254:/home/student/devweb1-6/Djangojs/djProject/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
