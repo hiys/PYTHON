@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--STATUS OK-->
+<html lang="zh-CN">
+ <head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="./favicon.ico">
+  <title>yyy网页</title>
+  <script src="template.js">
+  </script>  
+ </head>
+ <body>
+  <form action="" method="post">
+   <input name="username" placeholder="用户名">
+   <input name="password" placeholder="提示密码">
+   <input  type="reset"/>
+   <button type="submit">yyy网页提交submit跳转至本地页</button>
+  </form>
+  <div  style='background-color:purple;font-size:24px;'>
+   <hr color='blue'  size='20px' noshade=true/>
+   <a  href="/test.jpg" target="_top">
+    <img  src="http://192.168.1.11/xshell6.png" width='300px' alt="/xshell6.png无法显示时出现的提示说明文字"/>点击链接图片_top
+   </a>
+  </div>
+  <div id="content"> Content
+  </div>
+  <hr color="blue" size='20px'/>
+  <script id="customTag" type="text/html">
+   <h1><!--[= header]--></h1>
+   <ul>
+    <!--[for(var i=0; i<tag.length; i++){]-->
+     <li>条目内容<!--[=i+1]--> : <!--[=tag[i]]--></li>
+    <!--[}]-->
+   </ul>  
+  </script>
+  <script>
+   template.openTag = '<!--[';
+   template.closeTag = ']-->';
+   var data = {
+     header: '测试字符串', tag:['aA', 'A1', 'B2' ],
+   };
+   var  html = template.render('customTag', data);
+   document.getElementById('content').innerHTML = html;
+  </script>
+ </body>
+</html>
+
+

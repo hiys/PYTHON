@@ -1,0 +1,206 @@
+
+eq相等 ne不相等， gt大于， lt小于  ge大于等于  le 小于等于 not非 mod求模 等
+
+
+--------------------- 新版的nodejs已经集成了npm
+
+[root@V1 web01]# wget    https://nodejs.org/download/release/latest-v10.x/node-v10.15.3-linux-x64.tar.gz
+
+[root@V1 web01]# tar  -zxvf   node-v10.15.3-linux-x64.tar.gz
+
+[root@V1 ~]# vim   /etc/profile
+[root@V1 ~]# tail    -n10   /etc/profile
+unset -f pathmunge
+export  JAVA_HOME=/usr/java/jdk1.8.0_211
+export  JRE_HOME=/usr/java/jdk1.8.0_211/jre
+export  CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
+#export  PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+#export  PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin:/root/web01/node-v10.15.3-linux-x64/bin/
+export  NODE_HOME=/root/web01/node-v10.15.3-linux-x64
+export  NODE_PATH=$NODE_HOME/lib/node_modules
+export  PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin:$NODE_HOME/bin/
+
+[root@V1 ~]# echo   $JAVA_HOME
+/usr/java/jdk1.8.0_211
+
+[root@V1 ~]# echo   $JRE_HOME
+/usr/java/jdk1.8.0_211/jre
+
+[root@V1 ~]# java    -version
+java version "1.8.0_211"
+Java(TM) SE Runtime Environment (build 1.8.0_211-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.211-b12, mixed mode)
+
+[root@V1 ~]# jps   -v
+1510 Jps -Denv.class.path=.:/usr/java/jdk1.8.0_211/lib:/usr/java/jdk1.8.0_211/jre/lib: -Dapplication.home=/usr/java/jdk1.8.0_211 -Xms8m
+
+[root@V1 ~]# ls   /var/www/html/static/js/
+bootstrap.js  bootstrap.min.js  jquery.min.js  npm.js
+
+[root@V1 ~]# echo   $NODE_HOME
+/root/web01/node-v10.15.3-linux-x64
+
+[root@V1 ~]# echo   $NODE_PATH
+/root/web01/node-v10.15.3-linux-x64/lib/node_modules
+
+[root@V1 ~]# type    npm
+npm 是 /root/web01/node-v10.15.3-linux-x64/bin/npm
+
+[root@V1 ~]# npm    -v
+6.9.0
+
+[root@V1 ~]# node    -v
+v10.15.3
+
+[root@V1 Webscript]# npm   list   -g   #查看所有全局安装的模块
+
+/root/web01/node-v10.15.3-linux-x64/lib
+├─┬ express@4.17.0
+│ ├─┬ accepts@1.3.7
+．．．．．．．．．．．
+
+[root@V1 ~]# npm    install  jquery   -g   #安装最新版本的jQuery
++ jquery@3.4.1
+updated 1 package in 2.468s
+
+[root@V1 ~]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/jquery/src/
+ajax           data           event.js         selector-native.js
+ajax.js        data.js        exports          selector-sizzle.js
+attributes     deferred       jquery.js        serialize.js
+attributes.js  deferred.js    manipulation     traversing
+callbacks.js   deprecated.js  manipulation.js  traversing.js
+core           dimensions.js  offset.js        var
+core.js        effects        queue            wrap.js
+css            effects.js     queue.js
+css.js         event          selector.js
+
+[root@V1 ~]# npm    install  -g  migrate   #安装最新版本的jQuery Migrate
+
+/root/web01/node-v10.15.3-linux-x64/bin/migrate -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate
+/root/web01/node-v10.15.3-linux-x64/bin/migrate-init -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate-init
+/root/web01/node-v10.15.3-linux-x64/bin/migrate-list -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate-list
+/root/web01/node-v10.15.3-linux-x64/bin/migrate-create -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate-create
+/root/web01/node-v10.15.3-linux-x64/bin/migrate-up -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate-up
+/root/web01/node-v10.15.3-linux-x64/bin/migrate-down -> /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/bin/migrate-down
++ migrate@1.6.2
+updated 1 package in 3.83s
+
+[root@V1 ~]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/migrate/
+bin         index.js  LICENSE       package.json
+History.md  lib       node_modules  Readme.md
+
+[root@V1 ~]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/
+express  jquery  migrate  npm
+
+[root@V1 ~]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/npm/
+appveyor.yml  changelogs       html      Makefile      package.json
+AUTHORS       configure        lib       man           README.md
+bin           CONTRIBUTING.md  LICENSE   node_modules  scripts
+CHANGELOG.md  doc              make.bat  npmrc
+
+
+－－－－－－－－－　JavaScript 模板引擎 template.js
+
+https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=linux　安装下载%20template.js
+
+npm i仅仅是npm install的简写
+
+实际使用的区别点主要如下(windows下)： 
+1. 用npm i安装的模块无法用npm uninstall删除，用npm uninstall i才卸载掉 
+2. npm i会帮助检测与当前node版本最匹配的npm包版本号，并匹配出来相互依赖的npm包应该提升的版本号 
+3. 部分npm包在当前node版本下无法使用，必须使用建议版本 
+4. 安装报错时intall肯定会出现npm-debug.log 文件，npm i不一定
+
+https://www.npmjs.com/package/template
+
+[root@V1 ~]# yum   makecache  |tail  -3
+ * epel-testing: mirrors.aliyun.com
+ * epel-testing-debuginfo: mirrors.aliyun.com
+元数据缓存已建立
+[root@V1 ~]# yum    repolist  |tail   -3
+zabbix/x86_64                 Zabbix Official Repository - x86_64            236
+zabbix-non-supported/x86_64   Zabbix Official Repository non-supported -       4
+repolist: 39,648
+
+[root@V1 ~]# npm   install  -g   template_js
++ template_js@0.7.1-1
+added 1 package from 1 contributor in 5.05s
+
+[root@V1 ~]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/
+express  jquery  migrate  npm  template_js
+
+[root@V1 ~]# ls  /root/web01/node-v10.15.3-linux-x64/lib/node_modules/template_js/
+CHANGELOG.md  MIT-LICENSE.txt  package.json  README.md  template.js
+
+[root@V1 ~]# cp   /root/web01/node-v10.15.3-linux-x64/lib/node_modules/template_js/template.js    /var/www/html/
+
+[root@V1 ~]# ll  /var/www/html/template.js 
+-rw-r--r-- 1 root root 8791 5月  30 13:40 /var/www/html/template.js
+
+[root@V1 ~]# vim    /var/www/html/xxx.html
+
+[root@V1 ~]# vim    /var/www/html/yyy.html 
+
+模板逻辑语法开始与结束的界定符号为<% 与%>，若<%后面紧跟=号则输出变量内容。
+
+[root@V1 html]# vim   yyy.html 
+[root@V1 html]# cat  -n  yyy.html
+     1	<!DOCTYPE html>
+     2	<!--STATUS OK-->
+     3	<html lang="zh-CN">
+     4	 <head>
+     5	  <meta charset="UTF-8">
+     6	  <link rel="icon" href="./favicon.ico">
+     7	  <title>yyy网页</title>
+     8	  <script src="template.js">
+     9	  </script>  
+    10	 </head>
+    11	 <body>
+    12	  <form action="" method="post">
+    13	   <input name="username" placeholder="用户名">
+    14	   <input name="password" placeholder="提示密码">
+    15	   <input  type="reset"/>
+    16	   <button type="submit">yyy网页提交submit跳转至本地页</button>
+    17	  </form>
+    18	  <div  style='background-color:purple;font-size:24px;'>
+    19	   <hr color='blue'  size='20px' noshade=true/>
+    20	   <a  href="/test.jpg" target="_top">
+    21	    <img  src="http://192.168.1.11/xshell6.png" width='300px' alt="/xshell6.png无法显示时出现的提示说明文字"/>点击链接图片_top
+    22	   </a>
+    23	  </div>
+    24	  <div id="content"> Content
+    25	  </div>
+    26	  <hr color="blue" size='20px'/>
+    27	  <script id="customTag" type="text/html">
+    28	   <h1><!--[= header]--></h1>
+    29	   <ul>
+    30	    <!--[for(var i=0; i<tag.length; i++){]-->
+    31	     <li>条目内容<!--[=i+1]--> : <!--[=tag[i]]--></li>
+    32	    <!--[}]-->
+    33	   </ul>  
+    34	  </script>
+    35	  <script>
+    36	   template.openTag = '<!--[';
+    37	   template.closeTag = ']-->';
+    38	   var data = {
+    39	     header: '测试字符串', tag:['aA', 'A1', 'B2' ],
+    40	   };
+    41	   var  html = template.render('customTag', data);
+    42	   document.getElementById('content').innerHTML = html;
+    43	  </script>
+    44	 </body>
+    45	</html>
+    46	
+    47	
+[root@V1 html]# 
+ scp   -P7920  xxx.html  yyy.html    student@192.168.1.254:/home/student/devweb1-6/Djangojs/
+
+
+
+
+
+
+
+
+
+

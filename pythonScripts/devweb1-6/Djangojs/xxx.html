@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--STATUS OK-->
+<html lang="zh-CN">
+ <head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="./favicon.ico">
+  <title>xxx网页</title>
+  <script>
+   document.write('hello  world head!\n');
+  </script>  
+ </head>
+ <body>
+  <div  style='background-color:purple;font-size:24px;'>
+   <hr color='blue'  size='20px' noshade=true/>
+   <a  href="/test.jpg" target="_top">
+    <img  src="http://192.168.1.11/xshell6.png" width='300px' alt="/xshell6.png无法显示时出现的提示说明文字"/>点击链接图片_top
+   </a>
+  </div>
+  <hr color="blue" size='20px'/>
+  <script id="test" type="text/html">
+   <h1><%=title%></h1>
+   <ul>
+    <%for(i = 0; i < list.length; i ++) {%>
+     <li>条目内容 <%=i + 1%> ：<%=list[i]%></li>
+    <%}%>
+   </ul>
+  </script>
+  <div id="content"></div>
+  
+  <script type="text/javascript" src="/template.js">
+   var data = {
+     title: '测试字符串', isAdmin: false, list:['aA', 'A1', 'B2' ],
+   };
+   var  html = template('test', data);
+   document.getElementById('content').innerHTML = html;
+  </script>
+ </body>
+</html>
+
+
